@@ -1,5 +1,7 @@
 # Uplink
+
 Flutter Satellite.im Minimal Secure Chat Client
+
 ---
 
 ## Getting Started 🚀
@@ -10,7 +12,12 @@ This project contains 3 flavors:
 - staging
 - production
 
-To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
+To run the desired flavor either use the launch configuration in VSCode/Android Studio
+
+![image](https://user-images.githubusercontent.com/14248245/160937486-487a5a35-93d8-4199-8da4-27d20e5c22cc.png)
+
+
+or use the following commands:
 
 ```sh
 # Development
