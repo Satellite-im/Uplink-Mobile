@@ -18,6 +18,6 @@ dev_dependencies:
 
 flutter:
   fonts:
-    - family:  UIcons
+    - family: UIcons
       fonts:
-      - asset: fonts/UIcons.ttf
+        - asset: fonts/icon/UIcons.ttf
