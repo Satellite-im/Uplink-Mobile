@@ -6,27 +6,14 @@ Flutter Satellite.im Minimal Secure Chat Client
 
 ## Getting Started 🚀
 
-This project contains 3 flavors:
+To run this project either use the launch configuration in VSCode
 
-- development
-- staging
-- production
-
-To run the desired flavor either use the launch configuration in VSCode/Android Studio
-
-![image](https://user-images.githubusercontent.com/14248245/160937486-487a5a35-93d8-4199-8da4-27d20e5c22cc.png)
+![image](https://user-images.githubusercontent.com/14248245/161649153-00f0630a-dde4-4d62-9d4b-d6ddf28ba547.png)
 
 
-or use the following commands:
+or use the following command:
 
 ```sh
-# Development
-$ flutter run --flavor development --target lib/main_development.dart
-
-# Staging
-$ flutter run --flavor staging --target lib/main_staging.dart
-
-# Production
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
