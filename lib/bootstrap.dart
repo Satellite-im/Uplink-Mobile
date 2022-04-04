@@ -6,15 +6,33 @@ import 'package:flutter/widgets.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+    log(
+      'onCreate(controller: ${bloc.runtimeType}, '
+      'initialState: ${bloc.state})',
+    );
+  }
+
+  @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
+    log(
+      'onChange(controller: ${bloc.runtimeType}, Change { beforeState: '
+      '${change.currentState}, currentState: ${change.nextState}})',
+    );
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
+    log('onError(controller: ${bloc.runtimeType}, $error, $stackTrace)');
     super.onError(bloc, error, stackTrace);
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+    log('onClose(controller: ${bloc.runtimeType}, lastState: ${bloc.state})');
   }
 }
 
