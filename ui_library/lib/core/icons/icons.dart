@@ -17,7 +17,7 @@
 
 import '../../widgets/icon/icon.dart';
 
-/// Icons to use in Uplink App
+/// Class with all [UIconData] that can be used in the app already setted.
 class UIcons {
   UIcons._();
 
@@ -40,13 +40,13 @@ class UIcons {
       UIconData(0xe806, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData camera_icon =
       UIconData(0xe807, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData chatbar____gifs =
+  static const UIconData chatbar_gifs =
       UIconData(0xe808, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData chatbar___emojis =
+  static const UIconData chatbar_emojis =
       UIconData(0xe809, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData chatbar___send_button =
+  static const UIconData chatbar_send_button =
       UIconData(0xe80a, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData chatbar___stickers =
+  static const UIconData chatbar_stickers =
       UIconData(0xe80b, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData checkmark_icon =
       UIconData(0xe80c, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
@@ -80,13 +80,13 @@ class UIcons {
       UIconData(0xe81a, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData location_icon =
       UIconData(0xe81b, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData menu_bar___contacts =
+  static const UIconData menu_bar_contacts =
       UIconData(0xe81c, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData menu_bar___files =
+  static const UIconData menu_bar_files =
       UIconData(0xe81d, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData menu_bar___home =
+  static const UIconData menu_bar_home =
       UIconData(0xe81e, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData menu_bar___notifications =
+  static const UIconData menu_bar_notifications =
       UIconData(0xe81f, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData message_icon =
       UIconData(0xe820, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
@@ -102,7 +102,7 @@ class UIcons {
       UIconData(0xe825, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData remove_icon =
       UIconData(0xe826, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData right_arrow___inline_button =
+  static const UIconData right_arrow_inline_button =
       UIconData(0xe827, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData save_button =
       UIconData(0xe828, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
@@ -110,7 +110,7 @@ class UIcons {
       UIconData(0xe829, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData setting_icon =
       UIconData(0xe82a, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData settings___logout_icon =
+  static const UIconData settings_logout_icon =
       UIconData(0xe82b, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData swap_camera_icon =
       UIconData(0xe82c, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
@@ -118,7 +118,7 @@ class UIcons {
       UIconData(0xe82d, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData unmute_icon =
       UIconData(0xe82e, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData vector__stroke_ =
+  static const UIconData vector_stroke_ =
       UIconData(0xe82f, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData video_call_button =
       UIconData(0xe830, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);

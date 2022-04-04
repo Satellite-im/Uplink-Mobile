@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 
-import '../../core/all.dart';
+import '../../core/consts/sizes.dart';
 
 part 'u_icon_data.dart';
 
 class UIcon extends StatelessWidget {
+  /// Creates an [UIcon].
+  ///
+  /// The [size] is pre-defined.
+  ///
+  /// Example:
+  /// ```dart
+  /// Row(
+  ///   children: const <Widget>[
+  ///     UIcon(
+  ///       UIcons.chatbar_stickers,
+  ///     ),
+  ///     UIcon(
+  ///       UIcons.compose_message_button,
+  ///     ),
+  ///     UIcon(
+  ///       UIcons.about_icon,
+  ///     ),
+  ///   ],
+  /// )
+  /// ```
   const UIcon(
     this.icon, {
     Key? key,
@@ -16,7 +36,7 @@ class UIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       icon,
-      size: 40,
+      size: USizes.iconSize,
       key: key,
     );
   }
