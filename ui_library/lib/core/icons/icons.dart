@@ -13,6 +13,9 @@
 ///
 ///
 ///
+/// The icons was collected from Lucide Library
+/// Copyright (c) 2020, Lucide Contributors
+
 // ignore_for_file: constant_identifier_names
 
 import '../../widgets/icon/icon.dart';
@@ -118,7 +121,7 @@ class UIcons {
       UIconData(0xe82d, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData unmute_icon =
       UIconData(0xe82e, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
-  static const UIconData vector_stroke_ =
+  static const UIconData vector_stroke =
       UIconData(0xe82f, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
   static const UIconData video_call_button =
       UIconData(0xe830, uFontFamily: _kFontFam, uFontPackage: _kFontPkg);
