@@ -53,7 +53,16 @@ class UIconExample extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: const UIcon(UIcons.tap_select_box),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  UIcon(UIcons.unmute_icon),
+                  SizedBox.square(
+                    dimension: 8,
+                  ),
+                  Text('Unmute Icon')
+                ],
+              ),
             ),
             ElevatedButton(
               onPressed: () {},
