@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/u_icons/icons_export.dart';
 
 class UIconPage extends StatelessWidget {
   const UIconPage({Key? key}) : super(key: key);
