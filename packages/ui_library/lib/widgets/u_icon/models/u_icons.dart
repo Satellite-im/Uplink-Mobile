@@ -18,7 +18,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-import 'package:ui_library/widgets/u_icons/icons_export.dart';
+import 'package:ui_library/widgets/u_icon/u_icon_export.dart';
 
 /// Class with all [UIconData] that can be used in the app already setted.
 class UIcons {

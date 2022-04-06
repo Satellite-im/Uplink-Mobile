@@ -1,5 +1,5 @@
 name: ui_showroom
-description: A new Flutter package project.
+description: UI Library Showroom.
 version: 0.0.1
 homepage:
 publish_to: none
@@ -20,7 +20,4 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter:
-  fonts:
-    - family: UIcons
-      fonts:
-        - asset: packages/ui_library/fonts/icon/UIcons.ttf
+

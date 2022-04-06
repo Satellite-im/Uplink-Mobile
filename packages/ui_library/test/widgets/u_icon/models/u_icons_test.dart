@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ui_library/widgets/u_icons/models/u_icon_data.dart';
-import 'package:ui_library/widgets/u_icons/models/u_icons.dart';
+import 'package:ui_library/widgets/u_icon/u_icon_export.dart';
 
 void main() {
   const _kIconsFontFamily = 'UIcons';

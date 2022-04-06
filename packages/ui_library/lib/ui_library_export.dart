@@ -1,3 +1,3 @@
 library ui_library;
 
-export 'widgets/u_icons/icons_export.dart';
+export 'widgets/u_icon/u_icon_export.dart';
