@@ -1,7 +1,8 @@
 library ui_showroom;
 
 import 'package:flutter/material.dart';
-import 'package:ui_showroom/ui_showroom_export.dart';
+
+import 'ui_pages/src/u_icon_page.dart';
 
 class UIShowRoomPage extends StatelessWidget {
   const UIShowRoomPage({Key? key}) : super(key: key);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/const/u_sizes.dart';
-import 'models/models_export.dart';
+import 'package:ui_library/core/const/u_sizes.dart';
+
+import 'icons_export.dart';
 
 class UIcon extends StatelessWidget {
   /// Creates an [UIcon].
