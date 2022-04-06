@@ -1,4 +1,4 @@
-part of 'u_icon.dart';
+import 'package:flutter/material.dart';
 
 /// Class used to create standard UIcons.
 ///

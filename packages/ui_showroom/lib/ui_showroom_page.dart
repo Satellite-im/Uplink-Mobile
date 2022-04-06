@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:ui_library/examples/all.dart';
+library ui_showroom;
 
-class UILibraryShowRoom extends StatelessWidget {
-  const UILibraryShowRoom({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:ui_showroom/ui_showroom_export.dart';
+
+class UIShowRoomPage extends StatelessWidget {
+  const UIShowRoomPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class UILibraryShowRoom extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const UIconExample(),
+                    builder: (context) => const UIconPage(),
                   ),
                 );
               },

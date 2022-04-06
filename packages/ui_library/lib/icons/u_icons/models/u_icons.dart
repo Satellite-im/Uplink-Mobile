@@ -18,7 +18,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-import '../../widgets/icon/icon.dart';
+import 'u_icon_data.dart';
 
 /// Class with all [UIconData] that can be used in the app already setted.
 class UIcons {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/core/icons/icons.dart';
+import 'package:ui_library/ui_library_export.dart';
 
-import '../../widgets/icon/icon.dart';
-
-class UIconExample extends StatelessWidget {
-  const UIconExample({Key? key}) : super(key: key);
+class UIconPage extends StatelessWidget {
+  const UIconPage({Key? key}) : super(key: key);
 
   static const routeName = 'ui_icon_example';
 

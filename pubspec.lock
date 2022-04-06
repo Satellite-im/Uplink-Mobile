@@ -402,7 +402,14 @@ packages:
   ui_library:
     dependency: "direct main"
     description:
-      path: ui_library
+      path: "packages/ui_library"
+      relative: true
+    source: path
+    version: "0.0.1"
+  ui_showroom:
+    dependency: "direct main"
+    description:
+      path: "packages/ui_showroom"
       relative: true
     source: path
     version: "0.0.1"
