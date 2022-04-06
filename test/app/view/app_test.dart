@@ -7,10 +7,10 @@ void main() {
   group('App', () {
     testWidgets('renders CounterPage', (tester) async {
       await tester.pumpWidget(const App());
-      final _initialPageOrShowroom = find.byWidgetPredicate(
+      final _counterPageOrUIShowroomPage = find.byWidgetPredicate(
         (widget) => widget is CounterPage || widget is UIShowRoomPage,
       );
-      expect(_initialPageOrShowroom, findsOneWidget);
+      expect(_counterPageOrUIShowroomPage, findsOneWidget);
     });
   });
 }
