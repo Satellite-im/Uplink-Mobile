@@ -14,6 +14,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  ui_library:
+    path: 'packages/ui_library'
+  # delete showroom when exporting production app
+  ui_showroom:
+    path: 'packages/ui_showroom'
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -25,3 +30,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  fonts:
+    - family: UIcons
+      fonts:
+        - asset: packages/ui_library/fonts/icon/UIcons.ttf
