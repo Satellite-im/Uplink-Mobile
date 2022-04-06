@@ -11,7 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _appToBuild = Apps.mainApp;
+    const _appToBuild = Apps.uiShowroom;
     return MaterialApp(
       theme: ThemeData(
         appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),

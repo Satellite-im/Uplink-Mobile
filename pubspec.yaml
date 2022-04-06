@@ -30,3 +30,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  fonts:
+    - family: UIcons
+      fonts:
+        - asset: packages/ui_library/fonts/icon/UIcons.ttf
