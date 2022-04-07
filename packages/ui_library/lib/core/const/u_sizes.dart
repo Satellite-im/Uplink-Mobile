@@ -12,5 +12,19 @@
 ///  }
 /// ```
 class USizes {
+  /// Sizes for [UIcon]
   static const double iconSize = 24.0;
+
+  /// Sizes for [UText]
+  static const double textTopMenuBarTitleSize = 18.0;
+  static const double textPrimaryHeaderSize = 10.0;
+  static const double textSecondaryHeaderSize = 12.0;
+  static const double textTertiaryHeaderSize = 14.0;
+  static const double textBodySize = 10.0;
+  static const double textMediumSize = 10.0;
+  static const double textItalicsSize = 10.0;
+  static const double textBoldSize = 10.0;
+  static const double textMicroSize = 9.0;
+  static const double textPrimaryButtonSize = 10.0;
+  static const double textSecondaryButtonSize = 10.0;
 }
