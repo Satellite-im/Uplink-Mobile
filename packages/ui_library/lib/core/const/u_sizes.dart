@@ -16,16 +16,16 @@ class USizes {
   static const double iconSize = 24.0;
 
   /// Sizes for [UText]
-  static const double textTopMenuBarTitleSize = 18.0;
-  static const double textPrimaryHeaderSize = 10.0;
-  static const double textSecondaryHeaderSize = 12.0;
-  static const double textTertiaryHeaderSize = 12.0;
-  static const double textFourthHeaderSize = 14.0;
-  static const double textBodySize = 10.0;
-  static const double textMediumSize = 10.0;
-  static const double textItalicsSize = 10.0;
-  static const double textBoldSize = 10.0;
-  static const double textMicroSize = 9.0;
-  static const double textPrimaryButtonSize = 10.0;
-  static const double textSecondaryButtonSize = 10.0;
+  static const double textH5TopMenuBarTitleSize = 18.0;
+  static const double textH1PrimaryHeaderSize = 10.0;
+  static const double textH2SecondaryHeaderSize = 12.0;
+  static const double textH3TertiaryHeaderSize = 12.0;
+  static const double textH4FourthHeaderSize = 14.0;
+  static const double textB1BodySize = 10.0;
+  static const double textB2MediumSize = 10.0;
+  static const double textB3ItalicsSize = 10.0;
+  static const double textB4BoldSize = 10.0;
+  static const double textM1MicroSize = 9.0;
+  static const double textBUT1ButtonSize = 10.0;
+  static const double textBUT2SecondaryButtonSize = 10.0;
 }

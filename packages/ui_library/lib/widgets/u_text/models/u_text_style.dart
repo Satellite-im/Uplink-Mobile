@@ -19,74 +19,113 @@ enum UTextStyle {
 }
 
 extension UTextStyleExtension on UTextStyle {
-  TextStyle get _style {
-    const _standardTextStyle = TextStyle(
+  _UTextStyle get style {
+    final _standardUTextStyle = _UTextStyle(
       fontFamily: UFonts.textPoppinsFont,
       fontWeight: FontWeight.w400,
-      fontSize: USizes.textPrimaryHeaderSize,
+      fontSize: USizes.textH1PrimaryHeaderSize,
       fontStyle: FontStyle.normal,
     );
     switch (this) {
       case UTextStyle.H1_primaryHeader:
-        return _standardTextStyle;
+        return _standardUTextStyle;
       case UTextStyle.H2_secondaryHeader:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
-          fontSize: USizes.textSecondaryHeaderSize,
+          fontSize: USizes.textH2SecondaryHeaderSize,
         );
       case UTextStyle.H3_tertiaryHeader:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
-          fontSize: USizes.textTertiaryHeaderSize,
+          fontSize: USizes.textH3TertiaryHeaderSize,
         );
       case UTextStyle.H4_fourthHeader:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontWeight: FontWeight.w600,
-          fontSize: USizes.textFourthHeaderSize,
+          fontSize: USizes.textH4FourthHeaderSize,
         );
       case UTextStyle.H5_topMenuBarTitle:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
-          fontSize: USizes.textTopMenuBarTitleSize,
+          fontSize: USizes.textH5TopMenuBarTitleSize,
         );
       case UTextStyle.B1_body:
-        return _standardTextStyle.copyWith(
-          fontSize: USizes.textBodySize,
+        return _standardUTextStyle._copyWith(
+          fontSize: USizes.textB1BodySize,
         );
       case UTextStyle.B2_medium:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontWeight: FontWeight.w500,
-          fontSize: USizes.textMediumSize,
+          fontSize: USizes.textB2MediumSize,
         );
       case UTextStyle.B3_italics:
-        return _standardTextStyle.copyWith(
-          fontSize: USizes.textItalicsSize,
+        return _standardUTextStyle._copyWith(
+          fontSize: USizes.textB3ItalicsSize,
           fontStyle: FontStyle.italic,
         );
       case UTextStyle.B4_bold:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontWeight: FontWeight.w700,
-          fontSize: USizes.textBoldSize,
+          fontSize: USizes.textB4BoldSize,
         );
       case UTextStyle.M1_micro:
-        return _standardTextStyle.copyWith(
-          fontSize: USizes.textMicroSize,
+        return _standardUTextStyle._copyWith(
+          fontSize: USizes.textM1MicroSize,
         );
-
       case UTextStyle.BUT1_button:
-        return _standardTextStyle.copyWith(
-          fontSize: USizes.textPrimaryButtonSize,
+        return _standardUTextStyle._copyWith(
+          fontSize: USizes.textBUT1ButtonSize,
         );
       case UTextStyle.BUT2_secondaryButton:
-        return _standardTextStyle.copyWith(
+        return _standardUTextStyle._copyWith(
           fontWeight: FontWeight.w500,
-          fontSize: USizes.textSecondaryButtonSize,
+          fontSize: USizes.textBUT2SecondaryButtonSize,
         );
       default:
-        return _standardTextStyle;
+        return _standardUTextStyle;
     }
+  }
+}
+
+class _UTextStyle {
+  final Color? color;
+  final Color? backgroundColor;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final FontStyle? fontStyle;
+  final String? fontFamily;
+  final double? letterSpacing;
+
+  _UTextStyle({
+    this.color,
+    this.backgroundColor,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.fontFamily,
+    this.letterSpacing,
+  });
+
+  _UTextStyle _copyWith({
+    Color? color,
+    Color? backgroundColor,
+    double? fontSize,
+    FontWeight? fontWeight,
+    FontStyle? fontStyle,
+    String? fontFamily,
+    double? letterSpacing,
+  }) {
+    return _UTextStyle(
+      color: color ?? this.color,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      fontSize: fontSize ?? this.fontSize,
+      fontWeight: fontWeight ?? this.fontWeight,
+      fontStyle: fontStyle ?? this.fontStyle,
+      letterSpacing: letterSpacing ?? this.letterSpacing,
+      fontFamily: fontFamily ?? this.fontFamily,
+    );
   }
 }

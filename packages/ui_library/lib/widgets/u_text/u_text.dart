@@ -23,7 +23,14 @@ class UText extends StatelessWidget {
     return Text(
       text,
       key: key,
-      style: textStyle._style,
+      style: TextStyle(
+        fontFamily: textStyle.style.fontFamily,
+        fontSize: textStyle.style.fontSize,
+        fontStyle: textStyle.style.fontStyle,
+        fontWeight: textStyle.style.fontWeight,
+        color: textStyle.style.color,
+        backgroundColor: textStyle.style.backgroundColor,
+      ),
       maxLines: maxLines,
     );
   }
