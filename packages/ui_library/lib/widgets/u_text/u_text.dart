@@ -13,6 +13,7 @@ class UText extends StatelessWidget {
 
   final String text;
 
+  /// The style to use for this text.
   final UTextStyle textStyle;
 
   final int? maxLines;

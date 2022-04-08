@@ -1,122 +1,92 @@
+// ignore_for_file: constant_identifier_names
+
 part of '../u_text.dart';
 
+/// Returns a textStyle with pre setted properties
 enum UTextStyle {
-  primaryHeader,
-  secondaryHeader,
-  tertiaryHeader,
-  topMenuBarTitle,
-  body,
-  medium,
-  italics,
-  bold,
-  micro,
-  primaryButton,
-  secondaryButton,
+  H1_primaryHeader,
+  H2_secondaryHeader,
+  H3_tertiaryHeader,
+  H4_fourthHeader,
+  H5_topMenuBarTitle,
+  B1_body,
+  B2_medium,
+  B3_italics,
+  B4_bold,
+  M1_micro,
+  BUT1_button,
+  BUT2_secondaryButton,
 }
 
 extension UTextStyleExtension on UTextStyle {
-  _UTextStyle get _style {
+  TextStyle get _style {
+    const _standardTextStyle = TextStyle(
+      fontFamily: UFonts.textPoppinsFont,
+      fontWeight: FontWeight.w400,
+      fontSize: USizes.textPrimaryHeaderSize,
+      fontStyle: FontStyle.normal,
+    );
     switch (this) {
-      case UTextStyle.primaryHeader:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w400,
-          uFontSize: USizes.textPrimaryHeaderSize,
+      case UTextStyle.H1_primaryHeader:
+        return _standardTextStyle;
+      case UTextStyle.H2_secondaryHeader:
+        return _standardTextStyle.copyWith(
+          fontFamily: UFonts.textSpaceMonoFont,
+          fontWeight: FontWeight.w700,
+          fontSize: USizes.textSecondaryHeaderSize,
         );
-      case UTextStyle.secondaryHeader:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textSpaceMonoFont,
-          uFontWeight: FontWeight.w700,
-          uFontSize: USizes.textSecondaryHeaderSize,
+      case UTextStyle.H3_tertiaryHeader:
+        return _standardTextStyle.copyWith(
+          fontFamily: UFonts.textSpaceMonoFont,
+          fontWeight: FontWeight.w700,
+          fontSize: USizes.textTertiaryHeaderSize,
         );
-      case UTextStyle.tertiaryHeader:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w600,
-          uFontSize: USizes.textTertiaryHeaderSize,
+      case UTextStyle.H4_fourthHeader:
+        return _standardTextStyle.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: USizes.textFourthHeaderSize,
         );
-      case UTextStyle.topMenuBarTitle:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textSpaceMonoFont,
-          uFontWeight: FontWeight.w700,
-          uFontSize: USizes.textTopMenuBarTitleSize,
+      case UTextStyle.H5_topMenuBarTitle:
+        return _standardTextStyle.copyWith(
+          fontFamily: UFonts.textSpaceMonoFont,
+          fontWeight: FontWeight.w700,
+          fontSize: USizes.textTopMenuBarTitleSize,
         );
-      case UTextStyle.body:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w400,
-          uFontSize: USizes.textBodySize,
+      case UTextStyle.B1_body:
+        return _standardTextStyle.copyWith(
+          fontSize: USizes.textBodySize,
         );
-      case UTextStyle.medium:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w500,
-          uFontSize: USizes.textMediumSize,
+      case UTextStyle.B2_medium:
+        return _standardTextStyle.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: USizes.textMediumSize,
         );
-      case UTextStyle.italics:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w400,
-          uFontSize: USizes.textItalicsSize,
-          uFontStyle: FontStyle.italic,
+      case UTextStyle.B3_italics:
+        return _standardTextStyle.copyWith(
+          fontSize: USizes.textItalicsSize,
+          fontStyle: FontStyle.italic,
         );
-      case UTextStyle.bold:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w700,
-          uFontSize: USizes.textBoldSize,
+      case UTextStyle.B4_bold:
+        return _standardTextStyle.copyWith(
+          fontWeight: FontWeight.w700,
+          fontSize: USizes.textBoldSize,
         );
-      case UTextStyle.micro:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w400,
-          uFontSize: USizes.textMicroSize,
-        );
-      case UTextStyle.primaryButton:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w400,
-          uFontSize: USizes.textPrimaryButtonSize,
-        );
-      case UTextStyle.secondaryButton:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w500,
-          uFontSize: USizes.textSecondaryButtonSize,
+      case UTextStyle.M1_micro:
+        return _standardTextStyle.copyWith(
+          fontSize: USizes.textMicroSize,
         );
 
-      default:
-        return const _UTextStyle(
-          uFontFamily: UFonts.textPoppinsFont,
-          uFontWeight: FontWeight.w400,
-          uFontSize: USizes.textPrimaryHeaderSize,
+      case UTextStyle.BUT1_button:
+        return _standardTextStyle.copyWith(
+          fontSize: USizes.textPrimaryButtonSize,
         );
+      case UTextStyle.BUT2_secondaryButton:
+        return _standardTextStyle.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: USizes.textSecondaryButtonSize,
+        );
+      default:
+        return _standardTextStyle;
     }
   }
-}
-
-class _UTextStyle extends TextStyle {
-  final Color? uColor;
-
-  final Color? uBackgroundColor;
-
-  final double? uFontSize;
-
-  final FontWeight? uFontWeight;
-
-  final FontStyle? uFontStyle;
-
-  final String? uFontFamily;
-
-  final double? uLetterSpacing;
-
-  const _UTextStyle({
-    this.uColor,
-    this.uBackgroundColor,
-    this.uFontSize,
-    this.uFontFamily,
-    this.uFontWeight,
-    this.uFontStyle = FontStyle.normal,
-    this.uLetterSpacing,
-  });
 }
