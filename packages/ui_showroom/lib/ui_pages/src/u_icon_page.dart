@@ -4,7 +4,7 @@ import 'package:ui_library/ui_library_export.dart';
 class UIconPage extends StatelessWidget {
   const UIconPage({Key? key}) : super(key: key);
 
-  static const routeName = 'ui_example';
+  static const routeName = '/UIcon';
 
   @override
   Widget build(BuildContext context) {

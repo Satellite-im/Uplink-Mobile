@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders CounterPage', (tester) async {
       await tester.pumpWidget(const App());
       final _counterPageOrUIShowroomPage = find.byWidgetPredicate(
-        (widget) => widget is CounterPage || widget is UIShowRoomPage,
+        (widget) => widget is CounterPage || widget is UIShowRoomApp,
       );
       expect(_counterPageOrUIShowroomPage, findsOneWidget);
     });
