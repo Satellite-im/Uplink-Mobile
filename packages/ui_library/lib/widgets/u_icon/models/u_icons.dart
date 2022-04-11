@@ -27,21 +27,21 @@ class UIcons {
   static const _kIconsFontFamily = 'UIcons';
   static const String? _kIconsFontPackage = null;
 
-  static const UIconData about_icon = UIconData(0xe800,
+  static const UIconData about = UIconData(0xe800,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData add_button = UIconData(0xe801,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData add_contact_member_icon = UIconData(0xe802,
+  static const UIconData add_contact_member = UIconData(0xe802,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData add_folder_icon = UIconData(0xe803,
+  static const UIconData add_folder = UIconData(0xe803,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData add_note_icon = UIconData(0xe804,
+  static const UIconData add_note = UIconData(0xe804,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData back_arrow_button = UIconData(0xe805,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData call_icon = UIconData(0xe806,
+  static const UIconData call = UIconData(0xe806,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData camera_icon = UIconData(0xe807,
+  static const UIconData camera = UIconData(0xe807,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData chatbar_gifs = UIconData(0xe808,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
@@ -51,7 +51,7 @@ class UIcons {
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData chatbar_stickers = UIconData(0xe80b,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData checkmark_icon = UIconData(0xe80c,
+  static const UIconData checkmark = UIconData(0xe80c,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData close_button = UIconData(0xe80d,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
@@ -59,17 +59,17 @@ class UIcons {
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData copy_clone_button = UIconData(0xe80f,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData end_call_icon = UIconData(0xe810,
+  static const UIconData end_call = UIconData(0xe810,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData end_video_call_icon = UIconData(0xe811,
+  static const UIconData end_video_call = UIconData(0xe811,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData favorite_button = UIconData(0xe812,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData file_icon = UIconData(0xe813,
+  static const UIconData file = UIconData(0xe813,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData forward_arrow_button = UIconData(0xe814,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData friend_added_icon = UIconData(0xe815,
+  static const UIconData friend_added = UIconData(0xe815,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData grid_view = UIconData(0xe816,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
@@ -81,7 +81,7 @@ class UIcons {
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData list_view = UIconData(0xe81a,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData location_icon = UIconData(0xe81b,
+  static const UIconData location = UIconData(0xe81b,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData menu_bar_contacts = UIconData(0xe81c,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
@@ -91,38 +91,52 @@ class UIcons {
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData menu_bar_notifications = UIconData(0xe81f,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData message_icon = UIconData(0xe820,
+  static const UIconData message = UIconData(0xe820,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData multiple_accounts_icon = UIconData(0xe821,
+  static const UIconData multiple_accounts = UIconData(0xe821,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData mute_icon = UIconData(0xe822,
+  static const UIconData mute = UIconData(0xe822,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData pin_entry_backspace_button = UIconData(0xe823,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData qr_code_icon = UIconData(0xe824,
+  static const UIconData qr_code = UIconData(0xe824,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData remove_friend_icon = UIconData(0xe825,
+  static const UIconData remove_friend = UIconData(0xe825,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData remove_icon = UIconData(0xe826,
+  static const UIconData remove = UIconData(0xe826,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData right_arrow_inline_button = UIconData(0xe827,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData save_button = UIconData(0xe828,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData search_icon = UIconData(0xe829,
+  static const UIconData search = UIconData(0xe829,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData setting_icon = UIconData(0xe82a,
+  static const UIconData setting = UIconData(0xe82a,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData settings_logout_icon = UIconData(0xe82b,
+  static const UIconData settings_logout = UIconData(0xe82b,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData swap_camera_icon = UIconData(0xe82c,
+  static const UIconData swap_camera = UIconData(0xe82c,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData tap_select_box = UIconData(0xe82d,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
-  static const UIconData unmute_icon = UIconData(0xe82e,
+  static const UIconData unmute = UIconData(0xe82e,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData vector_stroke = UIconData(0xe82f,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
   static const UIconData video_call_button = UIconData(0xe830,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData developer = UIconData(0xe831,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData dropdown_menu = UIconData(0xe832,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData general = UIconData(0xe833,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData import = UIconData(0xe834,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData security = UIconData(0xe835,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData try_again = UIconData(0xe836,
+      uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
+  static const UIconData checkmark_rounded = UIconData(0xe837,
       uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage);
 }
