@@ -9,7 +9,8 @@ void main() {
 
     test('Test quantity of TextStyles', () {
       const _listTextStyles = UTextStyle.values;
-      expect(_listTextStyles.length, 12);
+      const _numberOfTextStyles = 12;
+      expect(_listTextStyles.length, _numberOfTextStyles);
     });
 
     test('Test H1 Primary Header', () {

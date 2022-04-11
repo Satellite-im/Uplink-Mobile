@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Color> colorsMap = {
-  'dark': UColors.bgDark,
-  'fgdark': UColors.fgDark,
-  'mddark': UColors.mdDark,
-  'ctablue': UColors.ctaBlue,
-  'ctadark': UColors.ctaDark,
+  'bgDark': UColors.bgDark,
+  'fgDark': UColors.fgDark,
+  'mdDark': UColors.mdDark,
+  'ctaBlue': UColors.ctaBlue,
+  'ctaDark': UColors.ctaDark,
 };
 
 class UColorsPage extends StatelessWidget {
@@ -56,13 +56,15 @@ class ColorRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
+            UText(
               'UColors.$colorName',
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+              textStyle: UTextStyle.H5_topMenuBarTitle,
+              textColor: Colors.white,
             ),
-            Text(
+            UText(
               uColor.toString().replaceAll('Color(', '').replaceAll(')', ''),
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+              textStyle: UTextStyle.H5_topMenuBarTitle,
+              textColor: Colors.white,
             ),
           ],
         ),

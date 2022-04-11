@@ -347,5 +347,54 @@ void main() {
       const UIconData(0xe830,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
+
+    const developer = UIcons.developer;
+    expect(
+      developer,
+      const UIconData(0xe831,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const dropdownMenu = UIcons.dropdown_menu;
+    expect(
+      dropdownMenu,
+      const UIconData(0xe832,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const general = UIcons.general;
+    expect(
+      general,
+      const UIconData(0xe833,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const import = UIcons.import;
+    expect(
+      import,
+      const UIconData(0xe834,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const security = UIcons.security;
+    expect(
+      security,
+      const UIconData(0xe835,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const tryAgain = UIcons.try_again;
+    expect(
+      tryAgain,
+      const UIconData(0xe836,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const checkmarkRounded = UIcons.checkmark_rounded;
+    expect(
+      checkmarkRounded,
+      const UIconData(0xe837,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
   });
 }

@@ -4,12 +4,14 @@ import 'package:ui_library/ui_library_export.dart';
 class UTextPage extends StatelessWidget {
   const UTextPage({Key? key}) : super(key: key);
 
-  static const routeName = 'ui_text_example';
+  static const routeName = '/UText';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('UIcon Examples')),
+      appBar: AppBar(
+        title: Text(routeName.substring(1)),
+      ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

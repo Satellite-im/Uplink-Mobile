@@ -9,12 +9,15 @@ class UText extends StatelessWidget {
     Key? key,
     required this.textStyle,
     this.maxLines,
+    this.textColor,
   }) : super(key: key);
 
   final String text;
 
   /// The style to use for this text.
   final UTextStyle textStyle;
+
+  final Color? textColor;
 
   final int? maxLines;
 
@@ -28,7 +31,7 @@ class UText extends StatelessWidget {
         fontSize: textStyle.style.fontSize,
         fontStyle: textStyle.style.fontStyle,
         fontWeight: textStyle.style.fontWeight,
-        color: textStyle.style.color,
+        color: textColor ?? textStyle.style.color,
         backgroundColor: textStyle.style.backgroundColor,
       ),
       maxLines: maxLines,

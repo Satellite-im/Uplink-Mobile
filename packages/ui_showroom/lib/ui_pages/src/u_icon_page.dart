@@ -9,7 +9,9 @@ class UIconPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('UIcon Examples')),
+      appBar: AppBar(
+        title: Text(routeName.substring(1)),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
