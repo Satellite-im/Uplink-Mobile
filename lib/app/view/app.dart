@@ -14,7 +14,7 @@ class App extends StatelessWidget {
     const _appToBuild = Apps.uiShowroom;
 
     return _appToBuild == Apps.uiShowroom
-        ? const UIShowRoomPage()
+        ? const UIShowRoomApp()
         : MaterialApp(
             theme: ThemeData(
               appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),

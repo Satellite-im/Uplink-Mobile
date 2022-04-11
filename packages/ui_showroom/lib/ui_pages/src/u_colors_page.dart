@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/core/u_colors/u_colors.dart';
+import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Color> colorsMap = {
-  'dark': UColors.dark,
-  'fgdark': UColors.fgdark,
-  'mddark': UColors.mddark,
+  'dark': UColors.backgroundDark,
+  'fgdark': UColors.foregroundDark,
+  'mddark': UColors.modalDark,
   'ctablue': UColors.ctablue,
   'ctadark': UColors.ctadark,
 };
@@ -20,18 +20,22 @@ class UColorsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: ListView.separated(
-          itemBuilder: ((context, index) {
-            final String key = colorsMap.keys.elementAt(index);
-            return ColorRow(
-              colorName: key,
-              uColor: colorsMap[key]!,
-            );
-          }),
-          separatorBuilder: ((context, index) => const SizedBox(
-                height: 10,
-              )),
-          itemCount: colorsMap.length),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: ListView.separated(
+            itemBuilder: ((context, index) {
+              final String key = colorsMap.keys.elementAt(index);
+
+              return ColorRow(
+                colorName: key,
+                uColor: colorsMap[key]!,
+              );
+            }),
+            separatorBuilder: ((context, index) => const SizedBox(
+                  height: 0,
+                )),
+            itemCount: colorsMap.length),
+      ),
     );
   }
 }
@@ -45,16 +49,24 @@ class ColorRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(alignment: Alignment.center, children: [
-      Container(
-        color: uColor,
-        width: 200,
-        height: 100,
+    return Container(
+      color: uColor,
+      height: 100,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              'UColors.$colorName',
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            Text(
+              uColor.toString().replaceAll('Color(', '').replaceAll(')', ''),
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ],
+        ),
       ),
-      Text(
-        'UColors.$colorName',
-        style: const TextStyle(color: Colors.white, fontSize: 20),
-      ),
-    ]);
+    );
   }
 }

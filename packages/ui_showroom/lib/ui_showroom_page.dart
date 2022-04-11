@@ -3,8 +3,8 @@ library ui_showroom;
 import 'package:flutter/material.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
-class UIShowRoomPage extends StatelessWidget {
-  const UIShowRoomPage({Key? key}) : super(key: key);
+class UIShowRoomApp extends StatelessWidget {
+  const UIShowRoomApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
