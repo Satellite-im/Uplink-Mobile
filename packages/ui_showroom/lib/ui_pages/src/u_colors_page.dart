@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Color> colorsMap = {
-  'dark': UColors.backgroundDark,
-  'fgdark': UColors.foregroundDark,
-  'mddark': UColors.modalDark,
-  'ctablue': UColors.ctablue,
-  'ctadark': UColors.ctadark,
+  'dark': UColors.bgDark,
+  'fgdark': UColors.fgDark,
+  'mddark': UColors.mdDark,
+  'ctablue': UColors.ctaBlue,
+  'ctadark': UColors.ctaDark,
 };
 
 class UColorsPage extends StatelessWidget {
@@ -32,7 +32,7 @@ class UColorsPage extends StatelessWidget {
               );
             }),
             separatorBuilder: ((context, index) => const SizedBox(
-                  height: 0,
+                  height: 8.0,
                 )),
             itemCount: colorsMap.length),
       ),

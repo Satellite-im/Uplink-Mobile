@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 ///    return UText(
 ///      'Color example',
 ///      textStyle: UTextStyle.H1_primaryHeader,
-///      color: UColors.backgroundDark,
+///      color: UColors.bgDark,
 ///    );
 ///  }
 /// ```
 class UColors {
-  static const backgroundDark = Color(0xFF0D0E16);
-  static const foregroundDark = Color(0xFF232838);
-  static const modalDark = Color(0xFF1A1E2E);
-  static const ctablue = Color(0xFF205FFA);
-  static const ctadark = Color(0xFF31353D);
+  static const bgDark = Color(0xFF0D0E16);
+  static const fgDark = Color(0xFF232838);
+  static const mdDark = Color(0xFF1A1E2E);
+  static const ctaBlue = Color(0xFF205FFA);
+  static const ctaDark = Color(0xFF31353D);
 }
