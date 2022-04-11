@@ -18,7 +18,7 @@ class UColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(routeName.substring(1)), //here will show 'UColor'
+        title: Text(routeName.substring(1)),
       ),
       body: ListView.separated(
           itemBuilder: ((context, index) {
