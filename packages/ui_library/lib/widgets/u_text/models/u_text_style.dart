@@ -3,6 +3,16 @@
 part of '../u_text.dart';
 
 /// Returns a textStyle with pre setted properties
+///
+/// Need to be used within [UText]
+///
+/// Example:
+/// ```dart
+///    UText(
+///     'Text example',
+///     textStyle: UTextStyle.B1_body,
+///    ),
+/// ```
 enum UTextStyle {
   H1_primaryHeader,
   H2_secondaryHeader,

@@ -4,6 +4,23 @@ import 'package:ui_library/core/core_export.dart';
 part 'models/u_text_style.dart';
 
 class UText extends StatelessWidget {
+  /// Creates an [UText].
+  ///
+  /// If [textColor] is null, the text color will be black.
+  ///
+  /// Example:
+  /// ```dart
+  ///  @override
+  ///  Widget build(BuildContext context) {
+  ///  return Padding(
+  ///    padding: const EdgeInsets.all(8.0),
+  ///    child: UText(
+  ///     iconName,
+  ///     textStyle: UTextStyle.H4_fourthHeader,
+  ///    ),
+  ///  );
+  /// }
+  /// ```
   const UText(
     this.text, {
     Key? key,
