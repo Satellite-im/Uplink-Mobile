@@ -13,6 +13,7 @@ class UIShowRoomApp extends StatelessWidget {
       routes: {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
+        UTextPage.routeName: (context) => const UTextPage(),
       },
       home: Scaffold(
         appBar: AppBar(title: const Text('UI Library Show Room')),
@@ -27,6 +28,9 @@ class UIShowRoomApp extends StatelessWidget {
               ),
               WidgetPageButton(
                 widgetName: 'UColors',
+              ),
+              WidgetPageButton(
+                widgetName: 'UText',
               ),
             ],
           ),

@@ -12,5 +12,20 @@
 ///  }
 /// ```
 class USizes {
+  /// Sizes for [UIcon]
   static const double iconSize = 24.0;
+
+  /// Sizes for [UText]
+  static const double textH5TopMenuBarTitleSize = 18.0;
+  static const double textH1PrimaryHeaderSize = 10.0;
+  static const double textH2SecondaryHeaderSize = 12.0;
+  static const double textH3TertiaryHeaderSize = 12.0;
+  static const double textH4FourthHeaderSize = 14.0;
+  static const double textB1BodySize = 10.0;
+  static const double textB2MediumSize = 10.0;
+  static const double textB3ItalicsSize = 10.0;
+  static const double textB4BoldSize = 10.0;
+  static const double textM1MicroSize = 9.0;
+  static const double textBUT1ButtonSize = 10.0;
+  static const double textBUT2SecondaryButtonSize = 10.0;
 }
