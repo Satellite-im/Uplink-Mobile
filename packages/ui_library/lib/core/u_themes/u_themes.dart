@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-
-class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.dark;
-
-  bool get isLightMode => themeMode == ThemeMode.light;
-
-  void toggleTheme(bool isOn) async {
-    themeMode = isOn ? ThemeMode.light : ThemeMode.dark;
-    notifyListeners();
-  }
-}
+import 'package:ui_library/core/const/const_export.dart';
 
 class UThemes {
-  static final darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.grey.shade900,
+  static final dark = ThemeData(
+    scaffoldBackgroundColor: UColors.bgDark,
     colorScheme: const ColorScheme.dark(),
   );
-  static final lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
-    colorScheme: const ColorScheme.light(),
+  static final light = ThemeData(
+      scaffoldBackgroundColor: Colors.white,
+      colorScheme: const ColorScheme.dark());
+  static final tbd = ThemeData(
+    scaffoldBackgroundColor: Colors.blue,
+    colorScheme: const ColorScheme.highContrastDark(),
   );
 }
