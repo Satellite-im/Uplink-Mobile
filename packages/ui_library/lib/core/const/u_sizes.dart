@@ -28,4 +28,9 @@ class USizes {
   static const double textM1MicroSize = 9.0;
   static const double textBUT1ButtonSize = 10.0;
   static const double textBUT2SecondaryButtonSize = 10.0;
+
+  /// Sizes for [UUserProfile]
+  static const double userProfileTopMenuBarSize = 30.0;
+  static const double userProfileNormalSize = 40.0;
+  static const double userProfileLargeSize = 56.0;
 }
