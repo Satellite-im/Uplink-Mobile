@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Color> colorsMap = {
-  'dark': UColors.bgDark,
+  'dark': UColors.dark,
   'fgdark': UColors.fgDark,
   'mddark': UColors.mdDark,
   'ctablue': UColors.ctaBlue,
