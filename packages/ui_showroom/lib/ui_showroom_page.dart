@@ -30,7 +30,8 @@ class UIShowRoomApp extends StatelessWidget {
 }
 
 class UIShowRoomPage extends StatefulWidget {
-  const UIShowRoomPage({Key? key}) : super(key: key);
+  const UIShowRoomPage({Key? key = const Key('UIShowRoomPage')})
+      : super(key: key);
 
   @override
   State<UIShowRoomPage> createState() => _UIShowRoomPageState();
