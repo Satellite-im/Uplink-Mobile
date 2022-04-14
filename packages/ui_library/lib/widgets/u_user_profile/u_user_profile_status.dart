@@ -1,36 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 
 import '../../core/core_export.dart';
 
 part 'models/u_status_indicator.dart';
 part 'models/u_user_profile_status_clipper.dart';
 
-class UserProfileStatus extends StatelessWidget {
-  UserProfileStatus.topMenuBar({
+class UserProfileWithStatus extends StatelessWidget {
+  UserProfileWithStatus({
     Key? key,
     String? imagePath,
+    required UUserProfileSize userProfileSize,
     required Status status,
   })  : _imagePath = imagePath,
-        _statusIndicator = StatusIndicator.small(status),
-        _size = USizes.userProfileTopMenuBarSize,
-        super(key: key);
-
-  UserProfileStatus.normal({
-    Key? key,
-    String? imagePath,
-    required Status status,
-  })  : _imagePath = imagePath,
-        _statusIndicator = StatusIndicator.normal(status),
-        _size = USizes.userProfileNormalSize,
-        super(key: key);
-
-  UserProfileStatus.large({
-    Key? key,
-    String? imagePath,
-    required Status status,
-  })  : _imagePath = imagePath,
-        _statusIndicator = StatusIndicator.normal(status),
-        _size = USizes.userProfileLargeSize,
+        _statusIndicator =
+            StatusIndicator(status, userProfileSize: userProfileSize),
+        _size = userProfileSize.size,
         super(key: key);
 
   final double _size;

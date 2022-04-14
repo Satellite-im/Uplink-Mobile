@@ -35,7 +35,7 @@ class UIShowRoomApp extends StatelessWidget {
                 widgetName: 'UText',
               ),
               WidgetPageButton(
-                widgetName: 'UUserProfileImage',
+                widgetName: 'UUserProfile',
               ),
             ],
           ),

@@ -7,18 +7,14 @@ enum Status {
 }
 
 class StatusIndicator extends StatelessWidget {
-  const StatusIndicator.small(
+  const StatusIndicator(
     Status status, {
+    required UUserProfileSize userProfileSize,
     Key? key,
   })  : _status = status,
-        _size = USizes.userProfileStatusSmallSize,
-        super(key: key);
-
-  const StatusIndicator.normal(
-    Status status, {
-    Key? key,
-  })  : _status = status,
-        _size = USizes.userProfileStatusNormalSize,
+        _size = userProfileSize == UUserProfileSize.topMenuBar
+            ? USizes.userProfileStatusSmallSize
+            : USizes.userProfileStatusNormalSize,
         super(key: key);
 
   final double _size;

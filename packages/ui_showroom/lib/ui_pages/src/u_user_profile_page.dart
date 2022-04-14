@@ -4,7 +4,7 @@ import 'package:ui_library/ui_library_export.dart';
 class UUserProfileImagePage extends StatelessWidget {
   const UUserProfileImagePage({Key? key}) : super(key: key);
 
-  static const routeName = '/UUserProfileImage';
+  static const routeName = '/UUserProfile';
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,17 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: '56x56',
               userProfileStatus: [
-                UserProfileStatus.large(
+                UserProfileWithStatus(
                   status: Status.online,
+                  userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileStatus.large(
+                UserProfileWithStatus(
                   status: Status.busy,
+                  userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileStatus.large(
+                UserProfileWithStatus(
                   status: Status.offline,
+                  userProfileSize: UUserProfileSize.large,
                 ),
               ],
             ),
@@ -39,14 +42,21 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: '40x40',
               userProfileStatus: [
-                UserProfileStatus.normal(
+                const UserProfile(),
+                const UserProfile.withName(
+                  name: 'Name',
+                ),
+                UserProfileWithStatus(
                   status: Status.online,
+                  userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileStatus.normal(
+                UserProfileWithStatus(
                   status: Status.busy,
+                  userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileStatus.normal(
+                UserProfileWithStatus(
                   status: Status.offline,
+                  userProfileSize: UUserProfileSize.normal,
                 ),
               ],
             ),
@@ -56,14 +66,17 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: '36x36',
               userProfileStatus: [
-                UserProfileStatus.topMenuBar(
+                UserProfileWithStatus(
                   status: Status.online,
+                  userProfileSize: UUserProfileSize.topMenuBar,
                 ),
-                UserProfileStatus.topMenuBar(
+                UserProfileWithStatus(
                   status: Status.busy,
+                  userProfileSize: UUserProfileSize.topMenuBar,
                 ),
-                UserProfileStatus.topMenuBar(
+                UserProfileWithStatus(
                   status: Status.offline,
+                  userProfileSize: UUserProfileSize.topMenuBar,
                 ),
               ],
             ),
@@ -73,14 +86,21 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: 'All',
               userProfileStatus: [
-                UserProfileStatus.large(
+                const UserProfile(),
+                const UserProfile.withName(
+                  name: 'Name',
+                ),
+                UserProfileWithStatus(
                   status: Status.online,
+                  userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileStatus.normal(
+                UserProfileWithStatus(
                   status: Status.busy,
+                  userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileStatus.topMenuBar(
+                UserProfileWithStatus(
                   status: Status.offline,
+                  userProfileSize: UUserProfileSize.topMenuBar,
                 ),
               ],
             ),
@@ -97,11 +117,19 @@ class _UserProfileRow extends StatelessWidget {
       : super(key: key);
 
   final String title;
-  final List<UserProfileStatus> userProfileStatus;
+  final List<Widget> userProfileStatus;
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _userProfiles = [];
+
+    userProfileStatus.forEach(((element) {
+      _userProfiles.add(element);
+      _userProfiles.add(const SizedBox.square(dimension: 4));
+    }));
+
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         UText(
           title,
@@ -112,20 +140,8 @@ class _UserProfileRow extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox.square(
-              dimension: 4,
-            ),
-            userProfileStatus[0],
-            const SizedBox.square(
-              dimension: 4,
-            ),
-            userProfileStatus[1],
-            const SizedBox.square(
-              dimension: 4,
-            ),
-            userProfileStatus[2],
-          ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _userProfiles,
         )
       ],
     );
