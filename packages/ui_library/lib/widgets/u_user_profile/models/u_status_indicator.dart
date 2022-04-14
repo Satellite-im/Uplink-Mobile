@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../u_user_profile_status.dart';
 
 enum Status {
   online,
@@ -11,21 +11,14 @@ class StatusIndicator extends StatelessWidget {
     Status status, {
     Key? key,
   })  : _status = status,
-        _size = 8,
+        _size = USizes.userProfileStatusSmallSize,
         super(key: key);
 
-  const StatusIndicator.medium(
+  const StatusIndicator.normal(
     Status status, {
     Key? key,
   })  : _status = status,
-        _size = 12,
-        super(key: key);
-
-  const StatusIndicator.large(
-    Status status, {
-    Key? key,
-  })  : _status = status,
-        _size = 12,
+        _size = USizes.userProfileStatusNormalSize,
         super(key: key);
 
   final double _size;
@@ -34,9 +27,9 @@ class StatusIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<Status, Color> _statusMap = {
-      Status.online: Colors.green,
-      Status.busy: Colors.green,
-      Status.offline: Colors.green
+      Status.online: const Color.fromRGBO(0, 184, 148, 1),
+      Status.busy: const Color.fromRGBO(0, 184, 148, 1),
+      Status.offline: const Color.fromRGBO(0, 184, 148, 1),
     };
     return Container(
       width: _size,

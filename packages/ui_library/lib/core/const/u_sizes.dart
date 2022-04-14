@@ -33,4 +33,6 @@ class USizes {
   static const double userProfileTopMenuBarSize = 30.0;
   static const double userProfileNormalSize = 40.0;
   static const double userProfileLargeSize = 56.0;
+  static const double userProfileStatusSmallSize = 8.0;
+  static const double userProfileStatusNormalSize = 12.0;
 }

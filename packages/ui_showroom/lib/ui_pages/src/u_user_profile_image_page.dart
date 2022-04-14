@@ -116,21 +116,15 @@ class _UserProfileRow extends StatelessWidget {
             const SizedBox.square(
               dimension: 4,
             ),
-            Container(
-                decoration: BoxDecoration(color: Colors.grey.shade300),
-                child: userProfileStatus[0]),
+            userProfileStatus[0],
             const SizedBox.square(
               dimension: 4,
             ),
-            Container(
-                decoration: BoxDecoration(color: Colors.grey.shade300),
-                child: userProfileStatus[1]),
+            userProfileStatus[1],
             const SizedBox.square(
               dimension: 4,
             ),
-            Container(
-                decoration: BoxDecoration(color: Colors.grey.shade300),
-                child: userProfileStatus[2]),
+            userProfileStatus[2],
           ],
         )
       ],
