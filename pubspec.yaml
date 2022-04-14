@@ -14,6 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  provider: ^6.0.2
   ui_library:
     path: 'packages/ui_library'
   # delete showroom when exporting production app

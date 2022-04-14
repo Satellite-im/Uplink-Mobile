@@ -3,28 +3,23 @@ library ui_showroom;
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ui_showroom/theme/theme_model.dart';
+import 'package:ui_library/core/theme/theme_model.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
-  const UIShowRoomApp({Key? key}) : super(key: key);
+  const UIShowRoomApp({Key? key, required this.themeData}) : super(key: key);
+  final ThemeData themeData;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeModel(),
-      builder: (context, _) {
-        final themeModel = context.watch<ThemeModel>();
-        return MaterialApp(
-          theme: themeModel.getThemeData,
-          initialRoute: '/',
-          routes: {
-            UIconPage.routeName: (context) => const UIconPage(),
-            UColorsPage.routeName: (context) => const UColorsPage(),
-          },
-          home: const UIShowRoomPage(),
-        );
+    return MaterialApp(
+      theme: themeData,
+      initialRoute: '/',
+      routes: {
+        UIconPage.routeName: (context) => const UIconPage(),
+        UColorsPage.routeName: (context) => const UColorsPage(),
       },
+      home: const UIShowRoomPage(),
     );
   }
 }

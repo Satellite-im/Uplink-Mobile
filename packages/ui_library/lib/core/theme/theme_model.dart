@@ -27,10 +27,10 @@ class ThemeModel extends ChangeNotifier {
   Future<void> _loadFromPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     final _themeName = prefs.getString('themeName') ?? 'dark';
-    setTheme(_themeName);
+    await setTheme(_themeName);
   }
 
-  void setTheme(String themeName) async {
+  Future<void> setTheme(String themeName) async {
     if (themeName == 'dark') {
       _themeData = UThemes.dark;
     } else if (themeName == 'light') {
@@ -41,7 +41,7 @@ class ThemeModel extends ChangeNotifier {
       _themeData = UThemes.dark;
     }
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('themeName', themeName);
+    await prefs.setString('themeName', themeName);
     notifyListeners();
   }
 }

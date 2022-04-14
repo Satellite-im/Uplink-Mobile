@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ui_showroom/theme/theme_model.dart';
+import 'package:provider/provider.dart';
+import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
 
 void main() {
-  testWidgets('UIShowRoomApp:show UIShowRoomPage ', (tester) async {
-    await tester.pumpWidget(const UIShowRoomApp());
-    await tester.pumpAndSettle();
-    expect(find.byKey(const Key('UIShowRoomPage')), findsOneWidget);
-  });
+  group('UIShowRoomApp', () {
+    testWidgets('show UIShowRoomPage', (tester) async {
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+            create: (context) => ThemeModel(),
+            builder: (context, _) {
+              final themeModel = context.watch<ThemeModel>();
+              return UIShowRoomApp(themeData: themeModel.getThemeData);
+            }),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('UIShowRoomPage')), findsOneWidget);
+    });
+    testWidgets('scaffoldBackgroundColor shows correctly in UIShowRoomPage',
+        (tester) async {
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+            create: (context) => ThemeModel(),
+            builder: (context, _) {
+              final themeModel = context.watch<ThemeModel>();
+              return UIShowRoomApp(themeData: themeModel.getThemeData);
+            }),
+      );
+      await tester.pumpAndSettle();
 
-  testWidgets('UIShowRoomPage: scaffold background color matches ',
-      (tester) async {
-    await tester.pumpWidget(const UIShowRoomApp());
-    await tester.pumpAndSettle();
-    final themeModel = ThemeModel();
-    final themeData = themeModel.getThemeData;
-    expect(
-        Theme.of(tester.element(find.byKey(const Key('UIShowRoomPage'))))
-            .scaffoldBackgroundColor,
-        themeData.scaffoldBackgroundColor);
+      expect(
+          Theme.of(tester.element(find.byKey(const Key('UIShowRoomPage'))))
+              .scaffoldBackgroundColor,
+          ThemeModel().getThemeData.scaffoldBackgroundColor);
+    });
   });
 }
