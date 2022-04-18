@@ -3,7 +3,7 @@ library ui_showroom;
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ui_library/core/theme/theme_model.dart';
+import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
@@ -79,11 +79,11 @@ class ThemeDropdownButton extends StatelessWidget {
           value: 'tbd',
         ),
       ],
-      value: themeModel.getThemeName,
+      value: themeModel.getThemeType.toStrName(),
       onChanged: (value) {
         if (value is String) {
           final _themeModel = context.read<ThemeModel>();
-          _themeModel.setTheme(value);
+          _themeModel.setTheme(value.toThemeType());
         } else {
           log('Error(ThemeDropdownButton):value is not a String');
         }

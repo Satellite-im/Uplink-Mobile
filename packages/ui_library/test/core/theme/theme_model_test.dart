@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ui_library/core/core_export.dart';
+import 'package:ui_library/core/theme/theme_export.dart';
 
 void main() {
   group('SharedPreferences', () {
@@ -25,21 +25,14 @@ void main() {
     ThemeModel themeModel;
     test('return dark theme when no theme saved', () async {
       themeModel = ThemeModel();
-      expect(themeModel.getThemeName, 'dark');
+      expect(themeModel.getThemeType, ThemeType.dark);
       expect(themeModel.getThemeData, UThemes.dark);
     });
     test('get light theme when set theme name to \'light\'', () {
       themeModel = ThemeModel();
-      themeModel.setTheme('light');
+      themeModel.setTheme(ThemeType.light);
 
       expect(themeModel.getThemeData, UThemes.light);
-    });
-
-    test('get dark theme when theme name is unavailable', () {
-      themeModel = ThemeModel();
-      themeModel.setTheme('olalala');
-
-      expect(themeModel.getThemeData, UThemes.dark);
     });
   });
 }

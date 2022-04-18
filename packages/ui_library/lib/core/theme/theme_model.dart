@@ -13,35 +13,35 @@ class ThemeModel extends ChangeNotifier {
 
   ThemeData get getThemeData => _themeData;
 
-  String get getThemeName {
+  ThemeType get getThemeType {
     if (_themeData == UThemes.dark) {
-      return 'dark';
+      return ThemeType.dark;
     } else if (_themeData == UThemes.light) {
-      return 'light';
+      return ThemeType.light;
     } else if (_themeData == UThemes.tbd) {
-      return 'tbd';
+      return ThemeType.tbd;
     }
-    return 'dark';
+    return ThemeType.dark;
   }
 
   Future<void> _loadFromPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     final _themeName = prefs.getString('themeName') ?? 'dark';
-    await setTheme(_themeName);
+    await setTheme(_themeName.toThemeType());
   }
 
-  Future<void> setTheme(String themeName) async {
-    if (themeName == 'dark') {
+  Future<void> setTheme(ThemeType themeType) async {
+    if (themeType == ThemeType.dark) {
       _themeData = UThemes.dark;
-    } else if (themeName == 'light') {
+    } else if (themeType == ThemeType.light) {
       _themeData = UThemes.light;
-    } else if (themeName == 'tbd') {
+    } else if (themeType == ThemeType.tbd) {
       _themeData = UThemes.tbd;
     } else {
       _themeData = UThemes.dark;
     }
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('themeName', themeName);
+    await prefs.setString('themeName', themeType.toStrName());
     notifyListeners();
   }
 }
