@@ -5,11 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch production",
+      "name": "Launch App",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
-      "args": ["--flavor", "production", "--target", "lib/main.dart"]
     }
   ]
 }
