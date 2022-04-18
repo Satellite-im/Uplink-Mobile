@@ -80,25 +80,6 @@ android {
         }
     }
 
-    flavorDimensions "default"
-    productFlavors { 
-        production {
-            dimension "default"
-            applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Uplink"]
-        }
-        staging {
-            dimension "default"
-            applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Uplink"]
-        }        
-        development {
-            dimension "default"
-            applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Uplink"]
-        }
-    }
-
     buildTypes {
         release {
             signingConfig signingConfigs.release
