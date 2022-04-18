@@ -4,7 +4,7 @@ import 'package:ui_library/ui_library_export.dart';
 
 class ThemeModel extends ChangeNotifier {
   /// Get Theme from SharedPreference.
-  /// Default Theme is UThemes.dark.
+  /// Default Theme is [UThemes.dark].
   ThemeModel() {
     _loadFromPreferences();
   }

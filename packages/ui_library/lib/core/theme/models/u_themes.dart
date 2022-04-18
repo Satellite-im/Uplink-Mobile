@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/core/const/const_export.dart';
 import 'package:ui_library/core/const/u_colors.dart';
 
+/// Used in [ThemeModel] to decide which [ThemeData] user is currently using
+///
+/// Current available [ThemeData] : [UThemes.dark],[UThemes.light],[UThemes.tbd]
 class UThemes {
   UThemes._();
   static final dark = ThemeData(
