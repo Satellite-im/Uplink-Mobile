@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 
+const String _kThemeName = 'themeName';
+const String _kDark = 'dark';
+
 class ThemeModel extends ChangeNotifier {
   /// Get Theme from SharedPreference.
   /// Default Theme is [UThemes.dark].
@@ -26,7 +29,7 @@ class ThemeModel extends ChangeNotifier {
 
   Future<void> _loadFromPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    final _themeName = prefs.getString('themeName') ?? 'dark';
+    final _themeName = prefs.getString(_kThemeName) ?? _kDark;
     await setTheme(_themeName.toThemeType());
   }
 
@@ -41,7 +44,7 @@ class ThemeModel extends ChangeNotifier {
       _themeData = UThemes.dark;
     }
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('themeName', themeType.toStrName());
+    await prefs.setString(_kThemeName, themeType.toStrName());
     notifyListeners();
   }
 }
