@@ -1,3 +1,5 @@
+/// A guide to import/modify icons: https://docs.google.com/document/d/1dFHWPLT_k5WGoImKciAFJyqpFvpJc_PO/edit?rtpof=true
+///
 /// The icons was collected from Lucide Library
 /// Copyright (c) 2020, Lucide Contributors
 
