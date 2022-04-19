@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  golden_toolkit: ^0.13.0
 
 dev_dependencies:
   flutter_test:
@@ -22,7 +23,6 @@ flutter:
   assets:
     - images/
     - images/placeholders/
-
 
   fonts:
     - family: Poppins
