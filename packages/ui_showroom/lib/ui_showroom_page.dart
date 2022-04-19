@@ -52,6 +52,9 @@ class _UIShowRoomPageState extends State<UIShowRoomPage> {
             WidgetPageButton(
               widgetName: 'UColors',
             ),
+            WidgetPageButton(
+              widgetName: 'UText',
+            ),
           ],
         ),
       ),
