@@ -56,13 +56,15 @@ class ColorRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
+            UText(
               'UColors.$colorName',
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+              textStyle: UTextStyle.H5_topMenuBarTitle,
+              textColor: Colors.white,
             ),
-            Text(
+            UText(
               uColor.toString().replaceAll('Color(', '').replaceAll(')', ''),
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+              textStyle: UTextStyle.H5_topMenuBarTitle,
+              textColor: Colors.white,
             ),
           ],
         ),

@@ -18,6 +18,7 @@ class UIShowRoomApp extends StatelessWidget {
       routes: {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
+        UTextPage.routeName: (context) => const UTextPage(),
       },
       home: const UIShowRoomPage(),
     );

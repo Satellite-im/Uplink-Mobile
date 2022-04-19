@@ -5,7 +5,7 @@ void main() {
   const _kIconsFontFamily = 'UIcons';
   const String? _kIconsFontPackage = null;
   test('Test all UIcons', () {
-    const aboutIcon = UIcons.about_icon;
+    const aboutIcon = UIcons.about;
     expect(
       aboutIcon,
       const UIconData(0xe800,
@@ -19,21 +19,21 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const addContactMemberIcon = UIcons.add_contact_member_icon;
+    const addContactMemberIcon = UIcons.add_contact_member;
     expect(
       addContactMemberIcon,
       const UIconData(0xe802,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const addFolderIcon = UIcons.add_folder_icon;
+    const addFolderIcon = UIcons.add_folder;
     expect(
       addFolderIcon,
       const UIconData(0xe803,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const addNoteIcon = UIcons.add_note_icon;
+    const addNoteIcon = UIcons.add_note;
     expect(
       addNoteIcon,
       const UIconData(0xe804,
@@ -47,14 +47,14 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const callIcon = UIcons.call_icon;
+    const callIcon = UIcons.call;
     expect(
       callIcon,
       const UIconData(0xe806,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const cameraIcon = UIcons.camera_icon;
+    const cameraIcon = UIcons.camera;
     expect(
       cameraIcon,
       const UIconData(0xe807,
@@ -89,7 +89,7 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const checkmarkIcon = UIcons.checkmark_icon;
+    const checkmarkIcon = UIcons.checkmark;
     expect(
       checkmarkIcon,
       const UIconData(0xe80c,
@@ -117,14 +117,14 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const endCallIcon = UIcons.end_call_icon;
+    const endCallIcon = UIcons.end_call;
     expect(
       endCallIcon,
       const UIconData(0xe810,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const endVideoCallIcon = UIcons.end_video_call_icon;
+    const endVideoCallIcon = UIcons.end_video_call;
     expect(
       endVideoCallIcon,
       const UIconData(0xe811,
@@ -138,7 +138,7 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const fileIcon = UIcons.file_icon;
+    const fileIcon = UIcons.file;
     expect(
       fileIcon,
       const UIconData(0xe813,
@@ -152,7 +152,7 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const friendAddedIcon = UIcons.friend_added_icon;
+    const friendAddedIcon = UIcons.friend_added;
     expect(
       friendAddedIcon,
       const UIconData(0xe815,
@@ -194,7 +194,7 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const locationIcon = UIcons.location_icon;
+    const locationIcon = UIcons.location;
     expect(
       locationIcon,
       const UIconData(0xe81b,
@@ -229,21 +229,21 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const messageIcon = UIcons.message_icon;
+    const messageIcon = UIcons.message;
     expect(
       messageIcon,
       const UIconData(0xe820,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const multipleAccountsIcon = UIcons.multiple_accounts_icon;
+    const multipleAccountsIcon = UIcons.multiple_accounts;
     expect(
       multipleAccountsIcon,
       const UIconData(0xe821,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const muteIcon = UIcons.mute_icon;
+    const muteIcon = UIcons.mute;
     expect(
       muteIcon,
       const UIconData(0xe822,
@@ -257,21 +257,21 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const qrCodeIcon = UIcons.qr_code_icon;
+    const qrCodeIcon = UIcons.qr_code;
     expect(
       qrCodeIcon,
       const UIconData(0xe824,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const removeFriendIcon = UIcons.remove_friend_icon;
+    const removeFriendIcon = UIcons.remove_friend;
     expect(
       removeFriendIcon,
       const UIconData(0xe825,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const removeIcon = UIcons.remove_icon;
+    const removeIcon = UIcons.remove;
     expect(
       removeIcon,
       const UIconData(0xe826,
@@ -292,28 +292,28 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const searchIcon = UIcons.search_icon;
+    const searchIcon = UIcons.search;
     expect(
       searchIcon,
       const UIconData(0xe829,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const settingIcon = UIcons.setting_icon;
+    const settingIcon = UIcons.setting;
     expect(
       settingIcon,
       const UIconData(0xe82a,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const settingsLogoutIcon = UIcons.settings_logout_icon;
+    const settingsLogoutIcon = UIcons.settings_logout;
     expect(
       settingsLogoutIcon,
       const UIconData(0xe82b,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const swapCameraIcon = UIcons.swap_camera_icon;
+    const swapCameraIcon = UIcons.swap_camera;
     expect(
       swapCameraIcon,
       const UIconData(0xe82c,
@@ -327,7 +327,7 @@ void main() {
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
 
-    const unmuteIcon = UIcons.unmute_icon;
+    const unmuteIcon = UIcons.unmute;
     expect(
       unmuteIcon,
       const UIconData(0xe82e,
@@ -345,6 +345,55 @@ void main() {
     expect(
       videoCallButton,
       const UIconData(0xe830,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const developer = UIcons.developer;
+    expect(
+      developer,
+      const UIconData(0xe831,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const dropdownMenu = UIcons.dropdown_menu;
+    expect(
+      dropdownMenu,
+      const UIconData(0xe832,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const general = UIcons.general;
+    expect(
+      general,
+      const UIconData(0xe833,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const import = UIcons.import;
+    expect(
+      import,
+      const UIconData(0xe834,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const security = UIcons.security;
+    expect(
+      security,
+      const UIconData(0xe835,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const tryAgain = UIcons.try_again;
+    expect(
+      tryAgain,
+      const UIconData(0xe836,
+          uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
+    );
+
+    const checkmarkRounded = UIcons.checkmark_rounded;
+    expect(
+      checkmarkRounded,
+      const UIconData(0xe837,
           uFontFamily: _kIconsFontFamily, uFontPackage: _kIconsFontPackage),
     );
   });
