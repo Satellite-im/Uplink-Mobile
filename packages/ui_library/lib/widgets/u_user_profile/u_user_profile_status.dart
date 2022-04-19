@@ -7,6 +7,12 @@ part 'models/u_status_indicator.dart';
 part 'models/u_user_profile_status_clipper.dart';
 
 class UserProfileWithStatus extends StatelessWidget {
+  /// Creates an User Profile Widget with picture
+  /// and [Status]
+  ///
+  /// [imagePath] if null, it will assume a default placeholder
+  ///
+  /// [userProfileSize] defines the size of the widget
   UserProfileWithStatus({
     Key? key,
     String? imagePath,

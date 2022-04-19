@@ -1,11 +1,16 @@
 part of '../u_user_profile_status.dart';
 
+/// Defines the status of the [UserProfileStatus]
 enum Status {
   online,
   busy,
   offline,
 }
 
+/// Used to build the widget that need to receive [Status]
+///
+/// This calculates the size of the [Status] circle
+/// according to the size of the [UserProfileStatus] size
 class StatusIndicator extends StatelessWidget {
   const StatusIndicator(
     Status status, {

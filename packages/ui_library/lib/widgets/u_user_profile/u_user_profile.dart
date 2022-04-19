@@ -5,7 +5,12 @@ import '../u_text/u_text_export.dart';
 
 enum _UserProfileType { withName, noName }
 
+/// Creates an User Profile Widget with picture
+/// and no status
 class UserProfile extends StatelessWidget {
+  /// Creates User Profile widget without name
+  ///
+  /// [imagePath] if null, it will assume a default placeholder
   const UserProfile({
     Key? key,
     String? imagePath,
@@ -15,6 +20,9 @@ class UserProfile extends StatelessWidget {
         _size = USizes.userProfileNormalSize,
         super(key: key);
 
+  /// Creates User Profile widget with name
+  ///
+  /// [imagePath] if null, it will assume a default placeholder
   const UserProfile.withName({
     Key? key,
     String? imagePath,

@@ -1,5 +1,14 @@
 import '../../../core/core_export.dart';
 
+/// Defines the User Profile Widgets size
+///
+/// Example:
+/// ```dart
+/// UserProfileWithStatus(
+///   status: Status.online,
+///   userProfileSize: UUserProfileSize.large,
+/// ),
+/// ```
 enum UUserProfileSize { topMenuBar, normal, large }
 
 extension UUserProfileSizeExtension on UUserProfileSize {

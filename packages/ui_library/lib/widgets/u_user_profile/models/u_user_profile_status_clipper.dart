@@ -1,5 +1,26 @@
 part of '../u_user_profile_status.dart';
 
+/// This class is used to design the format of User Profile widgets
+///
+/// For each [Size] it will calculate and cut off the part necessary
+///
+/// To use the Clipper, it is necessary to pass as parameter to [ClipPath]
+///
+/// Example:
+/// ```dart
+/// ClipPath(
+///  clipper: UClipperUserProfileStatus(),
+///   child: SizedBox(
+///    height: _size,
+///    width: _size,
+///    child: _imagePath != null
+///             ? Image.network(_imagePath!)
+///              : Image.asset(
+///                 'packages/ui_library/images/placeholders/user_avatar_2.png',
+///        ),
+///     ),
+///  ),
+/// ```
 class UClipperUserProfileStatus extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
