@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Color> colorsMap = {
-  'bgDark': UColors.bgDark,
-  'fgDark': UColors.fgDark,
-  'mdDark': UColors.mdDark,
-  'ctaBlue': UColors.ctaBlue,
-  'ctaDark': UColors.ctaDark,
+  'dark': UColors.dark,
+  'fgdark': UColors.fgDark,
+  'mddark': UColors.mdDark,
+  'ctablue': UColors.ctaBlue,
+  'ctadark': UColors.ctaDark,
 };
 
 class UColorsPage extends StatelessWidget {
