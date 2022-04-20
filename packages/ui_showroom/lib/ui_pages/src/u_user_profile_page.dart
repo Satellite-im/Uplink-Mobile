@@ -20,8 +20,8 @@ class UUserProfileImagePage extends StatelessWidget {
               dimension: 16,
             ),
             _UserProfileRow(
-              title: '56x56',
-              userProfileStatus: [
+              title: 'User Profile Status 56x56',
+              userProfile: [
                 UserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.large,
@@ -40,12 +40,8 @@ class UUserProfileImagePage extends StatelessWidget {
               dimension: 16,
             ),
             _UserProfileRow(
-              title: '40x40',
-              userProfileStatus: [
-                const UserProfile(),
-                const UserProfile.withName(
-                  name: 'Name',
-                ),
+              title: 'User Profile Status 40x40',
+              userProfile: [
                 UserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.normal,
@@ -64,8 +60,8 @@ class UUserProfileImagePage extends StatelessWidget {
               dimension: 16,
             ),
             _UserProfileRow(
-              title: '36x36',
-              userProfileStatus: [
+              title: 'User Profile Status 36x36',
+              userProfile: [
                 UserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.topMenuBar,
@@ -83,24 +79,18 @@ class UUserProfileImagePage extends StatelessWidget {
             const SizedBox.square(
               dimension: 16,
             ),
-            _UserProfileRow(
-              title: 'All',
-              userProfileStatus: [
-                const UserProfile(),
-                const UserProfile.withName(
-                  name: 'Name',
+            const _UserProfileRow(
+              title: 'User Profile 40x40',
+              userProfile: [
+                UserProfile(),
+                UserProfile.withUsername(
+                  username: 'username',
                 ),
-                UserProfileWithStatus(
-                  status: Status.online,
-                  userProfileSize: UUserProfileSize.large,
+                UserProfile.withUsername(
+                  username: 'longusername',
                 ),
-                UserProfileWithStatus(
-                  status: Status.busy,
-                  userProfileSize: UUserProfileSize.normal,
-                ),
-                UserProfileWithStatus(
-                  status: Status.offline,
-                  userProfileSize: UUserProfileSize.topMenuBar,
+                UserProfile.withUsername(
+                  username: 'longusernamebigger',
                 ),
               ],
             ),
@@ -113,19 +103,19 @@ class UUserProfileImagePage extends StatelessWidget {
 
 class _UserProfileRow extends StatelessWidget {
   const _UserProfileRow(
-      {Key? key, required this.title, required this.userProfileStatus})
+      {Key? key, required this.title, required this.userProfile})
       : super(key: key);
 
   final String title;
-  final List<Widget> userProfileStatus;
+  final List<Widget> userProfile;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _userProfiles = [];
 
-    userProfileStatus.forEach(((element) {
+    userProfile.forEach(((element) {
       _userProfiles.add(element);
-      _userProfiles.add(const SizedBox.square(dimension: 4));
+      _userProfiles.add(const SizedBox.square(dimension: 8));
     }));
 
     return Column(

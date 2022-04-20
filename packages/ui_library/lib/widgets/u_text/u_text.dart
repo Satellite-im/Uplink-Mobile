@@ -27,6 +27,8 @@ class UText extends StatelessWidget {
     required this.textStyle,
     this.maxLines,
     this.textColor,
+    this.textOverflow,
+    this.textAlign,
   }) : super(key: key);
 
   final String text;
@@ -38,11 +40,17 @@ class UText extends StatelessWidget {
 
   final int? maxLines;
 
+  final TextOverflow? textOverflow;
+
+  final TextAlign? textAlign;
+
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       key: key,
+      overflow: textOverflow,
+      textAlign: textAlign,
       style: TextStyle(
         fontFamily: textStyle.style.fontFamily,
         fontSize: textStyle.style.fontSize,

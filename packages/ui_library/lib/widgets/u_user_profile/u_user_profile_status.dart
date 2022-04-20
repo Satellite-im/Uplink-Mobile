@@ -36,18 +36,16 @@ class UserProfileWithStatus extends StatelessWidget {
 
     return Stack(
       children: [
-        SizedBox(
-          child: ClipPath(
-            clipper: UClipperUserProfileStatus(),
-            child: SizedBox(
-              height: _size,
-              width: _size,
-              child: _imagePath != null
-                  ? Image.network(_imagePath!)
-                  : Image.asset(
-                      'packages/ui_library/images/placeholders/user_avatar_2.png',
-                    ),
-            ),
+        ClipPath(
+          clipper: UClipperUserProfileStatus(),
+          child: SizedBox(
+            height: _size,
+            width: _size,
+            child: _imagePath != null
+                ? Image.network(_imagePath!)
+                : Image.asset(
+                    'packages/ui_library/images/placeholders/user_avatar_2.png',
+                  ),
           ),
         ),
         Positioned(

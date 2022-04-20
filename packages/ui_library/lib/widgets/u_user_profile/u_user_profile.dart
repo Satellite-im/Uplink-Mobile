@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/core_export.dart';
 import '../u_text/u_text_export.dart';
 
-enum _UserProfileType { withName, noName }
+enum _UserProfileType { withUsername, noUsername }
 
 /// Creates an User Profile Widget with picture
 /// and no status
@@ -15,21 +15,21 @@ class UserProfile extends StatelessWidget {
     Key? key,
     String? imagePath,
   })  : _imagePath = imagePath,
-        _userProfileType = _UserProfileType.noName,
-        _userProfileName = null,
+        _userProfileType = _UserProfileType.noUsername,
+        _userProfileUsername = null,
         _size = USizes.userProfileNormalSize,
         super(key: key);
 
   /// Creates User Profile widget with name
   ///
   /// [imagePath] if null, it will assume a default placeholder
-  const UserProfile.withName({
+  const UserProfile.withUsername({
     Key? key,
     String? imagePath,
-    required String name,
+    required String username,
   })  : _imagePath = imagePath,
-        _userProfileName = name,
-        _userProfileType = _UserProfileType.withName,
+        _userProfileUsername = username,
+        _userProfileType = _UserProfileType.withUsername,
         _size = USizes.userProfileNormalSize,
         super(key: key);
 
@@ -37,7 +37,7 @@ class UserProfile extends StatelessWidget {
 
   final _UserProfileType _userProfileType;
 
-  final String? _userProfileName;
+  final String? _userProfileUsername;
 
   final String? _imagePath;
 
@@ -46,24 +46,28 @@ class UserProfile extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-          child: ClipOval(
-            child: SizedBox(
-              height: _size,
-              width: _size,
-              child: _imagePath != null
-                  ? Image.network(_imagePath!)
-                  : Image.asset(
-                      'packages/ui_library/images/placeholders/user_avatar_2.png',
-                    ),
-            ),
+        ClipOval(
+          child: SizedBox(
+            height: _size,
+            width: _size,
+            child: _imagePath != null
+                ? Image.network(_imagePath!)
+                : Image.asset(
+                    'packages/ui_library/images/placeholders/user_avatar_2.png',
+                  ),
           ),
         ),
-        if (_userProfileType == _UserProfileType.withName) ...[
+        if (_userProfileType == _UserProfileType.withUsername) ...[
           const SizedBox.square(dimension: 8),
-          UText(
-            _userProfileName!,
-            textStyle: UTextStyle.M1_micro,
+          SizedBox(
+            width: USizes.userProfileNormalMaxUsernameTextSize,
+            child: UText(
+              _userProfileUsername!,
+              textOverflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              textStyle: UTextStyle.M1_micro,
+            ),
           ),
         ]
       ],
