@@ -83,9 +83,29 @@ class SystemUnderTest extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: UserProfileWithStatus(
-            status: Status.online,
-            userProfileSize: _size,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              UserProfileWithStatus(
+                status: Status.online,
+                userProfileSize: _size,
+              ),
+              const SizedBox.square(
+                dimension: 8,
+              ),
+              UserProfileWithStatus(
+                status: Status.idle,
+                userProfileSize: _size,
+              ),
+              const SizedBox.square(
+                dimension: 8,
+              ),
+              UserProfileWithStatus(
+                status: Status.offline,
+                userProfileSize: _size,
+              ),
+            ],
           ),
         ),
       ),

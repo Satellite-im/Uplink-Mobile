@@ -7,10 +7,10 @@
 /// ...
 /// ```
 class UFonts {
-  /// Font for [UIcons]
+  // Fonts for [UIcons]
   static const iconsFont = 'UIcons';
 
-  /// Font for [UText]
+  // Fonts for [UText]
   static const textPoppinsFont = 'Poppins';
   static const textSpaceMonoFont = 'SpaceMono';
 }

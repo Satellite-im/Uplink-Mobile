@@ -6,7 +6,7 @@ void main() {
   group('UUserProfile Status Indicator |', () {});
 
   testWidgets(
-    'Golden Test clip path for USizes.userProfileLargeSize',
+    'Golden Test for Status Indicator Sizes and Colors',
     (tester) async {
       await tester.runAsync(
         () async {
@@ -34,22 +34,75 @@ class SystemUnderTest extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              StatusIndicator(Status.online,
-                  userProfileSize: UUserProfileSize.large),
+              const UText('When User Profile has Large Size',
+                  textStyle: UTextStyle.H5_topMenuBarTitle),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  StatusIndicator(Status.online,
+                      userProfileSize: UUserProfileSize.large),
+                  const SizedBox.square(
+                    dimension: 8,
+                  ),
+                  StatusIndicator(Status.idle,
+                      userProfileSize: UUserProfileSize.large),
+                  const SizedBox.square(
+                    dimension: 8,
+                  ),
+                  StatusIndicator(Status.offline,
+                      userProfileSize: UUserProfileSize.large),
+                ],
+              ),
               const SizedBox.square(
                 dimension: 8,
               ),
-              StatusIndicator(Status.online,
-                  userProfileSize: UUserProfileSize.normal),
+              const UText('When User Profile has Normal Size',
+                  textStyle: UTextStyle.H5_topMenuBarTitle),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  StatusIndicator(Status.online,
+                      userProfileSize: UUserProfileSize.normal),
+                  const SizedBox.square(
+                    dimension: 8,
+                  ),
+                  StatusIndicator(Status.idle,
+                      userProfileSize: UUserProfileSize.normal),
+                  const SizedBox.square(
+                    dimension: 8,
+                  ),
+                  StatusIndicator(Status.offline,
+                      userProfileSize: UUserProfileSize.normal),
+                ],
+              ),
               const SizedBox.square(
                 dimension: 8,
               ),
-              StatusIndicator(Status.online,
-                  userProfileSize: UUserProfileSize.topMenuBar),
+              const UText('When User Profile has Top Menu Bar Size',
+                  textStyle: UTextStyle.H5_topMenuBarTitle),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  StatusIndicator(Status.online,
+                      userProfileSize: UUserProfileSize.topMenuBar),
+                  const SizedBox.square(
+                    dimension: 8,
+                  ),
+                  StatusIndicator(Status.idle,
+                      userProfileSize: UUserProfileSize.topMenuBar),
+                  const SizedBox.square(
+                    dimension: 8,
+                  ),
+                  StatusIndicator(Status.offline,
+                      userProfileSize: UUserProfileSize.topMenuBar),
+                ],
+              ),
             ],
           ),
         ),

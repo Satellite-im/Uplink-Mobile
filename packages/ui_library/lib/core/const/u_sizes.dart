@@ -12,10 +12,10 @@
 ///  }
 /// ```
 class USizes {
-  /// Sizes for [UIcon]
+  // Sizes for [UIcon]
   static const double iconSize = 24.0;
 
-  /// Sizes for [UText]
+  // Sizes for [UText]
   static const double textH5TopMenuBarTitleSize = 18.0;
   static const double textH1PrimaryHeaderSize = 10.0;
   static const double textH2SecondaryHeaderSize = 12.0;
@@ -29,7 +29,7 @@ class USizes {
   static const double textBUT1ButtonSize = 10.0;
   static const double textBUT2SecondaryButtonSize = 10.0;
 
-  /// Sizes for [UUserProfile]
+  // Sizes for [UUserProfile]
   static const double userProfileTopMenuBarSize = 30.0;
   static const double userProfileNormalSize = 40.0;
   static const double userProfileLargeSize = 56.0;

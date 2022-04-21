@@ -3,8 +3,21 @@ part of '../u_user_profile_status.dart';
 /// Defines the status of the [UserProfileStatus]
 enum Status {
   online,
-  busy,
+  idle,
   offline,
+}
+
+extension StatusColors on Status {
+  Color get _color {
+    switch (this) {
+      case Status.online:
+        return UColors.onlineGreen;
+      case Status.idle:
+        return UColors.idleYellow;
+      case Status.offline:
+        return UColors.termRed;
+    }
+  }
 }
 
 /// Used to build the widget that need to receive [Status]
@@ -24,20 +37,14 @@ class StatusIndicator extends StatelessWidget {
 
   final double _size;
   final Status _status;
-  //TODO: This widget needs a maintenance yet
-  //TODO: Needs to change the colors and the name of the status
+
   @override
   Widget build(BuildContext context) {
-    Map<Status, Color> _statusMap = {
-      Status.online: const Color.fromRGBO(0, 184, 148, 1),
-      Status.busy: const Color.fromRGBO(0, 184, 148, 1),
-      Status.offline: const Color.fromRGBO(0, 184, 148, 1),
-    };
     return Container(
       width: _size,
       height: _size,
       decoration: BoxDecoration(
-        color: _statusMap[_status],
+        color: _status._color,
         shape: BoxShape.circle,
       ),
     );

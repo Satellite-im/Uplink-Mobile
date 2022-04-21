@@ -8,7 +8,7 @@ import 'package:ui_library/core/const/u_colors.dart';
 class UThemes {
   UThemes._();
   static final dark = ThemeData(
-    scaffoldBackgroundColor: UColors.dark,
+    scaffoldBackgroundColor: UColors.backgroundDark,
 
     ///temporary use for dropdownButton in showroom page
     colorScheme: ColorScheme.fromSwatch(

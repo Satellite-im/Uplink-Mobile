@@ -27,7 +27,7 @@ class UUserProfileImagePage extends StatelessWidget {
                   userProfileSize: UUserProfileSize.large,
                 ),
                 UserProfileWithStatus(
-                  status: Status.busy,
+                  status: Status.idle,
                   userProfileSize: UUserProfileSize.large,
                 ),
                 UserProfileWithStatus(
@@ -47,7 +47,7 @@ class UUserProfileImagePage extends StatelessWidget {
                   userProfileSize: UUserProfileSize.normal,
                 ),
                 UserProfileWithStatus(
-                  status: Status.busy,
+                  status: Status.idle,
                   userProfileSize: UUserProfileSize.normal,
                 ),
                 UserProfileWithStatus(
@@ -67,7 +67,7 @@ class UUserProfileImagePage extends StatelessWidget {
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
                 UserProfileWithStatus(
-                  status: Status.busy,
+                  status: Status.idle,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
                 UserProfileWithStatus(

@@ -9,7 +9,16 @@ import '../../../core/core_export.dart';
 ///   userProfileSize: UUserProfileSize.large,
 /// ),
 /// ```
-enum UUserProfileSize { topMenuBar, normal, large }
+enum UUserProfileSize {
+  /// This size is 30x30 pixels
+  topMenuBar,
+
+  /// This size is 40x40 pixels
+  normal,
+
+  /// This size is 56x56 pixels
+  large
+}
 
 extension UUserProfileSizeExtension on UUserProfileSize {
   double get size {
