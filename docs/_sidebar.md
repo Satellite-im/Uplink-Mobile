@@ -7,6 +7,9 @@
   - [Overview](ui_library/overview.md)
   - **+ Core**
     - [Overview](ui_library/core/overview.md)
+  - **+ Widgets**
+    - [UText](ui_library/widgets/u_text.md)
+    - [UIcon](ui_library/widgets/u_icon.md)
 <!-- - **Data**
   - [Overview](data/overview.md)
 - **Hooks**
