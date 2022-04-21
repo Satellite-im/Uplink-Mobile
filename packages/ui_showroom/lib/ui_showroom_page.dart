@@ -23,7 +23,9 @@ class UIShowRoomApp extends StatelessWidget {
             const UUserProfileImagePage(),
       },
       home: Scaffold(
-        appBar: AppBar(title: const Text('UI Library Show Room')),
+        appBar: AppBar(
+          title: const ThemeDropdownButton(),
+        ),
         body: Center(
           child: Column(
             children: const [

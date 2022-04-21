@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 
-import '../../core/core_export.dart';
+import '../../../core/core_export.dart';
 
 part 'models/u_status_indicator.dart';
 part 'models/u_user_profile_status_clipper.dart';
@@ -13,34 +13,36 @@ class UserProfileWithStatus extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   ///
   /// [userProfileSize] defines the size of the widget
-  UserProfileWithStatus({
+  const UserProfileWithStatus({
     Key? key,
     String? imagePath,
     required UUserProfileSize userProfileSize,
     required Status status,
   })  : _imagePath = imagePath,
-        _statusIndicator =
-            StatusIndicator(status, userProfileSize: userProfileSize),
-        _size = userProfileSize.size,
+        _status = status,
+        _uUserProfileSize = userProfileSize,
         super(key: key);
 
-  final double _size;
+  final UUserProfileSize _uUserProfileSize;
 
   final String? _imagePath;
 
-  final StatusIndicator _statusIndicator;
+  final Status _status;
 
   @override
   Widget build(BuildContext context) {
-    final _correctPositionForEachAvatar = _size - (_statusIndicator._size);
+    final _statusIndicator =
+        StatusIndicator(_status, userProfileSize: _uUserProfileSize);
+    final _correctPositionForEachAvatar =
+        _uUserProfileSize.size - (_statusIndicator._size);
 
     return Stack(
       children: [
         ClipPath(
           clipper: UClipperUserProfileStatus(),
           child: SizedBox(
-            height: _size,
-            width: _size,
+            height: _uUserProfileSize.size,
+            width: _uUserProfileSize.size,
             child: _imagePath != null
                 ? Image.network(_imagePath!)
                 : Image.asset(

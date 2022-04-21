@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/core_export.dart';
-import '../u_text/u_text_export.dart';
+import '../../../core/core_export.dart';
+import '../../u_text/u_text_export.dart';
+import '../models/u_user_profile_sizes.dart';
 
 enum _UserProfileType { withUsername, noUsername }
 
@@ -17,7 +18,7 @@ class UserProfile extends StatelessWidget {
   })  : _imagePath = imagePath,
         _userProfileType = _UserProfileType.noUsername,
         _userProfileUsername = null,
-        _size = USizes.userProfileNormalSize,
+        _size = UUserProfileSize.normal,
         super(key: key);
 
   /// Creates User Profile widget with name
@@ -30,10 +31,10 @@ class UserProfile extends StatelessWidget {
   })  : _imagePath = imagePath,
         _userProfileUsername = username,
         _userProfileType = _UserProfileType.withUsername,
-        _size = USizes.userProfileNormalSize,
+        _size = UUserProfileSize.normal,
         super(key: key);
 
-  final double _size;
+  final UUserProfileSize _size;
 
   final _UserProfileType _userProfileType;
 
@@ -48,8 +49,8 @@ class UserProfile extends StatelessWidget {
       children: [
         ClipOval(
           child: SizedBox(
-            height: _size,
-            width: _size,
+            height: _size.size,
+            width: _size.size,
             child: _imagePath != null
                 ? Image.network(_imagePath!)
                 : Image.asset(

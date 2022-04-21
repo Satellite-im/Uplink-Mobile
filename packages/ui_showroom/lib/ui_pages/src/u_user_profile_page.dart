@@ -15,8 +15,8 @@ class UUserProfileImagePage extends StatelessWidget {
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox.square(
+          children: const [
+            SizedBox.square(
               dimension: 16,
             ),
             _UserProfileRow(
@@ -36,7 +36,7 @@ class UUserProfileImagePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox.square(
+            SizedBox.square(
               dimension: 16,
             ),
             _UserProfileRow(
@@ -56,7 +56,7 @@ class UUserProfileImagePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox.square(
+            SizedBox.square(
               dimension: 16,
             ),
             _UserProfileRow(
@@ -76,10 +76,10 @@ class UUserProfileImagePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox.square(
+            SizedBox.square(
               dimension: 16,
             ),
-            const _UserProfileRow(
+            _UserProfileRow(
               title: 'User Profile 40x40',
               userProfile: [
                 UserProfile(),
