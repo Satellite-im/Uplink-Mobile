@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Color> colorsMap = {
-  'dark': UColors.dark,
-  'fgdark': UColors.fgDark,
-  'mddark': UColors.mdDark,
+  'backgroundDark': UColors.backgroundDark,
+  'foregroundDark': UColors.foregroundDark,
+  'modalDark': UColors.modalDark,
+  'white': UColors.white,
   'ctablue': UColors.ctaBlue,
   'ctadark': UColors.ctaDark,
+  'onlineGreen': UColors.onlineGreen,
+  'idleYellow': UColors.idleYellow,
+  'termRed': UColors.termRed,
+  'defGrey': UColors.defGrey,
+  'textMed': UColors.textMed,
+  'textDark': UColors.textDark,
 };
 
 class UColorsPage extends StatelessWidget {
@@ -49,6 +56,8 @@ class ColorRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _uColorCode =
+        uColor.toString().replaceAll('Color(', '').replaceAll(')', '');
     return Container(
       color: uColor,
       height: 100,
@@ -59,12 +68,16 @@ class ColorRow extends StatelessWidget {
             UText(
               'UColors.$colorName',
               textStyle: UTextStyle.H5_topMenuBarTitle,
-              textColor: Colors.white,
+              textColor: _uColorCode == '0xffeef0f2'
+                  ? UColors.backgroundDark
+                  : UColors.white,
             ),
             UText(
-              uColor.toString().replaceAll('Color(', '').replaceAll(')', ''),
+              _uColorCode,
               textStyle: UTextStyle.H5_topMenuBarTitle,
-              textColor: Colors.white,
+              textColor: _uColorCode == '0xffeef0f2'
+                  ? UColors.backgroundDark
+                  : UColors.white,
             ),
           ],
         ),

@@ -19,43 +19,33 @@ class UIShowRoomApp extends StatelessWidget {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
         UTextPage.routeName: (context) => const UTextPage(),
+        UUserProfileImagePage.routeName: (context) =>
+            const UUserProfileImagePage(),
       },
-      home: const UIShowRoomPage(),
-    );
-  }
-}
-
-class UIShowRoomPage extends StatefulWidget {
-  const UIShowRoomPage({Key? key = const Key('UIShowRoomPage')})
-      : super(key: key);
-
-  @override
-  State<UIShowRoomPage> createState() => _UIShowRoomPageState();
-}
-
-class _UIShowRoomPageState extends State<UIShowRoomPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const ThemeDropdownButton(),
-      ),
-      body: Center(
-        child: Column(
-          children: const [
-            SizedBox.square(
-              dimension: 16,
-            ),
-            WidgetPageButton(
-              widgetName: 'UIcon',
-            ),
-            WidgetPageButton(
-              widgetName: 'UColors',
-            ),
-            WidgetPageButton(
-              widgetName: 'UText',
-            ),
-          ],
+      home: Scaffold(
+        appBar: AppBar(
+          title: const ThemeDropdownButton(),
+        ),
+        body: Center(
+          child: Column(
+            children: const [
+              SizedBox.square(
+                dimension: 16,
+              ),
+              WidgetPageButton(
+                widgetName: 'UIcon',
+              ),
+              WidgetPageButton(
+                widgetName: 'UColors',
+              ),
+              WidgetPageButton(
+                widgetName: 'UText',
+              ),
+              WidgetPageButton(
+                widgetName: 'UUserProfile',
+              ),
+            ],
+          ),
         ),
       ),
     );
