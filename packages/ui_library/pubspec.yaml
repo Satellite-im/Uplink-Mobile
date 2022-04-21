@@ -6,12 +6,13 @@ publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: "2.10.4"
 
 dependencies:
   flutter:
     sdk: flutter
   golden_toolkit: ^0.13.0
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:

@@ -24,7 +24,8 @@ class StatusIndicator extends StatelessWidget {
 
   final double _size;
   final Status _status;
-
+  //TODO: This widget needs a maintenance yet
+  //TODO: Needs to change the colors and the name of the status
   @override
   Widget build(BuildContext context) {
     Map<Status, Color> _statusMap = {

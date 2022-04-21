@@ -6,11 +6,12 @@ publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: "2.10.4"
 
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.2
   ui_library:
     path: '../ui_library'
 
