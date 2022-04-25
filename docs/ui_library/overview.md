@@ -12,4 +12,4 @@ Figma is a web-based digital design and prototyping tool. It is used to create U
 
 **Core** - This folder contain all the code that are shared by more than one widget, it can be constants as sizes, colors, some helpers as date and coin formatters and more.
 
-**Widgets** - Whare are located the custom widgets for Uplink. 
+**Widgets** - Where are located the custom widgets for Uplink. 
