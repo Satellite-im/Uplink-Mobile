@@ -6,9 +6,10 @@
 - **UI Library**
   - [Overview](ui_library/overview.md)
   - **+ Fonts**
-    - [Overview](ui_library/fonts/overview.md)
+    - [Text](ui_library/fonts/text.md)
+    - [Icons](ui_library/fonts/icon.md)
   - **+ Core**
-    - [Itens](ui_library/core/overview.md)
+    - [Constants](ui_library/core/constants.md)
   - **+ Widgets**
     - [UText](ui_library/widgets/u_text.md)
     - [UIcon](ui_library/widgets/u_icon.md)
