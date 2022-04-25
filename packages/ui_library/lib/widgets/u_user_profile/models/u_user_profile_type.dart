@@ -1,0 +1,1 @@
+enum UUserProfileType { withUsername, noUsername }
