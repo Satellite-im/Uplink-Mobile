@@ -16,6 +16,8 @@ Icons and its respective codes are saved in ``UIcons.ttf``, these codes are used
 
 ``UIcons.json`` is a file that contains all the icons, its names and the order of them. Used to update ``UIcons``.
 
+To generate new `.json` and `.ttf` files to update the app icons, there is a [step by step guide](https://docs.google.com/document/d/1dFHWPLT_k5WGoImKciAFJyqpFvpJc_PO/edit#heading=h.30j0zll).
+
 ### How to use 
 
 1. Import UI Library package 
