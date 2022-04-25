@@ -10,7 +10,7 @@ This is the Uplink Icons Library, a class with all the icons that should be used
 
 Similiar IconData in flutter, used to accept just the UIcons itens.
 
-## Fonts
+### Fonts
 
 Icons and its respective codes are saved in ``UIcons.ttf``, these codes are used inside UIconData. This allows for crisp fonts at small point sizes when displayed on low resolution displays besides saving space by not needing all the icons in SVG format.
 
@@ -31,6 +31,6 @@ import 'package:ui_library/ui_library_export.dart';
  UIcon(UIcons.back_arrow_button),
 ```
 
-3. UIcon Show Room Page
+3. UIcons and its names
 
-<img width="200" src='ui_library/_media/uicon_showroompage.gif'></img>
+<img src='ui_library/_media/uicons.png'></img>
