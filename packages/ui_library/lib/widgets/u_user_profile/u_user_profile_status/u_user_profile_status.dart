@@ -3,17 +3,17 @@ import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.da
 
 import '../../../core/core_export.dart';
 
-part 'models/u_status_indicator.dart';
-part 'models/u_user_profile_status_clipper.dart';
+part 'models/status_indicator.dart';
+part 'models/clipper.dart';
 
-class UserProfileWithStatus extends StatelessWidget {
+class UUserProfileWithStatus extends StatelessWidget {
   /// Creates an User Profile Widget with picture
   /// and [Status]
   ///
   /// [imagePath] if null, it will assume a default placeholder
   ///
   /// [userProfileSize] defines the size of the widget
-  const UserProfileWithStatus({
+  const UUserProfileWithStatus({
     Key? key,
     String? imagePath,
     required UUserProfileSize userProfileSize,
@@ -39,7 +39,7 @@ class UserProfileWithStatus extends StatelessWidget {
     return Stack(
       children: [
         ClipPath(
-          clipper: UClipperUserProfileStatus(),
+          clipper: UserProfileStatusClipper(),
           child: SizedBox(
             height: _uUserProfileSize.size,
             width: _uUserProfileSize.size,

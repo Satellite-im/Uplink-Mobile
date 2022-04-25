@@ -87,21 +87,21 @@ class SystemUnderTest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              UserProfileWithStatus(
+              UUserProfileWithStatus(
                 status: Status.online,
                 userProfileSize: _size,
               ),
               const SizedBox.square(
                 dimension: 8,
               ),
-              UserProfileWithStatus(
+              UUserProfileWithStatus(
                 status: Status.idle,
                 userProfileSize: _size,
               ),
               const SizedBox.square(
                 dimension: 8,
               ),
-              UserProfileWithStatus(
+              UUserProfileWithStatus(
                 status: Status.offline,
                 userProfileSize: _size,
               ),

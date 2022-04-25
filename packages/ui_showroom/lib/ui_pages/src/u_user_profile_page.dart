@@ -19,15 +19,15 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: 'User Profile Status 56x56',
               userProfile: [
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.large,
                 ),
@@ -36,15 +36,15 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: 'User Profile Status 40x40',
               userProfile: [
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.normal,
                 ),
@@ -53,15 +53,15 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: 'User Profile Status 36x36',
               userProfile: [
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
@@ -70,30 +70,50 @@ class UUserProfileImagePage extends StatelessWidget {
             _UserProfileRow(
               title: 'User Profile 40x40',
               userProfile: [
-                UserProfile(),
-                UserProfile.withUsername(
+                UUserProfile(),
+                UUserProfile.withUsername(
                   username: 'username',
                 ),
-                UserProfile.withUsername(
+                UUserProfile.withUsername(
                   username: 'longusername',
                 ),
-                UserProfile.withUsername(
+                UUserProfile.withUsername(
                   username: 'longusernamebigger',
                 ),
               ],
             ),
             _UserProfileRow(
-              title: 'User Profile Notifications 40x40',
+              title: 'User Profile Notification 40x40',
               userProfile: [
-                UserProfileNotification(),
-                UserProfileNotification.withUsername(
+                UUserProfileNotification(),
+                UUserProfileNotification.withUsername(
                   username: 'username',
                 ),
-                UserProfileNotification.withUsername(
+                UUserProfileNotification.withUsername(
                   username: 'longusername',
                 ),
-                UserProfileNotification.withUsername(
+                UUserProfileNotification.withUsername(
                   username: 'longusernamebigger',
+                ),
+              ],
+            ),
+            _UserProfileRow(
+              title: 'User Profile Unreads 40x40',
+              userProfile: [
+                UUserProfileUnreads(
+                  messagesUnreads: 2,
+                ),
+                UUserProfileUnreads.withUsername(
+                  username: 'username',
+                  messagesUnreads: 1,
+                ),
+                UUserProfileUnreads.withUsername(
+                  username: 'longusername',
+                  messagesUnreads: 5,
+                ),
+                UUserProfileUnreads.withUsername(
+                  username: 'longusernamebigger',
+                  messagesUnreads: 12,
                 ),
               ],
             ),

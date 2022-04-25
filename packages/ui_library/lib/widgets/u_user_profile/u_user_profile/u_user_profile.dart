@@ -6,11 +6,11 @@ import '../models/models_export.dart';
 
 /// Creates an User Profile Widget with picture
 /// and no status
-class UserProfile extends StatelessWidget {
-  /// Creates User Profile widget without name
+class UUserProfile extends StatelessWidget {
+  /// Creates User Profile Widget without name
   ///
   /// [imagePath] if null, it will assume a default placeholder
-  const UserProfile({
+  const UUserProfile({
     Key? key,
     String? imagePath,
   })  : _imagePath = imagePath,
@@ -19,10 +19,10 @@ class UserProfile extends StatelessWidget {
         _size = UUserProfileSize.normal,
         super(key: key);
 
-  /// Creates User Profile widget with name
+  /// Creates User Profile Widget with name
   ///
   /// [imagePath] if null, it will assume a default placeholder
-  const UserProfile.withUsername({
+  const UUserProfile.withUsername({
     Key? key,
     String? imagePath,
     required String username,
