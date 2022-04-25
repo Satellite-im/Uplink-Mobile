@@ -16,9 +16,6 @@ class UUserProfileImagePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
-            SizedBox.square(
-              dimension: 16,
-            ),
             _UserProfileRow(
               title: 'User Profile Status 56x56',
               userProfile: [
@@ -35,9 +32,6 @@ class UUserProfileImagePage extends StatelessWidget {
                   userProfileSize: UUserProfileSize.large,
                 ),
               ],
-            ),
-            SizedBox.square(
-              dimension: 16,
             ),
             _UserProfileRow(
               title: 'User Profile Status 40x40',
@@ -56,9 +50,6 @@ class UUserProfileImagePage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox.square(
-              dimension: 16,
-            ),
             _UserProfileRow(
               title: 'User Profile Status 36x36',
               userProfile: [
@@ -76,9 +67,6 @@ class UUserProfileImagePage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox.square(
-              dimension: 16,
-            ),
             _UserProfileRow(
               title: 'User Profile 40x40',
               userProfile: [
@@ -90,6 +78,21 @@ class UUserProfileImagePage extends StatelessWidget {
                   username: 'longusername',
                 ),
                 UserProfile.withUsername(
+                  username: 'longusernamebigger',
+                ),
+              ],
+            ),
+            _UserProfileRow(
+              title: 'User Profile Notifications 40x40',
+              userProfile: [
+                UserProfileNotification(),
+                UserProfileNotification.withUsername(
+                  username: 'username',
+                ),
+                UserProfileNotification.withUsername(
+                  username: 'longusername',
+                ),
+                UserProfileNotification.withUsername(
                   username: 'longusernamebigger',
                 ),
               ],
@@ -121,6 +124,9 @@ class _UserProfileRow extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        const SizedBox.square(
+          dimension: 16,
+        ),
         UText(
           title,
           textStyle: UTextStyle.H5_topMenuBarTitle,
