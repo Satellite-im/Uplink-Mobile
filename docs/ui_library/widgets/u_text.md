@@ -6,9 +6,9 @@ It is a custom Text Widget for Uplink. It has its own text styles. It should be 
 
 All the fonts, sizes, weight and type are defined in the UTextStyles, is a enum that returns the correct TextStyle with all necessary settings to build UText.
 
-## Other Parameters 
+## Properties
 
-The other parameters like
+There are another properties in UText, like max lines, text overflow, text align, etc.
 
 ### How to use 
 
