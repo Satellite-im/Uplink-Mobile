@@ -9,7 +9,7 @@ part of '../u_user_profile_status.dart';
 /// Example:
 /// ```dart
 /// ClipPath(
-///  clipper: UClipperUserProfileStatus(),
+///  clipper: UserProfileStatusClipper(),
 ///   child: SizedBox(
 ///    height: _size,
 ///    width: _size,
@@ -21,7 +21,7 @@ part of '../u_user_profile_status.dart';
 ///     ),
 ///  ),
 /// ```
-class UClipperUserProfileStatus extends CustomClipper<Path> {
+class UserProfileStatusClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();

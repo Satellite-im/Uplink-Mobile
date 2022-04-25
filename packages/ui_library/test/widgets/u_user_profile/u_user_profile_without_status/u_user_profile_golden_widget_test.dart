@@ -54,7 +54,7 @@ class SystemUnderTestWithoutUsername extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(
         body: Center(
-          child: UserProfile(),
+          child: UUserProfile(),
         ),
       ),
     );
@@ -78,19 +78,19 @@ class SystemUnderTestWithUsername extends StatelessWidget {
               SizedBox.square(
                 dimension: 8,
               ),
-              UserProfile.withUsername(
+              UUserProfile.withUsername(
                 username: 'username',
               ),
               SizedBox.square(
                 dimension: 8,
               ),
-              UserProfile.withUsername(
+              UUserProfile.withUsername(
                 username: 'longusername',
               ),
               SizedBox.square(
                 dimension: 8,
               ),
-              UserProfile.withUsername(
+              UUserProfile.withUsername(
                 username: 'longusernamebigger',
               ),
             ],
