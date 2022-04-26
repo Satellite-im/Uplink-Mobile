@@ -25,11 +25,9 @@ dependencies:
 ```
 
 2. Import
+
 Now that we have successfully installed UI Library, we can import it in our code.
 
 ```dart
 import 'package:ui_library/ui_library_export.dart';
 ```
-
-
-

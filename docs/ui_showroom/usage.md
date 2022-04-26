@@ -30,6 +30,7 @@ import 'package:ui_showroom/ui_showroom_export.dart';
 1. Create a widget page and set its routeName to '/widgetName', in this example is `/UColors`.
 
 ![image](https://user-images.githubusercontent.com/14248245/162667180-5f619cd0-def4-4dcf-93f6-3decc394031e.png)
+
 ![image](https://user-images.githubusercontent.com/14248245/162667270-276a933f-72ab-4db8-8d6f-88236d67e615.png)
 
 2. Export the widget page into ui_pages_export.dart
@@ -39,6 +40,7 @@ import 'package:ui_showroom/ui_showroom_export.dart';
 3. Go to  ui_showroom_page.dart, add widgetPage route and WidgetPageButton with the same widget name.
 
 ![image](https://user-images.githubusercontent.com/14248245/162667569-d8a3cff9-a99f-41d3-83ce-9c310e208686.png)
+
 ![image](https://user-images.githubusercontent.com/14248245/162667639-06523d65-179a-4b0f-8ed6-44abee9cc981.png)
 
 4. You are done! Run the app to check if it works well.
