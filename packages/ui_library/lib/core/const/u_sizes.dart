@@ -36,5 +36,6 @@ class USizes {
   static const double userProfileStatusSmallSize = 8.0;
   static const double userProfileStatusNormalSize = 12.0;
   static const double userProfileNormalMaxUsernameTextSize = 72.0;
-  static const double userProfileMessagesUnreadsIndicator = 20.0;
+  static const double userProfileMessagesUnreadsIndicatorSize = 20.0;
+  static const double userProfileMessagesUnreadsMaxMessagesSize = 42.0;
 }

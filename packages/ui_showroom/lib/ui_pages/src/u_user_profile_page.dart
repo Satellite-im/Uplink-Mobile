@@ -105,15 +105,15 @@ class UUserProfileImagePage extends StatelessWidget {
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'username',
-                  messagesUnreads: 1,
+                  messagesUnreads: 89,
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'longusername',
-                  messagesUnreads: 5,
+                  messagesUnreads: 100,
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'longusernamebigger',
-                  messagesUnreads: 12,
+                  messagesUnreads: 99999,
                 ),
               ],
             ),
