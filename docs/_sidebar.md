@@ -1,18 +1,31 @@
-- **Uplink**
+- Uplink
+
   - [Overview](README.md)
   - [Quickstart](quickstart.md)
   - [Running Test](test.md)
   - [Working with Translations](translation.md)
-- **UI Library**
-  - [Overview](ui_library/overview.md)
-  - **+ Fonts**
-    - [Text](ui_library/fonts/text.md)
-    - [Icons](ui_library/fonts/icon.md)
-  - **+ Core**
-    - [Constants](ui_library/core/constants.md)
-  - **+ Widgets**
-    - [UText](ui_library/widgets/u_text.md)
-    - [UIcon](ui_library/widgets/u_icon.md)
+
+- Packages
+
+  - [Overview](packages/overview.md)
+
+  - UI Library
+    - [Usage](ui_library/usage.md)
+    - Core
+      - Constants
+        - [UColors](ui_library/core/constants/u_colors.md)
+        - [UFonts](ui_library/core/constants/u_fonts.md)
+        - [USizes](ui_library/core/constants/u_sizes.md)
+      - Themes
+        - [UThemes](ui_library/core/themes/u_themes.md)
+    - Widgets <sup>✨</sup>
+      - [UText](ui_library/widgets/u_text.md)
+      - [UIcon](ui_library/widgets/u_icon.md)
+    - Fonts
+      - [Text](ui_library/fonts/text.md)
+      - [Icons](ui_library/fonts/icon.md)
+  - UI Showroom
+    - [Usage](ui_showroom/usage.md)
 <!-- - **Data**
   - [Overview](data/overview.md)
 - **Hooks**
