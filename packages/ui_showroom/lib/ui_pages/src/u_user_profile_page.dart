@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/u_user_profile/u_user_profile_unreads_chat_bubble/u_user_profile_unreads_chat_bubble.dart';
 
 class UUserProfileImagePage extends StatelessWidget {
   const UUserProfileImagePage({Key? key}) : super(key: key);
@@ -13,8 +14,7 @@ class UUserProfileImagePage extends StatelessWidget {
         title: Text(routeName.substring(1)),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: const [
             _UserProfileRow(
               title: 'User Profile Status 56x56',
@@ -116,6 +116,26 @@ class UUserProfileImagePage extends StatelessWidget {
                   messagesUnreads: 99999,
                 ),
               ],
+            ),
+            _UserProfileRow(
+              title: 'User Profile Unreads Chat Bubble 56x56',
+              userProfile: [
+                UUserProfileUnreadsChatBubble(
+                  messagesUnreads: 2,
+                ),
+                UUserProfileUnreadsChatBubble(
+                  messagesUnreads: 89,
+                ),
+                UUserProfileUnreadsChatBubble(
+                  messagesUnreads: 100,
+                ),
+                UUserProfileUnreadsChatBubble(
+                  messagesUnreads: 99999,
+                ),
+              ],
+            ),
+            const SizedBox.square(
+              dimension: 16,
             ),
           ],
         ),
