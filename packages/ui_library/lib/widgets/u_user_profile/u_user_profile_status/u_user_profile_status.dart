@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 
 import '../../../core/core_export.dart';
 
 part 'models/status_indicator.dart';
-part 'models/clipper.dart';
 
 class UUserProfileWithStatus extends StatelessWidget {
   /// Creates an User Profile Widget with picture
@@ -31,6 +31,7 @@ class UUserProfileWithStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _uClipper = UClipper();
     final _statusIndicator =
         StatusIndicator(_status, userProfileSize: _uUserProfileSize);
     final _correctPositionForEachAvatar =
@@ -39,7 +40,7 @@ class UUserProfileWithStatus extends StatelessWidget {
     return Stack(
       children: [
         ClipPath(
-          clipper: UserProfileStatusClipper(),
+          clipper: _uClipper.clipForUserProfileWithStatus(),
           child: SizedBox(
             height: _uUserProfileSize.size,
             width: _uUserProfileSize.size,

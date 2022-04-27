@@ -27,6 +27,17 @@ class UAvatarProfilePage extends StatelessWidget {
                 UServerProfile(),
               ],
             ),
+            _AvatarProfileRow(
+              title: 'App Avatar',
+              userProfile: [
+                UAppAvatarProfile(),
+                UAppAvatarProfile.chatBubble(unreadMessages: 0),
+                UAppAvatarProfile.chatBubble(unreadMessages: 9),
+                UAppAvatarProfile.chatBubble(unreadMessages: 99),
+                UAppAvatarProfile.chatBubble(unreadMessages: 999),
+                UAppAvatarProfile.chatBubble(unreadMessages: 9999),
+              ],
+            ),
             SizedBox.square(
               dimension: 16,
             ),
