@@ -88,6 +88,7 @@ extension UTextStyleExtension on UTextStyle {
       case UTextStyle.BUT1_button:
         return _standardUTextStyle._copyWith(
           fontSize: USizes.textBUT1ButtonSize,
+          color: UColors.white,
         );
       case UTextStyle.BUT2_secondaryButton:
         return _standardUTextStyle._copyWith(
