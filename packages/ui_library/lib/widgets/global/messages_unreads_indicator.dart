@@ -1,26 +1,28 @@
-part of '../u_user_profile_unreads_chat_bubble.dart';
+import 'package:flutter/material.dart';
+import 'package:ui_library/core/core_export.dart';
+import 'package:ui_library/widgets/u_text/u_text.dart';
 
-/// Creates an indicator of notifications in [UUserProfileNotification]
-class MessagesUnreadsIndicator extends StatelessWidget {
-  const MessagesUnreadsIndicator({
+/// Creates an indicator of unread messages
+class UnreadMessagesIndicator extends StatelessWidget {
+  const UnreadMessagesIndicator({
     Key? key,
-    required int messagesUnreads,
-  })  : _messagesUnreads = messagesUnreads,
-        _size = USizes.userProfileMessagesUnreadsIndicatorSize,
+    required int unreadMessages,
+  })  : _unreadMessages = unreadMessages,
+        _size = USizes.unreadMessagesIndicatorSize,
         super(key: key);
 
   final double _size;
 
-  final int _messagesUnreads;
+  final int _unreadMessages;
 
   double _getMessagesUnreadsIndicatorSize() {
-    if (_messagesUnreads < 10) {
+    if (_unreadMessages < 10) {
       return 20;
-    } else if (_messagesUnreads < 100) {
+    } else if (_unreadMessages < 100) {
       return 27;
-    } else if (_messagesUnreads < 1000) {
+    } else if (_unreadMessages < 1000) {
       return 35;
-    } else if (_messagesUnreads < 10000) {
+    } else if (_unreadMessages < 10000) {
       return 42;
     } else {
       return 42;
@@ -42,7 +44,7 @@ class MessagesUnreadsIndicator extends StatelessWidget {
       ),
       child: Center(
         child: UText(
-          _messagesUnreads > 9999 ? '9999' : '$_messagesUnreads',
+          _unreadMessages > 9999 ? '9999' : '$_unreadMessages',
           textStyle: UTextStyle.H2_secondaryHeader,
         ),
       ),
