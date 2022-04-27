@@ -1,53 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/messages_unreads_indicator.dart';
 
 import '../../../core/core_export.dart';
-import '../../u_text/u_text_export.dart';
 import '../models/models_export.dart';
 
 part 'models/clipper.dart';
-part 'models/messages_unreads.dart';
 
-/// Creates an User Profile Unreads Widget
+/// Creates an User Profile Unread Messages Chat Bubble Widget
 class UUserProfileUnreadsChatBubble extends StatelessWidget {
-  /// Creates User Profile Unreads Widget without name
+  /// Creates User Profile Unread Messages Chat Bubble Widget
   ///
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileUnreadsChatBubble({
     Key? key,
     String? imagePath,
-    required int messagesUnreads,
+    required int unreadMessages,
   })  : _imagePath = imagePath,
         _uUserProfileSize = UUserProfileSize.large,
-        _messagesUnreads = messagesUnreads,
+        _unreadMessages = unreadMessages,
         super(key: key);
 
   final UUserProfileSize _uUserProfileSize;
 
-  final int _messagesUnreads;
+  final int _unreadMessages;
 
   final String? _imagePath;
 
   @override
   Widget build(BuildContext context) {
-    final _messagesUnreadsIndicator = MessagesUnreadsIndicator(
-      messagesUnreads: _messagesUnreads,
+    final _unreadMessagesIndicator = UnreadMessagesIndicator(
+      unreadMessages: _unreadMessages,
     );
-    final _correctPositionNotification = _uUserProfileSize.size -
-        (USizes.userProfileMessagesUnreadsIndicatorSize);
+    final _correctPositionNotification =
+        _uUserProfileSize.size - (USizes.unreadMessagesIndicatorSize);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          // width: _messagesUnreads > 9999
-          //     ? USizes.userProfileMessagesUnreadsMaxMessagesSize
-          //     : null,
           child: Stack(
             children: [
               Align(
                 alignment: Alignment.centerRight,
                 child: ClipPath(
-                  clipper:
-                      UserProfileUnreadsChatBubbleClipper(_messagesUnreads),
+                  clipper: UserProfileUnreadsChatBubbleClipper(_unreadMessages),
                   child: SizedBox(
                     height: _uUserProfileSize.size,
                     width: _uUserProfileSize.size,
@@ -62,7 +57,7 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
               Positioned(
                 top: _correctPositionNotification,
                 right: 0,
-                child: _messagesUnreadsIndicator,
+                child: _unreadMessagesIndicator,
               ),
             ],
           ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/u_user_profile/u_user_profile_unreads_chat_bubble/u_user_profile_unreads_chat_bubble.dart';
 
-class UUserProfileImagePage extends StatelessWidget {
-  const UUserProfileImagePage({Key? key}) : super(key: key);
+class UUserProfilePage extends StatelessWidget {
+  const UUserProfilePage({Key? key}) : super(key: key);
 
   static const routeName = '/UUserProfile';
 
@@ -101,19 +101,19 @@ class UUserProfileImagePage extends StatelessWidget {
               title: 'User Profile Unreads 40x40',
               userProfile: [
                 UUserProfileUnreads(
-                  messagesUnreads: 2,
+                  unreadMessages: 2,
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'username',
-                  messagesUnreads: 89,
+                  unreadMessages: 89,
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'longusername',
-                  messagesUnreads: 100,
+                  unreadMessages: 100,
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'longusernamebigger',
-                  messagesUnreads: 99999,
+                  unreadMessages: 99999,
                 ),
               ],
             ),
@@ -121,20 +121,20 @@ class UUserProfileImagePage extends StatelessWidget {
               title: 'User Profile Unreads Chat Bubble 56x56',
               userProfile: [
                 UUserProfileUnreadsChatBubble(
-                  messagesUnreads: 2,
+                  unreadMessages: 2,
                 ),
                 UUserProfileUnreadsChatBubble(
-                  messagesUnreads: 89,
+                  unreadMessages: 89,
                 ),
                 UUserProfileUnreadsChatBubble(
-                  messagesUnreads: 100,
+                  unreadMessages: 100,
                 ),
                 UUserProfileUnreadsChatBubble(
-                  messagesUnreads: 99999,
+                  unreadMessages: 99999,
                 ),
               ],
             ),
-            const SizedBox.square(
+            SizedBox.square(
               dimension: 16,
             ),
           ],

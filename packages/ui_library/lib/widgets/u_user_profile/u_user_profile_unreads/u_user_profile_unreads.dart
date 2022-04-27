@@ -1,48 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/messages_unreads_indicator.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
 import '../models/models_export.dart';
 
 part 'models/clipper.dart';
-part 'models/messages_unreads.dart';
 
-/// Creates an User Profile Unreads Widget
+/// Creates an User Profile Unread Messages Widget
 class UUserProfileUnreads extends StatelessWidget {
-  /// Creates User Profile Unreads Widget without name
+  /// Creates User Profile Unread Messages Widget without name
   ///
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileUnreads({
     Key? key,
     String? imagePath,
-    required int messagesUnreads,
+    required int unreadMessages,
   })  : _imagePath = imagePath,
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _uUserProfileSize = UUserProfileSize.normal,
-        _messagesUnreads = messagesUnreads,
+        _unreadMessages = unreadMessages,
         super(key: key);
 
-  /// Creates User Profile Unreads Widget with name
+  /// Creates User Profile Unread Messages Widget with name
   ///
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileUnreads.withUsername({
     Key? key,
     String? imagePath,
     required String username,
-    required int messagesUnreads,
+    required int unreadMessages,
   })  : _imagePath = imagePath,
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
         _uUserProfileSize = UUserProfileSize.normal,
-        _messagesUnreads = messagesUnreads,
+        _unreadMessages = unreadMessages,
         super(key: key);
 
   final UUserProfileSize _uUserProfileSize;
 
   final UUserProfileType _userProfileType;
 
-  final int _messagesUnreads;
+  final int _unreadMessages;
 
   final String? _userProfileUsername;
 
@@ -50,16 +50,16 @@ class UUserProfileUnreads extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _messagesUnreadsIndicator = MessagesUnreadsIndicator(
-      messagesUnreads: _messagesUnreads,
+    final _unreadMessagesIndicator = UnreadMessagesIndicator(
+      unreadMessages: _unreadMessages,
     );
-    final _correctPositionNotification = _uUserProfileSize.size -
-        (USizes.userProfileMessagesUnreadsIndicatorSize);
+    final _correctPositionNotification =
+        _uUserProfileSize.size - (USizes.unreadMessagesIndicatorSize);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: _messagesUnreads > 999
+          width: _unreadMessages > 999
               ? USizes.userProfileMessagesUnreadsMaxMessagesSize
               : null,
           child: Stack(
@@ -67,7 +67,7 @@ class UUserProfileUnreads extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: ClipPath(
-                  clipper: UserProfileUnreadsClipper(_messagesUnreads),
+                  clipper: UserProfileUnreadsClipper(_unreadMessages),
                   child: SizedBox(
                     height: _uUserProfileSize.size,
                     width: _uUserProfileSize.size,
@@ -82,7 +82,7 @@ class UUserProfileUnreads extends StatelessWidget {
               Positioned(
                 top: _correctPositionNotification,
                 right: 0,
-                child: _messagesUnreadsIndicator,
+                child: _unreadMessagesIndicator,
               ),
             ],
           ),

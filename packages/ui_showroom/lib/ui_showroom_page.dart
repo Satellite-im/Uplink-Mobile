@@ -19,8 +19,8 @@ class UIShowRoomApp extends StatelessWidget {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
         UTextPage.routeName: (context) => const UTextPage(),
-        UUserProfileImagePage.routeName: (context) =>
-            const UUserProfileImagePage(),
+        UUserProfilePage.routeName: (context) => const UUserProfilePage(),
+        UAvatarProfilePage.routeName: (context) => const UAvatarProfilePage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -33,16 +33,19 @@ class UIShowRoomApp extends StatelessWidget {
                 dimension: 16,
               ),
               WidgetPageButton(
-                widgetName: 'UIcon',
+                widgetName: UIconPage.routeName,
               ),
               WidgetPageButton(
-                widgetName: 'UColors',
+                widgetName: UColorsPage.routeName,
               ),
               WidgetPageButton(
-                widgetName: 'UText',
+                widgetName: UTextPage.routeName,
               ),
               WidgetPageButton(
-                widgetName: 'UUserProfile',
+                widgetName: UUserProfilePage.routeName,
+              ),
+              WidgetPageButton(
+                widgetName: UAvatarProfilePage.routeName,
               ),
             ],
           ),
@@ -96,9 +99,9 @@ class WidgetPageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/$widgetName');
+        Navigator.pushNamed(context, widgetName);
       },
-      child: Text(widgetName),
+      child: Text(widgetName.substring(1)),
     );
   }
 }
