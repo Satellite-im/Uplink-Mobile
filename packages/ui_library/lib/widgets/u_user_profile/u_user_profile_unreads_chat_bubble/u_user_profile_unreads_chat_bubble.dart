@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/messages_unreads_indicator.dart';
 
 import '../../../core/core_export.dart';
 import '../models/models_export.dart';
-
-part 'models/clipper.dart';
 
 /// Creates an User Profile Unread Messages Chat Bubble Widget
 class UUserProfileUnreadsChatBubble extends StatelessWidget {
@@ -28,6 +27,7 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _uClipper = UClipper();
     final _unreadMessagesIndicator = UnreadMessagesIndicator(
       unreadMessages: _unreadMessages,
     );
@@ -42,7 +42,8 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: ClipPath(
-                  clipper: UserProfileUnreadsChatBubbleClipper(_unreadMessages),
+                  clipper: _uClipper
+                      .clipForUnreadMessagesChatBubble(_unreadMessages),
                   child: SizedBox(
                     height: _uUserProfileSize.size,
                     width: _uUserProfileSize.size,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
@@ -44,6 +45,7 @@ class UUserProfileNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _uClipper = UClipper();
     const _notificationsIndicator = NotificationIndicator();
     final _correctPositionNotification =
         _uUserProfileSize.size - (_notificationsIndicator._size);
@@ -53,7 +55,7 @@ class UUserProfileNotification extends StatelessWidget {
         Stack(
           children: [
             ClipPath(
-              clipper: UserProfileNotificationClipper(),
+              clipper: _uClipper.clipForUserProfileWithNotification(),
               child: SizedBox(
                 height: _uUserProfileSize.size,
                 width: _uUserProfileSize.size,

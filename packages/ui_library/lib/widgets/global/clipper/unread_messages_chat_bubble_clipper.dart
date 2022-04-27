@@ -1,45 +1,24 @@
-part of '../u_user_profile_unreads_chat_bubble.dart';
+part of 'u_clipper.dart';
 
-/// This class is used to design the format of User Profile widgets
-///
-/// For each [Size] it will calculate and cut off the part necessary
-///
-/// To use the Clipper, it is necessary to pass as parameter to [ClipPath]
-///
-/// Example:
-/// ```dart
-/// ClipPath(
-///  clipper: UserProfileUnreadsChatBubbleClipper(),
-///   child: SizedBox(
-///    height: _size,
-///    width: _size,
-///    child: _imagePath != null
-///             ? Image.network(_imagePath!)
-///              : Image.asset(
-///                 'packages/ui_library/images/placeholders/user_avatar_2.png',
-///        ),
-///     ),
-///  ),
-/// ```
-class UserProfileUnreadsChatBubbleClipper extends CustomClipper<Path> {
-  UserProfileUnreadsChatBubbleClipper(this.numberOfMessages);
+class _ChatBubbleClipper extends CustomClipper<Path> {
+  _ChatBubbleClipper(this.unreadMessages);
 
-  final int numberOfMessages;
+  final int unreadMessages;
 
   @override
   Path getClip(Size size) {
     Path path = Path();
 
-    if (numberOfMessages < 10) {
-      path = _clipForNumbersWithOneDigit(path, size);
-    } else if (numberOfMessages < 100) {
-      path = _clipForNumbersWithTwoDigits(path, size);
-    } else if (numberOfMessages < 1000) {
-      path = _clipForNumbersWithThreeDigits(path, size);
-    } else if (numberOfMessages < 10000) {
-      path = _clipForNumbersWithFourDigits(path, size);
+    if (unreadMessages < 10) {
+      path = _clipForUnreadMessagesWithOneDigit(path, size);
+    } else if (unreadMessages < 100) {
+      path = _clipForUnreadMessagesWithTwoDigits(path, size);
+    } else if (unreadMessages < 1000) {
+      path = _clipForUnreadMessagesWithThreeDigits(path, size);
+    } else if (unreadMessages < 10000) {
+      path = _clipForUnreadMessagesWithFourDigits(path, size);
     } else {
-      path = _clipForNumbersWithFourDigits(path, size);
+      path = _clipForUnreadMessagesWithFourDigits(path, size);
     }
 
     path.close();
@@ -49,7 +28,7 @@ class UserProfileUnreadsChatBubbleClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 
-  Path _clipForNumbersWithOneDigit(Path path, Size size) {
+  Path _clipForUnreadMessagesWithOneDigit(Path path, Size size) {
     path.lineTo(size.width * 0.97, size.height * 0.67);
     path.cubicTo(size.width, size.height * 0.62, size.width, size.height * 0.56,
         size.width, size.height / 2);
@@ -72,7 +51,7 @@ class UserProfileUnreadsChatBubbleClipper extends CustomClipper<Path> {
     return path;
   }
 
-  Path _clipForNumbersWithTwoDigits(Path path, Size size) {
+  Path _clipForUnreadMessagesWithTwoDigits(Path path, Size size) {
     path.lineTo(size.width * 0.97, size.height * 0.67);
     path.cubicTo(size.width, size.height * 0.62, size.width, size.height * 0.56,
         size.width, size.height / 2);
@@ -97,7 +76,7 @@ class UserProfileUnreadsChatBubbleClipper extends CustomClipper<Path> {
     return path;
   }
 
-  Path _clipForNumbersWithThreeDigits(Path path, Size size) {
+  Path _clipForUnreadMessagesWithThreeDigits(Path path, Size size) {
     path.lineTo(size.width * 0.97, size.height * 0.67);
     path.cubicTo(size.width, size.height * 0.62, size.width, size.height * 0.56,
         size.width, size.height / 2);
@@ -120,7 +99,7 @@ class UserProfileUnreadsChatBubbleClipper extends CustomClipper<Path> {
     return path;
   }
 
-  Path _clipForNumbersWithFourDigits(Path path, Size size) {
+  Path _clipForUnreadMessagesWithFourDigits(Path path, Size size) {
     path.moveTo(size.width * 0.97, size.height * 0.66);
     path.cubicTo(size.width, size.height * 0.61, size.width, size.height * 0.56,
         size.width, size.height / 2);

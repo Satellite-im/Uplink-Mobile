@@ -1,42 +1,21 @@
-part of '../u_user_profile_unreads.dart';
+part of 'u_clipper.dart';
 
-/// This class is used to design the format of User Profile widgets
-///
-/// For each [Size] it will calculate and cut off the part necessary
-///
-/// To use the Clipper, it is necessary to pass as parameter to [ClipPath]
-///
-/// Example:
-/// ```dart
-/// ClipPath(
-///  clipper: UserProfileUnreadsClipper(),
-///   child: SizedBox(
-///    height: _size,
-///    width: _size,
-///    child: _imagePath != null
-///             ? Image.network(_imagePath!)
-///              : Image.asset(
-///                 'packages/ui_library/images/placeholders/user_avatar_2.png',
-///        ),
-///     ),
-///  ),
-/// ```
-class UserProfileUnreadsClipper extends CustomClipper<Path> {
-  UserProfileUnreadsClipper(this.numberOfMessages);
+class _UnreadMessagesClipper extends CustomClipper<Path> {
+  _UnreadMessagesClipper(this.unreadMessages);
 
-  final int numberOfMessages;
+  final int unreadMessages;
 
   @override
   Path getClip(Size size) {
     Path path = Path();
 
-    if (numberOfMessages < 10) {
+    if (unreadMessages < 10) {
       path = _clipForNumbersWithOneDigit(path, size);
-    } else if (numberOfMessages < 100) {
+    } else if (unreadMessages < 100) {
       path = _clipForNumbersWithTwoDigits(path, size);
-    } else if (numberOfMessages < 1000) {
+    } else if (unreadMessages < 1000) {
       path = _clipForNumbersWithThreeDigits(path, size);
-    } else if (numberOfMessages < 10000) {
+    } else if (unreadMessages < 10000) {
       path = _clipForNumbersWithFourDigits(path, size);
     } else {
       path = _clipForNumbersWithFourDigits(path, size);

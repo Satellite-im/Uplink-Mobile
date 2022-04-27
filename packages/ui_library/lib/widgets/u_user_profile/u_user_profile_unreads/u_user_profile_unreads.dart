@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/messages_unreads_indicator.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
 import '../models/models_export.dart';
-
-part 'models/clipper.dart';
 
 /// Creates an User Profile Unread Messages Widget
 class UUserProfileUnreads extends StatelessWidget {
@@ -50,6 +49,7 @@ class UUserProfileUnreads extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _uClipper = UClipper();
     final _unreadMessagesIndicator = UnreadMessagesIndicator(
       unreadMessages: _unreadMessages,
     );
@@ -67,7 +67,7 @@ class UUserProfileUnreads extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: ClipPath(
-                  clipper: UserProfileUnreadsClipper(_unreadMessages),
+                  clipper: _uClipper.clipForUnreadMessages(_unreadMessages),
                   child: SizedBox(
                     height: _uUserProfileSize.size,
                     width: _uUserProfileSize.size,
