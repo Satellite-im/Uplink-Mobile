@@ -6,7 +6,7 @@ import 'models/u_icon_data.dart';
 class UIcon extends StatelessWidget {
   /// Creates an [UIcon].
   ///
-  /// The [size] is pre-defined.
+  /// The [size] is 24 px .
   ///
   /// Example:
   /// ```dart
