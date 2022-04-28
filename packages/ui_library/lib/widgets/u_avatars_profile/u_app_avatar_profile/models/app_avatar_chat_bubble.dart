@@ -29,11 +29,19 @@ class _AppAvatarChatBubble extends StatelessWidget {
             clipper: _unreadMessages != 0
                 ? _uClipper.clipForUnreadMessagesChatBubble(_unreadMessages)
                 : null,
-            child: SizedBox(
-              height: _appAvatarSize.size,
+            child: Container(
               width: _appAvatarSize.size,
-              child: Image.asset(
-                'packages/ui_library/images/placeholders/app_avatar.png',
+              height: _appAvatarSize.size,
+              decoration: const BoxDecoration(
+                color: UColors.foregroundDark,
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'packages/ui_library/images/placeholders/uplink_logo.png',
+                  fit: BoxFit.fitHeight,
+                ),
               ),
             ),
           ),
