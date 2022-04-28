@@ -12,11 +12,18 @@ class _AppAvatarNormal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipOval(
-      child: SizedBox(
-        height: _appAvatarSize.size,
+      child: Container(
         width: _appAvatarSize.size,
-        child: Image.asset(
-          'packages/ui_library/images/placeholders/app_avatar.png',
+        height: _appAvatarSize.size,
+        decoration: const BoxDecoration(
+          color: UColors.foregroundDark,
+          shape: BoxShape.circle,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Image.asset(
+            'packages/ui_library/images/placeholders/uplink_logo.png',
+          ),
         ),
       ),
     );

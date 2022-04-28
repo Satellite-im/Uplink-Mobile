@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/core/const/u_sizes.dart';
 import 'package:ui_library/core/core_export.dart';
+import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/messages_unreads_indicator.dart';
 
