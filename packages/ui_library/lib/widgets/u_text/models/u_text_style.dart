@@ -68,9 +68,9 @@ extension UTextStyleExtension on UTextStyle {
         );
       case UTextStyle.B2_medium:
         return _standardUTextStyle._copyWith(
-          fontWeight: FontWeight.w500,
-          fontSize: USizes.textB2MediumSize,
-        );
+            fontWeight: FontWeight.w500,
+            fontSize: USizes.textB2MediumSize,
+            color: UColors.textMed);
       case UTextStyle.B3_italics:
         return _standardUTextStyle._copyWith(
           fontSize: USizes.textB3ItalicsSize,
