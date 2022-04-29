@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
-import 'package:ui_library/widgets/global/messages_unreads_indicator.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';

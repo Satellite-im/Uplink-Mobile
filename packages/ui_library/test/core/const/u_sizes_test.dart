@@ -41,11 +41,29 @@ void main() {
       const _userProfileLargeSize = 56.0;
       const _userProfileStatusSmallSize = 8.0;
       const _userProfileStatusNormalSize = 12.0;
+      const _userProfileNormalMaxUsernameTextSize = 72.0;
+      const _userProfileMessagesUnreadsMaxMessagesSize = 42.0;
       expect(USizes.userProfileTopMenuBarSize, _userProfileTopMenuBarSize);
       expect(USizes.userProfileNormalSize, _userProfileNormalSize);
       expect(USizes.userProfileLargeSize, _userProfileLargeSize);
       expect(USizes.userProfileStatusSmallSize, _userProfileStatusSmallSize);
       expect(USizes.userProfileStatusNormalSize, _userProfileStatusNormalSize);
+      expect(USizes.userProfileNormalMaxUsernameTextSize,
+          _userProfileNormalMaxUsernameTextSize);
+      expect(USizes.userProfileMessagesUnreadsMaxMessagesSize,
+          _userProfileMessagesUnreadsMaxMessagesSize);
+    });
+
+    test('Unread Messages Indicator Size Value', () {
+      const _unreadMessagesIndicatorSize = 20.0;
+      expect(USizes.unreadMessagesIndicatorSize, _unreadMessagesIndicatorSize);
+    });
+
+    test('Unread Messages Indicator Size Value', () {
+      const _avatarProfileNormalSize = 40.0;
+      const _avatarProfileLargeSize = 56.0;
+      expect(USizes.avatarProfileNormalSize, _avatarProfileNormalSize);
+      expect(USizes.avatarProfileLargeSize, _avatarProfileLargeSize);
     });
   });
 }
