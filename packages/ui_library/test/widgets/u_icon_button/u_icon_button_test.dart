@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/widgets/widgets_export.dart';
-import '../helper/golden_test_widget_page.dart';
+import '../helpers/golden_test_widget_page.dart';
 
 void main() {
   group('UIconButton:Golden Test', () {
