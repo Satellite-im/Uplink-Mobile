@@ -5,7 +5,6 @@ import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
 import '../models/models_export.dart';
 
-part 'models/clipper.dart';
 part 'models/notification.dart';
 
 /// Creates an User Profile Notification Widget

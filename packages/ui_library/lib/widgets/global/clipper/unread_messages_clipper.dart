@@ -10,15 +10,13 @@ class _UnreadMessagesClipper extends CustomClipper<Path> {
     Path path = Path();
 
     if (unreadMessages < 10) {
-      path = _clipForNumbersWithOneDigit(path, size);
+      path = _clipForUnreadMessagesWithOneDigit(path, size);
     } else if (unreadMessages < 100) {
-      path = _clipForNumbersWithTwoDigits(path, size);
+      path = _clipForUnreadMessagesWithTwoDigits(path, size);
     } else if (unreadMessages < 1000) {
-      path = _clipForNumbersWithThreeDigits(path, size);
-    } else if (unreadMessages < 10000) {
-      path = _clipForNumbersWithFourDigits(path, size);
+      path = _clipForUnreadMessagesWithThreeDigits(path, size);
     } else {
-      path = _clipForNumbersWithFourDigits(path, size);
+      path = _clipForUnreadMessagesWithFourDigits(path, size);
     }
 
     path.close();
@@ -28,7 +26,7 @@ class _UnreadMessagesClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 
-  Path _clipForNumbersWithOneDigit(Path path, Size size) {
+  Path _clipForUnreadMessagesWithOneDigit(Path path, Size size) {
     path.lineTo(size.width, size.height * 0.58);
     path.cubicTo(size.width, size.height * 0.55, size.width, size.height * 0.53,
         size.width, size.height / 2);
@@ -51,7 +49,7 @@ class _UnreadMessagesClipper extends CustomClipper<Path> {
     return path;
   }
 
-  Path _clipForNumbersWithTwoDigits(Path path, Size size) {
+  Path _clipForUnreadMessagesWithTwoDigits(Path path, Size size) {
     path.moveTo(size.width, size.height * 0.56);
     path.cubicTo(size.width, size.height * 0.54, size.width, size.height * 0.52,
         size.width, size.height / 2);
@@ -123,7 +121,7 @@ class _UnreadMessagesClipper extends CustomClipper<Path> {
     return path;
   }
 
-  Path _clipForNumbersWithThreeDigits(Path path, Size size) {
+  Path _clipForUnreadMessagesWithThreeDigits(Path path, Size size) {
     path.moveTo(size.width, size.height * 0.56);
     path.cubicTo(size.width, size.height * 0.54, size.width, size.height * 0.52,
         size.width, size.height / 2);
@@ -175,7 +173,7 @@ class _UnreadMessagesClipper extends CustomClipper<Path> {
     return path;
   }
 
-  Path _clipForNumbersWithFourDigits(Path path, Size size) {
+  Path _clipForUnreadMessagesWithFourDigits(Path path, Size size) {
     path.moveTo(size.width, size.height * 0.56);
     path.cubicTo(size.width, size.height * 0.54, size.width, size.height * 0.52,
         size.width, size.height / 2);
