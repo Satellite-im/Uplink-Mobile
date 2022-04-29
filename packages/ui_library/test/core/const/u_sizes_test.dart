@@ -2,13 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/core/const/const_export.dart';
 
 void main() {
-  group('Test the values on USizes class |', () {
-    test('UIcon Size Values', () {
+  group('Test USizes class |', () {
+    test('Should return correct size for UIcons', () {
       const _iconSize = 24.0;
       expect(USizes.iconSize, _iconSize);
     });
 
-    test('UText Size Values', () {
+    test('Should return correct sizes for UTextStyles', () {
       const _textH5TopMenuBarTitleSize = 18.0;
       const _textH1PrimaryHeaderSize = 10.0;
       const _textH2SecondaryHeaderSize = 12.0;
@@ -35,7 +35,7 @@ void main() {
       expect(USizes.textBUT2SecondaryButtonSize, _textBUT2SecondaryButtonSize);
     });
 
-    test('UUserProfile Size Values', () {
+    test('Should return correct sizes for UUserProfile', () {
       const _userProfileTopMenuBarSize = 30.0;
       const _userProfileNormalSize = 40.0;
       const _userProfileLargeSize = 56.0;
@@ -54,12 +54,12 @@ void main() {
           _userProfileMessagesUnreadsMaxMessagesSize);
     });
 
-    test('Unread Messages Indicator Size Value', () {
+    test('Should return correct size for Unread Messages Indicator', () {
       const _unreadMessagesIndicatorSize = 20.0;
       expect(USizes.unreadMessagesIndicatorSize, _unreadMessagesIndicatorSize);
     });
 
-    test('Unread Messages Indicator Size Value', () {
+    test('Should return correct sizes for Avatar Profile', () {
       const _avatarProfileNormalSize = 40.0;
       const _avatarProfileLargeSize = 56.0;
       expect(USizes.avatarProfileNormalSize, _avatarProfileNormalSize);
