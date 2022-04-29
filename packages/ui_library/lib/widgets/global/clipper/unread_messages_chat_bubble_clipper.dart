@@ -15,8 +15,6 @@ class _ChatBubbleClipper extends CustomClipper<Path> {
       path = _clipForUnreadMessagesWithTwoDigits(path, size);
     } else if (unreadMessages < 1000) {
       path = _clipForUnreadMessagesWithThreeDigits(path, size);
-    } else if (unreadMessages < 10000) {
-      path = _clipForUnreadMessagesWithFourDigits(path, size);
     } else {
       path = _clipForUnreadMessagesWithFourDigits(path, size);
     }
