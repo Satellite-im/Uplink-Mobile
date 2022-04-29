@@ -22,6 +22,9 @@ class UIShowRoomApp extends StatelessWidget {
         UUserProfileImagePage.routeName: (context) =>
             const UUserProfileImagePage(),
         UButtonPage.routeName: (context) => const UButtonPage(),
+        UIconButtonPage.routeName: (context) => const UIconButtonPage(),
+        UFABPage.routeName: (context) => const UFABPage(),
+        UDropDownButtonPage.routeName: (context) => const UDropDownButtonPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -47,6 +50,15 @@ class UIShowRoomApp extends StatelessWidget {
               ),
               WidgetPageButton(
                 widgetName: 'UButton',
+              ),
+              WidgetPageButton(
+                widgetName: 'UIconButton',
+              ),
+              WidgetPageButton(
+                widgetName: 'UFAB',
+              ),
+              WidgetPageButton(
+                widgetName: 'UDropDownButton',
               ),
             ],
           ),
