@@ -4,4 +4,5 @@ export 'u_user_profile/u_user_profile_status/u_user_profile_status.dart';
 export 'u_user_profile/u_user_profile/u_user_profile.dart';
 export 'u_user_profile/models/models_export.dart';
 export 'u_button/u_button.dart';
+export 'u_icon_button/u_icon_button.dart';
 export 'u_fab/u_fab.dart';
