@@ -8,14 +8,14 @@ class UnreadMessagesIndicator extends StatelessWidget {
     Key? key,
     required int unreadMessages,
   })  : _unreadMessages = unreadMessages,
-        _size = USizes.unreadMessagesIndicatorSize,
+        _height = USizes.unreadMessagesIndicatorSize,
         super(key: key);
 
-  final double _size;
+  final double _height;
 
   final int _unreadMessages;
 
-  double _getMessagesUnreadsIndicatorSize() {
+  double _getUnreadMessagesIndicatorWidth() {
     if (_unreadMessages < 10) {
       return 20;
     } else if (_unreadMessages < 100) {
@@ -32,8 +32,8 @@ class UnreadMessagesIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _getMessagesUnreadsIndicatorSize(),
-      height: _size,
+      width: _getUnreadMessagesIndicatorWidth(),
+      height: _height,
       decoration: const BoxDecoration(
         color: UColors.ctaBlue,
         borderRadius: BorderRadius.all(
