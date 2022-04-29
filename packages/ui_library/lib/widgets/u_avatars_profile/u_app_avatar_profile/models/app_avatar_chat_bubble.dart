@@ -49,7 +49,7 @@ class _AppAvatarChatBubble extends StatelessWidget {
         if (_unreadMessages > 0)
           Positioned(
             top: _correctPositionNotification,
-            right: 0,
+            right: _unreadMessages > 1000 ? 0.6 : 0,
             child: _messagesUnreadsIndicator,
           ),
       ],

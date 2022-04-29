@@ -57,7 +57,7 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
               ),
               Positioned(
                 top: _correctPositionNotification,
-                right: 0,
+                right: _unreadMessages > 1000 ? 0.6 : 0,
                 child: _unreadMessagesIndicator,
               ),
             ],
