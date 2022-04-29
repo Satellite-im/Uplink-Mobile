@@ -12,8 +12,10 @@
 ///  }
 /// ```
 class USizes {
-  // Sizes for [UIcon]
+  // Default size for [UIcon]
   static const double iconSize = 24.0;
+  // Icon size for [ULogoutButton]
+  static const double iconSizeSmall = 20.0;
 
   // Sizes for [UText]
   static const double textH5TopMenuBarTitleSize = 18.0;
