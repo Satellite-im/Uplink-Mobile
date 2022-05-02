@@ -21,8 +21,9 @@ class _UDropDownFABPageState extends State<UDropDownButtonPage> {
       ),
       body: Center(
         child: Container(
-          // padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-          color: UColors.ctaBlue,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50), color: UColors.ctaBlue),
+          padding: const EdgeInsets.fromLTRB(24, 8, 16, 8),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: dropdownValue,
@@ -31,9 +32,11 @@ class _UDropDownFABPageState extends State<UDropDownButtonPage> {
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue!;
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Current value : $dropdownValue')));
                 });
               },
-              items: <String>['One', 'Two', 'Free', 'Four']
+              items: <String>['One', 'Two', 'Three', 'Four']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
