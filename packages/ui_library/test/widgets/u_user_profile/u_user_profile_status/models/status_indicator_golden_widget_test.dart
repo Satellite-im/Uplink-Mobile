@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 void main() {
-  group('UUserProfile Status Indicator |', () {
+  group('Widget Test UUserProfile Status Indicator |', () {
     testWidgets(
         'Should return the right size value when the User Profile is large',
         (WidgetTester tester) async {
@@ -55,21 +55,20 @@ void main() {
       expect(_baseSize.width, equals(8.0));
       expect(_baseSize.height, equals(8.0));
     });
-  });
 
-  goldenTest(
-    'Golden Test for Status Indicator |',
-    fileName: 'status_indicator',
-    builder: () => GoldenTestGroup(
-      children: [
-        GoldenTestScenario(
-          name:
-              'Should return the correct sizes and colors of Status Indicators',
-          child: const SystemUnderTest(),
-        ),
-      ],
-    ),
-  );
+    goldenTest(
+      'Golden Test | Should return correct Status Indicator specs |',
+      fileName: 'status_indicator',
+      builder: () => GoldenTestGroup(
+        children: [
+          GoldenTestScenario(
+            name: 'Should return correct Status Indicator specs',
+            child: const SystemUnderTest(),
+          ),
+        ],
+      ),
+    );
+  });
 }
 
 class SystemUnderTest extends StatelessWidget {
