@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/widgets/global/placeholders/placeholder.dart';
+import 'package:ui_library/widgets/global/placeholder.dart';
 
 import '../models/models_export.dart';
 
