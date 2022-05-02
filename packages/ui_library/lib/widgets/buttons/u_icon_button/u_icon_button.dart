@@ -4,26 +4,55 @@ import 'package:ui_library/ui_library_export.dart';
 enum _CallButtonType { call, end, mute, chat, add, search }
 
 class UIconButton extends StatelessWidget {
+  ///[IconButton] with circle border:
+  ///```dart
+  ///UIconButton.call(onPressed: () {}),
+  ///```
   const UIconButton.call({Key? key, required VoidCallback onPressed})
       : _callButtonType = _CallButtonType.call,
         _onPressed = onPressed,
         super(key: key);
+
+  ///[IconButton] with circle border:
+  ///```dart
+  ///UIconButton.end(onPressed: () {}),
+  ///```
   const UIconButton.end({Key? key, required VoidCallback onPressed})
       : _callButtonType = _CallButtonType.end,
         _onPressed = onPressed,
         super(key: key);
+
+  ///[IconButton] with circle border:
+  ///```dart
+  ///UIconButton.mute(onPressed: () {}),
+  ///```
   const UIconButton.mute({Key? key, required VoidCallback onPressed})
       : _callButtonType = _CallButtonType.mute,
         _onPressed = onPressed,
         super(key: key);
+
+  ///[IconButton] with circle border:
+  ///```dart
+  ///UIconButton.chat(onPressed: () {}),
+  ///```
   const UIconButton.chat({Key? key, required VoidCallback onPressed})
       : _callButtonType = _CallButtonType.chat,
         _onPressed = onPressed,
         super(key: key);
+
+  ///[IconButton] with circle border:
+  ///```dart
+  ///UIconButton.add(onPressed: () {}),
+  ///```
   const UIconButton.add({Key? key, required VoidCallback onPressed})
       : _callButtonType = _CallButtonType.add,
         _onPressed = onPressed,
         super(key: key);
+
+  ///[IconButton] with circle border:
+  ///```dart
+  ///UIconButton.search(onPressed: () {}),
+  ///```
   const UIconButton.search({Key? key, required VoidCallback onPressed})
       : _callButtonType = _CallButtonType.search,
         _onPressed = onPressed,

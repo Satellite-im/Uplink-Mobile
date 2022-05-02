@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class ULogoutButton extends StatelessWidget {
+  ///[TextButton] with a logout icon:
+  ///```dart
+  ///ULogoutButton(onPressed: () {}),
+  ///```
   const ULogoutButton({Key? key, required this.onPressed}) : super(key: key);
   final VoidCallback onPressed;
 

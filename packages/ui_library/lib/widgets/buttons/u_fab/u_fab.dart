@@ -4,16 +4,28 @@ import 'package:ui_library/ui_library_export.dart';
 enum _FABType { ios, android, big }
 
 class UFAB extends StatelessWidget {
+  ///[FloatingActionButton] with '+' icon and rounded rectangle:
+  ///```dart
+  ///UFAB.ios(onPressed: () {}),
+  ///```
   const UFAB.ios({Key? key, required VoidCallback onPressed})
       : _fabType = _FABType.ios,
         _onPressed = onPressed,
         super(key: key);
 
+  ///[FloatingActionButton] with '+' icon and circle border:
+  ///```dart
+  ///UFAB.android(onPressed: () {}),
+  ///```
   const UFAB.android({Key? key, required VoidCallback onPressed})
       : _fabType = _FABType.android,
         _onPressed = onPressed,
         super(key: key);
 
+  ///[FloatingActionButton] with circle border and no icon:
+  ///```dart
+  ///UFAB.big(onPressed: () {}),
+  ///```
   const UFAB.big({Key? key, required VoidCallback onPressed})
       : _fabType = _FABType.big,
         _onPressed = onPressed,

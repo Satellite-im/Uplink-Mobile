@@ -9,6 +9,14 @@ class UButton extends StatelessWidget {
   final UIconData? _uIconData;
   final VoidCallback _onPressed;
 
+  ///[ElevatedButton] with Text and Icon:
+  ///```dart
+  /// UButton.primary(
+  ///    label: 'ButtonText',
+  ///    uIconData: UIcons.about,
+  ///    onPressed: () {},
+  ///  )
+  ///```
   const UButton.primary(
       {Key? key,
       required String label,
@@ -20,6 +28,14 @@ class UButton extends StatelessWidget {
         _onPressed = onPressed,
         super(key: key);
 
+  ///[ElevatedButton] with Text and Icon:
+  ///```dart
+  /// UButton.secondary(
+  ///    label: 'ButtonText',
+  ///    uIconData: UIcons.about,
+  ///    onPressed: () {},
+  ///  )
+  ///```
   const UButton.secondary(
       {Key? key,
       required String label,
@@ -31,6 +47,13 @@ class UButton extends StatelessWidget {
         _onPressed = onPressed,
         super(key: key);
 
+  ///[ElevatedButton] with Text only:
+  ///```dart
+  /// UButton.filled1(
+  ///    label: 'ButtonText',
+  ///    onPressed: () {},
+  ///  )
+  ///```
   const UButton.filled1(
       {Key? key, required String label, required VoidCallback onPressed})
       : _buttonType = _ButtonType.filled1,
@@ -39,6 +62,13 @@ class UButton extends StatelessWidget {
         _onPressed = onPressed,
         super(key: key);
 
+  ///[ElevatedButton] with Text only:
+  ///```dart
+  /// UButton.filled2(
+  ///    label: 'ButtonText',
+  ///    onPressed: () {},
+  ///  )
+  ///```
   const UButton.filled2(
       {Key? key, required String label, required VoidCallback onPressed})
       : _buttonType = _ButtonType.filled2,
