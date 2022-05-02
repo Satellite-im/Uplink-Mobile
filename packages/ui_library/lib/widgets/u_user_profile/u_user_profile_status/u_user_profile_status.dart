@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
+import 'package:ui_library/widgets/global/placeholders/user_profile_placeholder.dart';
 import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 
 import '../../../core/core_export.dart';
@@ -46,9 +47,7 @@ class UUserProfileWithStatus extends StatelessWidget {
             width: _uUserProfileSize.size,
             child: _imagePath != null
                 ? Image.network(_imagePath!)
-                : Image.asset(
-                    'packages/ui_library/images/placeholders/user_avatar_2.png',
-                  ),
+                : const UserProfilePlaceHolder(),
           ),
         ),
         Positioned(
