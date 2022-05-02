@@ -63,16 +63,16 @@ class UIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _iconSize;
+    final double _buttonSize;
     if (_callButtonType == _CallButtonType.search ||
         _callButtonType == _CallButtonType.add) {
-      _iconSize = 40;
+      _buttonSize = 40;
     } else {
-      _iconSize = 56;
+      _buttonSize = 56;
     }
     return Ink(
-      width: _iconSize,
-      height: _iconSize,
+      width: _buttonSize,
+      height: _buttonSize,
       decoration: getDecoration(),
       child: IconButton(
         color: UColors.white,
