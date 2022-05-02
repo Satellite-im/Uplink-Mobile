@@ -62,7 +62,8 @@ class UUserProfileUnreads extends StatelessWidget {
         SizedBox(
           width: _unreadMessages > 999
               ? USizes.userProfileMessagesUnreadsMaxMessagesSize
-              : null,
+              : _uUserProfileSize.size,
+          height: _uUserProfileSize.size,
           child: Stack(
             children: [
               Align(

@@ -1,6 +1,6 @@
 part of '../u_user_profile_notification.dart';
 
-/// Creates an indicator of notifications in [UUserProfileNotification]
+/// Creates a notifications indicator in [UUserProfileNotification]
 class NotificationIndicator extends StatelessWidget {
   const NotificationIndicator({
     Key? key,

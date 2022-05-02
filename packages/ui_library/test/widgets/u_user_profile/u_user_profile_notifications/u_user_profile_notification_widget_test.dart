@@ -8,9 +8,14 @@ void main() {
     testWidgets('Should return the right size value',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Center(
-            child: UUserProfileNotification(),
+        MaterialApp(
+          home: Scaffold(
+            body: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                UUserProfileNotification(),
+              ],
+            ),
           ),
         ),
       );
