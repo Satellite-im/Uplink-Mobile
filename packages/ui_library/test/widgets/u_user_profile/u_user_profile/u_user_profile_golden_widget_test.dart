@@ -1,101 +1,74 @@
+import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 void main() {
   group('UUserProfile |', () {
-    testWidgets(
-      '*** just a trick to load asset images ***',
-      (tester) async {
-        await tester.pumpWidget(const SystemUnderTestWithoutUsername());
-        await tester.pumpAndSettle();
-      },
-      tags: 'golden',
-    );
-
-    testWidgets(
-      'Golden Test User Profile without username',
-      (tester) async {
-        tester.binding.ensureVisualUpdate();
-        await tester.pumpWidget(
-          const SystemUnderTestWithoutUsername(),
-        );
-        await tester.pumpAndSettle(const Duration(seconds: 3));
-
-        await expectLater(find.byType(SystemUnderTestWithoutUsername),
-            matchesGoldenFile('user_profile_without_username.png'));
-      },
-      tags: 'golden',
-    );
-
-    testWidgets(
-      'Golden Test User Profile with username',
-      (tester) async {
-        await tester.pumpWidget(
-          const SystemUnderTestWithUsername(),
-        );
-        await tester.pumpAndSettle();
-
-        await expectLater(find.byType(SystemUnderTestWithUsername),
-            matchesGoldenFile('user_profile_with_username.png'));
-      },
-      tags: 'golden',
+    goldenTest(
+      'Golden Tests for UUserProfile |',
+      fileName: 'user_profile',
+      builder: () => GoldenTestGroup(
+        children: [
+          GoldenTestScenario(
+            name:
+                'Should return correct UUserProfiles format with username variations',
+            child: const _SystemUnderTestWithUsername(),
+          ),
+          GoldenTestScenario(
+            name: 'Should return correct UUserProfile without username',
+            child: const _SystemUnderTestWithoutUsername(),
+          ),
+        ],
+      ),
     );
   });
 }
 
-class SystemUnderTestWithoutUsername extends StatelessWidget {
-  const SystemUnderTestWithoutUsername({
+class _SystemUnderTestWithoutUsername extends StatelessWidget {
+  const _SystemUnderTestWithoutUsername({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: UUserProfile(),
-        ),
-      ),
+    return const Center(
+      child: UUserProfile(),
     );
   }
 }
 
-class SystemUnderTestWithUsername extends StatelessWidget {
-  const SystemUnderTestWithUsername({
+class _SystemUnderTestWithUsername extends StatelessWidget {
+  const _SystemUnderTestWithUsername({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              SizedBox.square(
-                dimension: 8,
-              ),
-              UUserProfile.withUsername(
-                username: 'username',
-              ),
-              SizedBox.square(
-                dimension: 8,
-              ),
-              UUserProfile.withUsername(
-                username: 'longusername',
-              ),
-              SizedBox.square(
-                dimension: 8,
-              ),
-              UUserProfile.withUsername(
-                username: 'longusernamebigger',
-              ),
-            ],
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          SizedBox.square(
+            dimension: 8,
           ),
-        ),
+          UUserProfile.withUsername(
+            username: 'username',
+          ),
+          SizedBox.square(
+            dimension: 8,
+          ),
+          UUserProfile.withUsername(
+            username: 'longusername',
+          ),
+          SizedBox.square(
+            dimension: 8,
+          ),
+          UUserProfile.withUsername(
+            username: 'longusernamebigger',
+          ),
+        ],
       ),
     );
   }
