@@ -5,5 +5,4 @@ export 'src/u_user_profile_page.dart';
 export 'src/buttons/u_button_page.dart';
 export 'src/buttons/u_icon_button_page.dart';
 export 'src/buttons/u_fab_page.dart';
-export 'src/buttons/u_dropdown_button_page.dart';
 export 'src/buttons/u_logout_button_page.dart';
