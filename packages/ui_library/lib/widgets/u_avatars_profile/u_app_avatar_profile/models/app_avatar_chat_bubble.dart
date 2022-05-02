@@ -36,13 +36,9 @@ class _AppAvatarChatBubble extends StatelessWidget {
                 color: UColors.foregroundDark,
                 shape: BoxShape.circle,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  'packages/ui_library/images/placeholders/uplink_logo.png',
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+              child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: UPlaceholder.avatarProfile()),
             ),
           ),
         ),

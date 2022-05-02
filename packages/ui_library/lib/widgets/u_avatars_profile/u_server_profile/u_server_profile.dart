@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/placeholders/placeholder.dart';
 
 import '../models/models_export.dart';
 
@@ -27,9 +28,7 @@ class UServerProfile extends StatelessWidget {
         width: _size.size,
         child: _imagePath != null
             ? Image.network(_imagePath!)
-            : Image.asset(
-                'packages/ui_library/images/placeholders/server_avatar_2.png',
-              ),
+            : const UPlaceholder.serverProfile(),
       ),
     );
   }

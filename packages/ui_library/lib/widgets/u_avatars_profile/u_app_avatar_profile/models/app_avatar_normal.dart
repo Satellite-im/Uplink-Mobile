@@ -19,11 +19,9 @@ class _AppAvatarNormal extends StatelessWidget {
           color: UColors.foregroundDark,
           shape: BoxShape.circle,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Image.asset(
-            'packages/ui_library/images/placeholders/uplink_logo.png',
-          ),
+        child: const Padding(
+          padding: EdgeInsets.all(4.0),
+          child: UPlaceholder.avatarProfile(),
         ),
       ),
     );
