@@ -35,7 +35,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(GoldenTestWidgetPage(
             widget: UButton.filled1(
-          label: 'UButton.primary',
+          label: 'UButton.filled1',
           onPressed: () {},
         )));
         await expectLater(find.byType(UButton),
@@ -48,7 +48,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(GoldenTestWidgetPage(
             widget: UButton.filled2(
-          label: 'UButton.primary',
+          label: 'UButton.filled2',
           onPressed: () {},
         )));
         await expectLater(find.byType(UButton),
