@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
-import 'package:ui_library/widgets/global/placeholders/user_profile_placeholder.dart';
+import 'package:ui_library/widgets/global/placeholders/placeholder.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
@@ -61,7 +61,7 @@ class UUserProfileNotification extends StatelessWidget {
                 width: _uUserProfileSize.size,
                 child: _imagePath != null
                     ? Image.network(_imagePath!)
-                    : const UserProfilePlaceHolder(),
+                    : const UPlaceholder.userProfile(),
               ),
             ),
             Positioned(
