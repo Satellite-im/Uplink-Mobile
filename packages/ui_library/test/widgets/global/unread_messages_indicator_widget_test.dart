@@ -4,7 +4,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 
 void main() {
-  group('Test Unread Messages Indicator Widget |', () {
+  group('Widget Test Unread Messages Indicator |', () {
     testWidgets(
         'Should return the right size and unread messages value when the number of messages are smaller than 10',
         (WidgetTester tester) async {

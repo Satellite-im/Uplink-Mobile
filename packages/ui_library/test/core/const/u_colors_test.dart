@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/core/const/const_export.dart';
 
 void main() {
-  group('Test UColors class |', () {
+  group('Unit Test UColors class |', () {
     test('Should return correct colors', () {
       const _backgroundDark = Color(0xFF0D0E16);
       expect(UColors.backgroundDark, _backgroundDark);

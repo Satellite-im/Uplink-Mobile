@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/core/theme/theme_export.dart';
 
 void main() {
-  group('SharedPreferences', () {
+  group('Unit Test SharedPreferences |', () {
     test('return \'dark\'  when no theme name saved', () async {
       SharedPreferences.setMockInitialValues({});
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -21,7 +21,7 @@ void main() {
     });
   });
 
-  group('ThemeModel', () {
+  group('Unit Test ThemeModel |', () {
     ThemeModel themeModel;
     test('return dark theme when no theme saved', () async {
       themeModel = ThemeModel();
