@@ -9,6 +9,7 @@ class UnreadMessagesIndicator extends StatelessWidget {
     required int unreadMessages,
   })  : _unreadMessages = unreadMessages,
         _height = USizes.unreadMessagesIndicatorSize,
+        assert(unreadMessages > -1),
         super(key: key);
 
   final double _height;
