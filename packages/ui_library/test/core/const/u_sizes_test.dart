@@ -65,5 +65,20 @@ void main() {
       expect(USizes.avatarProfileNormalSize, _avatarProfileNormalSize);
       expect(USizes.avatarProfileLargeSize, _avatarProfileLargeSize);
     });
+
+    test('Should return correct sizes for Unread Messages Indicator', () {
+      const _unreadMessagesLessThanTenWidthSize = 20.0;
+      const _unreadMessagesLessThanHundredWidthSize = 27.0;
+      const _unreadMessagesLessThanThousandWidthSize = 35.0;
+      const _unreadMessagesGreaterThanOrEqualToThousandWidthSize = 42.0;
+      expect(USizes.unreadMessagesLessThanTenWidthSize,
+          _unreadMessagesLessThanTenWidthSize);
+      expect(USizes.unreadMessagesLessThanHundredWidthSize,
+          _unreadMessagesLessThanHundredWidthSize);
+      expect(USizes.unreadMessagesLessThanThousandWidthSize,
+          _unreadMessagesLessThanThousandWidthSize);
+      expect(USizes.unreadMessagesGreaterThanOrEqualToThousandWidthSize,
+          _unreadMessagesGreaterThanOrEqualToThousandWidthSize);
+    });
   });
 }
