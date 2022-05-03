@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 Map<String, Widget> uFABMap = {
-  'UFAB.android': UFAB.android(onPressed: () {}),
-  'UFAB.ios': UFAB.ios(onPressed: () {}),
-  'UFAB.big': UFAB.big(onPressed: () {}),
+  'UFAB.android': UFAB.android(
+    onPressed: () {},
+    key: const Key('UFAB.android'),
+  ),
+  'UFAB.ios': UFAB.ios(
+    onPressed: () {},
+    key: const Key('UFAB.ios'),
+  ),
+  'UFAB.big': UFAB.big(
+    onPressed: () {},
+    key: const Key('UFAB.big'),
+  ),
 };
 
 class UFABPage extends StatelessWidget {

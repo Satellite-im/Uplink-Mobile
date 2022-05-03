@@ -39,30 +39,33 @@ class UFAB extends StatelessWidget {
     switch (_fabType) {
       case _FABType.ios:
         return FloatingActionButton(
+          heroTag: key,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           backgroundColor: UColors.ctaBlue,
-          foregroundColor: Colors.white,
+          foregroundColor: UColors.white,
           child: const UIcon(UIcons.add_button),
           onPressed: _onPressed,
         );
       case _FABType.android:
         return FloatingActionButton(
+          heroTag: key,
           backgroundColor: UColors.ctaBlue,
-          foregroundColor: Colors.white,
+          foregroundColor: UColors.white,
           child: const UIcon(UIcons.add_button),
           onPressed: _onPressed,
         );
       case _FABType.big:
         return FloatingActionButton(
           backgroundColor: UColors.ctaBlue,
-          foregroundColor: Colors.white,
+          foregroundColor: UColors.white,
           onPressed: _onPressed,
         );
       default:
         return FloatingActionButton(
+          heroTag: key,
           backgroundColor: UColors.ctaBlue,
-          foregroundColor: Colors.white,
+          foregroundColor: UColors.white,
           onPressed: _onPressed,
         );
     }
