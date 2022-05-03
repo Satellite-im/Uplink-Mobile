@@ -44,4 +44,11 @@ class USizes {
   // Sizes for [UAvatarProfile]
   static const double avatarProfileNormalSize = 40.0;
   static const double avatarProfileLargeSize = 56.0;
+
+  // Width sizes for [UnreadMessagesIndicator]
+  static const double unreadMessagesLessThanTenWidthSize = 20.0;
+  static const double unreadMessagesLessThanHundredWidthSize = 27.0;
+  static const double unreadMessagesLessThanThousandWidthSize = 35.0;
+  static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
+      42.0;
 }
