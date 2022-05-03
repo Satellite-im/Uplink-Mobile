@@ -66,9 +66,9 @@ class UIconButton extends StatelessWidget {
     final double _buttonSize;
     if (_callButtonType == _CallButtonType.search ||
         _callButtonType == _CallButtonType.add) {
-      _buttonSize = 40;
+      _buttonSize = USizes.buttonSizeSmall;
     } else {
-      _buttonSize = 56;
+      _buttonSize = USizes.buttonSize;
     }
     return Ink(
       width: _buttonSize,
