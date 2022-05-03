@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 void main() {
-  group('UUserProfile |', () {
+  group('Widget Test UUserProfile |', () {
     goldenTest(
-      'Golden Tests for UUserProfile |',
+      'Golden Test | Should return correct UUserProfile specs |',
       fileName: 'user_profile',
       builder: () => GoldenTestGroup(
         children: [

@@ -29,7 +29,7 @@ class UAppAvatarProfile extends StatelessWidget {
   const UAppAvatarProfile.chatBubble({
     Key? key,
     String? imagePath,
-    required int unreadMessages,
+    int? unreadMessages,
   })  : _type = _AppAvatarType.chatBubble,
         _size = UAvatarProfileSize.large,
         _unreadMessages = unreadMessages,
@@ -39,7 +39,7 @@ class UAppAvatarProfile extends StatelessWidget {
 
   final _AppAvatarType _type;
 
-  final int _unreadMessages;
+  final int? _unreadMessages;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,9 @@ class UAppAvatarProfile extends StatelessWidget {
             size: _size,
           )
         : _AppAvatarChatBubble(
-            unreadMessages: _unreadMessages,
+            unreadMessages: (_unreadMessages != null && _unreadMessages! > 0)
+                ? _unreadMessages!
+                : 0,
             size: _size,
           );
   }
