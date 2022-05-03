@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/core/core_export.dart';
 import 'package:ui_library/widgets/u_text/u_text.dart';
 
-/// Creates an indicator of unread messages
 class UnreadMessagesIndicator extends StatelessWidget {
+  /// Creates unread messages indicator
+  ///
+  /// It changes the width size depending on the number of [_unreadMessages]
+  ///
+  /// Unread messages need to be greater than or equal to 0
+  ///
+  /// If the number of [_unreadMessages] is greater than 9999,
+  /// in the widget will just show 9999
   const UnreadMessagesIndicator({
     Key? key,
     required int unreadMessages,

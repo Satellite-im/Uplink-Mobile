@@ -18,6 +18,10 @@ extension _PlaceholderImagePath on _PlaceholderType {
   }
 }
 
+/// Class to access image assets and return the placeholder
+///
+/// If the image fails to load, It will be replaced with a container
+/// with backgroundColor depending on [_placeholderType]
 class UPlaceholder extends StatelessWidget {
   const UPlaceholder.userProfile({Key? key})
       : _placeholderType = _PlaceholderType.user,
