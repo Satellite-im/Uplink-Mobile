@@ -37,30 +37,28 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: ClipPath(
-                  clipper: _uClipper
-                      .clipForUnreadMessagesChatBubble(_unreadMessages),
-                  child: SizedBox(
-                    height: _uUserProfileSize.size,
-                    width: _uUserProfileSize.size,
-                    child: _imagePath != null
-                        ? Image.network(_imagePath!)
-                        : const UPlaceholder.userProfile(),
-                  ),
+        Stack(
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: ClipPath(
+                clipper:
+                    _uClipper.clipForUnreadMessagesChatBubble(_unreadMessages),
+                child: SizedBox(
+                  height: _uUserProfileSize.size,
+                  width: _uUserProfileSize.size,
+                  child: _imagePath != null
+                      ? Image.network(_imagePath!)
+                      : const UPlaceholder.userProfile(),
                 ),
               ),
-              Positioned(
-                top: _correctPositionNotification,
-                right: _unreadMessages > 1000 ? 0.6 : 0,
-                child: _unreadMessagesIndicator,
-              ),
-            ],
-          ),
+            ),
+            Positioned(
+              top: _correctPositionNotification,
+              right: _unreadMessages >= 1000 ? 0.6 : 0,
+              child: _unreadMessagesIndicator,
+            ),
+          ],
         ),
       ],
     );
