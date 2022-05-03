@@ -75,6 +75,7 @@ class UIconButton extends StatelessWidget {
       height: _buttonSize,
       decoration: getDecoration(),
       child: IconButton(
+        splashRadius: _buttonSize / 2,
         color: UColors.white,
         onPressed: _onPressed,
         icon: getUIcon(),
