@@ -6,19 +6,19 @@ enum _FABType { ios, android, big }
 class UFAB extends StatelessWidget {
   ///[FloatingActionButton] with '+' icon and rounded rectangle:
   ///```dart
-  ///UFAB.ios(onPressed: () {}),
+  ///UFAB.android(onPressed: () {}),
   ///```
-  const UFAB.ios({Key? key, required VoidCallback onPressed})
-      : _fabType = _FABType.ios,
+  const UFAB.android({Key? key, required VoidCallback onPressed})
+      : _fabType = _FABType.android,
         _onPressed = onPressed,
         super(key: key);
 
   ///[FloatingActionButton] with '+' icon and circle border:
   ///```dart
-  ///UFAB.android(onPressed: () {}),
+  ///UFAB.ios(onPressed: () {}),
   ///```
-  const UFAB.android({Key? key, required VoidCallback onPressed})
-      : _fabType = _FABType.android,
+  const UFAB.ios({Key? key, required VoidCallback onPressed})
+      : _fabType = _FABType.ios,
         _onPressed = onPressed,
         super(key: key);
 
@@ -37,7 +37,7 @@ class UFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (_fabType) {
-      case _FABType.ios:
+      case _FABType.android:
         return FloatingActionButton(
           heroTag: key,
           shape:
@@ -47,7 +47,7 @@ class UFAB extends StatelessWidget {
           child: const UIcon(UIcons.add_button),
           onPressed: _onPressed,
         );
-      case _FABType.android:
+      case _FABType.ios:
         return FloatingActionButton(
           heroTag: key,
           backgroundColor: UColors.ctaBlue,
