@@ -6,7 +6,7 @@ import 'models/u_icon_data.dart';
 class UIcon extends StatelessWidget {
   /// Creates an [UIcon].
   ///
-  /// The [size] is pre-defined.
+  /// The default [size] is 24 px .
   ///
   /// Example:
   /// ```dart
@@ -27,16 +27,42 @@ class UIcon extends StatelessWidget {
   const UIcon(
     this.icon, {
     Key? key,
+    this.color,
+    this.size,
   }) : super(key: key);
 
   final UIconData icon;
+  final Color? color;
+  final UIconSize? size;
 
   @override
   Widget build(BuildContext context) {
     return Icon(
       icon,
-      size: USizes.iconSize,
+      size: size != null ? size!.toDouble() : UIconSize.normal.toDouble(),
+      color: color ?? UColors.white,
       key: key,
     );
+  }
+}
+
+enum UIconSize {
+  ///24pt
+  normal,
+
+  ///20pt, for ULogoutButton
+  small,
+}
+
+extension UIconSizeExtension on UIconSize {
+  double toDouble() {
+    switch (this) {
+      case UIconSize.normal:
+        return USizes.iconSize;
+      case UIconSize.small:
+        return USizes.iconSizeSmall;
+      default:
+        return USizes.iconSize;
+    }
   }
 }

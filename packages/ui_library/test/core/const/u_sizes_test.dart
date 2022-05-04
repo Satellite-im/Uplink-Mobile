@@ -80,5 +80,12 @@ void main() {
       expect(USizes.unreadMessagesGreaterThanOrEqualToThousandWidthSize,
           _unreadMessagesGreaterThanOrEqualToThousandWidthSize);
     });
+
+    test('UIconButton Size Values', () {
+      const _buttonSize = 56.0;
+      const _buttonSizeSmall = 40.0;
+      expect(USizes.buttonSize, _buttonSize);
+      expect(USizes.buttonSizeSmall, _buttonSizeSmall);
+    });
   });
 }
