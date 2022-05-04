@@ -2,13 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/core/const/const_export.dart';
 
 void main() {
-  group('Test the values on USizes class |', () {
-    test('UIcon Size Values', () {
+  group('Unit Test USizes class |', () {
+    test('Should return correct size for UIcons', () {
       const _iconSize = 24.0;
       expect(USizes.iconSize, _iconSize);
     });
 
-    test('UText Size Values', () {
+    test('Should return correct sizes for UTextStyles', () {
       const _textH5TopMenuBarTitleSize = 18.0;
       const _textH1PrimaryHeaderSize = 10.0;
       const _textH2SecondaryHeaderSize = 12.0;
@@ -35,17 +35,50 @@ void main() {
       expect(USizes.textBUT2SecondaryButtonSize, _textBUT2SecondaryButtonSize);
     });
 
-    test('UUserProfile Size Values', () {
+    test('Should return correct sizes for UUserProfile', () {
       const _userProfileTopMenuBarSize = 30.0;
       const _userProfileNormalSize = 40.0;
       const _userProfileLargeSize = 56.0;
       const _userProfileStatusSmallSize = 8.0;
       const _userProfileStatusNormalSize = 12.0;
+      const _userProfileNormalMaxUsernameTextSize = 72.0;
+      const _userProfileMessagesUnreadsMaxMessagesSize = 42.0;
       expect(USizes.userProfileTopMenuBarSize, _userProfileTopMenuBarSize);
       expect(USizes.userProfileNormalSize, _userProfileNormalSize);
       expect(USizes.userProfileLargeSize, _userProfileLargeSize);
       expect(USizes.userProfileStatusSmallSize, _userProfileStatusSmallSize);
       expect(USizes.userProfileStatusNormalSize, _userProfileStatusNormalSize);
+      expect(USizes.userProfileNormalMaxUsernameTextSize,
+          _userProfileNormalMaxUsernameTextSize);
+      expect(USizes.userProfileMessagesUnreadsMaxMessagesSize,
+          _userProfileMessagesUnreadsMaxMessagesSize);
+    });
+
+    test('Should return correct size for Unread Messages Indicator', () {
+      const _unreadMessagesIndicatorSize = 20.0;
+      expect(USizes.unreadMessagesIndicatorSize, _unreadMessagesIndicatorSize);
+    });
+
+    test('Should return correct sizes for Avatar Profile', () {
+      const _avatarProfileNormalSize = 40.0;
+      const _avatarProfileLargeSize = 56.0;
+      expect(USizes.avatarProfileNormalSize, _avatarProfileNormalSize);
+      expect(USizes.avatarProfileLargeSize, _avatarProfileLargeSize);
+    });
+
+    test('Should return correct sizes for Unread Messages Indicator', () {
+      const _unreadMessagesLessThanTenWidthSize = 20.0;
+      const _unreadMessagesLessThanHundredWidthSize = 27.0;
+      const _unreadMessagesLessThanThousandWidthSize = 35.0;
+      const _unreadMessagesGreaterThanOrEqualToThousandWidthSize = 42.0;
+      expect(USizes.unreadMessagesLessThanTenWidthSize,
+          _unreadMessagesLessThanTenWidthSize);
+      expect(USizes.unreadMessagesLessThanHundredWidthSize,
+          _unreadMessagesLessThanHundredWidthSize);
+      expect(USizes.unreadMessagesLessThanThousandWidthSize,
+          _unreadMessagesLessThanThousandWidthSize);
+      expect(USizes.unreadMessagesGreaterThanOrEqualToThousandWidthSize,
+          _unreadMessagesGreaterThanOrEqualToThousandWidthSize);
     });
 
     test('UIconButton Size Values', () {

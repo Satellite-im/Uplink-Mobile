@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/u_user_profile/u_user_profile_unreads_chat_bubble/u_user_profile_unreads_chat_bubble.dart';
 
-class UUserProfileImagePage extends StatelessWidget {
-  const UUserProfileImagePage({Key? key}) : super(key: key);
+class UUserProfilePage extends StatelessWidget {
+  const UUserProfilePage({Key? key}) : super(key: key);
 
   static const routeName = '/UUserProfile';
 
@@ -13,86 +14,128 @@ class UUserProfileImagePage extends StatelessWidget {
         title: Text(routeName.substring(1)),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: const [
-            SizedBox.square(
-              dimension: 16,
-            ),
             _UserProfileRow(
               title: 'User Profile Status 56x56',
               userProfile: [
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.large,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.large,
                 ),
               ],
-            ),
-            SizedBox.square(
-              dimension: 16,
             ),
             _UserProfileRow(
               title: 'User Profile Status 40x40',
               userProfile: [
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.normal,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.normal,
                 ),
               ],
-            ),
-            SizedBox.square(
-              dimension: 16,
             ),
             _UserProfileRow(
               title: 'User Profile Status 36x36',
               userProfile: [
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
-                UserProfileWithStatus(
+                UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.topMenuBar,
                 ),
               ],
             ),
-            SizedBox.square(
-              dimension: 16,
-            ),
             _UserProfileRow(
               title: 'User Profile 40x40',
               userProfile: [
-                UserProfile(),
-                UserProfile.withUsername(
+                UUserProfile(),
+                UUserProfile.withUsername(
                   username: 'username',
                 ),
-                UserProfile.withUsername(
+                UUserProfile.withUsername(
                   username: 'longusername',
                 ),
-                UserProfile.withUsername(
+                UUserProfile.withUsername(
                   username: 'longusernamebigger',
                 ),
               ],
+            ),
+            _UserProfileRow(
+              title: 'User Profile Notification 40x40',
+              userProfile: [
+                UUserProfileNotification(),
+                UUserProfileNotification.withUsername(
+                  username: 'username',
+                ),
+                UUserProfileNotification.withUsername(
+                  username: 'longusername',
+                ),
+                UUserProfileNotification.withUsername(
+                  username: 'longusernamebigger',
+                ),
+              ],
+            ),
+            _UserProfileRow(
+              title: 'User Profile Unreads 40x40',
+              userProfile: [
+                UUserProfileUnreads(
+                  unreadMessages: 2,
+                ),
+                UUserProfileUnreads.withUsername(
+                  username: 'username',
+                  unreadMessages: 89,
+                ),
+                UUserProfileUnreads.withUsername(
+                  username: 'longusername',
+                  unreadMessages: 100,
+                ),
+                UUserProfileUnreads.withUsername(
+                  username: 'longusernamebigger',
+                  unreadMessages: 99999,
+                ),
+              ],
+            ),
+            _UserProfileRow(
+              title: 'User Profile Unreads Chat Bubble 56x56',
+              userProfile: [
+                UUserProfileUnreadsChatBubble(
+                  unreadMessages: 2,
+                ),
+                UUserProfileUnreadsChatBubble(
+                  unreadMessages: 89,
+                ),
+                UUserProfileUnreadsChatBubble(
+                  unreadMessages: 100,
+                ),
+                UUserProfileUnreadsChatBubble(
+                  unreadMessages: 99999,
+                ),
+              ],
+            ),
+            SizedBox.square(
+              dimension: 16,
             ),
           ],
         ),
@@ -121,6 +164,9 @@ class _UserProfileRow extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        const SizedBox.square(
+          dimension: 16,
+        ),
         UText(
           title,
           textStyle: UTextStyle.H5_topMenuBarTitle,

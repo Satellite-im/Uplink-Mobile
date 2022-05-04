@@ -1,42 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/widgets/global/placeholder.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
-import '../models/u_user_profile_sizes.dart';
-
-enum _UserProfileType { withUsername, noUsername }
+import '../models/models_export.dart';
 
 /// Creates an User Profile Widget with picture
 /// and no status
-class UserProfile extends StatelessWidget {
-  /// Creates User Profile widget without name
+class UUserProfile extends StatelessWidget {
+  /// Creates User Profile Widget without name
   ///
   /// [imagePath] if null, it will assume a default placeholder
-  const UserProfile({
+  const UUserProfile({
     Key? key,
     String? imagePath,
   })  : _imagePath = imagePath,
-        _userProfileType = _UserProfileType.noUsername,
+        _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _size = UUserProfileSize.normal,
         super(key: key);
 
-  /// Creates User Profile widget with name
+  /// Creates User Profile Widget with name
   ///
   /// [imagePath] if null, it will assume a default placeholder
-  const UserProfile.withUsername({
+  const UUserProfile.withUsername({
     Key? key,
     String? imagePath,
     required String username,
   })  : _imagePath = imagePath,
         _userProfileUsername = username,
-        _userProfileType = _UserProfileType.withUsername,
+        _userProfileType = UUserProfileType.withUsername,
         _size = UUserProfileSize.normal,
         super(key: key);
 
   final UUserProfileSize _size;
 
-  final _UserProfileType _userProfileType;
+  final UUserProfileType _userProfileType;
 
   final String? _userProfileUsername;
 
@@ -53,12 +52,10 @@ class UserProfile extends StatelessWidget {
             width: _size.size,
             child: _imagePath != null
                 ? Image.network(_imagePath!)
-                : Image.asset(
-                    'packages/ui_library/images/placeholders/user_avatar_2.png',
-                  ),
+                : const UPlaceholder.userProfile(),
           ),
         ),
-        if (_userProfileType == _UserProfileType.withUsername) ...[
+        if (_userProfileType == UUserProfileType.withUsername) ...[
           const SizedBox.square(dimension: 8),
           SizedBox(
             width: USizes.userProfileNormalMaxUsernameTextSize,

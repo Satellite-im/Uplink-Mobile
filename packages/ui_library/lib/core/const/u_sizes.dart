@@ -35,6 +35,9 @@ class USizes {
   static const double textBUT1ButtonSize = 10.0;
   static const double textBUT2SecondaryButtonSize = 10.0;
 
+  // Sizes for [Unread Messages Indicator]
+  static const double unreadMessagesIndicatorSize = 20.0;
+
   // Sizes for [UUserProfile]
   static const double userProfileTopMenuBarSize = 30.0;
   static const double userProfileNormalSize = 40.0;
@@ -42,4 +45,16 @@ class USizes {
   static const double userProfileStatusSmallSize = 8.0;
   static const double userProfileStatusNormalSize = 12.0;
   static const double userProfileNormalMaxUsernameTextSize = 72.0;
+  static const double userProfileMessagesUnreadsMaxMessagesSize = 42.0;
+
+  // Sizes for [UAvatarProfile]
+  static const double avatarProfileNormalSize = 40.0;
+  static const double avatarProfileLargeSize = 56.0;
+
+  // Width sizes for [UnreadMessagesIndicator]
+  static const double unreadMessagesLessThanTenWidthSize = 20.0;
+  static const double unreadMessagesLessThanHundredWidthSize = 27.0;
+  static const double unreadMessagesLessThanThousandWidthSize = 35.0;
+  static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
+      42.0;
 }

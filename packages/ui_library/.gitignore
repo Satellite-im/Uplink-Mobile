@@ -27,3 +27,6 @@
 .dart_tool/
 .packages
 build/
+test/**/goldens/**/*.*
+test/**/failures/**/*.*
+!test/**/goldens/ci/*.*
