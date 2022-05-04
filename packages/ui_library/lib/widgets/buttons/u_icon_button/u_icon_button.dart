@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-enum _CallButtonType { call, end, mute, chat, add, search }
+enum _UIconButtonType { call, end, mute, chat, add, search }
 
 class UIconButton extends StatelessWidget {
   ///[IconButton] with circle border:
@@ -9,7 +9,7 @@ class UIconButton extends StatelessWidget {
   ///UIconButton.call(onPressed: () {}),
   ///```
   const UIconButton.call({Key? key, required VoidCallback onPressed})
-      : _callButtonType = _CallButtonType.call,
+      : _iconButtonType = _UIconButtonType.call,
         _onPressed = onPressed,
         super(key: key);
 
@@ -18,7 +18,7 @@ class UIconButton extends StatelessWidget {
   ///UIconButton.end(onPressed: () {}),
   ///```
   const UIconButton.end({Key? key, required VoidCallback onPressed})
-      : _callButtonType = _CallButtonType.end,
+      : _iconButtonType = _UIconButtonType.end,
         _onPressed = onPressed,
         super(key: key);
 
@@ -27,7 +27,7 @@ class UIconButton extends StatelessWidget {
   ///UIconButton.mute(onPressed: () {}),
   ///```
   const UIconButton.mute({Key? key, required VoidCallback onPressed})
-      : _callButtonType = _CallButtonType.mute,
+      : _iconButtonType = _UIconButtonType.mute,
         _onPressed = onPressed,
         super(key: key);
 
@@ -36,7 +36,7 @@ class UIconButton extends StatelessWidget {
   ///UIconButton.chat(onPressed: () {}),
   ///```
   const UIconButton.chat({Key? key, required VoidCallback onPressed})
-      : _callButtonType = _CallButtonType.chat,
+      : _iconButtonType = _UIconButtonType.chat,
         _onPressed = onPressed,
         super(key: key);
 
@@ -45,7 +45,7 @@ class UIconButton extends StatelessWidget {
   ///UIconButton.add(onPressed: () {}),
   ///```
   const UIconButton.add({Key? key, required VoidCallback onPressed})
-      : _callButtonType = _CallButtonType.add,
+      : _iconButtonType = _UIconButtonType.add,
         _onPressed = onPressed,
         super(key: key);
 
@@ -54,18 +54,18 @@ class UIconButton extends StatelessWidget {
   ///UIconButton.search(onPressed: () {}),
   ///```
   const UIconButton.search({Key? key, required VoidCallback onPressed})
-      : _callButtonType = _CallButtonType.search,
+      : _iconButtonType = _UIconButtonType.search,
         _onPressed = onPressed,
         super(key: key);
 
-  final _CallButtonType _callButtonType;
+  final _UIconButtonType _iconButtonType;
   final VoidCallback _onPressed;
 
   @override
   Widget build(BuildContext context) {
     final double _buttonSize;
-    if (_callButtonType == _CallButtonType.search ||
-        _callButtonType == _CallButtonType.add) {
+    if (_iconButtonType == _UIconButtonType.search ||
+        _iconButtonType == _UIconButtonType.add) {
       _buttonSize = USizes.buttonSizeSmall;
     } else {
       _buttonSize = USizes.buttonSize;
@@ -85,23 +85,23 @@ class UIconButton extends StatelessWidget {
 
   UIcon getUIcon() {
     final UIcon _icon;
-    switch (_callButtonType) {
-      case _CallButtonType.call:
+    switch (_iconButtonType) {
+      case _UIconButtonType.call:
         _icon = const UIcon(UIcons.call);
         break;
-      case _CallButtonType.end:
+      case _UIconButtonType.end:
         _icon = const UIcon(UIcons.end_call);
         break;
-      case _CallButtonType.mute:
+      case _UIconButtonType.mute:
         _icon = const UIcon(UIcons.mute);
         break;
-      case _CallButtonType.chat:
+      case _UIconButtonType.chat:
         _icon = const UIcon(UIcons.message);
         break;
-      case _CallButtonType.add:
+      case _UIconButtonType.add:
         _icon = const UIcon(UIcons.add_button);
         break;
-      case _CallButtonType.search:
+      case _UIconButtonType.search:
         _icon = const UIcon(UIcons.search);
         break;
       default:
@@ -112,38 +112,38 @@ class UIconButton extends StatelessWidget {
 
   ShapeDecoration getDecoration() {
     final ShapeDecoration _decoration;
-    switch (_callButtonType) {
-      case _CallButtonType.call:
+    switch (_iconButtonType) {
+      case _UIconButtonType.call:
         _decoration = const ShapeDecoration(
           color: UColors.onlineGreen,
           shape: CircleBorder(),
         );
         break;
-      case _CallButtonType.end:
+      case _UIconButtonType.end:
         _decoration = const ShapeDecoration(
           color: UColors.termRed,
           shape: CircleBorder(),
         );
         break;
-      case _CallButtonType.mute:
+      case _UIconButtonType.mute:
         _decoration = const ShapeDecoration(
           color: UColors.ctaDark,
           shape: CircleBorder(),
         );
         break;
-      case _CallButtonType.chat:
+      case _UIconButtonType.chat:
         _decoration = const ShapeDecoration(
           color: UColors.ctaDark,
           shape: CircleBorder(),
         );
         break;
-      case _CallButtonType.add:
+      case _UIconButtonType.add:
         _decoration = const ShapeDecoration(
           color: UColors.ctaBlue,
           shape: CircleBorder(),
         );
         break;
-      case _CallButtonType.search:
+      case _UIconButtonType.search:
         _decoration = const ShapeDecoration(
           color: UColors.ctaBlue,
           shape: CircleBorder(),
