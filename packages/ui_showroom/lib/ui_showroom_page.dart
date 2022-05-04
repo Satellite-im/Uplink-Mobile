@@ -56,16 +56,16 @@ class UIShowRoomApp extends StatelessWidget {
               ),
               Text('button widgets'),
               WidgetPageButton(
-                widgetName: 'UButton',
+                widgetName: UButtonPage.routeName,
               ),
               WidgetPageButton(
-                widgetName: 'UIconButton',
+                widgetName: UIconButtonPage.routeName,
               ),
               WidgetPageButton(
-                widgetName: 'UFAB',
+                widgetName: UFABPage.routeName,
               ),
               WidgetPageButton(
-                widgetName: 'ULogoutButton',
+                widgetName: ULogoutButtonPage.routeName,
               ),
               Divider(
                 color: Colors.white,
