@@ -52,7 +52,7 @@ void main() {
       const _buttonSize = 56.0;
       const _buttonSizeSmall = 40.0;
       expect(USizes.buttonSize, _buttonSize);
-      expect(USizes.buttonSize, _buttonSizeSmall);
+      expect(USizes.buttonSizeSmall, _buttonSizeSmall);
     });
   });
 }
