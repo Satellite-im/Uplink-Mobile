@@ -47,5 +47,12 @@ void main() {
       expect(USizes.userProfileStatusSmallSize, _userProfileStatusSmallSize);
       expect(USizes.userProfileStatusNormalSize, _userProfileStatusNormalSize);
     });
+
+    test('UIconButton Size Values', () {
+      const _buttonSize = 56.0;
+      const _buttonSizeSmall = 40.0;
+      expect(USizes.buttonSize, _buttonSize);
+      expect(USizes.buttonSize, _buttonSizeSmall);
+    });
   });
 }
