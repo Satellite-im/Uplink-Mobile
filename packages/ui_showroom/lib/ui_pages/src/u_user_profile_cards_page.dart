@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:flutter/material.dart';
 
-class UAvatarProfilePage extends StatelessWidget {
-  const UAvatarProfilePage({Key? key}) : super(key: key);
+class UUserProfileCardsPage extends StatelessWidget {
+  const UUserProfileCardsPage({Key? key}) : super(key: key);
 
-  static const routeName = '/UAvatarProfile';
+  static const routeName = '/UUserProfileCards';
 
   @override
   Widget build(BuildContext context) {
@@ -13,33 +13,26 @@ class UAvatarProfilePage extends StatelessWidget {
         title: Text(routeName.substring(1)),
       ),
       body: Center(
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
-            _AvatarProfileRow(
-              title: 'Group Profile',
-              widgets: [
-                UGroupProfile(),
-              ],
-            ),
-            _AvatarProfileRow(
-              title: 'Server Profile',
-              widgets: [
-                UServerProfile(),
-              ],
-            ),
-            _AvatarProfileRow(
-              title: 'App Avatar',
-              widgets: [
-                UAppAvatarProfile(),
-                UAppAvatarProfile.chatBubble(unreadMessages: 0),
-                UAppAvatarProfile.chatBubble(unreadMessages: 9),
-                UAppAvatarProfile.chatBubble(unreadMessages: 99),
-                UAppAvatarProfile.chatBubble(unreadMessages: 999),
-                UAppAvatarProfile.chatBubble(unreadMessages: 9999),
-              ],
-            ),
             SizedBox.square(
               dimension: 16,
+            ),
+            _AvatarProfileRow(
+              title: 'Nav Drawer User Profile Card',
+              widgets: [
+                UNavDrawerUserProfileCard(
+                  username: 'Satellite',
+                  status: Status.online,
+                  message: 'I am happy today',
+                ),
+                UNavDrawerUserProfileCard(
+                  username: 'usernamelonger',
+                  status: Status.online,
+                  message: 'I am happy today',
+                ),
+              ],
             ),
           ],
         ),
@@ -73,7 +66,7 @@ class _AvatarProfileRow extends StatelessWidget {
         ),
         UText(
           title,
-          textStyle: UTextStyle.H5_topMenuBarTitle,
+          textStyle: UTextStyle.H4_fourthHeader,
         ),
         const SizedBox.square(
           dimension: 16,

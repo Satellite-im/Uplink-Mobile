@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_showroom/ui_pages/src/u_user_profile_cards_page.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
@@ -25,55 +26,133 @@ class UIShowRoomApp extends StatelessWidget {
         UIconButtonPage.routeName: (context) => const UIconButtonPage(),
         UFABPage.routeName: (context) => const UFABPage(),
         ULogoutButtonPage.routeName: (context) => const ULogoutButtonPage(),
+        UUserProfileCardsPage.routeName: (context) =>
+            const UUserProfileCardsPage(),
       },
       home: Scaffold(
         appBar: AppBar(
           title: const ThemeDropdownButton(),
         ),
         body: Center(
-          child: Column(
-            children: const [
-              SizedBox.square(
+          child: ListView(
+            children: [
+              const SizedBox.square(
                 dimension: 16,
               ),
-              WidgetPageButton(
-                widgetName: UIconPage.routeName,
+              Image.asset(
+                'packages/ui_showroom/images/CHEEKY_POSE_SUBMIT_LAYERS.gif',
+                height: 164,
+                width: 164,
               ),
-              WidgetPageButton(
-                widgetName: UColorsPage.routeName,
+              Align(
+                alignment: Alignment.center,
+                child: UText(
+                  'Welcome to our UI Showroom App, \nknow our library!',
+                  textStyle: UTextStyle.H4_fourthHeader,
+                  textAlign: TextAlign.center,
+                  textColor: themeData.colorScheme.secondary,
+                ),
               ),
-              WidgetPageButton(
-                widgetName: UTextPage.routeName,
+              const SizedBox.square(
+                dimension: 16,
               ),
-              WidgetPageButton(
-                widgetName: UUserProfilePage.routeName,
+              const _WidgetsShowSession(
+                sessionTitle: 'Core Widgets and Specs',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UIconPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UColorsPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UTextPage.routeName,
+                  ),
+                ],
               ),
-              WidgetPageButton(
-                widgetName: UAvatarProfilePage.routeName,
+              const _WidgetsShowSession(
+                sessionTitle: 'Basic Profile Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UUserProfilePage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UAvatarProfilePage.routeName,
+                  ),
+                ],
               ),
-              Divider(
-                color: Colors.white,
+              const _WidgetsShowSession(
+                sessionTitle: 'Avatar Card Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UUserProfileCardsPage.routeName,
+                  ),
+                ],
               ),
-              Text('button widgets'),
-              WidgetPageButton(
-                widgetName: UButtonPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UIconButtonPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UFABPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: ULogoutButtonPage.routeName,
-              ),
-              Divider(
-                color: Colors.white,
+              const _WidgetsShowSession(
+                sessionTitle: 'Button Session Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UIconButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UFABPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: ULogoutButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UUserProfileCardsPage.routeName,
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _WidgetsShowSession extends StatelessWidget {
+  const _WidgetsShowSession(
+      {Key? key, required this.sessionWidgets, required this.sessionTitle})
+      : super(key: key);
+
+  final List<Widget> sessionWidgets;
+
+  final String sessionTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> _sessionWidgets = [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: UText(
+          sessionTitle,
+          textStyle: UTextStyle.H4_fourthHeader,
+        ),
+      ),
+    ];
+    for (var element in sessionWidgets) {
+      _sessionWidgets.add(element);
+    }
+    _sessionWidgets.add(
+      const Divider(
+        thickness: 1,
+        indent: 16,
+        endIndent: 16,
+        color: Colors.white,
+      ),
+    );
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: _sessionWidgets,
     );
   }
 }
@@ -120,11 +199,15 @@ class WidgetPageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, widgetName);
-      },
-      child: Text(widgetName.substring(1)),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: UColors.ctaBlue),
+        onPressed: () {
+          Navigator.pushNamed(context, widgetName);
+        },
+        child: Text(widgetName.substring(1)),
+      ),
     );
   }
 }
