@@ -1,7 +1,7 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator.dart';
 import 'package:ui_library/widgets/u_avatars_profile/u_app_avatar_profile/u_app_avatar_profile.dart';
 
 void main() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator.dart';
 
 void main() {
   group('Widget Test Unread Messages Indicator |', () {

@@ -3,7 +3,7 @@ import 'package:ui_library/core/core_export.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator.dart';
 
 import '../models/models_export.dart';
 

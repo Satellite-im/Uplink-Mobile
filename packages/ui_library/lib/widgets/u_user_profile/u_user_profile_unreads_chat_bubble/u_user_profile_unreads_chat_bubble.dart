@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator.dart';
 
 import '../../../core/core_export.dart';
 import '../models/models_export.dart';
@@ -34,31 +34,25 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
     );
     final _correctPositionNotification =
         _uUserProfileSize.size - (USizes.unreadMessagesIndicatorSize);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: [
-        Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: ClipPath(
-                clipper:
-                    _uClipper.clipForUnreadMessagesChatBubble(_unreadMessages),
-                child: SizedBox(
-                  height: _uUserProfileSize.size,
-                  width: _uUserProfileSize.size,
-                  child: _imagePath != null
-                      ? Image.network(_imagePath!)
-                      : const UPlaceholder.userProfile(),
-                ),
-              ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: ClipPath(
+            clipper: _uClipper.clipForUnreadMessagesChatBubble(_unreadMessages),
+            child: SizedBox(
+              height: _uUserProfileSize.size,
+              width: _uUserProfileSize.size,
+              child: _imagePath != null
+                  ? Image.network(_imagePath!)
+                  : const UPlaceholder.userProfile(),
             ),
-            Positioned(
-              top: _correctPositionNotification,
-              right: _unreadMessages >= 1000 ? 0.6 : 0,
-              child: _unreadMessagesIndicator,
-            ),
-          ],
+          ),
+        ),
+        Positioned(
+          top: _correctPositionNotification,
+          right: _unreadMessages >= 1000 ? 0.6 : 0,
+          child: _unreadMessagesIndicator,
         ),
       ],
     );

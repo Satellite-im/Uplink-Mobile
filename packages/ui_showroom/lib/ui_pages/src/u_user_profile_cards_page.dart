@@ -13,13 +13,12 @@ class UUserProfileCardsPage extends StatelessWidget {
         title: Text(routeName.substring(1)),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            SizedBox.square(
+        child: ListView(
+          children: [
+            const SizedBox.square(
               dimension: 16,
             ),
-            _AvatarProfileRow(
+            const _AvatarProfileRow(
               title: 'Nav Drawer User Profile Card',
               widgets: [
                 UNavDrawerUserProfileCard(
@@ -34,24 +33,79 @@ class UUserProfileCardsPage extends StatelessWidget {
                 ),
               ],
             ),
-            _AvatarProfileRow(
-              title: 'User Profile Card',
-              widgets: [
-                UserProfileCard(
-                  username: 'Satellite',
-                  status: Status.online,
-                  message: 'I am happy today',
-                ),
-                UserProfileCard(
-                  username: 'usernamelonger',
-                  status: Status.online,
-                  message: 'I am happy today',
-                ),
-              ],
-            ),
+            _userProfileCard(),
+            _unreadMessagesUserProfileCard(),
           ],
         ),
       ),
+    );
+  }
+
+  Column _userProfileCard() {
+    return Column(
+      children: [
+        const SizedBox.square(
+          dimension: 16,
+        ),
+        const UText(
+          'User Profile Card',
+          textStyle: UTextStyle.H4_fourthHeader,
+        ),
+        const SizedBox.square(
+          dimension: 16,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            UserProfileCard(
+              username: 'Satellite',
+              status: Status.online,
+              message: 'I am happy today',
+            ),
+            SizedBox.square(
+              dimension: 16,
+            ),
+            UserProfileCard(
+              username: 'usernamelonger',
+              status: Status.online,
+              message: 'I am happy today',
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Column _unreadMessagesUserProfileCard() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        SizedBox.square(
+          dimension: 16,
+        ),
+        UText(
+          'Unread Messages User Profile Card',
+          textStyle: UTextStyle.H4_fourthHeader,
+        ),
+        SizedBox.square(
+          dimension: 16,
+        ),
+        UnreadMessagesUserProfileCard(
+          username: 'Satellite',
+          status: Status.online,
+          message: 'I am happy today',
+          unreadMessages: 1,
+        ),
+        SizedBox.square(
+          dimension: 8,
+        ),
+        UnreadMessagesUserProfileCard(
+          username: 'usernamelonger',
+          status: Status.online,
+          message: 'I am happy today',
+          unreadMessages: 10,
+        ),
+      ],
     );
   }
 }
