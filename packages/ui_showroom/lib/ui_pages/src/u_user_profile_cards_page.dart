@@ -34,6 +34,21 @@ class UUserProfileCardsPage extends StatelessWidget {
                 ),
               ],
             ),
+            _AvatarProfileRow(
+              title: 'User Profile Card',
+              widgets: [
+                UserProfileCard(
+                  username: 'Satellite',
+                  status: Status.online,
+                  message: 'I am happy today',
+                ),
+                UserProfileCard(
+                  username: 'usernamelonger',
+                  status: Status.online,
+                  message: 'I am happy today',
+                ),
+              ],
+            ),
           ],
         ),
       ),
