@@ -14,7 +14,8 @@ dependencies:
   golden_toolkit: ^0.13.0
   shared_preferences: ^2.0.13
   alchemist: ^0.3.2
-
+  intl: ^0.17.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

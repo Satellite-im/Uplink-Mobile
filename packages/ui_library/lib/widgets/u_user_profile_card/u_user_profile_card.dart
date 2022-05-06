@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/global/username/username.dart';
 
 class UserProfileCard extends StatelessWidget {
   /// Creates a card with [UUserProfileWithStatus], username and a message
@@ -36,23 +37,22 @@ class UserProfileCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: USizes.userProfileNormalMaxUsernameTextSize,
-              child: UText(
-                _username,
-                textOverflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                textStyle: UTextStyle.H2_secondaryHeader,
-                textColor: UColors.white,
-              ),
+            Username(
+              username: _username,
+              textStyle: UTextStyle.H2_secondaryHeader,
             ),
             const SizedBox.square(
               dimension: 4,
             ),
-            UText(
-              _message,
-              textStyle: UTextStyle.H2_secondaryHeader,
-              textColor: UColors.textMed,
+            SizedBox(
+              width: USizes.messageOnUserProfileCardWidthSize,
+              child: UText(
+                _message,
+                textStyle: UTextStyle.H2_secondaryHeader,
+                textColor: UColors.textMed,
+                textOverflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
           ],
         ),

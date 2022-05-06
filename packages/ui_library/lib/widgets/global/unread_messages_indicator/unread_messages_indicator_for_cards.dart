@@ -23,11 +23,25 @@ class UnreadMessagesIndicatorForCards extends StatelessWidget {
 
   final int _unreadMessages;
 
+  double getUnreadMessagesIndicatorWidth() {
+    if (_unreadMessages < 10) {
+      return USizes.unreadMessagesLessThanTenWidthSize;
+    } else if (_unreadMessages < 100) {
+      return USizes.unreadMessagesLessThanHundredWidthSize;
+    } else if (_unreadMessages < 1000) {
+      return USizes.unreadMessagesLessThanThousandWidthSize;
+    } else if (_unreadMessages < 10000) {
+      return USizes.unreadMessagesGreaterThanOrEqualToThousandWidthSize;
+    } else {
+      return USizes.unreadMessagesGreaterThanOrEqualToThousandWidthSize;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 20,
-      height: 20,
+      width: getUnreadMessagesIndicatorWidth(),
+      height: _height,
       decoration: const BoxDecoration(
         color: UColors.ctaBlue,
         borderRadius: BorderRadius.all(

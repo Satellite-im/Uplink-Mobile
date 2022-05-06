@@ -43,34 +43,31 @@ class UUserProfileCardsPage extends StatelessWidget {
 
   Column _userProfileCard() {
     return Column(
-      children: [
-        const SizedBox.square(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        SizedBox.square(
           dimension: 16,
         ),
-        const UText(
+        UText(
           'User Profile Card',
           textStyle: UTextStyle.H4_fourthHeader,
         ),
-        const SizedBox.square(
+        SizedBox.square(
           dimension: 16,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            UserProfileCard(
-              username: 'Satellite',
-              status: Status.online,
-              message: 'I am happy today',
-            ),
-            SizedBox.square(
-              dimension: 16,
-            ),
-            UserProfileCard(
-              username: 'usernamelonger',
-              status: Status.online,
-              message: 'I am happy today',
-            ),
-          ],
+        UserProfileCard(
+          username: 'Satellite',
+          status: Status.online,
+          message: 'I am happy today',
+        ),
+        SizedBox.square(
+          dimension: 16,
+        ),
+        UserProfileCard(
+          username: 'usernamelonger',
+          status: Status.online,
+          message: 'I am happy today',
         ),
       ],
     );
@@ -78,7 +75,6 @@ class UUserProfileCardsPage extends StatelessWidget {
 
   Column _unreadMessagesUserProfileCard() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: const [
         SizedBox.square(
           dimension: 16,
@@ -93,7 +89,8 @@ class UUserProfileCardsPage extends StatelessWidget {
         UnreadMessagesUserProfileCard(
           username: 'Satellite',
           status: Status.online,
-          message: 'I am happy today',
+          message:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
           unreadMessages: 1,
         ),
         SizedBox.square(
@@ -102,8 +99,26 @@ class UUserProfileCardsPage extends StatelessWidget {
         UnreadMessagesUserProfileCard(
           username: 'usernamelonger',
           status: Status.online,
-          message: 'I am happy today',
+          message: 'Lorem ipsum dolor sit amet',
           unreadMessages: 10,
+        ),
+        SizedBox.square(
+          dimension: 8,
+        ),
+        UnreadMessagesUserProfileCard(
+          username: 'usernamelonger',
+          status: Status.online,
+          message: 'Lorem ipsum dolor sit amet',
+          unreadMessages: 100,
+        ),
+        SizedBox.square(
+          dimension: 8,
+        ),
+        UnreadMessagesUserProfileCard(
+          username: 'usernamelonger',
+          status: Status.online,
+          message: 'Lorem ipsum dolor sit amet',
+          unreadMessages: 1000,
         ),
       ],
     );
@@ -128,7 +143,8 @@ class _AvatarProfileRow extends StatelessWidget {
     }));
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox.square(
           dimension: 16,
@@ -140,7 +156,7 @@ class _AvatarProfileRow extends StatelessWidget {
         const SizedBox.square(
           dimension: 16,
         ),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: _avatarProfiles,

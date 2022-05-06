@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messafes_indicator_for_cards.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator_for_cards.dart';
+import 'package:ui_library/widgets/global/username/username.dart';
 
 class UnreadMessagesUserProfileCard extends StatelessWidget {
   /// Creates a card with [UUserProfileWithStatus], username, message and [UnreadMessagesIndicatorForCards]
@@ -26,8 +28,14 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _unreadMessagesIndicator = UnreadMessagesIndicatorForCards(
+      unreadMessages: _unreadMessages,
+    );
+    final _correctWidthForUsernameAndDateTimeRow =
+        USizes.messageOnUnreadMessagesUserProfileCardWidthSize +
+            8 +
+            _unreadMessagesIndicator.getUnreadMessagesIndicatorWidth();
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         UUserProfileWithStatus(
@@ -39,33 +47,51 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
-              width: USizes.userProfileNormalMaxUsernameTextSize,
-              child: UText(
-                _username,
-                textOverflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                textStyle: UTextStyle.H2_secondaryHeader,
-                textColor: UColors.white,
+              width: _correctWidthForUsernameAndDateTimeRow,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Username(
+                    username: _username,
+                    textStyle: UTextStyle.H2_secondaryHeader,
+                  ),
+                  UText(
+                    DateFormatUtils.formatDateTwelveHours(DateTime.now()),
+                    textStyle: UTextStyle.B1_body,
+                    textColor: UColors.textDark,
+                    textAlign: TextAlign.end,
+                  ),
+                ],
               ),
             ),
             const SizedBox.square(
               dimension: 4,
             ),
-            UText(
-              _message,
-              textStyle: UTextStyle.H2_secondaryHeader,
-              textColor: UColors.textMed,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: USizes.messageOnUnreadMessagesUserProfileCardWidthSize,
+                  child: UText(
+                    _message,
+                    maxLines: 2,
+                    textOverflow: TextOverflow.ellipsis,
+                    textStyle: UTextStyle.H2_secondaryHeader,
+                    textColor: UColors.textMed,
+                  ),
+                ),
+                const SizedBox.square(
+                  dimension: 8,
+                ),
+                UnreadMessagesIndicatorForCards(
+                  unreadMessages: _unreadMessages,
+                ),
+              ],
             ),
           ],
-        ),
-        const SizedBox.square(
-          dimension: 8,
-        ),
-        UnreadMessagesIndicatorForCards(
-          unreadMessages: _unreadMessages,
         ),
       ],
     );

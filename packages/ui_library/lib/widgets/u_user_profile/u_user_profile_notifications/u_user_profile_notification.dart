@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
+import 'package:ui_library/widgets/global/username/username.dart';
 
 import '../../../core/core_export.dart';
-import '../../u_text/u_text_export.dart';
 import '../models/models_export.dart';
 
 part 'models/notification.dart';
@@ -73,15 +73,8 @@ class UUserProfileNotification extends StatelessWidget {
         ),
         if (_userProfileType == UUserProfileType.withUsername) ...[
           const SizedBox.square(dimension: 8),
-          SizedBox(
-            width: USizes.userProfileNormalMaxUsernameTextSize,
-            child: UText(
-              _userProfileUsername!,
-              textOverflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              textStyle: UTextStyle.M1_micro,
-            ),
+          Username(
+            username: _userProfileUsername!,
           ),
         ]
       ],
