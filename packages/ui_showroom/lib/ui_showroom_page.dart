@@ -128,31 +128,35 @@ class _WidgetsShowSession extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _sessionWidgets = [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: UText(
-          sessionTitle,
-          textStyle: UTextStyle.H4_fourthHeader,
-        ),
-      ),
-    ];
-    for (var element in sessionWidgets) {
-      _sessionWidgets.add(element);
-    }
-    _sessionWidgets.add(
-      const Divider(
-        thickness: 1,
-        indent: 16,
-        endIndent: 16,
-        color: Colors.white,
-      ),
-    );
     return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: _sessionWidgets,
+      children: [
+        Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          child: ExpansionTile(
+            expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+            childrenPadding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: UText(
+                sessionTitle,
+                textStyle: UTextStyle.H4_fourthHeader,
+              ),
+            ),
+            children: sessionWidgets +
+                [
+                  const SizedBox.square(
+                    dimension: 16,
+                  ),
+                ],
+          ),
+        ),
+        const Divider(
+          thickness: 0.5,
+          indent: 32,
+          endIndent: 32,
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }
