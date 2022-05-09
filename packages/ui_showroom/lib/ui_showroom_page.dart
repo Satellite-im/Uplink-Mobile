@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_showroom/ui_pages/src/u_user_profile_cards_page.dart';
+import 'package:ui_showroom/ui_pages/src/u_user_profile_cards/u_user_profile_cards_page.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {

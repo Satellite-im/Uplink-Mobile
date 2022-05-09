@@ -35,8 +35,9 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
         USizes.messageOnUnreadMessagesUserProfileCardWidthSize +
             8 +
             _unreadMessagesIndicator.getUnreadMessagesIndicatorWidth();
+
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         UUserProfileWithStatus(
           status: _status,
@@ -46,8 +47,6 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
           dimension: 12,
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
               width: _correctWidthForUsernameAndDateTimeRow,
@@ -67,9 +66,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox.square(
-              dimension: 4,
-            ),
+            const SizedBox.square(dimension: 4),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -83,9 +80,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                     textColor: UColors.textMed,
                   ),
                 ),
-                const SizedBox.square(
-                  dimension: 8,
-                ),
+                const SizedBox.square(dimension: 8),
                 UnreadMessagesIndicatorForCards(
                   unreadMessages: _unreadMessages,
                 ),
