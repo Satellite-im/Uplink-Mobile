@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator_for_cards.dart';
+import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messages_indicator.dart';
 import 'package:ui_library/widgets/global/username/username.dart';
 
 class UnreadMessagesUserProfileCard extends StatelessWidget {
@@ -28,8 +28,9 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _unreadMessagesIndicator = UnreadMessagesIndicatorForCards(
+    final _unreadMessagesIndicator = UnreadMessagesIndicator(
       unreadMessages: _unreadMessages,
+      type: UnreadMessagesIndicatorType.card,
     );
     final _correctWidthForUsernameAndDateTimeRow =
         USizes.messageOnUnreadMessagesUserProfileCardWidthSize +
@@ -81,9 +82,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox.square(dimension: 8),
-                UnreadMessagesIndicatorForCards(
-                  unreadMessages: _unreadMessages,
-                ),
+                _unreadMessagesIndicator,
               ],
             ),
           ],

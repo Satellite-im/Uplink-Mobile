@@ -17,6 +17,7 @@ class _AppAvatarChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final _uClipper = UClipper();
     final _messagesUnreadsIndicator = UnreadMessagesIndicator(
+      type: UnreadMessagesIndicatorType.profile,
       unreadMessages: _unreadMessages,
     );
     final _correctPositionNotification =
