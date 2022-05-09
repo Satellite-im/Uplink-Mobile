@@ -67,11 +67,17 @@ class _Container extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _backgroundColor = placeholderType == _PlaceholderType.avatar
+        ? UColors.foregroundDark
+        : UColors.defGrey;
     return Container(
       decoration: BoxDecoration(
-        color: placeholderType == _PlaceholderType.avatar
-            ? UColors.foregroundDark
-            : UColors.defGrey,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: _backgroundColor,
+          width: 0.05,
+        ),
+        color: _backgroundColor,
       ),
       child: child,
     );
