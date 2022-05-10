@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class UPinPadPage extends StatefulWidget {
-  const UPinPadPage({Key? key}) : super(key: key);
-  static const routeName = '/UPinPad';
+class UPinPage extends StatefulWidget {
+  const UPinPage({Key? key}) : super(key: key);
+  static const routeName = '/UPin';
 
   @override
-  State<UPinPadPage> createState() => _UPinPadPageState();
+  State<UPinPage> createState() => _UPinPadPageState();
 }
 
-class _UPinPadPageState extends State<UPinPadPage> {
+class _UPinPadPageState extends State<UPinPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(UPinPadPage.routeName.substring(1)),
+        title: Text(UPinPage.routeName.substring(1)),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
