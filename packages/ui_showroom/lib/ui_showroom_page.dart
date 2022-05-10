@@ -32,53 +32,55 @@ class UIShowRoomApp extends StatelessWidget {
         appBar: AppBar(
           title: const ThemeDropdownButton(),
         ),
-        body: Center(
-          child: Column(
-            children: const [
-              SizedBox.square(
-                dimension: 16,
-              ),
-              WidgetPageButton(
-                widgetName: UIconPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UColorsPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UTextPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UUserProfilePage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UAvatarProfilePage.routeName,
-              ),
-              Divider(
-                color: Colors.white,
-              ),
-              Text('button widgets'),
-              WidgetPageButton(
-                widgetName: UButtonPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UIconButtonPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UFABPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: ULogoutButtonPage.routeName,
-              ),
-              Divider(
-                color: Colors.white,
-              ),
-              WidgetPageButton(
-                widgetName: UChatbarPage.routeName,
-              ),
-              WidgetPageButton(
-                widgetName: UPinPage.routeName,
-              ),
-            ],
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: const [
+                SizedBox.square(
+                  dimension: 16,
+                ),
+                WidgetPageButton(
+                  widgetName: UIconPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UColorsPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UTextPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UUserProfilePage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UAvatarProfilePage.routeName,
+                ),
+                Divider(
+                  color: Colors.white,
+                ),
+                Text('button widgets'),
+                WidgetPageButton(
+                  widgetName: UButtonPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UIconButtonPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UFABPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: ULogoutButtonPage.routeName,
+                ),
+                Divider(
+                  color: Colors.white,
+                ),
+                WidgetPageButton(
+                  widgetName: UChatbarPage.routeName,
+                ),
+                WidgetPageButton(
+                  widgetName: UPinPage.routeName,
+                ),
+              ],
+            ),
           ),
         ),
       ),
