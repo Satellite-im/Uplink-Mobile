@@ -42,5 +42,5 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@master
       with:
-        name: apk-build
-        path: build/app/outputs/apk/release
+        name: debug-apk
+        path: build/app/outputs/flutter-apk/app-profile.apk
