@@ -22,7 +22,7 @@ class _UserProfileCard extends StatelessWidget {
           dimension: 16,
         ),
         UserProfileCard(
-          username: 'Satellite',
+          username: 'longusernameeeeeeeeeeeeeeeeeeeeeee',
           status: Status.online,
           message:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
@@ -31,7 +31,7 @@ class _UserProfileCard extends StatelessWidget {
           dimension: 16,
         ),
         UserProfileCard(
-          username: 'usernamelonger',
+          username: 'username',
           status: Status.online,
           message: 'Lorem ipsum dolor sit amet, consectetur',
         ),

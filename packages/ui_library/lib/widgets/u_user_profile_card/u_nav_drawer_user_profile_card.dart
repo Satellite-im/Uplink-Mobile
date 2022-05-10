@@ -33,9 +33,12 @@ class UNavDrawerUserProfileCard extends StatelessWidget {
         const SizedBox.square(
           dimension: 8,
         ),
-        Username(
-          username: _username,
-          textStyle: UTextStyle.H3_tertiaryHeader,
+        SizedBox(
+          width: USizes.messageOnUserProfileCardWidthSize,
+          child: Username(
+            username: _username,
+            textStyle: UTextStyle.H4_fourthHeader,
+          ),
         ),
         const SizedBox.square(
           dimension: 2,
@@ -44,7 +47,7 @@ class UNavDrawerUserProfileCard extends StatelessWidget {
           width: USizes.messageOnUserProfileCardWidthSize,
           child: UText(
             _message,
-            textStyle: UTextStyle.H2_secondaryHeader,
+            textStyle: UTextStyle.B1_body,
             textColor: UColors.textMed,
             textOverflow: TextOverflow.ellipsis,
             maxLines: 1,

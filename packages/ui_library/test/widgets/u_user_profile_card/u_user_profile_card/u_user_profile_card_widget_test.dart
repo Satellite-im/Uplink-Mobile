@@ -13,18 +13,19 @@ void main() {
             name:
                 'Should return correct UserProfileCard format with normal size username',
             child: const UserProfileCard(
-              username: 'Satellite',
+              username: 'longusernameeeeeeeeeeeeeeeeeeeeeee',
               status: Status.online,
-              message: 'I am happy today',
+              message: 'Lorem ipsum dolor sit amet',
             ),
           ),
           GoldenTestScenario(
             name:
                 'Should return correct UserProfileCard format with large size username',
             child: const UserProfileCard(
-              username: 'Usernamelonger',
+              username: 'username',
               status: Status.online,
-              message: 'I am happy today',
+              message:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
             ),
           ),
         ],

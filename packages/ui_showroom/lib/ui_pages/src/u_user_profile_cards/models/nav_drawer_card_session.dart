@@ -26,14 +26,14 @@ class _NavDrawerUserProfileCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             UNavDrawerUserProfileCard(
-              username: 'Satellite',
+              username: 'longusernameeeeeeeeeeeeeeeeeeeeeee',
               status: Status.online,
               message:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
             ),
             SizedBox.square(dimension: 8),
             UNavDrawerUserProfileCard(
-              username: 'usernamelonger',
+              username: 'username',
               status: Status.online,
               message: 'Lorem ipsum dolor sit amet',
             ),

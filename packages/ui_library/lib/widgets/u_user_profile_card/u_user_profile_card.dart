@@ -37,9 +37,12 @@ class UserProfileCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Username(
-              username: _username,
-              textStyle: UTextStyle.H2_secondaryHeader,
+            SizedBox(
+              width: USizes.messageOnUserProfileCardWidthSize,
+              child: Username(
+                username: _username,
+                textStyle: UTextStyle.H4_fourthHeader,
+              ),
             ),
             const SizedBox.square(
               dimension: 4,
@@ -48,7 +51,7 @@ class UserProfileCard extends StatelessWidget {
               width: USizes.messageOnUserProfileCardWidthSize,
               child: UText(
                 _message,
-                textStyle: UTextStyle.H2_secondaryHeader,
+                textStyle: UTextStyle.B1_body,
                 textColor: UColors.textMed,
                 textOverflow: TextOverflow.ellipsis,
                 maxLines: 1,
