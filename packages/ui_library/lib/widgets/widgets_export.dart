@@ -4,3 +4,4 @@ export 'u_user_profile/user_profile_export.dart';
 export 'u_avatars_profile/avatar_profile_export.dart';
 export 'buttons/buttons_export.dart';
 export 'u_chatbar/u_chatbar.dart';
+export 'u_pin_pad/u_pin_pad.dart';

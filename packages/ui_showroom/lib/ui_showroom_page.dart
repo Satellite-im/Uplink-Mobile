@@ -26,6 +26,7 @@ class UIShowRoomApp extends StatelessWidget {
         UFABPage.routeName: (context) => const UFABPage(),
         ULogoutButtonPage.routeName: (context) => const ULogoutButtonPage(),
         UChatbarPage.routeName: (context) => const UChatbarPage(),
+        UPinPadPage.routeName: (context) => const UPinPadPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -73,6 +74,9 @@ class UIShowRoomApp extends StatelessWidget {
               ),
               WidgetPageButton(
                 widgetName: UChatbarPage.routeName,
+              ),
+              WidgetPageButton(
+                widgetName: UPinPadPage.routeName,
               ),
             ],
           ),
