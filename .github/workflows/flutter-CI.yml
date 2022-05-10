@@ -17,6 +17,8 @@ jobs:
       with:
           channel: 'dev'
           architecture: arm64
+          run: sudo arch -x86_64 gem install ffi
+          command: arch -x86_64 pod install
     - run: flutter pub get
     - run: flutter clean
     - run: flutter build ios --release --no-codesign
