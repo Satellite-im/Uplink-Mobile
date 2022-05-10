@@ -16,9 +16,8 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
           channel: 'dev'
+          flutter-version: '2.10.4'
           architecture: arm64
-          run: sudo arch -x86_64 gem install ffi
-          command: arch -x86_64 pod install
     - run: flutter pub get
     - run: flutter clean
     - run: flutter build ios --release --no-codesign
