@@ -1,6 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
+/// Create a UChatbar widget
+///
+/// [onMsg]'s input is the String from user's typing
+///
+/// For example
+/// ```dart
+/// UChatbar(
+///  textEditingController: _textEditingController,
+///   onMsg: (value) {
+///     _addValue(value);
+///   },
+///   onImage: () {
+///     _addValue('image');
+///   },
+///   onSticker: () {
+///     _addValue('sticker');
+///   },
+///  onEmoji: () {
+///    _addValue('emoji');
+///  },
+///  onGif: () {
+///    _addValue('gif');
+///  },
+/// ),
+/// ...
+/// final _textEditingController = TextEditingController();
+/// void _addValue(String value) {
+///    setState(() {
+///      _textList.add(value);
+///    });
+///  }
+/// ```
 class UChatbar extends StatelessWidget {
   const UChatbar({
     Key? key,

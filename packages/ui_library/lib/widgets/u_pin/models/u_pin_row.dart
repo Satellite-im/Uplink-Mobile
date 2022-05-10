@@ -9,7 +9,7 @@ class UPinRow extends StatefulWidget {
     Key? key,
     required this.pinLength,
     required this.onCompleted,
-  })  : assert(pinLength == 6 || pinLength == 4),
+  })  : assert(pinLength == 8 || pinLength == 4),
         super(key: key);
 
   @override
@@ -78,7 +78,7 @@ class UPinRowState extends State<UPinRow> with SingleTickerProviderStateMixin {
     return Transform.translate(
       offset: Offset(_wiggleAnimation.value, 0.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: _pinAnimationList,
       ),
     );
@@ -96,7 +96,6 @@ class PinAnimationState extends State<PinAnimation>
   late AnimationController _controller;
   late Animation<double> _fontSizeAnimation;
   late Animation<double> _opacityAnimation;
-  late Animation<double> _dotSizeAnimation;
   String pin = '';
 
   void animate(String pinText) {
@@ -116,7 +115,6 @@ class PinAnimationState extends State<PinAnimation>
     });
     _fontSizeAnimation = Tween<double>(begin: 1, end: 18).animate(_controller);
     _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
-    _dotSizeAnimation = Tween<double>(begin: 40, end: 1).animate(_controller);
   }
 
   @override
@@ -127,31 +125,32 @@ class PinAnimationState extends State<PinAnimation>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 60,
-      width: 60,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        height: _dotSizeAnimation.value,
-        width: _dotSizeAnimation.value,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: pin == '' ? UColors.ctaBlue : Colors.transparent),
-        child: Opacity(
-          opacity: _opacityAnimation.value,
-          child: Text(
-            pin,
-            style: TextStyle(
-                fontFamily: UFonts.textSpaceMonoFont,
-                fontWeight: FontWeight.w700,
-                height: 27 / 18,
-                fontSize: _fontSizeAnimation.value,
-                color: UColors.textMed),
-          ),
+    return SizedBox(
+      height: 30,
+      width: 30,
+      child: Stack(children: [
+        Center(
+          child: Container(
+              height: 16,
+              width: 16,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: pin == '' ? UColors.ctaBlue : Colors.transparent)),
         ),
-      ),
+        Center(
+          child: Opacity(
+              opacity: _opacityAnimation.value,
+              child: Text(
+                pin,
+                style: TextStyle(
+                    fontFamily: UFonts.textSpaceMonoFont,
+                    fontWeight: FontWeight.w700,
+                    height: 27 / 18,
+                    fontSize: _fontSizeAnimation.value,
+                    color: UColors.textMed),
+              )),
+        )
+      ]),
     );
   }
 }
