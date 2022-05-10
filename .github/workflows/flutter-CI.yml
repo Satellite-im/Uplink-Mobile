@@ -16,7 +16,7 @@ jobs:
         with:
           channel: 'beta'
       - run: flutter pub get
-      - run: flutter build apk debug
+      - run: flutter build apk --profile
       - uses: actions/upload-artifact@v1
         with:
           name: debug-apk
