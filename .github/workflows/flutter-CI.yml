@@ -1,9 +1,8 @@
 name: Flutter CI
 
 on:
-  push:
-    branches:
-      - dev
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
   build:
