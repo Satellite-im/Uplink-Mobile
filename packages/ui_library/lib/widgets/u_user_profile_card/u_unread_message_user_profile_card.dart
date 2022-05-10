@@ -43,11 +43,20 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
       unreadMessages: _unreadMessages,
       type: UnreadMessagesIndicatorType.card,
     );
+    const _finalWithSize = 28;
+
+    const _firstUnreadMessagesIndicatorSize = 20;
+
     const _correctWidthForUsernameAndDateTimeRow =
-        USizes.messageOnUnreadMessagesUserProfileCardWidthSize + 28;
-    final _correctWidthForMessage =
-        USizes.messageOnUnreadMessagesUserProfileCardWidthSize -
-            (_unreadMessagesIndicator.getUnreadMessagesIndicatorWidth() - 20);
+        USizes.messageOnUnreadMessagesUserProfileCardWidthSize + _finalWithSize;
+
+    final _correctWidthForMessage = _unreadMessages > 0
+        ? USizes.messageOnUnreadMessagesUserProfileCardWidthSize -
+            (_unreadMessagesIndicator.getUnreadMessagesIndicatorWidth() -
+                _firstUnreadMessagesIndicatorSize)
+        : USizes.messageOnUnreadMessagesUserProfileCardWidthSize +
+            _finalWithSize;
+
     final _lastMessageArrivalTime =
         formatDateTime(_uMessage.arrivalMessageTime);
 
@@ -97,8 +106,10 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                     textColor: UColors.textMed,
                   ),
                 ),
-                const SizedBox.square(dimension: 8),
-                _unreadMessagesIndicator,
+                if (_unreadMessages > 0) ...[
+                  const SizedBox.square(dimension: 8),
+                  _unreadMessagesIndicator,
+                ],
               ],
             ),
           ],

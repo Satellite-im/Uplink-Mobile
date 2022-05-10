@@ -24,6 +24,19 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
             dimension: 16,
           ),
           UnreadMessagesUserProfileCard(
+            username: 'usernamelonger',
+            status: Status.offline,
+            uMessage: UMessage(
+              message:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
+              arrivalMessageTime: DateTime(2022, 05, 10, 22, 30),
+            ),
+            unreadMessages: 0,
+          ),
+          const SizedBox.square(
+            dimension: 8,
+          ),
+          UnreadMessagesUserProfileCard(
             username: 'usernamelongerverylongveryverylong',
             status: Status.online,
             uMessage: UMessage(
