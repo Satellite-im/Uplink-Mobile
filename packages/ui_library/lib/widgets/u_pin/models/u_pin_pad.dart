@@ -5,7 +5,7 @@ typedef KeyboardTapCallback = void Function(String text);
 
 class UPinPad extends StatefulWidget {
   /// Action to trigger when right button is pressed
-  final Function()? rightButtonFn;
+  final Function() rightButtonFn;
 
   /// Callback when an item is pressed
   final KeyboardTapCallback onKeyboardTap;
@@ -13,7 +13,7 @@ class UPinPad extends StatefulWidget {
   const UPinPad({
     Key? key,
     required this.onKeyboardTap,
-    this.rightButtonFn,
+    required this.rightButtonFn,
   }) : super(key: key);
 
   @override

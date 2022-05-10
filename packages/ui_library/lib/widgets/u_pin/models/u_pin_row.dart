@@ -68,7 +68,7 @@ class UPinRowState extends State<UPinRow> with SingleTickerProviderStateMixin {
         }
       });
 
-    _wiggleAnimation = Tween<double>(begin: 0.0, end: 20.0).animate(
+    _wiggleAnimation = Tween<double>(begin: 0.0, end: 10.0).animate(
         CurvedAnimation(
             parent: _wrongPinAnimationController, curve: Curves.elasticIn));
   }
