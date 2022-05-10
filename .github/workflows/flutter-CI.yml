@@ -1,11 +1,10 @@
-name: Flutter CI - Generate APK
+name: Flutter CI - Generate APK & IPA
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
 
 jobs:
-  
   build_ios:
     name: Build Flutter (iOS)
     runs-on: macOS-latest
