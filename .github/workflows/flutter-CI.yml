@@ -16,8 +16,8 @@ jobs:
         with:
           channel: 'beta'
       - run: flutter pub get
-      - run: flutter build apk
+      - run: flutter build apk debug
       - uses: actions/upload-artifact@v1
         with:
-          name: release-apk
-          path: build/app/outputs/apk/release/app-release.apk
+          name: debug-apk
+          path: build/app/outputs/apk/release/app-debug.apk
