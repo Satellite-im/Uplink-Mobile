@@ -5,16 +5,16 @@ import 'package:ui_library/widgets/global/unread_messages_indicator/unread_messa
 import 'package:ui_library/widgets/global/username/username.dart';
 
 class UnreadMessagesUserProfileCard extends StatelessWidget {
-  /// Creates a card with [UUserProfileWithStatus], username, message and [UnreadMessagesIndicatorForCards]
+  /// Creates a card with [UUserProfileWithStatus], username, message and [UnreadMessagesIndicator]
   const UnreadMessagesUserProfileCard({
     Key? key,
     required Status status,
     required String username,
-    required String message,
+    required UMessage uMessage,
     required int unreadMessages,
   })  : _status = status,
         _username = username,
-        _message = message,
+        _uMessage = uMessage,
         _unreadMessages = unreadMessages,
         super(key: key);
 
@@ -22,9 +22,20 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
   final String _username;
 
-  final String _message;
+  final UMessage _uMessage;
 
   final int _unreadMessages;
+
+  String formatDateTime(DateTime arrivalMessageTime) {
+    final _lastMessageArrivalTime =
+        DateFormatUtils.formatDateTwelveHours(arrivalMessageTime);
+    _lastMessageArrivalTime.toLowerCase();
+    if (_lastMessageArrivalTime[0] == '0') {
+      return _lastMessageArrivalTime.substring(1).toLowerCase();
+    } else {
+      return _lastMessageArrivalTime.toLowerCase();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +43,13 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
       unreadMessages: _unreadMessages,
       type: UnreadMessagesIndicatorType.card,
     );
-    final _correctWidthForUsernameAndDateTimeRow =
-        USizes.messageOnUnreadMessagesUserProfileCardWidthSize +
-            8 +
-            _unreadMessagesIndicator.getUnreadMessagesIndicatorWidth();
+    const _correctWidthForUsernameAndDateTimeRow =
+        USizes.messageOnUnreadMessagesUserProfileCardWidthSize + 28;
+    final _correctWidthForMessage =
+        USizes.messageOnUnreadMessagesUserProfileCardWidthSize -
+            (_unreadMessagesIndicator.getUnreadMessagesIndicatorWidth() - 20);
+    final _lastMessageArrivalTime =
+        formatDateTime(_uMessage.arrivalMessageTime);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -54,12 +68,14 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Username(
-                    username: _username,
-                    textStyle: UTextStyle.H2_secondaryHeader,
+                  Expanded(
+                    child: Username(
+                      username: _username,
+                      textStyle: UTextStyle.H4_fourthHeader,
+                    ),
                   ),
                   UText(
-                    DateFormatUtils.formatDateTwelveHours(DateTime.now()),
+                    _lastMessageArrivalTime,
                     textStyle: UTextStyle.B1_body,
                     textColor: UColors.textDark,
                     textAlign: TextAlign.end,
@@ -72,9 +88,9 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: USizes.messageOnUnreadMessagesUserProfileCardWidthSize,
+                  width: _correctWidthForMessage,
                   child: UText(
-                    _message,
+                    _uMessage.message,
                     maxLines: 2,
                     textOverflow: TextOverflow.ellipsis,
                     textStyle: UTextStyle.H2_secondaryHeader,

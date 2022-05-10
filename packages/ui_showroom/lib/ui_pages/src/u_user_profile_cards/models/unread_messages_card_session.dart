@@ -12,49 +12,62 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SizedBox.square(
+        children: [
+          const SizedBox.square(
             dimension: 16,
           ),
-          UText(
+          const UText(
             'Unread Messages User Profile Card',
             textStyle: UTextStyle.H4_fourthHeader,
           ),
-          SizedBox.square(
+          const SizedBox.square(
             dimension: 16,
           ),
           UnreadMessagesUserProfileCard(
-            username: 'Satellite',
+            username: 'usernamelongerverylongveryverylong',
             status: Status.online,
-            message:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
+            uMessage: UMessage(
+              message:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
+              arrivalMessageTime: DateTime(2022, 05, 10, 09, 30),
+            ),
             unreadMessages: 1,
           ),
-          SizedBox.square(
+          const SizedBox.square(
             dimension: 8,
           ),
           UnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.online,
-            message: 'Lorem ipsum dolor sit amet',
+            uMessage: UMessage(
+              message: 'Lorem ipsum dolor sit amet',
+              arrivalMessageTime: DateTime(2022, 05, 10, 04, 20),
+            ),
             unreadMessages: 10,
           ),
-          SizedBox.square(
+          const SizedBox.square(
             dimension: 8,
           ),
           UnreadMessagesUserProfileCard(
             username: 'usernamelonger',
-            status: Status.online,
-            message: 'Lorem ipsum dolor sit amet',
+            status: Status.idle,
+            uMessage: UMessage(
+              message: 'Lorem ipsum dolor sit amet',
+              arrivalMessageTime: DateTime(2022, 05, 10, 17, 30),
+            ),
             unreadMessages: 100,
           ),
-          SizedBox.square(
+          const SizedBox.square(
             dimension: 8,
           ),
           UnreadMessagesUserProfileCard(
             username: 'usernamelonger',
-            status: Status.online,
-            message: 'Lorem ipsum dolor sit amet',
+            status: Status.offline,
+            uMessage: UMessage(
+              message:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
+              arrivalMessageTime: DateTime(2022, 05, 10, 10, 30),
+            ),
             unreadMessages: 1000,
           ),
         ],
