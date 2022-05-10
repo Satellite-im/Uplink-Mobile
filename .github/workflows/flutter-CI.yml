@@ -22,7 +22,7 @@ jobs:
     - run: flutter pub get
     - run: flutter clean
     - run: flutter build ios --release --no-codesign
-    - name: Upload iPA
+    - name: Upload IPA
       uses: actions/upload-artifact@master
       with:
         name: ios-build
@@ -39,9 +39,7 @@ jobs:
       with:
           channel: 'dev'
     - run: flutter pub get
-#     - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
-#     - run: flutter build appbundle --target-platform android-arm,android-arm64
-    - run: flutter build appbundle
+    - run: flutter build apk --profile
     - name: Upload APK
       uses: actions/upload-artifact@master
       with:
