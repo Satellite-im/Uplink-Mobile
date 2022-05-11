@@ -22,8 +22,8 @@ enum UTextStyle {
   H5_fifthHeader,
   B1_body,
   B2_medium,
-  B3_italics,
-  B4_bold,
+  B3_bold,
+  B4_italics,
   M1_micro,
   BUT1_primaryButton,
   BUT2_secondaryButton,
@@ -84,7 +84,14 @@ extension UTextStyleExtension on UTextStyle {
           fontSize: USizes.textB2MediumSize,
           color: UColors.white,
         );
-      case UTextStyle.B3_italics:
+      case UTextStyle.B3_bold:
+        return _uTextStyle._copyWith(
+          fontFamily: UFonts.textPoppinsFont,
+          fontWeight: FontWeight.w700,
+          fontSize: USizes.textB4BoldSize,
+          color: UColors.white,
+        );
+      case UTextStyle.B4_italics:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textPoppinsFont,
           fontSize: USizes.textB3ItalicsSize,
@@ -92,13 +99,7 @@ extension UTextStyleExtension on UTextStyle {
           fontStyle: FontStyle.italic,
           color: UColors.white,
         );
-      case UTextStyle.B4_bold:
-        return _uTextStyle._copyWith(
-          fontFamily: UFonts.textPoppinsFont,
-          fontWeight: FontWeight.w700,
-          fontSize: USizes.textB4BoldSize,
-          color: UColors.white,
-        );
+
       case UTextStyle.M1_micro:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textPoppinsFont,
