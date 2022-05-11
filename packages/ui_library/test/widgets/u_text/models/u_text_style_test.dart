@@ -83,24 +83,22 @@ void main() {
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
       expect(_textStyleUnderTest.color, UColors.white);
     });
-
-    test('Test B3 Italics', () {
-      final _textStyleUnderTest = UTextStyle.B3_italics.style;
-
-      expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
-      expect(_textStyleUnderTest.fontSize, 10.0);
-      expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
-      expect(_textStyleUnderTest.fontStyle, FontStyle.italic);
-      expect(_textStyleUnderTest.color, UColors.white);
-    });
-
-    test('Test B4 Bold', () {
-      final _textStyleUnderTest = UTextStyle.B4_bold.style;
+    test('Test B3 Bold', () {
+      final _textStyleUnderTest = UTextStyle.B3_bold.style;
 
       expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
+    });
+    test('Test B4 Italics', () {
+      final _textStyleUnderTest = UTextStyle.B4_italics.style;
+
+      expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
+      expect(_textStyleUnderTest.fontSize, 10.0);
+      expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
+      expect(_textStyleUnderTest.fontStyle, FontStyle.italic);
       expect(_textStyleUnderTest.color, UColors.white);
     });
 
