@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ui_library/core/const/u_colors.dart';
 import 'package:ui_library/widgets/widgets_export.dart';
 
 void main() {
@@ -16,27 +17,21 @@ void main() {
     test('Test H1 Primary Header', () {
       final _textStyleUnderTest = UTextStyle.H1_primaryHeader.style;
 
+      expect(_textStyleUnderTest.fontFamily, _textSpaceMonoFont);
+      expect(_textStyleUnderTest.fontSize, 18.0);
+      expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
+      expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.textMed);
+    });
+
+    test('Test H2 Secondary Header', () {
+      final _textStyleUnderTest = UTextStyle.H2_secondaryHeader.style;
+
       expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
-      expect(_textStyleUnderTest.fontSize, 10.0);
-      expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
+      expect(_textStyleUnderTest.fontSize, 14.0);
+      expect(_textStyleUnderTest.fontWeight, FontWeight.w600);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
-    });
-
-    test('Test H2 Secondary Header', () {
-      final _textStyleUnderTest = UTextStyle.H2_secondaryHeader.style;
-
-      expect(_textStyleUnderTest.fontFamily, _textSpaceMonoFont);
-      expect(_textStyleUnderTest.fontSize, 12.0);
-      expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
-      expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
-    });
-    test('Test H2 Secondary Header', () {
-      final _textStyleUnderTest = UTextStyle.H2_secondaryHeader.style;
-
-      expect(_textStyleUnderTest.fontFamily, _textSpaceMonoFont);
-      expect(_textStyleUnderTest.fontSize, 12.0);
-      expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
-      expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
     test('Test H3 Tertiary Header', () {
@@ -46,24 +41,27 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 12.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.textMed);
     });
 
     test('Test H4 Fourth Header', () {
       final _textStyleUnderTest = UTextStyle.H4_fourthHeader.style;
 
-      expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
-      expect(_textStyleUnderTest.fontSize, 14.0);
-      expect(_textStyleUnderTest.fontWeight, FontWeight.w600);
+      expect(_textStyleUnderTest.fontFamily, _textSpaceMonoFont);
+      expect(_textStyleUnderTest.fontSize, 12.0);
+      expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
-    test('Test H5 Top Menu Bar Title', () {
-      final _textStyleUnderTest = UTextStyle.H4_fourthHeader.style;
+    test('Test H5 Fifth Header', () {
+      final _textStyleUnderTest = UTextStyle.H5_fifthHeader.style;
 
       expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
-      expect(_textStyleUnderTest.fontSize, 14.0);
-      expect(_textStyleUnderTest.fontWeight, FontWeight.w600);
+      expect(_textStyleUnderTest.fontSize, 10.0);
+      expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.textMed);
     });
 
     test('Test B1 Body', () {
@@ -73,6 +71,7 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
     test('Test B2 Medium', () {
@@ -82,6 +81,7 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w500);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
     test('Test B3 Italics', () {
@@ -91,6 +91,7 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
       expect(_textStyleUnderTest.fontStyle, FontStyle.italic);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
     test('Test B4 Bold', () {
@@ -100,6 +101,7 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w700);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
     test('Test M1 Micro', () {
@@ -109,15 +111,17 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 9.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.textDark);
     });
 
-    test('Test BUT1 Button', () {
-      final _textStyleUnderTest = UTextStyle.BUT1_button.style;
+    test('Test BUT1 Primary Button', () {
+      final _textStyleUnderTest = UTextStyle.BUT1_primaryButton.style;
 
       expect(_textStyleUnderTest.fontFamily, _textPoppinsFont);
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w400);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.white);
     });
 
     test('Test BUT2 Secondary Button', () {
@@ -127,6 +131,7 @@ void main() {
       expect(_textStyleUnderTest.fontSize, 10.0);
       expect(_textStyleUnderTest.fontWeight, FontWeight.w500);
       expect(_textStyleUnderTest.fontStyle, FontStyle.normal);
+      expect(_textStyleUnderTest.color, UColors.ctaBlue);
     });
   });
 }

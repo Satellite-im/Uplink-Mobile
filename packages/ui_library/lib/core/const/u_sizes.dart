@@ -22,11 +22,11 @@ class USizes {
   static const double buttonSizeSmall = 40.0;
 
   // Sizes for [UText]
-  static const double textH5TopMenuBarTitleSize = 18.0;
-  static const double textH1PrimaryHeaderSize = 10.0;
-  static const double textH2SecondaryHeaderSize = 12.0;
+  static const double textH1TopMenuBarTitleSize = 18.0;
+  static const double textH2SecondaryHeaderSize = 14.0;
   static const double textH3TertiaryHeaderSize = 12.0;
-  static const double textH4FourthHeaderSize = 14.0;
+  static const double textH4FourthHeaderSize = 12.0;
+  static const double textH5FifthHeaderSize = 10.0;
   static const double textB1BodySize = 10.0;
   static const double textB2MediumSize = 10.0;
   static const double textB3ItalicsSize = 10.0;
