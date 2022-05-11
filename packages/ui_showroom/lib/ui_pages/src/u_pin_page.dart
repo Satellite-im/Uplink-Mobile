@@ -21,14 +21,9 @@ class _UPinPadPageState extends State<UPinPage> {
         child: Column(
           children: <Widget>[
             Expanded(child: Container()),
-            const Text(
+            const UText(
               'Create Account Pin',
-              //TODO:add UTextStyle later
-              style: TextStyle(
-                  fontFamily: UFonts.textSpaceMonoFont,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18,
-                  height: 27 / 18),
+              textStyle: UTextStyle.H1_primaryHeader,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),

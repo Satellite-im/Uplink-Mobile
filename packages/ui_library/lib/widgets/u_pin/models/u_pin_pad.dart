@@ -87,16 +87,10 @@ class _NumericKeyboardState extends State<UPinPad> {
           alignment: Alignment.center,
           width: 60,
           height: 60,
-          //TODO:add UTextStyle later
-          //Header/Android H2 - Poppins 14 Semibold;
-          child: Text(
+          child: UText(
             value,
-            style: const TextStyle(
-                fontFamily: UFonts.textPoppinsFont,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: UColors.white),
             textAlign: TextAlign.center,
+            textStyle: UTextStyle.H2_secondaryHeader,
           ),
         ));
   }

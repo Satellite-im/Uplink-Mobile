@@ -74,16 +74,12 @@ class UChatbar extends StatelessWidget {
                           controller: textEditingController,
                           cursorColor: UColors.textDark,
                           autocorrect: false,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Speak Freely...',
-                              //TODO: extract Text Style to UTextStyle
-                              hintStyle: TextStyle(
-                                fontFamily: UFonts.textPoppinsFont,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10,
-                                color: UColors.textDark,
-                              )),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Speak Freely...',
+                            hintStyle: UTextStyle.H5_fifthHeader.style
+                                .returnTextStyleType(),
+                          ),
                           onSubmitted: (value) {
                             onMsg(value);
                             textEditingController.clear();

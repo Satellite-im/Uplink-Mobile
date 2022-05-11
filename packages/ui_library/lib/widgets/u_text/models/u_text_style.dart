@@ -164,4 +164,25 @@ class _UTextStyle {
       fontFamily: fontFamily ?? this.fontFamily,
     );
   }
+
+  TextStyle returnTextStyleType({
+    Color? color,
+    Color? backgroundColor,
+    double? fontSize,
+    FontWeight? fontWeight,
+    FontStyle? fontStyle,
+    String? fontFamily,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      color: color ?? this.color,
+      package: 'ui_library',
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      fontSize: fontSize ?? this.fontSize,
+      fontWeight: fontWeight ?? this.fontWeight,
+      fontStyle: fontStyle ?? this.fontStyle,
+      letterSpacing: letterSpacing ?? this.letterSpacing,
+      fontFamily: fontFamily ?? this.fontFamily,
+    );
+  }
 }

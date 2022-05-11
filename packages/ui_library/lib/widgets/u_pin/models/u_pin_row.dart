@@ -24,14 +24,12 @@ class UPinRowState extends State<UPinRow> with SingleTickerProviderStateMixin {
   String pin = '';
 
   void addPin(String pinText) {
-    if (pin.length <= widget.pinLength) {
-      if (pin.length < widget.pinLength) {
-        pin = pin + pinText;
-        keyList[pin.length - 1].currentState?.animate(pinText);
-      }
-      if (pin.length == widget.pinLength) {
-        widget.onCompleted.call(pin);
-      }
+    if (pin.length < widget.pinLength) {
+      pin = pin + pinText;
+      keyList[pin.length - 1].currentState?.animate(pinText);
+    }
+    if (pin.length == widget.pinLength) {
+      widget.onCompleted.call(pin);
     }
   }
 
@@ -94,8 +92,6 @@ class PinAnimation extends StatefulWidget {
 class PinAnimationState extends State<PinAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _fontSizeAnimation;
-  late Animation<double> _opacityAnimation;
   String pin = '';
 
   void animate(String pinText) {
@@ -113,8 +109,6 @@ class PinAnimationState extends State<PinAnimation>
     _controller.addListener(() {
       setState(() {});
     });
-    _fontSizeAnimation = Tween<double>(begin: 1, end: 18).animate(_controller);
-    _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
   }
 
   @override
@@ -135,19 +129,19 @@ class PinAnimationState extends State<PinAnimation>
               width: 16,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: pin == '' ? UColors.ctaBlue : Colors.transparent)),
+                  color: pin.isEmpty ? UColors.ctaBlue : Colors.transparent)),
         ),
         Center(
-          child: Opacity(
-              opacity: _opacityAnimation.value,
-              child: Text(
-                pin,
-                style: TextStyle(
-                    fontFamily: UFonts.textSpaceMonoFont,
-                    fontWeight: FontWeight.w700,
-                    height: 27 / 18,
-                    fontSize: _fontSizeAnimation.value,
-                    color: UColors.textMed),
+          child: AnimatedOpacity(
+              opacity: pin.isEmpty ? 0 : 1,
+              duration: const Duration(milliseconds: 125),
+              child: AnimatedScale(
+                duration: const Duration(milliseconds: 100),
+                scale: pin.isEmpty ? 0 : 1,
+                child: UText(
+                  pin,
+                  textStyle: UTextStyle.H1_primaryHeader,
+                ),
               )),
         )
       ]),
