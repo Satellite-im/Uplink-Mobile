@@ -32,58 +32,130 @@ class UIShowRoomApp extends StatelessWidget {
         appBar: AppBar(
           title: const ThemeDropdownButton(),
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: const [
-                SizedBox.square(
-                  dimension: 16,
+        body: Center(
+          child: ListView(
+            children: [
+              const SizedBox.square(
+                dimension: 16,
+              ),
+              Image.asset(
+                'packages/ui_showroom/images/mascot_animation.gif',
+                height: 164,
+                width: 164,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: UText(
+                  'Welcome to our UI Showroom App, \nknow our library!',
+                  textStyle: UTextStyle.H4_fourthHeader,
+                  textAlign: TextAlign.center,
+                  textColor: themeData.colorScheme.secondary,
                 ),
-                WidgetPageButton(
-                  widgetName: UIconPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UColorsPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UTextPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UUserProfilePage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UAvatarProfilePage.routeName,
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-                Text('button widgets'),
-                WidgetPageButton(
-                  widgetName: UButtonPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UIconButtonPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UFABPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: ULogoutButtonPage.routeName,
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-                WidgetPageButton(
-                  widgetName: UChatbarPage.routeName,
-                ),
-                WidgetPageButton(
-                  widgetName: UPinPage.routeName,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox.square(
+                dimension: 16,
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Core Widgets and Specs',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UIconPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UColorsPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UTextPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Basic Profile Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UUserProfilePage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UAvatarProfilePage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Button Session Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UIconButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UFABPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: ULogoutButtonPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Keyboard Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UChatbarPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UPinPage.routeName,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _WidgetsShowSession extends StatelessWidget {
+  const _WidgetsShowSession(
+      {Key? key, required this.sessionWidgets, required this.sessionTitle})
+      : super(key: key);
+
+  final List<Widget> sessionWidgets;
+
+  final String sessionTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          child: ExpansionTile(
+            expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+            childrenPadding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: UText(
+                sessionTitle,
+                textStyle: UTextStyle.H4_fourthHeader,
+              ),
+            ),
+            children: sessionWidgets +
+                [
+                  const SizedBox.square(
+                    dimension: 16,
+                  ),
+                ],
+          ),
+        ),
+        const Divider(
+          thickness: 0.5,
+          indent: 32,
+          endIndent: 32,
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }
@@ -130,11 +202,15 @@ class WidgetPageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, widgetName);
-      },
-      child: Text(widgetName.substring(1)),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: UColors.ctaBlue),
+        onPressed: () {
+          Navigator.pushNamed(context, widgetName);
+        },
+        child: Text(widgetName.substring(1)),
+      ),
     );
   }
 }

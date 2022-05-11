@@ -12,28 +12,29 @@ class UTextPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: const [
             SizedBox.square(
               dimension: 16,
             ),
-            _UTexts('H5 Top Menu Bar Title',
-                textStyle: UTextStyle.H5_topMenuBarTitle),
-            _UTexts('H1 Primary Header',
+            _UTexts('H1 Primary Header - Top Menu Bar Title',
                 textStyle: UTextStyle.H1_primaryHeader),
             _UTexts('H2 Secondary Header',
                 textStyle: UTextStyle.H2_secondaryHeader),
             _UTexts('H3 Tertiary Header',
                 textStyle: UTextStyle.H3_tertiaryHeader),
             _UTexts('H4 Fourth Header', textStyle: UTextStyle.H4_fourthHeader),
+            _UTexts('H5 Fifth Header', textStyle: UTextStyle.H5_fifthHeader),
             _UTexts('B1 Body', textStyle: UTextStyle.B1_body),
             _UTexts('B2 Medium', textStyle: UTextStyle.B2_medium),
-            _UTexts('B3 Italics', textStyle: UTextStyle.B3_italics),
-            _UTexts('B4 Bold', textStyle: UTextStyle.B4_bold),
+            _UTexts('B3 Bold', textStyle: UTextStyle.B3_bold),
+            _UTexts('B4 Italics', textStyle: UTextStyle.B4_italics),
             _UTexts('M1 Micro', textStyle: UTextStyle.M1_micro),
-            _UTexts('BUT1 Button', textStyle: UTextStyle.BUT1_button),
+            _UTexts('BUT1 Primary Button',
+                textStyle: UTextStyle.BUT1_primaryButton),
             _UTexts('BUT2 Secondary Button',
                 textStyle: UTextStyle.BUT2_secondaryButton),
           ],
@@ -60,6 +61,7 @@ class _UTexts extends StatelessWidget {
       child: UText(
         text,
         textStyle: textStyle,
+        maxLines: 2,
       ),
     );
   }
