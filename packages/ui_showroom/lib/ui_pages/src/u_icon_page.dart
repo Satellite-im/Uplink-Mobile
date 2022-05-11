@@ -22,7 +22,7 @@ class UIconPage extends StatelessWidget {
               children: <Widget>[
                     UText(
                       '${_allIcons.length} icons',
-                      textStyle: UTextStyle.H5_topMenuBarTitle,
+                      textStyle: UTextStyle.H1_primaryHeader,
                     )
                   ] +
                   _allIcons,

@@ -101,7 +101,7 @@ class UButton extends StatelessWidget {
             if (_label != null)
               UText(
                 _label!,
-                textStyle: UTextStyle.BUT1_button,
+                textStyle: UTextStyle.BUT1_primaryButton,
               ),
           ],
         ));
