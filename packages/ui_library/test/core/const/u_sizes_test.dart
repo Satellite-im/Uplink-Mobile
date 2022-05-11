@@ -9,11 +9,12 @@ void main() {
     });
 
     test('Should return correct sizes for UTextStyles', () {
-      const _textH5TopMenuBarTitleSize = 18.0;
-      const _textH1PrimaryHeaderSize = 10.0;
-      const _textH2SecondaryHeaderSize = 12.0;
+      const _textH1TopMenuBarTitleSize = 18.0;
+      const _textH2SecondaryHeaderSize = 14.0;
       const _textH3TertiaryHeaderSize = 12.0;
-      const _textH4FourthHeaderSize = 14.0;
+      const _textH4FourthHeaderSize = 12.0;
+      const _textH5FifthHeaderSize = 10.0;
+
       const _textB1BodySize = 10.0;
       const _textB2MediumSize = 10.0;
       const _textB3ItalicsSize = 10.0;
@@ -21,11 +22,11 @@ void main() {
       const _textM1MicroSize = 9.0;
       const _textBUT1ButtonSize = 10.0;
       const _textBUT2SecondaryButtonSize = 10.0;
-      expect(USizes.textH5TopMenuBarTitleSize, _textH5TopMenuBarTitleSize);
-      expect(USizes.textH1PrimaryHeaderSize, _textH1PrimaryHeaderSize);
+      expect(USizes.textH1TopMenuBarTitleSize, _textH1TopMenuBarTitleSize);
       expect(USizes.textH2SecondaryHeaderSize, _textH2SecondaryHeaderSize);
       expect(USizes.textH3TertiaryHeaderSize, _textH3TertiaryHeaderSize);
       expect(USizes.textH4FourthHeaderSize, _textH4FourthHeaderSize);
+      expect(USizes.textH5FifthHeaderSize, _textH5FifthHeaderSize);
       expect(USizes.textB1BodySize, _textB1BodySize);
       expect(USizes.textB2MediumSize, _textB2MediumSize);
       expect(USizes.textB3ItalicsSize, _textB3ItalicsSize);

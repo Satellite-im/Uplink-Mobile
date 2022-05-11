@@ -53,6 +53,7 @@ class UText extends StatelessWidget {
       textAlign: textAlign,
       style: TextStyle(
         fontFamily: textStyle.style.fontFamily,
+        package: textStyle.style.package,
         fontSize: textStyle.style.fontSize,
         fontStyle: textStyle.style.fontStyle,
         fontWeight: textStyle.style.fontWeight,

@@ -67,14 +67,14 @@ class ColorRow extends StatelessWidget {
           children: [
             UText(
               'UColors.$colorName',
-              textStyle: UTextStyle.H5_topMenuBarTitle,
+              textStyle: UTextStyle.H1_primaryHeader,
               textColor: _uColorCode == '0xffeef0f2'
                   ? UColors.backgroundDark
                   : UColors.white,
             ),
             UText(
               _uColorCode,
-              textStyle: UTextStyle.H5_topMenuBarTitle,
+              textStyle: UTextStyle.H1_primaryHeader,
               textColor: _uColorCode == '0xffeef0f2'
                   ? UColors.backgroundDark
                   : UColors.white,

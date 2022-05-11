@@ -82,7 +82,7 @@ class SystemUnderTest extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const UText('When User Profile has Large Size',
-            textStyle: UTextStyle.H5_topMenuBarTitle),
+            textStyle: UTextStyle.H1_primaryHeader),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +105,7 @@ class SystemUnderTest extends StatelessWidget {
           dimension: 8,
         ),
         const UText('When User Profile has Normal Size',
-            textStyle: UTextStyle.H5_topMenuBarTitle),
+            textStyle: UTextStyle.H1_primaryHeader),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,7 +128,7 @@ class SystemUnderTest extends StatelessWidget {
           dimension: 8,
         ),
         const UText('When User Profile has Top Menu Bar Size',
-            textStyle: UTextStyle.H5_topMenuBarTitle),
+            textStyle: UTextStyle.H1_primaryHeader),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
