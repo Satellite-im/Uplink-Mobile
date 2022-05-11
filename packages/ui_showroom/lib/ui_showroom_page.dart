@@ -19,6 +19,7 @@ class UIShowRoomApp extends StatelessWidget {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
         UTextPage.routeName: (context) => const UTextPage(),
+        UOnboardingPage.routeName: (context) => const UOnboardingPage(),
         UUserProfilePage.routeName: (context) => const UUserProfilePage(),
         UAvatarProfilePage.routeName: (context) => const UAvatarProfilePage(),
         UButtonPage.routeName: (context) => const UButtonPage(),
@@ -59,11 +60,13 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UIconPage.routeName,
                   ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Onboarding Widgets',
+                sessionWidgets: [
                   WidgetPageButton(
-                    widgetName: UColorsPage.routeName,
-                  ),
-                  WidgetPageButton(
-                    widgetName: UTextPage.routeName,
+                    widgetName: UOnboardingPage.routeName,
                   ),
                 ],
               ),
