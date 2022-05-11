@@ -16,7 +16,7 @@ jobs:
         architecture: x64
     - run: flutter pub get
     - run: flutter test
-    - run: flutter build ios --profile
+    - run: flutter build ios --profile --no-codesign
     - name: Upload IPA
       uses: actions/upload-artifact@master
       with:
