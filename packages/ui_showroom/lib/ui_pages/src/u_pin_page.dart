@@ -37,7 +37,7 @@ class _UPinPadPageState extends State<UPinPage> {
             const SizedBox(height: 56),
             UPin(
               key: uPinStateKey,
-              pinLength: 6,
+              pinLength: 4,
               onCompleted: (pin) {
                 if (pin == '1234') {
                   showDialog(

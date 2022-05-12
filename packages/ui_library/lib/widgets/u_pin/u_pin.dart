@@ -5,7 +5,7 @@ import 'package:ui_library/ui_library_export.dart';
 ///
 ///[pinLength] only accept 4, 6 or 8 digits
 ///
-///[onCompleted] is an opitonal function to handler the pin after user type the last digit, like checking the pin is correct or not
+///[onCompleted] is an optional function to handler the pin after user type the last digit, like checking the pin is correct or not
 ///
 ///[rightButtonFn] is a required function to handler the next step when user finish typing
 ///
