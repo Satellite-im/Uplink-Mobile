@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
+GlobalKey<UPinState> uPinStateKey = GlobalKey();
+
 class UPinPage extends StatefulWidget {
   const UPinPage({Key? key}) : super(key: key);
   static const routeName = '/UPin';
@@ -34,7 +36,8 @@ class _UPinPadPageState extends State<UPinPage> {
             ),
             const SizedBox(height: 56),
             UPin(
-              pinLength: 4,
+              key: uPinStateKey,
+              pinLength: 6,
               onCompleted: (pin) {
                 if (pin == '1234') {
                   showDialog(
@@ -46,8 +49,18 @@ class _UPinPadPageState extends State<UPinPage> {
                         );
                       });
                 } else {
-                  uPinRowStateKey.currentState?.notifyWrongPin();
+                  uPinStateKey.currentState?.notifyWrongPin();
                 }
+              },
+              rightButtonFn: (pin) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Pin:$pin'),
+                        content: const Text('Go to next page'),
+                      );
+                    });
               },
             )
           ],
