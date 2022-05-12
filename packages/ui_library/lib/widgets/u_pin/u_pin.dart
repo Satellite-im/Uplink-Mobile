@@ -144,8 +144,8 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
         onTap: () => addPin(value),
         child: Container(
           alignment: Alignment.center,
-          width: 60,
-          height: 60,
+          width: USizes.pinButtonSize,
+          height: USizes.pinButtonSize,
           child: UText(
             value,
             textStyle: UTextStyle.H2_secondaryHeader,
@@ -211,8 +211,8 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                     onTap: () => delete(),
                     child: Container(
                         alignment: Alignment.center,
-                        width: 60,
-                        height: 60,
+                        width: USizes.pinButtonSize,
+                        height: USizes.pinButtonSize,
                         child: const UIcon(
                           UIcons.pin_entry_backspace_button,
                           color: UColors.white,
@@ -228,8 +228,8 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                       },
                       child: Container(
                           alignment: Alignment.center,
-                          width: 60,
-                          height: 60,
+                          width: USizes.pinButtonSize,
+                          height: USizes.pinButtonSize,
                           child: Opacity(
                               opacity: _rightButtonOpacityAnimation.value,
                               child: const UIcon(
@@ -272,7 +272,7 @@ class PinDotWithAnimationState extends State<PinDotWithAnimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 100));
+        vsync: this, duration: const Duration(milliseconds: 200));
     _controller.addListener(() {
       setState(() {});
     });
@@ -293,8 +293,8 @@ class PinDotWithAnimationState extends State<PinDotWithAnimation>
       child: Stack(children: [
         Center(
           child: Container(
-            height: 16,
-            width: 16,
+            height: USizes.pinDotSize,
+            width: USizes.pinDotSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: pinDotPin == '' ? UColors.ctaBlue : Colors.transparent,
