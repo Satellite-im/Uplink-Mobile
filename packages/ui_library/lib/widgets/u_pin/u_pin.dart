@@ -138,19 +138,18 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
     _wrongPinAnimationController.forward();
   }
 
-  Widget _calcButton(String value) {
+  Widget _pinButton(String value) {
     return InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: () => addPin(value),
         child: Container(
-          decoration: BoxDecoration(
-              color: UColors.ctaBlue, borderRadius: BorderRadius.circular(40)),
           alignment: Alignment.center,
           width: 60,
           height: 60,
           child: UText(
             value,
             textStyle: UTextStyle.H2_secondaryHeader,
+            textColor: UColors.white,
           ),
         ));
   }
@@ -183,25 +182,25 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _calcButton('1'),
-                  _calcButton('2'),
-                  _calcButton('3'),
+                  _pinButton('1'),
+                  _pinButton('2'),
+                  _pinButton('3'),
                 ],
               ),
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _calcButton('4'),
-                  _calcButton('5'),
-                  _calcButton('6'),
+                  _pinButton('4'),
+                  _pinButton('5'),
+                  _pinButton('6'),
                 ],
               ),
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _calcButton('7'),
-                  _calcButton('8'),
-                  _calcButton('9'),
+                  _pinButton('7'),
+                  _pinButton('8'),
+                  _pinButton('9'),
                 ],
               ),
               ButtonBar(
@@ -214,9 +213,12 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                         alignment: Alignment.center,
                         width: 60,
                         height: 60,
-                        child: const UIcon(UIcons.pin_entry_backspace_button)),
+                        child: const UIcon(
+                          UIcons.pin_entry_backspace_button,
+                          color: UColors.white,
+                        )),
                   ),
-                  _calcButton('0'),
+                  _pinButton('0'),
                   InkWell(
                       borderRadius: BorderRadius.circular(40),
                       onTap: () {
@@ -230,7 +232,10 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                           height: 60,
                           child: Opacity(
                               opacity: _rightButtonOpacityAnimation.value,
-                              child: const UIcon(UIcons.checkmark))))
+                              child: const UIcon(
+                                UIcons.checkmark,
+                                color: UColors.white,
+                              ))))
                 ],
               ),
             ],
