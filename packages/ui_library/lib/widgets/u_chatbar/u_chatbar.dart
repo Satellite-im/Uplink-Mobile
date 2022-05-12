@@ -33,7 +33,7 @@ import 'package:ui_library/ui_library_export.dart';
 ///    });
 ///  }
 /// ```
-class UChatbar extends StatelessWidget {
+class UChatbar extends StatefulWidget {
   const UChatbar({
     Key? key,
     required this.textEditingController,
@@ -52,13 +52,33 @@ class UChatbar extends StatelessWidget {
   final ValueChanged<String> onMsg;
 
   @override
+  State<UChatbar> createState() => _UChatbarState();
+}
+
+class _UChatbarState extends State<UChatbar> {
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode
+        .addListener(() => FocusScope.of(context).requestFocus(_focusNode));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _focusNode.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          UIconButton.add(onPressed: onImage),
+          UIconButton.add(onPressed: widget.onImage),
           const SizedBox(width: 16),
           Expanded(
             child: Container(
@@ -71,7 +91,8 @@ class UChatbar extends StatelessWidget {
                   Expanded(
                       child: TextField(
                           textInputAction: TextInputAction.newline,
-                          controller: textEditingController,
+                          controller: widget.textEditingController,
+                          focusNode: _focusNode,
                           cursorColor: UColors.textDark,
                           autocorrect: false,
                           decoration: InputDecoration(
@@ -81,11 +102,12 @@ class UChatbar extends StatelessWidget {
                                 .returnTextStyleType(),
                           ),
                           onSubmitted: (value) {
-                            onMsg(value);
-                            textEditingController.clear();
+                            widget.onMsg(value);
+                            widget.textEditingController.clear();
+                            _focusNode.unfocus();
                           })),
                   InkWell(
-                    onTap: onSticker,
+                    onTap: widget.onSticker,
                     child: const UIcon(
                       UIcons.chatbar_stickers,
                       color: UColors.textDark,
@@ -93,7 +115,7 @@ class UChatbar extends StatelessWidget {
                   ),
                   const SizedBox(width: 17),
                   InkWell(
-                    onTap: onGif,
+                    onTap: widget.onGif,
                     child: const UIcon(
                       UIcons.chatbar_gifs,
                       color: UColors.textDark,
@@ -101,7 +123,7 @@ class UChatbar extends StatelessWidget {
                   ),
                   const SizedBox(width: 17),
                   InkWell(
-                    onTap: onEmoji,
+                    onTap: widget.onEmoji,
                     child: const UIcon(
                       UIcons.chatbar_emojis,
                       color: UColors.textDark,
