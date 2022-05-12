@@ -102,7 +102,7 @@ class _UChatbarState extends State<UChatbar> {
                                 .returnTextStyleType(),
                           ),
                           onSubmitted: (value) {
-                            widget.onMsg(value);
+                            if (value.trim().isNotEmpty) widget.onMsg(value);
                             widget.textEditingController.clear();
                             _focusNode.unfocus();
                           })),
