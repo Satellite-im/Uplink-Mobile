@@ -17,8 +17,8 @@ class URecoverySeedBox extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 160,
-          height: 40,
+          width: USizes.recoverySeedBoxWidthSize,
+          height: USizes.recoverySeedBoxHeightSize,
           decoration: const BoxDecoration(
             color: UColors.foregroundDark,
             borderRadius: BorderRadius.all(
@@ -36,8 +36,8 @@ class URecoverySeedBox extends StatelessWidget {
           top: 0,
           left: 0,
           child: Container(
-            width: 14,
-            height: 15,
+            width: USizes.recoverySeedBoxNumberBoxWidthSize,
+            height: USizes.recoverySeedBoxNumberBoxHeightSize,
             decoration: const BoxDecoration(
               color: UColors.ctaBlue,
               borderRadius: BorderRadius.only(

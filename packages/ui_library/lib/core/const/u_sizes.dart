@@ -57,4 +57,10 @@ class USizes {
   static const double unreadMessagesLessThanThousandWidthSize = 35.0;
   static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
       42.0;
+
+  // Sizes for [URecoverySeedBox]
+  static const double recoverySeedBoxWidthSize = 160.0;
+  static const double recoverySeedBoxHeightSize = 40.0;
+  static const double recoverySeedBoxNumberBoxWidthSize = 14.0;
+  static const double recoverySeedBoxNumberBoxHeightSize = 15.0;
 }
