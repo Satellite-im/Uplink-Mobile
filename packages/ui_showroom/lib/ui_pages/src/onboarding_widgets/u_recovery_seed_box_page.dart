@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class UOnboardingPage extends StatelessWidget {
-  const UOnboardingPage({Key? key}) : super(key: key);
+class URecoverySeedBoxPage extends StatelessWidget {
+  const URecoverySeedBoxPage({Key? key}) : super(key: key);
 
-  static const routeName = '/UOnboarding';
+  static const routeName = '/URecoverySeedBox';
 
   @override
   Widget build(BuildContext context) {
