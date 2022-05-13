@@ -33,7 +33,26 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
   fonts:
+    - family: Poppins
+      fonts:
+        - asset: packages/ui_library/fonts/text/Poppins-Regular.ttf
+          weight: 400
+        - asset: packages/ui_library/fonts/text/Poppins-Medium.ttf
+          weight: 500
+        - asset: packages/ui_library/fonts/text/Poppins-Bold.ttf
+          weight: 700
+        - asset: packages/ui_library/fonts/text/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: packages/ui_library/fonts/text/Poppins-Italic.ttf
+          weight: 400
+
+    - family: SpaceMono
+      fonts:
+        - asset: packages/ui_library/fonts/text/SpaceMono-Bold.ttf
+          weight: 700
+
     - family: UIcons
       fonts:
         - asset: packages/ui_library/fonts/icon/UIcons.ttf

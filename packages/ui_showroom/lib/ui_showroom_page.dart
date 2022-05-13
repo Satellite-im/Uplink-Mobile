@@ -31,6 +31,8 @@ class UIShowRoomApp extends StatelessWidget {
         UBottomSheetTwoButtonsPage.routeName: (context) =>
             const UBottomSheetTwoButtonsPage(),
         UBottomSheetPinPage.routeName: (context) => const UBottomSheetPinPage(),
+        UChatbarPage.routeName: (context) => const UChatbarPage(),
+        UPinPage.routeName: (context) => const UPinPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -65,11 +67,20 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UIconPage.routeName,
                   ),
+                  WidgetPageButton(
+                    widgetName: UTextPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UColorsPage.routeName,
+                  ),
                 ],
               ),
               const _WidgetsShowSession(
                 sessionTitle: 'Onboarding Widgets',
                 sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UPinPage.routeName,
+                  ),
                   WidgetPageButton(
                     widgetName: URecoverySeedBoxPage.routeName,
                   ),
@@ -111,6 +122,14 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UBottomSheetPinPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Chat Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UChatbarPage.routeName,
                   ),
                 ],
               ),
