@@ -30,6 +30,7 @@ class UIShowRoomApp extends StatelessWidget {
         ULogoutButtonPage.routeName: (context) => const ULogoutButtonPage(),
         UBottomSheetTwoButtonsPage.routeName: (context) =>
             const UBottomSheetTwoButtonsPage(),
+        UBottomSheetPinPage.routeName: (context) => const UBottomSheetPinPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -107,6 +108,9 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UBottomSheetTwoButtonsPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UBottomSheetPinPage.routeName,
                   ),
                 ],
               ),
