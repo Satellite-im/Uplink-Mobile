@@ -29,7 +29,7 @@ class UBottomSheetTwoButtons {
   Future show() {
     return UBottomSheet(
       context,
-      _UBottomSheetTwoButtonsBody(
+      child: _UBottomSheetTwoButtonsBody(
         header: header,
         firstButtonOnPressed: firstButtonOnPressed,
         firstButtonText: firstButtonText,
@@ -67,8 +67,9 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      padding: const EdgeInsets.fromLTRB(16, 30, 16, 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UText(
             header,
@@ -80,32 +81,40 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
           Row(
             children: [
               if (firstButtonIcon == null) ...[
-                UButton.filled2(
-                  label: firstButtonText,
-                  onPressed: firstButtonOnPressed,
+                Expanded(
+                  child: UButton.filled2(
+                    label: firstButtonText,
+                    onPressed: firstButtonOnPressed,
+                  ),
                 )
               ] else ...[
-                UButton.secondary(
-                    label: firstButtonText,
-                    uIconData: firstButtonIcon!,
-                    onPressed: firstButtonOnPressed),
+                Expanded(
+                  child: UButton.secondary(
+                      label: firstButtonText,
+                      uIconData: firstButtonIcon!,
+                      onPressed: firstButtonOnPressed),
+                ),
               ],
               const SizedBox.square(
                 dimension: 8,
               ),
               if (secondButtonIcon == null) ...[
-                UButton.filled1(
-                  label: secondButtonText,
-                  onPressed: secondButtonOnPressed,
+                Expanded(
+                  child: UButton.filled1(
+                    label: secondButtonText,
+                    onPressed: secondButtonOnPressed,
+                  ),
                 )
               ] else ...[
-                UButton.primary(
-                    label: secondButtonText,
-                    uIconData: secondButtonIcon!,
-                    onPressed: secondButtonOnPressed),
-              ]
+                Expanded(
+                  child: UButton.primary(
+                      label: secondButtonText,
+                      uIconData: secondButtonIcon!,
+                      onPressed: secondButtonOnPressed),
+                ),
+              ],
             ],
-          )
+          ),
         ],
       ),
     );
