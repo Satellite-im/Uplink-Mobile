@@ -9,7 +9,9 @@ class UBottomSheetPin {
 
   /// Creates a bottom sheet to use in Pin Pages
   ///
-  /// It allows to select between 4, 6 or 8 digits as pin length
+  /// It allows to select between 4, 6 or 8 digits as pin length.
+  ///
+  /// [onSelect] method will return the number of selected integer type digits
   ///
   /// To use, is necessary to call the class and the method [show]
   ///
