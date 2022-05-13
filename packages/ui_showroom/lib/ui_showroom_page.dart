@@ -63,6 +63,12 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UIconPage.routeName,
                   ),
+                  WidgetPageButton(
+                    widgetName: UTextPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UColorsPage.routeName,
+                  ),
                 ],
               ),
               const _WidgetsShowSession(
