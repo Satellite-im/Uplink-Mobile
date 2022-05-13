@@ -19,6 +19,8 @@ class UIShowRoomApp extends StatelessWidget {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
         UTextPage.routeName: (context) => const UTextPage(),
+        URecoverySeedBoxPage.routeName: (context) =>
+            const URecoverySeedBoxPage(),
         UUserProfilePage.routeName: (context) => const UUserProfilePage(),
         UAvatarProfilePage.routeName: (context) => const UAvatarProfilePage(),
         UButtonPage.routeName: (context) => const UButtonPage(),
@@ -61,11 +63,16 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UIconPage.routeName,
                   ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Onboarding Widgets',
+                sessionWidgets: [
                   WidgetPageButton(
-                    widgetName: UColorsPage.routeName,
+                    widgetName: UPinPage.routeName,
                   ),
                   WidgetPageButton(
-                    widgetName: UTextPage.routeName,
+                    widgetName: URecoverySeedBoxPage.routeName,
                   ),
                 ],
               ),
@@ -98,13 +105,10 @@ class UIShowRoomApp extends StatelessWidget {
                 ],
               ),
               const _WidgetsShowSession(
-                sessionTitle: 'Keyboard Widgets',
+                sessionTitle: 'Chat Widgets',
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UChatbarPage.routeName,
-                  ),
-                  WidgetPageButton(
-                    widgetName: UPinPage.routeName,
                   ),
                 ],
               ),

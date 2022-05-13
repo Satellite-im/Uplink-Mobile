@@ -58,9 +58,15 @@ class USizes {
   static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
       42.0;
 
-  // UPin
+  // [UPin]
   // Button size(width and height) for pinButton
   static const double pinButtonSize = 60.0;
   // Dot size(width and height) for pin dot
   static const double pinDotSize = 16;
+
+  // Sizes for [URecoverySeedBox]
+  static const double recoverySeedBoxWidthSize = 160.0;
+  static const double recoverySeedBoxHeightSize = 40.0;
+  static const double recoverySeedBoxNumberBoxWidthSize = 14.0;
+  static const double recoverySeedBoxNumberBoxHeightSize = 15.0;
 }
