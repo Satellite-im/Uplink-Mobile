@@ -27,6 +27,8 @@ class UIShowRoomApp extends StatelessWidget {
         UIconButtonPage.routeName: (context) => const UIconButtonPage(),
         UFABPage.routeName: (context) => const UFABPage(),
         ULogoutButtonPage.routeName: (context) => const ULogoutButtonPage(),
+        UChatbarPage.routeName: (context) => const UChatbarPage(),
+        UPinPage.routeName: (context) => const UPinPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -67,6 +69,9 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionTitle: 'Onboarding Widgets',
                 sessionWidgets: [
                   WidgetPageButton(
+                    widgetName: UPinPage.routeName,
+                  ),
+                  WidgetPageButton(
                     widgetName: URecoverySeedBoxPage.routeName,
                   ),
                 ],
@@ -96,6 +101,14 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: ULogoutButtonPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Chat Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UChatbarPage.routeName,
                   ),
                 ],
               ),
