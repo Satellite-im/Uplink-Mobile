@@ -5,11 +5,14 @@ enum _ButtonType { primary, secondary, filled1, filled2 }
 
 class UButton extends StatelessWidget {
   final _ButtonType _buttonType;
-  final String? _label;
+  final String _label;
   final UIconData? _uIconData;
   final VoidCallback _onPressed;
 
   ///[ElevatedButton] with Text and Icon:
+  ///
+  /// backgrounColor is [UColors.ctaBlue]
+  ///
   ///```dart
   /// UButton.primary(
   ///    label: 'ButtonText',
@@ -29,6 +32,9 @@ class UButton extends StatelessWidget {
         super(key: key);
 
   ///[ElevatedButton] with Text and Icon:
+  ///
+  /// backgrounColor is [UColors.ctaDark]
+  ///
   ///```dart
   /// UButton.secondary(
   ///    label: 'ButtonText',
@@ -48,6 +54,9 @@ class UButton extends StatelessWidget {
         super(key: key);
 
   ///[ElevatedButton] with Text only:
+  ///
+  /// backgrounColor is [UColors.ctaBlue]
+  ///
   ///```dart
   /// UButton.filled1(
   ///    label: 'ButtonText',
@@ -63,6 +72,9 @@ class UButton extends StatelessWidget {
         super(key: key);
 
   ///[ElevatedButton] with Text only:
+  ///
+  /// backgrounColor is [UColors.ctaDark]
+  ///
   ///```dart
   /// UButton.filled2(
   ///    label: 'ButtonText',
@@ -96,13 +108,14 @@ class UButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (_uIconData != null) UIcon(_uIconData!),
-            if (_uIconData != null && _label != null) const SizedBox(width: 8),
-            if (_label != null)
-              UText(
-                _label!,
-                textStyle: UTextStyle.BUT1_primaryButton,
-              ),
+            if (_uIconData != null) ...[
+              UIcon(_uIconData!),
+              const SizedBox(width: 8),
+            ],
+            UText(
+              _label,
+              textStyle: UTextStyle.BUT1_primaryButton,
+            ),
           ],
         ));
   }

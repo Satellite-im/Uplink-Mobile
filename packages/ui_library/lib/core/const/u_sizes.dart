@@ -69,4 +69,10 @@ class USizes {
   static const double recoverySeedBoxHeightSize = 40.0;
   static const double recoverySeedBoxNumberBoxWidthSize = 14.0;
   static const double recoverySeedBoxNumberBoxHeightSize = 15.0;
+
+  // Sizes for [UBottomSheet]
+  static const double barAboveBottomSheetHeightSize = 2.0;
+  static const double barAboveBottomSheetWidthSize = 72.0;
+  static const double barAboveBottomSheetBorderRadius = 8.0;
+  static const double bottomSheetTemplateBorderRadius = 20.0;
 }
