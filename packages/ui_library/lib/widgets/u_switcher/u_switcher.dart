@@ -45,7 +45,7 @@ class USwitcher extends StatefulWidget {
 }
 
 class _USwitcherState extends State<USwitcher> {
-  bool _switchValue = false;
+  late bool _switchValue;
   late bool _disabled;
   @override
   void initState() {

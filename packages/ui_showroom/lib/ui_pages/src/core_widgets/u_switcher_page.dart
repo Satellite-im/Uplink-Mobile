@@ -76,7 +76,6 @@ class _USwitcherPageState extends State<USwitcherPage> {
             ),
             Center(
               child: USwitcher(
-                disabled: false,
                 switchValue: _secondSwitcherValue,
                 onSwitch: (value) {
                   setState(() {
