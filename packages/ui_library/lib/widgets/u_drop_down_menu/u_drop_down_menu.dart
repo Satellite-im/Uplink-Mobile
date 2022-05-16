@@ -80,13 +80,13 @@ class UDropDownMenuState extends State<UDropDownMenu> {
           });
         },
         icon: const UIcon(UIcons.dropdown_menu),
-        buttonHeight: 40,
+        buttonHeight: USizes.dropDownMenuButtonHeight,
         buttonPadding: const EdgeInsets.fromLTRB(25, 8, 16, 8),
         buttonDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           color: UColors.ctaBlue,
         ),
-        itemHeight: 48,
+        itemHeight: USizes.dropDownMenuItemHeight,
         itemPadding: const EdgeInsets.only(left: 16),
         dropdownPadding: null,
         dropdownElevation: 0,
