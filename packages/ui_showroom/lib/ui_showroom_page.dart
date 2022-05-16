@@ -29,6 +29,8 @@ class UIShowRoomApp extends StatelessWidget {
         ULogoutButtonPage.routeName: (context) => const ULogoutButtonPage(),
         UChatbarPage.routeName: (context) => const UChatbarPage(),
         UPinPage.routeName: (context) => const UPinPage(),
+        UDropDownButtonPage.routeName: ((context) =>
+            const UDropDownButtonPage()),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -73,6 +75,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: URecoverySeedBoxPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UDropDownButtonPage.routeName,
                   ),
                 ],
               ),

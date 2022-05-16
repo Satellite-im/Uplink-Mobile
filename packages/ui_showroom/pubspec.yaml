@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dropdown_button2: ^1.4.0
   provider: ^6.0.2
   ui_library:
     path: '../ui_library'
