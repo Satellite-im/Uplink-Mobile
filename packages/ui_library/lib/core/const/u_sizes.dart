@@ -69,4 +69,9 @@ class USizes {
   static const double recoverySeedBoxHeightSize = 40.0;
   static const double recoverySeedBoxNumberBoxWidthSize = 14.0;
   static const double recoverySeedBoxNumberBoxHeightSize = 15.0;
+
+  // Sizes for [USwitcher]
+  static const double switcherTotalHeight = 20.0;
+  static const double switcherTotalWidth = 36.0;
+  static const double switcherTrackHeight = 16.0;
 }

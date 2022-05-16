@@ -19,6 +19,7 @@ class UIShowRoomApp extends StatelessWidget {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
         UTextPage.routeName: (context) => const UTextPage(),
+        USwitcherPage.routeName: (context) => const USwitcherPage(),
         URecoverySeedBoxPage.routeName: (context) =>
             const URecoverySeedBoxPage(),
         UUserProfilePage.routeName: (context) => const UUserProfilePage(),
@@ -68,6 +69,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UColorsPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: USwitcherPage.routeName,
                   ),
                 ],
               ),
