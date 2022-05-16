@@ -2,15 +2,15 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class UDropDownButtonPage extends StatefulWidget {
-  const UDropDownButtonPage({Key? key}) : super(key: key);
-  static const routeName = '/UDropDownButton';
+class UDropDownMenuPage extends StatefulWidget {
+  const UDropDownMenuPage({Key? key}) : super(key: key);
+  static const routeName = '/UDropDownMenu';
 
   @override
-  State<UDropDownButtonPage> createState() => _UDropDownFABPageState();
+  State<UDropDownMenuPage> createState() => _UDropDownMenuPageState();
 }
 
-class _UDropDownFABPageState extends State<UDropDownButtonPage> {
+class _UDropDownMenuPageState extends State<UDropDownMenuPage> {
   String selectedValue = 'Satellite.im + Public Signaling Servers';
   List<String> items = [
     'Satellite.im + Public Signaling Servers',
@@ -23,7 +23,7 @@ class _UDropDownFABPageState extends State<UDropDownButtonPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(UDropDownButtonPage.routeName.substring(1)),
+        title: Text(UDropDownMenuPage.routeName.substring(1)),
       ),
       body: Center(
         child: DropdownButtonHideUnderline(
