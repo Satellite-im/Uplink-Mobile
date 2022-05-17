@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/u_drop_down_menu/u_drop_down_menu.dart';
 
-GlobalKey<UDropDownMenuState> uDropDownMenuStateKey = GlobalKey();
+// GlobalKey<UDropDownMenuState> uDropDownMenuStateKey = GlobalKey();
 
 class UDropDownMenuPage extends StatefulWidget {
   const UDropDownMenuPage({Key? key}) : super(key: key);
@@ -20,6 +20,9 @@ class _UDropDownMenuPageState extends State<UDropDownMenuPage> {
     'Title3',
   ];
 
+  String _selectedValue = 'Satellite.im + Public Signaling Servers';
+  int _selectedValueIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,19 +38,18 @@ class _UDropDownMenuPageState extends State<UDropDownMenuPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: UDropDownMenu(
-                key: uDropDownMenuStateKey,
-                items: items,
-              ),
+                  items: items,
+                  onSelectedItem: (item, index) {
+                    _selectedValue = item;
+                    _selectedValueIndex = index;
+                  }),
             ),
             const SizedBox(height: 56),
             UButton.filled1(
                 label: 'Continue',
                 onPressed: () {
-                  final _selectedValue =
-                      uDropDownMenuStateKey.currentState?.selectedValue;
-                  final _selectedValueIndex =
-                      uDropDownMenuStateKey.currentState?.getValueIndex();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      duration: const Duration(seconds: 1),
                       content: Text(
                           'Selected value: $_selectedValue \nThe Index of selected value: $_selectedValueIndex')));
                 })

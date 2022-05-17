@@ -38,9 +38,11 @@ class UDropDownMenu extends StatefulWidget {
     Key? key,
     required this.items,
     this.selectedValue,
+    required this.onSelectedItem,
   }) : super(key: key);
   final List<String> items;
   final String? selectedValue;
+  final Function(String item, int index) onSelectedItem;
 
   @override
   State<UDropDownMenu> createState() => UDropDownMenuState();
@@ -78,6 +80,7 @@ class UDropDownMenuState extends State<UDropDownMenu> {
           setState(() {
             selectedValue = value as String;
           });
+          widget.onSelectedItem.call(selectedValue!, getValueIndex());
         },
         icon: const UIcon(UIcons.dropdown_menu),
         buttonHeight: USizes.dropDownMenuButtonHeight,
