@@ -12,5 +12,5 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install lcov
-          sh .github/scripts/ui_library/create_clean_lcov_and_generate_html.sh false
+          cd packages/ui_library && sh scripts/create_clean_lcov_and_generate_html.sh false
           sh .github/scripts/ui_library/get_coverage_percentage.sh coverage/lcov.info
