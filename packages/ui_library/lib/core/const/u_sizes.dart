@@ -73,4 +73,11 @@ class USizes {
   // Sizes for [UDropDownMenu]
   static const double dropDownMenuButtonHeight = 40;
   static const double dropDownMenuItemHeight = 48;
+
+  // Sizes for [UBottomSheet]
+  static const double barAboveBottomSheetHeightSize = 2.0;
+  static const double barAboveBottomSheetWidthSize = 72.0;
+  static const double barAboveBottomSheetBorderRadius = 8.0;
+  static const double bottomSheetTemplateBorderRadius = 20.0;
+
 }
