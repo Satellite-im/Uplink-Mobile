@@ -1,0 +1,16 @@
+on: pull_request
+name: UI Library Test Coverage
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter_channel: stable
+          flutter_version: 2.10.4
+      - name: Tests
+        shell: bash
+        run: |
+          sudo apt-get install lcov
+          sh .github/scripts/ui_library/create_clean_lcov_and_generate_html.sh false
+          sh .github/scripts/ui_library/get_coverage_percentage.sh coverage/lcov.info
