@@ -10,7 +10,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 
 if [ "$(echo "${percentageRate} < $MIN_COVERAGE_PERC" | bc)" -eq 1 ]; then
-    printf "${RED}Error: Your coverage rate is to low, expected ${MIN_COVERAGE_PERC}% but have ${percentageRate}%.\n"
+    printf "${RED}Error: Your coverage rate is to low, expected ${MIN_COVERAGE_PERC}%% but have ${percentageRate}%.\n"
     printf "${RED}Please add more tests to cover your code.\n"
     printf "${RED}To see in local your coverage rate use:\n"
     printf "${RED}    sh scripts/create_clean_lcov_and_generate_html.sh true\n"
