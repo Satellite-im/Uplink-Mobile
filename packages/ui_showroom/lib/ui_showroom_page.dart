@@ -33,6 +33,8 @@ class UIShowRoomApp extends StatelessWidget {
         UBottomSheetPinPage.routeName: (context) => const UBottomSheetPinPage(),
         UChatbarPage.routeName: (context) => const UChatbarPage(),
         UPinPage.routeName: (context) => const UPinPage(),
+        UUserPictureChangePage.routeName: (context) =>
+            const UUserPictureChangePage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -83,6 +85,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: URecoverySeedBoxPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UUserPictureChangePage.routeName,
                   ),
                 ],
               ),
