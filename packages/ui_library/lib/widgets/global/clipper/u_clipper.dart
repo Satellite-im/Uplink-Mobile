@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/const/u_sizes.dart';
 
-part 'unread_messages_chat_bubble_clipper.dart';
-part 'unread_messages_clipper.dart';
-part 'user_profile_status_clipper.dart';
-part 'user_profile_notification_clipper.dart';
+part 'unread_messages_chat_bubble_clipper.part.dart';
+part 'unread_messages_clipper.part.dart';
+part 'user_profile_status_clipper.part.dart';
+part 'user_profile_notification_clipper.part.dart';
 
 class UClipper {
   /// This class is used to cut off widgets in spefic format

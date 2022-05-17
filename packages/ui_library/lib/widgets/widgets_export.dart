@@ -7,3 +7,4 @@ export 'u_chatbar/u_chatbar.dart';
 export 'u_pin/u_pin.dart';
 export 'u_switcher/u_switcher_export.dart';
 export 'u_recovery_seed_box/u_recovery_seed_box_export.dart';
+export 'bottom_sheet/bottom_sheet_export.dart';

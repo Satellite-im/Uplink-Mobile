@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_showroom/ui_pages/src/bottom_sheet/bottom_sheet_export.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
@@ -28,8 +29,12 @@ class UIShowRoomApp extends StatelessWidget {
         UIconButtonPage.routeName: (context) => const UIconButtonPage(),
         UFABPage.routeName: (context) => const UFABPage(),
         ULogoutButtonPage.routeName: (context) => const ULogoutButtonPage(),
+        UBottomSheetTwoButtonsPage.routeName: (context) =>
+            const UBottomSheetTwoButtonsPage(),
+        UBottomSheetPinPage.routeName: (context) => const UBottomSheetPinPage(),
         UChatbarPage.routeName: (context) => const UChatbarPage(),
         UPinPage.routeName: (context) => const UPinPage(),
+        UDropDownMenuPage.routeName: ((context) => const UDropDownMenuPage()),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -111,6 +116,20 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: ULogoutButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UDropDownMenuPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Bottom sheets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UBottomSheetTwoButtonsPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UBottomSheetPinPage.routeName,
                   ),
                 ],
               ),

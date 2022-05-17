@@ -6,7 +6,7 @@ import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
 import '../models/models_export.dart';
 
-part 'models/notification.dart';
+part 'models/notification.part.dart';
 
 /// Creates an User Profile Notification Widget
 class UUserProfileNotification extends StatelessWidget {

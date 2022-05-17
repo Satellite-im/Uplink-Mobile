@@ -5,7 +5,7 @@ import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.da
 
 import '../../../core/core_export.dart';
 
-part 'models/status_indicator.dart';
+part 'models/status_indicator.part.dart';
 
 class UUserProfileWithStatus extends StatelessWidget {
   /// Creates an User Profile Widget with picture

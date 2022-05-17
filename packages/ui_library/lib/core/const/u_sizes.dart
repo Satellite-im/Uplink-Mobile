@@ -58,7 +58,7 @@ class USizes {
   static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
       42.0;
 
-  // [UPin]
+  // Sizes for [UPin]
   // Button size(width and height) for pinButton
   static const double pinButtonSize = 60.0;
   // Dot size(width and height) for pin dot
@@ -74,4 +74,13 @@ class USizes {
   static const double switcherTotalHeight = 20.0;
   static const double switcherTotalWidth = 36.0;
   static const double switcherTrackHeight = 16.0;
+  // Sizes for [UDropDownMenu]
+  static const double dropDownMenuButtonHeight = 40;
+  static const double dropDownMenuItemHeight = 48;
+
+  // Sizes for [UBottomSheet]
+  static const double barAboveBottomSheetHeightSize = 2.0;
+  static const double barAboveBottomSheetWidthSize = 72.0;
+  static const double barAboveBottomSheetBorderRadius = 8.0;
+  static const double bottomSheetTemplateBorderRadius = 20.0;
 }
