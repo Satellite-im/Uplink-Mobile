@@ -10,25 +10,22 @@ class UDropDownMenu extends StatefulWidget {
   ///[selectedValue] is an optional String that shows the default selected option.
   ///If it is null, it uses the first String of the [items]
   ///
-  ///[getValueIndex] is a function to get the index of selected value in the List(options)
+  ///[onSelectedItem] is a function to handle/get the selected value(String) and its index in the List(options)
   ///```dart
-  ///GlobalKey<UDropDownMenuState> uDropDownMenuStateKey = GlobalKey();
-  ///...
   ///UDropDownMenu(
-  ///   key: uDropDownMenuStateKey,
   ///   items: [
   ///    'Satellite.im + Public Signaling Servers',
   ///    'Title',
   ///  ],
+  /// onSelectedItem: (item, index) {
+  ///         _selectedValue = item;
+  ///         _selectedValueIndex = index;
+  ///  }),
   ///),
   ///...
   ///   UButton.filled1(
   ///     label: 'Continue',
   ///     onPressed: () {
-  ///        final _selectedValue =
-  ///               uDropDownMenuStateKey.currentState?.selectedValue;
-  ///        final _selectedValueIndex =
-  ///                uDropDownMenuStateKey.currentState?.getValueIndex();
   ///        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
   ///                content: Text(
   ///                    'Selected value: $_selectedValue \nThe Index of selected value: $_selectedValueIndex')));
