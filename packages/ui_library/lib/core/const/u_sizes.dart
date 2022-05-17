@@ -70,6 +70,10 @@ class USizes {
   static const double recoverySeedBoxNumberBoxWidthSize = 14.0;
   static const double recoverySeedBoxNumberBoxHeightSize = 15.0;
 
+  // Sizes for [USwitcher]
+  static const double switcherTotalHeight = 20.0;
+  static const double switcherTotalWidth = 36.0;
+  static const double switcherTrackHeight = 16.0;
   // Sizes for [UDropDownMenu]
   static const double dropDownMenuButtonHeight = 40;
   static const double dropDownMenuItemHeight = 48;
@@ -79,5 +83,4 @@ class USizes {
   static const double barAboveBottomSheetWidthSize = 72.0;
   static const double barAboveBottomSheetBorderRadius = 8.0;
   static const double bottomSheetTemplateBorderRadius = 20.0;
-
 }
