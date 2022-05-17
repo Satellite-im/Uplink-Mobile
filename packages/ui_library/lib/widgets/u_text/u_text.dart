@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/core_export.dart';
 
-part 'models/u_text_style.dart';
+part 'models/u_text_style.part.dart';
 
 class UText extends StatelessWidget {
   /// Creates an [UText].
