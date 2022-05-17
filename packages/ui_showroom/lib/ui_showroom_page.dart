@@ -75,9 +75,6 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: URecoverySeedBoxPage.routeName,
                   ),
-                  WidgetPageButton(
-                    widgetName: UDropDownMenuPage.routeName,
-                  ),
                 ],
               ),
               const _WidgetsShowSession(
@@ -105,6 +102,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: ULogoutButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UDropDownMenuPage.routeName,
                   ),
                 ],
               ),
