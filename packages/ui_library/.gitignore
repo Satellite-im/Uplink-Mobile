@@ -27,6 +27,7 @@
 .dart_tool/
 .packages
 build/
+test/coverage_helper_test.dart
 test/**/goldens/**/*.*
 test/**/failures/**/*.*
 !test/**/goldens/ci/*.*

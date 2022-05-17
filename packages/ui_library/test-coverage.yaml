@@ -1,0 +1,16 @@
+on: pull_request
+name: Flutter test coverage
+jobs:
+  tests:
+    runs-on: 
+    steps:
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.10.4'
+          channel: 'stable'
+      - name: Tests
+        shell: bash
+        run: |
+          sudo apt-get install lcov
+          sh scripts/create_clean_lcov_and_generate_html.sh false
+          sh .github/scripts/get_coverage_percentage.sh coverage/lcov.info
