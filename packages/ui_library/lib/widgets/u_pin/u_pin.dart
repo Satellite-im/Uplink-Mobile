@@ -60,8 +60,7 @@ class UPin extends StatefulWidget {
 class UPinState extends State<UPin> with TickerProviderStateMixin {
   //list for every pin dot and its key
   late List<PinDotWithAnimation> _pinDotWithAnimationList;
-  late List<GlobalObjectKey<PinDotWithAnimationState>>
-      _pinDotWithAnimationKeyList;
+  late List<GlobalKey<PinDotWithAnimationState>> _pinDotWithAnimationKeyList;
 
   //wrong pin animaiton
   late AnimationController _wrongPinAnimationController;
@@ -75,8 +74,8 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _pinDotWithAnimationKeyList = List.generate(widget.pinLength,
-        (index) => GlobalObjectKey<PinDotWithAnimationState>(index));
+    _pinDotWithAnimationKeyList = List.generate(
+        widget.pinLength, (index) => GlobalKey<PinDotWithAnimationState>());
 
     _pinDotWithAnimationList = List.generate(
         widget.pinLength,
@@ -172,7 +171,7 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
             children: _pinDotWithAnimationList,
           ),
         ),
-        const SizedBox(height: 70),
+        const SizedBox(height: 100),
         Container(
           padding:
               const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 30),
@@ -233,7 +232,7 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                           child: Opacity(
                               opacity: _rightButtonOpacityAnimation.value,
                               child: const UIcon(
-                                UIcons.checkmark,
+                                UIcons.checkmark_rounded,
                                 color: UColors.white,
                               ))))
                 ],
