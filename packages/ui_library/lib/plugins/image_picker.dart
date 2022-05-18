@@ -1,25 +1,25 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:ui_library/plugins/request_permissions.dart';
 
 class UImagePicker {
   final ImagePicker _picker = ImagePicker();
+  final _permissions = URequestPermissions();
 
-  Future pickerImageFromGallery() async {
+  Future<XFile?> pickImageFromGallery() async {
     final XFile? pickedFile = await _picker.pickImage(
       source: ImageSource.gallery,
-      maxWidth: 100,
-      maxHeight: 100,
-      imageQuality: 1,
     );
+    return pickedFile;
   }
 
-  Future pickerImageFromCamera() async {
+  Future<XFile?> pickImageFromCamera() async {
+    await _permissions.getPermissionToUseCamera();
+
     final XFile? pickedFile = await _picker.pickImage(
       source: ImageSource.camera,
-      maxWidth: 100,
-      maxHeight: 100,
-      imageQuality: 1,
       preferredCameraDevice: CameraDevice.front,
     );
+    return pickedFile;
   }
 
   // void _requestPermission() {}

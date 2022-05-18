@@ -21,21 +21,23 @@ class _UUserPictureChangePageState extends State<UUserPictureChangePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            SizedBox.square(
+          children: [
+            const SizedBox.square(
               dimension: 16,
             ),
-            UText(
+            const UText(
               'Add or change a picture',
               textStyle: UTextStyle.H1_primaryHeader,
             ),
-            SizedBox.square(
+            const SizedBox.square(
               dimension: 8,
             ),
             Center(
-              child: UUserPictureChange(),
+              child: UUserPictureChange(
+                onPictureSelected: ((pictureSelected) => {}),
+              ),
             ),
-            SizedBox.square(
+            const SizedBox.square(
               dimension: 16,
             ),
           ],
