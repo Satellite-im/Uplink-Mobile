@@ -21,10 +21,12 @@ class UUserPictureChange extends StatefulWidget {
 class _UUserPictureChangeState extends State<UUserPictureChange> {
   final _uImagePicker = UImagePicker();
   XFile? _userPictureXFile;
+  File? _userPictureFile;
 
   File? _convertXFileToFile(XFile? _userPictureXFile) {
     if (_userPictureXFile != null) {
-      return File(_userPictureXFile.path);
+      _userPictureFile = File(_userPictureXFile.path);
+      return _userPictureFile;
     }
     return null;
   }
@@ -42,7 +44,8 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
           firstButtonIcon: UIcons.camera,
           secondButtonIcon: UIcons.image,
           firstButtonOnPressed: () async {
-            _userPictureXFile = await _uImagePicker.pickImageFromCamera();
+            _userPictureXFile =
+                await _uImagePicker.pickImageFromCamera(context);
 
             widget.onPictureSelected(_convertXFileToFile(_userPictureXFile));
             Navigator.of(context).pop();
@@ -50,7 +53,8 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
             setState(() {});
           },
           secondButtonOnPressed: () async {
-            _userPictureXFile = await _uImagePicker.pickImageFromGallery();
+            _userPictureXFile =
+                await _uImagePicker.pickImageFromGallery(context);
 
             widget.onPictureSelected(_convertXFileToFile(_userPictureXFile));
             Navigator.of(context).pop();
@@ -69,9 +73,9 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
               shape: BoxShape.circle,
             ),
             child: ClipOval(
-              child: _userPictureXFile != null
+              child: _userPictureFile != null
                   ? Image.file(
-                      File(_userPictureXFile!.path),
+                      File(_userPictureFile!.path),
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                     )
