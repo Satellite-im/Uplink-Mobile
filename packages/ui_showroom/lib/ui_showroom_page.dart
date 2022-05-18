@@ -20,6 +20,7 @@ class UIShowRoomApp extends StatelessWidget {
         UIconPage.routeName: (context) => const UIconPage(),
         UColorsPage.routeName: (context) => const UColorsPage(),
         UTextPage.routeName: (context) => const UTextPage(),
+        USwitcherPage.routeName: (context) => const USwitcherPage(),
         URecoverySeedBoxPage.routeName: (context) =>
             const URecoverySeedBoxPage(),
         UUserProfilePage.routeName: (context) => const UUserProfilePage(),
@@ -35,6 +36,7 @@ class UIShowRoomApp extends StatelessWidget {
         UPinPage.routeName: (context) => const UPinPage(),
         UUserPictureChangePage.routeName: (context) =>
             const UUserPictureChangePage(),
+        UDropDownMenuPage.routeName: ((context) => const UDropDownMenuPage()),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -74,6 +76,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UColorsPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: USwitcherPage.routeName,
                   ),
                 ],
               ),
@@ -116,6 +121,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: ULogoutButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UDropDownMenuPage.routeName,
                   ),
                 ],
               ),

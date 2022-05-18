@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/u_user_profile/u_user_profile_unreads_chat_bubble/u_user_profile_unreads_chat_bubble.dart';
 
 class UUserProfilePage extends StatelessWidget {
   const UUserProfilePage({Key? key}) : super(key: key);

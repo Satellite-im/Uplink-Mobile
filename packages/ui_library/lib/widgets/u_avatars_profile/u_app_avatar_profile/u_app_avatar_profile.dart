@@ -7,8 +7,8 @@ import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 
 import '../models/models_export.dart';
 
-part 'models/app_avatar_chat_bubble.dart';
-part 'models/app_avatar_normal.dart';
+part 'models/app_avatar_chat_bubble.part.dart';
+part 'models/app_avatar_normal.part.dart';
 
 enum _AppAvatarType { normal, chatBubble }
 

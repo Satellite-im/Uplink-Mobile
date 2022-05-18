@@ -38,6 +38,24 @@ $ genhtml coverage/lcov.info -o coverage/
 # Open Coverage Report
 $ open coverage/index.html
 ```
+#### LCOV - code coverage report for UI Library :pencil:
+
+To test and generate the lcov report in the UI Library package, you first need to navigate to the library:
+```sh 
+$ cd packages/ui_library
+```
+
+To generate the test coverage report, it is only necessary to run this script:
+```sh 
+$ sh scripts/create_clean_lcov_and_generate_html.sh true
+```
+
+If any errors happen because of the goldens tests, you need to update them: 
+```sh 
+$ flutter test --update-goldens
+```
+
+And then run the script again.
 
 ---
 
