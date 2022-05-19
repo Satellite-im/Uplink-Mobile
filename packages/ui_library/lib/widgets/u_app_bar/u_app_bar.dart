@@ -8,6 +8,10 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   final String? _title;
   final List<Widget>? _actionsList;
 
+  ///AppBar with a title and back icon
+  ///```dart
+  ///UAppBar.back(title: 'Create account')
+  ///```
   UAppBar.back({
     Key? key,
     required String title,
@@ -16,6 +20,15 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
         _actionsList = [],
         super(key: key);
 
+  ///AppBar has a list of actions without title
+  ///```dart
+  ///UAppBar.iconOnly(
+  ///      actionList: [
+  ///         IconButton(
+  ///           icon: const UIcon(UIcons.menu_bar_contacts),
+  ///           onPressed: () {},
+  ///),],),
+  ///```
   UAppBar.iconOnly({
     Key? key,
     required List<Widget> actionList,
@@ -24,7 +37,24 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
         _actionsList = actionList,
         super(key: key);
 
-  UAppBar.acitons({
+  ///AppBar has a list of actions and a title
+  ///```dart
+  ///UAppBar.actions(title: 'Username', actionList: [
+  ///    IconButton(
+  ///      icon: const UIcon(UIcons.call),
+  ///      onPressed: () {},
+  ///     ),
+  ///    IconButton(
+  ///      icon: const UIcon(UIcons.video_call_button),
+  ///      onPressed: () {},
+  ///     ),
+  ///    IconButton(
+  ///       icon: const UIcon(UIcons.pinned_message_button),
+  ///       onPressed: () {},
+  ///     ),
+  ///    ])),
+  ///```
+  UAppBar.actions({
     Key? key,
     required String title,
     required List<Widget> actionList,
