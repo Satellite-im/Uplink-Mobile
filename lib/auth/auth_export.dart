@@ -1,1 +1,5 @@
+export 'onboard_create_account_page.dart';
 export 'onboard_pin_page.dart';
+export 'onboard_privacy_setting1_page.dart';
+export 'onboard_privacy_setting2_page.dart';
+export 'onboard_recovery_seed_page.dart';
