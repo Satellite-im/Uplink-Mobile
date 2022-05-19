@@ -36,6 +36,7 @@ class UIShowRoomApp extends StatelessWidget {
         UPinPage.routeName: (context) => const UPinPage(),
         UDropDownMenuPage.routeName: ((context) => const UDropDownMenuPage()),
         UTertiaryButtonPage.routeName: (context) => const UTertiaryButtonPage(),
+        UAppBarPage.routeName: (context) => const UAppBarPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -78,6 +79,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: USwitcherPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UAppBarPage.routeName,
                   ),
                 ],
               ),
