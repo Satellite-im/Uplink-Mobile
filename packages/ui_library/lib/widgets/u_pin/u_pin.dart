@@ -162,85 +162,88 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Transform.translate(
-          offset: Offset(_wiggleAnimation.value, 0.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: _pinDotWithAnimationList,
+    return SizedBox(
+      height: 500,
+      child: Column(
+        children: [
+          Transform.translate(
+            offset: Offset(_wiggleAnimation.value, 0.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: _pinDotWithAnimationList,
+            ),
           ),
-        ),
-        const SizedBox(height: 100),
-        Container(
-          padding:
-              const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 30),
-          alignment: Alignment.center,
-          child: Column(
-            children: <Widget>[
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _pinButton('1'),
-                  _pinButton('2'),
-                  _pinButton('3'),
-                ],
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _pinButton('4'),
-                  _pinButton('5'),
-                  _pinButton('6'),
-                ],
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _pinButton('7'),
-                  _pinButton('8'),
-                  _pinButton('9'),
-                ],
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  InkWell(
-                    borderRadius: BorderRadius.circular(40),
-                    onTap: () => delete(),
-                    child: Container(
-                        alignment: Alignment.center,
-                        width: USizes.pinButtonSize,
-                        height: USizes.pinButtonSize,
-                        child: const UIcon(
-                          UIcons.pin_entry_backspace_button,
-                          color: UColors.white,
-                        )),
-                  ),
-                  _pinButton('0'),
-                  InkWell(
+          Expanded(child: Container()),
+          Container(
+            padding:
+                const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 30),
+            alignment: Alignment.center,
+            child: Column(
+              children: <Widget>[
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _pinButton('1'),
+                    _pinButton('2'),
+                    _pinButton('3'),
+                  ],
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _pinButton('4'),
+                    _pinButton('5'),
+                    _pinButton('6'),
+                  ],
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _pinButton('7'),
+                    _pinButton('8'),
+                    _pinButton('9'),
+                  ],
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    InkWell(
                       borderRadius: BorderRadius.circular(40),
-                      onTap: () {
-                        if (pin.length == widget.pinLength) {
-                          widget.rightButtonFn(pin);
-                        }
-                      },
+                      onTap: () => delete(),
                       child: Container(
                           alignment: Alignment.center,
                           width: USizes.pinButtonSize,
                           height: USizes.pinButtonSize,
-                          child: Opacity(
-                              opacity: _rightButtonOpacityAnimation.value,
-                              child: const UIcon(
-                                UIcons.checkmark_rounded,
-                                color: UColors.white,
-                              ))))
-                ],
-              ),
-            ],
+                          child: const UIcon(
+                            UIcons.pin_entry_backspace_button,
+                            color: UColors.white,
+                          )),
+                    ),
+                    _pinButton('0'),
+                    InkWell(
+                        borderRadius: BorderRadius.circular(40),
+                        onTap: () {
+                          if (pin.length == widget.pinLength) {
+                            widget.rightButtonFn(pin);
+                          }
+                        },
+                        child: Container(
+                            alignment: Alignment.center,
+                            width: USizes.pinButtonSize,
+                            height: USizes.pinButtonSize,
+                            child: Opacity(
+                                opacity: _rightButtonOpacityAnimation.value,
+                                child: const UIcon(
+                                  UIcons.checkmark_rounded,
+                                  color: UColors.white,
+                                ))))
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

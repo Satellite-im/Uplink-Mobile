@@ -28,7 +28,7 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: OnboardPinPage(),
+                home: const OnboardPinPage(),
               );
       },
     );
