@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ui_library/widgets/u_text/u_text_export.dart';
+import 'package:ui_library/ui_library_export.dart';
 
 class URequestPermissions {
   Future<PermissionStatus> getPermissionToUseCamera(
@@ -22,6 +22,7 @@ class URequestPermissions {
     switch (_objectPermissionStatus) {
       case PermissionStatus.granted:
         // Do nothing
+
         return _objectPermissionStatus;
       case PermissionStatus.denied:
         // Ask for permission again
@@ -31,13 +32,23 @@ class URequestPermissions {
         // permissions of the app
         await showDialog(
           context: context,
-          builder: (_context) => GestureDetector(
-            onTap: () => openAppSettings(),
-            child: const AlertDialog(
-              title: UText(
-                'Camera Permission',
-                textStyle: UTextStyle.H4_fourthHeader,
+          builder: (_context) => AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            backgroundColor: UColors.foregroundDark,
+            actions: [
+              UButton.filled1(
+                label: 'Go to app Settings',
+                onPressed: () => openAppSettings(),
               ),
+              UButton.filled2(
+                label: 'Change this later',
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+            title: const UText(
+              'Hey my friend, for update this permission, you can go to the app settings or change it later!',
+              textStyle: UTextStyle.H4_fourthHeader,
             ),
           ),
         );

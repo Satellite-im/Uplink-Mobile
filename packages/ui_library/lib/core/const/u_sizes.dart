@@ -83,4 +83,8 @@ class USizes {
   static const double barAboveBottomSheetWidthSize = 72.0;
   static const double barAboveBottomSheetBorderRadius = 8.0;
   static const double bottomSheetTemplateBorderRadius = 20.0;
+
+  // Sizes for [UUserPictureChange]
+  static const double userPictureChangeSize = 100.0;
+  static const double userPictureChangeAddButtonSize = 24.0;
 }

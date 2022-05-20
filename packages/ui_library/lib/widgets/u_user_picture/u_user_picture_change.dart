@@ -21,12 +21,13 @@ class UUserPictureChange extends StatefulWidget {
 class _UUserPictureChangeState extends State<UUserPictureChange> {
   final _uImagePicker = UImagePicker();
   XFile? _userPictureXFile;
-  File? _userPictureFile;
+  final _userPictureFile = ValueNotifier<File?>(null);
 
   File? _convertXFileToFile(XFile? _userPictureXFile) {
     if (_userPictureXFile != null) {
-      _userPictureFile = File(_userPictureXFile.path);
-      return _userPictureFile;
+      _userPictureFile.value = File(_userPictureXFile.path);
+      Navigator.of(context).pop();
+      return _userPictureFile.value;
     }
     return null;
   }
@@ -48,46 +49,46 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
                 await _uImagePicker.pickImageFromCamera(context);
 
             widget.onPictureSelected(_convertXFileToFile(_userPictureXFile));
-            Navigator.of(context).pop();
-
-            setState(() {});
           },
           secondButtonOnPressed: () async {
             _userPictureXFile =
                 await _uImagePicker.pickImageFromGallery(context);
 
             widget.onPictureSelected(_convertXFileToFile(_userPictureXFile));
-            Navigator.of(context).pop();
-
-            setState(() {});
           },
         ).show();
       },
       child: Stack(
         children: [
           Container(
-            height: 100,
-            width: 100,
+            height: USizes.userPictureChangeSize,
+            width: USizes.userPictureChangeSize,
             decoration: const BoxDecoration(
               color: UColors.defGrey,
               shape: BoxShape.circle,
             ),
-            child: ClipOval(
-              child: _userPictureFile != null
-                  ? Image.file(
-                      File(_userPictureFile!.path),
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.high,
-                    )
-                  : const SizedBox(),
+            child: ValueListenableBuilder(
+              valueListenable: _userPictureFile,
+              child: const SizedBox(),
+              builder: (context, _file, child) {
+                return ClipOval(
+                  child: _userPictureFile.value != null
+                      ? Image.file(
+                          File(_userPictureFile.value!.path),
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.high,
+                        )
+                      : child,
+                );
+              },
             ),
           ),
           Positioned(
             top: 76,
             right: 0,
             child: Container(
-              height: 24,
-              width: 24,
+              height: USizes.userPictureChangeAddButtonSize,
+              width: USizes.userPictureChangeAddButtonSize,
               decoration: const BoxDecoration(
                 color: UColors.ctaBlue,
                 shape: BoxShape.circle,
