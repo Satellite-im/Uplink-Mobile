@@ -22,21 +22,19 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Expanded(
-              child: Container(),
-            ),
+            Flexible(flex: 9, child: Container()),
             const UText(
               'Create Account Pin',
               textStyle: UTextStyle.H1_primaryHeader,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 12),
+            Flexible(child: Container()),
             const UText(
               'Create a pin to protect your account.\nThe pin can be anything you want, just don’t forget it.',
               textStyle: UTextStyle.B1_body,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 56),
+            Flexible(flex: 3, child: Container()),
             Stack(
               children: [
                 UPin(

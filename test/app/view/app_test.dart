@@ -5,12 +5,12 @@ import 'package:uplink/pages_export.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
+    testWidgets('renders First Page', (tester) async {
       await tester.pumpWidget(const App());
-      final _counterPageOrUIShowroomPage = find.byWidgetPredicate(
+      final _mainAppPageOrUIShowroomPage = find.byWidgetPredicate(
         (widget) => widget is OnboardPinPage || widget is UIShowRoomApp,
       );
-      expect(_counterPageOrUIShowroomPage, findsOneWidget);
+      expect(_mainAppPageOrUIShowroomPage, findsOneWidget);
     });
   });
 }
