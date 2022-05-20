@@ -7,14 +7,11 @@ import 'package:ui_library/ui_library_export.dart';
 class URequestPermissions {
   Future<PermissionStatus> getPermissionToUseCamera(
           BuildContext context) async =>
-      await _verifyPermission(context,
-          objectPermission:
-              Platform.isAndroid ? Permission.camera : Permission.photos);
+      await _verifyPermission(context, objectPermission: Permission.camera);
 
   Future<PermissionStatus> getPermissionToAccessGallery(
           BuildContext context) async =>
-      await _verifyPermission(context,
-          objectPermission: Permission.mediaLibrary);
+      await _verifyPermission(context, objectPermission: Permission.camera);
 
   Future<PermissionStatus> _verifyPermission(BuildContext context,
       {required Permission objectPermission}) async {
@@ -30,28 +27,30 @@ class URequestPermissions {
       case PermissionStatus.permanentlyDenied:
         // Tell the use to go to settings and change the
         // permissions of the app
-        await showDialog(
-          context: context,
-          builder: (_context) => AlertDialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12))),
-            backgroundColor: UColors.foregroundDark,
-            actions: [
-              UButton.filled1(
-                label: 'Go to app Settings',
-                onPressed: () => openAppSettings(),
+        if (Platform.isAndroid) {
+          await showDialog(
+            context: context,
+            builder: (_context) => AlertDialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12))),
+              backgroundColor: UColors.foregroundDark,
+              actions: [
+                UButton.filled1(
+                  label: 'Go to app Settings',
+                  onPressed: () => openAppSettings(),
+                ),
+                UButton.filled2(
+                  label: 'Change this later',
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+              title: const UText(
+                'Hey my friend, for update this permission, you can go to the app settings or change it later!',
+                textStyle: UTextStyle.H4_fourthHeader,
               ),
-              UButton.filled2(
-                label: 'Change this later',
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-            title: const UText(
-              'Hey my friend, for update this permission, you can go to the app settings or change it later!',
-              textStyle: UTextStyle.H4_fourthHeader,
             ),
-          ),
-        );
+          );
+        }
         return _objectPermissionStatus;
       case PermissionStatus.restricted:
         // do something

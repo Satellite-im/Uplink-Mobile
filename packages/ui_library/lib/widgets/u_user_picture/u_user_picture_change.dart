@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ui_library/core/const/const_export.dart';
 import 'package:ui_library/plugins/image_picker.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_export.dart';
@@ -20,16 +19,15 @@ class UUserPictureChange extends StatefulWidget {
 
 class _UUserPictureChangeState extends State<UUserPictureChange> {
   final _uImagePicker = UImagePicker();
-  XFile? _userPictureXFile;
   final _userPictureFile = ValueNotifier<File?>(null);
+  File? _imageFile;
 
-  File? _convertXFileToFile(XFile? _userPictureXFile) {
-    if (_userPictureXFile != null) {
-      _userPictureFile.value = File(_userPictureXFile.path);
+  void _verifyIfHasImage() {
+    if (_imageFile != null && _imageFile!.path.isNotEmpty) {
+      _userPictureFile.value = _imageFile;
       Navigator.of(context).pop();
-      return _userPictureFile.value;
+      widget.onPictureSelected(_userPictureFile.value);
     }
-    return null;
   }
 
   @override
@@ -45,16 +43,12 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
           firstButtonIcon: UIcons.camera,
           secondButtonIcon: UIcons.image,
           firstButtonOnPressed: () async {
-            _userPictureXFile =
-                await _uImagePicker.pickImageFromCamera(context);
-
-            widget.onPictureSelected(_convertXFileToFile(_userPictureXFile));
+            _imageFile = await _uImagePicker.pickImageFromCamera(context);
+            _verifyIfHasImage();
           },
           secondButtonOnPressed: () async {
-            _userPictureXFile =
-                await _uImagePicker.pickImageFromGallery(context);
-
-            widget.onPictureSelected(_convertXFileToFile(_userPictureXFile));
+            _imageFile = await _uImagePicker.pickImageFromGallery(context);
+            _verifyIfHasImage();
           },
         ).show();
       },
