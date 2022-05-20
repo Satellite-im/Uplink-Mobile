@@ -9,6 +9,7 @@ class UImageCropper {
 
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
+      cropStyle: CropStyle.circle,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
         CropAspectRatioPreset.ratio3x2,
@@ -23,6 +24,7 @@ class UImageCropper {
           backgroundColor: UColors.backgroundDark,
           toolbarWidgetColor: UColors.white,
           activeControlsWidgetColor: UColors.ctaBlue,
+          statusBarColor: UColors.backgroundDark,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),

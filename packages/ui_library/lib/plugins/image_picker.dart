@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ui_library/plugins/image_cropper.dart';
@@ -15,25 +14,18 @@ class UImagePicker {
   Future<File?> pickImageFromGallery(BuildContext context) async {
     XFile? pickedFile;
     File? _imageCroppedFile;
-    try {
-      final _galleryPermissionStatus =
-          await _permissions.getPermissionToAccessGallery(context);
-      if (_galleryPermissionStatus == PermissionStatus.granted ||
-          Platform.isIOS) {
-        pickedFile = await _picker.pickImage(
-          source: ImageSource.gallery,
-        );
-      }
-
-      if (pickedFile != null) {
-        _imageCroppedFile =
-            await _uImageCropper.cropImage(File(pickedFile.path));
-      }
-    } on PlatformException catch (error) {
-      if (error.code == 'photo_access_denied') {
-        // TODO: Go to app settings and change the permissions;
-      }
+    final _galleryPermissionStatus =
+        await _permissions.getPermissionToAccessGallery(context);
+    if (_galleryPermissionStatus == PermissionStatus.granted) {
+      pickedFile = await _picker.pickImage(
+        source: ImageSource.gallery,
+      );
     }
+
+    if (pickedFile != null) {
+      _imageCroppedFile = await _uImageCropper.cropImage(File(pickedFile.path));
+    }
+
     return _imageCroppedFile;
   }
 
@@ -41,26 +33,20 @@ class UImagePicker {
     XFile? pickedFile;
     File? _imageCroppedFile;
 
-    try {
-      final _cameraPermissionStatus =
-          await _permissions.getPermissionToUseCamera(context);
+    final _cameraPermissionStatus =
+        await _permissions.getPermissionToUseCamera(context);
 
-      if (_cameraPermissionStatus == PermissionStatus.granted ||
-          Platform.isIOS) {
-        pickedFile = await _picker.pickImage(
-          source: ImageSource.camera,
-        );
-      }
-
-      if (pickedFile != null) {
-        _imageCroppedFile =
-            await _uImageCropper.cropImage(File(pickedFile.path));
-      }
-    } on PlatformException catch (error) {
-      if (error.code == 'camera_access_denied') {
-        // TODO: Go to app settings and change the permissions;
-      }
+    if (_cameraPermissionStatus == PermissionStatus.granted) {
+      pickedFile = await _picker.pickImage(
+        source: ImageSource.camera,
+        preferredCameraDevice: CameraDevice.front,
+      );
     }
+
+    if (pickedFile != null) {
+      _imageCroppedFile = await _uImageCropper.cropImage(File(pickedFile.path));
+    }
+
     return _imageCroppedFile;
   }
 }

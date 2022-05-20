@@ -3,61 +3,92 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 
 class URequestPermissions {
   Future<PermissionStatus> getPermissionToUseCamera(
           BuildContext context) async =>
-      await _verifyPermission(context, objectPermission: Permission.camera);
+      await _verifyPermission(
+        context,
+        objectPermission: Permission.camera,
+        dialogPermissionTitle: 'Allow Camera Permission',
+        permissionObject: 'camera',
+      );
 
   Future<PermissionStatus> getPermissionToAccessGallery(
           BuildContext context) async =>
-      await _verifyPermission(context, objectPermission: Permission.camera);
+      await _verifyPermission(
+        context,
+        objectPermission:
+            Platform.isAndroid ? Permission.storage : Permission.photos,
+        dialogPermissionTitle: 'Allow Camera Roll Permission',
+        permissionObject: 'gallery',
+      );
 
-  Future<PermissionStatus> _verifyPermission(BuildContext context,
-      {required Permission objectPermission}) async {
-    final _objectPermissionStatus = await objectPermission.request();
+  Future<PermissionStatus> _verifyPermission(
+    BuildContext context, {
+    required Permission objectPermission,
+    required String dialogPermissionTitle,
+    required String permissionObject,
+  }) async {
+    PermissionStatus _objectPermissionStatus = await objectPermission.status;
+    if (_objectPermissionStatus != PermissionStatus.granted) {
+      await _dialogPermission(
+        context,
+        title: dialogPermissionTitle,
+        permissionObject: permissionObject,
+      );
+      _objectPermissionStatus = await objectPermission.request();
+    }
+
     switch (_objectPermissionStatus) {
       case PermissionStatus.granted:
-        // Do nothing
-
         return _objectPermissionStatus;
       case PermissionStatus.denied:
-        // Ask for permission again
+      case PermissionStatus.restricted:
+      case PermissionStatus.limited:
         return _objectPermissionStatus;
       case PermissionStatus.permanentlyDenied:
-        // Tell the use to go to settings and change the
-        // permissions of the app
-        if (Platform.isAndroid) {
-          await showDialog(
-            context: context,
-            builder: (_context) => AlertDialog(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
-              backgroundColor: UColors.foregroundDark,
-              actions: [
-                UButton.filled1(
-                  label: 'Go to app Settings',
-                  onPressed: () => openAppSettings(),
-                ),
-                UButton.filled2(
-                  label: 'Change this later',
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-              title: const UText(
-                'Hey my friend, for update this permission, you can go to the app settings or change it later!',
-                textStyle: UTextStyle.H4_fourthHeader,
-              ),
-            ),
-          );
-        }
-        return _objectPermissionStatus;
-      case PermissionStatus.restricted:
-        // do something
-        return _objectPermissionStatus;
-      case PermissionStatus.limited:
-        // do something
+        // Take the user to app settings
+        await openAppSettings();
         return _objectPermissionStatus;
     }
+  }
+
+  Future<void> _dialogPermission(
+    BuildContext context, {
+    required String title,
+    required String permissionObject,
+  }) async {
+    return await UDialog(
+      context,
+      title: title,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          UText(
+            'We need permission to access your $permissionObject! You can grant permission now or change later in your phone Settings.',
+            textStyle: UTextStyle.B1_body,
+          ),
+          const SizedBox.square(
+            dimension: 16,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: UButton.filled1(
+                  label: 'Next',
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      actions: [],
+    ).showUDialog();
   }
 }
