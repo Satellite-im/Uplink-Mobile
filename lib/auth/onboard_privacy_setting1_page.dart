@@ -33,9 +33,9 @@ class _OnboardPrivacySettingFirstPageState
                 'Choose which features to enable to best suit your privacy preferences.',
                 textStyle: UTextStyle.B1_body,
               ),
-              const SizedBox(height: 20),
+              Flexible(child: Container()),
               SizedBox(
-                height: 410,
+                height: 500,
                 child: ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
@@ -79,7 +79,6 @@ class _OnboardPrivacySettingFirstPageState
                   ],
                 ),
               ),
-              const SizedBox(height: 56),
               UButton.filled1(
                 label: 'Continue',
                 onPressed: () {
@@ -91,7 +90,7 @@ class _OnboardPrivacySettingFirstPageState
                   );
                 },
               ),
-              Expanded(child: Container()),
+              Flexible(flex: 8, child: Container()),
             ],
           ),
         ),
