@@ -7,6 +7,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   final _AppBarType _appBarType;
   final String? _title;
   final List<Widget>? _actionsList;
+  final Widget? _leading;
 
   ///AppBar with a title and back icon
   ///```dart
@@ -18,6 +19,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   })  : _appBarType = _AppBarType.back,
         _title = title,
         _actionsList = [],
+        _leading = null,
         super(key: key);
 
   ///AppBar has a list of actions without title
@@ -32,9 +34,11 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   UAppBar.iconOnly({
     Key? key,
     required List<Widget> actionList,
+    Widget? leading,
   })  : _appBarType = _AppBarType.iconOnly,
         _title = null,
         _actionsList = actionList,
+        _leading = leading,
         super(key: key);
 
   ///AppBar has a list of actions and a title
@@ -58,9 +62,11 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required String title,
     required List<Widget> actionList,
+    Widget? leading,
   })  : _appBarType = _AppBarType.actions,
         _title = title,
         _actionsList = actionList,
+        _leading = leading,
         super(key: key);
 
   @override
@@ -71,13 +77,15 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
           ? Text(_title!)
           : null,
       centerTitle: false,
-      leading: IconButton(
-        icon: const UIcon(
-          UIcons.back_arrow_button,
-          color: UColors.textMed,
-        ),
-        onPressed: () => Navigator.pop(context),
-      ),
+      leading: (_leading == null)
+          ? IconButton(
+              icon: const UIcon(
+                UIcons.back_arrow_button,
+                color: UColors.textMed,
+              ),
+              onPressed: () => Navigator.pop(context),
+            )
+          : _leading,
       actions: (_appBarType == _AppBarType.iconOnly) ||
               (_appBarType == _AppBarType.actions)
           ? _actionsList!
