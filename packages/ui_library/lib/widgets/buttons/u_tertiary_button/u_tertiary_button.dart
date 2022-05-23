@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-///TextButton
-///```dart
-///UTertiaryButton(
-///      label: 'Pin Options',
-///      onPressed: () {},
-///      ),
-///```
 class UTertiaryButton extends StatelessWidget {
+  ///TextButton
+  ///```dart
+  ///UTertiaryButton(
+  ///      label: 'Pin Options',
+  ///      onPressed: () {},
+  ///      ),
+  ///```
   const UTertiaryButton(
       {Key? key, required this.onPressed, required this.label, this.color})
       : super(key: key);
