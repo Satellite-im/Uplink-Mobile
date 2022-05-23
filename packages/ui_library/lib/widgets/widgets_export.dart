@@ -8,4 +8,4 @@ export 'u_pin/u_pin_export.dart';
 export 'u_switcher/u_switcher_export.dart';
 export 'u_recovery_seed_box/u_recovery_seed_box_export.dart';
 export 'bottom_sheet/bottom_sheet_export.dart';
-export 'u_app_bar/u_app_bar.dart';
+export 'u_app_bar/u_app_bar_export.dart';
