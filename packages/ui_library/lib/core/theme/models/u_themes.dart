@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/core/const/const_export.dart';
-import 'package:ui_library/core/const/u_colors.dart';
+import 'package:ui_library/ui_library_export.dart';
 
 /// Used in [ThemeModel] to decide which [ThemeData] user is currently using
 ///
@@ -15,8 +14,12 @@ class UThemes {
       brightness: Brightness.dark,
     ),
 
-    ///appbar in showroom page
-    appBarTheme: const AppBarTheme(backgroundColor: UColors.ctaBlue),
+    ///appbar in the main app
+    appBarTheme: AppBarTheme(
+      backgroundColor: UColors.backgroundDark,
+      titleTextStyle: UTextStyle.H1_primaryHeader.style.returnTextStyleType(),
+      centerTitle: false,
+    ),
 
     ///button in showroom page
     elevatedButtonTheme: ElevatedButtonThemeData(

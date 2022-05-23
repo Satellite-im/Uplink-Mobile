@@ -60,7 +60,7 @@ class USizes {
 
   // Sizes for [UPin]
   // Button size(width and height) for pinButton
-  static const double pinButtonSize = 60.0;
+  static const double pinButtonSize = 50.0;
   // Dot size(width and height) for pin dot
   static const double pinDotSize = 16;
 

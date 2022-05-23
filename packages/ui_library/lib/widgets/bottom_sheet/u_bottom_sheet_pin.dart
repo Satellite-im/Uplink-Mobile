@@ -7,6 +7,8 @@ class UBottomSheetPin {
 
   final Function(int) onSelect;
 
+  final int? initValue;
+
   /// Creates a bottom sheet to use in Pin Pages
   ///
   /// It allows to select between 4, 6 or 8 digits as pin length.
@@ -30,6 +32,7 @@ class UBottomSheetPin {
   UBottomSheetPin(
     this.context, {
     required this.onSelect,
+    this.initValue,
   });
 
   Future show() {
@@ -37,6 +40,7 @@ class UBottomSheetPin {
       context,
       child: _UBottomSheetPinBody(
         onSelect: onSelect,
+        initValue: initValue,
       ),
     ).show();
   }
@@ -46,9 +50,11 @@ class _UBottomSheetPinBody extends StatefulWidget {
   const _UBottomSheetPinBody({
     Key? key,
     required this.onSelect,
+    this.initValue,
   }) : super(key: key);
 
   final Function(int) onSelect;
+  final int? initValue;
 
   @override
   State<_UBottomSheetPinBody> createState() => _UBottomSheetPinBodyState();
@@ -65,6 +71,14 @@ class _UBottomSheetPinBodyState extends State<_UBottomSheetPinBody> {
       _isSixDigitsSelected = value == 6 ? true : false;
       _isEightDigitsSelected = value == 8 ? true : false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initValue != null) {
+      _selectTheNumberOfDigits(widget.initValue!);
+    }
   }
 
   @override

@@ -37,6 +37,8 @@ class UIShowRoomApp extends StatelessWidget {
         UUserPictureChangePage.routeName: (context) =>
             const UUserPictureChangePage(),
         UDropDownMenuPage.routeName: ((context) => const UDropDownMenuPage()),
+        UTertiaryButtonPage.routeName: (context) => const UTertiaryButtonPage(),
+        UAppBarPage.routeName: (context) => const UAppBarPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -80,6 +82,9 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: USwitcherPage.routeName,
                   ),
+                  WidgetPageButton(
+                    widgetName: UAppBarPage.routeName,
+                  ),
                 ],
               ),
               const _WidgetsShowSession(
@@ -121,6 +126,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: ULogoutButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UTertiaryButtonPage.routeName,
                   ),
                   WidgetPageButton(
                     widgetName: UDropDownMenuPage.routeName,

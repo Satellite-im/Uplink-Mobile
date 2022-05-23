@@ -88,5 +88,49 @@ void main() {
       expect(USizes.buttonSize, _buttonSize);
       expect(USizes.buttonSizeSmall, _buttonSizeSmall);
     });
+
+    test('URecoverySeedBox Size Values', () {
+      const _recoverySeedBoxWidthSize = 160.0;
+      const _recoverySeedBoxHeightSize = 40.0;
+      const _recoverySeedBoxNumberBoxWidthSize = 14.0;
+      const _recoverySeedBoxNumberBoxHeightSize = 15.0;
+      expect(USizes.recoverySeedBoxWidthSize, _recoverySeedBoxWidthSize);
+      expect(USizes.recoverySeedBoxHeightSize, _recoverySeedBoxHeightSize);
+      expect(USizes.recoverySeedBoxNumberBoxWidthSize,
+          _recoverySeedBoxNumberBoxWidthSize);
+      expect(USizes.recoverySeedBoxNumberBoxHeightSize,
+          _recoverySeedBoxNumberBoxHeightSize);
+    });
+
+    test('USwitcher Size Values', () {
+      const _switcherTotalHeight = 20.0;
+      const _switcherTotalWidth = 36.0;
+      const _switcherTrackHeight = 16.0;
+      expect(USizes.switcherTotalHeight, _switcherTotalHeight);
+      expect(USizes.switcherTotalWidth, _switcherTotalWidth);
+      expect(USizes.switcherTrackHeight, _switcherTrackHeight);
+    });
+
+    test('UDropDownMenu Size Values', () {
+      const _dropDownMenuButtonHeight = 40;
+      const _dropDownMenuItemHeight = 48;
+      expect(USizes.dropDownMenuButtonHeight, _dropDownMenuButtonHeight);
+      expect(USizes.dropDownMenuItemHeight, _dropDownMenuItemHeight);
+    });
+
+    test('UBottomSheet Size Values', () {
+      const _barAboveBottomSheetHeightSize = 2.0;
+      const _barAboveBottomSheetWidthSize = 72.0;
+      const _barAboveBottomSheetBorderRadius = 8.0;
+      const _bottomSheetTemplateBorderRadius = 20.0;
+      expect(
+          USizes.barAboveBottomSheetHeightSize, _barAboveBottomSheetHeightSize);
+      expect(
+          USizes.barAboveBottomSheetWidthSize, _barAboveBottomSheetWidthSize);
+      expect(USizes.barAboveBottomSheetBorderRadius,
+          _barAboveBottomSheetBorderRadius);
+      expect(USizes.bottomSheetTemplateBorderRadius,
+          _bottomSheetTemplateBorderRadius);
+    });
   });
 }

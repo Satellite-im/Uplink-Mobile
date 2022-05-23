@@ -3,8 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
-import 'package:uplink/counter/view/counter_page.dart';
 import 'package:uplink/l10n/l10n.dart';
+import 'package:uplink/pages_export.dart';
 
 enum Apps { mainApp, uiShowroom }
 
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _appToBuild = Apps.uiShowroom;
+    const _appToBuild = Apps.mainApp;
 
     return ChangeNotifierProvider(
       create: (context) => ThemeModel(),
@@ -28,7 +28,7 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: const CounterPage(),
+                home: const OnboardPinPage(),
               );
       },
     );

@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_showroom/ui_showroom_page.dart';
 import 'package:uplink/app/app.dart';
-import 'package:uplink/counter/counter.dart';
+import 'package:uplink/pages_export.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
+    testWidgets('renders First Page', (tester) async {
       await tester.pumpWidget(const App());
-      final _counterPageOrUIShowroomPage = find.byWidgetPredicate(
-        (widget) => widget is CounterPage || widget is UIShowRoomApp,
+      final _mainAppPageOrUIShowroomPage = find.byWidgetPredicate(
+        (widget) => widget is OnboardPinPage || widget is UIShowRoomApp,
       );
-      expect(_counterPageOrUIShowroomPage, findsOneWidget);
+      expect(_mainAppPageOrUIShowroomPage, findsOneWidget);
     });
   });
 }
