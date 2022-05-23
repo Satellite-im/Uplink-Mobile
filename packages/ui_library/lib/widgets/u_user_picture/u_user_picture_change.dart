@@ -25,8 +25,8 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
   void _verifyIfHasImage() {
     if (_imageFile != null && _imageFile!.path.isNotEmpty) {
       _userPictureFile.value = _imageFile;
-      Navigator.of(context).pop();
       widget.onPictureSelected(_userPictureFile.value);
+      Navigator.of(context).pop();
     }
   }
 
