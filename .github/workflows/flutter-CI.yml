@@ -27,5 +27,5 @@ jobs:
           apk-path: 'build/app/outputs/flutter-apk/app-profile.apk'
           name: Show result
           if: always()
-          run: echo '${{ steps.apk-path.outputs.result }}'
+          run: echo 'kmlkmkmkklmlkmklmklm'
  
