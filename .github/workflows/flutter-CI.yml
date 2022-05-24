@@ -21,3 +21,11 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
+      - uses: hkusu/apk-info-action@v1
+        id: apk-info
+        with:
+          apk-path: 'app/build/outputs/apk/release/app-release.apk'
+          name: Show result
+          if: always()
+          run: echo '${{ steps.apk-info.outputs.result }}'
+ 
