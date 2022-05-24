@@ -22,7 +22,7 @@ jobs:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
       - uses: hkusu/apk-info-action@v1
-        id: apk-info
+        id: apk-path
         with:
           apk-path: 'build/app/outputs/flutter-apk/app-profile.apk'
           name: Show result
