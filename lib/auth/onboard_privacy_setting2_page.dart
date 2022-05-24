@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-import 'onboarding_create_profile_page.dart';
+import 'package:uplink/auth/onboarding_create_profile_page.dart';
 
 class OnboardPrivacySettingSecondPage extends StatefulWidget {
   const OnboardPrivacySettingSecondPage({Key? key}) : super(key: key);

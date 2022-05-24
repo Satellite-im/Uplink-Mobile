@@ -92,31 +92,32 @@ class UButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            minimumSize: const Size(50, 40),
-            primary: (_buttonType == _ButtonType.primary) ||
-                    (_buttonType == _ButtonType.filled1)
-                ? UColors.ctaBlue
-                : UColors.ctaDark,
-            padding: (_buttonType == _ButtonType.primary) ||
-                    (_buttonType == _ButtonType.secondary)
-                ? const EdgeInsets.fromLTRB(16, 8, 24, 8)
-                : const EdgeInsets.fromLTRB(24, 13, 24, 12),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50))),
-        onPressed: _onPressed,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (_uIconData != null) ...[
-              UIcon(_uIconData!),
-              const SizedBox(width: 8),
-            ],
-            UText(
-              _label,
-              textStyle: UTextStyle.BUT1_primaryButton,
-            ),
+      style: ElevatedButton.styleFrom(
+          minimumSize: const Size(50, 40),
+          primary: (_buttonType == _ButtonType.primary) ||
+                  (_buttonType == _ButtonType.filled1)
+              ? UColors.ctaBlue
+              : UColors.ctaDark,
+          padding: (_buttonType == _ButtonType.primary) ||
+                  (_buttonType == _ButtonType.secondary)
+              ? const EdgeInsets.fromLTRB(16, 8, 24, 8)
+              : const EdgeInsets.fromLTRB(24, 13, 24, 12),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+      onPressed: _onPressed,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_uIconData != null) ...[
+            UIcon(_uIconData!),
+            const SizedBox(width: 8),
           ],
-        ));
+          UText(
+            _label,
+            textStyle: UTextStyle.BUT1_primaryButton,
+          ),
+        ],
+      ),
+    );
   }
 }

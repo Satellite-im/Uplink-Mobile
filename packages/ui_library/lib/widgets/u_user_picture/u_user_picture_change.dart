@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/const/const_export.dart';
-import 'package:ui_library/plugins/image_picker.dart';
+import 'package:ui_library/plugins/plugins_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_export.dart';
 
 import '../u_icon/u_icon_export.dart';

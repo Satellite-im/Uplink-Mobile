@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ui_library/plugins/image_cropper.dart';
-import 'package:ui_library/plugins/request_permissions.dart';
+import 'package:ui_library/plugins/permissions/request_permissions.dart';
+
+import 'image_cropper.dart';
 
 class UImagePicker {
   final _picker = ImagePicker();

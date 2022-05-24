@@ -45,7 +45,8 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   child: UUserPictureChange(
                     onPictureSelected: (pictureSelected) {
                       print(
-                          'AQUI: TESTE ******* ####### ---------- ${pictureSelected?.path}');
+                        'AQUI: TESTE ******* ####### ---------- ${pictureSelected?.path}',
+                      );
                     },
                   ),
                 ),
