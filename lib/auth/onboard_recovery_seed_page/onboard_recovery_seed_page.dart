@@ -5,20 +5,8 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 
-List<String> _seedList = [
-  'art',
-  'bus',
-  'drink',
-  'frost',
-  'hour',
-  'cute',
-  'fly',
-  'frost',
-  'hour',
-  'grow',
-  'join',
-  'paint'
-];
+part 'recovery_seed_boxes_part.dart';
+part 'screenshot_recovery_seed_boxes_part.dart';
 
 class OnboardRecoverySeedPage extends StatefulWidget {
   const OnboardRecoverySeedPage({Key? key}) : super(key: key);
@@ -39,7 +27,6 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
                 'Write this down in the order that they appear. Having the correct order is crucial when you are recovering your account.',
@@ -59,13 +46,14 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                         Navigator.pop(context);
                       },
                       secondButtonOnPressed: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (context) =>
-                                const OnboardPrivacySettingFirstPage(),
-                          ),
-                        );
+                        Navigator.of(context)
+                          ..pop()
+                          ..push(
+                            MaterialPageRoute<void>(
+                              builder: (context) =>
+                                  const OnboardPrivacySettingFirstPage(),
+                            ),
+                          );
                       },
                       header: '''
               Are you sure you want to continue
@@ -111,7 +99,7 @@ Would you like to give Satellite.im access to your camera roll?''',
                           .saveImage(
                         context,
                         _image,
-                        nameComplement: 'recovery_seed_words_2',
+                        nameComplement: 'recovery_seed_words',
                       )
                           .then((value) async {
                         _isRecoverySeedWordsSaved = value;
@@ -150,72 +138,13 @@ Would you like to give Satellite.im access to your camera roll?''',
               Expanded(
                 child: UButton.filled1(
                   label: 'Okay',
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ScreenShotRecoverySeedBoxes extends StatelessWidget {
-  const _ScreenShotRecoverySeedBoxes({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        SizedBox.square(
-          dimension: 32,
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: UText(
-            'Save this in a safe place or write it down. To recover your account, you’ll need your 12 passphrases in the order that they appear. Please do not share these passphrases with anybody.',
-            textStyle: UTextStyle.B1_body,
-          ),
-        ),
-        SizedBox.square(
-          dimension: 24,
-        ),
-        _RecoverySeedBoxes(),
-      ],
-    );
-  }
-}
-
-class _RecoverySeedBoxes extends StatelessWidget {
-  const _RecoverySeedBoxes({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      slivers: [
-        SliverGrid.count(
-          crossAxisCount: 2,
-          childAspectRatio: 160 / 40,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          children: List.generate(
-            12,
-            (index) => Center(
-              child: URecoverySeedBox(
-                word: _seedList[index],
-                wordNumber: index + 1,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
