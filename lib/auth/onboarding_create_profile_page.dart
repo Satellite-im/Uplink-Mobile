@@ -13,6 +13,7 @@ class OnboardCreateProfilePage extends StatefulWidget {
 class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
   final _focusNode = FocusNode();
   final _scrollController = ScrollController();
+  final _isSignInButtonEnabled = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -76,6 +77,11 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                       textInputAction: TextInputAction.next,
                       cursorColor: UColors.textDark,
                       autocorrect: false,
+                      onChanged: (value) {
+                        value.isNotEmpty
+                            ? _isSignInButtonEnabled.value = true
+                            : _isSignInButtonEnabled.value = false;
+                      },
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: UColors.foregroundDark,
@@ -118,10 +124,16 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                     ),
                   ),
                   const SizedBox.square(dimension: 56),
-                  UButton.primary(
-                    label: 'Sign in',
-                    uIconData: UIcons.friend_added,
-                    onPressed: () {},
+                  ValueListenableBuilder(
+                    valueListenable: _isSignInButtonEnabled,
+                    builder: (context, object, widget) {
+                      return UButton.primary(
+                        label: 'Sign in',
+                        disabled: !_isSignInButtonEnabled.value,
+                        uIconData: UIcons.friend_added,
+                        onPressed: () {},
+                      );
+                    },
                   ),
                   AnimatedPadding(
                     duration: const Duration(milliseconds: 50),
