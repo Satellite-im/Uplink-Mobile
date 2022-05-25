@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -147,14 +146,14 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
               : _allOptionsFilledTitle,
       firstButtonText: 'Go back',
       secondButtonText: 'All done',
-      // TODO: Add reply Icon from Figma
+      // TODO(UIcons): Add reply Icon from Figma
       firstButtonIcon: UIcons.back_arrow_button,
       secondButtonIcon: UIcons.checkmark_rounded,
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
       },
       secondButtonOnPressed: () async {
-        // TODO: Continue to loading page liking satellites
+        // TODO(Navigation): Continue to loading page liking satellites
       },
     ).show();
   }
