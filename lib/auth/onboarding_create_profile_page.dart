@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -14,6 +17,9 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
   final _focusNode = FocusNode();
   final _scrollController = ScrollController();
   final _isSignInButtonEnabled = ValueNotifier<bool>(false);
+  final _usernameTextFieldController = TextEditingController();
+  final _messageStatusTextFieldController = TextEditingController();
+  File? _userPicture;
 
   void _dismissKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
 
@@ -63,69 +69,28 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   const SizedBox(height: 40),
                   Align(
                     child: UUserPictureChange(
-                      onPictureSelected: (pictureSelected) {},
+                      onPictureSelected: (pictureSelected) {
+                        _userPicture = pictureSelected;
+                      },
                     ),
                   ),
                   const SizedBox(height: 56),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: UText(
-                      'Username',
-                      textStyle: UTextStyle.H3_tertiaryHeader,
-                    ),
-                  ),
-                  const SizedBox.square(dimension: 8.4),
-                  SizedBox(
-                    height: 48,
-                    child: TextField(
-                      textInputAction: TextInputAction.next,
-                      cursorColor: UColors.textDark,
-                      autocorrect: false,
-                      onChanged: (value) {
-                        value.isNotEmpty
-                            ? _isSignInButtonEnabled.value = true
-                            : _isSignInButtonEnabled.value = false;
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: UColors.foregroundDark,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        hintText: 'Digit your username...',
-                        hintStyle: UTextStyle.H5_fifthHeader.style
-                            .returnTextStyleType(),
-                      ),
-                    ),
+                  _TextField(
+                    textFieldTitle: 'Username',
+                    hintText: 'Digit your username...',
+                    onChanged: (value) {
+                      value.isNotEmpty
+                          ? _isSignInButtonEnabled.value = true
+                          : _isSignInButtonEnabled.value = false;
+                    },
+                    controller: _usernameTextFieldController,
                   ),
                   const SizedBox.square(dimension: 24),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: UText(
-                      'Status Message',
-                      textStyle: UTextStyle.H3_tertiaryHeader,
-                    ),
-                  ),
-                  const SizedBox.square(dimension: 8.4),
-                  SizedBox(
-                    height: 48,
-                    child: TextField(
-                      textInputAction: TextInputAction.done,
-                      cursorColor: UColors.textDark,
-                      autocorrect: false,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: UColors.foregroundDark,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        hintText: 'Digit your status message...',
-                        hintStyle: UTextStyle.H5_fifthHeader.style
-                            .returnTextStyleType(),
-                      ),
-                    ),
+                  _TextField(
+                    textFieldTitle: 'Status Message',
+                    hintText: 'Digit your status message...',
+                    onChanged: (value) {},
+                    controller: _messageStatusTextFieldController,
                   ),
                   const SizedBox.square(dimension: 56),
                   ValueListenableBuilder(
@@ -135,7 +100,9 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                         label: 'Sign in',
                         disabled: !_isSignInButtonEnabled.value,
                         uIconData: UIcons.friend_added,
-                        onPressed: () {},
+                        onPressed: () async {
+                          await _callBottomSheets();
+                        },
                       );
                     },
                   ),
@@ -152,6 +119,95 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _callBottomSheets() async {
+    final _justWithUsernameFilled =
+        _usernameTextFieldController.text.isNotEmpty &&
+            _messageStatusTextFieldController.text.isEmpty &&
+            _userPicture == null;
+    final _justWithUsernameAndPictureFilled =
+        _usernameTextFieldController.text.isNotEmpty &&
+            _messageStatusTextFieldController.text.isEmpty &&
+            _userPicture != null;
+    const _justUsernameFilledTitle = 'Do you want to save your changes? \n'
+        'You can always add your avatar and status message later.';
+    const _justWithUsernameAndPictureFilledTitle =
+        'Do you want to save your changes? \n'
+        'You can always add your status message later.';
+    const _allOptionsFilledTitle = 'Do you want to save your changes? ';
+
+    await UBottomSheetTwoButtons(
+      context,
+      header: _justWithUsernameFilled
+          ? _justUsernameFilledTitle
+          : _justWithUsernameAndPictureFilled
+              ? _justWithUsernameAndPictureFilledTitle
+              : _allOptionsFilledTitle,
+      firstButtonText: 'Go back',
+      secondButtonText: 'All done',
+      // TODO: Add reply Icon from Figma
+      firstButtonIcon: UIcons.back_arrow_button,
+      secondButtonIcon: UIcons.checkmark_rounded,
+      firstButtonOnPressed: () async {
+        Navigator.of(context).pop();
+      },
+      secondButtonOnPressed: () async {
+        // TODO: Continue to loading page liking satellites
+      },
+    ).show();
+  }
+}
+
+class _TextField extends StatelessWidget {
+  const _TextField({
+    Key? key,
+    required this.controller,
+    required this.textFieldTitle,
+    required this.hintText,
+    required this.onChanged,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final String textFieldTitle;
+  final String hintText;
+  final Function(String) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: UText(
+            textFieldTitle,
+            textStyle: UTextStyle.H3_tertiaryHeader,
+          ),
+        ),
+        const SizedBox.square(dimension: 8.4),
+        SizedBox(
+          height: 48,
+          child: TextField(
+            controller: controller,
+            textInputAction: TextInputAction.done,
+            cursorColor: UColors.textDark,
+            autocorrect: false,
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: UColors.foregroundDark,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              hintText: hintText,
+              hintStyle: UTextStyle.H5_fifthHeader.style.returnTextStyleType(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
