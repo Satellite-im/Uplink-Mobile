@@ -5,6 +5,12 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 
+/// This class will handle with the device's permissions
+///
+/// It will show a dialog explaining what permission the app needs
+///
+/// If a permission is permanently denied, it will take the user to the
+/// device settings to change it
 class URequestPermissions {
   Future<PermissionStatus> getPermissionToUseCamera(
           BuildContext context) async =>

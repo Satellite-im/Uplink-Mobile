@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:ui_library/core/const/const_export.dart';
 
+/// A plugin to crop the image
+///
+/// It works with different options for IOS and Android
 class UImageCropper {
   Future<File?> cropImage(File imageFile) async {
     File? _imageCroppedFile;

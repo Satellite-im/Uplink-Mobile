@@ -7,6 +7,9 @@ import 'package:ui_library/plugins/permissions/request_permissions.dart';
 
 import 'image_cropper.dart';
 
+/// This class pick a image from camera or gallery
+///
+/// It already handles with device's permissions
 class UImagePicker {
   final _picker = ImagePicker();
   final _permissions = URequestPermissions();

@@ -10,13 +10,25 @@ class UDialog {
 
   final List<Widget> actions;
 
+  /// It is a template for dialog
+  ///
+  /// To not use [actions]
+  /// just set it as the example below
+  /// ```dart
+  /// return UDialog(
+  ///    context,
+  ///    title: 'Saved!',
+  ///    actions: [],
+  ///  ...
+  /// ```
   UDialog(
     this.context, {
     required this.title,
     this.content,
     required this.actions,
   });
-  Future<T?> showUDialog<T>() async {
+
+  Future<UDialog?> showUDialog<UDialog>() async {
     return await showDialog(
       context: context,
       builder: (_context) => AlertDialog(

@@ -6,6 +6,9 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../permissions/request_permissions.dart';
 
+/// A plugin to save any image in device's gallery
+///
+/// It already handles with device's permissions
 class USaveImageOnGallery {
   final _permissions = URequestPermissions();
 
