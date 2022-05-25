@@ -15,13 +15,15 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
   final _scrollController = ScrollController();
   final _isSignInButtonEnabled = ValueNotifier<bool>(false);
 
+  void _dismissKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
+
   @override
   void initState() {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels > 40 &&
           _scrollController.position.userScrollDirection ==
               ScrollDirection.reverse) {
-        FocusManager.instance.primaryFocus?.unfocus();
+        _dismissKeyboard();
       }
     });
     super.initState();
@@ -36,10 +38,12 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      onTap: _dismissKeyboard,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: UAppBar.back(title: 'Create Profile'),
+        appBar: UAppBar.back(
+          title: 'Create Profile',
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),

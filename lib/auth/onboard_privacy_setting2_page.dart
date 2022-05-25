@@ -25,8 +25,7 @@ class _OnboardPrivacySettingSecondPageState
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: ListView(
             children: [
               const UText(
                 'Signaling Servers',
