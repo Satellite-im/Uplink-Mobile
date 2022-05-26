@@ -190,6 +190,8 @@ class _TextField extends StatelessWidget {
           height: 48,
           child: TextField(
             controller: controller,
+            style: UTextStyle.H5_fifthHeader.style
+                .returnTextStyleType(color: Colors.white),
             textInputAction: TextInputAction.done,
             cursorColor: UColors.textDark,
             autocorrect: false,
