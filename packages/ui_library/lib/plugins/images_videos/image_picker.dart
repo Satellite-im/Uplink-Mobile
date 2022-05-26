@@ -11,15 +11,18 @@ import 'image_cropper.dart';
 ///
 /// It already handles with device's permissions
 class UImagePicker {
+  UImagePicker({this.shouldShowPermissionDialog = false});
+
+  final bool shouldShowPermissionDialog;
   final _picker = ImagePicker();
-  final _permissions = URequestPermissions();
   final _uImageCropper = UImageCropper();
 
   Future<File?> pickImageFromGallery(BuildContext context) async {
     XFile? pickedFile;
     File? _imageCroppedFile;
-    final _galleryPermissionStatus =
-        await _permissions.getPermissionToAccessGallery(context);
+    final _galleryPermissionStatus = await URequestPermissions(
+      shouldShowPermissionDialog: shouldShowPermissionDialog,
+    ).getPermissionToAccessGallery(context);
     if (_galleryPermissionStatus == PermissionStatus.granted) {
       pickedFile = await _picker.pickImage(
         source: ImageSource.gallery,
@@ -37,8 +40,9 @@ class UImagePicker {
     XFile? pickedFile;
     File? _imageCroppedFile;
 
-    final _cameraPermissionStatus =
-        await _permissions.getPermissionToUseCamera(context);
+    final _cameraPermissionStatus = await URequestPermissions(
+      shouldShowPermissionDialog: shouldShowPermissionDialog,
+    ).getPermissionToUseCamera(context);
 
     if (_cameraPermissionStatus == PermissionStatus.granted) {
       pickedFile = await _picker.pickImage(

@@ -10,17 +10,17 @@ import '../permissions/request_permissions.dart';
 ///
 /// It already handles with device's permissions
 class USaveImageOnGallery {
-  final _permissions = URequestPermissions();
+  USaveImageOnGallery({this.shouldShowPermissionDialog = false});
 
-  Future<bool> saveImage(
-    BuildContext context,
-    Uint8List image, {
-    String nameComplement = '',
-  }) async {
+  final bool shouldShowPermissionDialog;
+
+  Future<bool> saveImage(BuildContext context, Uint8List image,
+      {String nameComplement = ''}) async {
     Map _result = {'isSuccess': false};
 
-    final _galleryPermissionStatus =
-        await _permissions.getPermissionToAccessGallery(context);
+    final _galleryPermissionStatus = await URequestPermissions(
+      shouldShowPermissionDialog: shouldShowPermissionDialog,
+    ).getPermissionToAccessGallery(context);
     if (_galleryPermissionStatus == PermissionStatus.granted) {
       final _time = DateTime.now()
           .toIso8601String()

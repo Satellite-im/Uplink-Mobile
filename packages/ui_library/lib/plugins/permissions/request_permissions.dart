@@ -12,6 +12,10 @@ import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 /// If a permission is permanently denied, it will take the user to the
 /// device settings to change it
 class URequestPermissions {
+  URequestPermissions({this.shouldShowPermissionDialog = false});
+
+  final bool shouldShowPermissionDialog;
+
   Future<PermissionStatus> getPermissionToUseCamera(
           BuildContext context) async =>
       await _verifyPermission(
@@ -38,12 +42,15 @@ class URequestPermissions {
     required String permissionObject,
   }) async {
     PermissionStatus _objectPermissionStatus = await objectPermission.status;
-    if (_objectPermissionStatus != PermissionStatus.granted) {
+    if (_objectPermissionStatus != PermissionStatus.granted &&
+        shouldShowPermissionDialog) {
       await _dialogPermission(
         context,
         title: dialogPermissionTitle,
         permissionObject: permissionObject,
       );
+      _objectPermissionStatus = await objectPermission.request();
+    } else {
       _objectPermissionStatus = await objectPermission.request();
     }
 

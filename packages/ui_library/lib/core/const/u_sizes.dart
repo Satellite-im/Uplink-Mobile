@@ -16,6 +16,8 @@ class USizes {
   static const double iconSize = 24.0;
   // Icon size for [ULogoutButton]
   static const double iconSizeSmall = 20.0;
+  // Icon size for [AddPictureProfileButton]
+  static const double iconAddPictureProfileButtonSize = 14.4;
 
   // Button size for [UIconButton]
   static const double buttonSize = 56.0;

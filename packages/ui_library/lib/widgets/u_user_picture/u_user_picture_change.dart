@@ -18,7 +18,7 @@ class UUserPictureChange extends StatefulWidget {
 }
 
 class _UUserPictureChangeState extends State<UUserPictureChange> {
-  final _uImagePicker = UImagePicker();
+  final _uImagePicker = UImagePicker(shouldShowPermissionDialog: true);
   final _userPictureFile = ValueNotifier<File?>(null);
   File? _imageFile;
 
@@ -90,7 +90,7 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
               child: const Center(
                 child: UIcon(
                   UIcons.add_button,
-                  size: UIconSize.small,
+                  size: UIconSize.addPictureProfileButton,
                 ),
               ),
             ),

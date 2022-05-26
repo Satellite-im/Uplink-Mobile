@@ -15,24 +15,25 @@ class UImageCropper {
       cropStyle: CropStyle.circle,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
       ],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Cropper',
           toolbarColor: UColors.foregroundDark,
+          cropGridColumnCount: 0,
+          cropGridRowCount: 0,
           backgroundColor: UColors.backgroundDark,
           toolbarWidgetColor: UColors.white,
           activeControlsWidgetColor: UColors.ctaBlue,
           statusBarColor: UColors.backgroundDark,
-          initAspectRatio: CropAspectRatioPreset.original,
+          initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: false,
+          hideBottomControls: false,
         ),
         IOSUiSettings(
           title: 'Cropper',
+          resetButtonHidden: true,
+          aspectRatioPickerButtonHidden: true,
         ),
       ],
     );
