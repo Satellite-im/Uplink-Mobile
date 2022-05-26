@@ -21,8 +21,8 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
-      - uses: harupy/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
         with:
-          artifact: app-profile.apk
+          issue-number: 1
+          body: ${{ steps.debug-apk.outputs.result }}
