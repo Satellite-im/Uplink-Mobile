@@ -1,8 +1,10 @@
-name: 'Comment artifacts'
+
+name: Comment artifacts
+
 on:
-  push:
-    branches:
-      - dev
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    
 jobs:
   post-comment:
     runs-on: ubuntu-latest
