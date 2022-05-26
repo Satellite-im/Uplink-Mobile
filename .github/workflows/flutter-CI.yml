@@ -24,4 +24,5 @@ jobs:
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
+          issue-number: 1
           body: '👋 Thanks for reporting!'
