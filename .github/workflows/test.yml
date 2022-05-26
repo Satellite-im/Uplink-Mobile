@@ -1,0 +1,16 @@
+name: 'Comment artifacts'
+on:
+  workflow_run:
+    workflows: ["Upload an artifact"]
+    types: [completed]
+jobs:
+  post-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: message
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          prefix: "Find your attachments below: "
