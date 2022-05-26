@@ -29,7 +29,7 @@ jobs:
           if: always()
       - uses: NejcZdovc/comment-pr@v1
         with:
-          message: "Execution time: `${{steps.apk-path.outputs.result}}`"
+          message: "Execution time: `${{steps.apk-path.outputs.path}}`"
           identifier: "GITHUB_COMMENT_SCRIPT"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
