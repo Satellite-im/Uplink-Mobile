@@ -1,4 +1,4 @@
-part of 'onboard_recovery_seed_page.dart';
+part of '../onboard_recovery_seed_page.dart';
 
 class _ScreenShotRecoverySeedBoxes extends StatelessWidget {
   const _ScreenShotRecoverySeedBoxes({Key? key}) : super(key: key);

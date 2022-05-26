@@ -14,8 +14,14 @@ class USaveImageOnGallery {
 
   final bool shouldShowPermissionDialog;
 
-  Future<bool> saveImage(BuildContext context, Uint8List image,
-      {String nameComplement = ''}) async {
+  Future<bool> saveImage(
+    BuildContext context,
+    Uint8List image, {
+
+    /// This will be complement the name of the file
+    /// that are going to be saved on the user gallery
+    String imageNameToSave = '',
+  }) async {
     Map _result = {'isSuccess': false};
 
     final _galleryPermissionStatus = await URequestPermissions(
@@ -26,7 +32,7 @@ class USaveImageOnGallery {
           .toIso8601String()
           .replaceAll('.', '-')
           .replaceAll(':', '-');
-      final _name = 'uplink_${nameComplement}_$_time';
+      final _name = 'uplink_${imageNameToSave}_$_time';
       _result = await ImageGallerySaver.saveImage(image, name: _name);
     }
     return _result['isSuccess'];

@@ -1,4 +1,4 @@
-part of 'onboard_recovery_seed_page.dart';
+part of '../onboard_recovery_seed_page.dart';
 
 List<String> _seedList = [
   'art',

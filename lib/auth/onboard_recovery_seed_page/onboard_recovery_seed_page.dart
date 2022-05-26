@@ -5,8 +5,8 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 
-part 'recovery_seed_boxes_part.dart';
-part 'screenshot_recovery_seed_boxes_part.dart';
+part 'models/recovery_seed_boxes_part.dart';
+part 'models/screenshot_recovery_seed_boxes_part.dart';
 
 class OnboardRecoverySeedPage extends StatefulWidget {
   const OnboardRecoverySeedPage({Key? key}) : super(key: key);
@@ -99,7 +99,7 @@ Would you like to give Satellite.im access to your camera roll?''',
                           .saveImage(
                         context,
                         _image,
-                        nameComplement: 'recovery_seed_words',
+                        imageNameToSave: 'recovery_seed_words',
                       )
                           .then((value) async {
                         _isRecoverySeedWordsSaved = value;

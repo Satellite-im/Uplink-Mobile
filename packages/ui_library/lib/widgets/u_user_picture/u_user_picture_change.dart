@@ -18,7 +18,6 @@ class UUserPictureChange extends StatefulWidget {
 }
 
 class _UUserPictureChangeState extends State<UUserPictureChange> {
-  final _uImagePicker = UImagePicker(shouldShowPermissionDialog: true);
   final _userPictureFile = ValueNotifier<File?>(null);
   File? _imageFile;
 
@@ -43,11 +42,13 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
           firstButtonIcon: UIcons.camera,
           secondButtonIcon: UIcons.image,
           firstButtonOnPressed: () async {
-            _imageFile = await _uImagePicker.pickImageFromCamera(context);
+            _imageFile = await UImagePicker(shouldShowPermissionDialog: true)
+                .pickImageFromCamera(context);
             _verifyIfHasImage();
           },
           secondButtonOnPressed: () async {
-            _imageFile = await _uImagePicker.pickImageFromGallery(context);
+            _imageFile = await UImagePicker(shouldShowPermissionDialog: false)
+                .pickImageFromGallery(context);
             _verifyIfHasImage();
           },
         ).show();
