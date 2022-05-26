@@ -53,6 +53,7 @@ class _ULoadingIndicatorState extends State<ULoadingIndicator>
       padding:
           widget.padding != null ? widget.padding! : const EdgeInsets.all(16.0),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             width: _positionAnimation.value,

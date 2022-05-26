@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardPrivacySettingSecondPage extends StatefulWidget {
   const OnboardPrivacySettingSecondPage({Key? key}) : super(key: key);
@@ -50,7 +51,16 @@ If you opt to use ‘Only Public Signaling Servers’, those are completely outs
                 ),
               ),
               const SizedBox(height: 56),
-              UButton.filled1(label: 'Continue', onPressed: () {}),
+              UButton.filled1(
+                label: 'Continue',
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const LinkingSatellitesPage(),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
