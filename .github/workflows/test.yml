@@ -1,8 +1,8 @@
 name: 'Comment artifacts'
 on:
-  workflow_run:
-    workflows: ["Upload an artifact"]
-    types: [completed]
+  push:
+    branches:
+      - dev
 jobs:
   post-comment:
     runs-on: ubuntu-latest
