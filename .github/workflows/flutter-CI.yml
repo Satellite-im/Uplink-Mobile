@@ -21,23 +21,16 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
-      - name: Comment Checkout
+      - uses: hkusu/apk-info-action@v1
+        id: apk-path
+        with:
+          apk-path: build/app/outputs/flutter-apk/app-profile.apk
+          name: Show result
+          if: always()
+      - name: Comment apk file
       - uses: NejcZdovc/comment-pr@v1
         with:
-          message: "Checkout completed!"
-          identifier: "GITHUB_COMMENT_CHECKOUT"
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: Get time
-      - uses: actions/github-script@v3
-        id: get-time
-        with:
-          script: return new Date().toString()
-          result-encoding: string
-      - name: Comment time
-      - uses: NejcZdovc/comment-pr@v1
-        with:
-          message: "Execution time: `${{steps.get-time.outputs.result}}`"
+          message: "Execution time: `${{steps.apk-path.outputs.result}}`"
           identifier: "GITHUB_COMMENT_SCRIPT"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
