@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardPrivacySettingFirstPage extends StatefulWidget {
   const OnboardPrivacySettingFirstPage({Key? key}) : super(key: key);
@@ -22,7 +23,9 @@ class _OnboardPrivacySettingFirstPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Privacy Settings'),
+      appBar: UAppBar.back(
+        title: UAppStrings.OnboardPrivacySettingFirstPage_AppBarTitle,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -30,7 +33,8 @@ class _OnboardPrivacySettingFirstPageState
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
-                'Choose which features to enable to best suit your privacy preferences.',
+                UAppStrings
+                    .OnboardPrivacySettingFirstPage_ChooseWhichFeaturesToEnable,
                 textStyle: UTextStyle.B1_body,
               ),
               Flexible(child: Container()),
