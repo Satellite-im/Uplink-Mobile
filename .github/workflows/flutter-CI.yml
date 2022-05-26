@@ -21,10 +21,25 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
-      - uses: actions/checkout@v2
-      - uses: ./
-        id: message
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Comment Checkout
+      - uses: NejcZdovc/comment-pr@v1
         with:
-          prefix: "Find your attachments below: "
+          message: "Checkout completed!"
+          identifier: "GITHUB_COMMENT_CHECKOUT"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Get time
+      - uses: actions/github-script@v3
+        id: get-time
+        with:
+          script: return new Date().toString()
+          result-encoding: string
+      - name: Comment time
+      - uses: NejcZdovc/comment-pr@v1
+        with:
+          message: "Execution time: `${{steps.get-time.outputs.result}}`"
+          identifier: "GITHUB_COMMENT_SCRIPT"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
