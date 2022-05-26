@@ -27,7 +27,6 @@ jobs:
           apk-path: build/app/outputs/flutter-apk/app-profile.apk
           name: Show result
           if: always()
-      - name: Comment apk file
       - uses: NejcZdovc/comment-pr@v1
         with:
           message: "Execution time: `${{steps.apk-path.outputs.result}}`"
