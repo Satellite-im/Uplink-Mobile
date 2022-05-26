@@ -21,8 +21,6 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Comment Checkout
       - uses: NejcZdovc/comment-pr@v1
         with:
