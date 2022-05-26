@@ -83,4 +83,7 @@ class USizes {
   static const double barAboveBottomSheetWidthSize = 72.0;
   static const double barAboveBottomSheetBorderRadius = 8.0;
   static const double bottomSheetTemplateBorderRadius = 20.0;
+
+  // Sizes for [LoadingIndicator]
+  static const double loadingIndicatorHeight = 6.0;
 }
