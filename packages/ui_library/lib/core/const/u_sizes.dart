@@ -89,4 +89,6 @@ class USizes {
   // Sizes for [UUserPictureChange]
   static const double userPictureChangeSize = 100.0;
   static const double userPictureChangeAddButtonSize = 24.0;
+  // Sizes for [LoadingIndicator]
+  static const double loadingIndicatorHeight = 6.0;
 }
