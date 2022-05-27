@@ -156,7 +156,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
               const SizedBox(height: 24),
 //Selected words grid view
               Expanded(
-                //TODO: change to Lucas new style
+                // TODO(yijing): change to Lucas new style
                 child: ListView(
                   children: List.generate(
                     selectedPassphraseList.length,
@@ -184,7 +184,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                   uIconData: UIcons.add_contact_member,
                   onPressed: () {
                     if (suggestedPassphraseList.length == 12) {
-                      //TODO: add recovery code validation
+                      // TODO(yijing): add recovery code validation
                     } else {}
                   },
                 ),
@@ -257,7 +257,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
           }
         });
       } else {
-        //TODO:list is full
+        // TODO(yijing): list is full
       }
     }
   }
