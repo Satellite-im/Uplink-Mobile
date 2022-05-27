@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class URecoverySeedBox extends StatelessWidget {
-  const URecoverySeedBox({
-    Key? key,
-    required this.word,
-    required this.wordNumber,
-  }) : super(key: key);
+  const URecoverySeedBox(
+      {Key? key, required this.word, required this.wordNumber, this.onDelete})
+      : super(key: key);
 
   final String word;
 
   final int wordNumber;
+
+  final Function? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +53,21 @@ class URecoverySeedBox extends StatelessWidget {
               ),
             ),
           ),
+          onDelete != null
+              ? Positioned(
+                  right: 8,
+                  top: 0,
+                  bottom: 0,
+                  child: InkWell(
+                    child: const UIcon(
+                      UIcons.close_button,
+                      color: UColors.textMed,
+                      size: UIconSize.micro,
+                    ),
+                    onTap: () => onDelete!(),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
