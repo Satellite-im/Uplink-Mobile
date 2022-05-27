@@ -54,7 +54,7 @@ If you opt to use ‘Only Public Signaling Servers’, those are completely outs
               UButton.filled1(
                 label: 'Continue',
                 onPressed: () {
-                  /// TODO(Navigation): Change this for CreateProfileChange after merge
+                  // TODO(Navigation): Change this for CreateProfileChange after merge
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
                       builder: (context) => const LinkingSatellitesPage(),

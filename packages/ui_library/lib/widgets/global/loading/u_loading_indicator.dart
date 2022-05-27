@@ -48,6 +48,12 @@ class _ULoadingIndicatorState extends State<ULoadingIndicator>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding:
