@@ -19,22 +19,22 @@ class _ULoadingIndicatorPageState extends State<ULoadingIndicatorPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: const [
             SizedBox.square(
               dimension: 16,
             ),
-            UText(
-              'ULoadingIndicator',
-              textStyle: UTextStyle.H1_primaryHeader,
+            Center(
+              child: UText(
+                'ULoadingIndicator',
+                textStyle: UTextStyle.H1_primaryHeader,
+              ),
             ),
             SizedBox.square(
               dimension: 8,
             ),
-            Center(
-              child: ULoadingIndicator(),
-            ),
+            ULoadingIndicator(),
             SizedBox.square(
               dimension: 16,
             ),
