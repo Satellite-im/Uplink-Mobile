@@ -4,6 +4,44 @@ import '../../../core/const/const_export.dart';
 import 'u_loading_indicator.dart';
 
 class UActionLoading extends StatelessWidget {
+  /// A shaded page with ULoadingIndicator
+  ///
+  /// It should be the first widget on the page
+  ///
+  /// [isLoading] needs to be a ValueNotifier<boo> value
+  ///
+  /// [dashLoadingIndicatorPadding] is just to control
+  /// the position of [ULoadingIndicator]
+  ///
+  /// Example how to use:
+  /// class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
+  /// ```dart
+  ///   bool _isRecoverySeedWordsSaved = false;
+  ///   final _isLoading = ValueNotifier(false);
+
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return UActionLoading(
+  ///       dashLoadingIndicatorPadding: const EdgeInsets.only(left: 48),
+  ///       isLoading: _isLoading,
+  ///       child: Scaffold(
+  ///         appBar: UAppBar.back(title: 'Recovery Seed'),
+  ///         body: SafeArea(
+  /// ```
+  ///
+  /// It will be necessary to change [isLoading] value as well:
+  /// ```dart
+  /// ...
+  ///   _isLoading.value = true;
+  /// final _uScreenShot = UScreenShot();
+  /// final _uSaveImageOnGallery = USaveImageOnGallery();
+  /// final _image = await _uScreenShot.captureFromWidget(
+  ///   context,
+  ///   widget: const _ScreenShotRecoverySeedBoxes(),
+  /// );
+  /// _isLoading.value = false;
+  /// ...
+  /// ```
   const UActionLoading({
     Key? key,
     required this.child,

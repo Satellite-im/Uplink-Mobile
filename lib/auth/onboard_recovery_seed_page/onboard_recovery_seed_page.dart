@@ -80,14 +80,16 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                   uIconData: UIcons.camera,
                   onPressed: () async {
                     _isLoading.value = true;
+
                     final _uScreenShot = UScreenShot();
                     final _uSaveImageOnGallery = USaveImageOnGallery();
+
                     final _image = await _uScreenShot.captureFromWidget(
                       context,
                       widget: const _ScreenShotRecoverySeedBoxes(),
                     );
-                    _isLoading.value = false;
 
+                    _isLoading.value = false;
                     if (!mounted) return;
                     await UBottomSheetTwoButtons(
                       context,

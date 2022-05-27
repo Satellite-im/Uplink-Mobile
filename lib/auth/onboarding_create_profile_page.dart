@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -152,8 +153,12 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
       },
-      secondButtonOnPressed: () async {
-        // TODO(Navigation): Continue to loading page liking satellites
+      secondButtonOnPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) => const LinkingSatellitesPage(),
+          ),
+        );
       },
     ).show();
   }
