@@ -8,6 +8,7 @@ class UButton extends StatelessWidget {
   final String _label;
   final UIconData? _uIconData;
   final VoidCallback _onPressed;
+  final bool _disabled;
 
   ///[ElevatedButton] with Text and Icon:
   ///
@@ -20,13 +21,15 @@ class UButton extends StatelessWidget {
   ///    onPressed: () {},
   ///  )
   ///```
-  const UButton.primary(
-      {Key? key,
-      required String label,
-      required UIconData uIconData,
-      required VoidCallback onPressed})
-      : _buttonType = _ButtonType.primary,
+  const UButton.primary({
+    Key? key,
+    required String label,
+    required UIconData uIconData,
+    required VoidCallback onPressed,
+    bool disabled = false,
+  })  : _buttonType = _ButtonType.primary,
         _label = label,
+        _disabled = disabled,
         _uIconData = uIconData,
         _onPressed = onPressed,
         super(key: key);
@@ -42,13 +45,15 @@ class UButton extends StatelessWidget {
   ///    onPressed: () {},
   ///  )
   ///```
-  const UButton.secondary(
-      {Key? key,
-      required String label,
-      required UIconData uIconData,
-      required VoidCallback onPressed})
-      : _buttonType = _ButtonType.secondary,
+  const UButton.secondary({
+    Key? key,
+    required String label,
+    required UIconData uIconData,
+    required VoidCallback onPressed,
+    bool disabled = false,
+  })  : _buttonType = _ButtonType.secondary,
         _label = label,
+        _disabled = disabled,
         _uIconData = uIconData,
         _onPressed = onPressed,
         super(key: key);
@@ -63,10 +68,14 @@ class UButton extends StatelessWidget {
   ///    onPressed: () {},
   ///  )
   ///```
-  const UButton.filled1(
-      {Key? key, required String label, required VoidCallback onPressed})
-      : _buttonType = _ButtonType.filled1,
+  const UButton.filled1({
+    Key? key,
+    required String label,
+    required VoidCallback onPressed,
+    bool disabled = false,
+  })  : _buttonType = _ButtonType.filled1,
         _label = label,
+        _disabled = disabled,
         _uIconData = null,
         _onPressed = onPressed,
         super(key: key);
@@ -81,17 +90,24 @@ class UButton extends StatelessWidget {
   ///    onPressed: () {},
   ///  )
   ///```
-  const UButton.filled2(
-      {Key? key, required String label, required VoidCallback onPressed})
-      : _buttonType = _ButtonType.filled2,
+  const UButton.filled2({
+    Key? key,
+    required String label,
+    required VoidCallback onPressed,
+    bool disabled = false,
+  })  : _buttonType = _ButtonType.filled2,
         _label = label,
+        _disabled = disabled,
         _uIconData = null,
         _onPressed = onPressed,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 100),
+      opacity: _disabled ? 0.5 : 1,
+      child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             minimumSize: const Size(50, 40),
             primary: (_buttonType == _ButtonType.primary) ||
@@ -104,7 +120,8 @@ class UButton extends StatelessWidget {
                 : const EdgeInsets.fromLTRB(24, 13, 24, 12),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))),
-        onPressed: _onPressed,
+        onPressed: _disabled ? null : _onPressed,
+        onLongPress: null,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -117,6 +134,8 @@ class UButton extends StatelessWidget {
               textStyle: UTextStyle.BUT1_primaryButton,
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -16,6 +16,8 @@ class USizes {
   static const double iconSize = 24.0;
   // Icon size for [ULogoutButton]
   static const double iconSizeSmall = 20.0;
+  // Icon size for [AddPictureProfileButton]
+  static const double iconAddPictureProfileButtonSize = 14.4;
 
   // Button size for [UIconButton]
   static const double buttonSize = 56.0;
@@ -84,6 +86,9 @@ class USizes {
   static const double barAboveBottomSheetBorderRadius = 8.0;
   static const double bottomSheetTemplateBorderRadius = 20.0;
 
+  // Sizes for [UUserPictureChange]
+  static const double userPictureChangeSize = 100.0;
+  static const double userPictureChangeAddButtonSize = 24.0;
   // Sizes for [LoadingIndicator]
   static const double loadingIndicatorHeight = 6.0;
 }
