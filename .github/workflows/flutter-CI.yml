@@ -20,7 +20,7 @@ jobs:
       - name: Generate artifact name
         id: generate-name
         run: |
-          echo "::set-output name=artifact::${{ github.event.repository.name }}.${{ github.ref_name }}.${{ github.run_id }}.apk"
+          echo "::set-output name=artifact::${{ github.run_id }}.apk"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
