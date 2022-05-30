@@ -156,23 +156,33 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
               const SizedBox(height: 24),
 //Selected words grid view
               Expanded(
-                // TODO(yijing): change to Lucas new style
-                child: ListView(
-                  children: List.generate(
-                    selectedPassphraseList.length,
-                    (index) => URecoverySeedBox(
-                      word: selectedPassphraseList[index],
-                      wordNumber: index + 1,
-                      onDelete: () {
-                        setState(() {
-                          if (selectedPassphraseList.length == 12) {
-                            selectionFinished = false;
-                          }
-                          selectedPassphraseList.removeAt(index);
-                        });
-                      },
+                // TODO(yijing):try to refactor with recovery seed page
+                child: CustomScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  slivers: [
+                    SliverGrid.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: 160 / 40,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      children: List.generate(
+                        selectedPassphraseList.length,
+                        (index) => URecoverySeedBox(
+                          word: selectedPassphraseList[index],
+                          wordNumber: index + 1,
+                          onDelete: () {
+                            setState(() {
+                              if (selectedPassphraseList.length == 12) {
+                                selectionFinished = false;
+                              }
+                              selectedPassphraseList.removeAt(index);
+                            });
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
 //Button to recovery account
