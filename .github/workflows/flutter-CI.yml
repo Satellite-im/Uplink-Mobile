@@ -17,11 +17,8 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
       - run: flutter build apk --profile
-      - name: Generate artifact name
-        id: generate-name
-        run: |
-          echo "::set-output name=artifact::${{ github.run_id }}"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.generate-name.outputs.artifact }}.apk
+          name: ${{ github.run_id }}.apk
+          path: build/app/outputs/flutter-apk/*.apk
