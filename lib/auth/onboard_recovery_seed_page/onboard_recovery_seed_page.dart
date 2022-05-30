@@ -111,8 +111,10 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                             .then((value) async {
                           _isRecoverySeedWordsSaved = value;
                           Navigator.pop(context);
-                          await _savedScreenShotDialog(context)
-                              .showUDialog<UDialog>();
+                          if (_isRecoverySeedWordsSaved) {
+                            await _savedScreenShotDialog(context)
+                                .showUDialog<UDialog>();
+                          }
                         });
                       },
                     ).show();
