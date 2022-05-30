@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_recovery_seed_page.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardCreateAccountPage extends StatefulWidget {
   const OnboardCreateAccountPage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(
-        title: 'Create Account',
+        title: UAppStrings.createAccountPage_appBarTitle,
       ),
       body: SafeArea(
         child: Column(
@@ -30,17 +31,17 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const UText(
-                    'We’re going to create an account for you. On the next screen, you’ll see a set of words. Screenshot this or write it down.',
+                    UAppStrings.createAccountPage_pageDescription,
                     textStyle: UTextStyle.B1_body,
                   ),
                   const UText(
-                    'This is the only way to back up your account.',
+                    UAppStrings.createAccountPage_onlyWayBackupYourAccount,
                     textStyle: UTextStyle.B1_body,
                     textColor: UColors.termRed,
                   ),
                   const SizedBox(height: 89),
                   UButton.primary(
-                    label: 'Create Account',
+                    label: UAppStrings.createAccountPage_appBarTitle,
                     uIconData: UIcons.menu_bar_contacts,
                     onPressed: () {
                       Navigator.of(context).push(
@@ -51,7 +52,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     },
                   ),
                   UButton.secondary(
-                    label: 'Import Account',
+                    label: UAppStrings.createAccountPage_importAccountButton,
                     uIconData: UIcons.import,
                     onPressed: () {
                       // TODO(yijing): Import Account Pages
@@ -74,7 +75,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const UText(
-                          'Store Pin? (Less Secure)',
+                          UAppStrings.createAccountPage_storePin,
                           textStyle: UTextStyle.H5_fifthHeader,
                         ),
                         USwitcher(
@@ -100,7 +101,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const UText(
-                          'Allow Notifications',
+                          UAppStrings.createAccountPage_allowNotifications,
                           textStyle: UTextStyle.H5_fifthHeader,
                         ),
                         USwitcher(

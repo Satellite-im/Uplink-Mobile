@@ -24,7 +24,7 @@ class _OnboardPrivacySettingFirstPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(
-        title: UAppStrings.OnboardPrivacySettingFirstPage_AppBarTitle,
+        title: UAppStrings.privacySetting_appBarTitle,
       ),
       body: SafeArea(
         child: Padding(
@@ -33,8 +33,7 @@ class _OnboardPrivacySettingFirstPageState
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
-                UAppStrings
-                    .OnboardPrivacySettingFirstPage_ChooseWhichFeaturesToEnable,
+                UAppStrings.privacySettingFirstPage_chooseWhichFeaturesToEnable,
                 textStyle: UTextStyle.B1_body,
               ),
               Flexible(child: Container()),
@@ -45,36 +44,40 @@ class _OnboardPrivacySettingFirstPageState
                   children: [
                     _buildSettingListTile(
                       disabled: true,
-                      title: 'Register Username Publicly',
-                      subTitle:
-                          'Publicly associate your account ID with a human readable username. Anyone can see this association.',
+                      title:
+                          UAppStrings.privacySettingFirstPage_firstOptionTitle,
+                      subTitle: UAppStrings
+                          .privacySettingFirstPage_firstOptionSubTitle,
                       switchValue: isRegisterUsernamePublicly,
                       onSwitch: (value) {
                         isRegisterUsernamePublicly = value;
                       },
                     ),
                     _buildSettingListTile(
-                      title: 'Store Account Pin',
-                      subTitle:
-                          'Store your account pin locally so you don’t have to enter it manually every time. This is not recommended.',
+                      title:
+                          UAppStrings.privacySettingFirstPage_secondOptionTitle,
+                      subTitle: UAppStrings
+                          .privacySettingFirstPage_secondOptionSubTitle,
                       switchValue: isStoreAccountPin,
                       onSwitch: (value) {
                         isStoreAccountPin = value;
                       },
                     ),
                     _buildSettingListTile(
-                      title: 'Enable External Embeds',
-                      subTitle:
-                          'Allow Satellite.im to fetch data from external sites in order to expand links like Spotify, Youtube, and more.',
+                      title:
+                          UAppStrings.privacySettingFirstPage_thirdOptionTitle,
+                      subTitle: UAppStrings
+                          .privacySettingFirstPage_thirdOptionSubTitle,
                       switchValue: isEnableExternalEmbeds,
                       onSwitch: (value) {
                         isEnableExternalEmbeds = value;
                       },
                     ),
                     _buildSettingListTile(
-                      title: 'Display Current Activity',
-                      subTitle:
-                          'Allow Satellite.im to see what games you’re playing and show them off on your profile so friends can jump in.',
+                      title:
+                          UAppStrings.privacySettingFirstPage_fourthOptionTitle,
+                      subTitle: UAppStrings
+                          .privacySettingFirstPage_fourthOptionSubTitle,
                       switchValue: isDisplayCurrentActivity,
                       onSwitch: (value) {
                         isDisplayCurrentActivity = value;
@@ -84,7 +87,7 @@ class _OnboardPrivacySettingFirstPageState
                 ),
               ),
               UButton.filled1(
-                label: 'Continue',
+                label: UAppStrings.continueButton,
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(

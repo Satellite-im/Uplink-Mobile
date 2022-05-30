@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardPrivacySettingSecondPage extends StatefulWidget {
   const OnboardPrivacySettingSecondPage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _OnboardPrivacySettingSecondPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Privacy Settings'),
+      appBar: UAppBar.back(title: UAppStrings.privacySetting_appBarTitle),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -27,18 +28,12 @@ class _OnboardPrivacySettingSecondPageState
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
-                'Signaling Servers',
+                UAppStrings.privacySettingSecondPage_subTitle,
                 textStyle: UTextStyle.H3_tertiaryHeader,
               ),
               const SizedBox(height: 12),
               const UText(
-                '''
-Choose which signaling server group you want to use.
-
-If you use ‘Satellite.im + Public Signaling Servers’, you are using public servers and Satellite.im hosted servers to connect with your friends. We do not track connections. We only track server utilization (memory and cpu usage) to know if we need to turn on more signaling servers.
-
-If you opt to use ‘Only Public Signaling Servers’, those are completely outside of Satellite.im control, so we cannot see any insight into their operation, logging, or data sharing practices. You may experience difficulties connecting with friends if the signaling servers are overloaded.
-''',
+                UAppStrings.privacySettingSecondPage_pageDescription,
                 textStyle: UTextStyle.B1_body,
               ),
               const SizedBox(height: 56),
@@ -50,7 +45,10 @@ If you opt to use ‘Only Public Signaling Servers’, those are completely outs
                 ),
               ),
               const SizedBox(height: 56),
-              UButton.filled1(label: 'Continue', onPressed: () {}),
+              UButton.filled1(
+                label: UAppStrings.continueButton,
+                onPressed: () {},
+              ),
             ],
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 List<String> _seedList = [
   'art',
@@ -39,7 +40,7 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
     return Screenshot<Widget>(
       controller: screenshotController,
       child: Scaffold(
-        appBar: UAppBar.back(title: 'Recovery Seed'),
+        appBar: UAppBar.back(title: UAppStrings.recoverySeedPage_appBarTitle),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -47,7 +48,7 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const UText(
-                  'Write this down in the order that they appear. Having the correct order is crucial when you are recovering your account.',
+                  UAppStrings.recoverySeedPage_pageDescription,
                   textStyle: UTextStyle.B1_body,
                 ),
                 const SizedBox(height: 24),
@@ -75,7 +76,7 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                   ),
                 ),
                 UButton.primary(
-                  label: 'I Saved It',
+                  label: UAppStrings.recoverySeedPage_iSavedItButton,
                   uIconData: UIcons.checkmark_rounded,
                   onPressed: () {
                     UBottomSheetTwoButtons(
@@ -91,16 +92,16 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                           ),
                         );
                       },
-                      header: '''
-    Are you sure you want to continue
-    (You can view your passphrase from your account settings)''',
-                      firstButtonText: 'Go Back',
-                      secondButtonText: 'Continue',
+                      header: UAppStrings
+                          .recoverySeedPage_areYouSureBottomSheetHeader,
+                      firstButtonText: UAppStrings
+                          .recoverySeedPage_areYouSureBottomSheetFirstButton,
+                      secondButtonText: UAppStrings.continueButton,
                     ).show();
                   },
                 ),
                 UButton.secondary(
-                  label: 'Screenshot',
+                  label: UAppStrings.recoverySeedPage_screenshotButton,
                   uIconData: UIcons.camera,
                   onPressed: () async {
                     final image = await screenshotController.capture(
@@ -110,14 +111,13 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                     if (!mounted) return;
                     await UBottomSheetTwoButtons(
                       context,
-                      header: '''
-Screenshot captured!
-Would you like to give Satellite.im access to your camera roll?''',
-                      firstButtonText: 'Cancel',
+                      header: UAppStrings
+                          .recoverySeedPage_screenshotCapturedBottomSheetHeader,
+                      firstButtonText: UAppStrings.cancelButton,
                       firstButtonOnPressed: () {
                         Navigator.pop(context);
                       },
-                      secondButtonText: 'Agree',
+                      secondButtonText: UAppStrings.agreeButton,
                       secondButtonOnPressed: () async {
                         await saveImage(image)
                             .then((value) => Navigator.pop(context));

@@ -23,13 +23,13 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
           children: <Widget>[
             Flexible(flex: 9, child: Container()),
             const UText(
-              UAppStrings.onboardPinPage_PageTitle,
+              UAppStrings.pinPage_pageTitle,
               textStyle: UTextStyle.H1_primaryHeader,
               textAlign: TextAlign.center,
             ),
             Flexible(child: Container()),
             const UText(
-              UAppStrings.onboardPinPage_CreatePinToProtectYourAccount,
+              UAppStrings.pinPage_createPinToProtectYourAccount,
               textStyle: UTextStyle.B1_body,
               textAlign: TextAlign.center,
             ),
@@ -50,7 +50,7 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
                 Align(
                   heightFactor: 6.5,
                   child: UTertiaryButton(
-                    label: UAppStrings.onboardPinPage_PinOptions,
+                    label: UAppStrings.pinPage_pinOptions,
                     onPressed: () {
                       UBottomSheetPin(
                         context,
