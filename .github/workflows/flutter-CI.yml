@@ -1,35 +1,24 @@
-name: Flutter CI - Generate APK
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
-
+  
+name: example
+on: pull_request
 jobs:
-  build:
+  example:
+    name: example
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+      - run: mkdir -p output/
+      - run: echo "This is fancy a comment" > output/results.txt
+      - uses: actions/upload-artifact@v1
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+          name: results
+          path: output
+      - uses: actions/download-artifact@v1
         with:
-          channel: 'beta'
-      - run: flutter pub get
-      - run: flutter build apk --profile
-      - uses: actions/upload-artifact@v2
-        with:
-          name: debug-apk
-          path: build/app/outputs/flutter-apk/app-profile.apk
-      - uses: hkusu/apk-info-action@v1
-        id: apk-path
-        with:
-          apk-path: build/app/outputs/flutter-apk/app-profile.apk
-          name: Show result
-          if: always()
-      - uses: NejcZdovc/comment-pr@v1
-        with:
-          message: "Execution time: `${{steps.apk-path.outputs.path}}`"
-          identifier: "GITHUB_COMMENT_SCRIPT"
+          name: results
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: results/results.txt
