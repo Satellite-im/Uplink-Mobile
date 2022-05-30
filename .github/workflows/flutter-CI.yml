@@ -21,18 +21,3 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
-      - run: mkdir -p output/
-      - run: echo ${{ steps.debug-apk.outputs.app-profile.apk }} > output/results.txt
-      - uses: actions/upload-artifact@v1
-        with:
-          name: results
-          path: output
-      - uses: actions/download-artifact@v1
-        with:
-          name: results
-      - name: comment PR
-        uses: machine-learning-apps/pr-comment@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          path: results/results.txt
