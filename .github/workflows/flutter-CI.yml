@@ -25,8 +25,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.generate-name.outputs.artifact }}
-          path: build/app/outputs/flutter-apk/*.apk
-      - uses: actions/upload-artifact@v2
-        with:
-          name: ${{ steps.generate-name.outputs.artifact }}
-          path: build/app/outputs/flutter-apk/app-profile.apk
+          path: build/app/outputs/flutter-apk/
