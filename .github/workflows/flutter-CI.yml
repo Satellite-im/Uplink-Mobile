@@ -20,12 +20,12 @@ jobs:
       - name: Generate artifact name
         id: generate-name
         run: |
-          echo "::set-output name=artifact::${{ github.run_id }}.apk"
+          echo "::set-output name=artifact::${{ github.run_id }}"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.generate-name.outputs.artifact }}
-          path: build/app/outputs/flutter-apk/
+          path: build/app/outputs/flutter-apk/*.apk
       - uses: actions/upload-artifact@v2
         with:
           name: debug-apk
