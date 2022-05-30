@@ -52,6 +52,9 @@ enum UIconSize {
 
   ///20pt, for ULogoutButton
   small,
+
+  /// 14.4pt, for addPictureProfileButton
+  addPictureProfileButton,
 }
 
 extension UIconSizeExtension on UIconSize {
@@ -61,6 +64,8 @@ extension UIconSizeExtension on UIconSize {
         return USizes.iconSize;
       case UIconSize.small:
         return USizes.iconSizeSmall;
+      case UIconSize.addPictureProfileButton:
+        return USizes.iconAddPictureProfileButtonSize;
       default:
         return USizes.iconSize;
     }

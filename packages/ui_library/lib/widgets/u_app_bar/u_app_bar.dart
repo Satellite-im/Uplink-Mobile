@@ -7,6 +7,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   final _AppBarType _appBarType;
   final String? _title;
   final List<Widget>? _actionsList;
+  final Function? _onBackPressed;
   final Widget? _leading;
 
   ///AppBar with a title and back icon
@@ -16,8 +17,10 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   UAppBar.back({
     Key? key,
     required String title,
+    Function? onBackPressed,
   })  : _appBarType = _AppBarType.back,
         _title = title,
+        _onBackPressed = onBackPressed,
         _actionsList = [],
         _leading = null,
         super(key: key);
@@ -37,6 +40,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Widget? leading,
   })  : _appBarType = _AppBarType.iconOnly,
         _title = null,
+        _onBackPressed = null,
         _actionsList = actionList,
         _leading = leading,
         super(key: key);
@@ -65,6 +69,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Widget? leading,
   })  : _appBarType = _AppBarType.actions,
         _title = title,
+        _onBackPressed = null,
         _actionsList = actionList,
         _leading = leading,
         super(key: key);
@@ -83,7 +88,10 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
                 UIcons.back_arrow_button,
                 color: UColors.textMed,
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () async {
+                _onBackPressed?.call();
+                Navigator.pop(context);
+              },
             )
           : _leading,
       actions: (_appBarType == _AppBarType.iconOnly) ||
