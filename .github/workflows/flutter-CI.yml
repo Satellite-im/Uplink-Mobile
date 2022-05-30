@@ -22,7 +22,7 @@ jobs:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
       - run: mkdir -p output/
-      - run: echo ${{ steps.debug-apk.outputs.app-profile.apk }}" > output/results.txt
+      - run: echo ${{ steps.debug-apk.outputs.app-profile.apk }} > output/results.txt
       - uses: actions/upload-artifact@v1
         with:
           name: results
