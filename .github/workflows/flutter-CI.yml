@@ -20,5 +20,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.run_id }}.apk
-          path: build/app/outputs/flutter-apk/${{ github.run_id }}.apk
+          name: ${{ github.run_id }}
+          path: build/app/outputs/flutter-apk/${{ github.run_id }}
