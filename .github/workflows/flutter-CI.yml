@@ -24,5 +24,4 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.generate-name.outputs.artifact }}
-          path: build/app/outputs/flutter-apk/
+          name: ${{ steps.generate-name.outputs.artifact }}.apk
