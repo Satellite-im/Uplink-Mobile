@@ -1,0 +1,115 @@
+// ignore_for_file: constant_identifier_names
+
+class UAppStrings {
+  /// General Strings
+  static const continueButton = 'Continue';
+  static const cancelButton = 'Cancel';
+  static const agreeButton = 'Agree';
+  static const goBackButton = 'Go back';
+
+  /// Strings for OnboardPinPage
+  static const pinPage_pageTitle = 'Create Account Pin';
+  static const pinPage_createPinToProtectYourAccount =
+      'Create a pin to protect your account. '
+      '\nThe pin can be anything you want, just don’t forget it.';
+  static const pinPage_pinOptions = 'Pin Options';
+
+  /// Strings for OnboardCreateAccountPage
+  static const createAccountPage_appBarTitle = 'Create Account';
+  static const createAccountPage_pageDescription =
+      'We’re going to create an account for you. On the next screen, '
+      'you’ll see a set of words. Screenshot this or write it down.';
+  static const createAccountPage_onlyWayBackupYourAccount =
+      'This is the only way to back up your account.';
+  static const createAccountPage_importAccountButton = 'Import Account';
+  static const createAccountPage_storePin = 'Store Pin? (Less Secure)';
+  static const createAccountPage_allowNotifications = 'Allow Notifications';
+
+  /// Strings for Privacy Settings Pages
+  static const privacySetting_appBarTitle = 'Privacy Settings';
+
+  /// Strings for OnboardPrivacySettingFirstPage
+  static const privacySettingFirstPage_chooseWhichFeaturesToEnable =
+      'Choose which features to enable to best suit your privacy preferences.';
+  static const privacySettingFirstPage_firstOptionTitle =
+      'Register Username Publicly';
+  static const privacySettingFirstPage_firstOptionSubTitle =
+      'Publicly associate your account ID with a human readable username. '
+      'Anyone can see this association.';
+  static const privacySettingFirstPage_secondOptionTitle = 'Store Account Pin';
+  static const privacySettingFirstPage_secondOptionSubTitle =
+      'Store your account pin locally so you don’t have to enter '
+      'it manually every time. This is not recommended. ';
+  static const privacySettingFirstPage_thirdOptionTitle =
+      'Enable External Embeds';
+  static const privacySettingFirstPage_thirdOptionSubTitle =
+      'Allow Satellite.im to fetch data from external sites in order to expand '
+      'links like Spotify, Youtube, and more.';
+  static const privacySettingFirstPage_fourthOptionTitle =
+      'Display Current Activity';
+  static const privacySettingFirstPage_fourthOptionSubTitle =
+      'Allow Satellite.im to see what games you’re playing and show '
+      'them off on your profile so friends can jump in.';
+
+  /// Strings for OnboardPrivacySettingSecondPage
+  static const privacySettingSecondPage_subTitle = 'Signaling Servers';
+  static const privacySettingSecondPage_pageDescription = '''
+Choose which signaling server group you want to use.
+
+If you use ‘Satellite.im + Public Signaling Servers’, you are using public servers and Satellite.im hosted servers to connect with your friends. We do not track connections. We only track server utilization (memory and cpu usage) to know if we need to turn on more signaling servers.
+
+If you opt to use ‘Only Public Signaling Servers’, those are completely outside of Satellite.im control, so we cannot see any insight into their operation, logging, or data sharing practices. You may experience difficulties connecting with friends if the signaling servers are overloaded.
+''';
+
+  /// Strings for OnboardRecoverySeedPage
+  static const recoverySeedPage_appBarTitle = 'Recovery Seed';
+  static const recoverySeedPage_pageDescription =
+      'Write this down in the order that they appear. Having the correct '
+      'order is crucial when you are recovering your account.';
+  static const recoverySeedPage_iSavedItButton = 'I Saved It';
+  static const recoverySeedPage_areYouSureBottomSheetHeader = '''
+    Are you sure you want to continue
+    (You can view your passphrase from your account settings)''';
+  static const recoverySeedPage_screenshotButton = 'Screenshot';
+  static const recoverySeedPage_screenshotAdvice =
+      'Save this in a safe place or write it down. To recover your '
+      'account, you’ll need your 12 passphrases '
+      'in the order that they '
+      'appear. Please do not share these passphrases with anybody.';
+
+  static const recoverySeedPage_screenshotCapturedBottomSheetHeader = '''
+Screenshot captured!
+Would you like to give Satellite.im access to your camera roll?''';
+  static const recoverySeedPage_imageNameToSave = 'recovery_seed_words';
+  static const recoverySeedPage_uDialogTitle = 'Saved!';
+  static const recoverySeedPage_uDialogDescription =
+      'This screenshot was saved to your phone gallery.';
+  static const recoverySeedPage_uDialogOk = 'Okay';
+
+  /// Strings for OnboardCreateProfilePage
+  static const createProfilePage_appBarTitle = 'Create Profile';
+  static const createProfilePage_description =
+      'Sed ut perspiciatis unde omnis iste natus error sit '
+      'voluptatem accusantium doloremque laudantium.';
+  static const createProfilePage_usernameTextFieldTitle = 'Username';
+  static const createProfilePage_usernameTextFieldHintText =
+      'Digit your username...';
+  static const createProfilePage_statusMessageTextFieldTitle = 'Status Message';
+  static const createProfilePage_statusMessageTextFieldHintText =
+      'Digit your status message...';
+  static const createProfilePage_signinButton = 'Sign in';
+  static const createProfilePage_bottomSheetTitle1 =
+      'Do you want to save your changes? \n'
+      'You can always add your avatar and status message later.';
+  static const createProfilePage_bottomSheetTitle2 =
+      'Do you want to save your changes? \n'
+      'You can always add your status message later.';
+  static const createProfilePage_bottomSheetTitle3 =
+      'Do you want to save your changes? ';
+  static const createProfilePage_allDoneButton = 'All done';
+
+  /// Strings for LinkingSatellitesPage
+  static const linkingSatellitesPage_title = 'Linking Satellites...';
+  static const linkingSatellitesPage_subTitle =
+      'Making contact, requesting entry to Realm...';
+}

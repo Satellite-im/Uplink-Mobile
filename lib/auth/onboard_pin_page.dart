@@ -1,8 +1,7 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardPinPage extends StatefulWidget {
   const OnboardPinPage({Key? key}) : super(key: key);
@@ -24,13 +23,13 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
           children: <Widget>[
             Flexible(flex: 9, child: Container()),
             const UText(
-              'Create Account Pin',
+              UAppStrings.pinPage_pageTitle,
               textStyle: UTextStyle.H1_primaryHeader,
               textAlign: TextAlign.center,
             ),
             Flexible(child: Container()),
             const UText(
-              'Create a pin to protect your account.\nThe pin can be anything you want, just don’t forget it.',
+              UAppStrings.pinPage_createPinToProtectYourAccount,
               textStyle: UTextStyle.B1_body,
               textAlign: TextAlign.center,
             ),
@@ -51,7 +50,7 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
                 Align(
                   heightFactor: 6.5,
                   child: UTertiaryButton(
-                    label: 'Pin Options',
+                    label: UAppStrings.pinPage_pinOptions,
                     onPressed: () {
                       UBottomSheetPin(
                         context,

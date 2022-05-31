@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
@@ -52,7 +53,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: UAppBar.back(
-          title: 'Create Profile',
+          title: UAppStrings.createProfilePage_appBarTitle,
         ),
         body: SafeArea(
           child: Padding(
@@ -66,8 +67,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                 children: [
                   const SizedBox(height: 16),
                   const UText(
-                    'Sed ut perspiciatis unde omnis iste natus error sit '
-                    'voluptatem accusantium doloremque laudantium.',
+                    UAppStrings.createProfilePage_description,
                     textStyle: UTextStyle.B1_body,
                   ),
                   const SizedBox(height: 40),
@@ -80,8 +80,10 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   ),
                   const SizedBox(height: 56),
                   _TextField(
-                    textFieldTitle: 'Username',
-                    hintText: 'Digit your username...',
+                    textFieldTitle:
+                        UAppStrings.createProfilePage_usernameTextFieldTitle,
+                    hintText:
+                        UAppStrings.createProfilePage_usernameTextFieldHintText,
                     onChanged: (value) {
                       value.isNotEmpty
                           ? _isSignInButtonEnabled.value = true
@@ -91,8 +93,10 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   ),
                   const SizedBox.square(dimension: 24),
                   _TextField(
-                    textFieldTitle: 'Status Message',
-                    hintText: 'Digit your status message...',
+                    textFieldTitle: UAppStrings
+                        .createProfilePage_statusMessageTextFieldTitle,
+                    hintText: UAppStrings
+                        .createProfilePage_statusMessageTextFieldHintText,
                     onChanged: (value) {},
                     controller: _messageStatusTextFieldController,
                   ),
@@ -101,7 +105,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                     valueListenable: _isSignInButtonEnabled,
                     builder: (context, object, widget) {
                       return UButton.primary(
-                        label: 'Sign in',
+                        label: UAppStrings.createProfilePage_signinButton,
                         disabled: !_isSignInButtonEnabled.value,
                         uIconData: UIcons.friend_added,
                         onPressed: () async {
@@ -135,22 +139,16 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         _usernameTextFieldController.text.isNotEmpty &&
             _messageStatusTextFieldController.text.isEmpty &&
             _userPicture != null;
-    const _justUsernameFilledTitle = 'Do you want to save your changes? \n'
-        'You can always add your avatar and status message later.';
-    const _justWithUsernameAndPictureFilledTitle =
-        'Do you want to save your changes? \n'
-        'You can always add your status message later.';
-    const _allOptionsFilledTitle = 'Do you want to save your changes? ';
 
     await UBottomSheetTwoButtons(
       context,
       header: _justWithUsernameFilled
-          ? _justUsernameFilledTitle
+          ? UAppStrings.createProfilePage_bottomSheetTitle1
           : _justWithUsernameAndPictureFilled
-              ? _justWithUsernameAndPictureFilledTitle
-              : _allOptionsFilledTitle,
-      firstButtonText: 'Go back',
-      secondButtonText: 'All done',
+              ? UAppStrings.createProfilePage_bottomSheetTitle2
+              : UAppStrings.createProfilePage_bottomSheetTitle3,
+      firstButtonText: UAppStrings.goBackButton,
+      secondButtonText: UAppStrings.createProfilePage_allDoneButton,
       firstButtonIcon: UIcons.go_back,
       secondButtonIcon: UIcons.checkmark_rounded,
       firstButtonOnPressed: () async {

@@ -19,7 +19,7 @@ class ULogoutButton extends StatelessWidget {
           size: UIconSize.small,
         ),
         label: const UText(
-          'Logout',
+          ULibraryStrings.uButtonLogout,
           textStyle: UTextStyle.B2_medium,
           textColor: UColors.textMed,
         ));

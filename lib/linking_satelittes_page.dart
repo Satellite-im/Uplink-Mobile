@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class LinkingSatellitesPage extends StatefulWidget {
   const LinkingSatellitesPage({Key? key}) : super(key: key);
@@ -23,14 +24,14 @@ class _LinkingSatellitesPageState extends State<LinkingSatellitesPage> {
                 padding: EdgeInsets.zero,
               ),
               UText(
-                'Linking Satellites...',
+                UAppStrings.linkingSatellitesPage_title,
                 textStyle: UTextStyle.H1_primaryHeader,
               ),
               SizedBox.square(
                 dimension: 20,
               ),
               UText(
-                'Making contact, requesting entry to Realm...',
+                UAppStrings.linkingSatellitesPage_subTitle,
                 textStyle: UTextStyle.B1_body,
               ),
             ],
