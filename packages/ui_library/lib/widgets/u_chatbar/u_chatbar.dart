@@ -97,7 +97,7 @@ class _UChatbarState extends State<UChatbar> {
                           autocorrect: false,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Speak Freely...',
+                            hintText: ULibraryStrings.uChatBarHintText,
                             hintStyle: UTextStyle.H5_fifthHeader.style
                                 .returnTextStyleType(),
                           ),

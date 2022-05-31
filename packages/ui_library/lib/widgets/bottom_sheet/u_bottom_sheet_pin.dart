@@ -89,7 +89,7 @@ class _UBottomSheetPinBodyState extends State<_UBottomSheetPinBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const UText(
-            'Pin Options',
+            ULibraryStrings.uBottomSheetPinOptions,
             textStyle: UTextStyle.H3_tertiaryHeader,
           ),
           const SizedBox.square(
@@ -155,7 +155,7 @@ class _PinOption extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          UText('$numberOfDigits Digits',
+          UText('$numberOfDigits ${ULibraryStrings.uBottomSheetPinDigits}',
               textStyle: UTextStyle.BUT1_primaryButton),
           AnimatedScale(
             scale: _valueToAnimate,
