@@ -21,8 +21,8 @@ class URequestPermissions {
       await _verifyPermission(
         context,
         objectPermission: Permission.camera,
-        dialogPermissionTitle: 'Allow Camera Permission',
-        permissionObject: 'camera',
+        dialogPermissionTitle: ULibraryStrings.allowCameraPermission,
+        permissionObject: ULibraryStrings.camera,
       );
 
   Future<PermissionStatus> getPermissionToAccessGallery(
@@ -31,8 +31,8 @@ class URequestPermissions {
         context,
         objectPermission:
             Platform.isAndroid ? Permission.storage : Permission.photos,
-        dialogPermissionTitle: 'Allow Camera Roll Permission',
-        permissionObject: 'gallery',
+        dialogPermissionTitle: ULibraryStrings.allowCameraRollPermission,
+        permissionObject: ULibraryStrings.gallery,
       );
 
   Future<PermissionStatus> _verifyPermission(
@@ -81,7 +81,7 @@ class URequestPermissions {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           UText(
-            'We need permission to access your $permissionObject! You can grant permission now or change later in your phone Settings.',
+            ULibraryStrings.uDialogWeNeedPermission(permissionObject),
             textStyle: UTextStyle.B1_body,
           ),
           const SizedBox.square(
@@ -91,7 +91,7 @@ class URequestPermissions {
             children: [
               Expanded(
                 child: UButton.filled1(
-                  label: 'Next',
+                  label: ULibraryStrings.nextButton,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

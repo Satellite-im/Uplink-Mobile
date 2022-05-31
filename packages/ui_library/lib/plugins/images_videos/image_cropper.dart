@@ -18,7 +18,7 @@ class UImageCropper {
       ],
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: 'Cropper',
+          toolbarTitle: ULibraryStrings.uImageCropperTitle,
           toolbarColor: UColors.foregroundDark,
           cropGridColumnCount: 0,
           cropGridRowCount: 0,
@@ -31,7 +31,7 @@ class UImageCropper {
           hideBottomControls: false,
         ),
         IOSUiSettings(
-          title: 'Cropper',
+          title: ULibraryStrings.uImageCropperTitle,
           resetButtonHidden: true,
           aspectRatioPickerButtonHidden: true,
         ),
