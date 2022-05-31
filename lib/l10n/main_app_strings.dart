@@ -5,6 +5,7 @@ class UAppStrings {
   static const continueButton = 'Continue';
   static const cancelButton = 'Cancel';
   static const agreeButton = 'Agree';
+  static const goBackButton = 'Go back';
 
   /// Strings for OnboardPinPage
   static const pinPage_pageTitle = 'Create Account Pin';
@@ -69,11 +70,21 @@ If you opt to use ‘Only Public Signaling Servers’, those are completely outs
   static const recoverySeedPage_areYouSureBottomSheetHeader = '''
     Are you sure you want to continue
     (You can view your passphrase from your account settings)''';
-  static const recoverySeedPage_areYouSureBottomSheetFirstButton = 'Go Back';
   static const recoverySeedPage_screenshotButton = 'Screenshot';
+  static const recoverySeedPage_screenshotAdvice =
+      'Save this in a safe place or write it down. To recover your '
+      'account, you’ll need your 12 passphrases '
+      'in the order that they '
+      'appear. Please do not share these passphrases with anybody.';
+
   static const recoverySeedPage_screenshotCapturedBottomSheetHeader = '''
 Screenshot captured!
 Would you like to give Satellite.im access to your camera roll?''';
+  static const recoverySeedPage_imageNameToSave = 'recovery_seed_words';
+  static const recoverySeedPage_uDialogTitle = 'Saved!';
+  static const recoverySeedPage_uDialogDescription =
+      'This screenshot was saved to your phone gallery.';
+  static const recoverySeedPage_uDialogOk = 'Okay';
 
   /// Strings for OnboardCreateProfilePage
   static const createProfilePage_appBarTitle = 'Create Profile';
@@ -95,7 +106,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'You can always add your status message later.';
   static const createProfilePage_bottomSheetTitle3 =
       'Do you want to save your changes? ';
-  static const createProfilePage_goBackButton = 'Go back';
   static const createProfilePage_allDoneButton = 'All done';
 
   /// Strings for LinkingSatellitesPage

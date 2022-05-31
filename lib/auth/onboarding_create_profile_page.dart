@@ -147,7 +147,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
           : _justWithUsernameAndPictureFilled
               ? UAppStrings.createProfilePage_bottomSheetTitle2
               : UAppStrings.createProfilePage_bottomSheetTitle3,
-      firstButtonText: UAppStrings.createProfilePage_goBackButton,
+      firstButtonText: UAppStrings.goBackButton,
       secondButtonText: UAppStrings.createProfilePage_allDoneButton,
       firstButtonIcon: UIcons.go_back,
       secondButtonIcon: UIcons.checkmark_rounded,

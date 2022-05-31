@@ -17,10 +17,7 @@ class _ScreenShotRecoverySeedBoxes extends StatelessWidget {
                   dimension: 32,
                 ),
                 UText(
-                  'Save this in a safe place or write it down. To recover your '
-                  'account, you’ll need your 12 passphrases '
-                  'in the order that they '
-                  'appear. Please do not share these passphrases with anybody.',
+                  UAppStrings.recoverySeedPage_screenshotAdvice,
                   textStyle: UTextStyle.B1_body,
                 ),
                 SizedBox.square(
