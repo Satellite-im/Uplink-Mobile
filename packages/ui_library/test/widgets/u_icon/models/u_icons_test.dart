@@ -166,6 +166,11 @@ void main() {
       general,
       const UIconData(0xe91f, uFontFamily: _kIconsFontFamily),
     );
+    const UIconData go_back = UIcons.go_back;
+    expect(
+      go_back,
+      const UIconData(0xe946, uFontFamily: _kIconsFontFamily),
+    );
     const UIconData grid_view = UIcons.grid_view;
     expect(
       grid_view,

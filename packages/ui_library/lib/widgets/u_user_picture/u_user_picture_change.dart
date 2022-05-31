@@ -30,6 +30,12 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
   }
 
   @override
+  void dispose() {
+    _userPictureFile.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,

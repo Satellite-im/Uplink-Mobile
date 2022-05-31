@@ -97,4 +97,9 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Do you want to save your changes? ';
   static const createProfilePage_goBackButton = 'Go back';
   static const createProfilePage_allDoneButton = 'All done';
+
+  /// Strings for LinkingSatellitesPage
+  static const linkingSatellitesPage_title = 'Linking Satellites...';
+  static const linkingSatellitesPage_subTitle =
+      'Making contact, requesting entry to Realm...';
 }

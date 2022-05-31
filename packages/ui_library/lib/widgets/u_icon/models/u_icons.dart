@@ -77,6 +77,8 @@ class UIcons {
       UIconData(0xe91e, uFontFamily: _kIconsFontFamily);
   static const UIconData general =
       UIconData(0xe91f, uFontFamily: _kIconsFontFamily);
+  static const UIconData go_back =
+      UIconData(0xe946, uFontFamily: _kIconsFontFamily);
   static const UIconData grid_view =
       UIconData(0xe920, uFontFamily: _kIconsFontFamily);
   static const UIconData hamburger_menu =
