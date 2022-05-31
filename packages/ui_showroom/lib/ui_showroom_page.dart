@@ -34,9 +34,13 @@ class UIShowRoomApp extends StatelessWidget {
         UBottomSheetPinPage.routeName: (context) => const UBottomSheetPinPage(),
         UChatbarPage.routeName: (context) => const UChatbarPage(),
         UPinPage.routeName: (context) => const UPinPage(),
+        UUserPictureChangePage.routeName: (context) =>
+            const UUserPictureChangePage(),
         UDropDownMenuPage.routeName: ((context) => const UDropDownMenuPage()),
         UTertiaryButtonPage.routeName: (context) => const UTertiaryButtonPage(),
         UAppBarPage.routeName: (context) => const UAppBarPage(),
+        ULoadingIndicatorPage.routeName: (context) =>
+            const ULoadingIndicatorPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -83,6 +87,9 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UAppBarPage.routeName,
                   ),
+                  WidgetPageButton(
+                    widgetName: ULoadingIndicatorPage.routeName,
+                  ),
                 ],
               ),
               const _WidgetsShowSession(
@@ -93,6 +100,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: URecoverySeedBoxPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UUserPictureChangePage.routeName,
                   ),
                 ],
               ),

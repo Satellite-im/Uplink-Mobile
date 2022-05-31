@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_recovery_seed_page.dart';
+import 'package:uplink/auth/onboard_recovery_seed_page/onboard_recovery_seed_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardCreateAccountPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     uIconData: UIcons.menu_bar_contacts,
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute<void>(
+                        MaterialPageRoute<Widget>(
                           builder: (context) => const OnboardRecoverySeedPage(),
                         ),
                       );

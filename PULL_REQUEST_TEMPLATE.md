@@ -20,4 +20,5 @@
 - [ ] 🧹 Code refactor
 - [ ] ✅ Build configuration change
 - [ ] 📝 Documentation
+- [ ] 🧪 Tests
 - [ ] 🗑️ Chore
