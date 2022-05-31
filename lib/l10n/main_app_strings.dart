@@ -74,4 +74,27 @@ If you opt to use ‘Only Public Signaling Servers’, those are completely outs
   static const recoverySeedPage_screenshotCapturedBottomSheetHeader = '''
 Screenshot captured!
 Would you like to give Satellite.im access to your camera roll?''';
+
+  /// Strings for OnboardCreateProfilePage
+  static const createProfilePage_appBarTitle = 'Create Profile';
+  static const createProfilePage_description =
+      'Sed ut perspiciatis unde omnis iste natus error sit '
+      'voluptatem accusantium doloremque laudantium.';
+  static const createProfilePage_usernameTextFieldTitle = 'Username';
+  static const createProfilePage_usernameTextFieldHintText =
+      'Digit your username...';
+  static const createProfilePage_statusMessageTextFieldTitle = 'Status Message';
+  static const createProfilePage_statusMessageTextFieldHintText =
+      'Digit your status message...';
+  static const createProfilePage_signinButton = 'Sign in';
+  static const createProfilePage_bottomSheetTitle1 =
+      'Do you want to save your changes? \n'
+      'You can always add your avatar and status message later.';
+  static const createProfilePage_bottomSheetTitle2 =
+      'Do you want to save your changes? \n'
+      'You can always add your status message later.';
+  static const createProfilePage_bottomSheetTitle3 =
+      'Do you want to save your changes? ';
+  static const createProfilePage_goBackButton = 'Go back';
+  static const createProfilePage_allDoneButton = 'All done';
 }

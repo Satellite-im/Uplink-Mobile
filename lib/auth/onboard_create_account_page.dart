@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/onboard_recovery_seed_page.dart';
 import 'package:uplink/auth/onboard_recovery_seed_page/onboard_recovery_seed_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
