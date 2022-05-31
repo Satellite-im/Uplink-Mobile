@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardImportAccountPage extends StatefulWidget {
   const OnboardImportAccountPage({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
   String query = ''; //query value from the text field
   bool showSuggestedWordsGridView = false;
   bool selectionFinished = false;
+  bool isWrongSeeds = false;
 
   @override
   void initState() {
@@ -155,51 +157,81 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                 const SizedBox(),
               const SizedBox(height: 24),
 //Selected words grid view
-              Expanded(
-                // TODO(yijing):try to refactor with recovery seed page
-                child: CustomScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  slivers: [
-                    SliverGrid.count(
-                      crossAxisCount: 2,
-                      childAspectRatio: 160 / 40,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8,
-                      children: List.generate(
-                        selectedPassphraseList.length,
-                        (index) => URecoverySeedBox(
-                          word: selectedPassphraseList[index],
-                          wordNumber: index + 1,
-                          onDelete: () {
-                            setState(() {
-                              if (selectedPassphraseList.length == 12) {
-                                selectionFinished = false;
-                              }
-                              selectedPassphraseList.removeAt(index);
-                            });
-                          },
-                        ),
+              CustomScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                slivers: [
+                  SliverGrid.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: 160 / 40,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    children: List.generate(
+                      selectedPassphraseList.length,
+                      (index) => URecoverySeedBox(
+                        word: selectedPassphraseList[index],
+                        wordNumber: index + 1,
+                        onDelete: () {
+                          setState(() {
+                            if (selectedPassphraseList.length == 12) {
+                              selectionFinished = false;
+                            }
+                            selectedPassphraseList.removeAt(index);
+                            isWrongSeeds = false; //remove erorr text
+                          });
+                        },
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+
+              if (isWrongSeeds == true) const SizedBox(height: 24),
+              if (isWrongSeeds == true)
+                const UText(
+                  'error. account not registered',
+                  textStyle: UTextStyle.B1_body,
+                  textColor: UColors.termRed,
+                  textAlign: TextAlign.center,
+                ),
 //Button to recovery account
-              // const SizedBox(height: 56),
+              const SizedBox(height: 24),
+              // if (isWrongSeeds == true)
+              //   UButton.primary(
+              //     label: 'Try Again',
+              //     uIconData: UIcons.refresh_try_again,
+              //     onPressed: () {},
+              //   )
+              // else
               Opacity(
                 opacity: selectionFinished ? 1 : 0.5,
                 child: UButton.primary(
-                  label: 'Recover Account',
-                  uIconData: UIcons.add_contact_member,
+                  label: isWrongSeeds ? 'Try Again' : 'Recover Account',
+                  uIconData: isWrongSeeds
+                      ? UIcons.refresh_try_again
+                      : UIcons.add_contact_member,
                   onPressed: () {
-                    if (suggestedPassphraseList.length == 12) {
-                      // TODO(yijing): add recovery code validation
-                    } else {}
+                    if (selectedPassphraseList.length == 12) {
+                      // TODO(yijing): update to bip39 validation
+                      if (selectedPassphraseList
+                          .every((element) => element == 'about')) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) => const LinkingSatellitesPage(),
+                          ),
+                        );
+                      } else {
+                        setState(() {
+                          isWrongSeeds = true;
+                        });
+                        // show error messsge
+                        // change the button icon and text
+                      }
+                    }
                   },
                 ),
               ),
-              // Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
             ],
           ),
         ),
