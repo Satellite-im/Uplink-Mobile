@@ -151,8 +151,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
               : _allOptionsFilledTitle,
       firstButtonText: 'Go back',
       secondButtonText: 'All done',
-      // TODO(UIcons): Add reply Icon from Figma
-      firstButtonIcon: UIcons.back_arrow_button,
+      firstButtonIcon: UIcons.go_back,
       secondButtonIcon: UIcons.checkmark_rounded,
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
@@ -199,8 +198,10 @@ class _TextField extends StatelessWidget {
           height: 48,
           child: TextField(
             controller: controller,
-            style: UTextStyle.H5_fifthHeader.style
-                .returnTextStyleType(color: Colors.white),
+            style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
+              color: Colors.white,
+            ),
+            textAlignVertical: TextAlignVertical.bottom,
             textInputAction: TextInputAction.done,
             cursorColor: UColors.textDark,
             autocorrect: false,

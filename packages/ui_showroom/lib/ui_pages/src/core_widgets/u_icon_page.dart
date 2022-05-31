@@ -98,6 +98,7 @@ const _allIcons = <Widget>[
   UIconText(UIcons.forward_arrow_button, 'forward_arrow_button'),
   UIconText(UIcons.friend_added, 'friend_added'),
   UIconText(UIcons.general, 'general'),
+  UIconText(UIcons.go_back, 'go_back'),
   UIconText(UIcons.grid_view, 'grid_view'),
   UIconText(UIcons.hamburger_menu, 'hamburger_menu'),
   UIconText(UIcons.hide, 'hide'),
