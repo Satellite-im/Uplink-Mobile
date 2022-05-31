@@ -48,11 +48,18 @@ class _ULoadingIndicatorState extends State<ULoadingIndicator>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding:
           widget.padding != null ? widget.padding! : const EdgeInsets.all(16.0),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             width: _positionAnimation.value,

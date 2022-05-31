@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -36,6 +37,10 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
 
   @override
   void dispose() {
+    _usernameTextFieldController.dispose();
+    _messageStatusTextFieldController.dispose();
+    _isSignInButtonEnabled.dispose();
+    _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -146,14 +151,17 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
               : _allOptionsFilledTitle,
       firstButtonText: 'Go back',
       secondButtonText: 'All done',
-      // TODO(UIcons): Add reply Icon from Figma
-      firstButtonIcon: UIcons.back_arrow_button,
+      firstButtonIcon: UIcons.go_back,
       secondButtonIcon: UIcons.checkmark_rounded,
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
       },
-      secondButtonOnPressed: () async {
-        // TODO(Navigation): Continue to loading page liking satellites
+      secondButtonOnPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) => const LinkingSatellitesPage(),
+          ),
+        );
       },
     ).show();
   }
@@ -190,8 +198,10 @@ class _TextField extends StatelessWidget {
           height: 48,
           child: TextField(
             controller: controller,
-            style: UTextStyle.H5_fifthHeader.style
-                .returnTextStyleType(color: Colors.white),
+            style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
+              color: Colors.white,
+            ),
+            textAlignVertical: TextAlignVertical.bottom,
             textInputAction: TextInputAction.done,
             cursorColor: UColors.textDark,
             autocorrect: false,

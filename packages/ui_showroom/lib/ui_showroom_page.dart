@@ -39,8 +39,7 @@ class UIShowRoomApp extends StatelessWidget {
         UDropDownMenuPage.routeName: ((context) => const UDropDownMenuPage()),
         UTertiaryButtonPage.routeName: (context) => const UTertiaryButtonPage(),
         UAppBarPage.routeName: (context) => const UAppBarPage(),
-        ULoadingIndicatorPage.routeName: (context) =>
-            const ULoadingIndicatorPage(),
+        ULoadingPage.routeName: (context) => const ULoadingPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -88,7 +87,7 @@ class UIShowRoomApp extends StatelessWidget {
                     widgetName: UAppBarPage.routeName,
                   ),
                   WidgetPageButton(
-                    widgetName: ULoadingIndicatorPage.routeName,
+                    widgetName: ULoadingPage.routeName,
                   ),
                 ],
               ),
