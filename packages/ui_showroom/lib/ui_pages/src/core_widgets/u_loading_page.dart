@@ -14,6 +14,12 @@ class _ULoadingPageState extends State<ULoadingPage> {
   final _isLoading = ValueNotifier(false);
 
   @override
+  void dispose() {
+    _isLoading.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return UActionLoading(
       dashLoadingIndicatorPadding: const EdgeInsets.only(

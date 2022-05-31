@@ -37,6 +37,10 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
 
   @override
   void dispose() {
+    _usernameTextFieldController.dispose();
+    _messageStatusTextFieldController.dispose();
+    _isSignInButtonEnabled.dispose();
+    _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
