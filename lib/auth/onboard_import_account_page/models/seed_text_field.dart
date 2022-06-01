@@ -1,18 +1,16 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/onboard_import_account_page/models/suggested_seed_overlay.dart';
 
 class SeedTextField extends StatefulWidget {
-  SeedTextField({
+  const SeedTextField({
     Key? key,
-    required this.selectedPassphraseList,
-    required this.selectionFinished,
+    required this.addInSelectedGridView,
+    required this.bip39Dic,
   }) : super(key: key);
 
-  final List<String> selectedPassphraseList;
-  bool selectionFinished;
+  final List<String> bip39Dic;
+  final Function(String passphrase) addInSelectedGridView;
 
   @override
   State<SeedTextField> createState() => _SeedTextFieldState();
@@ -20,31 +18,23 @@ class SeedTextField extends StatefulWidget {
 
 class _SeedTextFieldState extends State<SeedTextField> {
   OverlayEntry? overlayEntry;
-  late List<String> _bip39Dic;
   final controller = TextEditingController();
   final focusNode = FocusNode();
-  bool showSuggestedWords = false;
   List<String> suggestedPassphraseList = [];
-  // List<String> selectedPassphraseList = [];
-  int? tapedWordIndex;
-  // bool selectionFinished = false;
   final layerLink = LayerLink();
-  //用来连接textfield和suggest word
+  GlobalKey<SuggestedSeedsOverlayState> keySuggestedSeedsOverlay = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    _loadBip39().then((value) {
-      _bip39Dic = value;
-      suggestedPassphraseList.addAll(_bip39Dic);
-    });
-    // WidgetsBinding.instance!.addPostFrameCallback((_) => showOverlay());
-
+    suggestedPassphraseList.addAll(widget.bip39Dic);
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         showOverlay();
       } else {
+        //remove overlay
         overlayEntry?.remove();
+        overlayEntry = null;
       }
     });
   }
@@ -89,10 +79,13 @@ class _SeedTextFieldState extends State<SeedTextField> {
             searchPassphrass(controller.text.toLowerCase());
           },
           onSubmitted: (passphrase) {
-            addInSelectedWordGridView(
-              passphrase: passphrase,
-              fromTextField: true,
-            );
+            widget.addInSelectedGridView(passphrase);
+            controller.clear();
+            suggestedPassphraseList
+              ..clear()
+              ..addAll(widget.bip39Dic);
+            focusNode.requestFocus();
+            keySuggestedSeedsOverlay.currentState?.setState(() {});
           },
         ),
       ),
@@ -100,7 +93,7 @@ class _SeedTextFieldState extends State<SeedTextField> {
   }
 
   void searchPassphrass(String query) {
-    final _tempDicList = <String>[..._bip39Dic];
+    final _tempDicList = <String>[...widget.bip39Dic];
 
     if (query.isNotEmpty) {
       final _tempSuggestList = <String>[];
@@ -130,105 +123,25 @@ class _SeedTextFieldState extends State<SeedTextField> {
     }
   }
 
-  Future<List<String>> _loadBip39() async {
-    final wordsList = <String>[];
-    await rootBundle.loadString('assets/bip39_english.txt').then((word) {
-      for (final value in const LineSplitter().convert(word)) {
-        wordsList.add(value);
-      }
-    });
-    return wordsList;
-  }
-
-  void addInSelectedWordGridView({
-    required String passphrase,
-    required bool fromTextField,
-  }) {
-    if (_bip39Dic.contains(passphrase)) {
-      if (widget.selectedPassphraseList.length < 12) {
-        //list hasn't full
-        setState(() {
-          widget.selectedPassphraseList.add(passphrase);
-          if (widget.selectedPassphraseList.length == 12) {
-            widget.selectionFinished = true;
-          }
-          if (fromTextField == true) {
-            controller.clear();
-            suggestedPassphraseList
-              ..clear()
-              ..addAll(_bip39Dic);
-            focusNode.requestFocus();
-          }
-        });
-      } else {
-        // TODO(yijing): list is full
-      }
-    }
-  }
-
+//显示overlay
   void showOverlay() {
-    final overlay = Overlay.of(context)!;
-    final renderbox = context.findRenderObject! as RenderBox;
+    final overlay = Overlay.of(context);
+    final renderbox = context.findRenderObject()! as RenderBox;
     final size = renderbox.size;
-    // final offset = renderbox.localToGlobal(Offset.zero);
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         width: size.width,
         child: CompositedTransformFollower(
           link: layerLink,
           offset: Offset(0, size.height + 8),
-          child: buildOverlay(),
+          child: SuggestedSeedsOverlay(
+            key: keySuggestedSeedsOverlay,
+            suggestedPassphraseList: suggestedPassphraseList,
+            onTap: widget.addInSelectedGridView,
+          ),
         ),
       ),
     );
-    overlay.insert(overlayEntry!);
-  }
-
-  Widget buildOverlay() {
-    // if (suggestedPassphraseList.isNotEmpty && showSuggestedWords) {
-    if (suggestedPassphraseList.isNotEmpty) {
-      return Material(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 230),
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            //Changing the size by its content
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            itemCount: suggestedPassphraseList.length,
-            itemBuilder: (context, index) {
-              final passphrase = suggestedPassphraseList[index];
-              var highlight = false;
-              if (tapedWordIndex == index) highlight = true;
-              return InkWell(
-                child: Container(
-                  color: highlight ? UColors.ctaBlue : UColors.foregroundDark,
-                  height: 48,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
-                  ),
-                  child: UText(
-                    passphrase,
-                    textStyle: UTextStyle.BUT1_primaryButton,
-                  ),
-                ),
-                onTap: () {
-                  setState(() {
-                    tapedWordIndex = index;
-                    addInSelectedWordGridView(
-                      passphrase: passphrase,
-                      fromTextField: false,
-                    );
-                  });
-                },
-              );
-            },
-          ),
-        ),
-      );
-    } else {
-      return const SizedBox();
-    }
+    overlay?.insert(overlayEntry!);
   }
 }
