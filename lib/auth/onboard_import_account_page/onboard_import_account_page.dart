@@ -1,8 +1,12 @@
-// ignore_for_file: lines_longer_than_80_chars, prefer_final_locals
+// ignore_for_file: lines_longer_than_80_chars
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/seed_text_field.dart';
+import 'package:uplink/auth/onboard_import_account_page/models/selected_seeds_grid_view.dart';
 import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardImportAccountPage extends StatefulWidget {
@@ -13,23 +17,78 @@ class OnboardImportAccountPage extends StatefulWidget {
       _OnboardImportAccountPageState();
 }
 
-class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
+class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
+    with WidgetsBindingObserver {
   List<String> selectedPassphraseList = [];
-  // List<String> suggestedPassphraseList = [];
-  // int? tapedWordIndex; //the index for taped word in suggestedPassphraseList
-  String query = ''; //query value from the text field
-
   bool selectionFinished = false;
   bool isWrongSeeds = false;
+  late List<String> bip39Dic;
+
+  void addInSelectedWordGridView({
+    required String passphrase,
+  }) {
+    final value = passphrase.toLowerCase();
+    if (bip39Dic.contains(value)) {
+      if (selectedPassphraseList.length < 12) {
+        setState(
+          () {
+            selectedPassphraseList.add(value);
+            if (selectedPassphraseList.length == 12) {
+              selectionFinished = true;
+            }
+          },
+        );
+      }
+    }
+  }
+
+  Future<List<String>> _loadBip39() async {
+    final wordsList = <String>[];
+    await rootBundle.loadString('assets/bip39_english.txt').then((word) {
+      for (final value in const LineSplitter().convert(word)) {
+        wordsList.add(value);
+      }
+    });
+    return wordsList;
+  }
+
+  /// Determine whether the keyboard is hidden.
+  Future<bool> get keyboardHidden async {
+    // If the embedded value at the bottom of the window is not greater than 0, the keyboard is not displayed.
+    bool check() =>
+        (WidgetsBinding.instance?.window.viewInsets.bottom ?? 0) <= 0;
+    // If the keyboard is displayed, return the result directly.
+    if (!check()) return false;
+    // If the keyboard is hidden, in order to cope with the misjudgment caused by the keyboard display/hidden animation process, wait for 0.1 seconds and then check again and return the result.
+    return Future.delayed(const Duration(milliseconds: 100), check);
+  }
 
   @override
   void initState() {
     super.initState();
+    // Used to obtain the change of the window size to determine whether the keyboard is hidden.
+    WidgetsBinding.instance?.addObserver(this);
+    _loadBip39().then((value) {
+      setState(() {
+        bip39Dic = value;
+      });
+    });
   }
 
   @override
   void dispose() {
+    // stop Observing the window size changes.
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    // When the window insets changes, the method will be called by the system, where we can judge whether the keyboard is hidden.
+    // If the keyboard is hidden, unfocus to end editing.
+    keyboardHidden.then(
+      (value) => value ? FocusManager.instance.primaryFocus?.unfocus() : null,
+    );
   }
 
   @override
@@ -50,125 +109,24 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                 textStyle: UTextStyle.B1_body,
               ),
               const SizedBox(height: 16),
-//TextField
               SeedTextField(
-                selectedPassphraseList: selectedPassphraseList,
-                selectionFinished: selectionFinished,
+                bip39Dic: bip39Dic,
+                addInSelectedGridView: (passphrase) =>
+                    addInSelectedWordGridView(passphrase: passphrase),
               ),
-              // Container(
-              //   height: 48,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(4),
-              //     color: UColors.foregroundDark,
-              //   ),
-              //   padding: const EdgeInsets.symmetric(horizontal: 16),
-              //   child: TextField(
-              //     autofocus: true,
-              //     focusNode: focusNode,
-              //     autocorrect: false,
-              //     controller: controller,
-              //     cursorColor: Colors.white,
-              //     style: UTextStyle.H5_fifthHeader.style
-              //         .returnTextStyleType()
-              //         .copyWith(color: Colors.white),
-              //     decoration: InputDecoration(
-              //       border: InputBorder.none,
-              //       hintText: 'Enter Passphrase',
-              //       hintStyle: UTextStyle.H5_fifthHeader.style
-              //           .returnTextStyleType()
-              //           .copyWith(color: UColors.textDark),
-              //     ),
-              //     textInputAction: TextInputAction.newline,
-              //     onChanged: (word) {
-              //       //update suggestedPassphraseList to update the suggestion memu
-              //       searchPassphrass(controller.text.toLowerCase());
-              //     },
-              //     onSubmitted: (passphrase) {
-              //       addInSelectedWordGridView(
-              //         passphrase: passphrase,
-              //         fromTextField: true,
-              //       );
-              //     },
-              //   ),
-              // ),
               const SizedBox(height: 8),
-//suggested list
-              // if (suggestedPassphraseList.isNotEmpty &&
-              //     showSuggestedWordsGridView)
-              //   ConstrainedBox(
-              //     constraints: const BoxConstraints(
-              //       maxHeight: 230, //240
-              //     ),
-              //     child: ListView.builder(
-              //       //Changing the size by its content
-              //       shrinkWrap: true,
-              //       physics: const ClampingScrollPhysics(),
-              //       itemCount: suggestedPassphraseList.length,
-              //       itemBuilder: (context, index) {
-              //         final passphrase = suggestedPassphraseList[index];
-              //         var highlight = false;
-              //         if (tapedWordIndex == index) highlight = true;
-              //         return InkWell(
-              //           child: Container(
-              //             color: highlight
-              //                 ? UColors.ctaBlue
-              //                 : UColors.foregroundDark,
-              //             height: 48,
-              //             padding: const EdgeInsets.symmetric(
-              //               horizontal: 16,
-              //               vertical: 16,
-              //             ),
-              //             child: UText(
-              //               passphrase,
-              //               textStyle: UTextStyle.BUT1_primaryButton,
-              //             ),
-              //           ),
-              //           onTap: () {
-              //             setState(() {
-              //               tapedWordIndex = index;
-              //               addInSelectedWordGridView(
-              //                 passphrase: passphrase,
-              //                 fromTextField: false,
-              //               );
-              //             });
-              //           },
-              //         );
-              //       },
-              //     ),
-              //   )
-              // else
-              //   const SizedBox(),
               const SizedBox(height: 24),
-//Selected words grid view
-              CustomScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                slivers: [
-                  SliverGrid.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: 160 / 40,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    children: List.generate(
-                      selectedPassphraseList.length,
-                      (index) => URecoverySeedBox(
-                        word: selectedPassphraseList[index],
-                        wordNumber: index + 1,
-                        onDelete: () {
-                          setState(() {
-                            if (selectedPassphraseList.length == 12) {
-                              selectionFinished = false;
-                            }
-                            selectedPassphraseList.removeAt(index);
-                            isWrongSeeds = false; //remove erorr text
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+//Selected seeds grid view
+              SelectedSeedsGridView(
+                selectedPassphraseList: selectedPassphraseList,
+                cancelSelectionFinished: () => setState(() {
+                  selectionFinished = false;
+                }),
+                cancelWrongSeed: () => setState(() {
+                  isWrongSeeds = false;
+                }),
               ),
-
+//Error message
               if (isWrongSeeds == true) const SizedBox(height: 24),
               if (isWrongSeeds == true)
                 const UText(
@@ -177,8 +135,8 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                   textColor: UColors.termRed,
                   textAlign: TextAlign.center,
                 ),
-//Button to recovery account
               const SizedBox(height: 24),
+//Recovery Button
               Opacity(
                 opacity: selectionFinished ? 1 : 0.5,
                 child: UButton.primary(
