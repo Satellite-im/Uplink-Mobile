@@ -126,7 +126,8 @@ class _TextFieldWithAssociativeSeedsState
 //显示overlay
   void showOverlay() {
     final overlay = Overlay.of(context);
-    final renderbox = context.findRenderObject! as RenderBox;
+    // ignore: cast_nullable_to_non_nullable
+    final renderbox = context.findRenderObject as RenderBox;
     final size = renderbox.size;
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
