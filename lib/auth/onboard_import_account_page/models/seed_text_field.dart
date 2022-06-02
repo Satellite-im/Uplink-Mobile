@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/onboard_import_account_page/models/bip39.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/suggested_seed_overlay.dart';
 
 class SeedTextField extends StatefulWidget {
   const SeedTextField({
     Key? key,
     required this.addInSelectedGridView,
-    required this.bip39Dic,
   }) : super(key: key);
 
-  final List<String> bip39Dic;
   final Function(String passphrase) addInSelectedGridView;
 
   @override
@@ -27,7 +26,7 @@ class _SeedTextFieldState extends State<SeedTextField> {
   @override
   void initState() {
     super.initState();
-    suggestedPassphraseList.addAll(widget.bip39Dic);
+    suggestedPassphraseList.addAll(bip39Dic);
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         showOverlay();
@@ -74,6 +73,7 @@ class _SeedTextFieldState extends State<SeedTextField> {
                 .copyWith(color: UColors.textDark),
           ),
           textInputAction: TextInputAction.newline,
+          onEditingComplete: () {}, //This prevents keyboard from closing
           onChanged: (word) {
             //update suggestedPassphraseList to update the suggestion memu
             searchPassphrass(controller.text.toLowerCase());
@@ -83,9 +83,9 @@ class _SeedTextFieldState extends State<SeedTextField> {
             controller.clear();
             suggestedPassphraseList
               ..clear()
-              ..addAll(widget.bip39Dic);
-            focusNode.requestFocus();
+              ..addAll(bip39Dic);
             keySuggestedSeedsOverlay.currentState?.setState(() {});
+            focusNode.requestFocus();
           },
         ),
       ),
@@ -93,7 +93,7 @@ class _SeedTextFieldState extends State<SeedTextField> {
   }
 
   void searchPassphrass(String query) {
-    final _tempDicList = <String>[...widget.bip39Dic];
+    final _tempDicList = <String>[...bip39Dic];
 
     if (query.isNotEmpty) {
       final _tempSuggestList = <String>[];
@@ -126,7 +126,7 @@ class _SeedTextFieldState extends State<SeedTextField> {
 //显示overlay
   void showOverlay() {
     final overlay = Overlay.of(context);
-    final renderbox = context.findRenderObject()! as RenderBox;
+    final renderbox = context.findRenderObject! as RenderBox;
     final size = renderbox.size;
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(

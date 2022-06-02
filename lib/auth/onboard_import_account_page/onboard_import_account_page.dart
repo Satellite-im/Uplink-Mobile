@@ -1,10 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
-
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/onboard_import_account_page/models/bip39.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/seed_text_field.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/selected_seeds_grid_view.dart';
 import 'package:uplink/linking_satelittes_page.dart';
@@ -22,7 +19,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
   List<String> selectedPassphraseList = [];
   bool selectionFinished = false;
   bool isWrongSeeds = false;
-  late List<String> bip39Dic;
 
   void addInSelectedWordGridView({
     required String passphrase,
@@ -42,16 +38,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
     }
   }
 
-  Future<List<String>> _loadBip39() async {
-    final wordsList = <String>[];
-    await rootBundle.loadString('assets/bip39_english.txt').then((word) {
-      for (final value in const LineSplitter().convert(word)) {
-        wordsList.add(value);
-      }
-    });
-    return wordsList;
-  }
-
   /// Determine whether the keyboard is hidden.
   Future<bool> get keyboardHidden async {
     // If the embedded value at the bottom of the window is not greater than 0, the keyboard is not displayed.
@@ -68,11 +54,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
     super.initState();
     // Used to obtain the change of the window size to determine whether the keyboard is hidden.
     WidgetsBinding.instance?.addObserver(this);
-    _loadBip39().then((value) {
-      setState(() {
-        bip39Dic = value;
-      });
-    });
   }
 
   @override
@@ -110,7 +91,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
               ),
               const SizedBox(height: 16),
               SeedTextField(
-                bip39Dic: bip39Dic,
                 addInSelectedGridView: (passphrase) =>
                     addInSelectedWordGridView(passphrase: passphrase),
               ),
