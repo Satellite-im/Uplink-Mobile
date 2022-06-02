@@ -21,7 +21,6 @@ class _SeedTextFieldState extends State<SeedTextField> {
   final focusNode = FocusNode();
   List<String> suggestedPassphraseList = [];
   final layerLink = LayerLink();
-  GlobalKey<SuggestedSeedsOverlayState> keySuggestedSeedsOverlay = GlobalKey();
 
   @override
   void initState() {
@@ -84,8 +83,7 @@ class _SeedTextFieldState extends State<SeedTextField> {
             suggestedPassphraseList
               ..clear()
               ..addAll(bip39Dic);
-            keySuggestedSeedsOverlay.currentState?.setState(() {});
-            focusNode.requestFocus();
+            focusNode.unfocus();
           },
         ),
       ),
@@ -135,7 +133,6 @@ class _SeedTextFieldState extends State<SeedTextField> {
           link: layerLink,
           offset: Offset(0, size.height + 8),
           child: SuggestedSeedsOverlay(
-            key: keySuggestedSeedsOverlay,
             suggestedPassphraseList: suggestedPassphraseList,
             onTap: widget.addInSelectedGridView,
           ),
