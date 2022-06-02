@@ -1,9 +1,9 @@
-// ignore_for_file: lines_longer_than_80_chars
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/bip39.dart';
-import 'package:uplink/auth/onboard_import_account_page/models/seed_text_field.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/selected_seeds_grid_view.dart';
+import 'package:uplink/auth/onboard_import_account_page/models/text_field_with_associative_seeds.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/linking_satelittes_page.dart';
 
 class OnboardImportAccountPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
 
   /// Determine whether the keyboard is hidden.
   Future<bool> get keyboardHidden async {
-    // If the embedded value at the bottom of the window is not greater than 0, the keyboard is not displayed.
+    // If the embedded value at the bottom of the window is not greater than 0, // the keyboard is not displayed.
     bool check() =>
         (WidgetsBinding.instance?.window.viewInsets.bottom ?? 0) <= 0;
     // If the keyboard is displayed, return the result directly.
@@ -52,7 +52,8 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
   @override
   void initState() {
     super.initState();
-    // Used to obtain the change of the window size to determine whether the keyboard is hidden.
+    // Used to obtain the change of the window size to determine whether
+    // the keyboard is hidden.
     WidgetsBinding.instance?.addObserver(this);
   }
 
@@ -65,7 +66,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
 
   @override
   void didChangeMetrics() {
-    // When the window insets changes, the method will be called by the system, where we can judge whether the keyboard is hidden.
+    // When the window insets changes, the method will be called by the system, // where we can judge whether the keyboard is hidden.
     // If the keyboard is hidden, unfocus to end editing.
     keyboardHidden.then(
       (value) => value ? FocusManager.instance.primaryFocus?.unfocus() : null,
@@ -77,7 +78,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: UAppBar.back(
-        title: 'Import Account',
+        title: UAppStrings.onboardImportAccountPage_title,
       ),
       body: SafeArea(
         child: Padding(
@@ -86,11 +87,12 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
-                'Enter your 12 word passphrase in exactly the same order your recovery seed was generated.',
+                UAppStrings.onboardImportAccountPage_body,
                 textStyle: UTextStyle.B1_body,
               ),
               const SizedBox(height: 16),
-              SeedTextField(
+//TextField with suggested seeds menu
+              TextFieldWithAssociativeSeeds(
                 addInSelectedGridView: (passphrase) =>
                     addInSelectedWordGridView(passphrase: passphrase),
               ),
@@ -110,7 +112,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
               if (isWrongSeeds == true) const SizedBox(height: 24),
               if (isWrongSeeds == true)
                 const UText(
-                  'error. account not registered',
+                  UAppStrings.onboardImportAccountPage_error,
                   textStyle: UTextStyle.B1_body,
                   textColor: UColors.termRed,
                   textAlign: TextAlign.center,
@@ -120,7 +122,9 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
               Opacity(
                 opacity: selectionFinished ? 1 : 0.5,
                 child: UButton.primary(
-                  label: isWrongSeeds ? 'Try Again' : 'Recover Account',
+                  label: isWrongSeeds
+                      ? UAppStrings.onboardImportAccountPage_tryAgain
+                      : UAppStrings.onboardImportAccountPage_recover,
                   uIconData: isWrongSeeds
                       ? UIcons.refresh_try_again
                       : UIcons.add_contact_member,
@@ -138,8 +142,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
                         setState(() {
                           isWrongSeeds = true;
                         });
-                        // show error messsge
-                        // change the button icon and text
                       }
                     }
                   },
