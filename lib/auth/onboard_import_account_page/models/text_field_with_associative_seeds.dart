@@ -3,8 +3,8 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/bip39.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/suggested_seed_overlay.dart';
 
-class SeedTextField extends StatefulWidget {
-  const SeedTextField({
+class TextFieldWithAssociativeSeeds extends StatefulWidget {
+  const TextFieldWithAssociativeSeeds({
     Key? key,
     required this.addInSelectedGridView,
   }) : super(key: key);
@@ -12,10 +12,12 @@ class SeedTextField extends StatefulWidget {
   final Function(String passphrase) addInSelectedGridView;
 
   @override
-  State<SeedTextField> createState() => _SeedTextFieldState();
+  State<TextFieldWithAssociativeSeeds> createState() =>
+      _TextFieldWithAssociativeSeedsState();
 }
 
-class _SeedTextFieldState extends State<SeedTextField> {
+class _TextFieldWithAssociativeSeedsState
+    extends State<TextFieldWithAssociativeSeeds> {
   OverlayEntry? overlayEntry;
   final controller = TextEditingController();
   final focusNode = FocusNode();

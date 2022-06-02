@@ -112,4 +112,13 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const linkingSatellitesPage_title = 'Linking Satellites...';
   static const linkingSatellitesPage_subTitle =
       'Making contact, requesting entry to Realm...';
+
+  /// OnboardImportAccountPage
+  static const onboardImportAccountPage_title = 'Import Account';
+  static const onboardImportAccountPage_body =
+      'Enter your 12 word passphrase in exactly the same order your recovery '
+      'seed was generated.';
+  static const onboardImportAccountPage_error = 'error. account not registered';
+  static const onboardImportAccountPage_tryAgain = 'Try Again';
+  static const onboardImportAccountPage_recover = 'Recover Account';
 }
