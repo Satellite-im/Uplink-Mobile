@@ -54,7 +54,7 @@ RayGun::send(&mut self, conversation_id: Uuid, message_id: Option<Uuid>, message
 
 #### Deleting Messages
 
-The extent at which messages are scrubbed from existance depends on the extensions implementation, however you only need to call delete on a message.
+The extent at which messages are scrubbed from existence depends on the extensions implementation, however you only need to call delete on a message.
 
 ```rust
 RayGun::delete(&mut self, conversation_id: Uuid, message_id: Uuid) -> Result<()>;
