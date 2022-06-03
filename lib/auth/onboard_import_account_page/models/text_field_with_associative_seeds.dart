@@ -28,21 +28,13 @@ class _TextFieldWithAssociativeSeedsState
   void initState() {
     super.initState();
     suggestedPassphraseList.addAll(bip39Dic);
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        showOverlay();
-      } else {
-        //remove overlay
-        overlayEntry?.remove();
-        overlayEntry = null;
-      }
-    });
   }
 
   @override
   void dispose() {
     controller.dispose();
     focusNode.dispose();
+    overlayEntry?.dispose();
     super.dispose();
   }
 
@@ -74,18 +66,20 @@ class _TextFieldWithAssociativeSeedsState
                 .copyWith(color: UColors.textDark),
           ),
           textInputAction: TextInputAction.newline,
-          onEditingComplete: () {}, //This prevents keyboard from closing
           onChanged: (word) {
             //update suggestedPassphraseList to update the suggestion memu
             searchPassphrass(controller.text.toLowerCase());
           },
           onSubmitted: (passphrase) {
-            widget.addInSelectedGridView(passphrase);
-            controller.clear();
-            suggestedPassphraseList
-              ..clear()
-              ..addAll(bip39Dic);
-            focusNode.unfocus();
+            final value = passphrase.toLowerCase();
+            if (bip39Dic.contains(value)) {
+              widget.addInSelectedGridView(passphrase);
+              controller.clear();
+              suggestedPassphraseList.clear();
+            } else {
+              controller.clear();
+              suggestedPassphraseList.clear();
+            }
           },
         ),
       ),
@@ -106,21 +100,13 @@ class _TextFieldWithAssociativeSeedsState
 
       //clear previous suggestedPassphraseList
       //update it with new suggestedPassphraseList
-      setState(() {
-        suggestedPassphraseList
-          ..clear()
-          ..addAll(_tempSuggestList);
-      });
+      suggestedPassphraseList
+        ..clear()
+        ..addAll(_tempSuggestList);
     } else {
-      //when the text from the textfield is null
-      //clear previous suggestedPassphraseList list
-      //add all bip39 words
-      setState(() {
-        suggestedPassphraseList
-          ..clear()
-          ..addAll(_tempDicList);
-      });
+      suggestedPassphraseList.clear();
     }
+    showOverlay();
   }
 
 //显示overlay
@@ -134,6 +120,8 @@ class _TextFieldWithAssociativeSeedsState
         width: size.width,
         child: CompositedTransformFollower(
           link: layerLink,
+          showWhenUnlinked: false,
+          //overlay won't show on the screen when move to other pages
           offset: Offset(0, size.height + 8),
           child: SuggestedSeedsOverlay(
             suggestedPassphraseList: suggestedPassphraseList,
