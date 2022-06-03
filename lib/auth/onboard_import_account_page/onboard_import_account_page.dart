@@ -113,7 +113,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
                   textColor: UColors.termRed,
                   textAlign: TextAlign.center,
                 ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 56),
 //Recovery Button
               Opacity(
                 opacity: selectionFinished ? 1 : 0.5,
