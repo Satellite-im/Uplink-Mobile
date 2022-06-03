@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/onboard_import_account_page/models/bip39.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/selected_seeds_grid_view.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/text_field_with_associative_seeds.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
@@ -23,18 +22,15 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
   void addInSelectedWordGridView({
     required String passphrase,
   }) {
-    final value = passphrase.toLowerCase();
-    if (bip39Dic.contains(value)) {
-      if (selectedPassphraseList.length < 12) {
-        setState(
-          () {
-            selectedPassphraseList.add(value);
-            if (selectedPassphraseList.length == 12) {
-              selectionFinished = true;
-            }
-          },
-        );
-      }
+    if (selectedPassphraseList.length < 12) {
+      setState(
+        () {
+          selectedPassphraseList.add(passphrase);
+          if (selectedPassphraseList.length == 12) {
+            selectionFinished = true;
+          }
+        },
+      );
     }
   }
 
