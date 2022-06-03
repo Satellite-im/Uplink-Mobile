@@ -13,8 +13,7 @@ class OnboardImportAccountPage extends StatefulWidget {
       _OnboardImportAccountPageState();
 }
 
-class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
-    with WidgetsBindingObserver {
+class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
   List<String> selectedPassphraseList = [];
   bool selectionFinished = false;
   bool isWrongSeeds = false;
@@ -32,41 +31,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage>
         },
       );
     }
-  }
-
-  /// Determine whether the keyboard is hidden.
-  Future<bool> get keyboardHidden async {
-    // If the embedded value at the bottom of the window is not greater than 0, // the keyboard is not displayed.
-    bool check() =>
-        (WidgetsBinding.instance?.window.viewInsets.bottom ?? 0) <= 0;
-    // If the keyboard is displayed, return the result directly.
-    if (!check()) return false;
-    // If the keyboard is hidden, in order to cope with the misjudgment caused by the keyboard display/hidden animation process, wait for 0.1 seconds and then check again and return the result.
-    return Future.delayed(const Duration(milliseconds: 100), check);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Used to obtain the change of the window size to determine whether
-    // the keyboard is hidden.
-    WidgetsBinding.instance?.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    // stop Observing the window size changes.
-    WidgetsBinding.instance?.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeMetrics() {
-    // When the window insets changes, the method will be called by the system, // where we can judge whether the keyboard is hidden.
-    // If the keyboard is hidden, unfocus to end editing.
-    keyboardHidden.then(
-      (value) => value ? FocusManager.instance.primaryFocus?.unfocus() : null,
-    );
   }
 
   @override
