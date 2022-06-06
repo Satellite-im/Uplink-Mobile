@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_pages/src/bottom_sheet/bottom_sheet_export.dart';
+import 'package:ui_showroom/ui_pages/src/onboarding_widgets/sigin_page.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
@@ -40,6 +41,7 @@ class UIShowRoomApp extends StatelessWidget {
         UTertiaryButtonPage.routeName: (context) => const UTertiaryButtonPage(),
         UAppBarPage.routeName: (context) => const UAppBarPage(),
         ULoadingPage.routeName: (context) => const ULoadingPage(),
+        SigninPage.routeName: (context) => const SigninPage()
       },
       home: Scaffold(
         appBar: AppBar(
@@ -103,6 +105,7 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UUserPictureChangePage.routeName,
                   ),
+                  WidgetPageButton(widgetName: SigninPage.routeName),
                 ],
               ),
               const _WidgetsShowSession(
