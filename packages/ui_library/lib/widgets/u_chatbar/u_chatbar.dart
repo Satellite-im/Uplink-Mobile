@@ -134,7 +134,7 @@ class _UChatbarState extends State<UChatbar> {
     final numberOfLinesBefore = numberOfLines - 1;
     numberOfLines = textPainter.computeLineMetrics().length;
 
-    if (numberOfLines <= 12) {
+    if (numberOfLines <= (_screenSize.width > 360 ? 12 : 10)) {
       if ((numberOfLines - numberOfLinesBefore == 2) ||
           (numberOfLines == numberOfLinesBefore) ||
           (numberOfLines - numberOfLinesBefore < 0)) {
