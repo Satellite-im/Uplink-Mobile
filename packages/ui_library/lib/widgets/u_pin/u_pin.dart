@@ -235,7 +235,7 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                                 opacity: _rightButtonOpacityAnimation.value,
                                 child: const UIcon(
                                   UIcons.checkmark_rounded,
-                                  color: UColors.white,
+                                  color: UColors.ctaBlue,
                                 ))))
                   ],
                 ),
