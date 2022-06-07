@@ -35,9 +35,6 @@ flutter:
   uses-material-design: true
   generate: true
 
-  assets:
-    - assets/bip39_english.txt
-
   fonts:
     - family: Poppins
       fonts:
