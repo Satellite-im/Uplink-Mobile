@@ -56,7 +56,6 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                 addInSelectedGridView: (passphrase) =>
                     addInSelectedWordGridView(passphrase: passphrase),
               ),
-              const SizedBox(height: 8),
               const SizedBox(height: 24),
 //Selected seeds grid view
               SelectedSeedsGridView(
@@ -69,14 +68,15 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                 }),
               ),
 //Error message
-              if (isWrongSeeds == true) const SizedBox(height: 24),
-              if (isWrongSeeds == true)
+              if (isWrongSeeds == true) ...[
+                const SizedBox(height: 24),
                 const UText(
                   UAppStrings.onboardImportAccountPage_error,
                   textStyle: UTextStyle.B1_body,
                   textColor: UColors.termRed,
                   textAlign: TextAlign.center,
                 ),
+              ],
               const SizedBox(height: 56),
 //Recovery Button
               Opacity(
