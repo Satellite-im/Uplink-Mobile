@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/onboard_recovery_seed_page/onboard_recovery_seed_page.dart';
+import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardCreateAccountPage extends StatefulWidget {
@@ -55,7 +55,12 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     label: UAppStrings.createAccountPage_importAccountButton,
                     uIconData: UIcons.import,
                     onPressed: () {
-                      // TODO(yijing): Import Account Pages
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (context) =>
+                              const OnboardImportAccountPage(),
+                        ),
+                      );
                     },
                   ),
                 ],

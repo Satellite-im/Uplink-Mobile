@@ -55,6 +55,9 @@ enum UIconSize {
 
   /// 14.4pt, for addPictureProfileButton
   addPictureProfileButton,
+
+  ///16pt, for URecoverySeedBox
+  micro,
 }
 
 extension UIconSizeExtension on UIconSize {
@@ -66,6 +69,8 @@ extension UIconSizeExtension on UIconSize {
         return USizes.iconSizeSmall;
       case UIconSize.addPictureProfileButton:
         return USizes.iconAddPictureProfileButtonSize;
+      case UIconSize.micro:
+        return USizes.iconSizeMicro;
       default:
         return USizes.iconSize;
     }
