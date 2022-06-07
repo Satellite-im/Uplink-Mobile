@@ -121,4 +121,5 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const onboardImportAccountPage_error = 'error. account not registered';
   static const onboardImportAccountPage_tryAgain = 'Try Again';
   static const onboardImportAccountPage_recover = 'Recover Account';
+  static const onboardImportAccountPage_hint = 'Enter Passphrase';
 }
