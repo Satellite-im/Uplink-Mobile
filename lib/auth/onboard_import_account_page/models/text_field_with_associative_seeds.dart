@@ -27,6 +27,7 @@ class _TextFieldWithAssociativeSeedsState
   @override
   void initState() {
     super.initState();
+    focusNode.addListener(() => FocusScope.of(context).requestFocus(focusNode));
     suggestedPassphraseList.addAll(bip39Dic);
   }
 
