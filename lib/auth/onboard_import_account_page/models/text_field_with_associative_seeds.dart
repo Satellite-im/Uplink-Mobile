@@ -67,7 +67,7 @@ class _TextFieldWithAssociativeSeedsState
                 .returnTextStyleType()
                 .copyWith(color: UColors.textDark),
           ),
-          textInputAction: TextInputAction.newline,
+          textInputAction: TextInputAction.done,
           onChanged: (word) {
             //update suggestedPassphraseList to update the suggestion memu
             searchPassphrass(controller.text.toLowerCase());
@@ -113,17 +113,15 @@ class _TextFieldWithAssociativeSeedsState
 
   void showOverlay() {
     final overlay = Overlay.of(context);
-    // ignore: cast_nullable_to_non_nullable
-    final renderbox = context.findRenderObject as RenderBox;
-    final size = renderbox.size;
+    final width = MediaQuery.of(context).size.width - 32;
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        width: size.width,
+        width: width,
         child: CompositedTransformFollower(
           link: layerLink,
           showWhenUnlinked: false,
           //overlay won't show on the screen when move to other pages
-          offset: Offset(0, size.height + 8),
+          offset: const Offset(0, 56),
           child: SuggestedSeedsOverlay(
             suggestedPassphraseList: suggestedPassphraseList,
             onTap: widget.addInSelectedGridView,
