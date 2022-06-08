@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/l10n/main_app_strings.dart';
 
-class LinkingSatellitesPage extends StatefulWidget {
-  const LinkingSatellitesPage({Key? key}) : super(key: key);
+class LoadingPage extends StatelessWidget {
+  const LoadingPage({
+    Key? key,
+    required this.title,
+    required this.body,
+  }) : super(key: key);
+  final String title;
+  final String body;
 
-  @override
-  State<LinkingSatellitesPage> createState() => _LinkingSatellitesPageState();
-}
-
-class _LinkingSatellitesPageState extends State<LinkingSatellitesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,19 +19,19 @@ class _LinkingSatellitesPageState extends State<LinkingSatellitesPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
-              ULoadingIndicator(
+            children: <Widget>[
+              const ULoadingIndicator(
                 padding: EdgeInsets.zero,
               ),
               UText(
-                UAppStrings.linkingSatellitesPage_title,
+                title,
                 textStyle: UTextStyle.H1_primaryHeader,
               ),
-              SizedBox.square(
+              const SizedBox.square(
                 dimension: 20,
               ),
               UText(
-                UAppStrings.linkingSatellitesPage_subTitle,
+                body,
                 textStyle: UTextStyle.B1_body,
               ),
             ],
