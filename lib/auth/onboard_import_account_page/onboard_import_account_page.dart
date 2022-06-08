@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/selected_seeds_grid_view.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/text_field_with_associative_seeds.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/linking_satelittes_page.dart';
+import 'package:uplink/pages_export.dart';
 
 class OnboardImportAccountPage extends StatefulWidget {
   const OnboardImportAccountPage({Key? key}) : super(key: key);
@@ -93,9 +94,11 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                       // TODO(yijing): update to bip39 validation
                       if (selectedPassphraseList
                           .every((element) => element == 'about')) {
+                        // TODO(yijing): update user log in state
+                        _setUserLogged();
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
-                            builder: (context) => const LinkingSatellitesPage(),
+                            builder: (context) => const ChatIndexPage(),
                           ),
                         );
                       } else {
@@ -114,4 +117,9 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
       ),
     );
   }
+}
+
+Future<void> _setUserLogged() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('isUserLogged', true);
 }

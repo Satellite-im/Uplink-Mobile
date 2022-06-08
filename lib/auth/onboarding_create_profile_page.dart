@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/linking_satelittes_page.dart';
+import 'package:uplink/pages_export.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -155,14 +156,19 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         Navigator.of(context).pop();
       },
       secondButtonOnPressed: () {
+        // TODO(yijing): update user log in state
+        _setUserLogged();
         Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (context) => const LinkingSatellitesPage(),
-          ),
+          MaterialPageRoute<void>(builder: (context) => const ChatIndexPage()),
         );
       },
     ).show();
   }
+}
+
+Future<void> _setUserLogged() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('isUserLogged', true);
 }
 
 class _TextField extends StatelessWidget {

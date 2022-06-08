@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_pages/src/bottom_sheet/bottom_sheet_export.dart';
+import 'package:ui_showroom/ui_pages/src/bottom_sheet/u_bottom_sheet_options.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
@@ -32,6 +33,8 @@ class UIShowRoomApp extends StatelessWidget {
         UBottomSheetTwoButtonsPage.routeName: (context) =>
             const UBottomSheetTwoButtonsPage(),
         UBottomSheetPinPage.routeName: (context) => const UBottomSheetPinPage(),
+        UBottomSheetOptionsPage.routeName: (context) =>
+            const UBottomSheetOptionsPage(),
         UChatbarPage.routeName: (context) => const UChatbarPage(),
         UPinPage.routeName: (context) => const UPinPage(),
         UUserPictureChangePage.routeName: (context) =>
@@ -147,6 +150,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UBottomSheetPinPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UBottomSheetOptionsPage.routeName,
                   ),
                 ],
               ),

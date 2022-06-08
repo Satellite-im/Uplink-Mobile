@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
-import 'package:uplink/home/home_page.dart';
+import 'package:uplink/auth/onboard_pin_page.dart';
+import 'package:uplink/auth/signin_page.dart';
 import 'package:uplink/l10n/l10n.dart';
 
 enum Apps { mainApp, uiShowroom }
@@ -28,9 +30,28 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: const HomePage(),
+                home: FutureBuilder<bool>(
+                  future: _getUserLogState(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final isUserLogged = snapshot.data!;
+                      if (isUserLogged == true) {
+                        return const SigninPage();
+                      } else {
+                        return const OnboardPinPage();
+                      }
+                    } else {
+                      return const ULoadingIndicator();
+                    }
+                  },
+                ),
               );
       },
     );
   }
+}
+
+Future<bool> _getUserLogState() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('isUserLogged') ?? false;
 }
