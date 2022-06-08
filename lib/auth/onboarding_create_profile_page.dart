@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/linking_satelittes_page.dart';
+import 'package:uplink/loading_page.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -157,7 +157,10 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       secondButtonOnPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute<void>(
-            builder: (context) => const LinkingSatellitesPage(),
+            builder: (context) => const LoadingPage(
+              title: UAppStrings.linkingSatellitesPage_title,
+              body: UAppStrings.linkingSatellitesPage_subTitle,
+            ),
           ),
         );
       },
