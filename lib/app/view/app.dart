@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/l10n/l10n.dart';
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
       create: (context) => ThemeModel(),
       builder: (context, _) {
         final themeModel = context.watch<ThemeModel>();
-        return _appToBuild == Apps.uiShowroom
+        return _appToBuild == Apps.mainApp
             ? UIShowRoomApp(themeData: themeModel.getThemeData)
             : MaterialApp(
                 theme: themeModel.getThemeData,
@@ -28,9 +29,30 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: const OnboardPinPage(),
+                home: FutureBuilder<bool>(
+                  future: _getUserLogState(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final bool isUserLogged = snapshot.data!;
+                      if (isUserLogged == false) {
+                        print('logged');
+                        return const SigninPage();
+                      } else {
+                        print('unlogged');
+                        return const OnboardPinPage();
+                      }
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
               );
       },
     );
   }
+}
+
+Future<bool> _getUserLogState() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('isUserLogged') ?? false;
 }
