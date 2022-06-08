@@ -29,8 +29,8 @@ class _OnboardPrivacySettingFirstPageState
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
                 UAppStrings.privacySettingFirstPage_chooseWhichFeaturesToEnable,
