@@ -90,6 +90,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
           ? Text(_title!)
           : null,
       centerTitle: false,
+      titleSpacing: 0,
       leading: (_leading == null)
           ? IconButton(
               icon: const UIcon(
