@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/app/view/app.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/loading_page.dart';
 
@@ -43,8 +46,27 @@ class _ChatIndexBodyState extends State<ChatIndexBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat index'),
+        title: const Text('Chat index'),
+        actions: [
+          //Logout button for demonstration
+          IconButton(
+            onPressed: () {
+              // TODO(yijing): update user log out function
+              _setLogout();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute<void>(builder: (context) => const App()),
+                (route) => false,
+              );
+            },
+            icon: const UIcon(UIcons.settings_logout),
+          )
+        ],
       ),
     );
   }
+}
+
+Future<void> _setLogout() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('isUserLogged', false);
 }
