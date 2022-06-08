@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/pages_export.dart';
 
 class SigninPage extends StatefulWidget {
@@ -23,8 +24,11 @@ class _SigninPageState extends State<SigninPage> {
             onPressed: () {
               UBottomSheetOptions(
                 context,
-                sheetTitle: 'More Options',
-                titleList: ['Switch Account', 'New Account'],
+                sheetTitle: UAppStrings.signinPage_sheetTitle,
+                titleList: [
+                  UAppStrings.signinPage_newAccount,
+                  UAppStrings.signinPage_newAccount,
+                ],
                 iconList: [UIcons.multiple_accounts, UIcons.add_contact_member],
                 onTapList: [
                   () {
@@ -47,13 +51,13 @@ class _SigninPageState extends State<SigninPage> {
           children: <Widget>[
             Flexible(flex: 9, child: Container()),
             const UText(
-              'Enter Pin Code',
+              UAppStrings.signinPage_enterPin,
               textStyle: UTextStyle.H1_primaryHeader,
               textAlign: TextAlign.center,
             ),
             Flexible(child: Container()),
             const UText(
-              'Enter your Pin to unlock your account.',
+              UAppStrings.signinPage_enterPinBody,
               textStyle: UTextStyle.B1_body,
               textAlign: TextAlign.center,
             ),
@@ -79,7 +83,7 @@ class _SigninPageState extends State<SigninPage> {
                 Align(
                   heightFactor: 6.5,
                   child: UTertiaryButton(
-                    label: 'Forgot Your Pin Code',
+                    label: UAppStrings.signinPage_forgotPin,
                     onPressed: () {
                       // TODO(yijing): add forgot pin pages
                     },
