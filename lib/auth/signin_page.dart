@@ -1,9 +1,9 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/u_bottom_sheet_options.dart';
 import 'package:uplink/pages_export.dart';
-// import 'package:uplink/auth/auth_export.dart';
-// import 'package:uplink/l10n/main_app_strings.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -63,16 +63,16 @@ class _SigninPageState extends State<SigninPage> {
               children: [
                 UPin(
                   key: UniqueKey(),
-                  //TODO(yijing): Get user's pin code length and update the pinLength
+                  // TODO(yijing): Get user's pin code length and update the pinLength
                   pinLength: 4,
-                  //TODO(yijing): update pin validation
                   rightButtonFn: (pin) {
-                    //TODO(yijing) uncomment navigator
+                    // TODO(yijing): update pin validatio
                     if (pin == '9999') {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute<void>(
                           builder: (context) => const ChatIndexPage(),
                         ),
+                        (route) => false,
                       );
                     }
                   },

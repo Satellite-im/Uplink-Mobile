@@ -33,8 +33,8 @@ class App extends StatelessWidget {
                   future: _getUserLogState(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final bool isUserLogged = snapshot.data!;
-                      if (isUserLogged == false) {
+                      final isUserLogged = snapshot.data!;
+                      if (isUserLogged == true) {
                         print('logged');
                         return const SigninPage();
                       } else {
@@ -42,7 +42,7 @@ class App extends StatelessWidget {
                         return const OnboardPinPage();
                       }
                     } else {
-                      return CircularProgressIndicator();
+                      return const ULoadingIndicator();
                     }
                   },
                 ),
@@ -53,6 +53,6 @@ class App extends StatelessWidget {
 }
 
 Future<bool> _getUserLogState() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance();
   return prefs.getBool('isUserLogged') ?? false;
 }
