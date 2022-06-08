@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/u_bottom_sheet_options.dart';
+import 'package:uplink/pages_export.dart';
 // import 'package:uplink/auth/auth_export.dart';
 // import 'package:uplink/l10n/main_app_strings.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
-  static const routeName = '/SigninPage';
 
   @override
   State<SigninPage> createState() => _SigninPageState();
@@ -15,13 +16,31 @@ class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.iconOnly(actionList: [
-        IconButton(
-          icon: const UIcon(UIcons.menu_bar_contacts),
-          onPressed: () {},
-          splashRadius: 20,
-        )
-      ]),
+      appBar: UAppBar.iconOnly(
+        leading: const SizedBox(),
+        actionList: [
+          IconButton(
+            icon: const UIcon(UIcons.menu_bar_contacts),
+            onPressed: () {
+              UBottomSheetOptions(
+                context,
+                sheetTitle: 'More Options',
+                titleList: ['Switch Account', 'New Account'],
+                iconList: [UIcons.multiple_accounts, UIcons.add_contact_member],
+                onTapList: [
+                  () {
+                    print(1);
+                  },
+                  () {
+                    print(2);
+                  },
+                ],
+              ).show();
+            },
+            splashRadius: 20,
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 15),
         child: Column(
@@ -50,12 +69,11 @@ class _SigninPageState extends State<SigninPage> {
                   rightButtonFn: (pin) {
                     //TODO(yijing) uncomment navigator
                     if (pin == '9999') {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute<void>(
-                      //     builder: (context) =>
-                      //         const LinkingSatellitesPage(),
-                      //   ),
-                      // );
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (context) => const ChatIndexPage(),
+                        ),
+                      );
                     }
                   },
                 ),
