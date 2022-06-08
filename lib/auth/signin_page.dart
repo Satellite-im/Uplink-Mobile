@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/u_bottom_sheet_options.dart';
 import 'package:uplink/pages_export.dart';
 
 class SigninPage extends StatefulWidget {
