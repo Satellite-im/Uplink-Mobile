@@ -16,14 +16,14 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      //TODO(yijing): update to sign in Future function
+      // TODO(yijing): update to sign in Future function
       future: Future<bool>.delayed(
         const Duration(seconds: 2),
         () => true,
       ),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ChatIndexBody();
+          return const ChatIndexBody();
         }
         return const LoadingPage(
           title: UAppStrings.linkingSatellitesPage_title,

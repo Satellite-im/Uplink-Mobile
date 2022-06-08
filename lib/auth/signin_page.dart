@@ -29,10 +29,10 @@ class _SigninPageState extends State<SigninPage> {
                 iconList: [UIcons.multiple_accounts, UIcons.add_contact_member],
                 onTapList: [
                   () {
-                    print(1);
+                    // TODO(yijing): add workflow later
                   },
                   () {
-                    print(2);
+                    // TODO(yijing): add workflow later
                   },
                 ],
               ).show();
@@ -82,7 +82,7 @@ class _SigninPageState extends State<SigninPage> {
                   child: UTertiaryButton(
                     label: 'Forgot Your Pin Code',
                     onPressed: () {
-                      //TODO(yijing): add forgot pin pages
+                      // TODO(yijing): add forgot pin pages
                     },
                   ),
                 )
