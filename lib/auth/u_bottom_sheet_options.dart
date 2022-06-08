@@ -3,25 +3,36 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 
 class UBottomSheetOptions {
-  /// Creates a bottom sheet to use in Pin Pages
+  /// BottomSheet with multiple options
   ///
-  /// It allows to select between 4, 6 or 8 digits as pin length.
+  /// [sheetTitle]-> The title of the bottom sheet
   ///
-  /// [onSelect] method will return the number of selected integer type digits
+  /// [titleList]-> title(String) for every option
+  ///
+  /// [iconList]-> icon(UIcons.**) for every option
+  ///
+  /// [onTapList]-> Function for every option when it is tapped
   ///
   /// To use, is necessary to call the class and the method [show]
   ///
   /// You need to call an action to show the [UBottomSheetOptions],
   /// example:
   /// ```dart
-  /// UButton.filled1(
-  ///     label: 'Click here to see the bottom sheet',
-  ///       onPressed: () {
-  ///         UBottomSheetOptions(
-  ///             context,
-  ///             onSelect: (p0) {},
-  ///         ).show();
-  /// }),
+  ///UBottomSheetOptions(
+  ///                context,
+  ///                sheetTitle: 'More Options',
+  ///                titleList: ['Switch Account', 'New Account'],
+  ///                iconList: [UIcons.multiple_accounts,
+  ///                           UIcons.add_contact_member],
+  ///                onTapList: [
+  ///                  () {
+  ///                    //do something for 'Switch Account'
+  ///                  },
+  ///                  () {
+  ///                    //do something for 'New Account'
+  ///                  },
+  ///                ],
+  ///              ).show();
   /// ```
   UBottomSheetOptions(
     this.context, {

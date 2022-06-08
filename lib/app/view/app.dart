@@ -35,10 +35,8 @@ class App extends StatelessWidget {
                     if (snapshot.hasData) {
                       final isUserLogged = snapshot.data!;
                       if (isUserLogged == true) {
-                        print('logged');
                         return const SigninPage();
                       } else {
-                        print('unlogged');
                         return const OnboardPinPage();
                       }
                     } else {
