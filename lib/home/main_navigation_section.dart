@@ -77,11 +77,22 @@ class _MainNavigationSectionState extends State<MainNavigationSection> {
                 color: _currentIndex == 2 ? UColors.ctaBlue : UColors.defGrey,
               ),
             ),
-            const BottomNavigationBarItem(
-              icon: UUserProfileWithStatus(
-                userProfileSize: UUserProfileSize.topMenuBar,
-                status: Status.online,
-              ),
+            BottomNavigationBarItem(
+              icon: _currentIndex == 3
+                  ? Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: UColors.ctaBlue,
+                          width: 2,
+                        ),
+                      ),
+                      child: const UUserProfile(),
+                    )
+                  : const UUserProfileWithStatus(
+                      userProfileSize: UUserProfileSize.topMenuBar,
+                      status: Status.online,
+                    ),
             ),
           ],
         ),
