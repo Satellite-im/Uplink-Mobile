@@ -52,7 +52,7 @@ class _MainNavigationSectionState extends State<MainNavigationSection> {
           );
         },
         tabBar: CupertinoTabBar(
-          height: 60,
+          height: 80,
           backgroundColor: UColors.backgroundDark,
           currentIndex: _currentIndex,
           onTap: _updateIndex,
@@ -87,7 +87,9 @@ class _MainNavigationSectionState extends State<MainNavigationSection> {
                           width: 2,
                         ),
                       ),
-                      child: const UUserProfile(),
+                      child: const UUserProfile(
+                        userProfileSize: UUserProfileSize.topMenuBar,
+                      ),
                     )
                   : const UUserProfileWithStatus(
                       userProfileSize: UUserProfileSize.topMenuBar,
