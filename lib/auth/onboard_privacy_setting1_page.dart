@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
@@ -16,9 +17,15 @@ class OnboardPrivacySettingFirstPage extends StatefulWidget {
 class _OnboardPrivacySettingFirstPageState
     extends State<OnboardPrivacySettingFirstPage> {
   bool isRegisterUsernamePublicly = false;
-  bool isStoreAccountPin = false;
+  late bool isStoreAccountPin;
   bool isEnableExternalEmbeds = false;
   bool isDisplayCurrentActivity = false;
+
+  @override
+  void initState() {
+    _getIsPinStored();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +37,14 @@ class _OnboardPrivacySettingFirstPageState
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UText(
                 UAppStrings.privacySettingFirstPage_chooseWhichFeaturesToEnable,
                 textStyle: UTextStyle.B1_body,
               ),
-              Flexible(child: Container()),
+              const SizedBox.square(
+                dimension: 24,
+              ),
               SizedBox(
                 height: 500,
                 child: ListView(
@@ -53,14 +61,24 @@ class _OnboardPrivacySettingFirstPageState
                         isRegisterUsernamePublicly = value;
                       },
                     ),
-                    _buildSettingListTile(
-                      title:
-                          UAppStrings.privacySettingFirstPage_secondOptionTitle,
-                      subTitle: UAppStrings
-                          .privacySettingFirstPage_secondOptionSubTitle,
-                      switchValue: isStoreAccountPin,
-                      onSwitch: (value) {
-                        isStoreAccountPin = value;
+                    FutureBuilder(
+                      future: _getIsPinStored(),
+                      builder: (context, snapshot) {
+                        return _buildSettingListTile(
+                          title: UAppStrings
+                              .privacySettingFirstPage_secondOptionTitle,
+                          subTitle: UAppStrings
+                              .privacySettingFirstPage_secondOptionSubTitle,
+                          switchValue: isStoreAccountPin,
+                          onSwitch: (value) async {
+                            isStoreAccountPin = value;
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setBool(
+                              'isPinStored',
+                              isStoreAccountPin,
+                            );
+                          },
+                        );
                       },
                     ),
                     _buildSettingListTile(
@@ -97,7 +115,6 @@ class _OnboardPrivacySettingFirstPageState
                   );
                 },
               ),
-              Flexible(flex: 8, child: Container()),
             ],
           ),
         ),
@@ -132,5 +149,10 @@ class _OnboardPrivacySettingFirstPageState
         onSwitch: onSwitch,
       ),
     );
+  }
+
+  Future<void> _getIsPinStored() async {
+    final prefs = await SharedPreferences.getInstance();
+    isStoreAccountPin = prefs.getBool('isPinStored') ?? false;
   }
 }

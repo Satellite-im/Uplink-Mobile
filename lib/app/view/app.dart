@@ -6,6 +6,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/auth/onboard_pin_page.dart';
 import 'package:uplink/auth/signin_page.dart';
+import 'package:uplink/home/main_navigation_section.dart';
 import 'package:uplink/l10n/l10n.dart';
 
 enum Apps { mainApp, uiShowroom }
@@ -30,12 +31,16 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: FutureBuilder<bool>(
+                home: FutureBuilder<Map<String, bool>>(
                   future: _getUserLogState(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final isUserLogged = snapshot.data!;
-                      if (isUserLogged == true) {
+                      final signinDataMap = snapshot.data!;
+                      if (signinDataMap['isUserLogged'] == true &&
+                          signinDataMap['isPinStored'] == true) {
+                        return const MainNavigationSection();
+                      } else if (signinDataMap['isUserLogged'] == true &&
+                          signinDataMap['isPinStored'] == false) {
                         return const SigninPage();
                       } else {
                         return const OnboardPinPage();
@@ -51,7 +56,12 @@ class App extends StatelessWidget {
   }
 }
 
-Future<bool> _getUserLogState() async {
+Future<Map<String, bool>> _getUserLogState() async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool('isUserLogged') ?? false;
+  final _isUserLogged = prefs.getBool('isUserLogged') ?? false;
+  final _isPinStored = prefs.getBool('isPinStored') ?? false;
+  return {
+    'isUserLogged': _isUserLogged,
+    'isPinStored': _isPinStored,
+  };
 }

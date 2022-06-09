@@ -1,29 +1,30 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/auth_export.dart';
-import 'package:uplink/linking_satelittes_page.dart';
+import 'package:uplink/chat/chat_export.dart';
+import 'package:uplink/contacts/contacts_export.dart';
+import 'package:uplink/file/file_export.dart';
+import 'package:uplink/profile/profile_export.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MainNavigationSection extends StatefulWidget {
+  const MainNavigationSection({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainNavigationSection> createState() => _MainNavigationSectionState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainNavigationSectionState extends State<MainNavigationSection> {
   int _currentIndex = 0;
   final _screens = [
-    OnboardPinPage(
+    ChatIndexPage(
       key: GlobalKey<NavigatorState>(),
     ),
-    LinkingSatellitesPage(
+    FilesIndexPage(
       key: GlobalKey<NavigatorState>(),
     ),
-    OnboardPrivacySettingSecondPage(
+    ContactsIndexPage(
       key: GlobalKey<NavigatorState>(),
     ),
-    LinkingSatellitesPage(
+    ProfileIndexPage(
       key: GlobalKey<NavigatorState>(),
     ),
   ];
@@ -41,7 +42,6 @@ class _HomePageState extends State<HomePage> {
         return false;
       },
       child: CupertinoTabScaffold(
-        // body: _screens[_currentIndex],
         tabBuilder: (context, index) {
           return CupertinoTabView(
             builder: (context) {
@@ -54,12 +54,8 @@ class _HomePageState extends State<HomePage> {
         tabBar: CupertinoTabBar(
           height: 60,
           backgroundColor: UColors.backgroundDark,
-          // type: BottomNavigationBarType.fixed,
-          // fixedColor: UColors.backgroundDark,
-          // unselectedItemColor: UColors.defGrey,
           currentIndex: _currentIndex,
           onTap: _updateIndex,
-
           items: [
             BottomNavigationBarItem(
               icon: Center(

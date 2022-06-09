@@ -23,7 +23,6 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
 
   @override
   void dispose() {
-    _isLoading.dispose();
     super.dispose();
   }
 
