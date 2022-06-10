@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/services/local_storage_service.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 class OnboardPrivacySettingFirstPage extends StatefulWidget {
   const OnboardPrivacySettingFirstPage({Key? key}) : super(key: key);
