@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/pages_export.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -159,7 +159,9 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         // TODO(yijing): update user log in state
         _setUserLogged();
         Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (context) => const ChatIndexPage()),
+          MaterialPageRoute<void>(
+            builder: (context) => const MainBottomNavigationBar(),
+          ),
         );
       },
     ).show();

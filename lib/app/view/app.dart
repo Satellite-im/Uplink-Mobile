@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
+import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/l10n.dart';
-import 'package:uplink/pages_export.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 enum Apps { mainApp, uiShowroom }
 
@@ -14,13 +14,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _appToBuild = Apps.uiShowroom;
+    const _appToBuild = Apps.mainApp;
 
     return ChangeNotifierProvider(
       create: (context) => ThemeModel(),
       builder: (context, _) {
         final themeModel = context.watch<ThemeModel>();
-        return _appToBuild == Apps.mainApp
+        return _appToBuild == Apps.uiShowroom
             ? UIShowRoomApp(themeData: themeModel.getThemeData)
             : MaterialApp(
                 theme: themeModel.getThemeData,
@@ -29,12 +29,22 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: FutureBuilder<bool>(
-                  future: _getUserLogState(),
+                home: FutureBuilder<Map<ULocalKey, dynamic>>(
+                  future: ULocalStorageService().getMultipleValues(
+                    localKeyList: [
+                      ULocalKey.isUserLogged,
+                      ULocalKey.isPinStored,
+                    ],
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final isUserLogged = snapshot.data!;
-                      if (isUserLogged == true) {
+                      final signinDataMap = snapshot.data!;
+                      if (signinDataMap[ULocalKey.isUserLogged] == true &&
+                          signinDataMap[ULocalKey.isPinStored] == true) {
+                        return const MainBottomNavigationBar();
+                      } else if (signinDataMap[ULocalKey.isUserLogged] ==
+                              true &&
+                          signinDataMap[ULocalKey.isPinStored] != true) {
                         return const SigninPage();
                       } else {
                         return const OnboardPinPage();
@@ -48,9 +58,4 @@ class App extends StatelessWidget {
       },
     );
   }
-}
-
-Future<bool> _getUserLogState() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool('isUserLogged') ?? false;
 }

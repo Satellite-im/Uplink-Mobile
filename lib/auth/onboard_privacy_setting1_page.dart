@@ -1,9 +1,11 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 class OnboardPrivacySettingFirstPage extends StatefulWidget {
   const OnboardPrivacySettingFirstPage({Key? key}) : super(key: key);
@@ -22,86 +24,113 @@ class _OnboardPrivacySettingFirstPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: UAppBar.back(
-        title: UAppStrings.privacySetting_appBarTitle,
+    return FutureBuilder<bool>(
+      future: ULocalStorageService().getBoolValue(
+        localKey: ULocalKey.isPinStored,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const UText(
-                UAppStrings.privacySettingFirstPage_chooseWhichFeaturesToEnable,
-                textStyle: UTextStyle.B1_body,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return UActionLoading(
+            dashLoadingIndicatorPadding: const EdgeInsets.only(left: 32),
+            isLoading: ValueNotifier(!snapshot.hasData),
+            child: Scaffold(
+              appBar: UAppBar.back(
+                title: UAppStrings.privacySetting_appBarTitle,
               ),
-              Flexible(child: Container()),
-              SizedBox(
-                height: 500,
+            ),
+          );
+        } else {
+          isStoreAccountPin = snapshot.data!;
+          return Scaffold(
+            appBar: UAppBar.back(
+              title: UAppStrings.privacySetting_appBarTitle,
+            ),
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    _buildSettingListTile(
-                      disabled: true,
-                      title:
-                          UAppStrings.privacySettingFirstPage_firstOptionTitle,
-                      subTitle: UAppStrings
-                          .privacySettingFirstPage_firstOptionSubTitle,
-                      switchValue: isRegisterUsernamePublicly,
-                      onSwitch: (value) {
-                        isRegisterUsernamePublicly = value;
-                      },
+                    const UText(
+                      UAppStrings
+                          .privacySettingFirstPage_chooseWhichFeaturesToEnable,
+                      textStyle: UTextStyle.B1_body,
                     ),
-                    _buildSettingListTile(
-                      title:
-                          UAppStrings.privacySettingFirstPage_secondOptionTitle,
-                      subTitle: UAppStrings
-                          .privacySettingFirstPage_secondOptionSubTitle,
-                      switchValue: isStoreAccountPin,
-                      onSwitch: (value) {
-                        isStoreAccountPin = value;
-                      },
+                    const SizedBox.square(
+                      dimension: 24,
                     ),
-                    _buildSettingListTile(
-                      title:
-                          UAppStrings.privacySettingFirstPage_thirdOptionTitle,
-                      subTitle: UAppStrings
-                          .privacySettingFirstPage_thirdOptionSubTitle,
-                      switchValue: isEnableExternalEmbeds,
-                      onSwitch: (value) {
-                        isEnableExternalEmbeds = value;
-                      },
+                    SizedBox(
+                      height: 500,
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _buildSettingListTile(
+                            disabled: true,
+                            title: UAppStrings
+                                .privacySettingFirstPage_firstOptionTitle,
+                            subTitle: UAppStrings
+                                .privacySettingFirstPage_firstOptionSubTitle,
+                            switchValue: isRegisterUsernamePublicly,
+                            onSwitch: (value) {
+                              isRegisterUsernamePublicly = value;
+                            },
+                          ),
+                          _buildSettingListTile(
+                            title: UAppStrings
+                                .privacySettingFirstPage_secondOptionTitle,
+                            subTitle: UAppStrings
+                                .privacySettingFirstPage_secondOptionSubTitle,
+                            switchValue: isStoreAccountPin,
+                            onSwitch: (value) async {
+                              isStoreAccountPin = value;
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setBool(
+                                'isPinStored',
+                                isStoreAccountPin,
+                              );
+                            },
+                          ),
+                          _buildSettingListTile(
+                            title: UAppStrings
+                                .privacySettingFirstPage_thirdOptionTitle,
+                            subTitle: UAppStrings
+                                .privacySettingFirstPage_thirdOptionSubTitle,
+                            switchValue: isEnableExternalEmbeds,
+                            onSwitch: (value) {
+                              isEnableExternalEmbeds = value;
+                            },
+                          ),
+                          _buildSettingListTile(
+                            title: UAppStrings
+                                .privacySettingFirstPage_fourthOptionTitle,
+                            subTitle: UAppStrings
+                                .privacySettingFirstPage_fourthOptionSubTitle,
+                            switchValue: isDisplayCurrentActivity,
+                            onSwitch: (value) {
+                              isDisplayCurrentActivity = value;
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    _buildSettingListTile(
-                      title:
-                          UAppStrings.privacySettingFirstPage_fourthOptionTitle,
-                      subTitle: UAppStrings
-                          .privacySettingFirstPage_fourthOptionSubTitle,
-                      switchValue: isDisplayCurrentActivity,
-                      onSwitch: (value) {
-                        isDisplayCurrentActivity = value;
+                    UButton.filled1(
+                      label: UAppStrings.continueButton,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) =>
+                                const OnboardPrivacySettingSecondPage(),
+                          ),
+                        );
                       },
                     ),
                   ],
                 ),
               ),
-              UButton.filled1(
-                label: UAppStrings.continueButton,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) =>
-                          const OnboardPrivacySettingSecondPage(),
-                    ),
-                  );
-                },
-              ),
-              Flexible(flex: 8, child: Container()),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 

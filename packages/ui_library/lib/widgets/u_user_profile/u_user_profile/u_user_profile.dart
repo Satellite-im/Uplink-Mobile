@@ -14,10 +14,11 @@ class UUserProfile extends StatelessWidget {
   const UUserProfile({
     Key? key,
     String? imagePath,
+    UUserProfileSize? userProfileSize,
   })  : _imagePath = imagePath,
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
-        _size = UUserProfileSize.normal,
+        _size = userProfileSize ?? UUserProfileSize.normal,
         super(key: key);
 
   /// Creates User Profile Widget with name
@@ -27,10 +28,11 @@ class UUserProfile extends StatelessWidget {
     Key? key,
     String? imagePath,
     required String username,
+    UUserProfileSize? userProfileSize,
   })  : _imagePath = imagePath,
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
-        _size = UUserProfileSize.normal,
+        _size = userProfileSize ?? UUserProfileSize.normal,
         super(key: key);
 
   final UUserProfileSize _size;

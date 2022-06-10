@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/selected_seeds_grid_view.dart';
 import 'package:uplink/auth/onboard_import_account_page/models/text_field_with_associative_seeds.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/pages_export.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 class OnboardImportAccountPage extends StatefulWidget {
   const OnboardImportAccountPage({Key? key}) : super(key: key);
@@ -89,18 +88,25 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                   uIconData: isWrongSeeds
                       ? UIcons.refresh_try_again
                       : UIcons.add_contact_member,
-                  onPressed: () {
+                  onPressed: () async {
                     if (selectedPassphraseList.length == 12) {
                       // TODO(yijing): update to bip39 validation
                       if (selectedPassphraseList
                           .every((element) => element == 'about')) {
                         // TODO(yijing): update user log in state
-                        _setUserLogged();
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (context) => const ChatIndexPage(),
-                          ),
-                        );
+                        await ULocalStorageService()
+                            .saveBoolValue(
+                              localKey: ULocalKey.isUserLogged,
+                              value: true,
+                            )
+                            .then(
+                              (_) => Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (context) =>
+                                      const MainBottomNavigationBar(),
+                                ),
+                              ),
+                            );
                       } else {
                         setState(() {
                           isWrongSeeds = true;
@@ -117,9 +123,4 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
       ),
     );
   }
-}
-
-Future<void> _setUserLogged() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('isUserLogged', true);
 }

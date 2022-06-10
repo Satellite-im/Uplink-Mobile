@@ -131,4 +131,13 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const signinPage_sheetTitle = 'More Options';
   static const signinPage_switchAccount = 'Switch Account';
   static const signinPage_newAccount = 'New Account';
+
+  /// ContactsIndexPage
+  static const contactsIndexPage_appBarTitle = 'Contacts';
+
+  /// FilesIndexPage
+  static const filesIndexPage_appBarTitle = 'Files';
+
+  /// ChatIndexPage
+  static const chatIndexPage_appBarTitle = 'Chats';
 }

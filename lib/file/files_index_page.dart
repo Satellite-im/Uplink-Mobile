@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-class ChatIndexPage extends StatefulWidget {
-  const ChatIndexPage({Key? key}) : super(key: key);
+class FilesIndexPage extends StatefulWidget {
+  const FilesIndexPage({Key? key}) : super(key: key);
 
   @override
-  State<ChatIndexPage> createState() => _ChatIndexPageState();
+  State<FilesIndexPage> createState() => _FilesIndexPageState();
 }
 
-class _ChatIndexPageState extends State<ChatIndexPage> {
+class _FilesIndexPageState extends State<FilesIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +24,14 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
           ),
           IconButton(
             icon: const UIcon(
-              UIcons.menu_bar_notifications,
+              UIcons.add_folder,
               color: UColors.textMed,
             ),
             onPressed: () async {},
           ),
           IconButton(
             icon: const UIcon(
-              UIcons.compose_message_button,
+              UIcons.hamburger_menu,
               color: UColors.textMed,
             ),
             onPressed: () async {},
@@ -44,7 +44,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
           ),
           onPressed: () async {},
         ),
-        title: UAppStrings.chatIndexPage_appBarTitle,
+        title: UAppStrings.filesIndexPage_appBarTitle,
       ),
       body: const SafeArea(
         child: Text(''),
