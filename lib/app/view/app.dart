@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/auth/onboard_pin_page.dart';
 import 'package:uplink/auth/signin_page.dart';
-import 'package:uplink/home/main_navigation_section.dart';
 import 'package:uplink/l10n/l10n.dart';
+import 'package:uplink/utils/services/local_storage_service.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 enum Apps { mainApp, uiShowroom }
 
@@ -31,16 +31,22 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: FutureBuilder<Map<String, bool>>(
-                  future: _getUserLogState(),
+                home: FutureBuilder<Map<ULocalKey, dynamic>>(
+                  future: ULocalStorageService().getMultipleValues(
+                    localKeyList: [
+                      ULocalKey.isUserLogged,
+                      ULocalKey.isPinStored,
+                    ],
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       final signinDataMap = snapshot.data!;
-                      if (signinDataMap['isUserLogged'] == true &&
-                          signinDataMap['isPinStored'] == true) {
-                        return const MainNavigationSection();
-                      } else if (signinDataMap['isUserLogged'] == true &&
-                          signinDataMap['isPinStored'] == false) {
+                      if (signinDataMap[ULocalKey.isUserLogged] == true &&
+                          signinDataMap[ULocalKey.isPinStored] == true) {
+                        return const MainBottomNavigationBar();
+                      } else if (signinDataMap[ULocalKey.isUserLogged] ==
+                              true &&
+                          signinDataMap[ULocalKey.isPinStored] != true) {
                         return const SigninPage();
                       } else {
                         return const OnboardPinPage();
@@ -54,14 +60,4 @@ class App extends StatelessWidget {
       },
     );
   }
-}
-
-Future<Map<String, bool>> _getUserLogState() async {
-  final prefs = await SharedPreferences.getInstance();
-  final _isUserLogged = prefs.getBool('isUserLogged') ?? false;
-  final _isPinStored = prefs.getBool('isPinStored') ?? false;
-  return {
-    'isUserLogged': _isUserLogged,
-    'isPinStored': _isPinStored,
-  };
 }

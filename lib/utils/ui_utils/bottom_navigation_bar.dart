@@ -5,14 +5,15 @@ import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
 import 'package:uplink/profile/profile_export.dart';
 
-class MainNavigationSection extends StatefulWidget {
-  const MainNavigationSection({Key? key}) : super(key: key);
+class MainBottomNavigationBar extends StatefulWidget {
+  const MainBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
-  State<MainNavigationSection> createState() => _MainNavigationSectionState();
+  State<MainBottomNavigationBar> createState() =>
+      _MainBottomNavigationBarState();
 }
 
-class _MainNavigationSectionState extends State<MainNavigationSection> {
+class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   int _currentIndex = 0;
   final _screens = [
     ChatIndexPage(

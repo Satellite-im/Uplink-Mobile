@@ -1,10 +1,10 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/services/local_storage_service.dart';
 
 class OnboardCreateAccountPage extends StatefulWidget {
   const OnboardCreateAccountPage({Key? key}) : super(key: key);
@@ -88,8 +88,10 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                           switchValue: storedPin,
                           onSwitch: (value) async {
                             storedPin = value;
-                            final prefs = await SharedPreferences.getInstance();
-                            await prefs.setBool('isPinStored', storedPin);
+                            await ULocalStorageService().saveBoolValue(
+                              localKey: ULocalKey.isPinStored,
+                              value: storedPin,
+                            );
                           },
                         ),
                       ],

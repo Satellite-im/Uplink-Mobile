@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/pages_export.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -73,7 +73,7 @@ class _SigninPageState extends State<SigninPage> {
                     if (pin == '9999') {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute<void>(
-                          builder: (context) => const ChatIndexPage(),
+                          builder: (context) => const MainBottomNavigationBar(),
                         ),
                         (route) => false,
                       );
