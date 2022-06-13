@@ -1,6 +1,12 @@
+// ignore_for_file: lines_longer_than_80_chars
+
+import 'dart:convert';
+
+import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/contacts/models/mock_contact.dart';
 
 class ContactsIndexPage extends StatefulWidget {
   const ContactsIndexPage({Key? key}) : super(key: key);
@@ -11,53 +17,112 @@ class ContactsIndexPage extends StatefulWidget {
 
 class _ContactsIndexPageState extends State<ContactsIndexPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.actions(
-        actionList: [
-          IconButton(
-            icon: const UIcon(
-              UIcons.search,
-              color: UColors.textMed,
-            ),
-            onPressed: () async {},
-          ),
-          IconButton(
-            icon: const UIcon(
-              UIcons.add_contact_member,
-              color: UColors.textMed,
-            ),
-            onPressed: () async {},
-          ),
-          IconButton(
-            icon: const UIcon(
-              UIcons.hamburger_menu,
-              color: UColors.textMed,
-            ),
-            onPressed: () async {},
-          ),
-        ],
+        title: 'Contacts',
         leading: IconButton(
           icon: const UIcon(
             UIcons.lefthand_navigation_drawer,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () {},
         ),
-        title: UAppStrings.contactsIndexPage_appBarTitle,
+        actionList: [
+          IconButton(
+            onPressed: () {},
+            icon: const UIcon(
+              UIcons.search,
+              color: UColors.textMed,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const UIcon(
+              UIcons.add_contact_member,
+              color: UColors.textMed,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const UIcon(
+              UIcons.hamburger_menu,
+              color: UColors.textMed,
+            ),
+          )
+        ],
       ),
       body: FutureBuilder(
         future: _loadingContacts(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final friendList = snapshot.data! as List<Friends>;
-            if (friendList.isEmpty) {
+            final contactsList = snapshot.data! as List<MockContact>;
+
+            if (contactsList.isEmpty) {
               return const NoFriendBody();
             } else {
-              return ListView.builder(
-                itemBuilder: (context, index) =>
-                    Text(friendList[index].toString()),
-                itemCount: friendList.length,
+              //Turn [MockContact] into AZItem(ISuspensionBean)
+              //which will be used in AZListView
+              final contactsAZList = contactsList
+                  .map(
+                    (item) =>
+                        _AZItem(contact: item, tag: item.name[0].toUpperCase()),
+                  )
+                  .toList();
+              //Besides the initial letter, sort the rest of letter
+              SuspensionUtil.sortListBySuspensionTag(contactsAZList);
+              //Let each item know if it needs to show tag name above them
+              SuspensionUtil.setShowSuspensionStatus(contactsAZList);
+
+              return AzListView(
+                data: contactsAZList,
+                itemCount: contactsAZList.length,
+                itemBuilder: (context, index) {
+                  final item = contactsAZList[index];
+                  return _buildContactsList(item);
+                },
+//indexBar is the initial letter on the right
+                indexBarMargin: const EdgeInsets.only(right: 8),
+                indexBarWidth: 16,
+                indexBarOptions: IndexBarOptions(
+                  needRebuild: true,
+                  textStyle: UTextStyle.B1_body.style.returnTextStyleType(),
+                  selectTextStyle: UTextStyle.B3_bold.style.returnTextStyleType(
+                    color: Colors.white,
+                  ),
+                  selectItemDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: UColors.ctaBlue,
+                  ),
+                  indexHintAlignment: Alignment.centerRight,
+                  indexHintOffset: const Offset(20, 16),
+                ),
+//indexHint is the widget shows when user hold on the indexBar
+                indexHintBuilder: (context, hint) => Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: UColors.ctaBlue,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: UText(
+                        hint,
+                        textStyle: UTextStyle.H2_secondaryHeader,
+                        textColor: UColors.white,
+                      ),
+                    ),
+                    CustomPaint(painter: Triangle()),
+                  ],
+                ),
               );
             }
           }
@@ -66,6 +131,78 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
       ),
     );
   }
+
+  Widget _buildContactsList(_AZItem item) {
+    final tag = item.getSuspensionTag();
+    final offstage = !item.isShowSuspension;
+    return Column(
+      children: [
+        Offstage(offstage: offstage, child: _buildHeader(tag)),
+        ListTile(
+          tileColor: Colors.transparent,
+          leading: UUserProfileWithStatus(
+            userProfileSize: UUserProfileSize.normal,
+            status: item.contact.status,
+          ),
+          horizontalTitleGap: 12,
+          title: UText(
+            item.contact.name,
+            textStyle: UTextStyle.H4_fourthHeader,
+          ),
+          subtitle: UText(
+            item.contact.statusMessage ?? '',
+            textStyle: UTextStyle.B1_body,
+            textColor: UColors.textMed,
+          ),
+          dense: true,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeader(String tag) => Container(
+        height: 20,
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.only(left: 8),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(4),
+          ),
+          color: UColors.foregroundDark,
+        ),
+        child: UText(tag, textStyle: UTextStyle.H3_tertiaryHeader),
+      );
+}
+
+class Triangle extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = UColors.ctaBlue;
+
+    final path = Path()
+      ..lineTo(0, -8)
+      ..lineTo(8, 0)
+      ..lineTo(0, 8);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
+class _AZItem extends ISuspensionBean {
+  _AZItem({required this.contact, required this.tag});
+
+  final MockContact contact;
+  final String tag;
+
+  @override
+  String getSuspensionTag() => tag;
 }
 
 class NoFriendBody extends StatelessWidget {
@@ -99,7 +236,9 @@ class NoFriendBody extends StatelessWidget {
           UButton.primary(
             label: 'Add a Friend',
             uIconData: UIcons.add_contact_member,
-            onPressed: () {},
+            onPressed: () {
+              // TODO(yijing): add friends pages
+            },
           ),
         ],
       ),
@@ -108,26 +247,15 @@ class NoFriendBody extends StatelessWidget {
 }
 
 // TODO(yijing): update loading contacts
-Future<List<Friends>> _loadingContacts() async {
-  const hasFriends = false;
+Future<List<MockContact>> _loadingContacts() async {
+  const hasFriends = true;
   if (hasFriends == true) {
-    return Future.delayed(const Duration(seconds: 1), () {
-      final result = [
-        Friends(name: 'test', statusMessage: 'test', isOnline: true),
-      ];
-      return result;
-    });
-  }
-  return [];
-}
+    final jsonString = await rootBundle
+        .loadString('lib/contacts/models/mock_contact_list.json');
+    final list = await jsonDecode(jsonString) as List<Map<String, dynamic>>;
 
-class Friends {
-  Friends({
-    required this.name,
-    required this.statusMessage,
-    required this.isOnline,
-  });
-  String name;
-  String statusMessage;
-  bool isOnline;
+    return list.map(MockContact.fromJson).toList();
+  } else {
+    return [];
+  }
 }
