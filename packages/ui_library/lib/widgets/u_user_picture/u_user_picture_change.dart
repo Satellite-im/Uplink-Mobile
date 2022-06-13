@@ -8,10 +8,14 @@ import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_export.dart';
 import '../u_icon/u_icon_export.dart';
 
 class UUserPictureChange extends StatefulWidget {
-  const UUserPictureChange({Key? key, required this.onPictureSelected})
-      : super(key: key);
+  const UUserPictureChange({
+    Key? key,
+    required this.onPictureSelected,
+    this.showChangeImageButton = true,
+  }) : super(key: key);
 
   final Function(File? pictureSelected) onPictureSelected;
+  final bool showChangeImageButton;
 
   @override
   State<UUserPictureChange> createState() => _UUserPictureChangeState();
@@ -39,26 +43,30 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
-        UBottomSheetTwoButtons(
-          context,
-          header: 'Upload yout avatar picture from',
-          firstButtonText: 'Take Photo',
-          secondButtonText: 'Camera Roll',
-          firstButtonIcon: UIcons.camera,
-          secondButtonIcon: UIcons.image,
-          firstButtonOnPressed: () async {
-            _imageFile = await UImagePicker(shouldShowPermissionDialog: true)
-                .pickImageFromCamera(context);
-            _verifyIfHasImage();
-          },
-          secondButtonOnPressed: () async {
-            _imageFile = await UImagePicker(shouldShowPermissionDialog: false)
-                .pickImageFromGallery(context);
-            _verifyIfHasImage();
-          },
-        ).show();
-      },
+      onTap: widget.showChangeImageButton
+          ? () {
+              UBottomSheetTwoButtons(
+                context,
+                header: 'Upload yout avatar picture from',
+                firstButtonText: 'Take Photo',
+                secondButtonText: 'Camera Roll',
+                firstButtonIcon: UIcons.camera,
+                secondButtonIcon: UIcons.image,
+                firstButtonOnPressed: () async {
+                  _imageFile =
+                      await UImagePicker(shouldShowPermissionDialog: true)
+                          .pickImageFromCamera(context);
+                  _verifyIfHasImage();
+                },
+                secondButtonOnPressed: () async {
+                  _imageFile =
+                      await UImagePicker(shouldShowPermissionDialog: false)
+                          .pickImageFromGallery(context);
+                  _verifyIfHasImage();
+                },
+              ).show();
+            }
+          : null,
       child: Stack(
         children: [
           Container(
@@ -87,19 +95,26 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
           Positioned(
             top: 76,
             right: 0,
-            child: Container(
-              height: USizes.userPictureChangeAddButtonSize,
-              width: USizes.userPictureChangeAddButtonSize,
-              decoration: const BoxDecoration(
-                color: UColors.ctaBlue,
-                shape: BoxShape.circle,
-              ),
-              child: const Center(
-                child: UIcon(
-                  UIcons.add_button,
-                  size: UIconSize.addPictureProfileButton,
+            child: AnimatedCrossFade(
+              duration: const Duration(milliseconds: 250),
+              firstChild: Container(
+                height: USizes.userPictureChangeAddButtonSize,
+                width: USizes.userPictureChangeAddButtonSize,
+                decoration: const BoxDecoration(
+                  color: UColors.ctaBlue,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: UIcon(
+                    UIcons.add_button,
+                    size: UIconSize.addPictureProfileButton,
+                  ),
                 ),
               ),
+              secondChild: const SizedBox(),
+              crossFadeState: widget.showChangeImageButton
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
             ),
           ),
         ],

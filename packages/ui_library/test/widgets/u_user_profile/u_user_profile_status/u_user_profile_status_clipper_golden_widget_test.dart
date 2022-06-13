@@ -1,6 +1,7 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ui_library/widgets/u_status/u_status_indicator.dart';
 import 'package:ui_library/widgets/u_user_profile/models/models_export.dart';
 import 'package:ui_library/widgets/u_user_profile/u_user_profile_status/u_user_profile_status.dart';
 
