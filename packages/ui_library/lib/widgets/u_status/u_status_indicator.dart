@@ -1,4 +1,6 @@
-part of '../u_user_profile_status.dart';
+import 'package:flutter/material.dart';
+import 'package:ui_library/core/const/const_export.dart';
+import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 
 /// Defines the status of the [UserProfileStatus]
 enum Status {
@@ -24,25 +26,25 @@ extension StatusColors on Status {
 ///
 /// This calculates the size of the [Status] circle
 /// according to the size of the [UserProfileStatus] size
-class StatusIndicator extends StatelessWidget {
-  const StatusIndicator(
+class UStatusIndicator extends StatelessWidget {
+  const UStatusIndicator(
     Status status, {
     required UUserProfileSize userProfileSize,
     Key? key,
   })  : _status = status,
-        _size = userProfileSize == UUserProfileSize.topMenuBar
+        size = userProfileSize == UUserProfileSize.topMenuBar
             ? USizes.userProfileStatusSmallSize
             : USizes.userProfileStatusNormalSize,
         super(key: key);
 
-  final double _size;
+  final double size;
   final Status _status;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _size,
-      height: _size,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         color: _status._color,
         shape: BoxShape.circle,

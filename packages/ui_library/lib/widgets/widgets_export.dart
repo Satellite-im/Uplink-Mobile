@@ -13,3 +13,5 @@ export 'u_recovery_seed_box/u_recovery_seed_box_export.dart';
 export 'bottom_sheet/bottom_sheet_export.dart';
 export 'u_app_bar/u_app_bar_export.dart';
 export 'global/loading/loading_export.dart';
+export 'u_status/u_status_export.dart';
+export 'u_networks_profiles/u_network_profiles_export.dart';

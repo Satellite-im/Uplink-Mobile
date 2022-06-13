@@ -33,6 +33,7 @@ flutter:
   assets:
     - images/
     - images/placeholders/
+    - images/networks_logo/
 
   fonts:
     - family: Poppins

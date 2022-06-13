@@ -11,13 +11,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Center(
-            child: StatusIndicator(Status.online,
+            child: UStatusIndicator(Status.online,
                 userProfileSize: UUserProfileSize.large),
           ),
         ),
       );
 
-      final Size _baseSize = tester.getSize(find.byType(StatusIndicator));
+      final Size _baseSize = tester.getSize(find.byType(UStatusIndicator));
       expect(_baseSize.width, equals(12.0));
       expect(_baseSize.height, equals(12.0));
     });
@@ -28,13 +28,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Center(
-            child: StatusIndicator(Status.online,
+            child: UStatusIndicator(Status.online,
                 userProfileSize: UUserProfileSize.normal),
           ),
         ),
       );
 
-      final Size _baseSize = tester.getSize(find.byType(StatusIndicator));
+      final Size _baseSize = tester.getSize(find.byType(UStatusIndicator));
       expect(_baseSize.width, equals(12.0));
       expect(_baseSize.height, equals(12.0));
     });
@@ -45,13 +45,13 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Center(
-            child: StatusIndicator(Status.online,
+            child: UStatusIndicator(Status.online,
                 userProfileSize: UUserProfileSize.topMenuBar),
           ),
         ),
       );
 
-      final Size _baseSize = tester.getSize(find.byType(StatusIndicator));
+      final Size _baseSize = tester.getSize(find.byType(UStatusIndicator));
       expect(_baseSize.width, equals(8.0));
       expect(_baseSize.height, equals(8.0));
     });
@@ -87,17 +87,17 @@ class SystemUnderTest extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            StatusIndicator(Status.online,
+            UStatusIndicator(Status.online,
                 userProfileSize: UUserProfileSize.large),
             const SizedBox.square(
               dimension: 8,
             ),
-            StatusIndicator(Status.idle,
+            UStatusIndicator(Status.idle,
                 userProfileSize: UUserProfileSize.large),
             const SizedBox.square(
               dimension: 8,
             ),
-            StatusIndicator(Status.offline,
+            UStatusIndicator(Status.offline,
                 userProfileSize: UUserProfileSize.large),
           ],
         ),
@@ -110,17 +110,17 @@ class SystemUnderTest extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            StatusIndicator(Status.online,
+            UStatusIndicator(Status.online,
                 userProfileSize: UUserProfileSize.normal),
             const SizedBox.square(
               dimension: 8,
             ),
-            StatusIndicator(Status.idle,
+            UStatusIndicator(Status.idle,
                 userProfileSize: UUserProfileSize.normal),
             const SizedBox.square(
               dimension: 8,
             ),
-            StatusIndicator(Status.offline,
+            UStatusIndicator(Status.offline,
                 userProfileSize: UUserProfileSize.normal),
           ],
         ),
@@ -133,17 +133,17 @@ class SystemUnderTest extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            StatusIndicator(Status.online,
+            UStatusIndicator(Status.online,
                 userProfileSize: UUserProfileSize.topMenuBar),
             const SizedBox.square(
               dimension: 8,
             ),
-            StatusIndicator(Status.idle,
+            UStatusIndicator(Status.idle,
                 userProfileSize: UUserProfileSize.topMenuBar),
             const SizedBox.square(
               dimension: 8,
             ),
-            StatusIndicator(Status.offline,
+            UStatusIndicator(Status.offline,
                 userProfileSize: UUserProfileSize.topMenuBar),
           ],
         ),

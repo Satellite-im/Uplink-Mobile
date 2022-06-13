@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/const/u_colors.dart';
 
-enum _PlaceholderType { user, avatar, group, server }
+enum _PlaceholderType { user, avatar, group, server, cover }
 
 extension _PlaceholderImagePath on _PlaceholderType {
   String get _path {
@@ -14,6 +14,8 @@ extension _PlaceholderImagePath on _PlaceholderType {
         return 'packages/ui_library/images/placeholders/server_avatar_1.png';
       case _PlaceholderType.server:
         return 'packages/ui_library/images/placeholders/server_avatar_2.png';
+      case _PlaceholderType.cover:
+        return 'packages/ui_library/images/placeholders/cover_photo_1.png';
     }
   }
 }
@@ -37,6 +39,10 @@ class UPlaceholder extends StatelessWidget {
 
   const UPlaceholder.serverProfile({Key? key})
       : _placeholderType = _PlaceholderType.server,
+        super(key: key);
+
+  const UPlaceholder.coverPhoto({Key? key})
+      : _placeholderType = _PlaceholderType.cover,
         super(key: key);
 
   final _PlaceholderType _placeholderType;

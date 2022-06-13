@@ -77,6 +77,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.transparent,
       title: (_appBarType == _AppBarType.back) ||
               (_appBarType == _AppBarType.actions)
           ? Text(_title!)
