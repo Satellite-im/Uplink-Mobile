@@ -140,4 +140,23 @@ Would you like to give Satellite.im access to your camera roll?''';
 
   /// ChatIndexPage
   static const chatIndexPage_appBarTitle = 'Chats';
+
+  /// ProfileIndexPage
+  static const profileIndexPage_username = 'username';
+  static const profileIndexPage_statusMessage =
+      'Something something space station';
+  static const profileIndexPage_editProfile = 'Edit Profile';
+  static const profileIndexPage_badges = 'Badges';
+  static const profileIndexPage_location = 'Location';
+  static const profileIndexPage_locationValue = 'State, USA';
+  static const profileIndexPage_friends = 'Friends';
+  static const profileIndexPage_friendsNumber = '24';
+  static const profileIndexPage_aboutTitle = 'About';
+  static const profileIndexPage_aboutDescription =
+      'Sed ut perspiciatis unde omnis '
+      'iste natus error sit voluptatem accusantium doloremque laudantium, '
+      'totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ';
+  static const profileIndexPage_setStatus = 'Set Status';
+  static const profileIndexPage_spotifyUsername = 'username12';
+  static const profileIndexPage_twitchUsername = 'username_plays';
 }
