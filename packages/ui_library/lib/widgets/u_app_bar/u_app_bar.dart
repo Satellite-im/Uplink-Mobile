@@ -9,6 +9,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   final List<Widget>? _actionsList;
   final Function? _onBackPressed;
   final Widget? _leading;
+  final Widget? _flexibleSpace;
 
   ///AppBar with a title and back icon
   ///```dart
@@ -18,9 +19,11 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required String title,
     Function? onBackPressed,
+    Widget? flexibleSpace,
   })  : _appBarType = _AppBarType.back,
         _title = title,
         _onBackPressed = onBackPressed,
+        _flexibleSpace = flexibleSpace,
         _actionsList = [],
         _leading = null,
         super(key: key);
@@ -38,10 +41,12 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required List<Widget> actionList,
     Widget? leading,
+    Widget? flexibleSpace,
   })  : _appBarType = _AppBarType.iconOnly,
         _title = null,
         _onBackPressed = null,
         _actionsList = actionList,
+        _flexibleSpace = flexibleSpace,
         _leading = leading,
         super(key: key);
 
@@ -67,10 +72,12 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     required String title,
     required List<Widget> actionList,
     Widget? leading,
+    Widget? flexibleSpace,
   })  : _appBarType = _AppBarType.actions,
         _title = title,
         _onBackPressed = null,
         _actionsList = actionList,
+        _flexibleSpace = flexibleSpace,
         _leading = leading,
         super(key: key);
 
@@ -100,6 +107,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
           ? _actionsList!
           : null,
       elevation: 0,
+      flexibleSpace: _flexibleSpace,
     );
   }
 

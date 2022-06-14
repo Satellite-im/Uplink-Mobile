@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-enum _NetworkLogo { spotify, twitch }
+enum NetworkProfiles { spotify, twitch }
 
-extension _NetworkLogoPath on _NetworkLogo {
-  String get _path {
+extension _NetworkLogoPath on NetworkProfiles {
+  String get _logoPath {
     switch (this) {
-      case _NetworkLogo.spotify:
+      case NetworkProfiles.spotify:
         return 'packages/ui_library/images/networks_logo/spotify_logo.png';
-      case _NetworkLogo.twitch:
+      case NetworkProfiles.twitch:
         return 'packages/ui_library/images/networks_logo/twitch_logo.png';
     }
   }
 }
 
 class UNetworksProfiles extends StatelessWidget {
-  const UNetworksProfiles.spotifyProfile({
+  const UNetworksProfiles({
     Key? key,
-    required String spotifyUsername,
-  })  : _networkLogo = _NetworkLogo.spotify,
-        _networkUsername = spotifyUsername,
+    required String networkUsername,
+    required NetworkProfiles networkProfile,
+  })  : _networkProfile = networkProfile,
+        _networkUsername = networkUsername,
         super(key: key);
 
-  const UNetworksProfiles.twitchProfile({
-    Key? key,
-    required String twitchUsername,
-  })  : _networkLogo = _NetworkLogo.twitch,
-        _networkUsername = twitchUsername,
-        super(key: key);
-
-  final _NetworkLogo _networkLogo;
+  final NetworkProfiles _networkProfile;
   final String _networkUsername;
 
   @override
@@ -37,7 +31,7 @@ class UNetworksProfiles extends StatelessWidget {
     return Row(
       children: [
         Image.asset(
-          _networkLogo._path,
+          _networkProfile._logoPath,
         ),
         const SizedBox.square(
           dimension: 8,
