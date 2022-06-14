@@ -49,7 +49,24 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              UBottomSheetOptions(
+                context,
+                sheetTitle: 'More Options',
+                titleList: ['Friend Requests', 'Outgoing Requests', 'Blocked'],
+                // TODO(yijing): update UIcons
+                iconList: [UIcons.friend_added, UIcons.about, UIcons.about],
+                onTapList: [
+                  () {
+                    // TODO(yijing): add Friend Requests work flow
+                  },
+                  () {
+                    // TODO(yijing): add Outgoing Requests work flow
+                  },
+                  () {}
+                ],
+              ).show();
+            },
             icon: const UIcon(
               UIcons.hamburger_menu,
               color: UColors.textMed,
