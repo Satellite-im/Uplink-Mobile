@@ -23,6 +23,7 @@ class UBottomSheet {
             topRight: Radius.circular(USizes.barAboveBottomSheetBorderRadius),
           ),
         ),
+        useRootNavigator: true,
         builder: (context) {
           return Wrap(
             children: [
