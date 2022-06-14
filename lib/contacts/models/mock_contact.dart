@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:ui_library/ui_library_export.dart';
 
 class MockContact {
@@ -7,7 +9,7 @@ class MockContact {
     this.statusMessage,
   });
 
-  MockContact.fromJson(Map<String, dynamic> json) {
+  MockContact.fromJson(dynamic json) {
     name = json['user_name'] as String;
 
     switch (json['status']) {

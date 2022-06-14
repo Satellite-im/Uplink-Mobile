@@ -252,7 +252,7 @@ Future<List<MockContact>> _loadingContacts() async {
   if (hasFriends == true) {
     final jsonString = await rootBundle
         .loadString('lib/contacts/models/mock_contact_list.json');
-    final list = await jsonDecode(jsonString) as List<Map<String, dynamic>>;
+    final list = await jsonDecode(jsonString) as List<dynamic>;
 
     return list.map(MockContact.fromJson).toList();
   } else {
