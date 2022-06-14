@@ -1,74 +1,21 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:convert';
+
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/blocked_page.dart';
-import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/contacts/models/mock_contact.dart';
+import 'package:uplink/contacts/models/triangle.dart';
 
-class ContactsIndexPage extends StatelessWidget {
-  const ContactsIndexPage({Key? key}) : super(key: key);
+class BlockedPage extends StatelessWidget {
+  const BlockedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.actions(
-        title: 'Contacts',
-        leading: IconButton(
-          icon: const UIcon(
-            UIcons.lefthand_navigation_drawer,
-            color: UColors.textMed,
-          ),
-          onPressed: () {},
-        ),
-        actionList: [
-          IconButton(
-            onPressed: () {},
-            icon: const UIcon(
-              UIcons.search,
-              color: UColors.textMed,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const UIcon(
-              UIcons.add_contact_member,
-              color: UColors.textMed,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              UBottomSheetOptions(
-                context,
-                sheetTitle: 'More Options',
-                titleList: ['Friend Requests', 'Outgoing Requests', 'Blocked'],
-                // TODO(yijing): update UIcons
-                iconList: [UIcons.friend_added, UIcons.about, UIcons.about],
-                onTapList: [
-                  () {
-                    // TODO(yijing): add Friend Requests work flow
-                  },
-                  () {
-                    // TODO(yijing): add Outgoing Requests work flow
-                  },
-                  () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) => const BlockedPage(),
-                      ),
-                    );
-                  }
-                ],
-              ).show();
-            },
-            icon: const UIcon(
-              UIcons.hamburger_menu,
-              color: UColors.textMed,
-            ),
-          )
-        ],
-      ),
+      appBar: UAppBar.back(title: 'Block'),
       body: FutureBuilder(
         future: _loadingContacts(),
         builder: (context, snapshot) {
@@ -76,7 +23,7 @@ class ContactsIndexPage extends StatelessWidget {
             final contactsList = snapshot.data! as List<MockContact>;
 
             if (contactsList.isEmpty) {
-              return const NoFriendBody();
+              return const NoBlockedBody();
             } else {
               //Turn [MockContact] into AZItem(ISuspensionBean)
               //which will be used in AZListView
@@ -149,7 +96,7 @@ class ContactsIndexPage extends StatelessWidget {
     final offstage = !item.isShowSuspension;
     return Column(
       children: [
-        Offstage(offstage: offstage, child: ContactsHeader(tag: tag)),
+        Offstage(offstage: offstage, child: _buildHeader(tag)),
         ListTile(
           tileColor: Colors.transparent,
           leading: UUserProfileWithStatus(
@@ -168,10 +115,27 @@ class ContactsIndexPage extends StatelessWidget {
           ),
           dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          onTap: () {
+            // TODO(yijing): add block user workflow
+          },
         ),
       ],
     );
   }
+
+  Widget _buildHeader(String tag) => Container(
+        height: 20,
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.only(left: 8),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(4),
+          ),
+          color: UColors.foregroundDark,
+        ),
+        child: UText(tag, textStyle: UTextStyle.H3_tertiaryHeader),
+      );
 }
 
 class _AZItem extends ISuspensionBean {
@@ -184,7 +148,25 @@ class _AZItem extends ISuspensionBean {
   String getSuspensionTag() => tag;
 }
 
-// TODO(yijing): update loading contacts
+class NoBlockedBody extends StatelessWidget {
+  const NoBlockedBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: UText(
+        'No one is here, you have 0 blocked contacts!',
+        textStyle: UTextStyle.B1_body,
+        textColor: UColors.white,
+      ),
+    );
+  }
+}
+
+// TODO(yijing): update loading blocked users
 Future<List<MockContact>> _loadingContacts() async {
   const hasFriends = true;
   if (hasFriends == true) {
