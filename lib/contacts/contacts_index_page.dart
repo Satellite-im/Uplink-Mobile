@@ -150,24 +150,11 @@ class ContactsIndexPage extends StatelessWidget {
     return Column(
       children: [
         Offstage(offstage: offstage, child: ContactsHeader(tag: tag)),
-        ListTile(
-          tileColor: Colors.transparent,
-          leading: UUserProfileWithStatus(
-            userProfileSize: UUserProfileSize.normal,
-            status: item.contact.status,
-          ),
-          horizontalTitleGap: 12,
-          title: UText(
-            item.contact.name,
-            textStyle: UTextStyle.H4_fourthHeader,
-          ),
-          subtitle: UText(
-            item.contact.statusMessage ?? '',
-            textStyle: UTextStyle.B1_body,
-            textColor: UColors.textMed,
-          ),
-          dense: true,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        ContactListTile(
+          name: item.contact.name,
+          status: item.contact.status,
+          statusMessage: item.contact.statusMessage,
+          onTap: () {},
         ),
       ],
     );

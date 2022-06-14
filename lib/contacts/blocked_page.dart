@@ -9,6 +9,8 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/models/mock_contact.dart';
 import 'package:uplink/contacts/models/triangle.dart';
 
+import 'models/models_export.dart';
+
 class BlockedPage extends StatelessWidget {
   const BlockedPage({Key? key}) : super(key: key);
 
@@ -97,26 +99,12 @@ class BlockedPage extends StatelessWidget {
     return Column(
       children: [
         Offstage(offstage: offstage, child: _buildHeader(tag)),
-        ListTile(
-          tileColor: Colors.transparent,
-          leading: UUserProfileWithStatus(
-            userProfileSize: UUserProfileSize.normal,
-            status: item.contact.status,
-          ),
-          horizontalTitleGap: 12,
-          title: UText(
-            item.contact.name,
-            textStyle: UTextStyle.H4_fourthHeader,
-          ),
-          subtitle: UText(
-            item.contact.statusMessage ?? '',
-            textStyle: UTextStyle.B1_body,
-            textColor: UColors.textMed,
-          ),
-          dense: true,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        ContactListTile(
+          name: item.contact.name,
+          status: item.contact.status,
+          statusMessage: item.contact.statusMessage,
           onTap: () {
-            // TODO(yijing): add block user workflow
+            // TODO(yijing): add block friend work flow
           },
         ),
       ],
