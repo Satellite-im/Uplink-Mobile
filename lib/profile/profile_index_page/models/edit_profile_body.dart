@@ -16,7 +16,7 @@ class _EditProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _hintText = 'Text Input Field';
+    const _hintText = UAppStrings.editProfilePage_hintText;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -26,25 +26,25 @@ class _EditProfileBody extends StatelessWidget {
               dimension: 56,
             ),
             _TextField(
-              textFieldTitle: 'Username',
+              textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
               hintText: _hintText,
               onChanged: (value) {},
               controller: usernameTextFieldController,
             ),
             _TextField(
-              textFieldTitle: 'Status Message',
+              textFieldTitle: UAppStrings.editProfilePage_statusMessageTitle,
               hintText: _hintText,
               onChanged: (value) {},
               controller: statusMessageTextFieldController,
             ),
             _TextField(
-              textFieldTitle: 'Location',
+              textFieldTitle: UAppStrings.editProfilePage_locationTitle,
               hintText: _hintText,
               onChanged: (value) {},
               controller: locationTextFieldController,
             ),
             _TextField(
-              textFieldTitle: 'About',
+              textFieldTitle: UAppStrings.editProfilePage_aboutTitle,
               hintText: _hintText,
               textFieldHeight: 78,
               onChanged: (value) {},
@@ -54,12 +54,12 @@ class _EditProfileBody extends StatelessWidget {
             ),
             const UDivider(),
             _ProfileOptions(
-              text: 'Display Location',
+              text: UAppStrings.editProfilePage_displayLocation,
               icon: UIcons.location,
               onSwitch: (value) {},
             ),
             _ProfileOptions(
-              text: 'Make Profile Public',
+              text: UAppStrings.editProfilePage_makeProfilePublic,
               icon: UIcons.menu_bar_contacts,
               onSwitch: (value) {},
             ),
@@ -69,7 +69,7 @@ class _EditProfileBody extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: UButton.primary(
-                label: 'Save Changes',
+                label: UAppStrings.editProfilePage_saveChangesButton,
                 uIconData: UIcons.checkmark,
                 onPressed: () {},
               ),
