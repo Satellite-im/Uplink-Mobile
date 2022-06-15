@@ -159,4 +159,14 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const profileIndexPage_setStatus = 'Set Status';
   static const profileIndexPage_spotifyUsername = 'username12';
   static const profileIndexPage_twitchUsername = 'username_plays';
+
+  /// EditProfilePage
+  static const editProfilePage_hintText = 'Text Input Field';
+  static const editProfilePage_usernameTitle = 'Username';
+  static const editProfilePage_statusMessageTitle = 'Status Message';
+  static const editProfilePage_locationTitle = 'Location';
+  static const editProfilePage_aboutTitle = 'About';
+  static const editProfilePage_displayLocation = 'Display Location';
+  static const editProfilePage_makeProfilePublic = 'Make Profile Public';
+  static const editProfilePage_saveChangesButton = 'Save Changes';
 }
