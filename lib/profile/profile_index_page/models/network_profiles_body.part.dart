@@ -33,11 +33,7 @@ class _NetworkProfiles extends StatelessWidget {
         const SizedBox.square(
           dimension: 20,
         ),
-        const Divider(
-          height: 0,
-          thickness: 1,
-          color: UColors.foregroundDark,
-        ),
+        const UDivider(),
       ],
     );
   }
