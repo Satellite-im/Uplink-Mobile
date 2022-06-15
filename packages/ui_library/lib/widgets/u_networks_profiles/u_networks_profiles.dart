@@ -15,6 +15,7 @@ extension _NetworkLogoPath on NetworkProfiles {
 }
 
 class UNetworksProfiles extends StatelessWidget {
+  /// Creates a row with a Network Profile picture and [UText]
   const UNetworksProfiles({
     Key? key,
     required String networkUsername,

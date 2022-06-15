@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-part 'models/header.part.dart';
 part 'models/body.part.dart';
+part 'models/edit_profile_body.dart';
 part 'models/profile_data_body.part.dart';
 part 'models/network_profiles_body.part.dart';
 
@@ -18,9 +16,16 @@ class ProfileIndexPage extends StatefulWidget {
 
 class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final _badgesQuantity = 5;
-  final _bottomNavBarHeight = Platform.isIOS ? 0 : 82;
+  final _bottomNavBarHeight = 82;
   final _coverPicturePath =
       'packages/ui_library/images/placeholders/cover_photo_1.png';
+  bool _isEditingProfile = false;
+  final _duration = const Duration(milliseconds: 250);
+
+  final usernameTextFieldController = TextEditingController();
+  final statusMessageTextFieldController = TextEditingController();
+  final locationTextFieldController = TextEditingController();
+  final aboutTextFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +40,43 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
               children: [
                 UAppBar.actions(
                   title: '',
-                  leading: const SizedBox(),
+                  leading: _isEditingProfile
+                      ? IconButton(
+                          icon: const UIcon(
+                            UIcons.back_arrow_button,
+                            color: UColors.white,
+                          ),
+                          onPressed: () async {
+                            setState(() {
+                              _isEditingProfile = false;
+                            });
+                          },
+                        )
+                      : const SizedBox(),
                   actionList: [
-                    IconButton(
-                      icon: const UIcon(
-                        UIcons.qr_code,
-                        color: UColors.white,
+                    if (!_isEditingProfile) ...[
+                      IconButton(
+                        icon: const UIcon(
+                          UIcons.qr_code,
+                          color: UColors.white,
+                        ),
+                        onPressed: () async {},
                       ),
-                      onPressed: () async {},
-                    ),
-                    IconButton(
-                      icon: const UIcon(
-                        UIcons.hamburger_menu,
-                        color: UColors.white,
+                      IconButton(
+                        icon: const UIcon(
+                          UIcons.hamburger_menu,
+                          color: UColors.white,
+                        ),
+                        onPressed: () async {},
                       ),
-                      onPressed: () async {},
-                    ),
+                    ] else
+                      IconButton(
+                        icon: const UIcon(
+                          UIcons.compose_message_button,
+                          color: UColors.white,
+                        ),
+                        onPressed: () async {},
+                      ),
                   ],
                   flexibleSpace: SizedBox(
                     height: 164,
@@ -63,23 +89,42 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: _size.height + _bottomNavBarHeight,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Column(
-                      children: [
-                        _ProfileIndexHeader(
-                          pageSize: _size,
-                        ),
-                        const SizedBox.square(
-                          dimension: 16,
-                        ),
-                        _ProfileIndexBody(
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: [
+                      const SizedBox.square(
+                        dimension: 114,
+                      ),
+                      UUserPictureChange(
+                        showChangeImageButton: _isEditingProfile,
+                        onPictureSelected: (value) {},
+                      ),
+                      AnimatedCrossFade(
+                        duration: _duration,
+                        firstChild: _ProfileIndexBody(
                           badgesQuantity: _badgesQuantity,
+                          pageSize: _size,
+                          onTapEditProfile: (value) {
+                            setState(() {
+                              _isEditingProfile = value;
+                            });
+                          },
                         ),
-                      ],
-                    ),
+                        secondChild: _EditProfileBody(
+                          usernameTextFieldController:
+                              usernameTextFieldController,
+                          statusMessageTextFieldController:
+                              statusMessageTextFieldController,
+                          locationTextFieldController:
+                              locationTextFieldController,
+                          aboutTextFieldController: aboutTextFieldController,
+                        ),
+                        crossFadeState: _isEditingProfile
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                      )
+                    ],
                   ),
                 ),
               ],
