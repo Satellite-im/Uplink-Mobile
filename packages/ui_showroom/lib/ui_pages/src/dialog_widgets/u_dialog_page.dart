@@ -51,6 +51,11 @@ class UDialogPage extends StatelessWidget {
                         bodyText: 'Are you sure you want to unblock this user?',
                         buttonText: 'Unblock',
                         popUpButtonText: 'Go Back',
+                        username: 'username',
+                        statusMessage: 'Something something space station',
+                        isLocalImage: true,
+                        imageAddress:
+                            'packages/ui_library/images/placeholders/user_avatar_7.png',
                         onTap: () {}));
               },
             ),

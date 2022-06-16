@@ -9,39 +9,65 @@ class UDialogUserProfile extends StatelessWidget {
       required this.bodyText,
       required this.buttonText,
       required this.popUpButtonText,
-      required this.onTap})
+      required this.onTap,
+      this.imageAddress,
+      this.isLocalImage,
+      required this.username,
+      this.statusMessage})
       : super(key: key);
   // final String title;
   final String bodyText;
   final String buttonText;
   final String popUpButtonText;
   final VoidCallback onTap;
+  final String? imageAddress;
+  final bool? isLocalImage;
+  final String username;
+  final String? statusMessage;
 
   @override
   Widget build(BuildContext context) {
     return UDialogStyle(
-      // title: UText(
-      //   title,
-      //   textStyle: UTextStyle.H2_secondaryHeader,
-      //   textColor: UColors.textMed,
-      // ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(height: 8),
+          UUserProfile(
+            userProfileSize: UUserProfileSize.large,
+            isLocalImage: isLocalImage,
+            imagePath: imageAddress,
+          ),
+          const SizedBox(height: 16),
+          UText(
+            username,
+            textStyle: UTextStyle.H2_secondaryHeader,
+            textColor: UColors.white,
+          ),
+          UText(
+            statusMessage ?? '',
+            textStyle: UTextStyle.B1_body,
+            textColor: UColors.textMed,
+          ),
+          const SizedBox(height: 16),
           UText(
             bodyText,
             textStyle: UTextStyle.B1_body,
             textColor: UColors.white,
           ),
           const SizedBox(height: 16),
-          UButton.filled1(
-            label: buttonText,
-            onPressed: onTap,
-          ),
-          UButton.filled2(
-            label: popUpButtonText,
-            onPressed: () => Navigator.of(context).pop(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              UButton.filled1(
+                label: buttonText,
+                onPressed: onTap,
+              ),
+              UButton.filled2(
+                label: popUpButtonText,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
           ),
         ],
       ),
