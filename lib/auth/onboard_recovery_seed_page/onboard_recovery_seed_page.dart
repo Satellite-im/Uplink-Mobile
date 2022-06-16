@@ -114,8 +114,17 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                           _isRecoverySeedWordsSaved = value;
                           Navigator.pop(context);
                           if (_isRecoverySeedWordsSaved) {
-                            await _savedScreenShotDialog(context)
-                                .showUDialog<UDialog>();
+                            await showDialog<void>(
+                              context: context,
+                              builder: (_) => const UDialogSingleButton(
+                                title:
+                                    UAppStrings.recoverySeedPage_uDialogTitle,
+                                bodyText: UAppStrings
+                                    .recoverySeedPage_uDialogDescription,
+                                buttonText:
+                                    UAppStrings.recoverySeedPage_uDialogOk,
+                              ),
+                            );
                           }
                         });
                       },
@@ -126,36 +135,6 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  UDialog _savedScreenShotDialog(BuildContext context) {
-    return UDialog(
-      context,
-      title: UAppStrings.recoverySeedPage_uDialogTitle,
-      actions: [],
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const UText(
-            UAppStrings.recoverySeedPage_uDialogDescription,
-            textStyle: UTextStyle.B1_body,
-          ),
-          const SizedBox.square(
-            dimension: 16,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: UButton.filled1(
-                  label: UAppStrings.recoverySeedPage_uDialogOk,
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
