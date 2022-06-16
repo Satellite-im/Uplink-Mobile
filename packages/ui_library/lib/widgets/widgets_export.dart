@@ -17,3 +17,4 @@ export 'u_status/u_status_export.dart';
 export 'u_networks_profiles/u_network_profiles_export.dart';
 export 'u_divider/u_divider_export.dart';
 export 'u_qr_code/u_qr_code_export.dart';
+export 'u_dialog/u_dialog_export.dart';
