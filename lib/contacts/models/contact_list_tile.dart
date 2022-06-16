@@ -6,6 +6,7 @@ class ContactListTile extends StatelessWidget {
     Key? key,
     required this.name,
     this.statusMessage,
+    this.imageAddress,
     required this.status,
     required this.onTap,
   }) : super(key: key);
@@ -13,6 +14,7 @@ class ContactListTile extends StatelessWidget {
   final String name;
   final String? statusMessage;
   final Status status;
+  final String? imageAddress;
   final VoidCallback onTap;
 
   @override
@@ -20,6 +22,9 @@ class ContactListTile extends StatelessWidget {
     return ListTile(
       tileColor: Colors.transparent,
       leading: UUserProfileWithStatus(
+        // TODO(yijing): update to online image in profuction app
+        isLocalImage: true,
+        imagePath: imageAddress,
         userProfileSize: UUserProfileSize.normal,
         status: status,
       ),
