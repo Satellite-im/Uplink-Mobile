@@ -1,8 +1,5 @@
-// ignore_for_file: lines_longer_than_80_chars, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
