@@ -23,7 +23,12 @@ class ContactsIndexPage extends StatelessWidget {
         ),
         actionList: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showCustomSearch(
+                context: context,
+                delegate: ContactSearch(loadingContacts()),
+              );
+            },
             icon: const UIcon(
               UIcons.search,
               color: UColors.textMed,
@@ -70,7 +75,7 @@ class ContactsIndexPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: _loadingContacts(),
+        future: loadingContacts(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final contactsList = snapshot.data! as List<MockContact>;
@@ -172,7 +177,7 @@ class _AZItem extends ISuspensionBean {
 }
 
 // TODO(yijing): update loading contacts
-Future<List<MockContact>> _loadingContacts() async {
+Future<List<MockContact>> loadingContacts() async {
   const hasFriends = true;
   if (hasFriends == true) {
     final jsonString = await rootBundle
