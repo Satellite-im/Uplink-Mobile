@@ -1,11 +1,7 @@
-// ignore_for_file: lines_longer_than_80_chars
-
-import 'dart:convert';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 
 class BlockedPage extends StatelessWidget {
@@ -16,7 +12,7 @@ class BlockedPage extends StatelessWidget {
     return Scaffold(
       appBar: UAppBar.back(title: 'Block'),
       body: FutureBuilder(
-        future: _loadingContacts(),
+        future: loadingContacts(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final contactsList = snapshot.data! as List<MockContact>;
@@ -148,19 +144,5 @@ class NoBlockedBody extends StatelessWidget {
         textColor: UColors.white,
       ),
     );
-  }
-}
-
-// TODO(yijing): update loading blocked users
-Future<List<MockContact>> _loadingContacts() async {
-  const hasFriends = true;
-  if (hasFriends == true) {
-    final jsonString = await rootBundle
-        .loadString('lib/contacts/models/mock_contact_list.json');
-    final list = await jsonDecode(jsonString) as List<dynamic>;
-
-    return list.map(MockContact.fromJson).toList();
-  } else {
-    return [];
   }
 }
