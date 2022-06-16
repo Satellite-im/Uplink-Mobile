@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 
 /// This class will handle with the device's permissions
 ///

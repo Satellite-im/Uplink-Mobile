@@ -207,7 +207,7 @@ class _TextField extends StatelessWidget {
             style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
               color: Colors.white,
             ),
-            textAlignVertical: TextAlignVertical.bottom,
+            textAlignVertical: TextAlignVertical.top,
             textInputAction: TextInputAction.done,
             cursorColor: UColors.textDark,
             autocorrect: false,
