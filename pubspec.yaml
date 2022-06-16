@@ -37,7 +37,7 @@ flutter:
   generate: true
 
   assets:
-    - 'lib/contacts/models/mock_contact_list.json'
+    - 'lib/contacts/models/data/mock_contact_list.json'
 
   fonts:
     - family: Poppins

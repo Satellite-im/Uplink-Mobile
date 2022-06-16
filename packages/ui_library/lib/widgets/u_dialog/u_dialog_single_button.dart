@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/widgets_export.dart';
 
 class UDialogSingleButton extends StatelessWidget {
   const UDialogSingleButton(

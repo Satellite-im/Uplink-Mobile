@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/blocked_page.dart';
+import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 
 class ContactsIndexPage extends StatelessWidget {
@@ -174,18 +173,4 @@ class _AZItem extends ISuspensionBean {
 
   @override
   String getSuspensionTag() => tag;
-}
-
-// TODO(yijing): update loading contacts
-Future<List<MockContact>> loadingContacts() async {
-  const hasFriends = true;
-  if (hasFriends == true) {
-    final jsonString = await rootBundle
-        .loadString('lib/contacts/models/mock_contact_list.json');
-    final list = await jsonDecode(jsonString) as List<dynamic>;
-
-    return list.map(MockContact.fromJson).toList();
-  } else {
-    return [];
-  }
 }
