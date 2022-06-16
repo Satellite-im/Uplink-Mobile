@@ -5,7 +5,6 @@ import 'package:ui_library/widgets/widgets_export.dart';
 class UDialogUserProfile extends StatelessWidget {
   const UDialogUserProfile(
       {Key? key,
-      // required this.title,
       required this.bodyText,
       required this.buttonText,
       required this.popUpButtonText,
@@ -15,7 +14,6 @@ class UDialogUserProfile extends StatelessWidget {
       required this.username,
       this.statusMessage})
       : super(key: key);
-  // final String title;
   final String bodyText;
   final String buttonText;
   final String popUpButtonText;
