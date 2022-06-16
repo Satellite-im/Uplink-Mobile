@@ -19,4 +19,9 @@ class ULibraryStrings {
       'We need permission to access your $permissionObject! '
       'You can grant permission now or change later in your phone Settings.';
   static const nextButton = 'Next';
+
+  /// Strings for UUserPIctureChange
+  static const uUserPictureChangeHeader = 'Upload yout avatar picture from';
+  static const uUserPictureChangeFirstButtonText = 'Take Photo';
+  static const uUserPictureChangeSecondButtonText = 'Camera Roll';
 }

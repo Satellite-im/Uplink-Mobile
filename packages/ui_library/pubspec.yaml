@@ -20,6 +20,7 @@ dependencies:
   screenshot: ^1.2.3
   permission_handler: ^9.2.0
   image_gallery_saver: ^1.7.1
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:

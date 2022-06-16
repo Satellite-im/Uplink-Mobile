@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
 
@@ -53,7 +55,7 @@ class UUserProfile extends StatelessWidget {
             height: _size.size,
             width: _size.size,
             child: _imagePath != null
-                ? Image.network(_imagePath!)
+                ? Image.file(File(_imagePath!))
                 : const UPlaceholder.userProfile(),
           ),
         ),

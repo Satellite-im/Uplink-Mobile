@@ -1,11 +1,14 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 part 'models/body.part.dart';
 part 'models/edit_profile_body.dart';
-part 'models/profile_data_body.part.dart';
 part 'models/network_profiles_body.part.dart';
+part 'models/profile_data_body.part.dart';
 
 class ProfileIndexPage extends StatefulWidget {
   const ProfileIndexPage({Key? key}) : super(key: key);
@@ -16,7 +19,6 @@ class ProfileIndexPage extends StatefulWidget {
 
 class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final _badgesQuantity = 5;
-  final _bottomNavBarHeight = 82;
   final _coverPicturePath =
       'packages/ui_library/images/placeholders/cover_photo_1.png';
   bool _isEditingProfile = false;
@@ -26,6 +28,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final statusMessageTextFieldController = TextEditingController();
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
+
+  String? userImagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,9 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           UIcons.qr_code,
                           color: UColors.white,
                         ),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          await _uQRCodeBottomSheet(context).show();
+                        },
                       ),
                       IconButton(
                         icon: const UIcon(
@@ -98,7 +104,9 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       ),
                       UUserPictureChange(
                         showChangeImageButton: _isEditingProfile,
-                        onPictureSelected: (value) {},
+                        onPictureSelected: (value) {
+                          userImagePath = value?.path;
+                        },
                       ),
                       AnimatedCrossFade(
                         duration: _duration,
@@ -131,6 +139,85 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  UBottomSheet _uQRCodeBottomSheet(BuildContext context) {
+    return UBottomSheet(
+      context,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(70, 30, 70, 37),
+        child: Column(
+          children: [
+            Center(
+              child: UUserProfile(
+                imagePath: userImagePath,
+              ),
+            ),
+            const SizedBox.square(
+              dimension: 12,
+            ),
+            const UText(
+              UAppStrings.profileIndexPage_username,
+              textStyle: UTextStyle.H2_secondaryHeader,
+            ),
+            const SizedBox.square(
+              dimension: 2,
+            ),
+            const UText(
+              UAppStrings.profileIndexPage_statusMessage,
+              textStyle: UTextStyle.B1_body,
+            ),
+            const SizedBox.square(
+              dimension: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const UIcon(
+                  UIcons.qr_code_scanner_border,
+                  color: UColors.textMed,
+                ),
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(math.pi),
+                  child: const UIcon(
+                    UIcons.qr_code_scanner_border,
+                    color: UColors.textMed,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox.square(
+              dimension: 172,
+              child: UQRCode(
+                qrCodeData: 'Username',
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationX(math.pi),
+                  child: const UIcon(
+                    UIcons.qr_code_scanner_border,
+                    color: UColors.textMed,
+                  ),
+                ),
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationZ(math.pi),
+                  child: const UIcon(
+                    UIcons.qr_code_scanner_border,
+                    color: UColors.textMed,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

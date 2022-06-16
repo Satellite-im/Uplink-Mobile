@@ -16,6 +16,7 @@ class UBottomSheet {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         isDismissible: true,
+        useRootNavigator: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(USizes.barAboveBottomSheetBorderRadius),
