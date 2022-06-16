@@ -55,7 +55,10 @@ class UUserProfile extends StatelessWidget {
             height: _size.size,
             width: _size.size,
             child: _imagePath != null
-                ? Image.file(File(_imagePath!))
+                ? Image.file(
+                    File(_imagePath!),
+                    fit: BoxFit.cover,
+                  )
                 : const UPlaceholder.userProfile(),
           ),
         ),

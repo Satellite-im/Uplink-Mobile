@@ -11,12 +11,16 @@ class UQRCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return QrImage(
-      data: qrCodeData,
-      padding: EdgeInsets.zero,
-      backgroundColor: Colors.white,
-      version: QrVersions.auto,
-      gapless: false,
+    return Container(
+      color: Colors.white,
+      margin: const EdgeInsets.all(2),
+      child: QrImage(
+        data: qrCodeData,
+        padding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        version: QrVersions.auto,
+        gapless: false,
+      ),
     );
   }
 }
