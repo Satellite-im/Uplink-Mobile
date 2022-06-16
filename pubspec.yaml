@@ -36,8 +36,10 @@ flutter:
   uses-material-design: true
   generate: true
 
+# delete mock data and user image when exporting production app
   assets:
     - 'lib/contacts/models/data/mock_contact_list.json'
+    - 'packages/ui_library/images/placeholders/'
 
   fonts:
     - family: Poppins

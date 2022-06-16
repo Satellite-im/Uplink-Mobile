@@ -158,6 +158,7 @@ class ContactsIndexPage extends StatelessWidget {
           name: item.contact.name,
           status: item.contact.status,
           statusMessage: item.contact.statusMessage,
+          imageAddress: item.contact.imageAddress,
           onTap: () {},
         ),
       ],

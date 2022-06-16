@@ -76,6 +76,7 @@ class ContactSearch extends SearchCustomDelegate<MockContact?> {
                   name: item.name,
                   statusMessage: item.statusMessage,
                   status: item.status,
+                  imageAddress: item.imageAddress,
                   onTap: () {
                     // TODO(yijing): update to user profile page
                     UBottomSheet(
