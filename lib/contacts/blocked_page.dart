@@ -6,10 +6,7 @@ import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/models/mock_contact.dart';
-import 'package:uplink/contacts/models/triangle.dart';
-
-import 'models/models_export.dart';
+import 'package:uplink/contacts/models/models_export.dart';
 
 class BlockedPage extends StatelessWidget {
   const BlockedPage({Key? key}) : super(key: key);
