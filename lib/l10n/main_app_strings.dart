@@ -159,6 +159,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const profileIndexPage_setStatus = 'Set Status';
   static const profileIndexPage_spotifyUsername = 'username12';
   static const profileIndexPage_twitchUsername = 'username_plays';
+  static const profileIndexPage_qrCodeData = 'QR CODE DATA';
 
   /// EditProfilePage
   static const editProfilePage_hintText = 'Text Input Field';
@@ -169,4 +170,11 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const editProfilePage_displayLocation = 'Display Location';
   static const editProfilePage_makeProfilePublic = 'Make Profile Public';
   static const editProfilePage_saveChangesButton = 'Save Changes';
+
+  /// QRCodePage
+  static const qrCodePage_appBarTitle = 'Scan QR Code';
+  static const qrCodePage_pageDescription =
+      'Sed ut perspiciatis unde omnis iste natus error sit '
+      'voluptatem accusantium doloremque laudantium.';
+  static const qrCodePage_buttonText = 'Allow Camera Scan';
 }
