@@ -29,7 +29,7 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
     if (_imageFile != null && _imageFile!.path.isNotEmpty) {
       _userPictureFile.value = _imageFile;
       widget.onPictureSelected(_userPictureFile.value);
-      Navigator.of(context).pop();
+      Navigator.of(context, rootNavigator: true).pop();
     }
   }
 
@@ -47,9 +47,11 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
           ? () {
               UBottomSheetTwoButtons(
                 context,
-                header: 'Upload yout avatar picture from',
-                firstButtonText: 'Take Photo',
-                secondButtonText: 'Camera Roll',
+                header: ULibraryStrings.uUserPictureChangeHeader,
+                firstButtonText:
+                    ULibraryStrings.uUserPictureChangeFirstButtonText,
+                secondButtonText:
+                    ULibraryStrings.uUserPictureChangeSecondButtonText,
                 firstButtonIcon: UIcons.camera,
                 secondButtonIcon: UIcons.image,
                 firstButtonOnPressed: () async {
