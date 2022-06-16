@@ -132,6 +132,7 @@ class UButton extends StatelessWidget {
             UText(
               _label,
               textStyle: UTextStyle.BUT1_primaryButton,
+              textColor: UColors.white,
             ),
           ],
         ),
