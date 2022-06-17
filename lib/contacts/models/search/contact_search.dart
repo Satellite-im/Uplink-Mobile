@@ -64,14 +64,15 @@ class ContactSearch extends SearchCustomDelegate<MockContact?> {
           } else {
             final suggestions = contactsList.where(
               (element) =>
-                  element.name.toLowerCase().contains(query.toLowerCase()),
+                  element.name.toLowerCase().startsWith(query.toLowerCase()),
             );
+            final sortedSuggestions = suggestions.toList()
+              ..sort((a, b) => a.name.compareTo(b.name));
 
             return ListView.builder(
-              itemCount: suggestions.length,
+              itemCount: sortedSuggestions.length,
               itemBuilder: (context, index) {
-                final suggestionList = suggestions.toList();
-                final item = suggestionList[index];
+                final item = sortedSuggestions[index];
                 return ContactListTile(
                   name: item.name,
                   statusMessage: item.statusMessage,
