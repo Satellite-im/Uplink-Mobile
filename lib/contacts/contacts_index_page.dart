@@ -89,9 +89,12 @@ class ContactsIndexPage extends StatelessWidget {
                     (item) =>
                         _AZItem(contact: item, tag: item.name[0].toUpperCase()),
                   )
-                  .toList();
-              //Besides the initial letter, sort the rest of letter
+                  .toList()
+                ..sort(((a, b) => a.contact.name.compareTo(b.contact.name)));
+
+              //Sort tags include @ and #
               SuspensionUtil.sortListBySuspensionTag(contactsAZList);
+
               //Let each item know if it needs to show tag name above them
               SuspensionUtil.setShowSuspensionStatus(contactsAZList);
 
