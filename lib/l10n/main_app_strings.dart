@@ -160,6 +160,10 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const profileIndexPage_spotifyUsername = 'username12';
   static const profileIndexPage_twitchUsername = 'username_plays';
   static const profileIndexPage_qrCodeData = 'QR CODE DATA';
+  static const profileIndexPage_bannerPhotoHeader =
+      'Update your banner picture from';
+  static const profileIndexPage_bannerPhotoFirstButtonText = 'Take Photo';
+  static const profileIndexPage_bannerPhotoSecondButtonText = 'Camera Roll';
 
   /// EditProfilePage
   static const editProfilePage_hintText = 'Text Input Field';
