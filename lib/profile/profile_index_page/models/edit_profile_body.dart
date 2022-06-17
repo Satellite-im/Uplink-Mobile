@@ -18,55 +18,57 @@ class _EditProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     const _hintText = UAppStrings.editProfilePage_hintText;
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        child: Column(
-          children: [
-            const SizedBox.square(
-              dimension: 56,
-            ),
-            _TextField(
-              textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
-              hintText: _hintText,
-              onChanged: (value) {},
-              controller: usernameTextFieldController,
-            ),
-            _TextField(
-              textFieldTitle: UAppStrings.editProfilePage_statusMessageTitle,
-              hintText: _hintText,
-              onChanged: (value) {},
-              controller: statusMessageTextFieldController,
-            ),
-            _TextField(
-              textFieldTitle: UAppStrings.editProfilePage_locationTitle,
-              hintText: _hintText,
-              onChanged: (value) {},
-              controller: locationTextFieldController,
-            ),
-            _TextField(
-              textFieldTitle: UAppStrings.editProfilePage_aboutTitle,
-              hintText: _hintText,
-              textFieldHeight: 78,
-              onChanged: (value) {},
-              controller: aboutTextFieldController,
-              textAlignVertical: TextAlignVertical.top,
-              maxLines: 3,
-            ),
-            const UDivider(),
-            _ProfileOptions(
-              text: UAppStrings.editProfilePage_displayLocation,
-              icon: UIcons.location,
-              onSwitch: (value) {},
-            ),
-            _ProfileOptions(
-              text: UAppStrings.editProfilePage_makeProfilePublic,
-              icon: UIcons.menu_bar_contacts,
-              onSwitch: (value) {},
-            ),
-            const SizedBox.square(
-              dimension: 24,
-            ),
-            SizedBox(
+      child: Column(
+        children: [
+          const SizedBox.square(
+            dimension: 56,
+          ),
+          _TextField(
+            textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
+            hintText: _hintText,
+            onChanged: (value) {},
+            controller: usernameTextFieldController,
+          ),
+          _TextField(
+            textFieldTitle: UAppStrings.editProfilePage_statusMessageTitle,
+            hintText: _hintText,
+            onChanged: (value) {},
+            controller: statusMessageTextFieldController,
+          ),
+          _TextField(
+            textFieldTitle: UAppStrings.editProfilePage_locationTitle,
+            hintText: _hintText,
+            onChanged: (value) {},
+            controller: locationTextFieldController,
+          ),
+          _TextField(
+            textFieldTitle: UAppStrings.editProfilePage_aboutTitle,
+            hintText: _hintText,
+            textFieldHeight: 78,
+            onChanged: (value) {},
+            controller: aboutTextFieldController,
+            textAlignVertical: TextAlignVertical.top,
+            maxLines: 3,
+          ),
+          const UDivider(),
+          _ProfileOptions(
+            text: UAppStrings.editProfilePage_displayLocation,
+            icon: UIcons.location,
+            onSwitch: (value) {},
+          ),
+          const UDivider(),
+          _ProfileOptions(
+            text: UAppStrings.editProfilePage_makeProfilePublic,
+            icon: UIcons.menu_bar_contacts,
+            onSwitch: (value) {},
+          ),
+          const UDivider(),
+          const SizedBox.square(
+            dimension: 24,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
               width: double.infinity,
               child: UButton.primary(
                 label: UAppStrings.editProfilePage_saveChangesButton,
@@ -74,11 +76,11 @@ class _EditProfileBody extends StatelessWidget {
                 onPressed: () {},
               ),
             ),
-            const SizedBox.square(
-              dimension: 20,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox.square(
+            dimension: 20,
+          ),
+        ],
       ),
     );
   }
@@ -98,29 +100,32 @@ class _ProfileOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox.square(
-          dimension: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            UIconText(
-              icon: icon,
-              text: text,
-            ),
-            USwitcher(
-              switchValue: true,
-              onSwitch: onSwitch,
-            ),
-          ],
-        ),
-        const SizedBox.square(
-          dimension: 20,
-        ),
-        const UDivider(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          const SizedBox.square(
+            dimension: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              UIconText(
+                icon: icon,
+                text: text,
+                color: UColors.textMed,
+              ),
+              USwitcher(
+                switchValue: true,
+                onSwitch: onSwitch,
+              ),
+            ],
+          ),
+          const SizedBox.square(
+            dimension: 20,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -148,7 +153,7 @@ class _TextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
