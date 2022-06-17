@@ -14,7 +14,7 @@ class UQRCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      margin: const EdgeInsets.all(4),
+      margin: const EdgeInsets.all(2),
       child: QrImage(
         data: qrCodeData,
         padding: EdgeInsets.zero,
