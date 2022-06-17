@@ -6,7 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_pages/src/bottom_sheet/bottom_sheet_export.dart';
 import 'package:ui_showroom/ui_pages/src/bottom_sheet/u_bottom_sheet_options.dart';
+import 'package:ui_showroom/ui_pages/src/qr_code/qr_code_page.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
+
+import 'ui_pages/src/core_widgets/u_divider_page.dart';
 
 class UIShowRoomApp extends StatelessWidget {
   const UIShowRoomApp({Key? key, required this.themeData}) : super(key: key);
@@ -43,6 +46,9 @@ class UIShowRoomApp extends StatelessWidget {
         UTertiaryButtonPage.routeName: (context) => const UTertiaryButtonPage(),
         UAppBarPage.routeName: (context) => const UAppBarPage(),
         ULoadingPage.routeName: (context) => const ULoadingPage(),
+        UDividerPage.routeName: (context) => const UDividerPage(),
+        UQRCodePage.routeName: (context) => const UQRCodePage(),
+        UStatusPage.routeName: (context) => const UStatusPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -92,6 +98,9 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: ULoadingPage.routeName,
                   ),
+                  WidgetPageButton(
+                    widgetName: UDividerPage.routeName,
+                  ),
                 ],
               ),
               const _WidgetsShowSession(
@@ -111,6 +120,9 @@ class UIShowRoomApp extends StatelessWidget {
               const _WidgetsShowSession(
                 sessionTitle: 'Basic Profile Widgets',
                 sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UStatusPage.routeName,
+                  ),
                   WidgetPageButton(
                     widgetName: UUserProfilePage.routeName,
                   ),
@@ -161,6 +173,14 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UChatbarPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'QR Code Widget',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UQRCodePage.routeName,
                   ),
                 ],
               ),
