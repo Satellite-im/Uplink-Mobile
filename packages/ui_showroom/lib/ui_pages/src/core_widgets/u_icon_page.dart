@@ -42,7 +42,6 @@ class UIconText extends StatelessWidget {
   }) : super(key: key);
 
   final UIconData icon;
-
   final String iconName;
 
   @override
@@ -67,6 +66,7 @@ class UIconText extends StatelessWidget {
 
 const _allIcons = <Widget>[
   UIconText(UIcons.about, 'about'),
+  UIconText(UIcons.account_id, 'account_id'),
   UIconText(UIcons.add_button, 'add_button'),
   UIconText(UIcons.add_contact_member, 'add_contact_member'),
   UIconText(UIcons.add_folder, 'add_folder'),
@@ -75,14 +75,15 @@ const _allIcons = <Widget>[
   UIconText(UIcons.audio_off, 'audio_off'),
   UIconText(UIcons.audio_on, 'audio_on'),
   UIconText(UIcons.back_arrow_button, 'back_arrow_button'),
+  UIconText(UIcons.blocked_contacts, 'blocked_contacts'),
   UIconText(UIcons.call, 'call'),
   UIconText(UIcons.camera, 'camera'),
   UIconText(UIcons.chatbar_emojis, 'chatbar_emojis'),
   UIconText(UIcons.chatbar_gifs, 'chatbar_gifs'),
   UIconText(UIcons.chatbar_send_button, 'chatbar_send_button'),
   UIconText(UIcons.chatbar_stickers, 'chatbar_stickers'),
-  UIconText(UIcons.checkmark_rounded, 'checkmark_rounded'),
   UIconText(UIcons.checkmark, 'checkmark'),
+  UIconText(UIcons.checkmark_rounded, 'checkmark_rounded'),
   UIconText(UIcons.close_button, 'close_button'),
   UIconText(UIcons.compose_message_button, 'compose_message_button'),
   UIconText(UIcons.copy_clone_button, 'copy_clone_button'),
@@ -97,6 +98,7 @@ const _allIcons = <Widget>[
   UIconText(UIcons.file, 'file'),
   UIconText(UIcons.forward_arrow_button, 'forward_arrow_button'),
   UIconText(UIcons.friend_added, 'friend_added'),
+  UIconText(UIcons.friend_requests, 'friend_requests'),
   UIconText(UIcons.general, 'general'),
   UIconText(UIcons.go_back, 'go_back'),
   UIconText(UIcons.grid_view, 'grid_view'),
@@ -117,13 +119,15 @@ const _allIcons = <Widget>[
   UIconText(UIcons.mobile_phone, 'mobile_phone'),
   UIconText(UIcons.multiple_accounts, 'multiple_accounts'),
   UIconText(UIcons.mute, 'mute'),
+  UIconText(UIcons.outgoing_requests, 'outgoing_requests'),
   UIconText(UIcons.pin_entry_backspace_button, 'pin_entry_backspace_button'),
   UIconText(UIcons.pinned_message_button, 'pinned_message_button'),
   UIconText(UIcons.qr_code, 'qr_code'),
   UIconText(UIcons.qr_code_scanner_border, 'qr_code_scanner_border'),
   UIconText(UIcons.refresh_try_again, 'refresh_try_again'),
-  UIconText(UIcons.remove_friend, 'remove_friend'),
   UIconText(UIcons.remove, 'remove'),
+  UIconText(UIcons.remove_friend, 'remove_friend'),
+  UIconText(UIcons.report, 'report'),
   UIconText(UIcons.reveal, 'reveal'),
   UIconText(UIcons.right_arrow_inline_button, 'right_arrow_inline_button'),
   UIconText(UIcons.save_button, 'save_button'),
@@ -134,7 +138,9 @@ const _allIcons = <Widget>[
   UIconText(UIcons.swap_camera, 'swap_camera'),
   UIconText(UIcons.tablet, 'tablet'),
   UIconText(UIcons.tap_select_box, 'tap_select_box'),
+  UIconText(UIcons.unblock, 'unblock'),
   UIconText(UIcons.unencrypted, 'unencrypted'),
   UIconText(UIcons.unmute, 'unmute'),
+  UIconText(UIcons.user_profile, 'user_profile'),
   UIconText(UIcons.video_call_button, 'video_call_button'),
 ];
