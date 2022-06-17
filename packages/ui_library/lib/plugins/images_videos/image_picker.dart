@@ -7,6 +7,9 @@ import 'package:ui_library/plugins/permissions/request_permissions.dart';
 
 import 'image_cropper.dart';
 
+/// Define the format of the crop
+enum UCropStyle { circle, rectangle }
+
 /// This class pick a image from camera or gallery
 ///
 /// It already handles with device's permissions
@@ -17,7 +20,10 @@ class UImagePicker {
   final _picker = ImagePicker();
   final _uImageCropper = UImageCropper();
 
-  Future<File?> pickImageFromGallery(BuildContext context) async {
+  Future<File?> pickImageFromGallery(
+    BuildContext context, {
+    UCropStyle uCropStyle = UCropStyle.circle,
+  }) async {
     XFile? pickedFile;
     File? _imageCroppedFile;
     final _galleryPermissionStatus = await URequestPermissions(
@@ -30,13 +36,19 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      _imageCroppedFile = await _uImageCropper.cropImage(File(pickedFile.path));
+      _imageCroppedFile = await _uImageCropper.cropImage(
+        File(pickedFile.path),
+        uCropStyle: uCropStyle,
+      );
     }
 
     return _imageCroppedFile;
   }
 
-  Future<File?> pickImageFromCamera(BuildContext context) async {
+  Future<File?> pickImageFromCamera(
+    BuildContext context, {
+    UCropStyle uCropStyle = UCropStyle.circle,
+  }) async {
     XFile? pickedFile;
     File? _imageCroppedFile;
 
@@ -52,7 +64,10 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      _imageCroppedFile = await _uImageCropper.cropImage(File(pickedFile.path));
+      _imageCroppedFile = await _uImageCropper.cropImage(
+        File(pickedFile.path),
+        uCropStyle: uCropStyle,
+      );
     }
 
     return _imageCroppedFile;

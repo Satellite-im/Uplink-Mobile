@@ -3,16 +3,23 @@ import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:ui_library/core/const/const_export.dart';
 
+import 'image_picker.dart';
+
 /// A plugin to crop the image
 ///
 /// It works with different options for IOS and Android
 class UImageCropper {
-  Future<File?> cropImage(File imageFile) async {
+  Future<File?> cropImage(
+    File imageFile, {
+    UCropStyle uCropStyle = UCropStyle.circle,
+  }) async {
     File? _imageCroppedFile;
 
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
-      cropStyle: CropStyle.circle,
+      cropStyle: uCropStyle == UCropStyle.circle
+          ? CropStyle.circle
+          : CropStyle.rectangle,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ],
