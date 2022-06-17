@@ -21,7 +21,7 @@ class ULibraryStrings {
   static const nextButton = 'Next';
 
   /// Strings for UUserPIctureChange
-  static const uUserPictureChangeHeader = 'Upload yout avatar picture from';
+  static const uUserPictureChangeHeader = 'Upload your avatar picture from';
   static const uUserPictureChangeFirstButtonText = 'Take Photo';
   static const uUserPictureChangeSecondButtonText = 'Camera Roll';
 }

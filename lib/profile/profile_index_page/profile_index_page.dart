@@ -94,11 +94,12 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                         onPressed: () {
                           UBottomSheetTwoButtons(
                             context,
-                            header: ULibraryStrings.uUserPictureChangeHeader,
-                            firstButtonText: ULibraryStrings
-                                .uUserPictureChangeFirstButtonText,
-                            secondButtonText: ULibraryStrings
-                                .uUserPictureChangeSecondButtonText,
+                            header:
+                                UAppStrings.profileIndexPage_bannerPhotoHeader,
+                            firstButtonText: UAppStrings
+                                .profileIndexPage_bannerPhotoFirstButtonText,
+                            secondButtonText: UAppStrings
+                                .profileIndexPage_bannerPhotoSecondButtonText,
                             firstButtonIcon: UIcons.camera,
                             secondButtonIcon: UIcons.image,
                             firstButtonOnPressed: () async {
