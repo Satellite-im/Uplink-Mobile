@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class UQRCode extends StatelessWidget {
+  /// Generate a QR code
   const UQRCode({
     Key? key,
     required this.qrCodeData,
@@ -13,7 +14,7 @@ class UQRCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      margin: const EdgeInsets.all(2),
+      margin: const EdgeInsets.all(4),
       child: QrImage(
         data: qrCodeData,
         padding: EdgeInsets.zero,
