@@ -7,12 +7,14 @@ class UIconText extends StatelessWidget {
     Key? key,
     required String text,
     required UIconData icon,
+    this.color,
   })  : _text = text,
         _icon = icon,
         super(key: key);
 
   final String _text;
   final UIconData _icon;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class UIconText extends StatelessWidget {
       children: [
         UIcon(
           _icon,
+          color: color,
         ),
         const SizedBox.square(
           dimension: 8,
@@ -27,7 +30,7 @@ class UIconText extends StatelessWidget {
         UText(
           _text,
           textStyle: UTextStyle.B1_body,
-          textColor: UColors.white,
+          textColor: color,
         )
       ],
     );

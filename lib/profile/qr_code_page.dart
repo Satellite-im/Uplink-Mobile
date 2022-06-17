@@ -22,63 +22,64 @@ class _QRCodePageState extends State<QRCodePage> {
         title: UAppStrings.qrCodePage_appBarTitle,
       ),
       body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            const SizedBox.square(dimension: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: UText(
-                UAppStrings.qrCodePage_pageDescription,
-                textStyle: UTextStyle.B1_body,
-              ),
-            ),
-            const SizedBox.square(dimension: 32),
-            Center(
-              child: UUserProfile(
-                imagePath: widget.userImagePath,
-              ),
-            ),
-            const SizedBox.square(
-              dimension: 16,
-            ),
-            const Center(
-              child: UText(
-                UAppStrings.profileIndexPage_username,
-                textStyle: UTextStyle.H2_secondaryHeader,
-              ),
-            ),
-            const SizedBox.square(
-              dimension: 2,
-            ),
-            const Center(
-              child: UText(
-                UAppStrings.profileIndexPage_statusMessage,
-                textStyle: UTextStyle.B1_body,
-              ),
-            ),
-            const SizedBox.square(
-              dimension: 32,
-            ),
-            const _QRCode(),
-            const SizedBox.square(
-              dimension: 56,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
-                width: double.infinity,
-                child: UButton.primary(
-                  label: UAppStrings.qrCodePage_buttonText,
-                  uIconData: UIcons.camera,
-                  onPressed: () {},
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox.square(dimension: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: UText(
+                  UAppStrings.qrCodePage_pageDescription,
+                  textStyle: UTextStyle.B1_body,
                 ),
               ),
-            ),
-            const SizedBox.square(
-              dimension: 20,
-            ),
-          ],
+              const SizedBox.square(dimension: 32),
+              Center(
+                child: UUserProfile(
+                  imagePath: widget.userImagePath,
+                ),
+              ),
+              const SizedBox.square(
+                dimension: 16,
+              ),
+              const Center(
+                child: UText(
+                  UAppStrings.profileIndexPage_username,
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                ),
+              ),
+              const SizedBox.square(
+                dimension: 2,
+              ),
+              const Center(
+                child: UText(
+                  UAppStrings.profileIndexPage_statusMessage,
+                  textStyle: UTextStyle.B1_body,
+                ),
+              ),
+              const SizedBox.square(
+                dimension: 32,
+              ),
+              const _QRCode(),
+              const SizedBox.square(
+                dimension: 56,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: UButton.primary(
+                    label: UAppStrings.qrCodePage_buttonText,
+                    uIconData: UIcons.camera,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+              const SizedBox.square(
+                dimension: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );

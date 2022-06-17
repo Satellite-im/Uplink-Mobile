@@ -154,6 +154,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           if (details.delta.dy < 0) {
             Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute<Widget>(
+                fullscreenDialog: true,
                 builder: (context) => QRCodePage(
                   userImagePath: userImagePath,
                 ),
@@ -166,6 +167,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
         onDoubleTap: () async {
           await Navigator.of(context, rootNavigator: true).push(
             MaterialPageRoute<Widget>(
+              fullscreenDialog: true,
               builder: (context) => QRCodePage(
                 userImagePath: userImagePath,
               ),

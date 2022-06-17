@@ -65,7 +65,10 @@ class _ProfileIndexBody extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16),
             child: Row(
               children: const [
-                UIcon(UIcons.about),
+                UIcon(
+                  UIcons.about,
+                  color: UColors.textMed,
+                ),
                 SizedBox.square(
                   dimension: 8,
                 ),
