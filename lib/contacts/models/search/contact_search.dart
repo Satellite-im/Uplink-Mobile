@@ -32,7 +32,10 @@ class ContactSearch extends SearchCustomDelegate<MockContact?> {
       onPressed: () {
         close(context, null);
       },
-      icon: const UIcon(UIcons.back_arrow_button),
+      icon: const UIcon(
+        UIcons.back_arrow_button,
+        color: UColors.textMed,
+      ),
     );
   }
 
