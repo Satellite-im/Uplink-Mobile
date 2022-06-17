@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -31,6 +32,14 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final aboutTextFieldController = TextEditingController();
 
   String? userImagePath;
+
+  File? _imageFile;
+
+  void _verifyIfHasImage() {
+    if (_imageFile != null && _imageFile!.path.isNotEmpty) {
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +91,51 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           UIcons.compose_message_button,
                           color: UColors.white,
                         ),
-                        onPressed: () async {},
+                        onPressed: () {
+                          UBottomSheetTwoButtons(
+                            context,
+                            header: ULibraryStrings.uUserPictureChangeHeader,
+                            firstButtonText: ULibraryStrings
+                                .uUserPictureChangeFirstButtonText,
+                            secondButtonText: ULibraryStrings
+                                .uUserPictureChangeSecondButtonText,
+                            firstButtonIcon: UIcons.camera,
+                            secondButtonIcon: UIcons.image,
+                            firstButtonOnPressed: () async {
+                              _imageFile = await UImagePicker(
+                                shouldShowPermissionDialog: true,
+                              ).pickImageFromCamera(
+                                context,
+                                uCropStyle: UCropStyle.rectangle,
+                              );
+                              _verifyIfHasImage();
+                              setState(() {});
+                            },
+                            secondButtonOnPressed: () async {
+                              _imageFile =
+                                  await UImagePicker().pickImageFromGallery(
+                                context,
+                                uCropStyle: UCropStyle.rectangle,
+                              );
+                              _verifyIfHasImage();
+                              setState(() {});
+                            },
+                          ).show();
+                        },
                       ),
                   ],
                   flexibleSpace: SizedBox(
                     height: 164,
                     width: double.infinity,
-                    child: Image(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        _coverPicturePath,
-                      ),
-                    ),
+                    child: _imageFile != null
+                        ? Image.file(
+                            _imageFile!,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            _coverPicturePath,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 Align(
