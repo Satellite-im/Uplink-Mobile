@@ -108,6 +108,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                               ).pickImageFromCamera(
                                 context,
                                 uCropStyle: UCropStyle.rectangle,
+                                uCropAspectRatio: UCropAspectRatio(
+                                  ratioX: _size.width,
+                                  ratioY: 164,
+                                ),
                               );
                               _verifyIfHasImage();
                               setState(() {});
@@ -117,6 +121,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   await UImagePicker().pickImageFromGallery(
                                 context,
                                 uCropStyle: UCropStyle.rectangle,
+                                uCropAspectRatio: UCropAspectRatio(
+                                  ratioX: _size.width,
+                                  ratioY: 164,
+                                ),
                               );
                               _verifyIfHasImage();
                               setState(() {});
