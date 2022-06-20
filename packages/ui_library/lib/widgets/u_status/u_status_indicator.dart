@@ -17,7 +17,7 @@ extension StatusColors on Status {
       case Status.idle:
         return UColors.idleYellow;
       case Status.offline:
-        return UColors.termRed;
+        return UColors.defGrey;
     }
   }
 }
