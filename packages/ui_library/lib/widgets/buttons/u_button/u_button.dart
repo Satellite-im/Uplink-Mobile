@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
@@ -7,6 +9,7 @@ class UButton extends StatelessWidget {
   final _ButtonType _buttonType;
   final String _label;
   final UIconData? _uIconData;
+  final Color? _color;
   final VoidCallback _onPressed;
   final bool _disabled;
 
@@ -26,12 +29,14 @@ class UButton extends StatelessWidget {
     required String label,
     required UIconData uIconData,
     required VoidCallback onPressed,
+    Color? color,
     bool disabled = false,
   })  : _buttonType = _ButtonType.primary,
         _label = label,
         _disabled = disabled,
         _uIconData = uIconData,
         _onPressed = onPressed,
+        _color = color,
         super(key: key);
 
   ///[ElevatedButton] with Text and Icon:
@@ -50,12 +55,14 @@ class UButton extends StatelessWidget {
     required String label,
     required UIconData uIconData,
     required VoidCallback onPressed,
+    Color? color,
     bool disabled = false,
   })  : _buttonType = _ButtonType.secondary,
         _label = label,
         _disabled = disabled,
         _uIconData = uIconData,
         _onPressed = onPressed,
+        _color = color,
         super(key: key);
 
   ///[ElevatedButton] with Text only:
@@ -72,11 +79,13 @@ class UButton extends StatelessWidget {
     Key? key,
     required String label,
     required VoidCallback onPressed,
+    Color? color,
     bool disabled = false,
   })  : _buttonType = _ButtonType.filled1,
         _label = label,
         _disabled = disabled,
         _uIconData = null,
+        _color = color,
         _onPressed = onPressed,
         super(key: key);
 
@@ -94,11 +103,13 @@ class UButton extends StatelessWidget {
     Key? key,
     required String label,
     required VoidCallback onPressed,
+    Color? color,
     bool disabled = false,
   })  : _buttonType = _ButtonType.filled2,
         _label = label,
         _disabled = disabled,
         _uIconData = null,
+        _color = color,
         _onPressed = onPressed,
         super(key: key);
 
@@ -110,10 +121,12 @@ class UButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             minimumSize: const Size(50, 40),
-            primary: (_buttonType == _ButtonType.primary) ||
-                    (_buttonType == _ButtonType.filled1)
-                ? UColors.ctaBlue
-                : UColors.ctaDark,
+            primary: _color != null
+                ? _color
+                : (_buttonType == _ButtonType.primary) ||
+                        (_buttonType == _ButtonType.filled1)
+                    ? UColors.ctaBlue
+                    : UColors.ctaDark,
             padding: (_buttonType == _ButtonType.primary) ||
                     (_buttonType == _ButtonType.secondary)
                 ? const EdgeInsets.fromLTRB(16, 8, 24, 8)
