@@ -53,6 +53,7 @@ class UUserProfileUnreads extends StatelessWidget {
     final _uClipper = UClipper();
     final _unreadMessagesIndicator = UnreadMessagesIndicator(
       unreadMessages: _unreadMessages,
+      type: UnreadMessagesIndicatorType.profile,
     );
     final _correctPositionNotification =
         _uUserProfileSize.size - (USizes.unreadMessagesIndicatorSize);
