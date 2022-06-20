@@ -62,6 +62,10 @@ class USizes {
   static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
       42.0;
 
+  // Width sizes for [Avatar Cards]
+  static const double messageOnUnreadMessagesUserProfileCardWidthSize = 248;
+  static const double messageOnUserProfileCardWidthSize = 270;
+
   // Sizes for [UPin]
   // Button size(width and height) for pinButton
   static const double pinButtonSize = 50.0;

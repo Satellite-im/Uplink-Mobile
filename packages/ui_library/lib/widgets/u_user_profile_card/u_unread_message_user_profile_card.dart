@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/global/message/u_message.dart';
 import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 import 'package:ui_library/widgets/global/username/username.dart';
 
