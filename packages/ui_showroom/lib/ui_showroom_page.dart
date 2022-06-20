@@ -6,10 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_pages/src/bottom_sheet/bottom_sheet_export.dart';
 import 'package:ui_showroom/ui_pages/src/bottom_sheet/u_bottom_sheet_options.dart';
-import 'package:ui_showroom/ui_pages/src/qr_code/qr_code_page.dart';
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
-
-import 'ui_pages/src/core_widgets/u_divider_page.dart';
 
 class UIShowRoomApp extends StatelessWidget {
   const UIShowRoomApp({Key? key, required this.themeData}) : super(key: key);
