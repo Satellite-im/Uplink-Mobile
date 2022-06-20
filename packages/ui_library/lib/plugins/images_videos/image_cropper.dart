@@ -12,6 +12,7 @@ class UImageCropper {
   Future<File?> cropImage(
     File imageFile, {
     UCropStyle uCropStyle = UCropStyle.circle,
+    UCropAspectRatio? uCropAspectRatio,
   }) async {
     File? _imageCroppedFile;
 
@@ -20,6 +21,10 @@ class UImageCropper {
       cropStyle: uCropStyle == UCropStyle.circle
           ? CropStyle.circle
           : CropStyle.rectangle,
+      aspectRatio: uCropAspectRatio != null
+          ? CropAspectRatio(
+              ratioX: uCropAspectRatio.ratioX, ratioY: uCropAspectRatio.ratioY)
+          : null,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ],
@@ -38,6 +43,7 @@ class UImageCropper {
           hideBottomControls: false,
         ),
         IOSUiSettings(
+          minimumAspectRatio: 0.5,
           title: ULibraryStrings.uImageCropperTitle,
           resetButtonHidden: true,
           aspectRatioPickerButtonHidden: true,

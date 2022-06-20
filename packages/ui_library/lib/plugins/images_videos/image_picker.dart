@@ -23,6 +23,7 @@ class UImagePicker {
   Future<File?> pickImageFromGallery(
     BuildContext context, {
     UCropStyle uCropStyle = UCropStyle.circle,
+    UCropAspectRatio? uCropAspectRatio,
   }) async {
     XFile? pickedFile;
     File? _imageCroppedFile;
@@ -39,6 +40,7 @@ class UImagePicker {
       _imageCroppedFile = await _uImageCropper.cropImage(
         File(pickedFile.path),
         uCropStyle: uCropStyle,
+        uCropAspectRatio: uCropAspectRatio,
       );
     }
 
@@ -48,6 +50,7 @@ class UImagePicker {
   Future<File?> pickImageFromCamera(
     BuildContext context, {
     UCropStyle uCropStyle = UCropStyle.circle,
+    UCropAspectRatio? uCropAspectRatio,
   }) async {
     XFile? pickedFile;
     File? _imageCroppedFile;
@@ -67,9 +70,20 @@ class UImagePicker {
       _imageCroppedFile = await _uImageCropper.cropImage(
         File(pickedFile.path),
         uCropStyle: uCropStyle,
+        uCropAspectRatio: uCropAspectRatio,
       );
     }
 
     return _imageCroppedFile;
   }
+}
+
+class UCropAspectRatio {
+  UCropAspectRatio({
+    required this.ratioX,
+    required this.ratioY,
+  });
+
+  final double ratioX;
+  final double ratioY;
 }
