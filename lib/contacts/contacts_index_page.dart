@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
@@ -46,8 +48,11 @@ class ContactsIndexPage extends StatelessWidget {
                 context,
                 sheetTitle: 'More Options',
                 titleList: ['Friend Requests', 'Outgoing Requests', 'Blocked'],
-                // TODO(yijing): update UIcons
-                iconList: [UIcons.friend_added, UIcons.about, UIcons.about],
+                iconList: [
+                  UIcons.friend_requests,
+                  UIcons.outgoing_requests,
+                  UIcons.blocked_contacts
+                ],
                 onTapList: [
                   () {
                     Navigator.of(context, rootNavigator: true).pop();
@@ -154,7 +159,10 @@ class ContactsIndexPage extends StatelessWidget {
                 ),
               );
             }
+          } else if (snapshot.hasError) {
+            log(snapshot.error.toString());
           }
+
           return const Center(child: ULoadingIndicator());
         },
       ),
