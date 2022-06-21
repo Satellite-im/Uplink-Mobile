@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/helpers/loading_friend_requests.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class FriendRequestPage extends StatelessWidget {
   const FriendRequestPage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class FriendRequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Friend Requests'),
+      appBar: UAppBar.back(title: UAppStrings.friendRequestPage_appBarTitle),
       body: FutureBuilder<List<MockContact>>(
         future: loadingFriendRequests(),
         builder: (context, snapshot) {
@@ -17,7 +18,7 @@ class FriendRequestPage extends StatelessWidget {
             final friendRequestsList = snapshot.data!;
             if (friendRequestsList.isEmpty) {
               return const EmptyBody(
-                text: 'No one is here, you have 0 friend request!',
+                text: UAppStrings.friendRequestPage_emptyBody,
               );
             } else {
               return Column(
@@ -26,7 +27,8 @@ class FriendRequestPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     child: UText(
-                      'Received - ${friendRequestsList.length}',
+                      UAppStrings.friendRequestPage_received +
+                          friendRequestsList.length.toString(),
                       textStyle: UTextStyle.H5_fifthHeader,
                       textAlign: TextAlign.left,
                     ),

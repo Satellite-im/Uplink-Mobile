@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/helpers/loading_outgoing_requests.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class OutgoingRequestPage extends StatelessWidget {
   const OutgoingRequestPage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class OutgoingRequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Outgoing Requests'),
+      appBar: UAppBar.back(title: UAppStrings.outgoingRequestPage_appBarTitle),
       body: FutureBuilder<List<MockContact>>(
         future: loadingOutgoingRequests(),
         builder: (context, snapshot) {
@@ -18,7 +19,7 @@ class OutgoingRequestPage extends StatelessWidget {
 
             if (friendRequestsList.isEmpty) {
               return const EmptyBody(
-                text: 'No one is here, you have 0 outgoing request!',
+                text: UAppStrings.outgoingRequestPage_emptyBody,
               );
             } else {
               return Column(
@@ -27,7 +28,8 @@ class OutgoingRequestPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     child: UText(
-                      'Sent - ${friendRequestsList.length}',
+                      UAppStrings.outgoingRequestPage_sent +
+                          friendRequestsList.length.toString(),
                       textStyle: UTextStyle.H5_fifthHeader,
                       textAlign: TextAlign.left,
                     ),
