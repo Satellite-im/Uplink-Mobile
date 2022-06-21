@@ -6,6 +6,7 @@ class UAppStrings {
   static const cancelButton = 'Cancel';
   static const agreeButton = 'Agree';
   static const goBackButton = 'Go back';
+  static const moreOptions = 'More Options';
 
   /// Strings for OnboardPinPage
   static const pinPage_pageTitle = 'Create Account Pin';
@@ -134,6 +135,26 @@ Would you like to give Satellite.im access to your camera roll?''';
 
   /// ContactsIndexPage
   static const contactsIndexPage_appBarTitle = 'Contacts';
+  static const contactsIndexPage_friendRequests = 'Friend Requests';
+  static const contactsIndexPage_outgoingRequests = 'Outgoing Requests';
+  static const contactsIndexPage_blocked = 'Blocked';
+
+  ///FriendRequestPage
+  static const friendRequestPage_appBarTitle = 'Friend Requests';
+  static const friendRequestPage_emptyBody =
+      'No one is here, you have 0 friend request!';
+  static const friendRequestPage_received = 'Received - ';
+
+  ///OutgoingRequestPage
+  static const outgoingRequestPage_appBarTitle = 'Outgoing Requests';
+  static const outgoingRequestPage_emptyBody =
+      'No one is here, you have 0 outgoing request!';
+  static const outgoingRequestPage_sent = 'Sent - ';
+
+  ///BlockedPage
+  static const blockedPage_appBarTitle = 'Block';
+  static const blockedPage_emptyBody =
+      'No one is here, you have 0 blocked contacts!';
 
   /// FilesIndexPage
   static const filesIndexPage_appBarTitle = 'Files';

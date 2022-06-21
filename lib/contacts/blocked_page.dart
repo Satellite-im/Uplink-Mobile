@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class BlockedPage extends StatelessWidget {
   const BlockedPage({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class BlockedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Block'),
+      appBar: UAppBar.back(title: UAppStrings.blockedPage_appBarTitle),
       body: FutureBuilder(
         future: loadingContacts(),
         builder: (context, snapshot) {
@@ -19,7 +20,7 @@ class BlockedPage extends StatelessWidget {
 
             if (contactsList.isEmpty) {
               return const EmptyBody(
-                text: 'No one is here, you have 0 blocked contacts!',
+                text: UAppStrings.blockedPage_emptyBody,
               );
             } else {
               //Turn [MockContact] into AZItem(ISuspensionBean)
@@ -130,22 +131,4 @@ class _AZItem extends ISuspensionBean {
 
   @override
   String getSuspensionTag() => tag;
-}
-
-class NoBlockedBody extends StatelessWidget {
-  const NoBlockedBody({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: UText(
-        'No one is here, you have 0 blocked contacts!',
-        textStyle: UTextStyle.B1_body,
-        textColor: UColors.white,
-      ),
-    );
-  }
 }

@@ -6,6 +6,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class ContactsIndexPage extends StatelessWidget {
   const ContactsIndexPage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class ContactsIndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.actions(
-        title: 'Contacts',
+        title: UAppStrings.contactsIndexPage_appBarTitle,
         leading: IconButton(
           icon: const UIcon(
             UIcons.lefthand_navigation_drawer,
@@ -46,8 +47,12 @@ class ContactsIndexPage extends StatelessWidget {
             onPressed: () {
               UBottomSheetOptions(
                 context,
-                sheetTitle: 'More Options',
-                titleList: ['Friend Requests', 'Outgoing Requests', 'Blocked'],
+                sheetTitle: UAppStrings.moreOptions,
+                titleList: [
+                  UAppStrings.contactsIndexPage_friendRequests,
+                  UAppStrings.contactsIndexPage_outgoingRequests,
+                  UAppStrings.contactsIndexPage_blocked
+                ],
                 iconList: [
                   UIcons.friend_requests,
                   UIcons.outgoing_requests,
