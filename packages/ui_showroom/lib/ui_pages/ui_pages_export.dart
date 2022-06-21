@@ -4,3 +4,4 @@ export 'src/chat_widgets/chat_widgets_export.dart';
 export 'src/core_widgets/core_widgets_export.dart';
 export 'src/onboarding_widgets/onboarding_widgets_export.dart';
 export 'src/qr_code/qr_code_export.dart';
+export 'src/u_user_profile_cards/u_user_profile_cards_export.dart';

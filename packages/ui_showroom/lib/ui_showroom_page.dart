@@ -46,6 +46,8 @@ class UIShowRoomApp extends StatelessWidget {
         UDividerPage.routeName: (context) => const UDividerPage(),
         UQRCodePage.routeName: (context) => const UQRCodePage(),
         UStatusPage.routeName: (context) => const UStatusPage(),
+        UUserProfileCardsPage.routeName: (context) =>
+            const UUserProfileCardsPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -125,6 +127,14 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UAvatarProfilePage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Card Profile Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UUserProfileCardsPage.routeName,
                   ),
                 ],
               ),
