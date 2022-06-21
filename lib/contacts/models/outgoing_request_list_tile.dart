@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class OutgoingRequestListTile extends StatelessWidget {
   const OutgoingRequestListTile({
@@ -45,12 +46,12 @@ class OutgoingRequestListTile extends StatelessWidget {
         onPressed: () {
           UBottomSheetTwoButtons(
             context,
-            header: 'Are you sure you want to unsend this friend request?',
-            firstButtonText: 'Cancel',
+            header: UAppStrings.outgoingRequestListTile_bottomSheetHeader,
+            firstButtonText: UAppStrings.cancelButton,
             firstButtonOnPressed: () {
               Navigator.of(context, rootNavigator: true).pop();
             },
-            secondButtonText: 'Remove',
+            secondButtonText: UAppStrings.remove,
             secondButtonColor: UColors.termRed,
             secondButtonOnPressed: () {
               Navigator.of(context, rootNavigator: true).pop();
@@ -58,10 +59,10 @@ class OutgoingRequestListTile extends StatelessWidget {
               showDialog<void>(
                 context: context,
                 builder: (dialogContext) => UDialogSingleButtonCustomBody(
-                  title: 'Friend Request Removed',
+                  title: UAppStrings.outgoingRequestListTile_dialogTitle,
                   body: RichText(
                     text: TextSpan(
-                      text: 'Your request to ',
+                      text: UAppStrings.outgoingRequestListTile_text1,
                       style: UTextStyle.B1_body.style.returnTextStyleType(),
                       children: <TextSpan>[
                         TextSpan(
@@ -69,7 +70,9 @@ class OutgoingRequestListTile extends StatelessWidget {
                           style: UTextStyle.H4_fourthHeader.style
                               .returnTextStyleType(),
                         ),
-                        const TextSpan(text: ' was removed.'),
+                        const TextSpan(
+                          text: UAppStrings.outgoingRequestListTile_text2,
+                        ),
                       ],
                     ),
                   ),
