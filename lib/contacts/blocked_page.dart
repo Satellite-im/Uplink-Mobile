@@ -18,7 +18,9 @@ class BlockedPage extends StatelessWidget {
             final contactsList = snapshot.data! as List<MockContact>;
 
             if (contactsList.isEmpty) {
-              return const NoBlockedBody();
+              return const EmptyBody(
+                text: 'No one is here, you have 0 blocked contacts!',
+              );
             } else {
               //Turn [MockContact] into AZItem(ISuspensionBean)
               //which will be used in AZListView

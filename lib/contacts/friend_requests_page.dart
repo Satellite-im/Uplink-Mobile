@@ -15,37 +15,42 @@ class FriendRequestPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final friendRequestsList = snapshot.data!;
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: UText(
-                    'Received - ${friendRequestsList.length}',
-                    textStyle: UTextStyle.H5_fifthHeader,
-                    textAlign: TextAlign.left,
+            if (friendRequestsList.isEmpty) {
+              return const EmptyBody(
+                text: 'No one is here, you have 0 friend request!',
+              );
+            } else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    child: UText(
+                      'Received - ${friendRequestsList.length}',
+                      textStyle: UTextStyle.H5_fifthHeader,
+                      textAlign: TextAlign.left,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: friendRequestsList.length,
-                    itemBuilder: (context, index) {
-                      final item = friendRequestsList[index];
-                      return FriendRequestListTile(
-                        name: item.name,
-                        statusMessage: item.statusMessage,
-                        status: item.status,
-                        imageAddress: item.imageAddress,
-                        onTap: () {
-                          // TODO(yijing): update to user profile page
-                        },
-                      );
-                    },
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: friendRequestsList.length,
+                      itemBuilder: (context, index) {
+                        final item = friendRequestsList[index];
+                        return FriendRequestListTile(
+                          name: item.name,
+                          statusMessage: item.statusMessage,
+                          status: item.status,
+                          imageAddress: item.imageAddress,
+                          onTap: () {
+                            // TODO(yijing): update to user profile page
+                          },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
-            );
+                ],
+              );
+            }
           }
           return const Center(child: ULoadingIndicator());
         },

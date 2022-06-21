@@ -9,7 +9,7 @@ class OutgoingRequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Friend Requests'),
+      appBar: UAppBar.back(title: 'Outgoing Requests'),
       body: FutureBuilder<List<MockContact>>(
         future: loadingOutgoingRequests(),
         builder: (context, snapshot) {
@@ -17,7 +17,9 @@ class OutgoingRequestPage extends StatelessWidget {
             final friendRequestsList = snapshot.data!;
 
             if (friendRequestsList.isEmpty) {
-              return const NoOutgoingRequestBody();
+              return const EmptyBody(
+                text: 'No one is here, you have 0 outgoing request!',
+              );
             } else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
