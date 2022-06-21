@@ -9,22 +9,20 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
   const UnreadMessagesUserProfileCard({
     Key? key,
     required Status status,
-    required String username,
+    required this.username,
     required UMessage uMessage,
-    required int unreadMessages,
+    required this.unreadMessages,
   })  : _status = status,
-        _username = username,
         _uMessage = uMessage,
-        _unreadMessages = unreadMessages,
         super(key: key);
 
   final Status _status;
 
-  final String _username;
+  final String username;
 
   final UMessage _uMessage;
 
-  final int _unreadMessages;
+  final int unreadMessages;
 
   String formatDateTime(DateTime arrivalMessageTime) {
     final _lastMessageArrivalTime =
@@ -40,7 +38,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _unreadMessagesIndicator = UnreadMessagesIndicator(
-      unreadMessages: _unreadMessages,
+      unreadMessages: unreadMessages,
       type: UnreadMessagesIndicatorType.card,
     );
 
@@ -59,6 +57,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UUserProfileWithStatus(
             status: _status,
@@ -77,7 +76,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Username(
-                        username: _username,
+                        username: username,
                         textStyle: UTextStyle.H4_fourthHeader,
                       ),
                     ),
@@ -104,12 +103,12 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                       _uMessage.message,
                       maxLines: 2,
                       textOverflow: TextOverflow.ellipsis,
-                      textStyle: UTextStyle.H2_secondaryHeader,
+                      textStyle: UTextStyle.B1_body,
                       textColor: UColors.textMed,
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  if (_unreadMessages > 0) ...[
+                  if (unreadMessages > 0) ...[
                     const SizedBox.square(
                       dimension: _lastSizedBoxSize,
                     ),
