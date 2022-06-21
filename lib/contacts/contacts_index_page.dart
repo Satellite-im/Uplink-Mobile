@@ -1,8 +1,7 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/blocked_page.dart';
-import 'package:uplink/contacts/friend_requests_page.dart';
+import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 
@@ -59,7 +58,12 @@ class ContactsIndexPage extends StatelessWidget {
                     );
                   },
                   () {
-                    // TODO(yijing): add Outgoing Requests work flow
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => const OutgoingRequestPage(),
+                      ),
+                    );
                   },
                   () {
                     Navigator.of(context, rootNavigator: true).pop();

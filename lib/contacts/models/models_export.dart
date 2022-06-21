@@ -3,6 +3,7 @@ export 'contacts_header.dart';
 export 'data/mock_contact.dart';
 export 'friend_request_list_tile.dart';
 export 'no_friend_body.dart';
+export 'outgoing_request_list_tile.dart';
 export 'search/contact_search.dart';
 export 'search/show_custom_search.dart';
 export 'triangle.dart';
