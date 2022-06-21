@@ -38,7 +38,13 @@ class ContactsIndexPage extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const AddFriendPage(),
+                ),
+              );
+            },
             icon: const UIcon(
               UIcons.add_contact_member,
               color: UColors.textMed,
