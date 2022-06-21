@@ -129,7 +129,6 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const signinPage_enterPinBody =
       'Enter your Pin to unlock your account.';
   static const signinPage_forgotPin = 'Forgot Your Pin Code';
-  static const signinPage_sheetTitle = 'More Options';
   static const signinPage_switchAccount = 'Switch Account';
   static const signinPage_newAccount = 'New Account';
 
