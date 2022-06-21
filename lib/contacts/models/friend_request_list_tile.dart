@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class FriendRequestListTile extends StatelessWidget {
   const FriendRequestListTile({
@@ -48,12 +49,12 @@ class FriendRequestListTile extends StatelessWidget {
             _buildDecisionButton(false, () {
               UBottomSheetTwoButtons(
                 context,
-                header: 'Are you sure you want to remove this friend request?',
-                firstButtonText: 'Cancel',
+                header: UAppStrings.friendRequestListTile_bottomSheetHeader,
+                firstButtonText: UAppStrings.cancelButton,
                 firstButtonOnPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
                 },
-                secondButtonText: 'Remove',
+                secondButtonText: UAppStrings.remove,
                 secondButtonColor: UColors.termRed,
                 secondButtonOnPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
@@ -61,10 +62,10 @@ class FriendRequestListTile extends StatelessWidget {
                   showDialog<void>(
                     context: context,
                     builder: (dialogContext) => UDialogSingleButtonCustomBody(
-                      title: 'Friend Request Deleted',
+                      title: UAppStrings.friendRequestListTile_dialogTitle,
                       body: RichText(
                         text: TextSpan(
-                          text: 'The friend request from ',
+                          text: UAppStrings.friendRequestListTile_text1,
                           style: UTextStyle.B1_body.style.returnTextStyleType(),
                           children: <TextSpan>[
                             TextSpan(
@@ -72,11 +73,13 @@ class FriendRequestListTile extends StatelessWidget {
                               style: UTextStyle.H4_fourthHeader.style
                                   .returnTextStyleType(),
                             ),
-                            const TextSpan(text: ' was deleted.'),
+                            const TextSpan(
+                              text: UAppStrings.friendRequestListTile_text2,
+                            ),
                           ],
                         ),
                       ),
-                      buttonText: 'Okay',
+                      buttonText: UAppStrings.okay,
                     ),
                   );
                 },

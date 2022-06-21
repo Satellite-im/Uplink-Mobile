@@ -121,8 +121,7 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                                     UAppStrings.recoverySeedPage_uDialogTitle,
                                 bodyText: UAppStrings
                                     .recoverySeedPage_uDialogDescription,
-                                buttonText:
-                                    UAppStrings.recoverySeedPage_uDialogOk,
+                                buttonText: UAppStrings.okay,
                               ),
                             );
                           }

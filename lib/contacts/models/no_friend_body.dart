@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class NoFriendBody extends StatelessWidget {
   const NoFriendBody({
@@ -19,20 +20,20 @@ class NoFriendBody extends StatelessWidget {
           ...const [
             Center(
               child: UText(
-                'No Friends Yet',
+                UAppStrings.noFriendBody_title,
                 textStyle: UTextStyle.H1_primaryHeader,
               ),
             ),
             SizedBox(height: 16),
             UText(
-              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.',
+              UAppStrings.noFriendBody_body,
               textStyle: UTextStyle.B1_body,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 56),
           ],
           UButton.primary(
-            label: 'Add a Friend',
+            label: UAppStrings.noFriendBody_addFriend,
             uIconData: UIcons.add_contact_member,
             onPressed: () {
               // TODO(yijing): add friends pages
