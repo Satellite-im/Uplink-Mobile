@@ -22,44 +22,51 @@ class UserProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        UUserProfileWithStatus(
-          status: _status,
-          userProfileSize: UUserProfileSize.normal,
-        ),
-        const SizedBox.square(
-          dimension: 12,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: USizes.messageOnUserProfileCardWidthSize,
-              child: Username(
-                username: _username,
-                textStyle: UTextStyle.H4_fourthHeader,
+    const _userProfileSize = UUserProfileSize.normal;
+    const _firstSizedBoxSize = 12.0;
+    final _pictureAndSizedBoxWidth = _userProfileSize.size + _firstSizedBoxSize;
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final _widgetWith = constraints.maxWidth;
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          UUserProfileWithStatus(
+            status: _status,
+            userProfileSize: _userProfileSize,
+          ),
+          const SizedBox.square(
+            dimension: _firstSizedBoxSize,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: _widgetWith - _pictureAndSizedBoxWidth,
+                child: Username(
+                  username: _username,
+                  textStyle: UTextStyle.H4_fourthHeader,
+                ),
               ),
-            ),
-            const SizedBox.square(
-              dimension: 4,
-            ),
-            SizedBox(
-              width: USizes.messageOnUserProfileCardWidthSize,
-              child: UText(
-                _message,
-                textStyle: UTextStyle.B1_body,
-                textColor: UColors.textMed,
-                textOverflow: TextOverflow.ellipsis,
-                maxLines: 1,
+              const SizedBox.square(
+                dimension: 4,
               ),
-            ),
-          ],
-        ),
-      ],
-    );
+              SizedBox(
+                width: _widgetWith - _pictureAndSizedBoxWidth,
+                child: UText(
+                  _message,
+                  textStyle: UTextStyle.B1_body,
+                  textColor: UColors.textMed,
+                  textOverflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    });
   }
 }
