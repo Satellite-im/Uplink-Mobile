@@ -98,6 +98,7 @@ class ContactSearch extends SearchCustomDelegate<MockContact?> {
             );
           }
         }
+        // TODO(yijing): update to standard indicator
         return const Center(child: ULoadingIndicator());
       },
     );

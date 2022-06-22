@@ -54,6 +54,7 @@ class FriendRequestPage extends StatelessWidget {
               );
             }
           }
+          // TODO(yijing): update indicator
           return const Center(child: ULoadingIndicator());
         },
       ),
