@@ -32,10 +32,45 @@ class AddFriendPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Row(
+              children: const [
+                UIcon(UIcons.account_id),
+                SizedBox(width: 9),
+                UText(
+                  'Your Account ID',
+                  textStyle: UTextStyle.H3_tertiaryHeader,
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
+            const UText(
+              'Make new friends by tapping your account ID to copy and share.',
+              textStyle: UTextStyle.B1_body,
+              textColor: UColors.white,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              height: 48,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: UColors.foregroundDark,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(16),
+                // TODO(yijing): update to account ID
+                child: UText(
+                  'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94',
+                  textStyle: UTextStyle.H5_fifthHeader,
+                  textColor: UColors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            const UDivider(),
+            const SizedBox(height: 16),
             const UText(
               'Enter your friend’s account ID or username, or scan their QR code to find their account. Account ID’s are case sensitive.',
               textStyle: UTextStyle.B1_body,
-              textColor: UColors.white,
             ),
             const SizedBox(height: 24),
             Container(
@@ -58,41 +93,6 @@ class AddFriendPage extends StatelessWidget {
               uIconData: UIcons.search,
               // TODO(yijing): add search work flow
               onPressed: () {},
-            ),
-            const SizedBox(height: 24),
-            const UDivider(),
-            const SizedBox(height: 16),
-            Row(
-              children: const [
-                UIcon(UIcons.copy_clone_button),
-                SizedBox(width: 9),
-                UText(
-                  'Your Account ID',
-                  textStyle: UTextStyle.H3_tertiaryHeader,
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-            const UText(
-              'Make new friends by tapping your account ID to copy and share.',
-              textStyle: UTextStyle.B1_body,
-            ),
-            const SizedBox(height: 24),
-            Container(
-              height: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: UColors.foregroundDark,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(16),
-                // TODO(yijing): update to account ID
-                child: UText(
-                  'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94',
-                  textStyle: UTextStyle.H5_fifthHeader,
-                  textColor: UColors.white,
-                ),
-              ),
             ),
           ],
         ),
