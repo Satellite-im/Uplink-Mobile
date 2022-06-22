@@ -130,7 +130,8 @@ class ContactsIndexPage extends StatelessWidget {
                 indexBarWidth: 16,
                 indexBarOptions: IndexBarOptions(
                   needRebuild: true,
-                  textStyle: UTextStyle.B1_body.style.returnTextStyleType(),
+                  textStyle: UTextStyle.B1_body.style
+                      .returnTextStyleType(color: UColors.textDark),
                   selectTextStyle: UTextStyle.B3_bold.style.returnTextStyleType(
                     color: Colors.white,
                   ),

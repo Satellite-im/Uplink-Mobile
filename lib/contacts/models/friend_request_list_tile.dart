@@ -21,7 +21,6 @@ class FriendRequestListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: Colors.transparent,
       leading: UUserProfileWithStatus(
         // TODO(yijing): update to online image in profuction app
         isLocalImage: true,
@@ -94,8 +93,8 @@ class FriendRequestListTile extends StatelessWidget {
   }
 
   ///type ture is approve, type false is decline
-  Ink _buildDecisionButton(bool type, Function() onTap) {
-    return Ink(
+  Container _buildDecisionButton(bool type, Function() onTap) {
+    return Container(
       width: 40,
       height: 40,
       decoration: ShapeDecoration(
