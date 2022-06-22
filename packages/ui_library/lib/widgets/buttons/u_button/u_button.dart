@@ -12,7 +12,7 @@ class UButton extends StatelessWidget {
 
   ///[ElevatedButton] with Text and Icon:
   ///
-  /// backgrounColor is [UColors.ctaBlue]
+  /// backgroundColor is [UColors.ctaBlue]
   ///
   ///```dart
   /// UButton.primary(
@@ -36,7 +36,7 @@ class UButton extends StatelessWidget {
 
   ///[ElevatedButton] with Text and Icon:
   ///
-  /// backgrounColor is [UColors.ctaDark]
+  /// backgroundColor is [UColors.ctaDark]
   ///
   ///```dart
   /// UButton.secondary(
@@ -60,7 +60,7 @@ class UButton extends StatelessWidget {
 
   ///[ElevatedButton] with Text only:
   ///
-  /// backgrounColor is [UColors.ctaBlue]
+  /// backgroundColor is [UColors.ctaBlue]
   ///
   ///```dart
   /// UButton.filled1(
@@ -82,7 +82,7 @@ class UButton extends StatelessWidget {
 
   ///[ElevatedButton] with Text only:
   ///
-  /// backgrounColor is [UColors.ctaDark]
+  /// backgroundColor is [UColors.ctaDark]
   ///
   ///```dart
   /// UButton.filled2(

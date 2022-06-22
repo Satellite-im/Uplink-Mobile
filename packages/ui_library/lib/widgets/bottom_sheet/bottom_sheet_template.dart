@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/core/core_export.dart';
 
 class UBottomSheet {
-  final BuildContext context;
-
-  final Widget child;
-
   UBottomSheet(
     this.context, {
     required this.child,
   });
+
+  final BuildContext context;
+
+  final Widget child;
+
   Future show() {
     return showModalBottomSheet(
         context: context,
