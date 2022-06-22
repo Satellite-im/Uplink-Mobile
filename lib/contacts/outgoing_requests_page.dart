@@ -55,6 +55,7 @@ class OutgoingRequestPage extends StatelessWidget {
               );
             }
           }
+          // TODO(yijing): update to standard indicator
           return const Center(child: ULoadingIndicator());
         },
       ),

@@ -168,7 +168,7 @@ class ContactsIndexPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             log(snapshot.error.toString());
           }
-
+          // TODO(yijing): update to standard indicator
           return const Center(child: ULoadingIndicator());
         },
       ),
