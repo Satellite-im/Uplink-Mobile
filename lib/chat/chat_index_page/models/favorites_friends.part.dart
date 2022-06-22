@@ -51,7 +51,7 @@ class _FavoritesFriends extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => _favoritesFriendsList[index],
                 separatorBuilder: (context, index) => const SizedBox.square(
-                  dimension: 16,
+                  dimension: 8,
                 ),
                 itemCount: _favoritesFriendsList.length,
               ),

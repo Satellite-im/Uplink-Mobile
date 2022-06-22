@@ -18,28 +18,36 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const _UAppBar(),
       body: SafeArea(
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: _friendsList.isNotEmpty
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.spaceBetween,
-            children: [
-              _FavoritesFriends(
-                favoritesFriendsList: _friendsList,
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: _UAppBar(),
               ),
-              if (_friendsList.isNotEmpty) ...[
-                const SizedBox.square(
-                  dimension: 29,
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: _friendsList.isNotEmpty
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.spaceBetween,
+                  children: [
+                    _FavoritesFriends(
+                      favoritesFriendsList: _friendsList,
+                    ),
+                    if (_friendsList.isNotEmpty) ...[
+                      const SizedBox.square(
+                        dimension: 29,
+                      ),
+                      _WithFriends(
+                        friendsList: _friendsList,
+                      ),
+                    ] else
+                      const _WithoutFriendsYet(),
+                    // const SizedBox.shrink(),
+                  ],
                 ),
-                _WithFriends(
-                  friendsList: _friendsList,
-                ),
-              ] else
-                const _WithoutFriendsYet(),
-              // const SizedBox.shrink(),
+              ),
             ],
           ),
         ),

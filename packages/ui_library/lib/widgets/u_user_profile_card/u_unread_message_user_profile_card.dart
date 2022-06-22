@@ -57,7 +57,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           UUserProfileWithStatus(
             status: _status,
