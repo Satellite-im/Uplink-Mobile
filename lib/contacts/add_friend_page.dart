@@ -1,14 +1,44 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/models/fat_triangle.dart';
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
 
-class AddFriendPage extends StatelessWidget {
+class AddFriendPage extends StatefulWidget {
   const AddFriendPage({Key? key}) : super(key: key);
 
   @override
+  State<AddFriendPage> createState() => _AddFriendPageState();
+}
+
+class _AddFriendPageState extends State<AddFriendPage>
+    with TickerProviderStateMixin {
+  OverlayEntry? overlayEntry;
+  final layerLink = LayerLink();
+  late AnimationController animationController;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animation = Tween<double>(begin: 0, end: 1).animate(animationController);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    const userId = 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94';
     return Scaffold(
       appBar: UAppBar.actions(
         title: 'Add Friend',
@@ -49,19 +79,28 @@ class AddFriendPage extends StatelessWidget {
               textColor: UColors.white,
             ),
             const SizedBox(height: 24),
-            Container(
-              height: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: UColors.foregroundDark,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(16),
-                // TODO(yijing): update to account ID
-                child: UText(
-                  'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94',
-                  textStyle: UTextStyle.H5_fifthHeader,
-                  textColor: UColors.white,
+            CompositedTransformTarget(
+              link: layerLink,
+              child: Container(
+                height: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: UColors.foregroundDark,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  // TODO(yijing): update to account ID
+                  child: InkWell(
+                    child: const UText(
+                      userId,
+                      textStyle: UTextStyle.H5_fifthHeader,
+                      textColor: UColors.white,
+                    ),
+                    onTap: () {
+                      Clipboard.setData(const ClipboardData(text: userId))
+                          .whenComplete(() => _showOverlay(context));
+                    },
+                  ),
                 ),
               ),
             ),
@@ -97,6 +136,63 @@ class AddFriendPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showOverlay(BuildContext context) async {
+    final overlay = Overlay.of(context);
+    final leftOffset = MediaQuery.of(context).size.width / 2 - 50;
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        width: 72,
+        child: CompositedTransformFollower(
+          link: layerLink,
+          showWhenUnlinked: false,
+          //overlay won't show on the screen when move to other pages
+          offset: Offset(leftOffset, 64),
+          child: Material(
+            color: Colors.transparent,
+            child: Opacity(
+              opacity: animation.value,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomPaint(painter: FatTriangle()),
+                      const SizedBox(width: 16),
+                    ],
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: UColors.ctaBlue,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const UText(
+                      'Copied!',
+                      textStyle: UTextStyle.B1_body,
+                      textColor: UColors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    animationController.addListener(() {
+      overlay?.setState(() {});
+    });
+    overlay?.insert(overlayEntry!);
+    await animationController.forward();
+    await Future<void>.delayed(const Duration(milliseconds: 1250)).whenComplete(
+      () => animationController
+          .reverse()
+          .whenComplete(() => overlayEntry?.remove()),
     );
   }
 }
