@@ -6,26 +6,49 @@ import 'package:ui_library/ui_library_export.dart';
 /// Current available [ThemeData] : [UThemes.dark],[UThemes.light],[UThemes.tbd]
 class UThemes {
   UThemes._();
-  static final dark = ThemeData(
-    scaffoldBackgroundColor: UColors.backgroundDark,
+  static get dark => ThemeData(
+        scaffoldBackgroundColor: UColors.backgroundDark,
 
-    ///temporary use for dropdownButton in showroom page
-    colorScheme: ColorScheme.fromSwatch(
-      brightness: Brightness.dark,
-    ),
+        ///temporary use for dropdownButton in showroom page
+        colorScheme: ColorScheme.fromSwatch(
+          brightness: Brightness.dark,
+        ),
 
-    ///appbar in the main app
-    appBarTheme: AppBarTheme(
-      backgroundColor: UColors.backgroundDark,
-      titleTextStyle: UTextStyle.H1_primaryHeader.style.returnTextStyleType(),
-      centerTitle: false,
-    ),
+        ///appbar in the main app
+        appBarTheme: AppBarTheme(
+          backgroundColor: UColors.backgroundDark,
+          titleTextStyle:
+              UTextStyle.H1_primaryHeader.style.returnTextStyleType(),
+          centerTitle: false,
+          elevation: 0,
+        ),
 
-    ///button in showroom page
-    elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(UColors.ctaBlue))),
-  );
+        ///button in showroom page
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(UColors.ctaBlue))),
+
+        //cursorColor in search contact bar
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: Colors.white),
+
+        //remove all the underline in text field.(search contact bar)
+        inputDecorationTheme: InputDecorationTheme(
+          border: const UnderlineInputBorder(borderSide: BorderSide.none),
+          focusedBorder:
+              const UnderlineInputBorder(borderSide: BorderSide.none),
+          enabledBorder:
+              const UnderlineInputBorder(borderSide: BorderSide.none),
+          hintStyle: UTextStyle.H5_fifthHeader.style
+              .returnTextStyleType(color: UColors.textDark),
+        ),
+
+        textTheme: TextTheme(
+          //TextStyle in search bar
+          subtitle1: UTextStyle.H5_fifthHeader.style
+              .returnTextStyleType(color: Colors.white),
+        ),
+      );
 
   static final light = ThemeData(
       scaffoldBackgroundColor: Colors.white,
