@@ -7,7 +7,7 @@ final _friendsList = <UnreadMessagesUserProfileCard>[
     unreadMessages: 0,
     uMessage: UMessage(
       message: 'Lorem ipsum dolor sit amet, consectetur '
-          'adipiscing elit, sed do eiusmod tempor...',
+          'adipiscing elit, sed do eiusmod tempor',
       arrivalMessageTime: DateTime(2022, 06, 22, 16, 19),
     ),
   ),

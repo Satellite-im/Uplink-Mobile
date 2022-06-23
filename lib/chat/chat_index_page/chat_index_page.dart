@@ -28,9 +28,6 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
               SliverToBoxAdapter(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: _friendsList.isNotEmpty
-                      ? MainAxisAlignment.start
-                      : MainAxisAlignment.spaceBetween,
                   children: [
                     _FavoritesFriends(
                       favoritesFriendsList: _friendsList,
@@ -44,7 +41,6 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                       ),
                     ] else
                       const _WithoutFriendsYet(),
-                    // const SizedBox.shrink(),
                   ],
                 ),
               ),

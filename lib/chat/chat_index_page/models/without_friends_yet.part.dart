@@ -7,13 +7,18 @@ class _WithoutFriendsYet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox.square(
+            dimension: _screenSize.height / 8.5,
+          ),
           const UText(
-            'Start a Conversation',
+            UAppStrings.chatIndexPage_startConversationTitle,
             textStyle: UTextStyle.H1_primaryHeader,
             textColor: UColors.textMed,
           ),
@@ -22,8 +27,7 @@ class _WithoutFriendsYet extends StatelessWidget {
           ),
           const Center(
             child: UText(
-              'Sed ut perspiciatis unde omnis iste natus error '
-              'sit voluptatem accusantium doloremque laudantium.',
+              UAppStrings.chatIndexPage_startConversationBody,
               textStyle: UTextStyle.B1_body,
               textColor: UColors.white,
               textAlign: TextAlign.center,
@@ -35,7 +39,7 @@ class _WithoutFriendsYet extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: UButton.primary(
-              label: 'Add a Friend',
+              label: UAppStrings.chatIndexPage_addFriendButton,
               uIconData: UIcons.add_contact_member,
               onPressed: () {},
             ),

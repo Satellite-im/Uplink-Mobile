@@ -23,7 +23,6 @@ class _FavoritesFriends extends StatelessWidget {
         );
       }
     }
-
     return Align(
       alignment: Alignment.topLeft,
       child: Column(
@@ -35,7 +34,7 @@ class _FavoritesFriends extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 16),
             child: UText(
-              'Favorites',
+              UAppStrings.chatIndexPage_favoritesTitle,
               textStyle: UTextStyle.H5_fifthHeader,
               textColor: UColors.textMed,
             ),
@@ -88,7 +87,7 @@ class _NewChatButton extends StatelessWidget {
             dimension: 8,
           ),
           const UText(
-            'New Chat',
+            UAppStrings.chatIndexPage_newChat,
             textStyle: UTextStyle.M1_micro,
             textColor: UColors.white,
           ),

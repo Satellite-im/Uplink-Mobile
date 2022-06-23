@@ -140,6 +140,13 @@ Would you like to give Satellite.im access to your camera roll?''';
 
   /// ChatIndexPage
   static const chatIndexPage_appBarTitle = 'Chats';
+  static const chatIndexPage_startConversationTitle = 'Start a Conversation';
+  static const chatIndexPage_startConversationBody =
+      'Sed ut perspiciatis unde omnis iste natus error '
+      'sit voluptatem accusantium doloremque laudantium.';
+  static const chatIndexPage_addFriendButton = 'Add a Friend';
+  static const chatIndexPage_favoritesTitle = 'Favorites';
+  static const chatIndexPage_newChat = 'New Chat';
 
   /// ProfileIndexPage
   static const profileIndexPage_username = 'username';
