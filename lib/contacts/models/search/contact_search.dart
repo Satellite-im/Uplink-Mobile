@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 import 'package:uplink/contacts/models/contact_list_tile.dart';
-import 'package:uplink/contacts/models/data/mock_contact.dart';
 import 'package:uplink/contacts/models/search/show_custom_search.dart';
+import 'package:uplink/utils/mock/data/mock_contact.dart';
 
 class ContactSearch extends SearchCustomDelegate<MockContact?> {
   ContactSearch(

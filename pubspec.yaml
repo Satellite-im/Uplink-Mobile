@@ -38,9 +38,9 @@ flutter:
 
 # delete mock data and user image when exporting production app
   assets:
-    - 'lib/contacts/models/data/mock_contact_list.json'
-    - 'lib/contacts/models/data/mock_friend_requests.json'
-    - 'lib/contacts/models/data/mock_outgoing_requests.json'
+    - 'lib/utils/mock/data/mock_contact_list.json'
+    - 'lib/utils/mock/data/mock_friend_requests.json'
+    - 'lib/utils/mock/data/mock_outgoing_requests.json'
     - 'packages/ui_library/images/placeholders/'
 
   fonts:

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/helpers/loading_friend_requests.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/mock/data/mock_contact.dart';
+import 'package:uplink/utils/mock/helpers/loading_friend_requests.dart';
 
 class FriendRequestPage extends StatelessWidget {
   const FriendRequestPage({Key? key}) : super(key: key);
