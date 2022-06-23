@@ -45,11 +45,19 @@ class _FavoritesFriends extends StatelessWidget {
           ),
           if (_favoritesFriendsList.isNotEmpty)
             SizedBox(
-              height: 80,
+              height: 62,
               child: ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => _favoritesFriendsList[index],
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                    onTap: () {},
+                    child: _favoritesFriendsList[index],
+                  );
+                },
                 separatorBuilder: (context, index) => const SizedBox.square(
                   dimension: 8,
                 ),

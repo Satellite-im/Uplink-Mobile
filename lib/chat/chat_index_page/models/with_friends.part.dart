@@ -13,10 +13,18 @@ class _WithFriends extends StatelessWidget {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: friendsList[index],
-      ),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: InkWell(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(4),
+            ),
+            onTap: () {},
+            child: friendsList[index],
+          ),
+        );
+      },
       separatorBuilder: (context, index) => const SizedBox.square(
         dimension: 20,
       ),

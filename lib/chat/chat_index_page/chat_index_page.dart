@@ -37,7 +37,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                     ),
                     if (_friendsList.isNotEmpty) ...[
                       const SizedBox.square(
-                        dimension: 29,
+                        dimension: 24,
                       ),
                       _WithFriends(
                         friendsList: _friendsList,
