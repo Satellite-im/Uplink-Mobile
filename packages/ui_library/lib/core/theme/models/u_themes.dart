@@ -34,11 +34,16 @@ class UThemes {
 
         //remove all the underline in text field.(search contact bar)
         inputDecorationTheme: InputDecorationTheme(
-          border: const UnderlineInputBorder(borderSide: BorderSide.none),
-          focusedBorder:
-              const UnderlineInputBorder(borderSide: BorderSide.none),
-          enabledBorder:
-              const UnderlineInputBorder(borderSide: BorderSide.none),
+          contentPadding: const EdgeInsets.all(16),
+          border: const UnderlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(Radius.circular(4))),
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(Radius.circular(4))),
+          enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(Radius.circular(4))),
           hintStyle: UTextStyle.H5_fifthHeader.style
               .returnTextStyleType(color: UColors.textDark),
         ),
