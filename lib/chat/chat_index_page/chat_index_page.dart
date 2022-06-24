@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/helpers/loading_favorites_list.dart';
-import 'package:uplink/utils/mock/helpers/loading_friends_list.dart';
+import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
+import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
 import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
 
+part 'models/favorites_friends.part.dart';
 part 'models/with_friends.part.dart';
 part 'models/without_friends_yet.part.dart';
-part 'models/favorites_friends.part.dart';
-// part 'mock/mock_friends_list.mock.dart';
 
 class ChatIndexPage extends StatefulWidget {
   const ChatIndexPage({Key? key}) : super(key: key);
@@ -22,11 +21,11 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
   Widget build(BuildContext context) {
     Future<Map<String, List<MockContactsChat>>>
         _loadingFriendsAndFavoritesList() async {
-      final _friendsList = await loadingFriendsList();
-      final _favoritesFriendsList = await loadingFavoritesFriendsList();
+      final _chatsList = await loadingChatsList();
+      final _favoritesChatsList = await loadingFavoritesChatsList();
       return <String, List<MockContactsChat>>{
-        'friends_list': _friendsList,
-        'favorites_friends_list': _favoritesFriendsList,
+        'chats_list': _chatsList,
+        'favorites_chats_list': _favoritesChatsList,
       };
     }
 
@@ -42,8 +41,8 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                 child: const SizedBox(),
               );
             } else {
-              final _friendsList = snapshot.data!['friends_list']!;
-              final _favoritesList = snapshot.data!['favorites_friends_list']!;
+              final _friendsList = snapshot.data!['chats_list']!;
+              final _favoritesList = snapshot.data!['favorites_chats_list']!;
               return Center(
                 child: CustomScrollView(
                   slivers: [
@@ -80,7 +79,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
   }
 }
 
-class _UAppBar extends StatelessWidget with PreferredSizeWidget {
+class _UAppBar extends StatelessWidget {
   const _UAppBar({
     Key? key,
   }) : super(key: key);
@@ -121,7 +120,4 @@ class _UAppBar extends StatelessWidget with PreferredSizeWidget {
       title: UAppStrings.chatIndexPage_appBarTitle,
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
