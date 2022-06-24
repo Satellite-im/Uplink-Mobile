@@ -60,8 +60,20 @@ class UUserProfileNotification extends StatelessWidget {
                 height: _uUserProfileSize.size,
                 width: _uUserProfileSize.size,
                 child: _imagePath != null
-                    ? Image.network(_imagePath!)
-                    : const UPlaceholder.userProfile(),
+                    ? Image.network(
+                        _imagePath!,
+                        errorBuilder: ((context, error, stackTrace) =>
+                            Image.asset(
+                              _imagePath!,
+                              errorBuilder: ((context, error, stackTrace) =>
+                                  Container(
+                                    color: UColors.defGrey,
+                                  )),
+                            )),
+                      )
+                    : Container(
+                        color: UColors.defGrey,
+                      ),
               ),
             ),
             Positioned(

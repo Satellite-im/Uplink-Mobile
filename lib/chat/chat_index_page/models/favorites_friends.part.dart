@@ -15,11 +15,18 @@ class _FavoritesFriends extends StatelessWidget {
     for (final friend in favoritesFriendsList) {
       if (friend.unreadMessages > 0) {
         _favoritesFriendsList.add(
-          UUserProfileNotification.withUsername(username: friend.username),
+          UUserProfileNotification.withUsername(
+            username: friend.username,
+            imagePath: friend.imagePath,
+          ),
         );
       } else {
         _favoritesFriendsList.add(
-          UUserProfile.withUsername(username: friend.username),
+          UUserProfile.withUsername(
+            isLocalImage: true,
+            username: friend.username,
+            imagePath: friend.imagePath,
+          ),
         );
       }
     }
