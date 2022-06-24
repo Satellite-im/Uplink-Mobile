@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/mock/helpers/loading_favorites_list.dart';
+import 'package:uplink/utils/mock/helpers/loading_friends_list.dart';
 
 part 'models/with_friends.part.dart';
 part 'models/without_friends_yet.part.dart';
@@ -17,35 +19,45 @@ class ChatIndexPage extends StatefulWidget {
 class _ChatIndexPageState extends State<ChatIndexPage> {
   @override
   Widget build(BuildContext context) {
+    Future<void> _loadingFriendsAndFavoritesList() async {
+      await loadingFriendsList();
+      await loadingFavoritesFriendsList();
+    }
+
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: CustomScrollView(
-            slivers: [
-              const SliverToBoxAdapter(
-                child: _UAppBar(),
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _FavoritesFriends(
-                      favoritesFriendsList: _friendsList,
+        child: FutureBuilder(
+          future: _loadingFriendsAndFavoritesList(),
+          builder: (context, snapshot) {
+            return Center(
+              child: CustomScrollView(
+                slivers: [
+                  const SliverToBoxAdapter(
+                    child: _UAppBar(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _FavoritesFriends(
+                          favoritesFriendsList: _friendsList,
+                        ),
+                        if (_friendsList.isNotEmpty) ...[
+                          const SizedBox.square(
+                            dimension: 24,
+                          ),
+                          _WithFriends(
+                            friendsList: _friendsList,
+                          ),
+                        ] else
+                          const _WithoutFriendsYet(),
+                      ],
                     ),
-                    if (_friendsList.isNotEmpty) ...[
-                      const SizedBox.square(
-                        dimension: 24,
-                      ),
-                      _WithFriends(
-                        friendsList: _friendsList,
-                      ),
-                    ] else
-                      const _WithoutFriendsYet(),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
