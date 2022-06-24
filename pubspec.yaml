@@ -41,6 +41,8 @@ flutter:
     - 'lib/utils/mock/data/mock_contact_list.json'
     - 'lib/utils/mock/data/mock_friend_requests.json'
     - 'lib/utils/mock/data/mock_outgoing_requests.json'
+    - 'lib/utils/mock/data/mock_friends_list.json'
+    - 'lib/utils/mock/data/mock_favorites_list.json'
     - 'packages/ui_library/images/placeholders/'
 
   fonts:
