@@ -81,6 +81,7 @@ class UUserProfileNotification extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 1,
               textStyle: UTextStyle.M1_micro,
+              textColor: UColors.white,
             ),
           ),
         ]
