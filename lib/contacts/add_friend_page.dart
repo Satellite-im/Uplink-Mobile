@@ -17,22 +17,25 @@ class _AddFriendPageState extends State<AddFriendPage>
     with TickerProviderStateMixin {
   OverlayEntry? overlayEntry;
   final layerLink = LayerLink();
-  late AnimationController animationController;
-  late Animation<double> animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  late GlobalKey<FormFieldState<String>> _formfieldKey;
+  bool _disableButton = true;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    animation = Tween<double>(begin: 0, end: 1).animate(animationController);
+    _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+    _formfieldKey = GlobalKey<FormFieldState<String>>();
   }
 
   @override
   void dispose() {
-    animationController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -87,20 +90,18 @@ class _AddFriendPageState extends State<AddFriendPage>
                   borderRadius: BorderRadius.circular(4),
                   color: UColors.foregroundDark,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  // TODO(yijing): update to account ID
-                  child: InkWell(
-                    child: const UText(
-                      userId,
-                      textStyle: UTextStyle.H5_fifthHeader,
-                      textColor: UColors.white,
-                    ),
-                    onTap: () {
-                      Clipboard.setData(const ClipboardData(text: userId))
-                          .whenComplete(() => _showOverlay(context));
-                    },
+                padding: const EdgeInsets.all(16),
+                // TODO(yijing): update to account ID
+                child: InkWell(
+                  child: const UText(
+                    userId,
+                    textStyle: UTextStyle.H5_fifthHeader,
+                    textColor: UColors.white,
                   ),
+                  onTap: () {
+                    Clipboard.setData(const ClipboardData(text: userId))
+                        .whenComplete(() => _showOverlay(context));
+                  },
                 ),
               ),
             ),
@@ -112,30 +113,76 @@ class _AddFriendPageState extends State<AddFriendPage>
               textStyle: UTextStyle.B1_body,
             ),
             const SizedBox(height: 24),
+            _buildIDFormField(),
+            const SizedBox(height: 56),
+            UButton.primary(
+              disabled: _disableButton,
+              label: 'Search',
+              uIconData: UIcons.search,
+              onPressed: () async {
+                if (_formfieldKey.currentState!.validate()) {
+                } else {
+                  // TODO(yijing): add search work flow
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  FormField<String> _buildIDFormField() {
+    return FormField<String>(
+      key: _formfieldKey,
+      autovalidateMode: AutovalidateMode.disabled,
+      validator: (value) {
+        // TODO(yijing): update validator function
+        if (value!.length < 43 && value.isNotEmpty) {
+          return 'Error: not enough characters.';
+        } else if (value.length == 43 &&
+            value != 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
+          return 'Error: no account found.';
+        } else {
+          return null;
+        }
+      },
+      builder: (FormFieldState<String> state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Container(
               height: 48,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 color: UColors.foregroundDark,
               ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Enter Account ID',
-                  filled: true,
-                  fillColor: UColors.foregroundDark,
-                ),
+              child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    if (value.isEmpty) {
+                      _disableButton = true;
+                    } else {
+                      _disableButton = false;
+                    }
+                  });
+                  state.didChange(value);
+                },
+                decoration: const InputDecoration(hintText: 'Enter Account ID'),
               ),
             ),
-            const SizedBox(height: 56),
-            UButton.primary(
-              label: 'Search',
-              uIconData: UIcons.search,
-              // TODO(yijing): add search work flow
-              onPressed: () {},
+            const SizedBox(
+              height: 24,
             ),
+            if (state.hasError)
+              UText(
+                state.errorText.toString(),
+                textStyle: UTextStyle.B1_body,
+                textColor: UColors.termRed,
+              )
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -153,7 +200,7 @@ class _AddFriendPageState extends State<AddFriendPage>
           child: Material(
             color: Colors.transparent,
             child: Opacity(
-              opacity: animation.value,
+              opacity: _animation.value,
               child: Column(
                 children: [
                   Row(
@@ -184,13 +231,13 @@ class _AddFriendPageState extends State<AddFriendPage>
         ),
       ),
     );
-    animationController.addListener(() {
+    _animationController.addListener(() {
       overlay?.setState(() {});
     });
     overlay?.insert(overlayEntry!);
-    await animationController.forward();
+    await _animationController.forward();
     await Future<void>.delayed(const Duration(milliseconds: 1250)).whenComplete(
-      () => animationController
+      () => _animationController
           .reverse()
           .whenComplete(() => overlayEntry?.remove()),
     );

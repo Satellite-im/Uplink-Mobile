@@ -30,7 +30,9 @@ class ContactsIndexPage extends StatelessWidget {
                 final contactsAZList = contactsList
                     .map(
                       (item) => _AZItem(
-                          contact: item, tag: item.name[0].toUpperCase()),
+                        contact: item,
+                        tag: item.name[0].toUpperCase(),
+                      ),
                     )
                     .toList()
                   ..sort(((a, b) => a.contact.name.compareTo(b.contact.name)));
