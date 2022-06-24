@@ -16,8 +16,7 @@ void main() {
     expect(ThemeType.tbd.toStrName(), _kTbd);
   });
 
-  test(
-      'Should return correct name for Theme Type when extension toThemeType is called',
+  test('Should return correct Theme Type when extension toThemeType is called',
       () {
     const _kDark = 'dark';
     const _kLight = 'light';
