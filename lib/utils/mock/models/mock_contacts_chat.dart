@@ -4,8 +4,16 @@ import 'dart:math';
 
 import 'package:ui_library/ui_library_export.dart';
 
-class UnreadMessagesUserProfileCardMock {
-  UnreadMessagesUserProfileCard fromJson(dynamic json) {
+class MockContactsChat {
+  MockContactsChat({
+    required this.username,
+    required this.status,
+    required this.uMessage,
+    required this.unreadMessages,
+    this.imagePath,
+  });
+
+  MockContactsChat.fromJson(dynamic json) {
     username = json['user_name'] as String;
     uMessage = UMessage(
       message: json['last_message'] as String,
@@ -30,12 +38,6 @@ class UnreadMessagesUserProfileCardMock {
       default:
         status = Status.offline;
     }
-    return UnreadMessagesUserProfileCard(
-      status: status,
-      username: username,
-      uMessage: uMessage,
-      unreadMessages: unreadMessages,
-    );
   }
 
   late String username;

@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/utils/mock/models/dto_unread_messages_profile_card.dart';
+import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
 
-Future<List<UnreadMessagesUserProfileCard>>
-    loadingFavoritesFriendsList() async {
+Future<List<MockContactsChat>> loadingFavoritesFriendsList() async {
   const hasFriends = true;
   if (hasFriends == true) {
     final jsonString = await rootBundle
         .loadString('lib/utils/mock/data/mock_favorites_list.json');
     final list = await jsonDecode(jsonString) as List<dynamic>;
-    return list.map(UnreadMessagesUserProfileCardMock().fromJson).toList();
+    return list.map(MockContactsChat.fromJson).toList();
   } else {
     return [];
   }

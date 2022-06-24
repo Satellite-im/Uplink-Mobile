@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/data/mock_contact.dart';
 import 'package:uplink/utils/mock/helpers/loading_outgoing_requests.dart';
+import 'package:uplink/utils/mock/models/mock_contact.dart';
 
 class OutgoingRequestPage extends StatelessWidget {
   const OutgoingRequestPage({Key? key}) : super(key: key);

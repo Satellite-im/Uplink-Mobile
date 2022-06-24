@@ -6,7 +6,7 @@ class _FavoritesFriends extends StatelessWidget {
     required this.favoritesFriendsList,
   }) : super(key: key);
 
-  final List<UnreadMessagesUserProfileCard> favoritesFriendsList;
+  final List<MockContactsChat> favoritesFriendsList;
 
   @override
   Widget build(BuildContext context) {

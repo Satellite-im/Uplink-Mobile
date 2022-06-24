@@ -65,6 +65,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
           UUserProfileWithStatus(
             status: _status,
             userProfileSize: _userProfileSize,
+            isLocalImage: true,
             imagePath: imagePath,
           ),
           const SizedBox.square(

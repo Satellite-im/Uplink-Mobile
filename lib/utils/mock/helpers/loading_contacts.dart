@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:uplink/utils/mock/data/mock_contact.dart';
+import 'package:uplink/utils/mock/models/mock_contact.dart';
 
 // TODO(yijing): update loading contacts
 Future<List<MockContact>> loadingContacts() async {

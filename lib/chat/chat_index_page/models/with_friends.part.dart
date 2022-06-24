@@ -6,7 +6,7 @@ class _WithFriends extends StatelessWidget {
     required this.friendsList,
   }) : super(key: key);
 
-  final List<UnreadMessagesUserProfileCard> friendsList;
+  final List<MockContactsChat> friendsList;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +14,7 @@ class _WithFriends extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        final _friend = friendsList[index];
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: InkWell(
@@ -21,7 +22,13 @@ class _WithFriends extends StatelessWidget {
               Radius.circular(4),
             ),
             onTap: () {},
-            child: friendsList[index],
+            child: UnreadMessagesUserProfileCard(
+              status: _friend.status,
+              username: _friend.username,
+              uMessage: _friend.uMessage,
+              unreadMessages: _friend.unreadMessages,
+              imagePath: _friend.imagePath,
+            ),
           ),
         );
       },

@@ -3,6 +3,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_favorites_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_friends_list.dart';
+import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
 
 part 'models/with_friends.part.dart';
 part 'models/without_friends_yet.part.dart';
@@ -19,11 +20,11 @@ class ChatIndexPage extends StatefulWidget {
 class _ChatIndexPageState extends State<ChatIndexPage> {
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, List<UnreadMessagesUserProfileCard>>>
+    Future<Map<String, List<MockContactsChat>>>
         _loadingFriendsAndFavoritesList() async {
       final _friendsList = await loadingFriendsList();
       final _favoritesFriendsList = await loadingFavoritesFriendsList();
-      return <String, List<UnreadMessagesUserProfileCard>>{
+      return <String, List<MockContactsChat>>{
         'friends_list': _friendsList,
         'favorites_friends_list': _favoritesFriendsList,
       };
@@ -31,7 +32,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
 
     return Scaffold(
       body: SafeArea(
-        child: FutureBuilder<Map<String, List<UnreadMessagesUserProfileCard>>>(
+        child: FutureBuilder<Map<String, List<MockContactsChat>>>(
           future: _loadingFriendsAndFavoritesList(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
