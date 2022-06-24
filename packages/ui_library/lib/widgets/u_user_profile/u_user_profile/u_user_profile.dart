@@ -60,8 +60,16 @@ class UUserProfile extends StatelessWidget {
             width: _size.size,
             child: _imagePath != null
                 ? _isLocalImage == false
-                    ? Image.network(_imagePath!)
-                    : Image.asset(_imagePath!)
+                    ? Image.network(
+                        _imagePath!,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Container(color: UColors.defGrey),
+                      )
+                    : Image.asset(
+                        _imagePath!,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Container(color: UColors.defGrey),
+                      )
                 : const UPlaceholder.userProfile(),
           ),
         ),

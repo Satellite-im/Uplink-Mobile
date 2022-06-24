@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/core/const/const_export.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
 import 'package:ui_library/widgets/u_status/u_status_indicator.dart';
@@ -48,8 +49,16 @@ class UUserProfileWithStatus extends StatelessWidget {
             width: _uUserProfileSize.size,
             child: _imagePath != null
                 ? _isLocalImage == false
-                    ? Image.network(_imagePath!)
-                    : Image.asset(_imagePath!)
+                    ? Image.network(
+                        _imagePath!,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Container(color: UColors.defGrey),
+                      )
+                    : Image.asset(
+                        _imagePath!,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Container(color: UColors.defGrey),
+                      )
                 : const UPlaceholder.userProfile(),
           ),
         ),
