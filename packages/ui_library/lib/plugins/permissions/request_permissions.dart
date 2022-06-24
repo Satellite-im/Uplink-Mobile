@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 
 /// This class will handle with the device's permissions
 ///
@@ -73,35 +71,11 @@ class URequestPermissions {
     required String title,
     required String permissionObject,
   }) async {
-    return await UDialog(
-      context,
-      title: title,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          UText(
-            ULibraryStrings.uDialogWeNeedPermission(permissionObject),
-            textStyle: UTextStyle.B1_body,
-          ),
-          const SizedBox.square(
-            dimension: 16,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: UButton.filled1(
-                  label: ULibraryStrings.nextButton,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: [],
-    ).showUDialog();
+    await showDialog(
+        context: context,
+        builder: (_) => UDialogSingleButton(
+            title: title,
+            bodyText: ULibraryStrings.uDialogWeNeedPermission(permissionObject),
+            buttonText: ULibraryStrings.nextButton));
   }
 }

@@ -46,6 +46,7 @@ class UIShowRoomApp extends StatelessWidget {
         UDividerPage.routeName: (context) => const UDividerPage(),
         UQRCodePage.routeName: (context) => const UQRCodePage(),
         UStatusPage.routeName: (context) => const UStatusPage(),
+        UDialogPage.routeName: (context) => const UDialogPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -174,10 +175,17 @@ class UIShowRoomApp extends StatelessWidget {
                 ],
               ),
               const _WidgetsShowSession(
-                sessionTitle: 'QR Code Widget',
+                  sessionTitle: 'QR Code Widget',
+                  sessionWidgets: [
+                    WidgetPageButton(
+                      widgetName: UQRCodePage.routeName,
+                    )
+                  ]),
+              const _WidgetsShowSession(
+                sessionTitle: 'Dialog Widgets',
                 sessionWidgets: [
                   WidgetPageButton(
-                    widgetName: UQRCodePage.routeName,
+                    widgetName: UDialogPage.routeName,
                   ),
                 ],
               ),

@@ -1,8 +1,5 @@
-// ignore_for_file: lines_longer_than_80_chars, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/u_dialog/u_dialog_export.dart';
 import 'package:uplink/auth/auth_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
@@ -117,8 +114,16 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                           _isRecoverySeedWordsSaved = value;
                           Navigator.pop(context);
                           if (_isRecoverySeedWordsSaved) {
-                            await _savedScreenShotDialog(context)
-                                .showUDialog<UDialog>();
+                            await showDialog<void>(
+                              context: context,
+                              builder: (_) => const UDialogSingleButton(
+                                title:
+                                    UAppStrings.recoverySeedPage_uDialogTitle,
+                                bodyText: UAppStrings
+                                    .recoverySeedPage_uDialogDescription,
+                                buttonText: UAppStrings.okay,
+                              ),
+                            );
                           }
                         });
                       },
@@ -129,36 +134,6 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  UDialog _savedScreenShotDialog(BuildContext context) {
-    return UDialog(
-      context,
-      title: UAppStrings.recoverySeedPage_uDialogTitle,
-      actions: [],
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const UText(
-            UAppStrings.recoverySeedPage_uDialogDescription,
-            textStyle: UTextStyle.B1_body,
-          ),
-          const SizedBox.square(
-            dimension: 16,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: UButton.filled1(
-                  label: UAppStrings.recoverySeedPage_uDialogOk,
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

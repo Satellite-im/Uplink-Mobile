@@ -1,98 +1,17 @@
-import 'dart:developer';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-class ContactsIndexPage extends StatelessWidget {
-  const ContactsIndexPage({Key? key}) : super(key: key);
+class BlockedPage extends StatelessWidget {
+  const BlockedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.actions(
-        title: UAppStrings.contactsIndexPage_appBarTitle,
-        leading: IconButton(
-          icon: const UIcon(
-            UIcons.lefthand_navigation_drawer,
-            color: UColors.textMed,
-          ),
-          onPressed: () {},
-        ),
-        actionList: [
-          IconButton(
-            onPressed: () {
-              showCustomSearch(
-                context: context,
-                delegate: ContactSearch(loadingContacts()),
-              );
-            },
-            icon: const UIcon(
-              UIcons.search,
-              color: UColors.textMed,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const UIcon(
-              UIcons.add_contact_member,
-              color: UColors.textMed,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              UBottomSheetOptions(
-                context,
-                sheetTitle: UAppStrings.moreOptions,
-                titleList: [
-                  UAppStrings.contactsIndexPage_friendRequests,
-                  UAppStrings.contactsIndexPage_outgoingRequests,
-                  UAppStrings.contactsIndexPage_blocked
-                ],
-                iconList: [
-                  UIcons.friend_requests,
-                  UIcons.outgoing_requests,
-                  UIcons.blocked_contacts
-                ],
-                onTapList: [
-                  () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (context) => const FriendRequestPage(),
-                      ),
-                    );
-                  },
-                  () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (context) => const OutgoingRequestPage(),
-                      ),
-                    );
-                  },
-                  () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) => const BlockedPage(),
-                      ),
-                    );
-                  }
-                ],
-              ).show();
-            },
-            icon: const UIcon(
-              UIcons.hamburger_menu,
-              color: UColors.textMed,
-            ),
-          )
-        ],
-      ),
+      appBar: UAppBar.back(title: UAppStrings.blockedPage_appBarTitle),
       body: FutureBuilder(
         future: loadingContacts(),
         builder: (context, snapshot) {
@@ -100,7 +19,9 @@ class ContactsIndexPage extends StatelessWidget {
             final contactsList = snapshot.data! as List<MockContact>;
 
             if (contactsList.isEmpty) {
-              return const NoFriendBody();
+              return const EmptyBody(
+                text: UAppStrings.blockedPage_emptyBody,
+              );
             } else {
               //Turn [MockContact] into AZItem(ISuspensionBean)
               //which will be used in AZListView
@@ -109,12 +30,9 @@ class ContactsIndexPage extends StatelessWidget {
                     (item) =>
                         _AZItem(contact: item, tag: item.name[0].toUpperCase()),
                   )
-                  .toList()
-                ..sort(((a, b) => a.contact.name.compareTo(b.contact.name)));
-
-              //Sort tags include @ and #
+                  .toList();
+              //Besides the initial letter, sort the rest of letter
               SuspensionUtil.sortListBySuspensionTag(contactsAZList);
-
               //Let each item know if it needs to show tag name above them
               SuspensionUtil.setShowSuspensionStatus(contactsAZList);
 
@@ -130,8 +48,7 @@ class ContactsIndexPage extends StatelessWidget {
                 indexBarWidth: 16,
                 indexBarOptions: IndexBarOptions(
                   needRebuild: true,
-                  textStyle: UTextStyle.B1_body.style
-                      .returnTextStyleType(color: UColors.textDark),
+                  textStyle: UTextStyle.B1_body.style.returnTextStyleType(),
                   selectTextStyle: UTextStyle.B3_bold.style.returnTextStyleType(
                     color: Colors.white,
                   ),
@@ -165,8 +82,6 @@ class ContactsIndexPage extends StatelessWidget {
                 ),
               );
             }
-          } else if (snapshot.hasError) {
-            log(snapshot.error.toString());
           }
           // TODO(yijing): update to standard indicator
           return const Center(child: ULoadingIndicator());
@@ -180,17 +95,33 @@ class ContactsIndexPage extends StatelessWidget {
     final offstage = !item.isShowSuspension;
     return Column(
       children: [
-        Offstage(offstage: offstage, child: ContactsHeader(tag: tag)),
+        Offstage(offstage: offstage, child: _buildHeader(tag)),
         ContactListTile(
           name: item.contact.name,
           status: item.contact.status,
           statusMessage: item.contact.statusMessage,
           imageAddress: item.contact.imageAddress,
-          onTap: () {},
+          onTap: () {
+            // TODO(yijing): add block friend work flow
+          },
         ),
       ],
     );
   }
+
+  Widget _buildHeader(String tag) => Container(
+        height: 20,
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.only(left: 8),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(4),
+          ),
+          color: UColors.foregroundDark,
+        ),
+        child: UText(tag, textStyle: UTextStyle.H3_tertiaryHeader),
+      );
 }
 
 class _AZItem extends ISuspensionBean {

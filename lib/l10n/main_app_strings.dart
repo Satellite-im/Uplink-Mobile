@@ -6,6 +6,9 @@ class UAppStrings {
   static const cancelButton = 'Cancel';
   static const agreeButton = 'Agree';
   static const goBackButton = 'Go back';
+  static const moreOptions = 'More Options';
+  static const remove = 'Remove';
+  static const okay = 'Okay';
 
   /// Strings for OnboardPinPage
   static const pinPage_pageTitle = 'Create Account Pin';
@@ -84,7 +87,6 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const recoverySeedPage_uDialogTitle = 'Saved!';
   static const recoverySeedPage_uDialogDescription =
       'This screenshot was saved to your phone gallery.';
-  static const recoverySeedPage_uDialogOk = 'Okay';
 
   /// Strings for OnboardCreateProfilePage
   static const createProfilePage_appBarTitle = 'Create Profile';
@@ -128,12 +130,52 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const signinPage_enterPinBody =
       'Enter your Pin to unlock your account.';
   static const signinPage_forgotPin = 'Forgot Your Pin Code';
-  static const signinPage_sheetTitle = 'More Options';
   static const signinPage_switchAccount = 'Switch Account';
   static const signinPage_newAccount = 'New Account';
 
   /// ContactsIndexPage
   static const contactsIndexPage_appBarTitle = 'Contacts';
+  static const contactsIndexPage_friendRequests = 'Friend Requests';
+  static const contactsIndexPage_outgoingRequests = 'Outgoing Requests';
+  static const contactsIndexPage_blocked = 'Blocked';
+
+  /// NoFriendBody
+  static const noFriendBody_title = 'No Friends Yet';
+  static const noFriendBody_body =
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem '
+      'accusantium doloremque laudantium.';
+  static const noFriendBody_addFriend = 'Add a Friend';
+
+  ///FriendRequestPage
+  static const friendRequestPage_appBarTitle = 'Friend Requests';
+  static const friendRequestPage_emptyBody =
+      'No one is here, you have 0 friend request!';
+  static const friendRequestPage_received = 'Received - ';
+
+  ///FriendRequestListTile
+  static const friendRequestListTile_bottomSheetHeader =
+      'Are you sure you want to remove this friend request?';
+  static const friendRequestListTile_dialogTitle = 'Friend Request Deleted';
+  static const friendRequestListTile_text1 = 'The friend request from ';
+  static const friendRequestListTile_text2 = ' was deleted.';
+
+  ///OutgoingRequestPage
+  static const outgoingRequestPage_appBarTitle = 'Outgoing Requests';
+  static const outgoingRequestPage_emptyBody =
+      'No one is here, you have 0 outgoing request!';
+  static const outgoingRequestPage_sent = 'Sent - ';
+
+  ///OutgoingRequestListTile
+  static const outgoingRequestListTile_bottomSheetHeader =
+      'Are you sure you want to unsend this friend request?';
+  static const outgoingRequestListTile_dialogTitle = 'Friend Request Removed';
+  static const outgoingRequestListTile_text1 = 'Your request to ';
+  static const outgoingRequestListTile_text2 = ' was removed.';
+
+  ///BlockedPage
+  static const blockedPage_appBarTitle = 'Block';
+  static const blockedPage_emptyBody =
+      'No one is here, you have 0 blocked contacts!';
 
   /// FilesIndexPage
   static const filesIndexPage_appBarTitle = 'Files';

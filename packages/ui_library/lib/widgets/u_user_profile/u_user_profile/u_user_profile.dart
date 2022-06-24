@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
 
@@ -17,10 +15,12 @@ class UUserProfile extends StatelessWidget {
     Key? key,
     String? imagePath,
     UUserProfileSize? userProfileSize,
+    bool? isLocalImage,
   })  : _imagePath = imagePath,
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _size = userProfileSize ?? UUserProfileSize.normal,
+        _isLocalImage = isLocalImage ?? false,
         super(key: key);
 
   /// Creates User Profile Widget with name
@@ -31,10 +31,12 @@ class UUserProfile extends StatelessWidget {
     String? imagePath,
     required String username,
     UUserProfileSize? userProfileSize,
+    bool? isLocalImage,
   })  : _imagePath = imagePath,
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
         _size = userProfileSize ?? UUserProfileSize.normal,
+        _isLocalImage = isLocalImage ?? false,
         super(key: key);
 
   final UUserProfileSize _size;
@@ -44,6 +46,8 @@ class UUserProfile extends StatelessWidget {
   final String? _userProfileUsername;
 
   final String? _imagePath;
+
+  final bool _isLocalImage;
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +59,9 @@ class UUserProfile extends StatelessWidget {
             height: _size.size,
             width: _size.size,
             child: _imagePath != null
-                ? Image.file(
-                    File(_imagePath!),
-                    fit: BoxFit.cover,
-                  )
+                ? _isLocalImage == false
+                    ? Image.network(_imagePath!)
+                    : Image.asset(_imagePath!)
                 : const UPlaceholder.userProfile(),
           ),
         ),

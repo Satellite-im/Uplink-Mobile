@@ -16,9 +16,11 @@ class UUserProfileWithStatus extends StatelessWidget {
     String? imagePath,
     required UUserProfileSize userProfileSize,
     required Status status,
+    bool? isLocalImage,
   })  : _imagePath = imagePath,
         _status = status,
         _uUserProfileSize = userProfileSize,
+        _isLocalImage = isLocalImage ?? false,
         super(key: key);
 
   final UUserProfileSize _uUserProfileSize;
@@ -26,6 +28,8 @@ class UUserProfileWithStatus extends StatelessWidget {
   final String? _imagePath;
 
   final Status _status;
+
+  final bool _isLocalImage;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,9 @@ class UUserProfileWithStatus extends StatelessWidget {
             height: _uUserProfileSize.size,
             width: _uUserProfileSize.size,
             child: _imagePath != null
-                ? Image.network(_imagePath!)
+                ? _isLocalImage == false
+                    ? Image.network(_imagePath!)
+                    : Image.asset(_imagePath!)
                 : const UPlaceholder.userProfile(),
           ),
         ),

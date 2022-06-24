@@ -24,7 +24,7 @@ class _SigninPageState extends State<SigninPage> {
             onPressed: () {
               UBottomSheetOptions(
                 context,
-                sheetTitle: UAppStrings.signinPage_sheetTitle,
+                sheetTitle: UAppStrings.moreOptions,
                 titleList: [
                   UAppStrings.signinPage_newAccount,
                   UAppStrings.signinPage_newAccount,

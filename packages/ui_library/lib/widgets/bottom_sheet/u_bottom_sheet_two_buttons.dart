@@ -33,8 +33,10 @@ class UBottomSheetTwoButtons {
     required this.header,
     required this.firstButtonText,
     this.firstButtonIcon,
+    this.firstButtonColor,
     required this.secondButtonText,
     this.secondButtonIcon,
+    this.secondButtonColor,
   });
 
   final BuildContext context;
@@ -48,11 +50,15 @@ class UBottomSheetTwoButtons {
   /// If is null, the button will not have an icon
   final UIconData? firstButtonIcon;
 
+  final Color? firstButtonColor;
+
   final String secondButtonText;
   final VoidCallback secondButtonOnPressed;
 
   /// If is null, the button will not have an icon
   final UIconData? secondButtonIcon;
+
+  final Color? secondButtonColor;
 
   Future show() {
     return UBottomSheet(
@@ -62,9 +68,11 @@ class UBottomSheetTwoButtons {
         firstButtonOnPressed: firstButtonOnPressed,
         firstButtonText: firstButtonText,
         firstButtonIcon: firstButtonIcon,
+        firstButtonColor: firstButtonColor,
         secondButtonOnPressed: secondButtonOnPressed,
         secondButtonText: secondButtonText,
         secondButtonIcon: secondButtonIcon,
+        secondButtonColor: secondButtonColor,
       ),
     ).show();
   }
@@ -76,8 +84,10 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
       required this.header,
       required this.firstButtonText,
       this.firstButtonIcon,
+      this.firstButtonColor,
       required this.secondButtonText,
       this.secondButtonIcon,
+      this.secondButtonColor,
       required this.firstButtonOnPressed,
       required this.secondButtonOnPressed})
       : super(key: key);
@@ -87,10 +97,12 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
   final String firstButtonText;
   final VoidCallback firstButtonOnPressed;
   final UIconData? firstButtonIcon;
+  final Color? firstButtonColor;
 
   final String secondButtonText;
   final VoidCallback secondButtonOnPressed;
   final UIconData? secondButtonIcon;
+  final Color? secondButtonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +114,7 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
           UText(
             header,
             textStyle: UTextStyle.H5_fifthHeader,
+            textColor: UColors.white,
           ),
           const SizedBox.square(
             dimension: 16,
@@ -113,14 +126,17 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
                   child: UButton.filled2(
                     label: firstButtonText,
                     onPressed: firstButtonOnPressed,
+                    color: firstButtonColor,
                   ),
                 )
               ] else ...[
                 Expanded(
                   child: UButton.secondary(
-                      label: firstButtonText,
-                      uIconData: firstButtonIcon!,
-                      onPressed: firstButtonOnPressed),
+                    label: firstButtonText,
+                    uIconData: firstButtonIcon!,
+                    onPressed: firstButtonOnPressed,
+                    color: firstButtonColor,
+                  ),
                 ),
               ],
               const SizedBox.square(
@@ -131,14 +147,17 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
                   child: UButton.filled1(
                     label: secondButtonText,
                     onPressed: secondButtonOnPressed,
+                    color: secondButtonColor,
                   ),
                 )
               ] else ...[
                 Expanded(
                   child: UButton.primary(
-                      label: secondButtonText,
-                      uIconData: secondButtonIcon!,
-                      onPressed: secondButtonOnPressed),
+                    label: secondButtonText,
+                    uIconData: secondButtonIcon!,
+                    onPressed: secondButtonOnPressed,
+                    color: secondButtonColor,
+                  ),
                 ),
               ],
             ],
