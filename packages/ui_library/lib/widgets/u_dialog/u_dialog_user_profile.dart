@@ -9,17 +9,16 @@ class UDialogUserProfile extends StatelessWidget {
       required this.buttonText,
       required this.popUpButtonText,
       required this.onTap,
-      this.imageAddress,
-      this.isLocalImage,
+      UImage? uImage,
       required this.username,
       this.statusMessage})
-      : super(key: key);
+      : _uImage = uImage ?? const UImage(),
+        super(key: key);
   final String bodyText;
   final String buttonText;
   final String popUpButtonText;
   final VoidCallback onTap;
-  final String? imageAddress;
-  final bool? isLocalImage;
+  final UImage? _uImage;
   final String username;
   final String? statusMessage;
 
@@ -33,8 +32,7 @@ class UDialogUserProfile extends StatelessWidget {
           const SizedBox(height: 8),
           UUserProfile(
             userProfileSize: UUserProfileSize.large,
-            isLocalImage: isLocalImage,
-            imagePath: imageAddress,
+            uImage: _uImage,
           ),
           const SizedBox(height: 16),
           UText(

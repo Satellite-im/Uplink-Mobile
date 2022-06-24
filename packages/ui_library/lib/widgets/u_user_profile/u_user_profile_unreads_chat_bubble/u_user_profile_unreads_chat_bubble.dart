@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
-import 'package:ui_library/widgets/global/placeholder.dart';
+import 'package:ui_library/widgets/global/global_export.dart';
 import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 
 import '../../../core/core_export.dart';
@@ -13,9 +13,9 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileUnreadsChatBubble({
     Key? key,
-    String? imagePath,
+    UImage? uImage,
     required int unreadMessages,
-  })  : _imagePath = imagePath,
+  })  : _uImage = uImage ?? const UImage(),
         _uUserProfileSize = UUserProfileSize.large,
         _unreadMessages = unreadMessages,
         super(key: key);
@@ -24,7 +24,7 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
 
   final int _unreadMessages;
 
-  final String? _imagePath;
+  final UImage? _uImage;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +48,7 @@ class UUserProfileUnreadsChatBubble extends StatelessWidget {
                 child: SizedBox(
                   height: _uUserProfileSize.size,
                   width: _uUserProfileSize.size,
-                  child: _imagePath != null
-                      ? Image.network(_imagePath!)
-                      : const UPlaceholder.userProfile(),
+                  child: _uImage,
                 ),
               ),
             ),

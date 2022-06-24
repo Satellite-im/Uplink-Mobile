@@ -12,8 +12,9 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
     required this.username,
     required UMessage uMessage,
     required this.unreadMessages,
-    this.imagePath,
+    UImage? uImage,
   })  : _status = status,
+        _uImage = uImage ?? const UImage(),
         _uMessage = uMessage,
         super(key: key);
 
@@ -23,7 +24,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
   final UMessage _uMessage;
 
-  final String? imagePath;
+  final UImage? _uImage;
 
   final int unreadMessages;
 
@@ -65,8 +66,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
           UUserProfileWithStatus(
             status: _status,
             userProfileSize: _userProfileSize,
-            isLocalImage: true,
-            imagePath: imagePath,
+            uImage: _uImage,
           ),
           const SizedBox.square(
             dimension: _firstSizedBoxSize,

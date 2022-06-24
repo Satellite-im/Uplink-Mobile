@@ -27,7 +27,10 @@ class _WithFriends extends StatelessWidget {
               username: _friend.username,
               uMessage: _friend.uMessage,
               unreadMessages: _friend.unreadMessages,
-              imagePath: _friend.imagePath,
+              uImage: UImage(
+                imagePath: _friend.imagePath,
+                imageSource: ImageSource.local,
+              ),
             ),
           ),
         );

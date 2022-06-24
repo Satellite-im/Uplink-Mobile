@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
+import 'package:ui_library/widgets/global/global_export.dart';
 import 'package:ui_library/widgets/global/placeholder.dart';
 import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 
@@ -14,9 +15,9 @@ class UUserProfileUnreads extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileUnreads({
     Key? key,
-    String? imagePath,
+    UImage? uImage,
     required int unreadMessages,
-  })  : _imagePath = imagePath,
+  })  : _uImage = uImage ?? const UImage(),
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _uUserProfileSize = UUserProfileSize.normal,
@@ -28,10 +29,10 @@ class UUserProfileUnreads extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileUnreads.withUsername({
     Key? key,
-    String? imagePath,
+    UImage? uImage,
     required String username,
     required int unreadMessages,
-  })  : _imagePath = imagePath,
+  })  : _uImage = uImage ?? const UImage(),
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
         _uUserProfileSize = UUserProfileSize.normal,
@@ -46,7 +47,7 @@ class UUserProfileUnreads extends StatelessWidget {
 
   final String? _userProfileUsername;
 
-  final String? _imagePath;
+  final UImage? _uImage;
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +75,7 @@ class UUserProfileUnreads extends StatelessWidget {
                   child: SizedBox(
                     height: _uUserProfileSize.size,
                     width: _uUserProfileSize.size,
-                    child: _imagePath != null
-                        ? Image.network(_imagePath!)
-                        : const UPlaceholder.userProfile(),
+                    child: _uImage,
                   ),
                 ),
               ),

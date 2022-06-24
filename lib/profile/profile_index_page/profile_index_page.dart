@@ -136,15 +136,15 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                   flexibleSpace: SizedBox(
                     height: 164,
                     width: double.infinity,
-                    child: _imageFile != null
-                        ? Image.file(
-                            _imageFile!,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            _coverPicturePath,
-                            fit: BoxFit.cover,
-                          ),
+                    child: UImage(
+                      imagePath: _imageFile != null
+                          ? _imageFile?.path
+                          : _coverPicturePath,
+                      imageSource: _imageFile != null
+                          ? ImageSource.file
+                          : ImageSource.local,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Align(
@@ -231,7 +231,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
             children: [
               Center(
                 child: UUserProfile(
-                  imagePath: userImagePath,
+                  uImage: UImage(
+                    imagePath: userImagePath,
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ),
               const SizedBox.square(

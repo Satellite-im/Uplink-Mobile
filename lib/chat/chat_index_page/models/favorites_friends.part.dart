@@ -17,15 +17,20 @@ class _FavoritesFriends extends StatelessWidget {
         _favoritesFriendsList.add(
           UUserProfileNotification.withUsername(
             username: friend.username,
-            imagePath: friend.imagePath,
+            uImage: UImage(
+              imagePath: friend.imagePath,
+              imageSource: ImageSource.local,
+            ),
           ),
         );
       } else {
         _favoritesFriendsList.add(
           UUserProfile.withUsername(
-            isLocalImage: true,
             username: friend.username,
-            imagePath: friend.imagePath,
+            uImage: UImage(
+              imagePath: friend.imagePath,
+              imageSource: ImageSource.local,
+            ),
           ),
         );
       }

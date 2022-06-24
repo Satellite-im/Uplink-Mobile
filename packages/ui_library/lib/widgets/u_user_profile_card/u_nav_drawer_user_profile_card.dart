@@ -9,7 +9,9 @@ class UNavDrawerUserProfileCard extends StatelessWidget {
     required Status status,
     required String username,
     required String message,
+    UImage? uImage,
   })  : _status = status,
+        _uImage = uImage ?? const UImage(),
         _username = username,
         _message = message,
         super(key: key);
@@ -20,6 +22,8 @@ class UNavDrawerUserProfileCard extends StatelessWidget {
 
   final String _message;
 
+  final UImage? _uImage;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,6 +33,7 @@ class UNavDrawerUserProfileCard extends StatelessWidget {
         UUserProfileWithStatus(
           status: _status,
           userProfileSize: UUserProfileSize.normal,
+          uImage: _uImage,
         ),
         const SizedBox.square(
           dimension: 8,

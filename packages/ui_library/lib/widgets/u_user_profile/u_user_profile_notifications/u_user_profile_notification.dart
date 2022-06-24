@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
-import 'package:ui_library/widgets/global/placeholder.dart';
+import 'package:ui_library/widgets/global/u_image.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
@@ -15,8 +15,8 @@ class UUserProfileNotification extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileNotification({
     Key? key,
-    String? imagePath,
-  })  : _imagePath = imagePath,
+    UImage? uImage,
+  })  : _uImage = uImage ?? const UImage(),
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _uUserProfileSize = UUserProfileSize.normal,
@@ -27,9 +27,9 @@ class UUserProfileNotification extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfileNotification.withUsername({
     Key? key,
-    String? imagePath,
+    UImage? uImage,
     required String username,
-  })  : _imagePath = imagePath,
+  })  : _uImage = uImage ?? const UImage(),
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
         _uUserProfileSize = UUserProfileSize.normal,
@@ -41,7 +41,7 @@ class UUserProfileNotification extends StatelessWidget {
 
   final String? _userProfileUsername;
 
-  final String? _imagePath;
+  final UImage _uImage;
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +59,7 @@ class UUserProfileNotification extends StatelessWidget {
               child: SizedBox(
                 height: _uUserProfileSize.size,
                 width: _uUserProfileSize.size,
-                child: _imagePath != null
-                    ? Image.network(
-                        _imagePath!,
-                        errorBuilder: ((context, error, stackTrace) =>
-                            Image.asset(
-                              _imagePath!,
-                              errorBuilder: ((context, error, stackTrace) =>
-                                  Container(
-                                    color: UColors.defGrey,
-                                  )),
-                            )),
-                      )
-                    : Container(
-                        color: UColors.defGrey,
-                      ),
+                child: _uImage,
               ),
             ),
             Positioned(

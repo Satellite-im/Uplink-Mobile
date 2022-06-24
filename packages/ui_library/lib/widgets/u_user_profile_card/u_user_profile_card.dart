@@ -9,7 +9,9 @@ class UserProfileCard extends StatelessWidget {
     required Status status,
     required String username,
     required String message,
+    UImage? uImage,
   })  : _status = status,
+        _uImage = uImage ?? const UImage(),
         _username = username,
         _message = message,
         super(key: key);
@@ -19,6 +21,8 @@ class UserProfileCard extends StatelessWidget {
   final String _username;
 
   final String _message;
+
+  final UImage? _uImage;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +39,7 @@ class UserProfileCard extends StatelessWidget {
           UUserProfileWithStatus(
             status: _status,
             userProfileSize: _userProfileSize,
+            uImage: _uImage,
           ),
           const SizedBox.square(
             dimension: _firstSizedBoxSize,

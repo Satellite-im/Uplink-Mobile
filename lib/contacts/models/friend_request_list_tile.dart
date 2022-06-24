@@ -23,8 +23,10 @@ class FriendRequestListTile extends StatelessWidget {
     return ListTile(
       leading: UUserProfileWithStatus(
         // TODO(yijing): update to online image in profuction app
-        isLocalImage: true,
-        imagePath: imageAddress,
+        uImage: UImage(
+          imagePath: imageAddress,
+          imageSource: ImageSource.local,
+        ),
         userProfileSize: UUserProfileSize.normal,
         status: status,
       ),

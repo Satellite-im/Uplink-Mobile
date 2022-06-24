@@ -24,8 +24,10 @@ class OutgoingRequestListTile extends StatelessWidget {
       tileColor: Colors.transparent,
       leading: UUserProfileWithStatus(
         // TODO(yijing): update to online image in profuction app
-        isLocalImage: true,
-        imagePath: imageAddress,
+        uImage: UImage(
+          imagePath: imageAddress,
+          imageSource: ImageSource.local,
+        ),
         userProfileSize: UUserProfileSize.normal,
         status: status,
       ),
