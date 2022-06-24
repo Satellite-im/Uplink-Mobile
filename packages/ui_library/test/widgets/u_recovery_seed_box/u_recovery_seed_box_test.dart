@@ -4,7 +4,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/u_recovery_seed_box/u_recovery_seed_box.dart';
 
 void main() {
-  group('Widget Test Drop Down Menu |', () {
+  group('Widget Test URecoverySeedBox |', () {
     testWidgets('Should return correct value', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
@@ -21,6 +21,7 @@ void main() {
 
       final Size _baseSize = tester.getSize(find.byType(URecoverySeedBox));
       expect(_baseSize.height, equals(40.0));
+      expect(_baseSize.width, equals(160.0));
     });
   });
 }
