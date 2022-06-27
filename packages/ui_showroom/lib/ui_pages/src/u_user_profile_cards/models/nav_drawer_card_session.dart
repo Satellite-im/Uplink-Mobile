@@ -5,6 +5,11 @@ class _NavDrawerUserProfileCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  String _generateNewImage() {
+    final _random = 1 + Random().nextInt(8);
+    return 'packages/ui_library/images/placeholders/user_avatar_$_random.png';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,18 +29,26 @@ class _NavDrawerUserProfileCard extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             UNavDrawerUserProfileCard(
               username: 'longusernameeeeeeeeeeeeeeeeeeeeeee',
               status: Status.online,
+              uImage: UImage(
+                imagePath: _generateNewImage(),
+                imageSource: ImageSource.local,
+              ),
               message:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
             ),
-            SizedBox.square(dimension: 8),
+            const SizedBox.square(dimension: 8),
             UNavDrawerUserProfileCard(
               username: 'username',
               status: Status.online,
               message: 'Lorem ipsum dolor sit amet',
+              uImage: UImage(
+                imagePath: _generateNewImage(),
+                imageSource: ImageSource.local,
+              ),
             ),
           ],
         )

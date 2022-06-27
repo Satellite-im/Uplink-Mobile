@@ -5,6 +5,11 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  String _generateNewImage() {
+    final _random = 1 + Random().nextInt(8);
+    return 'packages/ui_library/images/placeholders/user_avatar_$_random.png';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,6 +31,10 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           UnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.offline,
+            uImage: UImage(
+              imagePath: _generateNewImage(),
+              imageSource: ImageSource.local,
+            ),
             uMessage: UMessage(
               message:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
@@ -39,6 +48,10 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           UnreadMessagesUserProfileCard(
             username: 'usernamelongerverylongveryverylong',
             status: Status.online,
+            uImage: UImage(
+              imagePath: _generateNewImage(),
+              imageSource: ImageSource.local,
+            ),
             uMessage: UMessage(
               message:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
@@ -52,6 +65,10 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           UnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.online,
+            uImage: UImage(
+              imagePath: _generateNewImage(),
+              imageSource: ImageSource.local,
+            ),
             uMessage: UMessage(
               message: 'Lorem ipsum dolor sit amet',
               arrivalMessageTime: DateTime(2022, 05, 10, 04, 20),
@@ -76,6 +93,10 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           UnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.offline,
+            uImage: UImage(
+              imagePath: _generateNewImage(),
+              imageSource: ImageSource.local,
+            ),
             uMessage: UMessage(
               message:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',

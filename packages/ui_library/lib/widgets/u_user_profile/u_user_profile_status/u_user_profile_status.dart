@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
 import 'package:ui_library/widgets/global/global_export.dart';
-import 'package:ui_library/widgets/global/placeholder.dart';
 import 'package:ui_library/widgets/u_status/u_status_indicator.dart';
 import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 

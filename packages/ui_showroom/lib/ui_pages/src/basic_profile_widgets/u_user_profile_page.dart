@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
@@ -5,6 +7,11 @@ class UUserProfilePage extends StatelessWidget {
   const UUserProfilePage({Key? key}) : super(key: key);
 
   static const routeName = '/UUserProfile';
+
+  String _generateNewImage() {
+    final _random = 1 + Random().nextInt(8);
+    return 'packages/ui_library/images/placeholders/user_avatar_$_random.png';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +21,33 @@ class UUserProfilePage extends StatelessWidget {
       ),
       body: Center(
         child: ListView(
-          children: const [
+          children: [
             _UserProfileRow(
               title: 'User Profile Status 56x56',
               userProfile: [
                 UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.large,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.large,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.large,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ],
             ),
@@ -38,14 +57,26 @@ class UUserProfilePage extends StatelessWidget {
                 UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.normal,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.normal,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.normal,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ],
             ),
@@ -55,44 +86,80 @@ class UUserProfilePage extends StatelessWidget {
                 UUserProfileWithStatus(
                   status: Status.online,
                   userProfileSize: UUserProfileSize.topMenuBar,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileWithStatus(
                   status: Status.idle,
                   userProfileSize: UUserProfileSize.topMenuBar,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileWithStatus(
                   status: Status.offline,
                   userProfileSize: UUserProfileSize.topMenuBar,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ],
             ),
             _UserProfileRow(
               title: 'User Profile 40x40',
               userProfile: [
-                UUserProfile(),
+                const UUserProfile(),
                 UUserProfile.withUsername(
                   username: 'username',
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfile.withUsername(
                   username: 'longusername',
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfile.withUsername(
                   username: 'longusernamebigger',
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ],
             ),
             _UserProfileRow(
               title: 'User Profile Notification 40x40',
               userProfile: [
-                UUserProfileNotification(),
+                const UUserProfileNotification(),
                 UUserProfileNotification.withUsername(
                   username: 'username',
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileNotification.withUsername(
                   username: 'longusername',
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileNotification.withUsername(
                   username: 'longusernamebigger',
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ],
             ),
@@ -101,16 +168,28 @@ class UUserProfilePage extends StatelessWidget {
               userProfile: [
                 UUserProfileUnreads(
                   unreadMessages: 2,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'username',
                   unreadMessages: 89,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileUnreads.withUsername(
                   username: 'longusername',
                   unreadMessages: 100,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
-                UUserProfileUnreads.withUsername(
+                const UUserProfileUnreads.withUsername(
                   username: 'longusernamebigger',
                   unreadMessages: 99999,
                 ),
@@ -121,19 +200,31 @@ class UUserProfilePage extends StatelessWidget {
               userProfile: [
                 UUserProfileUnreadsChatBubble(
                   unreadMessages: 2,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
                 UUserProfileUnreadsChatBubble(
                   unreadMessages: 89,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
-                UUserProfileUnreadsChatBubble(
+                const UUserProfileUnreadsChatBubble(
                   unreadMessages: 100,
                 ),
                 UUserProfileUnreadsChatBubble(
                   unreadMessages: 99999,
+                  uImage: UImage(
+                    imagePath: _generateNewImage(),
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ],
             ),
-            SizedBox.square(
+            const SizedBox.square(
               dimension: 16,
             ),
           ],

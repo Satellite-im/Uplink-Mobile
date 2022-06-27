@@ -21,8 +21,6 @@ class ProfileIndexPage extends StatefulWidget {
 
 class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final _badgesQuantity = 5;
-  final _coverPicturePath =
-      'packages/ui_library/images/placeholders/cover_photo_1.png';
   bool _isEditingProfile = false;
   final _duration = const Duration(milliseconds: 250);
 
@@ -137,12 +135,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                     height: 164,
                     width: double.infinity,
                     child: UImage(
-                      imagePath: _imageFile != null
-                          ? _imageFile?.path
-                          : _coverPicturePath,
-                      imageSource: _imageFile != null
-                          ? ImageSource.file
-                          : ImageSource.local,
+                      imagePath: _imageFile?.path,
+                      imageSource: ImageSource.file,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -154,11 +148,27 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       const SizedBox.square(
                         dimension: 114,
                       ),
-                      UUserPictureChange(
-                        showChangeImageButton: _isEditingProfile,
-                        onPictureSelected: (value) {
-                          userImagePath = value?.path;
-                        },
+                      Container(
+                        decoration: _imageFile == null && userImagePath == null
+                            ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: UColors.backgroundDark,
+                                ),
+                              )
+                            : null,
+                        child: UUserPictureChange(
+                          showChangeImageButton: _isEditingProfile,
+                          uImage: UImage(
+                            imagePath: userImagePath,
+                            imageSource: ImageSource.file,
+                          ),
+                          onPictureSelected: (value) {
+                            setState(() {
+                              userImagePath = value?.path;
+                            });
+                          },
+                        ),
                       ),
                       AnimatedCrossFade(
                         duration: _duration,
