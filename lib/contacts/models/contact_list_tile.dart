@@ -22,9 +22,12 @@ class ContactListTile extends StatelessWidget {
     return ListTile(
       tileColor: Colors.transparent,
       leading: UUserProfileWithStatus(
-        // TODO(yijing): update to online image in profuction app
-        isLocalImage: true,
-        imagePath: imageAddress,
+        // TODO(yijing): update to online image in production app
+
+        uImage: UImage(
+          imagePath: imageAddress,
+          imageSource: ImageSource.local,
+        ),
         userProfileSize: UUserProfileSize.normal,
         status: status,
       ),

@@ -36,7 +36,10 @@ class _QRCodePageState extends State<QRCodePage> {
               const SizedBox.square(dimension: 32),
               Center(
                 child: UUserProfile(
-                  imagePath: widget.userImagePath,
+                  uImage: UImage(
+                    imagePath: widget.userImagePath,
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ),
               const SizedBox.square(

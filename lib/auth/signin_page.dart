@@ -17,7 +17,7 @@ class _SigninPageState extends State<SigninPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.iconOnly(
-        leading: const SizedBox(),
+        leading: const SizedBox.shrink(),
         actionList: [
           IconButton(
             icon: const UIcon(UIcons.menu_bar_contacts),

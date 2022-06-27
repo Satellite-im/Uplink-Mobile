@@ -11,7 +11,10 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Center(
-            child: UnreadMessagesIndicator(unreadMessages: 9),
+            child: UnreadMessagesIndicator(
+              unreadMessages: 9,
+              type: UnreadMessagesIndicatorType.profile,
+            ),
           ),
         ),
       );
@@ -31,7 +34,10 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Center(
-            child: UnreadMessagesIndicator(unreadMessages: 99),
+            child: UnreadMessagesIndicator(
+              unreadMessages: 99,
+              type: UnreadMessagesIndicatorType.profile,
+            ),
           ),
         ),
       );
@@ -51,7 +57,10 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Center(
-            child: UnreadMessagesIndicator(unreadMessages: 999),
+            child: UnreadMessagesIndicator(
+              unreadMessages: 999,
+              type: UnreadMessagesIndicatorType.profile,
+            ),
           ),
         ),
       );
@@ -71,7 +80,10 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Center(
-            child: UnreadMessagesIndicator(unreadMessages: 9999),
+            child: UnreadMessagesIndicator(
+              unreadMessages: 9999,
+              type: UnreadMessagesIndicatorType.profile,
+            ),
           ),
         ),
       );
@@ -91,7 +103,10 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Center(
-            child: UnreadMessagesIndicator(unreadMessages: 10000),
+            child: UnreadMessagesIndicator(
+              unreadMessages: 10000,
+              type: UnreadMessagesIndicatorType.profile,
+            ),
           ),
         ),
       );

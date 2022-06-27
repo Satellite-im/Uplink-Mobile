@@ -56,6 +56,6 @@ class SuggestedSeedsOverlayState extends State<SuggestedSeedsOverlay> {
         ),
       );
     }
-    return const SizedBox();
+    return const SizedBox.shrink();
   }
 }

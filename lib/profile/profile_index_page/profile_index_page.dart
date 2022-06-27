@@ -21,8 +21,6 @@ class ProfileIndexPage extends StatefulWidget {
 
 class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final _badgesQuantity = 5;
-  final _coverPicturePath =
-      'packages/ui_library/images/placeholders/cover_photo_1.png';
   bool _isEditingProfile = false;
   final _duration = const Duration(milliseconds: 250);
 
@@ -66,7 +64,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             });
                           },
                         )
-                      : const SizedBox(),
+                      : const SizedBox.shrink(),
                   actionList: [
                     if (!_isEditingProfile) ...[
                       IconButton(
@@ -136,15 +134,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                   flexibleSpace: SizedBox(
                     height: 164,
                     width: double.infinity,
-                    child: _imageFile != null
-                        ? Image.file(
-                            _imageFile!,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            _coverPicturePath,
-                            fit: BoxFit.cover,
-                          ),
+                    child: UImage(
+                      imagePath: _imageFile?.path,
+                      imageSource: ImageSource.file,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Align(
@@ -154,11 +148,27 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       const SizedBox.square(
                         dimension: 114,
                       ),
-                      UUserPictureChange(
-                        showChangeImageButton: _isEditingProfile,
-                        onPictureSelected: (value) {
-                          userImagePath = value?.path;
-                        },
+                      Container(
+                        decoration: _imageFile == null && userImagePath == null
+                            ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: UColors.backgroundDark,
+                                ),
+                              )
+                            : null,
+                        child: UUserPictureChange(
+                          showChangeImageButton: _isEditingProfile,
+                          uImage: UImage(
+                            imagePath: userImagePath,
+                            imageSource: ImageSource.file,
+                          ),
+                          onPictureSelected: (value) {
+                            setState(() {
+                              userImagePath = value?.path;
+                            });
+                          },
+                        ),
                       ),
                       AnimatedCrossFade(
                         duration: _duration,
@@ -231,7 +241,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
             children: [
               Center(
                 child: UUserProfile(
-                  imagePath: userImagePath,
+                  uImage: UImage(
+                    imagePath: userImagePath,
+                    imageSource: ImageSource.local,
+                  ),
                 ),
               ),
               const SizedBox.square(

@@ -53,9 +53,11 @@ class UDialogPage extends StatelessWidget {
                         popUpButtonText: 'Go Back',
                         username: 'username',
                         statusMessage: 'Something something space station',
-                        isLocalImage: true,
-                        imageAddress:
-                            'packages/ui_library/images/placeholders/user_avatar_7.png',
+                        uImage: const UImage(
+                          imagePath:
+                              'packages/ui_library/images/placeholders/user_avatar_7.png',
+                          imageSource: ImageSource.local,
+                        ),
                         onTap: () {}));
               },
             ),

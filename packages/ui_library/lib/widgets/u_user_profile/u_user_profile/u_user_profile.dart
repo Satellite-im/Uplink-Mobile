@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/widgets/global/placeholder.dart';
+import 'package:ui_library/widgets/global/global_export.dart';
 
 import '../../../core/core_export.dart';
 import '../../u_text/u_text_export.dart';
@@ -13,14 +13,12 @@ class UUserProfile extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfile({
     Key? key,
-    String? imagePath,
     UUserProfileSize? userProfileSize,
-    bool? isLocalImage,
-  })  : _imagePath = imagePath,
+    UImage? uImage,
+  })  : _uImage = uImage ?? const UImage(),
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _size = userProfileSize ?? UUserProfileSize.normal,
-        _isLocalImage = isLocalImage ?? false,
         super(key: key);
 
   /// Creates User Profile Widget with name
@@ -28,15 +26,13 @@ class UUserProfile extends StatelessWidget {
   /// [imagePath] if null, it will assume a default placeholder
   const UUserProfile.withUsername({
     Key? key,
-    String? imagePath,
     required String username,
     UUserProfileSize? userProfileSize,
-    bool? isLocalImage,
-  })  : _imagePath = imagePath,
+    UImage? uImage,
+  })  : _uImage = uImage ?? const UImage(),
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
         _size = userProfileSize ?? UUserProfileSize.normal,
-        _isLocalImage = isLocalImage ?? false,
         super(key: key);
 
   final UUserProfileSize _size;
@@ -45,9 +41,7 @@ class UUserProfile extends StatelessWidget {
 
   final String? _userProfileUsername;
 
-  final String? _imagePath;
-
-  final bool _isLocalImage;
+  final UImage? _uImage;
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +52,7 @@ class UUserProfile extends StatelessWidget {
           child: SizedBox(
             height: _size.size,
             width: _size.size,
-            child: _imagePath != null
-                ? _isLocalImage == false
-                    ? Image.network(_imagePath!)
-                    : Image.asset(_imagePath!)
-                : const UPlaceholder.userProfile(),
+            child: _uImage,
           ),
         ),
         if (_userProfileType == UUserProfileType.withUsername) ...[
@@ -75,6 +65,7 @@ class UUserProfile extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 1,
               textStyle: UTextStyle.M1_micro,
+              textColor: UColors.white,
             ),
           ),
         ]

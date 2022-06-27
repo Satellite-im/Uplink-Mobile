@@ -116,7 +116,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                   },
                 ),
               ),
-              const Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox.shrink()),
             ],
           ),
         ),

@@ -4,9 +4,10 @@ import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/contacts_export.dart';
-import 'package:uplink/contacts/helpers/loading_contacts.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
+import 'package:uplink/utils/mock/models/mock_contact.dart';
 
 class ContactsIndexPage extends StatelessWidget {
   const ContactsIndexPage({Key? key}) : super(key: key);

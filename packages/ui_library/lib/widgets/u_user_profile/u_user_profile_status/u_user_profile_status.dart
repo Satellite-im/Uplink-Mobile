@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/widgets/global/clipper/u_clipper.dart';
-import 'package:ui_library/widgets/global/placeholder.dart';
+import 'package:ui_library/widgets/global/global_export.dart';
 import 'package:ui_library/widgets/u_status/u_status_indicator.dart';
 import 'package:ui_library/widgets/u_user_profile/models/u_user_profile_sizes.dart';
 
@@ -13,23 +13,19 @@ class UUserProfileWithStatus extends StatelessWidget {
   /// [userProfileSize] defines the size of the widget
   const UUserProfileWithStatus({
     Key? key,
-    String? imagePath,
     required UUserProfileSize userProfileSize,
     required Status status,
-    bool? isLocalImage,
-  })  : _imagePath = imagePath,
+    UImage? uImage,
+  })  : _uImage = uImage ?? const UImage(),
         _status = status,
         _uUserProfileSize = userProfileSize,
-        _isLocalImage = isLocalImage ?? false,
         super(key: key);
 
   final UUserProfileSize _uUserProfileSize;
 
-  final String? _imagePath;
+  final UImage? _uImage;
 
   final Status _status;
-
-  final bool _isLocalImage;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +42,7 @@ class UUserProfileWithStatus extends StatelessWidget {
           child: SizedBox(
             height: _uUserProfileSize.size,
             width: _uUserProfileSize.size,
-            child: _imagePath != null
-                ? _isLocalImage == false
-                    ? Image.network(_imagePath!)
-                    : Image.asset(_imagePath!)
-                : const UPlaceholder.userProfile(),
+            child: _uImage,
           ),
         ),
         Positioned(

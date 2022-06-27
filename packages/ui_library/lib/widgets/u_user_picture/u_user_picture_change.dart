@@ -1,21 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:ui_library/core/const/const_export.dart';
-import 'package:ui_library/plugins/plugins_export.dart';
-import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_export.dart';
 
-import '../u_icon/u_icon_export.dart';
+import 'package:ui_library/ui_library_export.dart';
 
 class UUserPictureChange extends StatefulWidget {
   const UUserPictureChange({
     Key? key,
     required this.onPictureSelected,
     this.showChangeImageButton = true,
-  }) : super(key: key);
+    UImage? uImage,
+  })  : _uImage = uImage ?? const UImage(),
+        super(key: key);
 
   final Function(File? pictureSelected) onPictureSelected;
   final bool showChangeImageButton;
+  final UImage _uImage;
 
   @override
   State<UUserPictureChange> createState() => _UUserPictureChangeState();
@@ -80,16 +80,10 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
             ),
             child: ValueListenableBuilder(
               valueListenable: _userPictureFile,
-              child: const SizedBox(),
+              child: const SizedBox.shrink(),
               builder: (context, _file, child) {
                 return ClipOval(
-                  child: _userPictureFile.value != null
-                      ? Image.file(
-                          File(_userPictureFile.value!.path),
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.high,
-                        )
-                      : child,
+                  child: widget._uImage,
                 );
               },
             ),
@@ -113,7 +107,7 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
                   ),
                 ),
               ),
-              secondChild: const SizedBox(),
+              secondChild: const SizedBox.shrink(),
               crossFadeState: widget.showChangeImageButton
                   ? CrossFadeState.showFirst
                   : CrossFadeState.showSecond,

@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/core/core_export.dart';
 import 'package:ui_library/widgets/u_text/u_text.dart';
 
+enum UnreadMessagesIndicatorType {
+  /// Borders more circular
+  profile,
+
+  /// Borders less circular
+  card
+}
+
 class UnreadMessagesIndicator extends StatelessWidget {
   /// Creates unread messages indicator
   ///
@@ -14,16 +22,20 @@ class UnreadMessagesIndicator extends StatelessWidget {
   const UnreadMessagesIndicator({
     Key? key,
     required int unreadMessages,
+    required UnreadMessagesIndicatorType type,
   })  : _unreadMessages = unreadMessages,
+        _type = type,
         _height = USizes.unreadMessagesIndicatorSize,
         assert(unreadMessages > -1),
         super(key: key);
 
   final double _height;
 
+  final UnreadMessagesIndicatorType _type;
+
   final int _unreadMessages;
 
-  double _getUnreadMessagesIndicatorWidth() {
+  double getUnreadMessagesIndicatorWidth() {
     if (_unreadMessages < 10) {
       return USizes.unreadMessagesLessThanTenWidthSize;
     } else if (_unreadMessages < 100) {
@@ -40,13 +52,13 @@ class UnreadMessagesIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _getUnreadMessagesIndicatorWidth(),
+      width: getUnreadMessagesIndicatorWidth(),
       height: _height,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: UColors.ctaBlue,
         borderRadius: BorderRadius.all(
           Radius.circular(
-            100,
+            _type == UnreadMessagesIndicatorType.profile ? 100 : 4,
           ),
         ),
       ),
