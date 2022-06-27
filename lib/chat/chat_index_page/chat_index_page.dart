@@ -38,7 +38,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
               return UActionLoading(
                 dashLoadingIndicatorPadding: const EdgeInsets.only(left: 32),
                 isLoading: ValueNotifier(!snapshot.hasData),
-                child: const SizedBox(),
+                child: const SizedBox.shrink(),
               );
             } else {
               final _friendsList = snapshot.data!['chats_list']!;

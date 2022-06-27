@@ -80,7 +80,7 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
             ),
             child: ValueListenableBuilder(
               valueListenable: _userPictureFile,
-              child: const SizedBox(),
+              child: const SizedBox.shrink(),
               builder: (context, _file, child) {
                 return ClipOval(
                   child: widget._uImage,
@@ -107,7 +107,7 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
                   ),
                 ),
               ),
-              secondChild: const SizedBox(),
+              secondChild: const SizedBox.shrink(),
               crossFadeState: widget.showChangeImageButton
                   ? CrossFadeState.showFirst
                   : CrossFadeState.showSecond,

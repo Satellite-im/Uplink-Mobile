@@ -67,7 +67,7 @@ class URecoverySeedBox extends StatelessWidget {
                     onTap: () => onDelete!(),
                   ),
                 )
-              : const SizedBox(),
+              : const SizedBox.shrink(),
         ],
       ),
     );

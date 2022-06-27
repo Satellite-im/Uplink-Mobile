@@ -64,7 +64,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             });
                           },
                         )
-                      : const SizedBox(),
+                      : const SizedBox.shrink(),
                   actionList: [
                     if (!_isEditingProfile) ...[
                       IconButton(

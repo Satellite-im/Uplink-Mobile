@@ -63,7 +63,7 @@ class ContactSearch extends SearchCustomDelegate<MockContact?> {
 
           //show suggestion when user typed the first letter
           if (contactsList.isEmpty || query.isEmpty) {
-            return const SizedBox();
+            return const SizedBox.shrink();
           } else {
             final suggestions = contactsList.where(
               (element) =>
