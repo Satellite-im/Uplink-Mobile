@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/models/fat_triangle.dart';
+import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
 
 class AddFriendPage extends StatefulWidget {
@@ -21,6 +22,9 @@ class _AddFriendPageState extends State<AddFriendPage>
   late Animation<double> _animation;
   late GlobalKey<FormFieldState<String>> _formfieldKey;
   bool _disableButton = true;
+  bool _isFound = false;
+  bool _showNoUserError = false;
+  late TextEditingController _textController;
 
   @override
   void initState() {
@@ -31,17 +35,34 @@ class _AddFriendPageState extends State<AddFriendPage>
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
     _formfieldKey = GlobalKey<FormFieldState<String>>();
+    _textController = TextEditingController();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     const userId = 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94';
+    _textController.addListener(() {
+      if (_textController.text.length == 43 && _disableButton == true) {
+        //when text length is 43, light up button
+        setState(() {
+          _disableButton = false;
+        });
+      } else if (_textController.value.text.length != 43 &&
+          _disableButton == false) {
+        //after user search the wrong user and want to change the text
+        setState(() {
+          _disableButton = true;
+        });
+      }
+    });
+
     return Scaffold(
       appBar: UAppBar.actions(
         title: 'Add Friend',
@@ -114,18 +135,56 @@ class _AddFriendPageState extends State<AddFriendPage>
             ),
             const SizedBox(height: 24),
             _buildIDFormField(),
+            // TODO(yijing):add loading user data
+            if (_isFound)
+              ContactListTile(
+                name: 'username',
+                status: Status.online,
+                statusMessage: 'Something something space station',
+                imageAddress:
+                    'packages/ui_library/images/placeholders/user_avatar_3.png',
+                onTap: () {},
+              ),
+            if (_showNoUserError) ...[
+              const SizedBox(
+                height: 24,
+              ),
+              UText(
+                'Error: no account found.',
+                textStyle: UTextStyle.B1_body,
+                textColor: UColors.termRed,
+              )
+            ] else
+              const SizedBox.shrink(),
             const SizedBox(height: 56),
-            UButton.primary(
-              disabled: _disableButton,
-              label: 'Search',
-              uIconData: UIcons.search,
-              onPressed: () async {
-                if (_formfieldKey.currentState!.validate()) {
-                } else {
-                  // TODO(yijing): add search work flow
-                }
-              },
-            ),
+            if (_isFound)
+              UButton.primary(
+                disabled: true,
+                label: 'Add Friend',
+                uIconData: UIcons.add_contact_member,
+                onPressed: () async {
+                  print('found');
+                },
+              )
+            else
+              UButton.primary(
+                disabled: _disableButton,
+                label: 'Search',
+                uIconData: UIcons.search,
+                onPressed: () async {
+                  if (_formfieldKey.currentState!.validate()) {
+                    // TODO(yijing): TODO(yijing): add search work flow
+                    setState(() {
+                      if (_textController.text ==
+                          'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
+                        _isFound = true;
+                      } else {
+                        _showNoUserError = true;
+                      }
+                    });
+                  }
+                },
+              ),
           ],
         ),
       ),
@@ -135,17 +194,14 @@ class _AddFriendPageState extends State<AddFriendPage>
   FormField<String> _buildIDFormField() {
     return FormField<String>(
       key: _formfieldKey,
-      autovalidateMode: AutovalidateMode.disabled,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        // TODO(yijing): update validator function
         if (value!.length < 43 && value.isNotEmpty) {
           return 'Error: not enough characters.';
-        } else if (value.length == 43 &&
-            value != 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
-          return 'Error: no account found.';
-        } else {
-          return null;
+        } else if (value.length > 43 && value.isNotEmpty) {
+          return 'Error: too many characters.';
         }
+        return null;
       },
       builder: (FormFieldState<String> state) {
         return Column(
@@ -158,28 +214,37 @@ class _AddFriendPageState extends State<AddFriendPage>
                 color: UColors.foregroundDark,
               ),
               child: TextField(
+                controller: _textController,
                 onChanged: (value) {
-                  setState(() {
-                    if (value.isEmpty) {
-                      _disableButton = true;
-                    } else {
-                      _disableButton = false;
-                    }
-                  });
                   state.didChange(value);
+
+                  //if in 'add friend' mode, turn it off(switch to search mode)
+                  if (_isFound) {
+                    setState(() {
+                      _isFound = false;
+                    });
+                  }
+                  //clear the no user erroe
+                  if (_showNoUserError) {
+                    setState(() {
+                      _showNoUserError = false;
+                    });
+                  }
                 },
                 decoration: const InputDecoration(hintText: 'Enter Account ID'),
+                keyboardType: TextInputType.none,
               ),
             ),
-            const SizedBox(
-              height: 24,
-            ),
-            if (state.hasError)
+            if (state.hasError) ...[
+              const SizedBox(
+                height: 24,
+              ),
               UText(
                 state.errorText.toString(),
                 textStyle: UTextStyle.B1_body,
                 textColor: UColors.termRed,
               )
+            ]
           ],
         );
       },
