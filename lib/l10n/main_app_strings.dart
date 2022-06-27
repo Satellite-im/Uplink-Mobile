@@ -223,6 +223,13 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const editProfilePage_displayLocation = 'Display Location';
   static const editProfilePage_makeProfilePublic = 'Make Profile Public';
   static const editProfilePage_saveChangesButton = 'Save Changes';
+  static const editProfilePage_removeAvatar = 'Remove Avatar';
+  static const editProfilePage_removeBanner = 'Remove Banner';
+
+  static const editProfilePage_removeAvatarBottomSheet =
+      'Are you sure you want to remove your avatar image?';
+  static const editProfilePage_removeBannerBottomSheet =
+      'Are you sure you want to remove your banner image?';
 
   /// QRCodePage
   static const qrCodePage_appBarTitle = 'Scan QR Code';

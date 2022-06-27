@@ -7,6 +7,8 @@ import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/qr_code_page.dart';
 
+import '../u_pop_menu_item/u_pop_menu_item.dart';
+
 part 'models/body.part.dart';
 part 'models/edit_profile_body.dart';
 part 'models/network_profiles_body.part.dart';
@@ -31,10 +33,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
 
   String? userImagePath;
 
-  File? _imageFile;
+  File? _bannerImageFile;
 
   void _verifyIfHasImage() {
-    if (_imageFile != null && _imageFile!.path.isNotEmpty) {
+    if (_bannerImageFile != null && _bannerImageFile!.path.isNotEmpty) {
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
@@ -83,7 +85,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                         ),
                         onPressed: () {},
                       ),
-                    ] else
+                    ] else ...[
                       IconButton(
                         icon: const UIcon(
                           UIcons.compose_message_button,
@@ -101,7 +103,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             firstButtonIcon: UIcons.camera,
                             secondButtonIcon: UIcons.image,
                             firstButtonOnPressed: () async {
-                              _imageFile = await UImagePicker(
+                              _bannerImageFile = await UImagePicker(
                                 shouldShowPermissionDialog: true,
                               ).pickImageFromCamera(
                                 context,
@@ -115,7 +117,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                               setState(() {});
                             },
                             secondButtonOnPressed: () async {
-                              _imageFile =
+                              _bannerImageFile =
                                   await UImagePicker().pickImageFromGallery(
                                 context,
                                 uCropStyle: UCropStyle.rectangle,
@@ -130,12 +132,25 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           ).show();
                         },
                       ),
+                      _DeletePictureDropDownList(
+                        removeAvatarOnPressed: () {
+                          setState(() {
+                            userImagePath = null;
+                          });
+                        },
+                        removeBannerOnPressed: () {
+                          setState(() {
+                            _bannerImageFile = null;
+                          });
+                        },
+                      ),
+                    ]
                   ],
                   flexibleSpace: SizedBox(
                     height: 164,
                     width: double.infinity,
                     child: UImage(
-                      imagePath: _imageFile?.path,
+                      imagePath: _bannerImageFile?.path,
                       imageSource: ImageSource.file,
                       fit: BoxFit.cover,
                     ),
@@ -149,14 +164,15 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                         dimension: 114,
                       ),
                       Container(
-                        decoration: _imageFile == null && userImagePath == null
-                            ? BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: UColors.backgroundDark,
-                                ),
-                              )
-                            : null,
+                        decoration:
+                            _bannerImageFile == null && userImagePath == null
+                                ? BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: UColors.backgroundDark,
+                                    ),
+                                  )
+                                : null,
                         child: UUserPictureChange(
                           showChangeImageButton: _isEditingProfile,
                           uImage: UImage(
@@ -312,6 +328,105 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DeletePictureDropDownList extends StatelessWidget {
+  const _DeletePictureDropDownList({
+    Key? key,
+    required this.removeAvatarOnPressed,
+    required this.removeBannerOnPressed,
+  }) : super(key: key);
+
+  final Function() removeAvatarOnPressed;
+  final Function() removeBannerOnPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return UPopupMenuButton<String>(
+      color: UColors.foregroundDark,
+      offset: const Offset(-16, 60),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+      // child: const UIcon(UIcons.hamburger_menu),
+      icon: const UIcon(UIcons.hamburger_menu),
+      onSelected: (String result) {
+        switch (result) {
+          case UAppStrings.editProfilePage_removeAvatar:
+            UBottomSheetTwoButtons(
+              context,
+              header: UAppStrings.editProfilePage_removeAvatarBottomSheet,
+              firstButtonText: UAppStrings.cancelButton,
+              secondButtonText: UAppStrings.remove,
+              firstButtonColor: UColors.ctaDark,
+              secondButtonColor: UColors.termRed,
+              firstButtonOnPressed: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).pop(),
+              secondButtonOnPressed: () {
+                removeAvatarOnPressed();
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+            ).show();
+            break;
+          case UAppStrings.editProfilePage_removeBanner:
+            UBottomSheetTwoButtons(
+              context,
+              header: UAppStrings.editProfilePage_removeBannerBottomSheet,
+              firstButtonText: UAppStrings.cancelButton,
+              secondButtonText: UAppStrings.remove,
+              firstButtonColor: UColors.ctaDark,
+              secondButtonColor: UColors.termRed,
+              firstButtonOnPressed: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).pop(),
+              secondButtonOnPressed: () {
+                removeBannerOnPressed();
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+            ).show();
+            break;
+          default:
+        }
+      },
+      itemBuilder: (BuildContext context) {
+        return <UPopupMenuEntry<String>>[
+          const UPopupMenuItem<String>(
+            padding: EdgeInsets.zero,
+            value: UAppStrings.editProfilePage_removeAvatar,
+            child: SizedBox(
+              width: 160,
+              child: Padding(
+                padding: EdgeInsets.only(left: 16),
+                child: UText(
+                  UAppStrings.editProfilePage_removeAvatar,
+                  textStyle: UTextStyle.BUT1_primaryButton,
+                  textColor: UColors.termRed,
+                ),
+              ),
+            ),
+          ),
+          const UPopupMenuItem<String>(
+            value: UAppStrings.editProfilePage_removeBanner,
+            padding: EdgeInsets.zero,
+            child: SizedBox(
+              width: 160,
+              child: Padding(
+                padding: EdgeInsets.only(left: 16),
+                child: UText(
+                  'Remove Banner',
+                  textStyle: UTextStyle.BUT1_primaryButton,
+                  textColor: UColors.termRed,
+                ),
+              ),
+            ),
+          ),
+        ];
+      },
     );
   }
 }
