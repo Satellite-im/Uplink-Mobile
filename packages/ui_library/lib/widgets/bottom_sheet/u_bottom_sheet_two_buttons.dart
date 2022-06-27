@@ -3,27 +3,6 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 
 class UBottomSheetTwoButtons {
-  final BuildContext context;
-
-  /// The text on the top of the bottom sheet
-  final String header;
-
-  final String firstButtonText;
-  final VoidCallback firstButtonOnPressed;
-
-  /// If is null, the button will not have an icon
-  final UIconData? firstButtonIcon;
-
-  final Color? firstButtonColor;
-
-  final String secondButtonText;
-  final VoidCallback secondButtonOnPressed;
-
-  /// If is null, the button will not have an icon
-  final UIconData? secondButtonIcon;
-
-  final Color? secondButtonColor;
-
   /// Creates a bottom sheet to use with two button options
   ///
   /// It is possible to use buttons with or without icons
@@ -59,6 +38,27 @@ class UBottomSheetTwoButtons {
     this.secondButtonIcon,
     this.secondButtonColor,
   });
+
+  final BuildContext context;
+
+  /// The text on the top of the bottom sheet
+  final String header;
+
+  final String firstButtonText;
+  final VoidCallback firstButtonOnPressed;
+
+  /// If is null, the button will not have an icon
+  final UIconData? firstButtonIcon;
+
+  final Color? firstButtonColor;
+
+  final String secondButtonText;
+  final VoidCallback secondButtonOnPressed;
+
+  /// If is null, the button will not have an icon
+  final UIconData? secondButtonIcon;
+
+  final Color? secondButtonColor;
 
   Future show() {
     return UBottomSheet(

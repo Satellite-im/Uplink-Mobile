@@ -3,12 +3,6 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 
 class UBottomSheetPin {
-  final BuildContext context;
-
-  final Function(int) onSelect;
-
-  final int? initValue;
-
   /// Creates a bottom sheet to use in Pin Pages
   ///
   /// It allows to select between 4, 6 or 8 digits as pin length.
@@ -34,6 +28,12 @@ class UBottomSheetPin {
     required this.onSelect,
     this.initValue,
   });
+
+  final BuildContext context;
+
+  final Function(int) onSelect;
+
+  final int? initValue;
 
   Future show() {
     return UBottomSheet(
