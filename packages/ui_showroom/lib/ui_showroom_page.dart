@@ -49,6 +49,7 @@ class UIShowRoomApp extends StatelessWidget {
         UUserProfileCardsPage.routeName: (context) =>
             const UUserProfileCardsPage(),
         UDialogPage.routeName: (context) => const UDialogPage(),
+        UPopMenuItemPage.routeName: (context) => const UPopMenuItemPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -196,6 +197,14 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UDialogPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Pop Menu Item Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UPopMenuItemPage.routeName,
                   ),
                 ],
               ),

@@ -7,12 +7,11 @@ import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/qr_code_page.dart';
 
-import '../u_pop_menu_item/u_pop_menu_item.dart';
-
 part 'models/body.part.dart';
 part 'models/edit_profile_body.dart';
 part 'models/network_profiles_body.part.dart';
 part 'models/profile_data_body.part.dart';
+part 'models/delete_picture_drop_down_list_widget.part.dart';
 
 class ProfileIndexPage extends StatefulWidget {
   const ProfileIndexPage({Key? key}) : super(key: key);
@@ -328,105 +327,6 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _DeletePictureDropDownList extends StatelessWidget {
-  const _DeletePictureDropDownList({
-    Key? key,
-    required this.removeAvatarOnPressed,
-    required this.removeBannerOnPressed,
-  }) : super(key: key);
-
-  final Function() removeAvatarOnPressed;
-  final Function() removeBannerOnPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return UPopupMenuButton<String>(
-      color: UColors.foregroundDark,
-      offset: const Offset(-16, 60),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      // child: const UIcon(UIcons.hamburger_menu),
-      icon: const UIcon(UIcons.hamburger_menu),
-      onSelected: (String result) {
-        switch (result) {
-          case UAppStrings.editProfilePage_removeAvatar:
-            UBottomSheetTwoButtons(
-              context,
-              header: UAppStrings.editProfilePage_removeAvatarBottomSheet,
-              firstButtonText: UAppStrings.cancelButton,
-              secondButtonText: UAppStrings.remove,
-              firstButtonColor: UColors.ctaDark,
-              secondButtonColor: UColors.termRed,
-              firstButtonOnPressed: () => Navigator.of(
-                context,
-                rootNavigator: true,
-              ).pop(),
-              secondButtonOnPressed: () {
-                removeAvatarOnPressed();
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-            ).show();
-            break;
-          case UAppStrings.editProfilePage_removeBanner:
-            UBottomSheetTwoButtons(
-              context,
-              header: UAppStrings.editProfilePage_removeBannerBottomSheet,
-              firstButtonText: UAppStrings.cancelButton,
-              secondButtonText: UAppStrings.remove,
-              firstButtonColor: UColors.ctaDark,
-              secondButtonColor: UColors.termRed,
-              firstButtonOnPressed: () => Navigator.of(
-                context,
-                rootNavigator: true,
-              ).pop(),
-              secondButtonOnPressed: () {
-                removeBannerOnPressed();
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-            ).show();
-            break;
-          default:
-        }
-      },
-      itemBuilder: (BuildContext context) {
-        return <UPopupMenuEntry<String>>[
-          const UPopupMenuItem<String>(
-            padding: EdgeInsets.zero,
-            value: UAppStrings.editProfilePage_removeAvatar,
-            child: SizedBox(
-              width: 160,
-              child: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: UText(
-                  UAppStrings.editProfilePage_removeAvatar,
-                  textStyle: UTextStyle.BUT1_primaryButton,
-                  textColor: UColors.termRed,
-                ),
-              ),
-            ),
-          ),
-          const UPopupMenuItem<String>(
-            value: UAppStrings.editProfilePage_removeBanner,
-            padding: EdgeInsets.zero,
-            child: SizedBox(
-              width: 160,
-              child: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: UText(
-                  'Remove Banner',
-                  textStyle: UTextStyle.BUT1_primaryButton,
-                  textColor: UColors.termRed,
-                ),
-              ),
-            ),
-          ),
-        ];
-      },
     );
   }
 }
