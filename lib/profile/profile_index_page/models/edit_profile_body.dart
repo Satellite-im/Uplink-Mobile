@@ -177,7 +177,7 @@ class _TextField extends StatelessWidget {
                 color: Colors.white,
               ),
               textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               cursorColor: UColors.textDark,
               autocorrect: false,
               onChanged: onChanged,
