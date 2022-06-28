@@ -165,8 +165,12 @@ class _TextField extends StatelessWidget {
             ),
           ),
           const SizedBox.square(dimension: 8.4),
-          SizedBox(
+          Container(
             height: textFieldHeight ?? 48,
+            decoration: BoxDecoration(
+              color: UColors.foregroundDark,
+              borderRadius: BorderRadius.circular(4),
+            ),
             child: TextField(
               controller: controller,
               style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
@@ -181,6 +185,7 @@ class _TextField extends StatelessWidget {
               decoration: InputDecoration(
                 isDense: true,
                 filled: true,
+                contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 fillColor: UColors.foregroundDark,
                 border: OutlineInputBorder(
                   borderSide: BorderSide.none,
