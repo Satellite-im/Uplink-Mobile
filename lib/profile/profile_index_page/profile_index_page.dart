@@ -11,7 +11,7 @@ part 'models/body.part.dart';
 part 'models/edit_profile_body.dart';
 part 'models/network_profiles_body.part.dart';
 part 'models/profile_data_body.part.dart';
-part 'models/delete_picture_drop_down_list_widget.part.dart';
+part 'models/delete_picture_popup_menu_widget.part.dart';
 
 class ProfileIndexPage extends StatefulWidget {
   const ProfileIndexPage({Key? key}) : super(key: key);
@@ -131,7 +131,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           ).show();
                         },
                       ),
-                      _DeletePictureDropDownList(
+                      _DeletePicturePopupMenu(
                         removeAvatarOnPressed: () {
                           setState(() {
                             userImagePath = null;
