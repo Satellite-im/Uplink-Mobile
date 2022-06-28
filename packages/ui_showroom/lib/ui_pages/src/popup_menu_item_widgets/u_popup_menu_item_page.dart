@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class UPopMenuItemPage extends StatefulWidget {
-  const UPopMenuItemPage({Key? key}) : super(key: key);
+class UPopupMenuItemPage extends StatefulWidget {
+  const UPopupMenuItemPage({Key? key}) : super(key: key);
 
-  static const routeName = '/UPopMenuItem';
+  static const routeName = '/UPopupMenuItem';
 
   @override
-  State<UPopMenuItemPage> createState() => _UPopMenuItemPageState();
+  State<UPopupMenuItemPage> createState() => _UPopupMenuItemPageState();
 }
 
-class _UPopMenuItemPageState extends State<UPopMenuItemPage> {
+class _UPopupMenuItemPageState extends State<UPopupMenuItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(UPopMenuItemPage.routeName.substring(1)),
+        title: Text(UPopupMenuItemPage.routeName.substring(1)),
         actions: [
           UPopupMenuButton<String>(
-            color: UColors.foregroundDark,
-            offset: const Offset(-16, 60),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
             icon: const UIcon(UIcons.hamburger_menu),
             onSelected: (String result) {
               switch (result) {

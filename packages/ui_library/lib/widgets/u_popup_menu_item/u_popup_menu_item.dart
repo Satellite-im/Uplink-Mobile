@@ -7,6 +7,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ui_library/core/const/const_export.dart';
 
 // Examples can assume:
 // enum Commands { heroAndScholar, hurricaneCame }
@@ -19,10 +20,11 @@ const Duration _kMenuDuration = Duration(milliseconds: 300);
 const double _kMenuCloseIntervalEnd = 2.0 / 3.0;
 const double _kMenuHorizontalPadding = 16;
 const double _kMenuDividerHeight = 16;
-const double _kMenuMaxWidth = 35.0 * _kMenuWidthStep;
-const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
+// const double _kMenuMaxWidth = 35.0 * _kMenuWidthStep;
+double _kPopMenuItemsMaxWidth = 160;
+// const double _kMenuMinWidth = 2 * _kMenuWidthStep;
 const double _kMenuVerticalPadding = 8;
-const double _kMenuWidthStep = 8;
+// const double _kMenuWidthStep = 8;
 const double _kMenuScreenPadding = 0;
 
 /// A base class for entries in a material design popup menu.
@@ -217,7 +219,7 @@ class UPopupMenuItem<T> extends UPopupMenuEntry<T> {
     this.onTap,
     this.enabled = true,
     this.height = kMinInteractiveDimension,
-    this.padding,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16),
     this.textStyle,
     this.mouseCursor,
     required this.child,
@@ -579,23 +581,20 @@ class _UPopupMenu<T> extends StatelessWidget {
         CurveTween(curve: Interval(0, unit * route.items.length));
 
     final Widget child = ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: _kMenuMinWidth,
-        maxWidth: _kMenuMaxWidth,
+      constraints: BoxConstraints(
+        minWidth: _kPopMenuItemsMaxWidth,
+        maxWidth: _kPopMenuItemsMaxWidth,
       ),
-      child: IntrinsicWidth(
-        stepWidth: _kMenuWidthStep,
-        child: Semantics(
-          scopesRoute: true,
-          namesRoute: true,
-          explicitChildNodes: true,
-          label: semanticLabel,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
-              vertical: _kMenuVerticalPadding,
-            ),
-            child: ListBody(children: children),
+      child: Semantics(
+        scopesRoute: true,
+        namesRoute: true,
+        explicitChildNodes: true,
+        label: semanticLabel,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+            vertical: _kMenuVerticalPadding,
           ),
+          child: ListBody(children: children),
         ),
       ),
     );
@@ -1011,11 +1010,12 @@ class UPopupMenuButton<T> extends StatefulWidget {
     this.padding = const EdgeInsets.all(8),
     this.child,
     this.icon,
+    this.width = 160,
     this.iconSize,
-    this.offset = Offset.zero,
+    this.offset = const Offset(-16, 60),
     this.enabled = true,
     this.shape,
-    this.color,
+    this.color = UColors.foregroundDark,
     this.enableFeedback,
   })  : assert(itemBuilder != null),
         assert(offset != null),
@@ -1025,6 +1025,11 @@ class UPopupMenuButton<T> extends StatefulWidget {
           'You can only pass [child] or [icon], not both.',
         ),
         super(key: key);
+
+  /// The pattern width is 160px
+  ///
+  /// It just accept values >= 160px
+  final double width;
 
   /// Called when the button is pressed to create the items to show in the menu.
   final UPopupMenuItemBuilder<T> itemBuilder;
@@ -1142,7 +1147,12 @@ class UPopupMenuButtonState<T> extends State<UPopupMenuButton<T>> {
   /// You would access your [UPopupMenuButtonState] using a [GlobalKey] and
   /// show the menu of the button with `globalKey.currentState.showButtonMenu`.
   void showButtonMenu() {
-    final PopupMenuThemeData uPopupMenuTheme = PopupMenuTheme.of(context);
+    final PopupMenuThemeData uPopupMenuTheme =
+        PopupMenuTheme.of(context).copyWith(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
     final RenderBox button = context.findRenderObject()! as RenderBox;
     final RenderBox overlay =
         Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
@@ -1157,6 +1167,7 @@ class UPopupMenuButtonState<T> extends State<UPopupMenuButton<T>> {
       Offset.zero & overlay.size,
     );
     final List<UPopupMenuEntry<T>> items = widget.itemBuilder(context);
+    _kPopMenuItemsMaxWidth = widget.width < 160 ? 160 : widget.width;
     // Only show the menu if there is something to show
     if (items.isNotEmpty) {
       showMenu<T?>(

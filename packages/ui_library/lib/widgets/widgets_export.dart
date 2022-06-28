@@ -19,4 +19,4 @@ export 'u_divider/u_divider_export.dart';
 export 'u_qr_code/u_qr_code_export.dart';
 export 'u_user_profile_card/user_profile_card_export.dart';
 export 'u_dialog/u_dialog_export.dart';
-export 'u_pop_menu_item/u_pop_menu_item_export.dart';
+export 'u_popup_menu_item/u_popup_menu_item_export.dart';
