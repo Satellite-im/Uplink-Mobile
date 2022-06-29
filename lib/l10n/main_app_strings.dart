@@ -189,6 +189,8 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const chatIndexPage_addFriendButton = 'Add a Friend';
   static const chatIndexPage_favoritesTitle = 'Favorites';
   static const chatIndexPage_newChat = 'New Chat';
+  static const chatIndexPage_whatToDoWIthChatBottomSheet =
+      'What would you like to do with this chat?';
 
   /// ProfileIndexPage
   static const profileIndexPage_username = 'username';

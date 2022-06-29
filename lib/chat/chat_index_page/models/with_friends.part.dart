@@ -22,6 +22,28 @@ class _WithFriends extends StatelessWidget {
               Radius.circular(4),
             ),
             onTap: () {},
+            onLongPress: () {
+              UBottomSheetTwoButtons(
+                context,
+                userImage: UImage(
+                  imagePath: _friend.imagePath,
+                  imageSource: ImageSource.local,
+                ),
+                username: _friend.username,
+                header: UAppStrings.chatIndexPage_whatToDoWIthChatBottomSheet,
+                firstButtonText: UAppStrings.cancelButton,
+                secondButtonText: UAppStrings.remove,
+                firstButtonColor: UColors.ctaDark,
+                secondButtonColor: UColors.termRed,
+                firstButtonOnPressed: () => Navigator.of(
+                  context,
+                  rootNavigator: true,
+                ).pop(),
+                secondButtonOnPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+              ).show();
+            },
             child: UnreadMessagesUserProfileCard(
               status: _friend.status,
               username: _friend.username,
