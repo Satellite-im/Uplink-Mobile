@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/helpers/build_found_user.dart';
 import 'package:uplink/contacts/models/fat_triangle.dart';
-import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/utils/mock/models/mock_user_sample.dart';
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
 
 class AddFriendPage extends StatefulWidget {
@@ -21,9 +22,12 @@ class _AddFriendPageState extends State<AddFriendPage>
   late AnimationController _animationController;
   late Animation<double> _animation;
   late GlobalKey<FormFieldState<String>> _formfieldKey;
-  bool _disableButton = true;
+  bool _disableSearchButton = true;
+  //when someone is found after click search button
   bool _isFound = false;
+  //in search state, no user is found
   bool _showNoUserError = false;
+  // bool _isSelected = false;
   late TextEditingController _textController;
 
   @override
@@ -47,147 +51,102 @@ class _AddFriendPageState extends State<AddFriendPage>
 
   @override
   Widget build(BuildContext context) {
-    const userId = 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94';
     _textController.addListener(() {
-      if (_textController.text.length == 43 && _disableButton == true) {
+      if (_textController.text.length == 43 && _disableSearchButton == true) {
         //when text length is 43, light up button
         setState(() {
-          _disableButton = false;
+          _disableSearchButton = false;
         });
       } else if (_textController.value.text.length != 43 &&
-          _disableButton == false) {
+          _disableSearchButton == false) {
         //after user search the wrong user and want to change the text
         setState(() {
-          _disableButton = true;
+          _disableSearchButton = true;
         });
       }
     });
 
     return Scaffold(
-      appBar: UAppBar.actions(
-        title: 'Add Friend',
-        actionList: [
-          IconButton(
-            icon: const UIcon(
-              UIcons.qr_code,
-              color: UColors.textMed,
-            ),
-            onPressed: () {
-              qrCodeBottomSheet(
-                context,
-                null,
-              ).show();
-            },
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: const [
-                UIcon(UIcons.account_id),
-                SizedBox(width: 9),
-                UText(
-                  'Your Account ID',
-                  textStyle: UTextStyle.H3_tertiaryHeader,
-                )
+      appBar: _buildAppBar(context),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ..._buildCopyAccountID(),
+                const UDivider(),
+                const SizedBox(height: 16),
+                const UText(
+                  'Enter your friend’s account ID or username, or scan their QR code to find their account. Account ID’s are case sensitive.',
+                  textStyle: UTextStyle.B1_body,
+                ),
+                const SizedBox(height: 24),
+                _buildIDFormField(),
+                if (_showNoUserError) ...[
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  UText(
+                    'Error: no account found.',
+                    textStyle: UTextStyle.B1_body,
+                    textColor: UColors.termRed,
+                  )
+                ] else
+                  const SizedBox.shrink(),
+                if (!_isFound) ...[
+                  const SizedBox(height: 56),
+                  UButton.primary(
+                    disabled: _disableSearchButton,
+                    label: 'Search',
+                    uIconData: UIcons.search,
+                    onPressed: () async {
+                      if (_formfieldKey.currentState!.validate()) {
+                        // TODO(yijing): update search account ID
+                        setState(() {
+                          if (_textController.text ==
+                              'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
+                            _isFound = true;
+                          } else {
+                            _showNoUserError = true;
+                          }
+                        });
+                      }
+                    },
+                  )
+                ]
               ],
             ),
-            const SizedBox(height: 16),
-            const UText(
-              'Make new friends by tapping your account ID to copy and share.',
-              textStyle: UTextStyle.B1_body,
-              textColor: UColors.white,
+          ),
+          //TODO(demo): change user type here to see different scenarios
+          if (_isFound)
+            buildFoundUser(
+              context,
+              user: userWithFriendRequest,
             ),
-            const SizedBox(height: 24),
-            CompositedTransformTarget(
-              link: layerLink,
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: UColors.foregroundDark,
-                ),
-                padding: const EdgeInsets.all(16),
-                // TODO(yijing): update to account ID
-                child: InkWell(
-                  child: const UText(
-                    userId,
-                    textStyle: UTextStyle.H5_fifthHeader,
-                    textColor: UColors.white,
-                  ),
-                  onTap: () {
-                    Clipboard.setData(const ClipboardData(text: userId))
-                        .whenComplete(() => _showOverlay(context));
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            const UDivider(),
-            const SizedBox(height: 16),
-            const UText(
-              'Enter your friend’s account ID or username, or scan their QR code to find their account. Account ID’s are case sensitive.',
-              textStyle: UTextStyle.B1_body,
-            ),
-            const SizedBox(height: 24),
-            _buildIDFormField(),
-            // TODO(yijing):add loading user data
-            if (_isFound)
-              ContactListTile(
-                name: 'username',
-                status: Status.online,
-                statusMessage: 'Something something space station',
-                imageAddress:
-                    'packages/ui_library/images/placeholders/user_avatar_3.png',
-                onTap: () {},
-              ),
-            if (_showNoUserError) ...[
-              const SizedBox(
-                height: 24,
-              ),
-              UText(
-                'Error: no account found.',
-                textStyle: UTextStyle.B1_body,
-                textColor: UColors.termRed,
-              )
-            ] else
-              const SizedBox.shrink(),
-            const SizedBox(height: 56),
-            if (_isFound)
-              UButton.primary(
-                disabled: true,
-                label: 'Add Friend',
-                uIconData: UIcons.add_contact_member,
-                onPressed: () async {
-                  print('found');
-                },
-              )
-            else
-              UButton.primary(
-                disabled: _disableButton,
-                label: 'Search',
-                uIconData: UIcons.search,
-                onPressed: () async {
-                  if (_formfieldKey.currentState!.validate()) {
-                    // TODO(yijing): TODO(yijing): add search work flow
-                    setState(() {
-                      if (_textController.text ==
-                          'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
-                        _isFound = true;
-                      } else {
-                        _showNoUserError = true;
-                      }
-                    });
-                  }
-                },
-              ),
-          ],
-        ),
+        ],
       ),
+    );
+  }
+
+  UAppBar _buildAppBar(BuildContext context) {
+    return UAppBar.actions(
+      title: 'Add Friend',
+      actionList: [
+        IconButton(
+          icon: const UIcon(
+            UIcons.qr_code,
+            color: UColors.textMed,
+          ),
+          onPressed: () {
+            qrCodeBottomSheet(
+              context,
+              null,
+            ).show();
+          },
+        )
+      ],
     );
   }
 
@@ -217,19 +176,8 @@ class _AddFriendPageState extends State<AddFriendPage>
                 controller: _textController,
                 onChanged: (value) {
                   state.didChange(value);
-
-                  //if in 'add friend' mode, turn it off(switch to search mode)
-                  if (_isFound) {
-                    setState(() {
-                      _isFound = false;
-                    });
-                  }
-                  //clear the no user erroe
-                  if (_showNoUserError) {
-                    setState(() {
-                      _showNoUserError = false;
-                    });
-                  }
+                  if (_isFound) _isFound = false;
+                  if (_showNoUserError) _showNoUserError = false;
                 },
                 decoration: const InputDecoration(hintText: 'Enter Account ID'),
                 keyboardType: TextInputType.none,
@@ -251,7 +199,11 @@ class _AddFriendPageState extends State<AddFriendPage>
     );
   }
 
-  Future<void> _showOverlay(BuildContext context) async {
+//Copied/Pasted animated label
+  Future<void> _showOverlay(
+    BuildContext context, {
+    required String text,
+  }) async {
     final overlay = Overlay.of(context);
     final leftOffset = MediaQuery.of(context).size.width / 2 - 50;
     overlayEntry = OverlayEntry(
@@ -283,8 +235,8 @@ class _AddFriendPageState extends State<AddFriendPage>
                       color: UColors.ctaBlue,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const UText(
-                      'Copied!',
+                    child: UText(
+                      text,
                       textStyle: UTextStyle.B1_body,
                       textColor: UColors.white,
                     ),
@@ -306,5 +258,52 @@ class _AddFriendPageState extends State<AddFriendPage>
           .reverse()
           .whenComplete(() => overlayEntry?.remove()),
     );
+  }
+
+  List<Widget> _buildCopyAccountID() {
+    // TODO(yijing): update account id
+    const userId = 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94';
+    return [
+      Row(
+        children: const [
+          UIcon(UIcons.account_id),
+          SizedBox(width: 9),
+          UText(
+            'Your Account ID',
+            textStyle: UTextStyle.H3_tertiaryHeader,
+          )
+        ],
+      ),
+      const SizedBox(height: 16),
+      const UText(
+        'Make new friends by tapping your account ID to copy and share.',
+        textStyle: UTextStyle.B1_body,
+        textColor: UColors.white,
+      ),
+      const SizedBox(height: 24),
+      CompositedTransformTarget(
+        link: layerLink,
+        child: Container(
+          height: 48,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: UColors.foregroundDark,
+          ),
+          padding: const EdgeInsets.all(16),
+          child: InkWell(
+            child: const UText(
+              userId,
+              textStyle: UTextStyle.H5_fifthHeader,
+              textColor: UColors.white,
+            ),
+            onTap: () {
+              Clipboard.setData(const ClipboardData(text: userId))
+                  .whenComplete(() => _showOverlay(context, text: 'Copied!'));
+            },
+          ),
+        ),
+      ),
+      const SizedBox(height: 24),
+    ];
   }
 }
