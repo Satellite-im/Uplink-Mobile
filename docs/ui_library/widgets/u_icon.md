@@ -8,7 +8,7 @@ This is the Uplink Icons Library, a class with all the icons that should be used
 
 ## UIconData 
 
-Similiar IconData in flutter, used to accept just the UIcons itens.
+Similar IconData in flutter, used to accept just the UIcons itens.
 
 ### Fonts
 
