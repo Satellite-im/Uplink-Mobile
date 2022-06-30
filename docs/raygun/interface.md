@@ -8,7 +8,7 @@ The `RayGun` interface is used to send, find, and interact with messages on the 
 
 #### Retrieving Messages
 
-RayGun will retrieve messages in two steps, if enabled, the cache will be queried first. Secondly we will check to make sure the message ID we have locally matches with the latest message ID remotely. If they do not match RayGun will return a second set of messages containing the updated list. You can also pass the `smart` flag in so that instead of recieving the entire list again it will return only the updated messages which makes it easier to update in the UI. You can also provide a `date_range` to get messages between two ranges. You can also provide two IDs via the `id_range` to get all the messages between two ids. Lastly you can provide a `limit` to avoid getting too many messages. For paginated results you can also add a `skip` parameter along with the limit.
+RayGun will retrieve messages in two steps, if enabled, the cache will be queried first. Secondly we will check to make sure the message ID we have locally matches with the latest message ID remotely. If they do not match RayGun will return a second set of messages containing the updated list. You can also pass the `smart` flag in so that instead of receiving the entire list again it will return only the updated messages which makes it easier to update in the UI. You can also provide a `date_range` to get messages between two ranges. You can also provide two IDs via the `id_range` to get all the messages between two ids. Lastly you can provide a `limit` to avoid getting too many messages. For paginated results you can also add a `skip` parameter along with the limit.
 
 
 ```rust
