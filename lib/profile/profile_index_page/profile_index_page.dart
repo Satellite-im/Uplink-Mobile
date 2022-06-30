@@ -258,7 +258,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                 child: UUserProfile(
                   uImage: UImage(
                     imagePath: userImagePath,
-                    imageSource: ImageSource.local,
+                    imageSource: ImageSource.file,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
