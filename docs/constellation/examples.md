@@ -47,7 +47,7 @@ If you want to obtain a mutable reference of directory we can do the following
 let mut my_test_dir = directory.get_item_mut("Sub Directory")?;
 ```
 
-Removing a directory will remove the contense of the directory as well as the directory itself. You can delete a directory using the example below.
+Removing a directory will remove the content of the directory as well as the directory itself. You can delete a directory using the example below.
 
 ```rust
 directory.remove_item("Sub Directory")?;
