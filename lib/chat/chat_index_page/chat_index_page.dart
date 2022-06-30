@@ -5,6 +5,8 @@ import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
 import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
 
+import '../notifications_page.dart';
+
 part 'models/favorites_friends.part.dart';
 part 'models/with_friends.part.dart';
 part 'models/without_friends_yet.part.dart';
@@ -100,7 +102,13 @@ class _UAppBar extends StatelessWidget {
             UIcons.menu_bar_notifications,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute<Widget>(
+                builder: (context) => const NotificationsPage(),
+              ),
+            );
+          },
         ),
         IconButton(
           icon: const UIcon(
