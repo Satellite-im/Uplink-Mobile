@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page.dart';
+import 'package:uplink/contacts/add_friend_page/add_friend_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class NoFriendBody extends StatelessWidget {
