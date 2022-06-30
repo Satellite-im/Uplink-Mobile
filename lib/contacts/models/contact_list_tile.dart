@@ -7,6 +7,8 @@ class ContactListTile extends StatelessWidget {
     required this.name,
     this.statusMessage,
     this.imageAddress,
+    this.trailing,
+    this.onLongPress,
     required this.status,
     required this.onTap,
   }) : super(key: key);
@@ -16,6 +18,8 @@ class ContactListTile extends StatelessWidget {
   final Status status;
   final String? imageAddress;
   final VoidCallback onTap;
+  final VoidCallback? onLongPress;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,8 @@ class ContactListTile extends StatelessWidget {
       dense: true,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       onTap: onTap,
+      onLongPress: onLongPress,
+      trailing: trailing,
     );
   }
 }
