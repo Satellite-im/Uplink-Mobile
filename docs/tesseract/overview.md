@@ -28,7 +28,7 @@ store.lock();
 
 ### Storing a key
 
-Storing a key requries unlocking the store then putting a specific key into it with the `store` method. 
+Storing a key requires unlocking the store then putting a specific key into it with the `store` method. 
 
 ```rust
 use warp_tesseract::Tesseract;
