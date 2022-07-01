@@ -2,11 +2,37 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/helpers/build_found_user.dart';
 import 'package:uplink/contacts/models/fat_triangle.dart';
-import 'package:uplink/utils/mock/models/mock_user_sample.dart';
+import 'package:uplink/utils/mock/models/models_export.dart';
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
+
+class UserNotifier extends ChangeNotifier {
+  UserNotifier(this.user);
+  MockContact user;
+
+  void sentFriendRequest() {
+    user = userWithFriendRequest;
+    notifyListeners();
+  }
+
+  void undoFriendRequest() {
+    user = userWithoutFriendRequest;
+    notifyListeners();
+  }
+
+  void removeFriend() {
+    user = userWithoutFriendRequest;
+    notifyListeners();
+  }
+
+  void unblockFriend() {
+    user.relationship = Relationship.none;
+    notifyListeners();
+  }
+}
 
 class AddFriendPage extends StatefulWidget {
   const AddFriendPage({Key? key}) : super(key: key);
@@ -23,11 +49,10 @@ class _AddFriendPageState extends State<AddFriendPage>
   late Animation<double> _animation;
   late GlobalKey<FormFieldState<String>> _formfieldKey;
   bool _disableSearchButton = true;
-  //when someone is found after click search button
+  //In search mode,someone is found
   bool _isFound = false;
-  //in search state, no user is found
+  //In search mode, no user is found
   bool _showNoUserError = false;
-  // bool _isSelected = false;
   late TextEditingController _textController;
 
   @override
@@ -121,9 +146,10 @@ class _AddFriendPageState extends State<AddFriendPage>
           ),
           //TODO(demo): change user type here to see different scenarios
           if (_isFound)
-            buildFoundUser(
-              context,
-              user: userWithFriendRequest,
+            ChangeNotifierProvider(
+              create: (context) =>
+                  UserNotifier(blockedUserWithoutFriendRequest),
+              builder: (context, child) => const FoundUserBody(),
             ),
         ],
       ),
@@ -199,7 +225,7 @@ class _AddFriendPageState extends State<AddFriendPage>
     );
   }
 
-//Copied/Pasted animated label
+//Copied animated label
   Future<void> _showOverlay(
     BuildContext context, {
     required String text,
