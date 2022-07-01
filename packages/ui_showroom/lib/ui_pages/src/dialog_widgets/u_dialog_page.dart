@@ -50,7 +50,7 @@ class UDialogPage extends StatelessWidget {
                     builder: (_) => UDialogUserProfile(
                         bodyText: 'Are you sure you want to unblock this user?',
                         buttonText: 'Unblock',
-                        popUpButtonText: 'Go Back',
+                        popButtonText: 'Go Back',
                         username: 'username',
                         statusMessage: 'Something something space station',
                         uImage: const UImage(
