@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/add_friend_page.dart';
+import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';

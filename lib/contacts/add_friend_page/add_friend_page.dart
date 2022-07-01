@@ -5,34 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/helpers/build_found_user.dart';
-import 'package:uplink/contacts/models/fat_triangle.dart';
+import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
+
 import 'package:uplink/utils/mock/models/models_export.dart';
+
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
-
-class UserNotifier extends ChangeNotifier {
-  UserNotifier(this.user);
-  MockContact user;
-
-  void sentFriendRequest() {
-    user = userWithFriendRequest;
-    notifyListeners();
-  }
-
-  void undoFriendRequest() {
-    user = userWithoutFriendRequest;
-    notifyListeners();
-  }
-
-  void removeFriend() {
-    user = userWithoutFriendRequest;
-    notifyListeners();
-  }
-
-  void unblockFriend() {
-    user.relationship = Relationship.none;
-    notifyListeners();
-  }
-}
 
 class AddFriendPage extends StatefulWidget {
   const AddFriendPage({Key? key}) : super(key: key);
