@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/const/u_colors.dart';
 
+//Used in 'Copied' animated label
 class FatTriangle extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

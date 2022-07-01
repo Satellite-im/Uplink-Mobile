@@ -31,7 +31,7 @@ class WithFriendRequestBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
-            label: 'Undo Request',
+            label: UAppStrings.withFriendRequestBody_undo,
             uIconData: UIcons.remove_friend,
             onPressed: () {
               UBottomSheetTwoButtons(
@@ -45,10 +45,10 @@ class WithFriendRequestBody extends StatelessWidget {
                   await showDialog<void>(
                     context: context,
                     builder: (context) => UDialogSingleButtonCustomBody(
-                      title: 'Friend Request Removed',
+                      title: UAppStrings.withFriendRequestBody_requestRemoved,
                       body: RichText(
                         text: TextSpan(
-                          text: 'Your request to ',
+                          text: UAppStrings.withFriendRequestBody_yourRequest,
                           style: UTextStyle.B1_body.style.returnTextStyleType(),
                           children: <TextSpan>[
                             TextSpan(
@@ -56,15 +56,17 @@ class WithFriendRequestBody extends StatelessWidget {
                               style: UTextStyle.H4_fourthHeader.style
                                   .returnTextStyleType(),
                             ),
-                            const TextSpan(text: ' was removed.'),
+                            const TextSpan(
+                              text: UAppStrings.withFriendRequestBody_removed,
+                            ),
                           ],
                         ),
                       ),
-                      buttonText: 'Okay',
+                      buttonText: UAppStrings.okay,
                     ),
                   );
                 },
-                header: 'Are you sure you want to unsend this friend request?',
+                header: UAppStrings.withFriendRequestBody_unsend,
                 firstButtonText: UAppStrings.cancelButton,
                 secondButtonText: UAppStrings.remove,
                 secondButtonColor: UColors.termRed,

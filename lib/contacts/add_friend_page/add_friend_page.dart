@@ -1,14 +1,11 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/helpers/build_found_user.dart';
 import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
-
+import 'package:uplink/contacts/add_friend_page/widgets/found_user_body.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
-
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
 
 class AddFriendPage extends StatefulWidget {
@@ -81,7 +78,7 @@ class _AddFriendPageState extends State<AddFriendPage>
                 const UDivider(),
                 const SizedBox(height: 16),
                 const UText(
-                  'Enter your friend’s account ID or username, or scan their QR code to find their account. Account ID’s are case sensitive.',
+                  UAppStrings.addFriendPage_userAccount,
                   textStyle: UTextStyle.B1_body,
                 ),
                 const SizedBox(height: 24),
@@ -90,8 +87,8 @@ class _AddFriendPageState extends State<AddFriendPage>
                   const SizedBox(
                     height: 24,
                   ),
-                  UText(
-                    'Error: no account found.',
+                  const UText(
+                    UAppStrings.addFriendPage_noAccountFound,
                     textStyle: UTextStyle.B1_body,
                     textColor: UColors.termRed,
                   )
@@ -101,7 +98,7 @@ class _AddFriendPageState extends State<AddFriendPage>
                   const SizedBox(height: 56),
                   UButton.primary(
                     disabled: _disableSearchButton,
-                    label: 'Search',
+                    label: UAppStrings.search,
                     uIconData: UIcons.search,
                     onPressed: () async {
                       if (_formfieldKey.currentState!.validate()) {
@@ -135,7 +132,7 @@ class _AddFriendPageState extends State<AddFriendPage>
 
   UAppBar _buildAppBar(BuildContext context) {
     return UAppBar.actions(
-      title: 'Add Friend',
+      title: UAppStrings.addFriendPage_addFriend,
       actionList: [
         IconButton(
           icon: const UIcon(
@@ -159,9 +156,9 @@ class _AddFriendPageState extends State<AddFriendPage>
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (value!.length < 43 && value.isNotEmpty) {
-          return 'Error: not enough characters.';
+          return UAppStrings.addFriendPage_lessCharacters;
         } else if (value.length > 43 && value.isNotEmpty) {
-          return 'Error: too many characters.';
+          return UAppStrings.addFriendPage_moreCharacters;
         }
         return null;
       },
@@ -182,7 +179,9 @@ class _AddFriendPageState extends State<AddFriendPage>
                   if (_isFound) _isFound = false;
                   if (_showNoUserError) _showNoUserError = false;
                 },
-                decoration: const InputDecoration(hintText: 'Enter Account ID'),
+                decoration: const InputDecoration(
+                  hintText: UAppStrings.addFriendPage_hint,
+                ),
                 keyboardType: TextInputType.none,
               ),
             ),
@@ -272,14 +271,14 @@ class _AddFriendPageState extends State<AddFriendPage>
           UIcon(UIcons.account_id),
           SizedBox(width: 9),
           UText(
-            'Your Account ID',
+            UAppStrings.addFriendPage_yourAccount,
             textStyle: UTextStyle.H3_tertiaryHeader,
           )
         ],
       ),
       const SizedBox(height: 16),
       const UText(
-        'Make new friends by tapping your account ID to copy and share.',
+        UAppStrings.addFriendPage_copyAccountID,
         textStyle: UTextStyle.B1_body,
         textColor: UColors.white,
       ),
@@ -300,8 +299,12 @@ class _AddFriendPageState extends State<AddFriendPage>
               textColor: UColors.white,
             ),
             onTap: () {
-              Clipboard.setData(const ClipboardData(text: userId))
-                  .whenComplete(() => _showOverlay(context, text: 'Copied!'));
+              Clipboard.setData(const ClipboardData(text: userId)).whenComplete(
+                () => _showOverlay(
+                  context,
+                  text: UAppStrings.addFriendPage_copied,
+                ),
+              );
             },
           ),
         ),

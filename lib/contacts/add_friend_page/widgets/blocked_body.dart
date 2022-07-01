@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 
 class BlockedBody extends StatelessWidget {
@@ -31,7 +32,7 @@ class BlockedBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
-            label: 'Unblock',
+            label: UAppStrings.blockedBody_unblock,
             uIconData: UIcons.blocked_contacts,
             color: UColors.termRed,
             onPressed: () {
@@ -43,9 +44,9 @@ class BlockedBody extends StatelessWidget {
                   return ChangeNotifierProvider.value(
                     value: userNotifier,
                     child: UDialogUserProfile(
-                      bodyText: 'Are you sure you want to unblock this user?',
-                      buttonText: 'Unblock',
-                      popButtonText: 'Go Back',
+                      bodyText: UAppStrings.blockedBody_q,
+                      buttonText: UAppStrings.blockedBody_unblock,
+                      popButtonText: UAppStrings.goBackButton,
                       onTap: () {
                         userNotifier.unblockFriend();
                         Navigator.of(context).pop();
