@@ -121,8 +121,7 @@ class _AddFriendPageState extends State<AddFriendPage>
           // TODO(demo): change user type here to see different scenarios
           if (_isFound)
             ChangeNotifierProvider(
-              create: (context) =>
-                  UserNotifier(blockedUserWithoutFriendRequest),
+              create: (context) => UserNotifier(userWithoutFriendRequest),
               builder: (context, child) => const FoundUserBody(),
             ),
         ],

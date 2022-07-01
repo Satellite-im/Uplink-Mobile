@@ -41,6 +41,52 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
                   color: UColors.ctaBlue,
                 )
               : null,
+          onLongPress: () {
+            UBottomSheetOptions(
+              context,
+              sheetTitle: UAppStrings.moreOptions,
+              titleList: ['Message', 'Profile', 'Block', 'Report'],
+              iconList: [
+                UIcons.message,
+                UIcons.user_profile,
+                UIcons.blocked_contacts,
+                UIcons.report
+              ],
+              onTapList: [
+                // TODO(yijing): add message pages
+                () {},
+                // TODO(yijing): add profile pages
+                () {},
+                () {
+                  final userNotifier = context.read<UserNotifier>();
+                  Navigator.of(context, rootNavigator: true).pop();
+                  showDialog<void>(
+                    context: context,
+                    builder: (context) {
+                      return ChangeNotifierProvider.value(
+                        value: userNotifier,
+                        child: UDialogUserProfile(
+                          bodyText: 'Are you sure you want to block this user?',
+                          buttonText: 'Block',
+                          popButtonText: UAppStrings.goBackButton,
+                          onTap: () {
+                            userNotifier.blockFriend();
+                            Navigator.of(context).pop();
+                          },
+                          username: widget.user.name,
+                          imageAddress: widget.user.imageAddress,
+                          statusMessage: widget.user.statusMessage,
+                          isLocalImage: true,
+                        ),
+                      );
+                    },
+                  );
+                },
+                // TODO(yijing): add report pages
+                () {},
+              ],
+            ).show();
+          },
         ),
         const SizedBox(height: 56),
         Padding(

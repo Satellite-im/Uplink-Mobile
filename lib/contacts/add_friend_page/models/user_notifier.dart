@@ -24,4 +24,9 @@ class UserNotifier extends ChangeNotifier {
     user.relationship = Relationship.none;
     notifyListeners();
   }
+
+  void blockFriend() {
+    user.relationship = Relationship.block;
+    notifyListeners();
+  }
 }
