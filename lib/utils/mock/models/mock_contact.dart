@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'dart:math';
-
 import 'package:ui_library/ui_library_export.dart';
 
 // for different scenarios in add friends pages
