@@ -32,7 +32,7 @@ class FriendBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
-            label: 'Remove Friend',
+            label: UAppStrings.friendBody_remove,
             uIconData: UIcons.remove_friend,
             color: UColors.termRed,
             onPressed: () {
@@ -44,11 +44,10 @@ class FriendBody extends StatelessWidget {
                   return ChangeNotifierProvider.value(
                     value: userNotifier,
                     child: UDialogUserProfile(
-                      bodyText:
-                          'Are you sure you want to remove this user from your Contact’s list?',
+                      bodyText: UAppStrings.friendBody_remove_q,
                       buttonText: UAppStrings.remove,
                       buttonColor: UColors.termRed,
-                      popButtonText: 'Go Back',
+                      popButtonText: UAppStrings.goBackButton,
                       onTap: () {
                         userNotifier.removeFriend();
                         Navigator.of(context).pop();

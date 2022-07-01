@@ -9,6 +9,7 @@ class UAppStrings {
   static const moreOptions = 'More Options';
   static const remove = 'Remove';
   static const okay = 'Okay';
+  static const search = 'Search';
 
   /// Strings for OnboardPinPage
   static const pinPage_pageTitle = 'Create Account Pin';
@@ -176,6 +177,41 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const blockedPage_appBarTitle = 'Block';
   static const blockedPage_emptyBody =
       'No one is here, you have 0 blocked contacts!';
+
+  ///AddFriendPage
+  static const addFriendPage_yourAccount = 'Your Account ID';
+  static const addFriendPage_copyAccountID =
+      'Make new friends by tapping your account ID to copy and share.';
+  static const addFriendPage_copied = 'Copied!';
+  static const addFriendPage_userAccount =
+      'Enter your friend’s account ID or username, or scan their QR code '
+      'to find their account. Account ID’s are case sensitive.';
+  static const addFriendPage_noAccountFound = 'Error: no account found.';
+  static const addFriendPage_addFriend = 'Add Friend';
+  static const addFriendPage_lessCharacters = 'Error: not enough characters.';
+  static const addFriendPage_moreCharacters = 'Error: too many characters.';
+  static const addFriendPage_hint = 'Enter Account ID';
+
+  ///WithFriendRequestBody
+  static const withFriendRequestBody_undo = 'Undo Request';
+  static const withFriendRequestBody_requestRemoved = 'Friend Request Removed';
+  static const withFriendRequestBody_yourRequest = 'Your request to ';
+  static const withFriendRequestBody_removed = ' was removed.';
+  static const withFriendRequestBody_unsend =
+      'Are you sure you want to unsend this friend request?';
+
+  ///WithoutFriendRequestBody
+  static const withoutFriendRequestBody_sent = 'Friend Request Sent';
+  static const withoutFriendRequestBody_request = 'Your request was sent to ';
+
+  ///FriendBody
+  static const friendBody_remove = 'Remove Friend';
+  static const friendBody_remove_q =
+      'Are you sure you want to remove this user from your Contact’s list?';
+
+  ///BlockedBody
+  static const blockedBody_unblock = 'Unblock';
+  static const blockedBody_q = 'Are you sure you want to unblock this user?';
 
   /// FilesIndexPage
   static const filesIndexPage_appBarTitle = 'Files';

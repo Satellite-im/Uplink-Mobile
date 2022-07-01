@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
 import 'package:uplink/contacts/models/contact_list_tile.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 
 class WithoutFriendRequestBody extends StatefulWidget {
@@ -46,7 +47,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
             disabled: !_isSelected,
-            label: 'Add Friend',
+            label: UAppStrings.addFriendPage_addFriend,
             uIconData: UIcons.add_contact_member,
             onPressed: () async {
               //TODO(yijing): add send friend request
@@ -54,10 +55,10 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
               await showDialog<void>(
                 context: context,
                 builder: (context) => UDialogSingleButtonCustomBody(
-                  title: 'Friend Request Sent',
+                  title: UAppStrings.withoutFriendRequestBody_sent,
                   body: RichText(
                     text: TextSpan(
-                      text: 'Your request was sent to ',
+                      text: UAppStrings.withoutFriendRequestBody_request,
                       style: UTextStyle.B1_body.style.returnTextStyleType(),
                       children: <TextSpan>[
                         TextSpan(
@@ -68,7 +69,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
                       ],
                     ),
                   ),
-                  buttonText: 'Okay',
+                  buttonText: UAppStrings.okay,
                 ),
               );
             },
