@@ -30,7 +30,10 @@ class BlockedBody extends StatelessWidget {
             UBottomSheetOptions(
               context,
               sheetTitle: UAppStrings.moreOptions,
-              titleList: ['Profile', 'Report'],
+              titleList: [
+                UAppStrings.buildUserListTileLongPress_profile,
+                UAppStrings.buildUserListTileLongPress_report
+              ],
               iconList: [UIcons.user_profile, UIcons.report],
               onTapList: [
                 // TODO(yijing): add profile pages

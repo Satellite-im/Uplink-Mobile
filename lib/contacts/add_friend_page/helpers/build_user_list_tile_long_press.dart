@@ -9,7 +9,12 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
   UBottomSheetOptions(
     context,
     sheetTitle: UAppStrings.moreOptions,
-    titleList: ['Message', 'Profile', 'Block', 'Report'],
+    titleList: [
+      UAppStrings.buildUserListTileLongPress_message,
+      UAppStrings.buildUserListTileLongPress_profile,
+      UAppStrings.buildUserListTileLongPress_block,
+      UAppStrings.buildUserListTileLongPress_report,
+    ],
     iconList: [
       UIcons.message,
       UIcons.user_profile,
@@ -30,8 +35,8 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
             return ChangeNotifierProvider.value(
               value: userNotifier,
               child: UDialogUserProfile(
-                bodyText: 'Are you sure you want to block this user?',
-                buttonText: 'Block',
+                bodyText: UAppStrings.buildUserListTileLongPress_q,
+                buttonText: UAppStrings.buildUserListTileLongPress_block,
                 popButtonText: UAppStrings.goBackButton,
                 onTap: () {
                   userNotifier.blockFriend();
