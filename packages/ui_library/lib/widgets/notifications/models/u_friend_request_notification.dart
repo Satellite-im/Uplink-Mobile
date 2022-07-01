@@ -70,9 +70,7 @@ class _UFriendRequestNotificationState
               username: widget.uNotification.username,
               uMessage: UMessage(
                 prefixIcon: UIcons.friend_added,
-                message:
-                    'You are now friends with ${widget.uNotification.username}! '
-                    '\nSay hi 👋',
+                message: 'You are now friends with',
                 arrivalMessageTime:
                     widget.uNotification.arrivalNotificationTime,
               ),
@@ -80,11 +78,15 @@ class _UFriendRequestNotificationState
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-              child: Row(
+              child: Column(
                 children: [
-                  UButton.filled1(
-                    label: 'Start a conversation',
-                    onPressed: () {},
+                  Row(
+                    children: [
+                      UButton.filled1(
+                        label: 'Start a conversation',
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -98,8 +100,7 @@ class _UFriendRequestNotificationState
               username: widget.uNotification.username,
               uMessage: UMessage(
                 prefixIcon: UIcons.remove_friend,
-                message:
-                    'You declined a friend request from ${widget.uNotification.username}',
+                message: 'You declined a friend request from',
                 arrivalMessageTime:
                     widget.uNotification.arrivalNotificationTime,
               ),

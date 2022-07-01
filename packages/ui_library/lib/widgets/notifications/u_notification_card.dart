@@ -35,20 +35,14 @@ class UNotificationCard extends StatelessWidget {
     }
   }
 
+  static const _firstSizedBoxSize = 12.0;
+  static const _lastSizedBoxSize = 8.0;
+  static const _userProfileSize = UUserProfileSize.normal;
+
   @override
   Widget build(BuildContext context) {
-    // final _unreadMessagesIndicator = UnreadMessagesIndicator(
-    //   unreadMessages: unreadMessages,
-    //   type: UnreadMessagesIndicatorType.card,
-    // );
-
     final _lastMessageArrivalTime =
         formatDateTime(_uMessage.arrivalMessageTime);
-
-    const _userProfileSize = UUserProfileSize.normal;
-
-    const _firstSizedBoxSize = 12.0;
-    const _lastSizedBoxSize = 8.0;
 
     final _pictureAndSizedBoxWidth = _userProfileSize.size + _firstSizedBoxSize;
 
@@ -57,7 +51,7 @@ class UNotificationCard extends StatelessWidget {
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (hasUnreadNotifications)
             UUserProfileNotification(
@@ -116,14 +110,44 @@ class UNotificationCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  // if (unreadMessages > 0) ...[
-                  //   const SizedBox.square(
-                  //     dimension: _lastSizedBoxSize,
-                  //   ),
-                  //   _unreadMessagesIndicator,
-                  // ],
+                  if (_uMessage.message.contains('You are now friends with') ||
+                      _uMessage.message
+                          .contains('You declined a friend request from'))
+                    UText(
+                      ' $username !',
+                      maxLines: 1,
+                      textFontWeight: FontWeight.bold,
+                      textOverflow: TextOverflow.ellipsis,
+                      textStyle: UTextStyle.B1_body,
+                      textColor: UColors.white,
+                      textAlign: TextAlign.left,
+                    ),
                 ],
               ),
+              if (_uMessage.message.contains('You are now friends with'))
+                Row(
+                  children: const [
+                    SizedBox(
+                      width: _lastSizedBoxSize + 24,
+                    ),
+                    UText(
+                      'Say hi ',
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      textStyle: UTextStyle.B1_body,
+                      textColor: UColors.textMed,
+                      textAlign: TextAlign.left,
+                    ),
+                    UText(
+                      '👋',
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      textStyle: UTextStyle.H1_primaryHeader,
+                      textColor: UColors.textMed,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
             ],
           ),
         ],

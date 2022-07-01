@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
+import '../../core/utils/u_fetch_link_data.dart';
 import 'u_notification_card.dart';
 
 part 'models/u_friend_request_notification.dart';
@@ -21,8 +22,12 @@ class UNotification extends StatefulWidget {
     required this.username,
     required this.arrivalNotificationTime,
     UImage? uImage,
+
+    /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
+    String? linkUrl,
     required NotificationType notificationType,
   })  : _notificationType = notificationType,
+        _linkUrl = linkUrl ?? '',
         _uImage = uImage ?? const UImage(),
         super(key: key);
 
@@ -31,6 +36,9 @@ class UNotification extends StatefulWidget {
   final DateTime arrivalNotificationTime;
 
   final NotificationType _notificationType;
+
+  /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
+  final String _linkUrl;
 
   final UImage _uImage;
 
@@ -78,13 +86,13 @@ class _UNotificationState extends State<UNotification> {
       case NotificationType.sentYouALink:
         return _USentLinkNotification(
           uNotification: widget,
-          uLinkNotificationType: ULinkNotificationType.withImage,
+          linkUrl: widget._linkUrl,
         );
       case NotificationType.serverUpdate:
         return UNotificationCard(
           username: widget.username,
           uMessage: UMessage(
-            message: 'Sent you a link',
+            message: 'Update Message',
             arrivalMessageTime: widget.arrivalNotificationTime,
           ),
           uImage: widget._uImage,
