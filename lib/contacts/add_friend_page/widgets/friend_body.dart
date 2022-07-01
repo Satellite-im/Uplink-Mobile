@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/helpers/build_user_list_tile_long_press.dart';
 import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
@@ -22,7 +23,9 @@ class FriendBody extends StatelessWidget {
           status: user.status,
           statusMessage: user.statusMessage,
           imageAddress: user.imageAddress,
-          onTap: () {},
+          onLongPress: () {
+            buildUserListTileLongPress(context, user);
+          },
           trailing: const UIcon(
             UIcons.friend_added,
             color: UColors.textDark,
