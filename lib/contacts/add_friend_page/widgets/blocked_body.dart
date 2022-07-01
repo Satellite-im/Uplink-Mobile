@@ -22,11 +22,24 @@ class BlockedBody extends StatelessWidget {
           status: user.status,
           statusMessage: user.statusMessage,
           imageAddress: user.imageAddress,
-          onTap: () {},
           trailing: const UIcon(
             UIcons.blocked_contacts,
             color: UColors.textDark,
           ),
+          onLongPress: () {
+            UBottomSheetOptions(
+              context,
+              sheetTitle: UAppStrings.moreOptions,
+              titleList: ['Profile', 'Report'],
+              iconList: [UIcons.user_profile, UIcons.report],
+              onTapList: [
+                // TODO(yijing): add profile pages
+                () {},
+                // TODO(yijing): add report pages
+                () {},
+              ],
+            ).show();
+          },
         ),
         const SizedBox(height: 56),
         Padding(
