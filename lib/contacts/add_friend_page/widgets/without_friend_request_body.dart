@@ -50,7 +50,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
             label: UAppStrings.addFriendPage_addFriend,
             uIconData: UIcons.add_contact_member,
             onPressed: () async {
-              //TODO(yijing): add send friend request
+              // TODO(yijing): add send friend request
               context.read<UserNotifier>().sentFriendRequest();
               await showDialog<void>(
                 context: context,

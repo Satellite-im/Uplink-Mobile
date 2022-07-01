@@ -37,7 +37,8 @@ class FriendBody extends StatelessWidget {
             color: UColors.termRed,
             onPressed: () {
               final userNotifier = context.read<UserNotifier>();
-              //Dialog widget cut the route of context, so we need to get the existing UserNotifier and expose it to the dialog widget.
+              //Dialog widget cut the route of context, we need to
+              //get the existing UserNotifier and expose it to the dialog widget
               showDialog<void>(
                 context: context,
                 builder: (context) {
