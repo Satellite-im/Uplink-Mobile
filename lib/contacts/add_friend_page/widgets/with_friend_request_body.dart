@@ -18,15 +18,16 @@ class WithFriendRequestBody extends StatelessWidget {
       children: [
         const SizedBox(height: 24),
         ContactListTile(
-            name: user.name,
-            status: user.status,
-            statusMessage: user.statusMessage,
-            imageAddress: user.imageAddress,
-            onTap: () {},
-            trailing: const UIcon(
-              UIcons.outgoing_requests,
-              color: UColors.textDark,
-            )),
+          name: user.name,
+          status: user.status,
+          statusMessage: user.statusMessage,
+          imageAddress: user.imageAddress,
+          onTap: () {},
+          trailing: const UIcon(
+            UIcons.outgoing_requests,
+            color: UColors.textDark,
+          ),
+        ),
         const SizedBox(height: 56),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -40,7 +41,7 @@ class WithFriendRequestBody extends StatelessWidget {
                     Navigator.of(context, rootNavigator: true).pop(),
                 secondButtonOnPressed: () async {
                   Navigator.of(context, rootNavigator: true).pop();
-                  //TODO(yijing): update undo friend request
+                  // TODO(yijing): update undo friend request
                   context.read<UserNotifier>().undoFriendRequest();
                   await showDialog<void>(
                     context: context,
