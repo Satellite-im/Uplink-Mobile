@@ -364,5 +364,11 @@ void main() {
       video_call_button,
       const UIconData(0xe945, uFontFamily: _kIconsFontFamily),
     );
+
+    const UIconData video_play = UIcons.video_play;
+    expect(
+      video_play,
+      const UIconData(0xe94e, uFontFamily: _kIconsFontFamily),
+    );
   });
 }

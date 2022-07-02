@@ -138,4 +138,5 @@ const _allIcons = <Widget>[
   UIconTextWithPadding(UIcons.unmute, 'unmute'),
   UIconTextWithPadding(UIcons.user_profile, 'user_profile'),
   UIconTextWithPadding(UIcons.video_call_button, 'video_call_button'),
+  UIconTextWithPadding(UIcons.video_play, 'video_play'),
 ];

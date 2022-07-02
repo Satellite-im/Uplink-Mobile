@@ -12,35 +12,50 @@ class UFetchLinkData {
   String? _type;
 
   Future<Map<String, String>> fetch(String url) async {
-    final client = Client();
-    final response = await client.get(_validateUrl(url));
-    final document = parse(response.body);
-
-    final _metaData = document.getElementsByTagName('meta');
-    final _linkData = document.getElementsByTagName('link');
-
-    for (final element in _metaData) {
-      _getTitleData(element, document);
-      _getDescriptionData(element);
-      _getTypeData(element);
-      _getSiteNameData(element, document);
-      _getImageData(element);
-    }
-
-    for (final element in _linkData) {
-      _getIconData(element);
-    }
     const _noInformationAvailable = 'No information available';
 
-    return {
-      'title': _title ?? _noInformationAvailable,
-      'description': _description ?? _noInformationAvailable,
-      'image': _image ?? _noInformationAvailable,
-      'type': _type ?? _noInformationAvailable,
-      'siteName': _siteName ?? _noInformationAvailable,
-      'appleIcon': _appleIcon ?? _noInformationAvailable,
-      'favIcon': _favIcon ?? _noInformationAvailable
-    };
+    try {
+      final client = Client();
+
+      final response = await client.get(_validateUrl(url));
+
+      final document = parse(response.body);
+
+      final _metaData = document.getElementsByTagName('meta');
+      final _linkData = document.getElementsByTagName('link');
+
+      for (final element in _metaData) {
+        _getTitleData(element, document);
+        _getDescriptionData(element);
+        _getTypeData(element);
+        _getSiteNameData(element, document);
+        _getImageData(element);
+      }
+
+      for (final element in _linkData) {
+        _getIconData(element);
+      }
+
+      return {
+        'title': _title ?? _noInformationAvailable,
+        'description': _description ?? _noInformationAvailable,
+        'image': _image ?? _noInformationAvailable,
+        'type': _type ?? _noInformationAvailable,
+        'siteName': _siteName ?? _noInformationAvailable,
+        'appleIcon': _appleIcon ?? _noInformationAvailable,
+        'favIcon': _favIcon ?? _noInformationAvailable
+      };
+    } catch (error) {
+      return {
+        'title': _noInformationAvailable,
+        'description': _noInformationAvailable,
+        'image': _noInformationAvailable,
+        'type': _noInformationAvailable,
+        'siteName': _noInformationAvailable,
+        'appleIcon': _noInformationAvailable,
+        'favIcon': _noInformationAvailable
+      };
+    }
   }
 
   _getTitleData(Element element, Document document) {

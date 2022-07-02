@@ -30,8 +30,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
               UNotification(
                 username: 'Urma',
                 // uImage: ,
-                notificationType: NotificationType.repliedYourComment,
+                notificationType: NotificationType.sentYouALink,
                 arrivalNotificationTime: DateTime(2022, 06, 29, 10),
+                linkUrl: 'https://www.youastube.com/watch?v=HJv4LQxbVEA',
               ),
               UNotification(
                 username: 'Armstrong',
@@ -79,7 +80,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 username: 'Bob',
                 notificationType: NotificationType.sentYouALink,
                 arrivalNotificationTime: DateTime(2022, 07, 01, 09),
-                linkUrl: 'https://www.youtube.com/watch?v=sy4IhE-KAEg',
+                // linkUrl: 'https://www.youtube.com/watch?v=sy4IhE-KAEg',
               ),
               UNotification(
                 username: 'Sheyla',

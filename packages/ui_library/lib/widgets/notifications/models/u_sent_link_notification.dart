@@ -37,6 +37,7 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final _linkData = snapshot.data!;
+
             final _widgetsWidthToSubstract =
                 _correctWidthToSubstractToLinkDescription(
                     _linkData['type']!.contains('video'));
@@ -80,10 +81,21 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
                                 _linkData['type']!.contains('video') ? 54 : 40,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(4),
-                              child: UImage(
-                                imagePath: _linkData['image'],
-                                imageSource: ImageSource.network,
-                                fit: BoxFit.cover,
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  UImage(
+                                    imagePath: _linkData['image'],
+                                    imageSource: ImageSource.network,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  if (_linkData['type']!.contains('video'))
+                                    const Positioned(
+                                      child: UIcon(
+                                        UIcons.video_play,
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                           ),

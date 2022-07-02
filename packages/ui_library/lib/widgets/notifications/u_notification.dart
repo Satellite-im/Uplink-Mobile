@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-import '../../core/utils/u_fetch_link_data.dart';
 import 'u_notification_card.dart';
 
 part 'models/u_friend_request_notification.dart';
