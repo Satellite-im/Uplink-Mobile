@@ -7,6 +7,7 @@ import 'package:uplink/contacts/add_friend_page/widgets/found_user_body.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 class AddFriendPage extends StatefulWidget {
   const AddFriendPage({Key? key}) : super(key: key);
@@ -51,12 +52,14 @@ class _AddFriendPageState extends State<AddFriendPage>
   @override
   Widget build(BuildContext context) {
     _textController.addListener(() {
-      if (_textController.text.length == 43 && _disableSearchButton == true) {
+      if (_textController.text.length == UAppNums.accountIdLength &&
+          _disableSearchButton == true) {
         //when text length is 43, light up button
         setState(() {
           _disableSearchButton = false;
         });
-      } else if (_textController.value.text.length != 43 &&
+      } else if (_textController.value.text.length !=
+              UAppNums.accountIdLength &&
           _disableSearchButton == false) {
         //after user search the wrong user and want to change the text
         setState(() {
@@ -155,9 +158,10 @@ class _AddFriendPageState extends State<AddFriendPage>
       key: _formfieldKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (value!.length < 43 && value.isNotEmpty) {
+        if (value!.length < UAppNums.accountIdLength && value.isNotEmpty) {
           return UAppStrings.addFriendPage_lessCharacters;
-        } else if (value.length > 43 && value.isNotEmpty) {
+        } else if (value.length > UAppNums.accountIdLength &&
+            value.isNotEmpty) {
           return UAppStrings.addFriendPage_moreCharacters;
         }
         return null;
