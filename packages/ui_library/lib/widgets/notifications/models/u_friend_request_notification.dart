@@ -3,6 +3,7 @@ part of '../u_notification.dart';
 enum _FriendRequestState { requested, accepted, declined }
 
 class _UFriendRequestNotification extends StatefulWidget {
+  /// Specific notification when a friend request arrive
   const _UFriendRequestNotification({
     Key? key,
     required this.uNotification,
@@ -28,7 +29,8 @@ class _UFriendRequestNotificationState
             UNotificationCard(
               username: widget.uNotification.username,
               uMessage: UMessage(
-                message: 'Sent you a friend request',
+                message:
+                    ULibraryStrings.uNotificationCard_sentYouAFriendRequest,
                 arrivalMessageTime:
                     widget.uNotification.arrivalNotificationTime,
               ),
@@ -39,7 +41,7 @@ class _UFriendRequestNotificationState
               child: Row(
                 children: [
                   UButton.filled1(
-                    label: 'Decline',
+                    label: ULibraryStrings.uNotificationCard_decline,
                     onPressed: () {
                       setState(() {
                         _friendRequestState = _FriendRequestState.declined;
@@ -51,7 +53,7 @@ class _UFriendRequestNotificationState
                     dimension: 8,
                   ),
                   UButton.filled1(
-                    label: 'Accept',
+                    label: ULibraryStrings.uNotificationCard_accept,
                     onPressed: () {
                       setState(() {
                         _friendRequestState = _FriendRequestState.accepted;
@@ -70,7 +72,7 @@ class _UFriendRequestNotificationState
               username: widget.uNotification.username,
               uMessage: UMessage(
                 prefixIcon: UIcons.friend_added,
-                message: 'You are now friends with',
+                message: ULibraryStrings.uNotificationCard_youAreNowFriends,
                 arrivalMessageTime:
                     widget.uNotification.arrivalNotificationTime,
               ),
@@ -83,7 +85,8 @@ class _UFriendRequestNotificationState
                   Row(
                     children: [
                       UButton.filled1(
-                        label: 'Start a conversation',
+                        label: ULibraryStrings
+                            .uNotificationCard_startAConversation,
                         onPressed: () {},
                       ),
                     ],
@@ -100,7 +103,8 @@ class _UFriendRequestNotificationState
               username: widget.uNotification.username,
               uMessage: UMessage(
                 prefixIcon: UIcons.remove_friend,
-                message: 'You declined a friend request from',
+                message:
+                    ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest,
                 arrivalMessageTime:
                     widget.uNotification.arrivalNotificationTime,
               ),
@@ -111,7 +115,7 @@ class _UFriendRequestNotificationState
               child: Row(
                 children: [
                   UButton.filled1(
-                    label: 'Undo',
+                    label: ULibraryStrings.uNotificationCard_undo,
                     onPressed: () {
                       setState(() {
                         _friendRequestState = _FriendRequestState.requested;

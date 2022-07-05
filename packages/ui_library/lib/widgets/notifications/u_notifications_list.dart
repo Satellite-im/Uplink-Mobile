@@ -5,6 +5,27 @@ import 'package:ui_library/widgets/u_text/u_text.dart';
 import 'u_notification.dart';
 
 class UNotificationsList extends StatefulWidget {
+  /// This displays multiple [UNotification]
+  /// in order from newest notification to oldest
+  ///
+  /// Example:
+  /// ```dart
+  /// ...
+  /// child: UNotificationsList(
+  ///  uNotificationList: [
+  ///    UNotification(
+  ///      username: 'Jack',
+  ///      notificationType: NotificationType.reactedYourComment,
+  ///      arrivalNotificationTime: DateTime(2022, 06, 29, 21),
+  ///    ),
+  ///    UNotification(
+  ///      username: 'Urma',
+  ///      notificationType: NotificationType.sentYouALink,
+  ///      arrivalNotificationTime: DateTime(2022, 06, 29, 10),
+  ///      linkUrl: 'https://www.youastube.com/watch?v=HJv4LQxbVEA',
+  ///    ),
+  /// ...
+  /// ```
   const UNotificationsList({
     Key? key,
     required this.uNotificationList,

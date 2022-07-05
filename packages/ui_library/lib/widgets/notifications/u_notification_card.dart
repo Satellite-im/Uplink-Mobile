@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 import 'package:ui_library/widgets/global/username/username.dart';
 
 class UNotificationCard extends StatelessWidget {
-  /// Creates a card with [UUserProfileWithStatus], username, message and [UnreadMessagesIndicator]
+  /// Creates a card with notification with user image and username,
+  /// and the type of notification
+  ///
+  /// It is not usually used alone,
+  /// but rather as the return of [UNotification]
   const UNotificationCard({
     Key? key,
     required this.username,
@@ -110,9 +113,10 @@ class UNotificationCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  if (_uMessage.message.contains('You are now friends with') ||
-                      _uMessage.message
-                          .contains('You declined a friend request from'))
+                  if (_uMessage.message.contains(
+                          ULibraryStrings.uNotificationCard_youAreNowFriends) ||
+                      _uMessage.message.contains(ULibraryStrings
+                          .uNotificationCard_youDeclinedAFriendRequest))
                     UText(
                       ' $username !',
                       maxLines: 1,
@@ -124,14 +128,15 @@ class UNotificationCard extends StatelessWidget {
                     ),
                 ],
               ),
-              if (_uMessage.message.contains('You are now friends with'))
+              if (_uMessage.message
+                  .contains(ULibraryStrings.uNotificationCard_youAreNowFriends))
                 Row(
                   children: const [
                     SizedBox(
                       width: _lastSizedBoxSize + 24,
                     ),
                     UText(
-                      'Say hi ',
+                      ULibraryStrings.uNotificationCard_sayHi,
                       maxLines: 1,
                       textOverflow: TextOverflow.ellipsis,
                       textStyle: UTextStyle.B1_body,
@@ -139,7 +144,7 @@ class UNotificationCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                     UText(
-                      '👋',
+                      ULibraryStrings.uNotificationCard_handWave,
                       maxLines: 1,
                       textOverflow: TextOverflow.ellipsis,
                       textStyle: UTextStyle.H1_primaryHeader,

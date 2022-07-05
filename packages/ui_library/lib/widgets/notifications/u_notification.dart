@@ -6,6 +6,8 @@ import 'u_notification_card.dart';
 part 'models/u_friend_request_notification.dart';
 part 'models/u_sent_link_notification.dart';
 
+/// For each type of notification,
+/// the [UNotificationCard] will be different
 enum NotificationType {
   repliedYourComment,
   sentYouAMessage,
@@ -16,6 +18,23 @@ enum NotificationType {
 }
 
 class UNotification extends StatefulWidget {
+  /// Show diffenrent notifications depending on the type
+  ///
+  /// The return of this class is a [UNotificationCard] for each type of
+  /// notification the card is different
+  ///
+  /// This class is used inside UNotificationList to build
+  /// a list of [UNotification]
+  ///
+  /// Example:
+  /// ```dart
+  ///  UNotification(
+  ///      username: 'Bob',
+  ///      notificationType: NotificationType.sentYouALink,
+  ///      arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+  ///      linkUrl: 'https://www.youtube.com/watch?v=sy4IhE-KAEg',
+  ///  ),
+  /// ```
   const UNotification({
     Key? key,
     required this.username,
@@ -53,7 +72,7 @@ class _UNotificationState extends State<UNotification> {
         return UNotificationCard(
           username: widget.username,
           uMessage: UMessage(
-            message: 'Reacted to your comment',
+            message: ULibraryStrings.uNotification_reactedToYOurComment,
             arrivalMessageTime: widget.arrivalNotificationTime,
           ),
           hasUnreadNotifications: false,
@@ -64,7 +83,7 @@ class _UNotificationState extends State<UNotification> {
           username: widget.username,
           hasUnreadNotifications: false,
           uMessage: UMessage(
-            message: 'Sent you a message',
+            message: ULibraryStrings.uNotification_sentYouAMessage,
             arrivalMessageTime: widget.arrivalNotificationTime,
           ),
           uImage: widget._uImage,
@@ -73,7 +92,7 @@ class _UNotificationState extends State<UNotification> {
         return UNotificationCard(
           username: widget.username,
           uMessage: UMessage(
-            message: 'Reacted to your comment',
+            message: ULibraryStrings.uNotification_repliedToYourComment,
             arrivalMessageTime: widget.arrivalNotificationTime,
           ),
           uImage: widget._uImage,

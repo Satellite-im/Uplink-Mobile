@@ -6,6 +6,9 @@ import 'package:ui_library/core/const/u_colors.dart';
 /// Define what is the source of the image
 enum ImageSource { network, local, file }
 
+/// A class to handle all images of all app
+///
+/// if imageSource is null, the value will be [ImageSource.network]
 class UImage extends StatelessWidget {
   /// A class to handle all images of all app
   ///

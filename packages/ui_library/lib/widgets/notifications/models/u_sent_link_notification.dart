@@ -1,6 +1,7 @@
 part of '../u_notification.dart';
 
 class _USentLinkNotification extends StatefulWidget {
+  /// Specific notification when the message is a link
   const _USentLinkNotification({
     Key? key,
     required this.uNotification,
@@ -37,10 +38,14 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final _linkData = snapshot.data!;
+            final _isLinkWithVideo = _linkData['type']!.contains('video');
+            final _linkImage = _linkData['image'];
+            final _siteName = _linkData['siteName']!;
+            final _title = _linkData['title']!;
+            final _description = _linkData['description']!;
 
             final _widgetsWidthToSubstract =
-                _correctWidthToSubstractToLinkDescription(
-                    _linkData['type']!.contains('video'));
+                _correctWidthToSubstractToLinkDescription(_isLinkWithVideo);
             final _widthLinkDescription =
                 _screenSize.width - _widgetsWidthToSubstract;
 
@@ -49,7 +54,7 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
                 UNotificationCard(
                   username: widget.uNotification.username,
                   uMessage: UMessage(
-                    message: 'Sent you a link',
+                    message: ULibraryStrings.uNotification_sentYouALink,
                     arrivalMessageTime:
                         widget.uNotification.arrivalNotificationTime,
                   ),
@@ -77,19 +82,18 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
                           ),
                           SizedBox(
                             height: 40,
-                            width:
-                                _linkData['type']!.contains('video') ? 54 : 40,
+                            width: _isLinkWithVideo ? 54 : 40,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(4),
                               child: Stack(
                                 fit: StackFit.expand,
                                 children: [
                                   UImage(
-                                    imagePath: _linkData['image'],
+                                    imagePath: _linkImage,
                                     imageSource: ImageSource.network,
                                     fit: BoxFit.cover,
                                   ),
-                                  if (_linkData['type']!.contains('video'))
+                                  if (_isLinkWithVideo)
                                     const Positioned(
                                       child: UIcon(
                                         UIcons.video_play,
@@ -106,7 +110,7 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               UText(
-                                _linkData['siteName']!,
+                                _siteName,
                                 textStyle: UTextStyle.H5_fifthHeader,
                               ),
                               const SizedBox.square(
@@ -115,7 +119,7 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
                               SizedBox(
                                 width: _widthLinkDescription,
                                 child: UText(
-                                  _linkData['title']!,
+                                  _title,
                                   textStyle: UTextStyle.B3_bold,
                                   textColor: UColors.textMed,
                                   textOverflow: TextOverflow.ellipsis,
@@ -128,7 +132,7 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
                               SizedBox(
                                 width: _widthLinkDescription,
                                 child: UText(
-                                  _linkData['description']!,
+                                  _description,
                                   textStyle: UTextStyle.B2_medium,
                                   textColor: UColors.white,
                                   textOverflow: TextOverflow.ellipsis,
@@ -145,7 +149,11 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
               ],
             );
           } else {
-            return const Text('Loading');
+            /// TODO(Lucas): Change the widget loader later
+            return const UText(
+              'Loading',
+              textStyle: UTextStyle.H1_primaryHeader,
+            );
           }
         });
   }
