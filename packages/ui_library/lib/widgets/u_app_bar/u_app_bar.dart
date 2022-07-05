@@ -10,6 +10,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   final Function? _onBackPressed;
   final Widget? _leading;
   final Widget? _flexibleSpace;
+  final Color? _backIconColor;
 
   ///AppBar with a title and back icon
   ///```dart
@@ -20,12 +21,14 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     required String title,
     Function? onBackPressed,
     Widget? flexibleSpace,
+    Color? backIconColor,
   })  : _appBarType = _AppBarType.back,
         _title = title,
         _onBackPressed = onBackPressed,
         _flexibleSpace = flexibleSpace,
         _actionsList = [],
         _leading = null,
+        _backIconColor = backIconColor,
         super(key: key);
 
   ///AppBar has a list of actions without title
@@ -42,12 +45,14 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     required List<Widget> actionList,
     Widget? leading,
     Widget? flexibleSpace,
+    Color? backIconColor,
   })  : _appBarType = _AppBarType.iconOnly,
         _title = null,
         _onBackPressed = null,
         _actionsList = actionList,
         _flexibleSpace = flexibleSpace,
         _leading = leading,
+        _backIconColor = backIconColor,
         super(key: key);
 
   ///AppBar has a list of actions and a title
@@ -73,12 +78,14 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     required List<Widget> actionList,
     Widget? leading,
     Widget? flexibleSpace,
+    Color? backIconColor,
   })  : _appBarType = _AppBarType.actions,
         _title = title,
         _onBackPressed = null,
         _actionsList = actionList,
         _flexibleSpace = flexibleSpace,
         _leading = leading,
+        _backIconColor = backIconColor,
         super(key: key);
 
   @override
@@ -93,9 +100,9 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
       titleSpacing: 0,
       leading: (_leading == null)
           ? IconButton(
-              icon: const UIcon(
+              icon: UIcon(
                 UIcons.back_arrow_button,
-                color: UColors.textMed,
+                color: _backIconColor ?? UColors.textMed,
               ),
               onPressed: () async {
                 _onBackPressed?.call();
