@@ -6,7 +6,6 @@ import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
 import 'package:uplink/contacts/add_friend_page/widgets/found_user_body.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
-import 'package:uplink/utils/ui_utils/qr_code_bottom_sheet.dart';
 import 'package:uplink/utils/utils_export.dart';
 
 class AddFriendPage extends StatefulWidget {
