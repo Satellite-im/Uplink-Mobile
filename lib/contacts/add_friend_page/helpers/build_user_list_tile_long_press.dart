@@ -44,8 +44,9 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
                 },
                 username: user.name,
                 uImage: UImage(
-                    imagePath: user.imageAddress,
-                    imageSource: ImageSource.local),
+                  imagePath: user.imageAddress,
+                  imageSource: ImageSource.local,
+                ),
                 statusMessage: user.statusMessage,
               ),
             );
