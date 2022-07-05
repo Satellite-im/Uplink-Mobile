@@ -268,7 +268,10 @@ class _AddFriendPageState extends State<AddFriendPage>
     return [
       Row(
         children: const [
-          UIcon(UIcons.account_id),
+          UIcon(
+            UIcons.account_id,
+            color: UColors.textMed,
+          ),
           SizedBox(width: 9),
           UText(
             UAppStrings.addFriendPage_yourAccount,
