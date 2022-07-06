@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  given_when_then_unit_test: ^0.1.0
   intl: ^0.17.0
   provider: ^6.0.2
   shared_preferences: ^2.0.13

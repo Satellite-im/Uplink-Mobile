@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/core/theme/helpers/theme_type.dart';
+import 'package:given_when_then_unit_test/given_when_then_unit_test.dart';
 
 void main() {
   group('Unit Test ThemeType |', () {});
@@ -10,6 +11,9 @@ void main() {
     const _kDark = 'dark';
     const _kLight = 'light';
     const _kTbd = 'tbd';
+
+    then('Dark Theme Type should be ${_kDark}',
+        () => ThemeType.dark.toStrName().should.be(_kDark));
 
     expect(ThemeType.dark.toStrName(), _kDark);
     expect(ThemeType.light.toStrName(), _kLight);
