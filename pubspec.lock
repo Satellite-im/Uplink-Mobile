@@ -210,6 +210,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  given_when_then_unit_test:
+    dependency: "direct main"
+    description:
+      name: given_when_then_unit_test
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   glob:
     dependency: transitive
     description:
