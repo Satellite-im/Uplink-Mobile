@@ -17,6 +17,9 @@ class UBottomSheet {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         isDismissible: true,
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height / 2,
+        ),
         useRootNavigator: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

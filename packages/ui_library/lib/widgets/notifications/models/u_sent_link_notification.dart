@@ -1,21 +1,23 @@
 part of '../u_notification.dart';
 
-class _USentLinkNotification extends StatefulWidget {
-  /// Specific notification when the message is a link
-  const _USentLinkNotification({
+class _USentMessagekNotification extends StatefulWidget {
+  /// Specific notification when receive a message or a link
+  const _USentMessagekNotification({
     Key? key,
     required this.uNotification,
-    required this.linkUrl,
+    required this.message,
   }) : super(key: key);
 
   final UNotification uNotification;
-  final String linkUrl;
+  final String message;
 
   @override
-  State<_USentLinkNotification> createState() => _USentLinkNotificationState();
+  State<_USentMessagekNotification> createState() =>
+      _USentMessagekNotificationState();
 }
 
-class _USentLinkNotificationState extends State<_USentLinkNotification> {
+class _USentMessagekNotificationState
+    extends State<_USentMessagekNotification> {
   int _correctWidthToSubstractToLinkDescription(bool _isVideo) {
     if (!_isVideo) {
       return 68 + 16 + 8 + 48 + 12;
@@ -33,11 +35,23 @@ class _USentLinkNotificationState extends State<_USentLinkNotification> {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
-    return FutureBuilder<Map<String, String>>(
-        future: UFetchLinkData().fetch(widget.linkUrl),
+    return FutureBuilder<Map<String, dynamic>>(
+        future: UFetchLinkData().fetch(widget.message),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final _linkData = snapshot.data!;
+            if (_linkData['isUrlValid'] == false) {
+              return UNotificationCard(
+                username: widget.uNotification.username,
+                uMessage: UMessage(
+                  message: ULibraryStrings.uNotification_sentYouAMessage,
+                  arrivalMessageTime:
+                      widget.uNotification.arrivalNotificationTime,
+                ),
+                uImage: widget.uNotification._uImage,
+              );
+            }
+
             final _isLinkWithVideo = _linkData['type']!.contains('video');
             final _linkImage = _linkData['image'];
             final _siteName = _linkData['siteName']!;

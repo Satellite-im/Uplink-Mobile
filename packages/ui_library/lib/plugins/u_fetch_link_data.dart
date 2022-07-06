@@ -11,13 +11,21 @@ class UFetchLinkData {
   String? _siteName;
   String? _type;
 
-  Future<Map<String, String>> fetch(String url) async {
+  Future<Map<String, dynamic>> fetch(String url) async {
     const _noInformationAvailable = 'No information available';
 
     try {
+      final _isUrlValid = _validateUrl(url);
+
+      if (!_isUrlValid) {
+        return {
+          'isUrlValid': false,
+        };
+      }
+
       final client = Client();
 
-      final response = await client.get(_validateUrl(url));
+      final response = await client.get(Uri.parse(url));
 
       final document = parse(response.body);
 
@@ -37,6 +45,7 @@ class UFetchLinkData {
       }
 
       return {
+        'isUrlValid': true,
         'title': _title ?? _noInformationAvailable,
         'description': _description ?? _noInformationAvailable,
         'image': _image ?? _noInformationAvailable,
@@ -47,13 +56,7 @@ class UFetchLinkData {
       };
     } catch (error) {
       return {
-        'title': _noInformationAvailable,
-        'description': _noInformationAvailable,
-        'image': _noInformationAvailable,
-        'type': _noInformationAvailable,
-        'siteName': _noInformationAvailable,
-        'appleIcon': _noInformationAvailable,
-        'favIcon': _noInformationAvailable
+        'isUrlValid': false,
       };
     }
   }
@@ -107,9 +110,9 @@ class UFetchLinkData {
   _validateUrl(String url) {
     if (url.startsWith('http://') == true ||
         url.startsWith('https://') == true) {
-      return Uri.parse(url);
+      return true;
     } else {
-      return Uri.parse('http://$url');
+      return false;
     }
   }
 }

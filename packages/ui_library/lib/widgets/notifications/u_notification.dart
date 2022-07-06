@@ -13,7 +13,6 @@ enum NotificationType {
   sentYouAMessage,
   reactedYourComment,
   sentYouAFriendRequest,
-  sentYouALink,
   serverUpdate,
 }
 
@@ -42,10 +41,10 @@ class UNotification extends StatefulWidget {
     UImage? uImage,
 
     /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
-    String? linkUrl,
+    String? message,
     required NotificationType notificationType,
   })  : _notificationType = notificationType,
-        _linkUrl = linkUrl ?? '',
+        _message = message ?? '',
         _uImage = uImage ?? const UImage(),
         super(key: key);
 
@@ -56,7 +55,7 @@ class UNotification extends StatefulWidget {
   final NotificationType _notificationType;
 
   /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
-  final String _linkUrl;
+  final String _message;
 
   final UImage _uImage;
 
@@ -79,14 +78,9 @@ class _UNotificationState extends State<UNotification> {
           uImage: widget._uImage,
         );
       case NotificationType.sentYouAMessage:
-        return UNotificationCard(
-          username: widget.username,
-          hasUnreadNotifications: false,
-          uMessage: UMessage(
-            message: ULibraryStrings.uNotification_sentYouAMessage,
-            arrivalMessageTime: widget.arrivalNotificationTime,
-          ),
-          uImage: widget._uImage,
+        return _USentMessagekNotification(
+          uNotification: widget,
+          message: widget._message,
         );
       case NotificationType.repliedYourComment:
         return UNotificationCard(
@@ -100,11 +94,6 @@ class _UNotificationState extends State<UNotification> {
       case NotificationType.sentYouAFriendRequest:
         return _UFriendRequestNotification(
           uNotification: widget,
-        );
-      case NotificationType.sentYouALink:
-        return _USentLinkNotification(
-          uNotification: widget,
-          linkUrl: widget._linkUrl,
         );
       case NotificationType.serverUpdate:
         return UNotificationCard(
