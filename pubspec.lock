@@ -211,7 +211,7 @@ packages:
     source: hosted
     version: "2.1.2"
   given_when_then_unit_test:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: given_when_then_unit_test
       url: "https://pub.dartlang.org"
@@ -617,7 +617,7 @@ packages:
     source: hosted
     version: "1.0.1"
   shouldly:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shouldly
       url: "https://pub.dartlang.org"
