@@ -12,12 +12,12 @@ void main() {
     const _kDark = 'dark';
     const _kLight = 'light';
     const _kTbd = 'tbd';
-    then('Dark Theme Type should be ${_kDark}',
+    then('Dark Theme Type should be kDark',
         () => ThemeType.dark.toStrName().should.be(_kDark),
         and: {
-          'Light Theme Type should be ${_kLight}': () =>
+          'Light Theme Type should be kLight': () =>
               ThemeType.light.toStrName().should.be(_kLight),
-          'Tbd Theme Type should be ${_kTbd}': () =>
+          'Tbd Theme Type should be kTbd': () =>
               ThemeType.tbd.toStrName().should.be(_kTbd),
         });
   });
@@ -26,12 +26,12 @@ void main() {
     const _kDark = 'dark';
     const _kLight = 'light';
     const _kTbd = 'tbd';
-    then('Dark Theme Type should be ${_kDark}',
+    then('Dark Theme Type should be kDark',
         () => _kDark.toThemeType().should.be(ThemeType.dark),
         and: {
-          'Light Theme Type should be ${_kLight}': () =>
+          'Light Theme Type should be kLight': () =>
               _kLight.toThemeType().should.be(ThemeType.light),
-          'Tbd Theme Type should be ${_kTbd}': () =>
+          'Tbd Theme Type should be kTbd': () =>
               _kTbd.toThemeType().should.be(ThemeType.tbd),
         });
   });
