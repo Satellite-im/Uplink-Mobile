@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-import 'chat_index_page/mock_notifications.dart';
+import 'package:uplink/chat/chat_index_page/mock_notifications.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({

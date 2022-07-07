@@ -39,25 +39,26 @@ class UNotification extends StatefulWidget {
     required this.username,
     required this.arrivalNotificationTime,
     UImage? uImage,
+    this.unreadNotification = true,
 
     /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
-    String? message,
-    required NotificationType notificationType,
-  })  : _notificationType = notificationType,
-        _message = message ?? '',
-        _uImage = uImage ?? const UImage(),
+    this.message = '',
+    required this.notificationType,
+  })  : _uImage = uImage ?? const UImage(),
         super(key: key);
 
   final String username;
 
   final DateTime arrivalNotificationTime;
 
-  final NotificationType _notificationType;
+  final NotificationType notificationType;
 
   /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
-  final String _message;
+  final String message;
 
   final UImage _uImage;
+
+  final bool? unreadNotification;
 
   @override
   State<UNotification> createState() => _UNotificationState();
@@ -66,7 +67,7 @@ class UNotification extends StatefulWidget {
 class _UNotificationState extends State<UNotification> {
   @override
   Widget build(BuildContext context) {
-    switch (widget._notificationType) {
+    switch (widget.notificationType) {
       case NotificationType.reactedYourComment:
         return UNotificationCard(
           username: widget.username,
@@ -80,7 +81,7 @@ class _UNotificationState extends State<UNotification> {
       case NotificationType.sentYouAMessage:
         return _USentMessagekNotification(
           uNotification: widget,
-          message: widget._message,
+          message: widget.message,
         );
       case NotificationType.repliedYourComment:
         return UNotificationCard(

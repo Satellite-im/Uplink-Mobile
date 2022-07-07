@@ -116,12 +116,6 @@ class _UAppBar extends StatelessWidget {
                 );
               },
             ).show();
-
-            // await Navigator.of(context).push(
-            //   MaterialPageRoute<Widget>(
-            //     builder: (context) => const NotificationsPage(),
-            //   ),
-            // );
           },
         ),
         IconButton(

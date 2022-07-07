@@ -5,9 +5,12 @@ class UBottomSheet {
   UBottomSheet(
     this.context, {
     required this.child,
+    this.boxConstraints,
   });
 
   final BuildContext context;
+
+  final BoxConstraints? boxConstraints;
 
   final Widget child;
 
@@ -17,9 +20,7 @@ class UBottomSheet {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         isDismissible: true,
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height / 2,
-        ),
+        constraints: boxConstraints,
         useRootNavigator: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

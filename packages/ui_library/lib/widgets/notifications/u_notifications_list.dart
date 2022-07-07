@@ -51,8 +51,8 @@ class _UNotificationsListState extends State<UNotificationsList> {
     widget.uNotificationList.sort((a, b) =>
         b.arrivalNotificationTime.compareTo(a.arrivalNotificationTime));
 
-    var length = widget.uNotificationList.length;
-    for (var i = 0; i < length; i++) {
+    final length = widget.uNotificationList.length;
+    for (int i = 0; i < length; i++) {
       _notificationsListPerDay.add(widget.uNotificationList[i]);
 
       if (i != length - 1) {
