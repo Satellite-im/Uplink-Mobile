@@ -50,8 +50,8 @@ class BlockedBody extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
             label: UAppStrings.blockedBody_unblock,
-            uIconData: UIcons.blocked_contacts,
-            color: UColors.termRed,
+            uIconData: UIcons.unblock,
+            color: UColors.ctaBlue,
             onPressed: () {
               final userNotifier = context.read<UserNotifier>();
               //Dialog widget cut the route of context, we need to
