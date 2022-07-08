@@ -21,6 +21,7 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
       UIcons.blocked_contacts,
       UIcons.report
     ],
+    colorList: [UColors.white, UColors.white, UColors.white, UColors.termRed],
     onTapList: [
       // TODO(yijing): add message pages
       () {},
