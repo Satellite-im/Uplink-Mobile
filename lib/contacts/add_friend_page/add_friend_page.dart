@@ -68,65 +68,67 @@ class _AddFriendPageState extends State<AddFriendPage>
 
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ..._buildCopyAccountID(),
-                const UDivider(),
-                const SizedBox(height: 16),
-                const UText(
-                  UAppStrings.addFriendPage_userAccount,
-                  textStyle: UTextStyle.B1_body,
-                ),
-                const SizedBox(height: 24),
-                _buildIDFormField(),
-                if (_showNoUserError) ...[
-                  const SizedBox(
-                    height: 24,
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ..._buildCopyAccountID(),
+                  const UDivider(),
+                  const SizedBox(height: 16),
                   const UText(
-                    UAppStrings.addFriendPage_noAccountFound,
+                    UAppStrings.addFriendPage_userAccount,
                     textStyle: UTextStyle.B1_body,
-                    textColor: UColors.termRed,
-                  )
-                ] else
-                  const SizedBox.shrink(),
-                if (!_isFound) ...[
-                  const SizedBox(height: 56),
-                  UButton.primary(
-                    disabled: _disableSearchButton,
-                    label: UAppStrings.search,
-                    uIconData: UIcons.search,
-                    onPressed: () async {
-                      if (_formfieldKey.currentState!.validate()) {
-                        // TODO(yijing): update search account ID
-                        setState(() {
-                          if (_textController.text ==
-                              'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
-                            _isFound = true;
-                          } else {
-                            _showNoUserError = true;
-                          }
-                        });
-                      }
-                    },
-                  )
-                ]
-              ],
+                  ),
+                  const SizedBox(height: 24),
+                  _buildIDFormField(),
+                  if (_showNoUserError) ...[
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    const UText(
+                      UAppStrings.addFriendPage_noAccountFound,
+                      textStyle: UTextStyle.B1_body,
+                      textColor: UColors.termRed,
+                    )
+                  ] else
+                    const SizedBox.shrink(),
+                  if (!_isFound) ...[
+                    const SizedBox(height: 56),
+                    UButton.primary(
+                      disabled: _disableSearchButton,
+                      label: UAppStrings.search,
+                      uIconData: UIcons.search,
+                      onPressed: () async {
+                        if (_formfieldKey.currentState!.validate()) {
+                          // TODO(yijing): update search account ID
+                          setState(() {
+                            if (_textController.text ==
+                                'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
+                              _isFound = true;
+                            } else {
+                              _showNoUserError = true;
+                            }
+                          });
+                        }
+                      },
+                    )
+                  ]
+                ],
+              ),
             ),
-          ),
-          // TODO(demo): change user type here to see different scenarios
-          if (_isFound)
-            ChangeNotifierProvider(
-              create: (context) =>
-                  UserNotifier(blockedUserWithoutFriendRequest),
-              builder: (context, child) => const FoundUserBody(),
-            ),
-        ],
+            // TODO(demo): change user type here to see different scenarios
+            if (_isFound)
+              ChangeNotifierProvider(
+                create: (context) =>
+                    UserNotifier(blockedUserWithoutFriendRequest),
+                builder: (context, child) => const FoundUserBody(),
+              ),
+          ],
+        ),
       ),
     );
   }
