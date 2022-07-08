@@ -17,9 +17,8 @@ class AddFriendPage extends StatefulWidget {
 
 class _AddFriendPageState extends State<AddFriendPage>
     with TickerProviderStateMixin {
-  OverlayEntry? overlayEntry;
   final layerLink = LayerLink();
-  late AnimationController _animationController;
+  late AnimationController? _animationController;
   late Animation<double> _animation;
   late GlobalKey<FormFieldState<String>> _formfieldKey;
   bool _disableSearchButton = true;
@@ -36,14 +35,14 @@ class _AddFriendPageState extends State<AddFriendPage>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+    _animation = Tween<double>(begin: 0, end: 1).animate(_animationController!);
     _formfieldKey = GlobalKey<FormFieldState<String>>();
     _textController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController?.dispose();
     _textController.dispose();
     super.dispose();
   }
@@ -211,7 +210,8 @@ class _AddFriendPageState extends State<AddFriendPage>
   }) async {
     final overlay = Overlay.of(context);
     final leftOffset = MediaQuery.of(context).size.width / 2 - 50;
-    overlayEntry = OverlayEntry(
+
+    final overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         width: 72,
         child: CompositedTransformFollower(
@@ -253,15 +253,15 @@ class _AddFriendPageState extends State<AddFriendPage>
         ),
       ),
     );
-    _animationController.addListener(() {
-      overlay?.setState(() {});
+    _animationController?.addListener(() {
+      overlay!.setState(() {});
     });
-    overlay?.insert(overlayEntry!);
-    await _animationController.forward();
+    overlay!.insert(overlayEntry);
+    await _animationController?.forward();
     await Future<void>.delayed(const Duration(milliseconds: 1250)).whenComplete(
-      () => _animationController
-          .reverse()
-          .whenComplete(() => overlayEntry?.remove()),
+      () => _animationController?.reverse().whenComplete(
+            overlayEntry.remove,
+          ),
     );
   }
 
