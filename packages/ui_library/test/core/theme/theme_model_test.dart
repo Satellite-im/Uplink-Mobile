@@ -26,7 +26,6 @@ void main() {
     test('return dark theme when no theme saved', () async {
       themeModel = ThemeModel();
       expect(themeModel.getThemeType, ThemeType.dark);
-      expect(themeModel.getThemeData, UThemes.dark);
     });
     test('get light theme when set theme name to \'light\'', () {
       themeModel = ThemeModel();
