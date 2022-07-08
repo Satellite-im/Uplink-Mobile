@@ -77,7 +77,15 @@ class _AddFriendPageState extends State<AddFriendPage>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ..._buildCopyAccountID(),
-                  const UDivider(),
+                ],
+              ),
+            ),
+            const UDivider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
                   const SizedBox(height: 16),
                   const UText(
                     UAppStrings.addFriendPage_userAccount,
