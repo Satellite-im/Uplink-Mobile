@@ -35,6 +35,7 @@ class BlockedBody extends StatelessWidget {
                 UAppStrings.buildUserListTileLongPress_report
               ],
               iconList: [UIcons.user_profile, UIcons.report],
+              colorList: [UColors.white, UColors.termRed],
               onTapList: [
                 // TODO(yijing): add profile pages
                 () {},
