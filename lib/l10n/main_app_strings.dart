@@ -174,7 +174,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const outgoingRequestListTile_text2 = ' was removed.';
 
   ///BlockedPage
-  static const blockedPage_appBarTitle = 'Block';
+  static const blockedPage_appBarTitle = 'Blocked';
   static const blockedPage_emptyBody =
       'No one is here, you have 0 blocked contacts!';
 
