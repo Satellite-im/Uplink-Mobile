@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
+
+const _kScreenPercentageAvailavleForBottomSheet = 0.75;
 
 class UBottomSheetNotifications {
   /// BottomSheet for notifications
@@ -30,11 +33,12 @@ class UBottomSheetNotifications {
   final Function() onSlideUp;
 
   Future show() {
-    final _bottomSheetHalfHeight = MediaQuery.of(context).size.height;
+    final _bottomSheetMaxHeight = MediaQuery.of(context).size.height *
+        _kScreenPercentageAvailavleForBottomSheet;
     return UBottomSheet(
       context,
       boxConstraints: BoxConstraints(
-        maxHeight: _bottomSheetHalfHeight,
+        maxHeight: _bottomSheetMaxHeight,
       ),
       child: _UBottomSheetNotificationsBody(
         uNotificationsList: uNotificationsList,
@@ -68,18 +72,14 @@ class _UBottomSheetNotificationsBodyState
   static const _otherNotificationHeight = 40;
   static const _friendRequestHeight = 96;
   static const _whenDateChangeSpace = 31;
+  double _height = 0;
+  double _widgetsHeigth = 0;
 
   final List<UNotification> _itemsToShow = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void _calculateTheHeightOfUNotifications(double _sizeAvailableInBottomSheet) {
     widget.uNotificationsList.sort((a, b) =>
         b.arrivalNotificationTime.compareTo(a.arrivalNotificationTime));
-    double _height = 0;
     final _length = widget.uNotificationsList.length;
     for (int i = 0; i < _length; i++) {
       final uNotification = widget.uNotificationsList[i];
@@ -112,6 +112,7 @@ class _UBottomSheetNotificationsBodyState
 
       if (_height < _sizeAvailableInBottomSheet) {
         _itemsToShow.add(uNotification);
+        _widgetsHeigth = _height;
       } else {
         break;
       }
@@ -128,60 +129,64 @@ class _UBottomSheetNotificationsBodyState
 
   @override
   void didChangeDependencies() {
-    const _factorToGetAvailableSpaceInBottomSheet = 0.34236;
+    final _factorToGetAvailableSpaceInBottomSheet =
+        (MediaQuery.of(context).size.height *
+                _kScreenPercentageAvailavleForBottomSheet) -
+            113;
     _calculateTheHeightOfUNotifications(
-      MediaQuery.of(context).size.height *
-          _factorToGetAvailableSpaceInBottomSheet,
+      _factorToGetAvailableSpaceInBottomSheet,
     );
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onVerticalDragUpdate: (details) {
-        // TODO(Lucas): Improve the way to transition
-        if (details.delta.dy < 0) {
-          widget.onSlideUp.call(MediaQuery.of(context).size.height);
-        } else if (details.localPosition.dy > 0) {
-          Navigator.of(context, rootNavigator: true).pop();
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 55, 0, 40),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 26.0),
-              child: Row(
-                children: const [
-                  UIcon(
-                    UIcons.menu_bar_notifications,
-                  ),
-                  SizedBox.square(
-                    dimension: 18,
-                  ),
-                  UText(
-                    'Notifications',
-                    textStyle: UTextStyle.H1_primaryHeader,
-                  ),
-                ],
+    return SizedBox(
+      height: _widgetsHeigth + 120,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onVerticalDragUpdate: (details) {
+          // TODO(Lucas): Improve the way to transition
+          if (details.delta.dy < 0) {
+            widget.onSlideUp.call(MediaQuery.of(context).size.height);
+          } else if (details.localPosition.dy > 0) {
+            Navigator.of(context, rootNavigator: true).pop();
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 26.0),
+                child: Row(
+                  children: const [
+                    UIcon(
+                      UIcons.menu_bar_notifications,
+                    ),
+                    SizedBox.square(
+                      dimension: 18,
+                    ),
+                    UText(
+                      'Notifications',
+                      textStyle: UTextStyle.H1_primaryHeader,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox.square(
-              dimension: 16,
-            ),
-            SingleChildScrollView(
-              child: UNotificationsList(
+              const SizedBox.square(
+                dimension: 16,
+              ),
+              UNotificationsList(
                 uNotificationList: [
-                  for (var i = 0; i < _itemsToShow.length; i++) ...[
+                  for (int i = 0; i < _itemsToShow.length; i++) ...[
                     _itemsToShow[i],
-                  ]
+                  ],
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -4,14 +4,14 @@ List<UNotification> uNotificationListMock = [
   UNotification(
     username: 'Teodoro',
     notificationType: NotificationType.sentYouAMessage,
-    arrivalNotificationTime: DateTime(2022, 07, 03, 21),
+    arrivalNotificationTime: DateTime(2022, 07, 07, 21),
     message: 'https://www.youtube.com/watch?v=rDnl0uf0QKU',
   ),
   UNotification(
     username: 'Jack',
     // uImage: ,
-    notificationType: NotificationType.reactedYourComment,
-    arrivalNotificationTime: DateTime(2022, 07, 03, 23),
+    notificationType: NotificationType.sentYouAFriendRequest,
+    arrivalNotificationTime: DateTime(2022, 07, 07, 21),
   ),
   UNotification(
     username: 'Urma',

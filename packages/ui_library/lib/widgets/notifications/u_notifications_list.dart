@@ -85,6 +85,7 @@ class _UNotificationsListState extends State<UNotificationsList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.zero,
       itemCount: _listOfNotificationsList.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
