@@ -156,9 +156,9 @@ Would you like to give Satellite.im access to your camera roll?''';
   ///FriendRequestListTile
   static const friendRequestListTile_bottomSheetHeader =
       'Are you sure you want to remove this friend request?';
-  static const friendRequestListTile_dialogTitle = 'Friend Request Deleted';
+  static const friendRequestListTile_dialogTitle = 'Friend Request Removed';
   static const friendRequestListTile_text1 = 'The friend request from ';
-  static const friendRequestListTile_text2 = ' was deleted.';
+  static const friendRequestListTile_text2 = ' was removed.';
 
   ///OutgoingRequestPage
   static const outgoingRequestPage_appBarTitle = 'Outgoing Requests';
