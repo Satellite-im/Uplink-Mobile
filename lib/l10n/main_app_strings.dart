@@ -71,7 +71,7 @@ If you opt to use ‘Only Public Signaling Servers’, those are completely outs
       'order is crucial when you are recovering your account.';
   static const recoverySeedPage_iSavedItButton = 'I Saved It';
   static const recoverySeedPage_areYouSureBottomSheetHeader = '''
-    Are you sure you want to continue
+    Are you sure you want to continue?
     (You can view your passphrase from your account settings)''';
   static const recoverySeedPage_screenshotButton = 'Screenshot';
   static const recoverySeedPage_screenshotAdvice =
