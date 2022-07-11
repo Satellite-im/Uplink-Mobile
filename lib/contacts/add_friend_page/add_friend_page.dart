@@ -38,17 +38,6 @@ class _AddFriendPageState extends State<AddFriendPage>
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController!);
     _formfieldKey = GlobalKey<FormFieldState<String>>();
     _textController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _animationController?.dispose();
-    _textController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     _textController.addListener(() {
       if (_textController.text.length == UAppNums.accountIdLength &&
           _disableSearchButton == true) {
@@ -65,7 +54,17 @@ class _AddFriendPageState extends State<AddFriendPage>
         });
       }
     });
+  }
 
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: SingleChildScrollView(

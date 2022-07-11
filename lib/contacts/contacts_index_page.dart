@@ -16,11 +16,11 @@ class ContactsIndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: FutureBuilder(
+        child: FutureBuilder<List<MockContact>>(
           future: loadingContacts(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              final contactsList = snapshot.data! as List<MockContact>;
+              final contactsList = snapshot.data!;
 
               if (contactsList.isEmpty) {
                 return const NoFriendBody();
