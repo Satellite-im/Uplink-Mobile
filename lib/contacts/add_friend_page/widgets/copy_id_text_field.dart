@@ -20,7 +20,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
   final layerLink = LayerLink();
   late AnimationController? _animationController;
   late Animation<double> _animation;
-  late Timer _timerForOverlay;
+  Timer _timerForOverlay = Timer(Duration.zero, () {});
 
   @override
   void initState() {
