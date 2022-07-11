@@ -76,13 +76,14 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
             ),
             padding: const EdgeInsets.all(16),
             child: InkWell(
-              child: UText(
+              child: const UText(
                 userId,
                 textStyle: UTextStyle.H5_fifthHeader,
                 textColor: UColors.white,
               ),
               onTap: () {
-                Clipboard.setData(ClipboardData(text: userId)).whenComplete(
+                Clipboard.setData(const ClipboardData(text: userId))
+                    .whenComplete(
                   () => _showOverlay(
                     context,
                     text: UAppStrings.addFriendPage_copied,
