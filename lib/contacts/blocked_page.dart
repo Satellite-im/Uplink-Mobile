@@ -13,11 +13,11 @@ class BlockedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(title: UAppStrings.blockedPage_appBarTitle),
-      body: FutureBuilder(
+      body: FutureBuilder<List<MockContact>>(
         future: loadingContacts(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final contactsList = snapshot.data! as List<MockContact>;
+            final contactsList = snapshot.data!;
 
             if (contactsList.isEmpty) {
               return const EmptyBody(
