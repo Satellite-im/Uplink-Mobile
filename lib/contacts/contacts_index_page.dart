@@ -23,7 +23,12 @@ class ContactsIndexPage extends StatelessWidget {
               final contactsList = snapshot.data!;
 
               if (contactsList.isEmpty) {
-                return const NoFriendBody();
+                return Column(
+                  children: const [
+                    _UAppBar(),
+                    Expanded(child: NoFriendBody()),
+                  ],
+                );
               } else {
                 //Turn [MockContact] into AZItem(ISuspensionBean)
                 //which will be used in AZListView
