@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,7 @@ class _AddFriendPageState extends State<AddFriendPage>
   //In search mode, no user is found
   bool _showNoUserError = false;
   late TextEditingController _textController;
+  late Timer _timerForOverlay;
 
   @override
   void initState() {
@@ -60,6 +63,7 @@ class _AddFriendPageState extends State<AddFriendPage>
   void dispose() {
     _animationController?.dispose();
     _textController.dispose();
+    _timerForOverlay.cancel();
     super.dispose();
   }
 
@@ -267,7 +271,8 @@ class _AddFriendPageState extends State<AddFriendPage>
     });
     overlay!.insert(overlayEntry);
     await _animationController?.forward();
-    await Future<void>.delayed(const Duration(milliseconds: 1250)).whenComplete(
+    _timerForOverlay = Timer(
+      const Duration(milliseconds: 1250),
       () => _animationController?.reverse().whenComplete(
             overlayEntry.remove,
           ),
