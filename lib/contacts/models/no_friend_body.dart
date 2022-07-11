@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/add_friend_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class NoFriendBody extends StatelessWidget {
@@ -36,7 +37,11 @@ class NoFriendBody extends StatelessWidget {
             label: UAppStrings.noFriendBody_addFriend,
             uIconData: UIcons.add_contact_member,
             onPressed: () {
-              // TODO(yijing): add friends pages
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const AddFriendPage(),
+                ),
+              );
             },
           ),
         ],

@@ -29,7 +29,7 @@ pub struct Graphics {
 
 /// `Identity` encompasses all of the users identifiying information shared with the public.
 /// some of this data is mutable by the user while other data within is automatically generated
-/// or set by a remote authority such as Satellite.im when it comes to setting global applicaiton roles & badges.
+/// or set by a remote authority such as Satellite.im when it comes to setting global application roles & badges.
 pub struct Identity {
   username: String,
   short_id: u16,

@@ -40,6 +40,7 @@ class UBottomSheetOptions {
     required this.titleList,
     required this.iconList,
     required this.onTapList,
+    this.colorList,
   });
 
   final BuildContext context;
@@ -47,6 +48,7 @@ class UBottomSheetOptions {
   final List<String> titleList;
   final List<UIconData> iconList;
   final List<void Function()> onTapList;
+  final List<Color>? colorList;
 
   Future show() {
     return UBottomSheet(
@@ -56,24 +58,27 @@ class UBottomSheetOptions {
         titleList: titleList,
         iconList: iconList,
         onTapList: onTapList,
+        colorList: colorList,
       ),
     ).show();
   }
 }
 
 class _UBottomSheetOptionsBody extends StatelessWidget {
-  const _UBottomSheetOptionsBody({
-    Key? key,
-    required this.sheetTitle,
-    required this.titleList,
-    required this.iconList,
-    required this.onTapList,
-  }) : super(key: key);
+  const _UBottomSheetOptionsBody(
+      {Key? key,
+      required this.sheetTitle,
+      required this.titleList,
+      required this.iconList,
+      required this.onTapList,
+      this.colorList})
+      : super(key: key);
 
   final String sheetTitle;
   final List<String> titleList;
   final List<UIconData> iconList;
   final List<void Function()> onTapList;
+  final List<Color>? colorList;
 
   @override
   Widget build(BuildContext context) {
@@ -89,21 +94,41 @@ class _UBottomSheetOptionsBody extends StatelessWidget {
           const SizedBox(
             height: 9.4,
           ),
-          ...List.generate(
-            titleList.length,
-            (index) => ListTile(
-              contentPadding: EdgeInsets.zero,
-              horizontalTitleGap: 8,
-              minLeadingWidth: 24,
-              leading: UIcon(iconList[index]),
-              title: UText(
-                titleList[index],
-                textStyle: UTextStyle.H5_fifthHeader,
-                textColor: UColors.white,
+          if (colorList == null)
+            ...List.generate(
+              titleList.length,
+              (index) => ListTile(
+                contentPadding: EdgeInsets.zero,
+                horizontalTitleGap: 8,
+                minLeadingWidth: 24,
+                leading: UIcon(iconList[index]),
+                title: UText(
+                  titleList[index],
+                  textStyle: UTextStyle.H5_fifthHeader,
+                  textColor: UColors.white,
+                ),
+                onTap: onTapList[index],
               ),
-              onTap: onTapList[index],
+            )
+          else
+            ...List.generate(
+              titleList.length,
+              (index) => ListTile(
+                contentPadding: EdgeInsets.zero,
+                horizontalTitleGap: 8,
+                minLeadingWidth: 24,
+                leading: UIcon(
+                  iconList[index],
+                  color: colorList![index],
+                ),
+                title: UText(
+                  titleList[index],
+                  textStyle: UTextStyle.H5_fifthHeader,
+                  textColor: colorList![index],
+                ),
+                onTap: onTapList[index],
+              ),
             ),
-          ),
         ],
       ),
     );

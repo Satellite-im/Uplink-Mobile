@@ -1,16 +1,27 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'dart:math';
-
 import 'package:ui_library/ui_library_export.dart';
 
+// for different scenarios in add friends pages
+enum Relationship {
+  none,
+  friend,
+  block,
+}
+
+///Default relationship = Relationship.none
+///Default friendRequestSent = false
 class MockContact {
   MockContact({
     required this.name,
     required this.status,
     this.statusMessage,
     this.imageAddress,
-  });
+    Relationship? relationship,
+    bool? friendRequestSent,
+  })  : relationship = relationship ?? Relationship.none,
+        friendRequestSent = friendRequestSent ?? false;
 
   MockContact.fromJson(dynamic json) {
     name = json['user_name'] as String;
@@ -41,4 +52,6 @@ class MockContact {
   String? statusMessage;
   late Status status;
   String? imageAddress;
+  Relationship? relationship;
+  bool? friendRequestSent;
 }

@@ -8,13 +8,13 @@ Flutter Satellite.im Minimal Secure Chat Client
 
 To run this project either use the launch configuration in VSCode
 
-![image](https://user-images.githubusercontent.com/14248245/161649153-00f0630a-dde4-4d62-9d4b-d6ddf28ba547.png)
+<img width="370" alt="Screen Shot 2022-06-28 at 17 09 04" src="https://user-images.githubusercontent.com/63157656/176275531-6921bc1f-c6bc-4402-ab2f-ea9e3dd584cd.png">
 
 
 or use the following command:
 
 ```sh
-$ flutter run --flavor production --target lib/main_production.dart
+$ flutter run --target lib/main.dart 
 ```
 
 _\*Uplink works on iOS, Android, Web, and Windows._
