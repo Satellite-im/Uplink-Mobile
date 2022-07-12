@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/chat/chat_index_page/mock_notifications.dart';
 import 'package:uplink/chat/notifications_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
 import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
-
-import 'mock_notifications.dart';
 
 part 'models/favorites_friends.part.dart';
 part 'models/with_friends.part.dart';
@@ -61,7 +60,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                           ),
                           if (_friendsList.isNotEmpty) ...[
                             const SizedBox.square(
-                              dimension: 24,
+                              dimension: 14,
                             ),
                             _WithFriends(
                               friendsList: _friendsList,

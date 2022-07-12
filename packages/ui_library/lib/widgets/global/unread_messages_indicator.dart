@@ -36,7 +36,9 @@ class UnreadMessagesIndicator extends StatelessWidget {
   final int _unreadMessages;
 
   double getUnreadMessagesIndicatorWidth() {
-    if (_unreadMessages < 10) {
+    if (_unreadMessages == 0) {
+      return 0;
+    } else if (_unreadMessages < 10) {
       return USizes.unreadMessagesLessThanTenWidthSize;
     } else if (_unreadMessages < 100) {
       return USizes.unreadMessagesLessThanHundredWidthSize;

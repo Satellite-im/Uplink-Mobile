@@ -16,7 +16,13 @@ class MockContactsChat {
   MockContactsChat.fromJson(dynamic json) {
     username = json['user_name'] as String;
     uMessage = UMessage(
-      message: json['last_message'] as String,
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris '
+          'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in '
+          'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla '
+          'pariatur. Excepteur sint occaecat cupidatat non proident, sunt in '
+          'culpa qui officia deserunt mollit anim id est laborum.',
       arrivalMessageTime:
           DateTime.parse(json['last_message_arrival_time'] as String),
     );
