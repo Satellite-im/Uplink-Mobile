@@ -62,7 +62,7 @@ class BlockedBody extends StatelessWidget {
                   return ChangeNotifierProvider.value(
                     value: userNotifier,
                     child: UDialogUserProfile(
-                      bodyText: UAppStrings.blockedBody_q,
+                      bodyText: UAppStrings.unblockDialogQ,
                       buttonText: UAppStrings.unblock,
                       popButtonText: UAppStrings.goBackButton,
                       onTap: () {
