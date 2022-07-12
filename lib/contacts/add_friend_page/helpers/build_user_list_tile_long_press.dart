@@ -36,7 +36,7 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
             return ChangeNotifierProvider.value(
               value: userNotifier,
               child: UDialogUserProfile(
-                bodyText: UAppStrings.buildUserListTileLongPress_q,
+                bodyText: UAppStrings.blockDialogQ,
                 buttonText: UAppStrings.block,
                 popButtonText: UAppStrings.goBackButton,
                 onTap: () {
