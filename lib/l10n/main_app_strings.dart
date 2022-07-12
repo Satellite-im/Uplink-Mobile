@@ -10,6 +10,9 @@ class UAppStrings {
   static const remove = 'Remove';
   static const okay = 'Okay';
   static const search = 'Search';
+  static const block = 'Block';
+  static const unblock = 'Unblock';
+  static const report = 'Report';
 
   /// Strings for OnboardPinPage
   static const pinPage_pageTitle = 'Create Account Pin';
@@ -210,14 +213,11 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Are you sure you want to remove this user from your Contact’s list?';
 
   ///BlockedBody
-  static const blockedBody_unblock = 'Unblock';
   static const blockedBody_q = 'Are you sure you want to unblock this user?';
 
   ///buildUserListTileLongPress
   static const buildUserListTileLongPress_message = 'Message';
   static const buildUserListTileLongPress_profile = 'Profile';
-  static const buildUserListTileLongPress_block = 'Block';
-  static const buildUserListTileLongPress_report = 'Report';
   static const buildUserListTileLongPress_q =
       'Are you sure you want to block this user?';
 

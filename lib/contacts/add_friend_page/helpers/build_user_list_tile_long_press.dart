@@ -12,8 +12,8 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
     titleList: [
       UAppStrings.buildUserListTileLongPress_message,
       UAppStrings.buildUserListTileLongPress_profile,
-      UAppStrings.buildUserListTileLongPress_block,
-      UAppStrings.buildUserListTileLongPress_report,
+      UAppStrings.block,
+      UAppStrings.report,
     ],
     iconList: [
       UIcons.message,
@@ -37,7 +37,7 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
               value: userNotifier,
               child: UDialogUserProfile(
                 bodyText: UAppStrings.buildUserListTileLongPress_q,
-                buttonText: UAppStrings.buildUserListTileLongPress_block,
+                buttonText: UAppStrings.block,
                 popButtonText: UAppStrings.goBackButton,
                 onTap: () {
                   userNotifier.blockFriend();
