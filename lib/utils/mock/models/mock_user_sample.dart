@@ -46,3 +46,11 @@ MockContact userWithoutFriendRequest = MockContact(
   relationship: Relationship.none,
   friendRequestSent: false,
 );
+
+MockContact userBlockedYou = MockContact(
+  name: 'username',
+  status: Status.offline,
+  imageAddress: 'packages/ui_library/images/placeholders/user_avatar_3.png',
+  statusMessage: 'Something something space station',
+  relationship: Relationship.beBlocked,
+);

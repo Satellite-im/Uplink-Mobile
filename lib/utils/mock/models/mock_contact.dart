@@ -8,6 +8,7 @@ enum Relationship {
   none,
   friend,
   block,
+  beBlocked,
 }
 
 ///Default relationship = Relationship.none
@@ -18,6 +19,11 @@ class MockContact {
     required this.status,
     this.statusMessage,
     this.imageAddress,
+    this.bannerImageAddress,
+    this.badgesNum,
+    this.location,
+    this.friendNum,
+    this.about,
     Relationship? relationship,
     bool? friendRequestSent,
   })  : relationship = relationship ?? Relationship.none,
@@ -48,10 +54,42 @@ class MockContact {
         'packages/ui_library/images/placeholders/user_avatar_$_random.png';
   }
 
+  MockContact copywith({
+    String? name,
+    String? statusMessage,
+    Status? status,
+    String? imageAddress,
+    String? bannerImageAddress,
+    Relationship? relationship,
+    bool? friendRequestSent,
+    int? badgesNum,
+    String? location,
+    int? friendNum,
+    String? about,
+  }) =>
+      MockContact(
+        name: name ?? this.name,
+        status: status ?? this.status,
+        statusMessage: statusMessage ?? this.statusMessage,
+        imageAddress: imageAddress ?? this.imageAddress,
+        bannerImageAddress: bannerImageAddress ?? this.bannerImageAddress,
+        relationship: relationship ?? this.relationship,
+        friendRequestSent: friendRequestSent ?? this.friendRequestSent,
+        badgesNum: badgesNum ?? this.badgesNum,
+        location: location ?? this.location,
+        friendNum: friendNum ?? this.friendNum,
+        about: about ?? this.about,
+      );
+
   late String name;
   String? statusMessage;
   late Status status;
   String? imageAddress;
   Relationship? relationship;
   bool? friendRequestSent;
+  String? bannerImageAddress;
+  int? badgesNum;
+  String? location;
+  int? friendNum;
+  String? about;
 }
