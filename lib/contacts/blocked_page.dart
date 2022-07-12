@@ -1,7 +1,10 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/contacts/user_profile_page/user_profile_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
@@ -42,7 +45,7 @@ class BlockedPage extends StatelessWidget {
                 itemCount: contactsAZList.length,
                 itemBuilder: (context, index) {
                   final item = contactsAZList[index];
-                  return _buildContactsList(item);
+                  return _buildContactsList(item, context);
                 },
 //indexBar is the initial letter on the right
                 indexBarMargin: const EdgeInsets.only(right: 8),
@@ -91,7 +94,7 @@ class BlockedPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContactsList(_AZItem item) {
+  Widget _buildContactsList(_AZItem item, BuildContext context) {
     final tag = item.getSuspensionTag();
     final offstage = !item.isShowSuspension;
     return Column(
@@ -103,7 +106,27 @@ class BlockedPage extends StatelessWidget {
           statusMessage: item.contact.statusMessage,
           imageAddress: item.contact.imageAddress,
           onTap: () {
-            // TODO(yijing): add block friend work flow
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (context) {
+                  // TODO(Dev):change user type
+                  final user = item.contact.copywith(
+                    bannerImageAddress:
+                        'lib/utils/mock/images/bannerImage1.png',
+                    badgesNum: 5,
+                    location: 'State, USA',
+                    friendNum: 24,
+                    relationship: Relationship.friend,
+                    friendRequestSent: true,
+                    about:
+                        'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
+                  );
+                  return UserProfilePage(
+                    user: user,
+                  );
+                },
+              ),
+            );
           },
         ),
       ],
