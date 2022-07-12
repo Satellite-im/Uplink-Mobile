@@ -52,5 +52,5 @@ MockContact userBlockedYou = MockContact(
   status: Status.offline,
   imageAddress: 'packages/ui_library/images/placeholders/user_avatar_3.png',
   statusMessage: 'Something something space station',
-  relationship: Relationship.beBlocked,
+  isBlocked: true,
 );

@@ -8,7 +8,6 @@ enum Relationship {
   none,
   friend,
   block,
-  beBlocked,
 }
 
 ///Default relationship = Relationship.none
@@ -26,8 +25,10 @@ class MockContact {
     this.about,
     Relationship? relationship,
     bool? friendRequestSent,
+    bool? isBlocked,
   })  : relationship = relationship ?? Relationship.none,
-        friendRequestSent = friendRequestSent ?? false;
+        friendRequestSent = friendRequestSent ?? false,
+        isBlocked = isBlocked ?? false;
 
   MockContact.fromJson(dynamic json) {
     name = json['user_name'] as String;
@@ -66,6 +67,7 @@ class MockContact {
     String? location,
     int? friendNum,
     String? about,
+    bool? isBlocked,
   }) =>
       MockContact(
         name: name ?? this.name,
@@ -79,6 +81,7 @@ class MockContact {
         location: location ?? this.location,
         friendNum: friendNum ?? this.friendNum,
         about: about ?? this.about,
+        isBlocked: isBlocked ?? this.isBlocked,
       );
 
   late String name;
@@ -92,4 +95,5 @@ class MockContact {
   String? location;
   int? friendNum;
   String? about;
+  bool? isBlocked;
 }
