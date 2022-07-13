@@ -251,8 +251,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'iste natus error sit voluptatem accusantium doloremque laudantium, '
       'totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ';
   static const profileIndexPage_setStatus = 'Set Status';
-  static const profileIndexPage_spotifyUsername = 'username12';
-  static const profileIndexPage_twitchUsername = 'username_plays';
   static const profileIndexPage_qrCodeData = 'QR CODE DATA';
   static const profileIndexPage_bannerPhotoHeader =
       'Update your banner picture from';
