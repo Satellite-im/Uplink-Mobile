@@ -109,15 +109,15 @@ class BlockedPage extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (context) {
-                  // TODO(Dev):change user type
+                  // TODO(dev): change user type
                   final user = item.contact.copywith(
                     bannerImageAddress:
                         'lib/utils/mock/images/bannerImage1.png',
                     badgesNum: 5,
                     location: 'State, USA',
                     friendNum: 24,
-                    relationship: Relationship.friend,
-                    friendRequestSent: true,
+                    relationship: Relationship.block,
+                    friendRequestSent: false,
                     about:
                         'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
                   );

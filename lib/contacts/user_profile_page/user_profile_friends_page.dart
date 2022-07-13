@@ -1,20 +1,16 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/user_profile_page/models/network_profiles_body.part.dart';
-import 'package:uplink/contacts/user_profile_page/models/profile_data_body.part.dart';
-import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
 
 class UserProfileFriendPage extends StatefulWidget {
-  UserProfileFriendPage({
+  const UserProfileFriendPage({
     Key? key,
     required this.user,
   }) : super(key: key);
 
-  String? about;
-  MockContact user;
+  final MockContact user;
 
   @override
   State<UserProfileFriendPage> createState() => _UserProfilePageState();
@@ -23,7 +19,6 @@ class UserProfileFriendPage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfileFriendPage> {
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: CustomScrollView(
@@ -58,7 +53,7 @@ class _UserProfilePageState extends State<UserProfileFriendPage> {
                             );
                             break;
                           case 'Report':
-                            // TODO(yijing) : add report workflow
+                            // TODO(yijing): add report workflow
                             break;
                           default:
                         }
