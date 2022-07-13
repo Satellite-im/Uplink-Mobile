@@ -25,8 +25,8 @@ class UThemes {
 
         ///button in showroom page
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(UColors.ctaBlue))),
+          style: ElevatedButton.styleFrom(primary: UColors.ctaBlue),
+        ),
 
         //cursorColor in search contact bar
         textSelectionTheme:

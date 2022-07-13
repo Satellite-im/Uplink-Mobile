@@ -115,24 +115,56 @@ class UButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color? getBGColor(Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        if (_color != null) {
+          return _color;
+        } else if ((_buttonType == _ButtonType.primary) ||
+            (_buttonType == _ButtonType.filled1)) {
+          return UColors.ctaBlue;
+        }
+        return UColors.ctaDark;
+      }
+      if (_color != null) {
+        return _color;
+      } else if ((_buttonType == _ButtonType.primary) ||
+          (_buttonType == _ButtonType.filled1)) {
+        return UColors.ctaBlue;
+      }
+      return UColors.ctaDark;
+    }
+
+    EdgeInsetsGeometry? getPadding(Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        if ((_buttonType == _ButtonType.primary) ||
+            (_buttonType == _ButtonType.secondary)) {
+          return const EdgeInsets.fromLTRB(16, 8, 24, 8);
+        }
+        return const EdgeInsets.fromLTRB(24, 13, 24, 12);
+      }
+
+      if ((_buttonType == _ButtonType.primary) ||
+          (_buttonType == _ButtonType.secondary)) {
+        return const EdgeInsets.fromLTRB(16, 8, 24, 8);
+      }
+      return const EdgeInsets.fromLTRB(24, 13, 24, 12);
+    }
+
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 100),
       opacity: _disabled ? 0.5 : 1,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            minimumSize: const Size(50, 40),
-            primary: _color != null
-                ? _color
-                : (_buttonType == _ButtonType.primary) ||
-                        (_buttonType == _ButtonType.filled1)
-                    ? UColors.ctaBlue
-                    : UColors.ctaDark,
-            padding: (_buttonType == _ButtonType.primary) ||
-                    (_buttonType == _ButtonType.secondary)
-                ? const EdgeInsets.fromLTRB(16, 8, 24, 8)
-                : const EdgeInsets.fromLTRB(24, 13, 24, 12),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50))),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith(getBGColor),
+            padding: MaterialStateProperty.resolveWith(getPadding),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+              const Size(50, 40),
+            )),
         onPressed: _disabled ? null : _onPressed,
         onLongPress: null,
         child: Row(
