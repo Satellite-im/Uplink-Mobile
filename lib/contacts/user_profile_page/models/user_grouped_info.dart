@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/user_profile_page/user_profile_friends_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/mock_contact.dart';
+import 'package:uplink/utils/mock/models/data_export.dart';
 
-class KProfileData extends StatelessWidget {
-  const KProfileData({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+class UserGroupedInfo extends StatelessWidget {
+  const UserGroupedInfo({Key? key, required this.user}) : super(key: key);
 
   final MockContact user;
+
   @override
   Widget build(BuildContext context) {
     //for smaill width screen
@@ -31,7 +29,7 @@ class KProfileData extends StatelessWidget {
                 const SizedBox.square(
                   dimension: 8,
                 ),
-                if (user.badgesNum == null)
+                if (user.isBlocked == true || user.badgesNum == null)
                   const UText(
                     '-',
                     textStyle: UTextStyle.H5_fifthHeader,
@@ -80,7 +78,9 @@ class KProfileData extends StatelessWidget {
                   dimension: 8,
                 ),
                 UText(
-                  user.location == null ? '-' : user.location!,
+                  user.isBlocked == true || user.location == null
+                      ? '-'
+                      : user.location!,
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),
@@ -98,20 +98,31 @@ class KProfileData extends StatelessWidget {
                   UAppStrings.profileIndexPage_friends,
                   textStyle: UTextStyle.H5_fifthHeader,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push<void>(
-                      MaterialPageRoute(
-                        builder: (context) => UserProfileFriendPage(
-                          user: user,
+                SizedBox(
+                  height: 30,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      splashFactory: NoSplash.splashFactory,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push<void>(
+                        MaterialPageRoute(
+                          builder: (context) => UserProfileFriendPage(
+                            user: user,
+                          ),
                         ),
+                      );
+                    },
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: UText(
+                        user.isBlocked == true || user.friendNum == null
+                            ? '-'
+                            : user.friendNum!.toString(),
+                        textStyle: UTextStyle.H5_fifthHeader,
+                        textColor: UColors.white,
                       ),
-                    );
-                  },
-                  child: UText(
-                    user.friendNum == null ? '-' : user.friendNum!.toString(),
-                    textStyle: UTextStyle.H5_fifthHeader,
-                    textColor: UColors.white,
+                    ),
                   ),
                 ),
               ],
