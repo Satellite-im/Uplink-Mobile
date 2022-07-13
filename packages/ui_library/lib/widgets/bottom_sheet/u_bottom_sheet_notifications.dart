@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 

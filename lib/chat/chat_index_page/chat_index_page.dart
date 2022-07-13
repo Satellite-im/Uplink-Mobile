@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_index_page/mock_notifications.dart';
+import 'package:uplink/chat/chat_index_page/models/search/chat_search.dart';
 import 'package:uplink/chat/notifications_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
 import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
+import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
 
 part 'models/favorites_friends.part.dart';
 part 'models/with_friends.part.dart';
@@ -19,28 +21,57 @@ class ChatIndexPage extends StatefulWidget {
 }
 
 class _ChatIndexPageState extends State<ChatIndexPage> {
+  Future<Map<String, List<MockContactsChat>>>
+      _loadingFriendsAndFavoritesList() async {
+    final _chatsList = await loadingChatsList();
+    final _favoritesChatsList = await loadingFavoritesChatsList();
+
+    // Todo(Lucas): Remove this function layer, just to show loading widget
+    await Future.delayed(const Duration(seconds: 3), () {});
+
+    return <String, List<MockContactsChat>>{
+      'chats_list': _chatsList,
+      'favorites_chats_list': _favoritesChatsList,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, List<MockContactsChat>>>
-        _loadingFriendsAndFavoritesList() async {
-      final _chatsList = await loadingChatsList();
-      final _favoritesChatsList = await loadingFavoritesChatsList();
-      return <String, List<MockContactsChat>>{
-        'chats_list': _chatsList,
-        'favorites_chats_list': _favoritesChatsList,
-      };
-    }
-
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder<Map<String, List<MockContactsChat>>>(
           future: _loadingFriendsAndFavoritesList(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return UActionLoading(
-                dashLoadingIndicatorPadding: const EdgeInsets.only(left: 32),
-                isLoading: ValueNotifier(!snapshot.hasData),
-                child: const SizedBox.shrink(),
+              return CustomScrollView(
+                slivers: [
+                  const SliverToBoxAdapter(
+                    child: _UAppBar(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        64,
+                        MediaQuery.of(context).size.height / 4,
+                        0,
+                        0,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const <Widget>[
+                          ULoadingIndicator(
+                            padding: EdgeInsets.zero,
+                          ),
+                          UText(
+                            'Loading...',
+                            textStyle: UTextStyle.H1_primaryHeader,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               );
             } else {
               final _friendsList = snapshot.data!['chats_list']!;
@@ -95,7 +126,12 @@ class _UAppBar extends StatelessWidget {
             UIcons.search,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () {
+            showCustomSearch(
+              context: context,
+              delegate: ChatSearch(loadingChatsList()),
+            );
+          },
         ),
         IconButton(
           icon: const UIcon(

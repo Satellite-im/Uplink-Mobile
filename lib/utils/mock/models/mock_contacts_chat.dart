@@ -23,8 +23,9 @@ class MockContactsChat {
           'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla '
           'pariatur. Excepteur sint occaecat cupidatat non proident, sunt in '
           'culpa qui officia deserunt mollit anim id est laborum.',
-      arrivalMessageTime:
-          DateTime.parse(json['last_message_arrival_time'] as String),
+      arrivalMessageTime: json['id'] == 10
+          ? DateTime.now()
+          : DateTime.parse(json['last_message_arrival_time'] as String),
     );
     unreadMessages = json['unread_messages'] as int;
     final _random = 1 + Random().nextInt(8);

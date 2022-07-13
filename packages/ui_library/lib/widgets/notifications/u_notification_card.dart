@@ -27,25 +27,14 @@ class UNotificationCard extends StatelessWidget {
 
   final bool hasUnreadNotifications;
 
-  String formatDateTime(DateTime arrivalMessageTime) {
-    final _lastMessageArrivalTime =
-        DateFormatUtils.formatDateTwelveHours(arrivalMessageTime);
-    _lastMessageArrivalTime.toLowerCase();
-    if (_lastMessageArrivalTime[0] == '0') {
-      return _lastMessageArrivalTime.substring(1).toLowerCase();
-    } else {
-      return _lastMessageArrivalTime.toLowerCase();
-    }
-  }
-
   static const _firstSizedBoxSize = 12.0;
   static const _lastSizedBoxSize = 8.0;
   static const _userProfileSize = UUserProfileSize.normal;
 
   @override
   Widget build(BuildContext context) {
-    final _lastMessageArrivalTime =
-        formatDateTime(_uMessage.arrivalMessageTime);
+    final _lastMessageArrivalTime = DateFormatUtils.formatDateForMessageArrived(
+        _uMessage.arrivalMessageTime);
 
     final _pictureAndSizedBoxWidth = _userProfileSize.size + _firstSizedBoxSize;
 
