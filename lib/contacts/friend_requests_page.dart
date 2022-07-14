@@ -25,14 +25,9 @@ class FriendRequestPage extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: UText(
-                      UAppStrings.friendRequestPage_received +
-                          friendRequestsList.length.toString(),
-                      textStyle: UTextStyle.H5_fifthHeader,
-                      textAlign: TextAlign.left,
-                    ),
+                  MiniTitleWithNum(
+                    title: UAppStrings.friendRequestPage_received,
+                    num: friendRequestsList.length,
                   ),
                   Expanded(
                     child: ListView.builder(

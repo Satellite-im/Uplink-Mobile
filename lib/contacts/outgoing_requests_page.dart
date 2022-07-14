@@ -26,14 +26,9 @@ class OutgoingRequestPage extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: UText(
-                      UAppStrings.outgoingRequestPage_sent +
-                          friendRequestsList.length.toString(),
-                      textStyle: UTextStyle.H5_fifthHeader,
-                      textAlign: TextAlign.left,
-                    ),
+                  MiniTitleWithNum(
+                    title: UAppStrings.outgoingRequestPage_sent,
+                    num: friendRequestsList.length,
                   ),
                   Expanded(
                     child: ListView.builder(
