@@ -24,24 +24,29 @@ class UBottomSheetNotifications {
     this.context, {
     required this.uNotificationsList,
     required this.onSlideUp,
+    this.animationController,
   });
 
   final BuildContext context;
 
   final List<UNotification> uNotificationsList;
-  final Function() onSlideUp;
+
+  final void Function() onSlideUp;
+
+  final AnimationController? animationController;
 
   Future show() {
     final _bottomSheetMaxHeight = MediaQuery.of(context).size.height *
         _kScreenPercentageAvailavleForBottomSheet;
     return UBottomSheet(
       context,
+      animationController: animationController,
       boxConstraints: BoxConstraints(
         maxHeight: _bottomSheetMaxHeight,
       ),
       child: _UBottomSheetNotificationsBody(
         uNotificationsList: uNotificationsList,
-        onSlideUp: (value) {
+        onSlideUp: () {
           onSlideUp();
         },
       ),
@@ -57,7 +62,7 @@ class _UBottomSheetNotificationsBody extends StatefulWidget {
   }) : super(key: key);
 
   final List<UNotification> uNotificationsList;
-  final Function(double) onSlideUp;
+  final void Function() onSlideUp;
 
   @override
   State<_UBottomSheetNotificationsBody> createState() =>
@@ -147,7 +152,11 @@ class _UBottomSheetNotificationsBodyState
         onVerticalDragUpdate: (details) {
           // TODO(Lucas): Improve the way to transition
           if (details.delta.dy < 0) {
-            widget.onSlideUp.call(MediaQuery.of(context).size.height);
+            Navigator.of(
+              context,
+            ).pop();
+
+            widget.onSlideUp.call();
           } else if (details.localPosition.dy > 0) {
             Navigator.of(context, rootNavigator: true).pop();
           }

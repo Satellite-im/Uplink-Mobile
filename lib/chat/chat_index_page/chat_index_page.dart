@@ -112,10 +112,36 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
   }
 }
 
-class _UAppBar extends StatelessWidget {
+class _UAppBar extends StatefulWidget {
   const _UAppBar({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_UAppBar> createState() => _UAppBarState();
+}
+
+class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _initController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _initController() {
+    _controller = BottomSheet.createAnimationController(this);
+    _controller
+      ..duration = const Duration(milliseconds: 250)
+      ..reverseDuration = Duration.zero;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,11 +167,15 @@ class _UAppBar extends StatelessWidget {
           onPressed: () async {
             await UBottomSheetNotifications(
               context,
+              animationController: _controller,
               uNotificationsList: uNotificationListMock,
               onSlideUp: () async {
-                await Navigator.of(context, rootNavigator: true).push(
+                await Navigator.of(
+                  context,
+                ).push(
                   MaterialPageRoute<Widget>(
                     fullscreenDialog: true,
+                    maintainState: false,
                     builder: (context) => const NotificationsPage(),
                   ),
                 );

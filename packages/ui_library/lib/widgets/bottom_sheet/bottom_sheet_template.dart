@@ -6,6 +6,7 @@ class UBottomSheet {
     this.context, {
     required this.child,
     this.boxConstraints,
+    this.animationController,
   });
 
   final BuildContext context;
@@ -14,9 +15,12 @@ class UBottomSheet {
 
   final Widget child;
 
+  final AnimationController? animationController;
+
   Future show() {
     return showModalBottomSheet(
         context: context,
+        transitionAnimationController: animationController,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         isDismissible: true,
