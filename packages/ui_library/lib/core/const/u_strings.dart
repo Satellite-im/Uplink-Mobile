@@ -28,7 +28,7 @@ class ULibraryStrings {
   static const uUserPictureChangeSecondButtonText = 'Camera Roll';
 
   /// Strings for Notifications
-  static const uNotification_reactedToYOurComment = 'Reacted to your comment';
+  static const uNotification_reactedToYourComment = 'Reacted to your comment';
   static const uNotification_sentYouAMessage = 'Sent you a message';
   static const uNotification_sentYouALink = 'Sent you a link';
   static const uNotification_repliedToYourComment = 'Replied to your comment';

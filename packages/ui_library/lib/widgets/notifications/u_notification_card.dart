@@ -11,21 +11,13 @@ class UNotificationCard extends StatelessWidget {
   /// but rather as the return of [UNotification]
   const UNotificationCard({
     Key? key,
-    required this.username,
-    required UMessage uMessage,
-    this.hasUnreadNotifications = true,
-    UImage? uImage,
-  })  : _uImage = uImage ?? const UImage(),
-        _uMessage = uMessage,
-        super(key: key);
+    required this.uNotification,
+    this.messagePrefixIcon,
+  }) : super(key: key);
 
-  final String username;
+  final UNotification uNotification;
 
-  final UMessage _uMessage;
-
-  final UImage? _uImage;
-
-  final bool hasUnreadNotifications;
+  final UIconData? messagePrefixIcon;
 
   static const _firstSizedBoxSize = 12.0;
   static const _lastSizedBoxSize = 8.0;
@@ -34,9 +26,17 @@ class UNotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _lastMessageArrivalTime = DateFormatUtils.formatDateForMessageArrived(
-        _uMessage.arrivalMessageTime);
+      uNotification.arrivalNotificationTime,
+    );
 
     final _pictureAndSizedBoxWidth = _userProfileSize.size + _firstSizedBoxSize;
+
+    final _isFriendRequestNotification = uNotification.notificationType ==
+            NotificationType.friendRequest &&
+        (uNotification.message
+                .contains(ULibraryStrings.uNotificationCard_youAreNowFriends) ||
+            uNotification.message.contains(
+                ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest));
 
     return LayoutBuilder(builder: (context, constraints) {
       final _widgetWidth = constraints.maxWidth;
@@ -45,14 +45,14 @@ class UNotificationCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (hasUnreadNotifications)
+          if (uNotification.isUnread)
             UUserProfileNotification(
-              uImage: _uImage,
+              uImage: uNotification.uImage,
             )
           else
             UUserProfile(
               userProfileSize: _userProfileSize,
-              uImage: _uImage,
+              uImage: uNotification.uImage,
             ),
           const SizedBox.square(
             dimension: _firstSizedBoxSize,
@@ -67,7 +67,7 @@ class UNotificationCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Username(
-                        username: username,
+                        username: uNotification.username,
                         textStyle: UTextStyle.H4_fourthHeader,
                       ),
                     ),
@@ -86,15 +86,18 @@ class UNotificationCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (_uMessage.prefixIcon != null) ...[
-                    UIcon(_uMessage.prefixIcon!),
+                  if (messagePrefixIcon != null) ...[
+                    UIcon(messagePrefixIcon!),
                     const SizedBox.square(
                       dimension: _lastSizedBoxSize,
                     ),
                   ],
                   SizedBox(
+                    width: _isFriendRequestNotification
+                        ? null
+                        : _widgetWidth - _pictureAndSizedBoxWidth,
                     child: UText(
-                      _uMessage.message,
+                      uNotification.message,
                       maxLines: 2,
                       textOverflow: TextOverflow.ellipsis,
                       textStyle: UTextStyle.B1_body,
@@ -102,12 +105,9 @@ class UNotificationCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  if (_uMessage.message.contains(
-                          ULibraryStrings.uNotificationCard_youAreNowFriends) ||
-                      _uMessage.message.contains(ULibraryStrings
-                          .uNotificationCard_youDeclinedAFriendRequest))
+                  if (_isFriendRequestNotification)
                     UText(
-                      ' $username !',
+                      ' ${uNotification.username} !',
                       maxLines: 1,
                       textFontWeight: FontWeight.bold,
                       textOverflow: TextOverflow.ellipsis,
@@ -117,7 +117,7 @@ class UNotificationCard extends StatelessWidget {
                     ),
                 ],
               ),
-              if (_uMessage.message
+              if (uNotification.message
                   .contains(ULibraryStrings.uNotificationCard_youAreNowFriends))
                 Row(
                   children: const [

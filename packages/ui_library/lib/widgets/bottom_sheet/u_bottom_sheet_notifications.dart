@@ -74,6 +74,7 @@ class _UBottomSheetNotificationsBodyState
   static const _sentLinkNotificationHeight = 128;
   static const _spaceBetweenNotifications = 24;
   static const _otherNotificationHeight = 40;
+  static const _serverNotificationHeight = 52;
   static const _friendRequestHeight = 96;
   static const _whenDateChangeSpace = 31;
   double _height = 0;
@@ -89,19 +90,22 @@ class _UBottomSheetNotificationsBodyState
       final uNotification = widget.uNotificationsList[i];
       final _isLink = uNotification.message.contains('http');
 
-      if (uNotification.notificationType == NotificationType.sentYouAMessage &&
+      if (uNotification.notificationType == NotificationType.message &&
           _isLink) {
         _height += _sentLinkNotificationHeight + _spaceBetweenNotifications;
       }
 
-      if (uNotification.notificationType ==
-          NotificationType.sentYouAFriendRequest) {
+      if (uNotification.notificationType == NotificationType.friendRequest) {
         _height += _friendRequestHeight + _spaceBetweenNotifications;
       }
 
-      if (uNotification.notificationType !=
-              NotificationType.sentYouAFriendRequest &&
-          !_isLink) {
+      if (uNotification.notificationType == NotificationType.serverMessage) {
+        _height += _serverNotificationHeight + _spaceBetweenNotifications;
+      }
+
+      if (uNotification.notificationType != NotificationType.friendRequest &&
+          !_isLink &&
+          uNotification.notificationType != NotificationType.serverMessage) {
         _height += _otherNotificationHeight + _spaceBetweenNotifications;
       }
 

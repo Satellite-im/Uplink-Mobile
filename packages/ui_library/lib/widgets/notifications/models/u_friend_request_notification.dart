@@ -20,6 +20,22 @@ class _UFriendRequestNotificationState
     extends State<_UFriendRequestNotification> {
   _FriendRequestState _friendRequestState = _FriendRequestState.requested;
 
+  UNotification _uNotificationForDifferentState(
+      _FriendRequestState _friendRequestState) {
+    return UNotification(
+      isUnread: widget.uNotification.isUnread,
+      username: widget.uNotification.username,
+      arrivalNotificationTime: widget.uNotification.arrivalNotificationTime,
+      notificationType: widget.uNotification.notificationType,
+      message: _friendRequestState == _FriendRequestState.requested
+          ? ULibraryStrings.uNotificationCard_sentYouAFriendRequest
+          : _friendRequestState == _FriendRequestState.accepted
+              ? ULibraryStrings.uNotificationCard_youAreNowFriends
+              : ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest,
+      uImage: widget.uNotification.uImage,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (_friendRequestState) {
@@ -27,14 +43,8 @@ class _UFriendRequestNotificationState
         return Column(
           children: [
             UNotificationCard(
-              username: widget.uNotification.username,
-              uMessage: UMessage(
-                message:
-                    ULibraryStrings.uNotificationCard_sentYouAFriendRequest,
-                arrivalMessageTime:
-                    widget.uNotification.arrivalNotificationTime,
-              ),
-              uImage: widget.uNotification._uImage,
+              uNotification: _uNotificationForDifferentState(
+                  _FriendRequestState.requested),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
@@ -69,14 +79,9 @@ class _UFriendRequestNotificationState
         return Column(
           children: [
             UNotificationCard(
-              username: widget.uNotification.username,
-              uMessage: UMessage(
-                prefixIcon: UIcons.friend_added,
-                message: ULibraryStrings.uNotificationCard_youAreNowFriends,
-                arrivalMessageTime:
-                    widget.uNotification.arrivalNotificationTime,
-              ),
-              uImage: widget.uNotification._uImage,
+              uNotification:
+                  _uNotificationForDifferentState(_FriendRequestState.accepted),
+              messagePrefixIcon: UIcons.friend_added,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
@@ -100,15 +105,9 @@ class _UFriendRequestNotificationState
         return Column(
           children: [
             UNotificationCard(
-              username: widget.uNotification.username,
-              uMessage: UMessage(
-                prefixIcon: UIcons.remove_friend,
-                message:
-                    ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest,
-                arrivalMessageTime:
-                    widget.uNotification.arrivalNotificationTime,
-              ),
-              uImage: widget.uNotification._uImage,
+              uNotification:
+                  _uNotificationForDifferentState(_FriendRequestState.declined),
+              messagePrefixIcon: UIcons.remove_friend,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),

@@ -9,11 +9,11 @@ part 'models/u_sent_link_notification.dart';
 /// For each type of notification,
 /// the [UNotificationCard] will be different
 enum NotificationType {
-  repliedYourComment,
-  sentYouAMessage,
-  reactedYourComment,
-  sentYouAFriendRequest,
-  serverUpdate,
+  repliedComment,
+  message,
+  reactedComment,
+  friendRequest,
+  serverMessage,
 }
 
 class UNotification extends StatefulWidget {
@@ -38,14 +38,13 @@ class UNotification extends StatefulWidget {
     Key? key,
     required this.username,
     required this.arrivalNotificationTime,
-    UImage? uImage,
-    this.unreadNotification = true,
+    this.uImage = const UImage(),
+    required this.isUnread,
 
     /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
     this.message = '',
     required this.notificationType,
-  })  : _uImage = uImage ?? const UImage(),
-        super(key: key);
+  }) : super(key: key);
 
   final String username;
 
@@ -53,12 +52,11 @@ class UNotification extends StatefulWidget {
 
   final NotificationType notificationType;
 
-  /// Just pass a value when [notificationType] is [NotificationType.sentYouALink]
   final String message;
 
-  final UImage _uImage;
+  final UImage uImage;
 
-  final bool? unreadNotification;
+  final bool isUnread;
 
   @override
   State<UNotification> createState() => _UNotificationState();
@@ -68,42 +66,25 @@ class _UNotificationState extends State<UNotification> {
   @override
   Widget build(BuildContext context) {
     switch (widget.notificationType) {
-      case NotificationType.reactedYourComment:
+      case NotificationType.reactedComment:
         return UNotificationCard(
-          username: widget.username,
-          uMessage: UMessage(
-            message: ULibraryStrings.uNotification_reactedToYOurComment,
-            arrivalMessageTime: widget.arrivalNotificationTime,
-          ),
-          hasUnreadNotifications: false,
-          uImage: widget._uImage,
-        );
-      case NotificationType.sentYouAMessage:
-        return _USentMessagekNotification(
           uNotification: widget,
-          message: widget.message,
         );
-      case NotificationType.repliedYourComment:
+      case NotificationType.message:
+        return _USentMessageNotification(
+          uNotification: widget,
+        );
+      case NotificationType.repliedComment:
         return UNotificationCard(
-          username: widget.username,
-          uMessage: UMessage(
-            message: ULibraryStrings.uNotification_repliedToYourComment,
-            arrivalMessageTime: widget.arrivalNotificationTime,
-          ),
-          uImage: widget._uImage,
+          uNotification: widget,
         );
-      case NotificationType.sentYouAFriendRequest:
+      case NotificationType.friendRequest:
         return _UFriendRequestNotification(
           uNotification: widget,
         );
-      case NotificationType.serverUpdate:
+      case NotificationType.serverMessage:
         return UNotificationCard(
-          username: widget.username,
-          uMessage: UMessage(
-            message: 'Update Message',
-            arrivalMessageTime: widget.arrivalNotificationTime,
-          ),
-          uImage: widget._uImage,
+          uNotification: widget,
         );
     }
   }

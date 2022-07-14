@@ -1,23 +1,20 @@
 part of '../u_notification.dart';
 
-class _USentMessagekNotification extends StatefulWidget {
+class _USentMessageNotification extends StatefulWidget {
   /// Specific notification when receive a message or a link
-  const _USentMessagekNotification({
+  const _USentMessageNotification({
     Key? key,
     required this.uNotification,
-    required this.message,
   }) : super(key: key);
 
   final UNotification uNotification;
-  final String message;
 
   @override
-  State<_USentMessagekNotification> createState() =>
-      _USentMessagekNotificationState();
+  State<_USentMessageNotification> createState() =>
+      _USentMessageNotificationState();
 }
 
-class _USentMessagekNotificationState
-    extends State<_USentMessagekNotification> {
+class _USentMessageNotificationState extends State<_USentMessageNotification> {
   int _correctWidthToSubstractToLinkDescription(bool _isVideo) {
     if (!_isVideo) {
       return 68 + 16 + 8 + 48 + 12;
@@ -36,19 +33,21 @@ class _USentMessagekNotificationState
     final _screenSize = MediaQuery.of(context).size;
 
     return FutureBuilder<Map<String, dynamic>>(
-        future: UFetchLinkData().fetch(widget.message),
+        future: UFetchLinkData().fetch(widget.uNotification.message),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final _linkData = snapshot.data!;
             if (_linkData['isUrlValid'] == false) {
               return UNotificationCard(
-                username: widget.uNotification.username,
-                uMessage: UMessage(
-                  message: ULibraryStrings.uNotification_sentYouAMessage,
-                  arrivalMessageTime:
+                uNotification: UNotification(
+                  isUnread: widget.uNotification.isUnread,
+                  username: widget.uNotification.username,
+                  arrivalNotificationTime:
                       widget.uNotification.arrivalNotificationTime,
+                  notificationType: widget.uNotification.notificationType,
+                  message: ULibraryStrings.uNotification_sentYouAMessage,
+                  uImage: widget.uNotification.uImage,
                 ),
-                uImage: widget.uNotification._uImage,
               );
             }
 
@@ -62,17 +61,18 @@ class _USentMessagekNotificationState
                 _correctWidthToSubstractToLinkDescription(_isLinkWithVideo);
             final _widthLinkDescription =
                 _screenSize.width - _widgetsWidthToSubstract;
-
             return Column(
               children: [
                 UNotificationCard(
-                  username: widget.uNotification.username,
-                  uMessage: UMessage(
-                    message: ULibraryStrings.uNotification_sentYouALink,
-                    arrivalMessageTime:
+                  uNotification: UNotification(
+                    isUnread: widget.uNotification.isUnread,
+                    username: widget.uNotification.username,
+                    arrivalNotificationTime:
                         widget.uNotification.arrivalNotificationTime,
+                    notificationType: widget.uNotification.notificationType,
+                    message: ULibraryStrings.uNotification_sentYouALink,
+                    uImage: widget.uNotification.uImage,
                   ),
-                  uImage: widget.uNotification._uImage,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
