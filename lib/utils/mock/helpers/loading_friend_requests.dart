@@ -7,7 +7,7 @@ Future<List<MockContact>> loadingFriendRequests() async {
   const hasFriends = true;
   if (hasFriends == true) {
     final jsonString = await rootBundle
-        .loadString('lib/utils/mock/data/mock_friend_requests.json');
+        .loadString('lib/utils/mock/data/json/mock_friend_requests.json');
     final list = await jsonDecode(jsonString) as List<dynamic>;
 
     return list.map(MockContact.fromJson).toList();

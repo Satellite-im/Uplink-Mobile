@@ -38,12 +38,12 @@ flutter:
 
 # delete mock data and user image when exporting production app
   assets:
-    - 'lib/utils/mock/data/mock_contact_list.json'
-    - 'lib/utils/mock/data/mock_friend_requests.json'
-    - 'lib/utils/mock/data/mock_outgoing_requests.json'
-    - 'lib/utils/mock/data/mock_chats_list.json'
-    - 'lib/utils/mock/data/mock_favorites_chats_list.json'
-    - 'lib/utils/mock/data/mock_notifications_list.json'
+    - 'lib/utils/mock/data/json/mock_contact_list.json'
+    - 'lib/utils/mock/data/json/mock_friend_requests.json'
+    - 'lib/utils/mock/data/json/mock_outgoing_requests.json'
+    - 'lib/utils/mock/data/json/mock_chats_list.json'
+    - 'lib/utils/mock/data/json/mock_favorites_chats_list.json'
+    - 'lib/utils/mock/data/json/mock_notifications_list.json'
     - 'lib/utils/mock/images/'
     - 'packages/ui_library/images/placeholders/'
 
