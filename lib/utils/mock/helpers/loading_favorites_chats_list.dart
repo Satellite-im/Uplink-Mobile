@@ -6,7 +6,7 @@ Future<List<MockContactsChat>> loadingFavoritesChatsList() async {
   const hasFriends = true;
   if (hasFriends == true) {
     final jsonString = await rootBundle
-        .loadString('lib/utils/mock/data/mock_favorites_chats_list.json');
+        .loadString('lib/utils/mock/data/json/mock_favorites_chats_list.json');
     final list = await jsonDecode(jsonString) as List<dynamic>;
     return list.map(MockContactsChat.fromJson).toList();
   } else {
