@@ -3,6 +3,7 @@ export 'contact_list_tile.dart';
 export 'contacts_header.dart';
 export 'empty_body.dart';
 export 'friend_request_list_tile.dart';
+export 'mini_title_with_num.dart';
 export 'no_friend_body.dart';
 export 'outgoing_request_list_tile.dart';
 export 'search/contact_search.dart';
