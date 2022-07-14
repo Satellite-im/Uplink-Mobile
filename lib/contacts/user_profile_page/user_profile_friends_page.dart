@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
+import 'package:uplink/utils/mock/helpers/helpers_export.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
 
-class UserProfileFriendPage extends StatefulWidget {
+class UserProfileFriendPage extends StatelessWidget {
   const UserProfileFriendPage({
     Key? key,
     required this.user,
@@ -13,97 +16,15 @@ class UserProfileFriendPage extends StatefulWidget {
   final MockContact user;
 
   @override
-  State<UserProfileFriendPage> createState() => _UserProfilePageState();
-}
-
-class _UserProfilePageState extends State<UserProfileFriendPage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: CustomScrollView(
-        shrinkWrap: true,
         slivers: [
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                UAppBar.iconOnly(
-                  backIconColor: UColors.white,
-                  actionList: [
-                    UPopupMenuButton<String>(
-                      icon: const UIcon(UIcons.hamburger_menu),
-                      onSelected: (String result) async {
-                        switch (result) {
-                          case 'Unblock':
-                            await showDialog<void>(
-                              context: context,
-                              builder: (_) => UDialogUserProfile(
-                                bodyText:
-                                    'Are you sure you want to unblock this user?',
-                                buttonText: 'Unblock',
-                                popButtonText: 'Go Back',
-                                username: widget.user.name,
-                                statusMessage: widget.user.statusMessage,
-                                uImage: UImage(
-                                  imagePath: widget.user.imageAddress,
-                                  imageSource: ImageSource.local,
-                                ),
-                                onTap: () {},
-                              ),
-                            );
-                            break;
-                          case 'Report':
-                            // TODO(yijing): add report workflow
-                            break;
-                          default:
-                        }
-                      },
-                      itemBuilder: (BuildContext context) {
-                        return <UPopupMenuEntry<String>>[
-                          const UPopupMenuItem<String>(
-                            padding: EdgeInsets.zero,
-                            value: 'Unblock',
-                            child: SizedBox(
-                              width: 160,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: UText(
-                                  'Unblock',
-                                  textStyle: UTextStyle.BUT1_primaryButton,
-                                  textColor: UColors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const UPopupMenuItem<String>(
-                            value: 'Report',
-                            padding: EdgeInsets.zero,
-                            child: SizedBox(
-                              width: 160,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: UText(
-                                  'Report',
-                                  textStyle: UTextStyle.BUT1_primaryButton,
-                                  textColor: UColors.termRed,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ];
-                      },
-                    ),
-                  ],
-                  flexibleSpace: SizedBox(
-                    height: 164,
-                    width: double.infinity,
-                    child: UImage(
-                      imagePath: widget.user.bannerImageAddress,
-                      imageSource: ImageSource.local,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                AppBarWithBanner(user: user),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Column(
@@ -111,47 +32,128 @@ class _UserProfilePageState extends State<UserProfileFriendPage> {
                       const SizedBox.square(
                         dimension: 114,
                       ),
-                      Container(
-                        decoration: widget.user.imageAddress == null
-                            ? BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: UColors.backgroundDark,
-                                ),
-                              )
-                            : null,
-                        child: SizedBox(
-                          width: USizes.userPictureChangeSize,
-                          height: USizes.userPictureChangeSize,
-                          child: UImage(
-                            imagePath: widget.user.imageAddress,
-                            imageSource: ImageSource.local,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          const SizedBox.square(
-                            dimension: 20,
-                          ),
-                          UText(
-                            widget.user.name,
-                            textStyle: UTextStyle.H2_secondaryHeader,
-                          ),
-                          const SizedBox.square(
-                            dimension: 2,
-                          ),
-                          UText(
-                            widget.user.statusMessage ?? '-',
-                            textStyle: UTextStyle.B1_body,
-                          ),
-                        ],
-                      ),
+                      UserBasicInfo(user: user),
                     ],
                   ),
                 ),
               ],
             ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                const SizedBox.square(
+                  dimension: 16,
+                ),
+                UserProfileTitle(
+                  title: 'Friends',
+                  iconData: UIcons.menu_bar_contacts,
+                ),
+                const SizedBox.square(
+                  dimension: 16,
+                ),
+              ]),
+            ),
+          ),
+          FutureBuilder<List<MockContact>>(
+            future: loadingOnlineFriendsList(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final onlineFriendList = snapshot.data!;
+                if (onlineFriendList.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: MiniTitleWithNum(
+                      title: 'Online - ',
+                      num: 0,
+                    ),
+                  );
+                } else {
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final item = onlineFriendList[index];
+
+                        return Column(
+                          children: [
+                            if (index == 0)
+                              MiniTitleWithNum(
+                                title: 'Online - ',
+                                num: onlineFriendList.length,
+                              ),
+                            ContactListTile(
+                              name: item.name,
+                              status: item.status,
+                              statusMessage: item.statusMessage,
+                              imageAddress: item.imageAddress,
+                              onTap: () {},
+                            )
+                          ],
+                        );
+                      },
+                      childCount: onlineFriendList.length,
+                    ),
+                  );
+                }
+              }
+              return SliverToBoxAdapter(
+                child: const Center(child: ULoadingIndicator()),
+              );
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: UDivider(height: 1),
+          ),
+          FutureBuilder<List<MockContact>>(
+            future: loadingOfflineFriendsList(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final offlineFriendList = snapshot.data!;
+                if (offlineFriendList.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: MiniTitleWithNum(
+                        title: 'Offline - ',
+                        num: 0,
+                      ),
+                    ),
+                  );
+                } else {
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final item = offlineFriendList[index];
+
+                        return Column(
+                          children: [
+                            if (index == 0)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: MiniTitleWithNum(
+                                  title: 'Offline - ',
+                                  num: offlineFriendList.length,
+                                ),
+                              ),
+                            ContactListTile(
+                              name: item.name,
+                              status: item.status,
+                              statusMessage: item.statusMessage,
+                              imageAddress: item.imageAddress,
+                              onTap: () {},
+                            )
+                          ],
+                        );
+                      },
+                      childCount: offlineFriendList.length,
+                    ),
+                  );
+                }
+              }
+              return SliverToBoxAdapter(
+                child: const Center(child: ULoadingIndicator()),
+              );
+            },
           ),
         ],
       ),
