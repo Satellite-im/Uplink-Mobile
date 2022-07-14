@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/user_profile_page/user_profile_friends_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/data_export.dart';
+import 'package:uplink/utils/mock/models/models_export.dart';
 
 class UserGroupedInfo extends StatelessWidget {
   const UserGroupedInfo({Key? key, required this.user}) : super(key: key);
