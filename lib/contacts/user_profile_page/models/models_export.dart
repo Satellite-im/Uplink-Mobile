@@ -3,5 +3,5 @@ export 'cta_button.dart';
 export 'user_about.dart';
 export 'user_basic_info.dart';
 export 'user_grouped_info.dart';
-export 'user_linked_accounts.dart';
+export 'user_linked_account.dart';
 export 'user_note.dart';
