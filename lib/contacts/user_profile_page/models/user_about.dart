@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 
@@ -12,20 +13,9 @@ class UserAbout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: const [
-            UIcon(
-              UIcons.about,
-              color: UColors.textMed,
-            ),
-            SizedBox.square(
-              dimension: 8,
-            ),
-            UText(
-              UAppStrings.profileIndexPage_aboutTitle,
-              textStyle: UTextStyle.H3_tertiaryHeader,
-            ),
-          ],
+        const UserProfileTitle(
+          title: UAppStrings.profileIndexPage_aboutTitle,
+          iconData: UIcons.about,
         ),
         const SizedBox.square(
           dimension: 18,

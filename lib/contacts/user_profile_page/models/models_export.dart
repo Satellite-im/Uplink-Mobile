@@ -5,3 +5,4 @@ export 'user_basic_info.dart';
 export 'user_grouped_info.dart';
 export 'user_linked_account.dart';
 export 'user_note.dart';
+export 'user_profile_titile.dart';
