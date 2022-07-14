@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/utils/mock/models/data_export.dart';
+import 'package:uplink/utils/mock/models/models_export.dart';
 
 class CTAButton extends StatelessWidget {
   const CTAButton({Key? key, required this.user}) : super(key: key);
