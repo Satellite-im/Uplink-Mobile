@@ -106,7 +106,7 @@ class BlockedPage extends StatelessWidget {
           statusMessage: item.contact.statusMessage,
           imageAddress: item.contact.imageAddress,
           onTap: () {
-            Navigator.of(context).push(
+            Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute<void>(
                 builder: (context) {
                   // TODO(demo): change user type
@@ -115,10 +115,10 @@ class BlockedPage extends StatelessWidget {
                         'lib/utils/mock/images/bannerImage1.png',
                     badgesNum: 5,
                     location: 'State, USA',
-                    friendNum: 24,
-                    relationship: Relationship.block,
+                    friendNum: 20,
+                    relationship: Relationship.friend,
                     friendRequestSent: false,
-                    isBlocked: true,
+                    // isBlocked: true,
                     about:
                         'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
                   );
