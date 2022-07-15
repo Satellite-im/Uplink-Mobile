@@ -67,7 +67,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                             padding: EdgeInsets.zero,
                           ),
                           UText(
-                            'Loading...',
+                            UAppStrings.chatIndexPage_loading,
                             textStyle: UTextStyle.H1_primaryHeader,
                           ),
                         ],
@@ -82,7 +82,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
               final _favoritesList = snapshot.data!['favorites_chats_list']!
                   as List<MockContactsChat>;
               final _notificationsList = snapshot.data!['notifications_list']!
-                  as List<MockNotifications>;
+                  as List<MockNotification>;
               return Center(
                 child: CustomScrollView(
                   slivers: [
@@ -127,7 +127,7 @@ class _UAppBar extends StatefulWidget {
     required this.mockNotificationsList,
   }) : super(key: key);
 
-  final List<MockNotifications> mockNotificationsList;
+  final List<MockNotification> mockNotificationsList;
 
   @override
   State<_UAppBar> createState() => _UAppBarState();
@@ -152,25 +152,22 @@ class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
     _controller = BottomSheet.createAnimationController(this);
     _controller
       ..duration = const Duration(milliseconds: 250)
-      ..reverseDuration = Duration.zero;
+      ..reverseDuration = const Duration(milliseconds: 125);
   }
 
   List<UNotification> _prepareNotifications() {
     final _uNotificationList = <UNotification>[];
     final _notificationsMockList = widget.mockNotificationsList;
-    for (final element in _notificationsMockList) {
+    for (final _notification in _notificationsMockList) {
       final _uNotification = UNotification(
-        isUnread: element.isUnread,
-        username: element.username,
-        arrivalNotificationTime: element.arrivalNotificationTime,
-        notificationType: element.notificationType,
-        message: element.message != null ? element.message! : '',
-        uImage: UImage(
-          imagePath: element.imagePath,
-          imageSource: ImageSource.local,
-          fit: BoxFit.cover,
-        ),
+        isUnread: _notification.isUnread,
+        username: _notification.username,
+        arrivalNotificationTime: _notification.arrivalNotificationTime,
+        notificationType: _notification.notificationType,
+        message: _notification.message != null ? _notification.message! : '',
+        uImage: _notification.uImage,
       );
+
       _uNotificationList.add(_uNotification);
     }
     return _uNotificationList;

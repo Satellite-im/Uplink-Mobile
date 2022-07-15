@@ -38,6 +38,7 @@ class _UFriendRequestNotificationState
 
   @override
   Widget build(BuildContext context) {
+    //TODO(Lucas): Friend Request notification will change yet
     switch (_friendRequestState) {
       case _FriendRequestState.requested:
         return Column(
@@ -77,6 +78,7 @@ class _UFriendRequestNotificationState
         );
       case _FriendRequestState.accepted:
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UNotificationCard(
               uNotification:
@@ -85,24 +87,16 @@ class _UFriendRequestNotificationState
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      UButton.filled1(
-                        label: ULibraryStrings
-                            .uNotificationCard_startAConversation,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
+              child: UButton.filled1(
+                label: ULibraryStrings.uNotificationCard_startAConversation,
+                onPressed: () {},
               ),
             )
           ],
         );
       case _FriendRequestState.declined:
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UNotificationCard(
               uNotification:
@@ -111,17 +105,13 @@ class _UFriendRequestNotificationState
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-              child: Row(
-                children: [
-                  UButton.filled1(
-                    label: ULibraryStrings.uNotificationCard_undo,
-                    onPressed: () {
-                      setState(() {
-                        _friendRequestState = _FriendRequestState.requested;
-                      });
-                    },
-                  ),
-                ],
+              child: UButton.filled1(
+                label: ULibraryStrings.uNotificationCard_undo,
+                onPressed: () {
+                  setState(() {
+                    _friendRequestState = _FriendRequestState.requested;
+                  });
+                },
               ),
             ),
           ],

@@ -2,19 +2,20 @@
 
 import 'dart:math';
 
+import 'package:flutter/widgets.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class MockNotifications {
-  MockNotifications({
+class MockNotification {
+  MockNotification({
     required this.username,
-    required this.message,
+    this.message = '',
     required this.isUnread,
     required this.notificationType,
     required this.arrivalNotificationTime,
-    this.imagePath,
+    this.uImage = const UImage(),
   });
 
-  MockNotifications.fromJson(dynamic json) {
+  MockNotification.fromJson(dynamic json) {
     username = json['user_name'] as String;
 
     isUnread = json['is_unread'] as bool;
@@ -46,9 +47,15 @@ class MockNotifications {
         break;
     }
 
-    imagePath = json['notification_type'] == 'server_message'
-        ? 'packages/ui_library/images/placeholders/uplink_logo.png'
-        : 'packages/ui_library/images/placeholders/user_avatar_$_random.png';
+    uImage = UImage(
+      imagePath: json['notification_type'] == 'server_message'
+          ? 'packages/ui_library/images/placeholders/satellite_logo_notification.png'
+          : 'packages/ui_library/images/placeholders/user_avatar_$_random.png',
+      imageSource: ImageSource.local,
+      boxDecoration: json['notification_type'] == 'server_message'
+          ? const BoxDecoration(color: UColors.backgroundDark)
+          : null,
+    );
   }
 
   late String username;
@@ -56,5 +63,5 @@ class MockNotifications {
   late DateTime arrivalNotificationTime;
   late bool isUnread;
   late NotificationType notificationType;
-  String? imagePath;
+  late UImage uImage;
 }

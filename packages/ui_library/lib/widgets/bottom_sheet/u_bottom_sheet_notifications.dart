@@ -85,9 +85,16 @@ class _UBottomSheetNotificationsBodyState
   void _calculateTheHeightOfUNotifications(double _sizeAvailableInBottomSheet) {
     widget.uNotificationsList.sort((a, b) =>
         b.arrivalNotificationTime.compareTo(a.arrivalNotificationTime));
-    final _length = widget.uNotificationsList.length;
+
+    final _uNotificationsList = List.from(widget.uNotificationsList);
+
+    if (_uNotificationsList.first.isUnread == true) {
+      _uNotificationsList.removeWhere((element) => element.isUnread == false);
+    }
+
+    final _length = _uNotificationsList.length;
     for (int i = 0; i < _length; i++) {
-      final uNotification = widget.uNotificationsList[i];
+      final uNotification = _uNotificationsList[i];
       final _isLink = uNotification.message.contains('http');
 
       if (uNotification.notificationType == NotificationType.message &&
@@ -112,8 +119,7 @@ class _UBottomSheetNotificationsBodyState
       if (i > 0 &&
           _returnDate(widget.uNotificationsList[i].arrivalNotificationTime)
                   .microsecondsSinceEpoch <
-              _returnDate(
-                      widget.uNotificationsList[i - 1].arrivalNotificationTime)
+              _returnDate(_uNotificationsList[i - 1].arrivalNotificationTime)
                   .microsecondsSinceEpoch) {
         _height += _whenDateChangeSpace;
       }

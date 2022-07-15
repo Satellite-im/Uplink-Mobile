@@ -233,6 +233,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const chatIndexPage_addFriendButton = 'Add a Friend';
   static const chatIndexPage_favoritesTitle = 'Favorites';
   static const chatIndexPage_newChat = 'New Chat';
+  static const chatIndexPage_loading = 'Loading...';
   static const chatIndexPage_whatToDoWIthChatBottomSheet =
       'What would you like to do with this chat?';
 
@@ -283,4 +284,7 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Sed ut perspiciatis unde omnis iste natus error sit '
       'voluptatem accusantium doloremque laudantium.';
   static const qrCodePage_buttonText = 'Allow Camera Scan';
+
+  /// Notifications
+  static const notifications_appBarTitle = 'Notifications';
 }

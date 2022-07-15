@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({
@@ -18,12 +19,31 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(
-        title: 'Notifications',
+        title: UAppStrings.notifications_appBarTitle,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: UNotificationsList(
-            uNotificationList: widget.uNotificationsList,
+            uNotificationList: [
+              for (final notification in widget.uNotificationsList)
+                UNotification(
+                  isUnread: notification.isUnread,
+                  username: notification.username,
+                  arrivalNotificationTime: notification.arrivalNotificationTime,
+                  notificationType: notification.notificationType,
+                  message: notification.message,
+                  uImage: UImage(
+                    imagePath: notification.uImage.imagePath,
+                    imageSource: notification.uImage.imageSource,
+                    boxDecoration: notification.notificationType ==
+                            NotificationType.serverMessage
+                        ? const BoxDecoration(
+                            color: UColors.foregroundDark,
+                          )
+                        : null,
+                  ),
+                )
+            ],
           ),
         ),
       ),

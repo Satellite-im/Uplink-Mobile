@@ -22,6 +22,7 @@ class UImage extends StatelessWidget {
     /// if null, the value will be [ImageSource.network]
     this.imageSource = ImageSource.network,
     this.fit,
+    this.boxDecoration,
   }) : super(key: key);
 
   final String? imagePath;
@@ -30,6 +31,8 @@ class UImage extends StatelessWidget {
   final ImageSource? imageSource;
 
   final BoxFit? fit;
+
+  final BoxDecoration? boxDecoration;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +45,11 @@ class UImage extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) => Container(
               color: UColors.defGrey,
             ),
+            frameBuilder: (context, child, inter, wasSynchronouslyLoaded) =>
+                Container(
+              decoration: boxDecoration,
+              child: child,
+            ),
           );
         case ImageSource.local:
           return Image.asset(
@@ -50,6 +58,11 @@ class UImage extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) => Container(
               color: UColors.defGrey,
             ),
+            frameBuilder: (context, child, inter, wasSynchronouslyLoaded) =>
+                Container(
+              decoration: boxDecoration,
+              child: child,
+            ),
           );
         case ImageSource.file:
           return Image.file(
@@ -57,6 +70,11 @@ class UImage extends StatelessWidget {
             fit: fit,
             errorBuilder: (context, error, stackTrace) => Container(
               color: UColors.defGrey,
+            ),
+            frameBuilder: (context, child, inter, wasSynchronouslyLoaded) =>
+                Container(
+              decoration: boxDecoration,
+              child: child,
             ),
           );
         default:

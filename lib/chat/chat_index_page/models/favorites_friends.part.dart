@@ -67,7 +67,9 @@ class _FavoritesFriends extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(4),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        // TODO(Lucas): Add onTap later
+                      },
                       child: _favoritesFriendsList[index],
                     );
                   },
