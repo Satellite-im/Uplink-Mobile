@@ -63,9 +63,14 @@ class UserProfileFriendPage extends StatelessWidget {
                 final onlineFriendList = snapshot.data!;
                 if (onlineFriendList.isEmpty) {
                   return SliverToBoxAdapter(
-                    child: MiniTitleWithNum(
-                      title: 'Online - ',
-                      num: 0,
+                    child: Column(
+                      children: const [
+                        MiniTitleWithNum(
+                          title: 'Online - ',
+                          num: 0,
+                        ),
+                        SizedBox(height: 16),
+                      ],
                     ),
                   );
                 } else {
