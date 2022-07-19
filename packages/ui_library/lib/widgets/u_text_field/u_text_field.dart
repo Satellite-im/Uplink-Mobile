@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ui_library/ui_library_export.dart';
@@ -58,6 +60,9 @@ class UTextField extends StatefulWidget {
 class _UTextFieldState extends State<UTextField> with TickerProviderStateMixin {
   bool _showCounterForUsername = false;
   bool _showCounterForMessageStatus = false;
+  bool _showErrorTextForShortUsername = false;
+  Timer _timerToShowErrorTextForShortUsername =
+      Timer(const Duration(milliseconds: 2500), () {});
 
   void _showCounter(_TextFieldType _textFieldType) {
     const _minimumLengthToShowCounterForUsername = 28;
@@ -77,6 +82,21 @@ class _UTextFieldState extends State<UTextField> with TickerProviderStateMixin {
             ? _showCounterForMessageStatus = true
             : _showCounterForMessageStatus = false;
       });
+    }
+  }
+
+  void _messageErrorForMinimumCharInUsername(_TextFieldType _textFieldType) {
+    _timerToShowErrorTextForShortUsername.cancel();
+
+    if (_textFieldType == _TextFieldType.username &&
+        widget.controller.text.length < 5) {
+      _timerToShowErrorTextForShortUsername =
+          Timer(const Duration(milliseconds: 2500), () {
+        _showErrorTextForShortUsername = true;
+        setState(() {});
+      });
+    } else {
+      _showErrorTextForShortUsername = false;
     }
   }
 
@@ -126,6 +146,7 @@ class _UTextFieldState extends State<UTextField> with TickerProviderStateMixin {
                       : null,
               autocorrect: false,
               onChanged: (value) {
+                _messageErrorForMinimumCharInUsername(widget._textFieldType);
                 _showCounter(widget._textFieldType);
                 widget.onChanged.call(value);
               },
@@ -153,21 +174,42 @@ class _UTextFieldState extends State<UTextField> with TickerProviderStateMixin {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: AnimatedSize(
-              duration: const Duration(milliseconds: 150),
-              child: _showCounterForUsername || _showCounterForMessageStatus
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: UText(
-                        '${widget.controller.text.length}/${_showCounterForUsername ? '$_maximunLenghtForUsername' : '$_maximunLenghtForMessageStatus'}',
-                        textStyle: UTextStyle.B1_body,
-                        textColor: UColors.textMed,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: AnimatedSize(
+                  duration: const Duration(milliseconds: 150),
+                  child: _showErrorTextForShortUsername
+                      ? const Padding(
+                          padding: EdgeInsets.fromLTRB(16, 8, 0, 0),
+                          child: UText(
+                            'Minimum character length is 5',
+                            textStyle: UTextStyle.B1_body,
+                            textColor: UColors.termRed,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: AnimatedSize(
+                  duration: const Duration(milliseconds: 150),
+                  child: _showCounterForUsername || _showCounterForMessageStatus
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: UText(
+                            '${widget.controller.text.length}/${_showCounterForUsername ? '$_maximunLenghtForUsername' : '$_maximunLenghtForMessageStatus'}',
+                            textStyle: UTextStyle.B1_body,
+                            textColor: UColors.textMed,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
