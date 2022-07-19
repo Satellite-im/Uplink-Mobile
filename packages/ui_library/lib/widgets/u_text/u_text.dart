@@ -29,6 +29,7 @@ class UText extends StatelessWidget {
     this.textColor,
     this.textOverflow,
     this.textAlign,
+    this.textFontWeight,
   }) : super(key: key);
 
   final String text;
@@ -44,6 +45,8 @@ class UText extends StatelessWidget {
 
   final TextAlign? textAlign;
 
+  final FontWeight? textFontWeight;
+
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -56,7 +59,7 @@ class UText extends StatelessWidget {
         package: textStyle.style.package,
         fontSize: textStyle.style.fontSize,
         fontStyle: textStyle.style.fontStyle,
-        fontWeight: textStyle.style.fontWeight,
+        fontWeight: textFontWeight ?? textStyle.style.fontWeight,
         color: textColor ?? textStyle.style.color,
         backgroundColor: textStyle.style.backgroundColor,
       ),
