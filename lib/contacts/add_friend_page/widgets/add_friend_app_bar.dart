@@ -9,7 +9,7 @@ class AddFriendAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return UAppBar.actions(
-      title: UAppStrings.addFriendPage_addFriend,
+      title: UAppStrings.addFriend,
       actionList: [
         IconButton(
           icon: const UIcon(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/helpers_export.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
 
@@ -122,7 +123,7 @@ class UserProfileFriendPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: MiniTitleWithNum(
-                        title: 'Offline - ',
+                        title: UAppStrings.userProfileFriendPage_offline,
                         num: 0,
                       ),
                     ),
@@ -139,7 +140,8 @@ class UserProfileFriendPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 16),
                                 child: MiniTitleWithNum(
-                                  title: 'Offline - ',
+                                  title:
+                                      UAppStrings.userProfileFriendPage_offline,
                                   num: offlineFriendList.length,
                                 ),
                               ),

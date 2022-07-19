@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class UserNote extends StatelessWidget {
   const UserNote({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class UserNote extends StatelessWidget {
     return Column(
       children: [
         const UserProfileTitle(
-          title: 'Note',
+          title: UAppStrings.userNote_note,
           iconData: UIcons.add_note,
         ),
         const SizedBox.square(
@@ -32,7 +33,7 @@ class UserNote extends StatelessWidget {
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(4),
             ),
-            hintText: 'Tap to add note',
+            hintText: UAppStrings.userNote_hintText,
             hintStyle: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
               fontStyle: FontStyle.italic,
             ),

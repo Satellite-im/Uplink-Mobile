@@ -10,7 +10,7 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
     context,
     sheetTitle: UAppStrings.moreOptions,
     titleList: [
-      UAppStrings.buildUserListTileLongPress_message,
+      UAppStrings.message,
       UAppStrings.buildUserListTileLongPress_profile,
       UAppStrings.block,
       UAppStrings.report,

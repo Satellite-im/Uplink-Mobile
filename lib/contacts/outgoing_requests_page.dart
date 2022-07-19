@@ -69,7 +69,7 @@ class NoOutgoingRequestBody extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: UText(
-        'No one is here, you have 0 outgoing request!',
+        UAppStrings.outgoingRequestPage_emptyBody,
         textStyle: UTextStyle.B1_body,
         textColor: UColors.white,
       ),
