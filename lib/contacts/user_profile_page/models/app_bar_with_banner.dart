@@ -3,52 +3,108 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 
-class AppBarWithBanner extends StatelessWidget {
-  const AppBarWithBanner({Key? key, required this.user}) : super(key: key);
+class AppBarWithBanner extends StatefulWidget {
+  const AppBarWithBanner({
+    Key? key,
+    required this.user,
+    this.backButtonOpacity,
+    this.reduecdTopHeight,
+    this.backButtonOnPressed,
+  }) : super(key: key);
 
   final MockContact user;
+  final double? backButtonOpacity;
+  final double? reduecdTopHeight;
+  final VoidCallback? backButtonOnPressed;
+
+  @override
+  State<AppBarWithBanner> createState() => _AppBarWithBannerState();
+}
+
+class _AppBarWithBannerState extends State<AppBarWithBanner> {
+  late double _backButtonOpacity;
+  late double _reduecdTopHeight;
+  // TODO(laterYijing): get system status bar height
+  @override
+  void initState() {
+    super.initState();
+    if (widget.backButtonOpacity != null) {
+      _backButtonOpacity = widget.backButtonOpacity!;
+    } else {
+      _backButtonOpacity = 1;
+    }
+    if (widget.reduecdTopHeight != null) {
+      _reduecdTopHeight = widget.reduecdTopHeight!;
+    } else {
+      _reduecdTopHeight = 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return UAppBar.iconOnly(
-      backIconColor: UColors.white,
-      actionList: [
-        if (user.relationship == Relationship.block && user.isBlocked == false)
-          const UIcon(
-            UIcons.blocked_contacts,
-            color: UColors.textDark,
-          ),
-        if (user.relationship == Relationship.friend &&
-            user.isBlocked == false) ...[
-          IconButton(
-            onPressed: () {},
-            icon: const UIcon(UIcons.call),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const UIcon(UIcons.video_call_button),
-          ),
-        ],
-        if (user.relationship == Relationship.none &&
-            user.friendRequestSent == true &&
-            user.isBlocked == false)
-          const UIcon(
-            UIcons.outgoing_requests,
-            color: UColors.textDark,
-          ),
-//hamburger menu
-        HamburgerMenuButton(
-          user: user,
-        ),
-      ],
-      flexibleSpace: const SizedBox(
-        height: 164,
-        width: double.infinity,
-        // TODO(yijing): update user's banner image
-        child: UImage(
-          imagePath: 'lib/utils/mock/images/bannerImage1.png',
-          imageSource: ImageSource.local,
+    return Container(
+      height: 164,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          // TODO(laterYijing): change to UImage
+          image: AssetImage('lib/utils/mock/images/bannerImage1.png'),
           fit: BoxFit.cover,
+        ),
+      ),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: AnimatedPadding(
+          padding: EdgeInsets.only(top: 60 - _reduecdTopHeight),
+          duration: const Duration(seconds: 1),
+          child: Row(
+            children: [
+              AnimatedOpacity(
+                opacity: _backButtonOpacity,
+                duration: const Duration(seconds: 1),
+                child: IconButton(
+                  icon: const UIcon(
+                    UIcons.back_arrow_button,
+                    color: UColors.white,
+                  ),
+                  onPressed: widget.backButtonOnPressed ??
+                      () => Navigator.of(context).pop(),
+                ),
+              ),
+              const Expanded(
+                child: SizedBox.shrink(),
+              ),
+              if (widget.user.relationship == Relationship.block &&
+                  widget.user.isBlocked == false)
+                const UIcon(
+                  UIcons.blocked_contacts,
+                  color: UColors.textDark,
+                ),
+              if (widget.user.relationship == Relationship.friend &&
+                  widget.user.isBlocked == false) ...[
+                IconButton(
+                  onPressed: () {},
+                  icon: const UIcon(UIcons.call),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const UIcon(UIcons.video_call_button),
+                ),
+              ],
+              if (widget.user.relationship == Relationship.none &&
+                  widget.user.friendRequestSent == true &&
+                  widget.user.isBlocked == false)
+                const UIcon(
+                  UIcons.outgoing_requests,
+                  color: UColors.textDark,
+                ),
+              const SizedBox(width: 8),
+              //hamburger menu
+              HamburgerMenuButton(
+                user: widget.user,
+              ),
+              const SizedBox(width: 8),
+            ],
+          ),
         ),
       ),
     );
@@ -86,7 +142,7 @@ class HamburgerMenuButton extends StatelessWidget {
                   imageSource: ImageSource.local,
                 ),
                 onTap: () {
-                  // !! add unblock workflow
+                  // TODO(yijing): add unblock workflow
                 },
               ),
             );
@@ -105,7 +161,7 @@ class HamburgerMenuButton extends StatelessWidget {
                   imageSource: ImageSource.local,
                 ),
                 onTap: () {
-                  // !! add block workflow
+                  // TODO(yijing): add block workflow
                 },
               ),
             );

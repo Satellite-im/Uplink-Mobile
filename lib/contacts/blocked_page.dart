@@ -1,9 +1,10 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, unused_import
 
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
 import 'package:uplink/contacts/user_profile_page/user_profile_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
@@ -106,28 +107,39 @@ class BlockedPage extends StatelessWidget {
           statusMessage: item.contact.statusMessage,
           imageAddress: item.contact.imageAddress,
           onTap: () {
-            Navigator.of(context, rootNavigator: true).push(
+            // TODO(demo): change the user info here to test
+            final user = item.contact.copywith(
+              bannerImageAddress: 'lib/utils/mock/images/bannerImage1.png',
+              badgesNum: 5,
+              location: 'State, USA',
+              friendNum: 20,
+              relationship: Relationship.block,
+              friendRequestSent: false,
+              // isBlocked: true,
+              about:
+                  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
+            );
+            // the following comments are for demo purpose
+            Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (context) {
-                  // TODO(demo): change user type
-                  final user = item.contact.copywith(
-                    bannerImageAddress:
-                        'lib/utils/mock/images/bannerImage1.png',
-                    badgesNum: 5,
-                    location: 'State, USA',
-                    friendNum: 20,
-                    relationship: Relationship.friend,
-                    friendRequestSent: false,
-                    // isBlocked: true,
-                    about:
-                        'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
-                  );
-                  return UserProfilePage(
-                    user: user,
-                  );
-                },
+                builder: (context) => UserProfilePage(user: user),
               ),
             );
+            // showModalBottomSheet<void>(
+            //   context: context,
+            //   isScrollControlled: true,
+            //   backgroundColor: Colors.transparent,
+            //   useRootNavigator: true,
+            //   builder: (context) => GestureDetector(
+            //     behavior: HitTestBehavior.opaque,
+            //     onTap: () => Navigator.of(context).pop(),
+            //     //close the sheet when the outside is tapped
+            //     child: GestureDetector(
+            //       onTap: () {},
+            //       child: UserProfileBottomSheet(user: user),
+            //     ),
+            //   ),
+            // );
           },
         ),
       ],
