@@ -13,6 +13,8 @@ class UAppStrings {
   static const block = 'Block';
   static const unblock = 'Unblock';
   static const report = 'Report';
+  static const message = 'Message';
+  static const addFriend = 'Add Friend';
 
   static const blockDialogQ = 'Are you sure you want to block this user?';
   static const unblockDialogQ = 'Are you sure you want to unblock this user?';
@@ -193,7 +195,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Enter your friend’s account ID or username, or scan their QR code '
       'to find their account. Account ID’s are case sensitive.';
   static const addFriendPage_noAccountFound = 'Error: no account found.';
-  static const addFriendPage_addFriend = 'Add Friend';
   static const addFriendPage_lessCharacters = 'Error: not enough characters.';
   static const addFriendPage_moreCharacters = 'Error: too many characters.';
   static const addFriendPage_hint = 'Enter Account ID';
@@ -216,7 +217,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Are you sure you want to remove this user from your Contact’s list?';
 
   ///buildUserListTileLongPress
-  static const buildUserListTileLongPress_message = 'Message';
   static const buildUserListTileLongPress_profile = 'Profile';
 
   /// FilesIndexPage
@@ -283,4 +283,11 @@ Would you like to give Satellite.im access to your camera roll?''';
 
   /// Notifications
   static const notifications_appBarTitle = 'Notifications';
+
+  ///UserProfileFriendPage
+  static const userProfileFriendPage_offline = 'Offline - ';
+
+  ///UserNote
+  static const userNote_note = 'Note';
+  static const userNote_hintText = 'Tap to add note';
 }

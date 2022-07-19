@@ -121,8 +121,8 @@ class HamburgerMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = 'Block';
-    if (user.relationship == Relationship.block) model = 'Unblock';
+    var model = UAppStrings.block;
+    if (user.relationship == Relationship.block) model = UAppStrings.unblock;
 
     return UPopupMenuButton<String>(
       icon: const UIcon(UIcons.hamburger_menu),
@@ -132,7 +132,7 @@ class HamburgerMenuButton extends StatelessWidget {
             await showDialog<void>(
               context: context,
               builder: (_) => UDialogUserProfile(
-                bodyText: 'Are you sure you want to unblock this user?',
+                bodyText: UAppStrings.unblockDialogQ,
                 buttonText: UAppStrings.unblock,
                 popButtonText: UAppStrings.goBackButton,
                 username: user.name,
@@ -151,7 +151,7 @@ class HamburgerMenuButton extends StatelessWidget {
             await showDialog<void>(
               context: context,
               builder: (_) => UDialogUserProfile(
-                bodyText: 'Are you sure you want to block this user?',
+                bodyText: UAppStrings.blockDialogQ,
                 buttonText: UAppStrings.block,
                 popButtonText: UAppStrings.goBackButton,
                 username: user.name,
@@ -190,14 +190,14 @@ class HamburgerMenuButton extends StatelessWidget {
             ),
           ),
           const UPopupMenuItem<String>(
-            value: 'Report',
+            value: UAppStrings.report,
             padding: EdgeInsets.zero,
             child: SizedBox(
               width: 160,
               child: Padding(
                 padding: EdgeInsets.only(left: 16),
                 child: UText(
-                  'Report',
+                  UAppStrings.report,
                   textStyle: UTextStyle.BUT1_primaryButton,
                   textColor: UColors.termRed,
                 ),

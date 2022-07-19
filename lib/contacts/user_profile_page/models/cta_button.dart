@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 
 class CTAButton extends StatelessWidget {
@@ -15,7 +16,7 @@ class CTAButton extends StatelessWidget {
       return _TwoButtonsRow(disabled: true);
     } else if (user.relationship == Relationship.friend) {
       return UButton.primary(
-        label: 'Message',
+        label: UAppStrings.message,
         uIconData: UIcons.message,
         onPressed: () {},
       );
@@ -23,7 +24,7 @@ class CTAButton extends StatelessWidget {
       return _TwoButtonsRow(disabled: false);
     }
     return UButton.primary(
-      label: 'Add Friend',
+      label: UAppStrings.addFriend,
       uIconData: UIcons.add_contact_member,
       onPressed: () {
         // TODO(laterYijing): add button action
@@ -43,7 +44,7 @@ class _TwoButtonsRow extends StatelessWidget {
       children: [
         Expanded(
           child: UButton.secondary(
-            label: 'Message',
+            label: UAppStrings.message,
             uIconData: UIcons.message,
             onPressed: () {},
             disabled: disabled,
@@ -52,7 +53,7 @@ class _TwoButtonsRow extends StatelessWidget {
         SizedBox(width: 8),
         Expanded(
           child: UButton.primary(
-            label: 'Add Friend',
+            label: UAppStrings.addFriend,
             uIconData: UIcons.add_contact_member,
             onPressed: () {},
             disabled: disabled,
