@@ -24,7 +24,10 @@ class UserProfileFriendPage extends StatelessWidget {
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                AppBarWithBanner(user: user),
+                AppBarWithBanner(
+                  user: user,
+                  backButtonOpacity: 1,
+                ),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Column(

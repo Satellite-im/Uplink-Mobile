@@ -26,7 +26,7 @@ class CTAButton extends StatelessWidget {
       label: 'Add Friend',
       uIconData: UIcons.add_contact_member,
       onPressed: () {
-        // TODO(withpr): add button action
+        // TODO(laterYijing): add button action
       },
     );
   }
