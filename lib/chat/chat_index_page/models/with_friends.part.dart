@@ -10,18 +10,42 @@ class _WithFriends extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         final _friend = friendsList[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: InkWell(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(4),
-            ),
-            onTap: () {},
+        return InkWell(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(4),
+          ),
+          onTap: () {
+            // TODO(Lucas): Add onTap later
+          },
+          onLongPress: () {
+            UBottomSheetTwoButtons(
+              context,
+              userImage: UImage(
+                imagePath: _friend.imagePath,
+                imageSource: ImageSource.local,
+              ),
+              username: _friend.username,
+              header: UAppStrings.chatIndexPage_whatToDoWIthChatBottomSheet,
+              firstButtonText: UAppStrings.cancelButton,
+              secondButtonText: UAppStrings.remove,
+              firstButtonColor: UColors.ctaDark,
+              secondButtonColor: UColors.termRed,
+              firstButtonOnPressed: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).pop(),
+              secondButtonOnPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+            ).show();
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: UnreadMessagesUserProfileCard(
               status: _friend.status,
               username: _friend.username,
@@ -35,9 +59,6 @@ class _WithFriends extends StatelessWidget {
           ),
         );
       },
-      separatorBuilder: (context, index) => const SizedBox.square(
-        dimension: 20,
-      ),
       itemCount: friendsList.length,
     );
   }

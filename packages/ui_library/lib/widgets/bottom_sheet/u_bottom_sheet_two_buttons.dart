@@ -37,6 +37,8 @@ class UBottomSheetTwoButtons {
     required this.secondButtonText,
     this.secondButtonIcon,
     this.secondButtonColor,
+    this.userImage,
+    this.username,
   });
 
   final BuildContext context;
@@ -60,6 +62,12 @@ class UBottomSheetTwoButtons {
 
   final Color? secondButtonColor;
 
+  /// If not null, [username] should be passed as well
+  final UImage? userImage;
+
+  /// If not null, [userImage] should be passed as well
+  final String? username;
+
   Future show() {
     return UBottomSheet(
       context,
@@ -73,24 +81,28 @@ class UBottomSheetTwoButtons {
         secondButtonText: secondButtonText,
         secondButtonIcon: secondButtonIcon,
         secondButtonColor: secondButtonColor,
+        userImage: userImage,
+        username: username,
       ),
     ).show();
   }
 }
 
 class _UBottomSheetTwoButtonsBody extends StatelessWidget {
-  const _UBottomSheetTwoButtonsBody(
-      {Key? key,
-      required this.header,
-      required this.firstButtonText,
-      this.firstButtonIcon,
-      this.firstButtonColor,
-      required this.secondButtonText,
-      this.secondButtonIcon,
-      this.secondButtonColor,
-      required this.firstButtonOnPressed,
-      required this.secondButtonOnPressed})
-      : super(key: key);
+  const _UBottomSheetTwoButtonsBody({
+    Key? key,
+    required this.header,
+    required this.firstButtonText,
+    this.firstButtonIcon,
+    this.firstButtonColor,
+    required this.secondButtonText,
+    this.secondButtonIcon,
+    this.secondButtonColor,
+    required this.firstButtonOnPressed,
+    required this.secondButtonOnPressed,
+    this.userImage,
+    this.username,
+  }) : super(key: key);
 
   final String header;
 
@@ -98,6 +110,8 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
   final VoidCallback firstButtonOnPressed;
   final UIconData? firstButtonIcon;
   final Color? firstButtonColor;
+  final UImage? userImage;
+  final String? username;
 
   final String secondButtonText;
   final VoidCallback secondButtonOnPressed;
@@ -111,6 +125,27 @@ class _UBottomSheetTwoButtonsBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (userImage != null && username != null) ...[
+            Row(
+              children: [
+                UUserProfile(
+                  uImage: userImage,
+                  userProfileSize: UUserProfileSize.topMenuBar,
+                ),
+                const SizedBox.square(
+                  dimension: 16,
+                ),
+                UText(
+                  username!,
+                  textStyle: UTextStyle.H1_primaryHeader,
+                  textColor: UColors.white,
+                ),
+              ],
+            ),
+            const SizedBox.square(
+              dimension: 16,
+            ),
+          ],
           UText(
             header,
             textStyle: UTextStyle.H5_fifthHeader,

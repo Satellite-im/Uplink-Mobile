@@ -62,6 +62,9 @@ class USizes {
   static const double unreadMessagesGreaterThanOrEqualToThousandWidthSize =
       42.0;
 
+  // Sizes for [UnreadMessagesUserProfileCard]
+  static const double unreadMessagesUserProfileCardWidthSize = 52.0;
+
   // Width sizes for [Avatar Cards]
   static const double messageOnUnreadMessagesUserProfileCardWidthSize = 248;
   static const double messageOnUserProfileCardWidthSize = 270;

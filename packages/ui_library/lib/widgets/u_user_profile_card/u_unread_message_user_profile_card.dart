@@ -28,17 +28,6 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
   final int unreadMessages;
 
-  String formatDateTime(DateTime arrivalMessageTime) {
-    final _lastMessageArrivalTime =
-        DateFormatUtils.formatDateTwelveHours(arrivalMessageTime);
-    _lastMessageArrivalTime.toLowerCase();
-    if (_lastMessageArrivalTime[0] == '0') {
-      return _lastMessageArrivalTime.substring(1).toLowerCase();
-    } else {
-      return _lastMessageArrivalTime.toLowerCase();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final _unreadMessagesIndicator = UnreadMessagesIndicator(
@@ -46,8 +35,8 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
       type: UnreadMessagesIndicatorType.card,
     );
 
-    final _lastMessageArrivalTime =
-        formatDateTime(_uMessage.arrivalMessageTime);
+    final _lastMessageArrivalTime = DateFormatUtils.formatDateForMessageArrived(
+        _uMessage.arrivalMessageTime);
 
     const _userProfileSize = UUserProfileSize.normal;
 
@@ -56,74 +45,93 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
 
     final _pictureAndSizedBoxWidth = _userProfileSize.size + _firstSizedBoxSize;
 
+    double _calculateLastMessageWidth(double _widgetWidth) {
+      double _messageWidth = _widgetWidth -
+          _unreadMessagesIndicator.getUnreadMessagesIndicatorWidth() -
+          _pictureAndSizedBoxWidth;
+      if (unreadMessages > 0) {
+        _messageWidth -= _lastSizedBoxSize;
+      }
+      return _messageWidth;
+    }
+
     return LayoutBuilder(builder: (context, constraints) {
       final _widgetWidth = constraints.maxWidth;
 
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          UUserProfileWithStatus(
-            status: _status,
-            userProfileSize: _userProfileSize,
-            uImage: _uImage,
-          ),
-          const SizedBox.square(
-            dimension: _firstSizedBoxSize,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: _widgetWidth - _pictureAndSizedBoxWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return SizedBox(
+        height: USizes.unreadMessagesUserProfileCardWidthSize,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            UUserProfileWithStatus(
+              status: _status,
+              userProfileSize: _userProfileSize,
+              uImage: _uImage,
+            ),
+            const SizedBox.square(
+              dimension: _firstSizedBoxSize,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: _widgetWidth - _pictureAndSizedBoxWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Username(
+                          username: username,
+                          textStyle: UTextStyle.H4_fourthHeader,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: SizedBox(
+                          width: 64,
+                          child: UText(
+                            _lastMessageArrivalTime,
+                            textStyle: UTextStyle.B1_body,
+                            textColor: UColors.textDark,
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox.square(dimension: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Username(
-                        username: username,
-                        textStyle: UTextStyle.H4_fourthHeader,
+                    SizedBox(
+                      width: _calculateLastMessageWidth(_widgetWidth),
+                      child: UText(
+                        _uMessage.message,
+                        maxLines: 2,
+                        textOverflow: TextOverflow.ellipsis,
+                        textStyle: UTextStyle.B1_body,
+                        textColor: UColors.textMed,
+                        textAlign: TextAlign.left,
                       ),
                     ),
-                    UText(
-                      _lastMessageArrivalTime,
-                      textStyle: UTextStyle.B1_body,
-                      textColor: UColors.textDark,
-                      textAlign: TextAlign.end,
-                    ),
+                    if (unreadMessages > 0) ...[
+                      const SizedBox.square(
+                        dimension: _lastSizedBoxSize,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: _unreadMessagesIndicator,
+                      ),
+                    ],
                   ],
                 ),
-              ),
-              const SizedBox.square(dimension: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: _widgetWidth -
-                        _unreadMessagesIndicator
-                            .getUnreadMessagesIndicatorWidth() -
-                        _pictureAndSizedBoxWidth -
-                        _lastSizedBoxSize,
-                    child: UText(
-                      _uMessage.message,
-                      maxLines: 2,
-                      textOverflow: TextOverflow.ellipsis,
-                      textStyle: UTextStyle.B1_body,
-                      textColor: UColors.textMed,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  if (unreadMessages > 0) ...[
-                    const SizedBox.square(
-                      dimension: _lastSizedBoxSize,
-                    ),
-                    _unreadMessagesIndicator,
-                  ],
-                ],
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       );
     });
   }

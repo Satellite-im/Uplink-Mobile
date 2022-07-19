@@ -1,0 +1,14 @@
+[
+ {"id":0,"user_name":"New App Update","message":"Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia...", "notification_type": "server_message" ,"notification_arrival_time": "2022-07-14T16:08:14Z", "is_unread": true },
+ {"id":1,"user_name":"Bart","message":"Lorem Ipsum", "notification_type": "message" ,"notification_arrival_time": "2022-07-14T10:08:14Z", "is_unread": true },
+ {"id":2,"user_name":"Brucie","message":null, "notification_type": "friend_request" ,"notification_arrival_time": "2022-07-14T10:08:14Z", "is_unread": true },
+ {"id":3,"user_name":"Pascal","message":"https://exercism.org/", "notification_type": "message" ,"notification_arrival_time": "2022-07-13T10:08:14Z", "is_unread": false },
+ {"id":4,"user_name":"Kerry","message":"https://www.youtube.com/watch?v=bzWaMpD1LHY", "notification_type": "message" ,"notification_arrival_time": "2022-07-13T10:08:14Z", "is_unread": false },
+ {"id":5,"user_name":"Miguelita","message":null, "notification_type": "replied_comment" ,"notification_arrival_time": "2021-10-09T10:08:14Z", "is_unread": false },
+ {"id":6,"user_name":"Philip","message":"Lorem", "notification_type": "message" ,"notification_arrival_time": "2021-10-09T10:08:14Z", "is_unread": false },
+ {"id":7,"user_name":"Napoleon","message":null, "notification_type": "reacted_comment" ,"notification_arrival_time": "2021-10-09T10:08:14Z", "is_unread": false },
+ {"id":8,"user_name":"Tamarah","message":"Lorem", "notification_type": "message" ,"notification_arrival_time": "2021-10-09T10:08:14Z", "is_unread": false },
+ {"id":9,"user_name":"Allissa","message":"Lorem", "notification_type": "message" ,"notification_arrival_time": "2021-10-09T10:08:14Z", "is_unread": false },
+ {"id":10,"user_name":"Lynett","message":null, "notification_type": "friend_request" ,"notification_arrival_time": "2021-09-09T10:08:14Z", "is_unread": false },
+ {"id":11,"user_name":"Dorey","message":"https://satellite.im/", "notification_type": "message" ,"notification_arrival_time": "2021-09-09T10:08:14Z", "is_unread": false }
+]

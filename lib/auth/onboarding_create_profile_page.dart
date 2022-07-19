@@ -74,8 +74,14 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   const SizedBox(height: 40),
                   Align(
                     child: UUserPictureChange(
+                      uImage: UImage(
+                        imagePath: _userPicture?.path,
+                        imageSource: ImageSource.file,
+                      ),
                       onPictureSelected: (pictureSelected) {
-                        _userPicture = pictureSelected;
+                        setState(() {
+                          _userPicture = pictureSelected;
+                        });
                       },
                     ),
                   ),

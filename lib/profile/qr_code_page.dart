@@ -38,7 +38,8 @@ class _QRCodePageState extends State<QRCodePage> {
                 child: UUserProfile(
                   uImage: UImage(
                     imagePath: widget.userImagePath,
-                    imageSource: ImageSource.local,
+                    imageSource: ImageSource.file,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
