@@ -28,16 +28,16 @@ class USizes {
   // Sizes for [UText]
   static const double textH1TopMenuBarTitleSize = 18.0;
   static const double textH2SecondaryHeaderSize = 14.0;
-  static const double textH3TertiaryHeaderSize = 12.0;
-  static const double textH4FourthHeaderSize = 12.0;
-  static const double textH5FifthHeaderSize = 10.0;
-  static const double textB1BodySize = 10.0;
-  static const double textB2MediumSize = 10.0;
-  static const double textB3ItalicsSize = 10.0;
-  static const double textB4BoldSize = 10.0;
-  static const double textM1MicroSize = 9.0;
-  static const double textBUT1ButtonSize = 10.0;
-  static const double textBUT2SecondaryButtonSize = 10.0;
+  static const double textH3TertiaryHeaderSize = 13.0;
+  static const double textH4FourthHeaderSize = 13.0;
+  static const double textH5FifthHeaderSize = 12.0;
+  static const double textB1BodySize = 12.0;
+  static const double textB2MediumSize = 12.0;
+  static const double textB4ItalicsSize = 12.0;
+  static const double textB3BoldSize = 12.0;
+  static const double textM1MicroSize = 10.0;
+  static const double textBUT1ButtonSize = 12.0;
+  static const double textBUT2SecondaryButtonSize = 12.0;
 
   // Sizes for [Unread Messages Indicator]
   static const double unreadMessagesIndicatorSize = 20.0;
@@ -63,7 +63,7 @@ class USizes {
       42.0;
 
   // Sizes for [UnreadMessagesUserProfileCard]
-  static const double unreadMessagesUserProfileCardWidthSize = 52.0;
+  static const double unreadMessagesUserProfileCardWidthSize = 58.0;
 
   // Width sizes for [Avatar Cards]
   static const double messageOnUnreadMessagesUserProfileCardWidthSize = 248;

@@ -54,21 +54,21 @@ extension UTextStyleExtension on UTextStyle {
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
           fontSize: USizes.textH3TertiaryHeaderSize,
-          color: UColors.textMed,
+          color: UColors.white,
         );
       case UTextStyle.H4_fourthHeader:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
           fontSize: USizes.textH4FourthHeaderSize,
-          color: UColors.white,
+          color: UColors.textMed,
         );
       case UTextStyle.H5_fifthHeader:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textPoppinsFont,
           fontWeight: FontWeight.w400,
           fontSize: USizes.textH5FifthHeaderSize,
-          color: UColors.textMed,
+          color: UColors.white,
         );
       case UTextStyle.B1_body:
         return _uTextStyle._copyWith(
@@ -88,13 +88,13 @@ extension UTextStyleExtension on UTextStyle {
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textPoppinsFont,
           fontWeight: FontWeight.w700,
-          fontSize: USizes.textB4BoldSize,
+          fontSize: USizes.textB3BoldSize,
           color: UColors.white,
         );
       case UTextStyle.B4_italics:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textPoppinsFont,
-          fontSize: USizes.textB3ItalicsSize,
+          fontSize: USizes.textB4ItalicsSize,
           fontWeight: FontWeight.w400,
           fontStyle: FontStyle.italic,
           color: UColors.white,
