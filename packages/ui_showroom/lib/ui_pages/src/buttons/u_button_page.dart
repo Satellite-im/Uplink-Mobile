@@ -20,6 +20,28 @@ List<Widget> uButtonList = [
     label: 'UButton.filled2',
     onPressed: () {},
   ),
+  UButton.primary(
+    label: 'UButton.primary',
+    uIconData: UIcons.about,
+    onPressed: () {},
+    disabled: true,
+  ),
+  UButton.secondary(
+    label: 'UButton.secondary',
+    uIconData: UIcons.about,
+    onPressed: () {},
+    disabled: true,
+  ),
+  UButton.filled1(
+    label: 'UButton.filled1',
+    onPressed: () {},
+    disabled: true,
+  ),
+  UButton.filled2(
+    label: 'UButton.filled2',
+    onPressed: () {},
+    disabled: true,
+  ),
 ];
 
 class UButtonPage extends StatelessWidget {
