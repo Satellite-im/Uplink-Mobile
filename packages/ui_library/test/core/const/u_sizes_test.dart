@@ -12,8 +12,8 @@ void main() {
     const _textH5FifthHeaderSize = 10.0;
     const _textB1BodySize = 10.0;
     const _textB2MediumSize = 10.0;
-    const _textB3ItalicsSize = 10.0;
-    const _textB4BoldSize = 10.0;
+    const _textB3BoldSize = 10.0;
+    const _textB4ItalicsSize = 10.0;
     const _textM1MicroSize = 9.0;
     const _textBUT1ButtonSize = 10.0;
     const _textBUT2SecondaryButtonSize = 10.0;
@@ -67,10 +67,10 @@ void main() {
               USizes.textB1BodySize.should.be(_textB1BodySize),
           'textB2MediumSize should return correct value': () =>
               USizes.textB2MediumSize.should.be(_textB2MediumSize),
-          'textB3ItalicsSize should return correct value': () =>
-              USizes.textB4ItalicsSize.should.be(_textB3ItalicsSize),
-          'textB4BoldSize should return correct value': () =>
-              USizes.textB3BoldSize.should.be(_textB4BoldSize),
+          'textB4ItalicsSize should return correct value': () =>
+              USizes.textB4ItalicsSize.should.be(_textB4ItalicsSize),
+          'textB3BoldSize should return correct value': () =>
+              USizes.textB3BoldSize.should.be(_textB3BoldSize),
           'textM1MicroSize should return correct value': () =>
               USizes.textM1MicroSize.should.be(_textM1MicroSize),
           'textBUT1ButtonSize should return correct value': () =>
