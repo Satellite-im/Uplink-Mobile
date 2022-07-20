@@ -68,9 +68,9 @@ void main() {
           'textB2MediumSize should return correct value': () =>
               USizes.textB2MediumSize.should.be(_textB2MediumSize),
           'textB3ItalicsSize should return correct value': () =>
-              USizes.textB3ItalicsSize.should.be(_textB3ItalicsSize),
+              USizes.textB4ItalicsSize.should.be(_textB3ItalicsSize),
           'textB4BoldSize should return correct value': () =>
-              USizes.textB4BoldSize.should.be(_textB4BoldSize),
+              USizes.textB3BoldSize.should.be(_textB4BoldSize),
           'textM1MicroSize should return correct value': () =>
               USizes.textM1MicroSize.should.be(_textM1MicroSize),
           'textBUT1ButtonSize should return correct value': () =>
