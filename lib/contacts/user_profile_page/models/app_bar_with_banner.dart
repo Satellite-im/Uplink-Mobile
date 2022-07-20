@@ -97,7 +97,6 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                   UIcons.outgoing_requests,
                   color: UColors.textDark,
                 ),
-              const SizedBox(width: 8),
               //hamburger menu
               HamburgerMenuButton(
                 user: widget.user,
