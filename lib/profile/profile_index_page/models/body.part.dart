@@ -121,14 +121,14 @@ class _ProfileIndexBody extends StatelessWidget {
           ),
           const _NetworkProfiles(
             networkProfile: NetworkProfiles.spotify,
-            networkUsername: UAppStrings.profileIndexPage_spotifyUsername,
+            networkUsername: 'username12',
           ),
           const SizedBox.square(
             dimension: 20,
           ),
           const _NetworkProfiles(
             networkProfile: NetworkProfiles.twitch,
-            networkUsername: UAppStrings.profileIndexPage_twitchUsername,
+            networkUsername: 'username_plays',
           ),
           const SizedBox.square(
             dimension: 20,

@@ -51,7 +51,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
             disabled: !_isSelected,
-            label: UAppStrings.addFriendPage_addFriend,
+            label: UAppStrings.addFriend,
             uIconData: UIcons.add_contact_member,
             onPressed: () async {
               // TODO(yijing): add send friend request

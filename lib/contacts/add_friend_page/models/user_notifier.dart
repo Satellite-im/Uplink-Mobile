@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uplink/utils/mock/data/data_export.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
 
 class UserNotifier extends ChangeNotifier {

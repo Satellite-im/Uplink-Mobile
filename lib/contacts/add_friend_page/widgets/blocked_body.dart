@@ -32,7 +32,7 @@ class BlockedBody extends StatelessWidget {
               sheetTitle: UAppStrings.moreOptions,
               titleList: [
                 UAppStrings.buildUserListTileLongPress_profile,
-                UAppStrings.buildUserListTileLongPress_report
+                UAppStrings.report,
               ],
               iconList: [UIcons.user_profile, UIcons.report],
               colorList: [UColors.white, UColors.termRed],
@@ -49,7 +49,7 @@ class BlockedBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
-            label: UAppStrings.blockedBody_unblock,
+            label: UAppStrings.unblock,
             uIconData: UIcons.unblock,
             color: UColors.ctaBlue,
             onPressed: () {
@@ -62,8 +62,8 @@ class BlockedBody extends StatelessWidget {
                   return ChangeNotifierProvider.value(
                     value: userNotifier,
                     child: UDialogUserProfile(
-                      bodyText: UAppStrings.blockedBody_q,
-                      buttonText: UAppStrings.blockedBody_unblock,
+                      bodyText: UAppStrings.unblockDialogQ,
+                      buttonText: UAppStrings.unblock,
                       popButtonText: UAppStrings.goBackButton,
                       onTap: () {
                         userNotifier.unblockFriend();

@@ -10,10 +10,10 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
     context,
     sheetTitle: UAppStrings.moreOptions,
     titleList: [
-      UAppStrings.buildUserListTileLongPress_message,
+      UAppStrings.message,
       UAppStrings.buildUserListTileLongPress_profile,
-      UAppStrings.buildUserListTileLongPress_block,
-      UAppStrings.buildUserListTileLongPress_report,
+      UAppStrings.block,
+      UAppStrings.report,
     ],
     iconList: [
       UIcons.message,
@@ -36,8 +36,8 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
             return ChangeNotifierProvider.value(
               value: userNotifier,
               child: UDialogUserProfile(
-                bodyText: UAppStrings.buildUserListTileLongPress_q,
-                buttonText: UAppStrings.buildUserListTileLongPress_block,
+                bodyText: UAppStrings.blockDialogQ,
+                buttonText: UAppStrings.block,
                 popButtonText: UAppStrings.goBackButton,
                 onTap: () {
                   userNotifier.blockFriend();

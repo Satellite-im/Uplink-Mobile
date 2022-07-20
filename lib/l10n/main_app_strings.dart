@@ -10,6 +10,14 @@ class UAppStrings {
   static const remove = 'Remove';
   static const okay = 'Okay';
   static const search = 'Search';
+  static const block = 'Block';
+  static const unblock = 'Unblock';
+  static const report = 'Report';
+  static const message = 'Message';
+  static const addFriend = 'Add Friend';
+
+  static const blockDialogQ = 'Are you sure you want to block this user?';
+  static const unblockDialogQ = 'Are you sure you want to unblock this user?';
 
   /// Strings for OnboardPinPage
   static const pinPage_pageTitle = 'Create Account Pin';
@@ -187,7 +195,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Enter your friend’s account ID or username, or scan their QR code '
       'to find their account. Account ID’s are case sensitive.';
   static const addFriendPage_noAccountFound = 'Error: no account found.';
-  static const addFriendPage_addFriend = 'Add Friend';
   static const addFriendPage_lessCharacters = 'Error: not enough characters.';
   static const addFriendPage_moreCharacters = 'Error: too many characters.';
   static const addFriendPage_hint = 'Enter Account ID';
@@ -209,17 +216,8 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const friendBody_remove_q =
       'Are you sure you want to remove this user from your Contact’s list?';
 
-  ///BlockedBody
-  static const blockedBody_unblock = 'Unblock';
-  static const blockedBody_q = 'Are you sure you want to unblock this user?';
-
   ///buildUserListTileLongPress
-  static const buildUserListTileLongPress_message = 'Message';
   static const buildUserListTileLongPress_profile = 'Profile';
-  static const buildUserListTileLongPress_block = 'Block';
-  static const buildUserListTileLongPress_report = 'Report';
-  static const buildUserListTileLongPress_q =
-      'Are you sure you want to block this user?';
 
   /// FilesIndexPage
   static const filesIndexPage_appBarTitle = 'Files';
@@ -253,8 +251,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'iste natus error sit voluptatem accusantium doloremque laudantium, '
       'totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ';
   static const profileIndexPage_setStatus = 'Set Status';
-  static const profileIndexPage_spotifyUsername = 'username12';
-  static const profileIndexPage_twitchUsername = 'username_plays';
   static const profileIndexPage_qrCodeData = 'QR CODE DATA';
   static const profileIndexPage_bannerPhotoHeader =
       'Update your banner picture from';
@@ -287,4 +283,11 @@ Would you like to give Satellite.im access to your camera roll?''';
 
   /// Notifications
   static const notifications_appBarTitle = 'Notifications';
+
+  ///UserProfileFriendPage
+  static const userProfileFriendPage_offline = 'Offline - ';
+
+  ///UserNote
+  static const userNote_note = 'Note';
+  static const userNote_hintText = 'Tap to add note';
 }
