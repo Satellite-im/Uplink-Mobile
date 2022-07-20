@@ -33,8 +33,8 @@ class USizes {
   static const double textH5FifthHeaderSize = 12.0;
   static const double textB1BodySize = 12.0;
   static const double textB2MediumSize = 12.0;
-  static const double textB4ItalicsSize = 12.0;
   static const double textB3BoldSize = 12.0;
+  static const double textB4ItalicsSize = 12.0;
   static const double textM1MicroSize = 10.0;
   static const double textBUT1ButtonSize = 12.0;
   static const double textBUT2SecondaryButtonSize = 12.0;
