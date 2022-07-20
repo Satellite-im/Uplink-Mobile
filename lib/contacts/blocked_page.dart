@@ -120,26 +120,26 @@ class BlockedPage extends StatelessWidget {
                   'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
             );
             // the following comments are for demo purpose
-            Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (context) => UserProfilePage(user: user),
-              ),
-            );
-            // showModalBottomSheet<void>(
-            //   context: context,
-            //   isScrollControlled: true,
-            //   backgroundColor: Colors.transparent,
-            //   useRootNavigator: true,
-            //   builder: (context) => GestureDetector(
-            //     behavior: HitTestBehavior.opaque,
-            //     onTap: () => Navigator.of(context).pop(),
-            //     //close the sheet when the outside is tapped
-            //     child: GestureDetector(
-            //       onTap: () {},
-            //       child: UserProfileBottomSheet(user: user),
-            //     ),
+            // Navigator.of(context).push(
+            //   MaterialPageRoute<void>(
+            //     builder: (context) => UserProfilePage(user: user),
             //   ),
             // );
+            showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              useRootNavigator: true,
+              builder: (context) => GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.of(context).pop(),
+                //close the sheet when the outside is tapped
+                child: GestureDetector(
+                  onTap: () {},
+                  child: UserProfileBottomSheet(user: user),
+                ),
+              ),
+            );
           },
         ),
       ],
