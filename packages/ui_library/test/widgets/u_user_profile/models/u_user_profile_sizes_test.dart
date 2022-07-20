@@ -1,16 +1,20 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:given_when_then_unit_test/given_when_then_unit_test.dart';
+import 'package:shouldly/shouldly.dart';
 
 void main() {
-  group('Unit Test UUserProfileSizes |', () {});
-
-  test('Should return correct sizes for User Profiles Widgets', () {
+  given('UUserProfileSizes Class - Widget profile\'s sizes', () {
     const _largeSize = 56;
     const _normalSize = 40;
     const _topMenuBarSize = 30;
 
-    expect(UUserProfileSize.large.size, _largeSize);
-    expect(UUserProfileSize.normal.size, _normalSize);
-    expect(UUserProfileSize.topMenuBar.size, _topMenuBarSize);
+    then('Large size should be $_largeSize',
+        () => UUserProfileSize.large.size.should.be(_largeSize),
+        and: {
+          'Normal size should be $_normalSize': () =>
+              UUserProfileSize.normal.size.should.be(_normalSize),
+          'Top menu bar should be $_topMenuBarSize': () =>
+              UUserProfileSize.topMenuBar.size.should.be(_topMenuBarSize),
+        });
   });
 }
