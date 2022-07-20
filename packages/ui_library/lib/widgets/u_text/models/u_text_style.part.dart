@@ -54,21 +54,21 @@ extension UTextStyleExtension on UTextStyle {
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
           fontSize: USizes.textH3TertiaryHeaderSize,
-          color: UColors.white,
+          color: UColors.textMed,
         );
       case UTextStyle.H4_fourthHeader:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textSpaceMonoFont,
           fontWeight: FontWeight.w700,
           fontSize: USizes.textH4FourthHeaderSize,
-          color: UColors.textMed,
+          color: UColors.white,
         );
       case UTextStyle.H5_fifthHeader:
         return _uTextStyle._copyWith(
           fontFamily: UFonts.textPoppinsFont,
           fontWeight: FontWeight.w400,
           fontSize: USizes.textH5FifthHeaderSize,
-          color: UColors.white,
+          color: UColors.textMed,
         );
       case UTextStyle.B1_body:
         return _uTextStyle._copyWith(
