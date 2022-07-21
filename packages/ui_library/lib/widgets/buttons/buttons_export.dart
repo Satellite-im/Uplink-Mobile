@@ -5,3 +5,5 @@ export 'u_logout_button/u_logout_button.dart';
 export 'u_logout_button/u_logout_button.dart';
 export 'u_drop_down_menu/u_drop_down_menu.dart';
 export 'u_tertiary_button/u_tertiary_button.dart';
+export 'u_folder_button/u_folder_button.dart';
+export 'u_image_button/u_image_button.dart';
