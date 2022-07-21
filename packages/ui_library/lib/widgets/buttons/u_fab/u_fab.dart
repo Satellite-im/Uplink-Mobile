@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-enum _FABType { ios, android, large }
+enum _FABType { ios, android, big }
 
 class UFAB extends StatelessWidget {
   ///[FloatingActionButton] with '+' icon and rounded rectangle:
@@ -26,8 +26,8 @@ class UFAB extends StatelessWidget {
   ///```dart
   ///UFAB.big(onPressed: () {}),
   ///```
-  const UFAB.large({Key? key, required VoidCallback onPressed})
-      : _fabType = _FABType.large,
+  const UFAB.big({Key? key, required VoidCallback onPressed})
+      : _fabType = _FABType.big,
         _onPressed = onPressed,
         super(key: key);
 
@@ -55,7 +55,7 @@ class UFAB extends StatelessWidget {
           child: const UIcon(UIcons.add_button),
           onPressed: _onPressed,
         );
-      case _FABType.large:
+      case _FABType.big:
         return FloatingActionButton(
           backgroundColor: UColors.ctaBlue,
           foregroundColor: UColors.white,
