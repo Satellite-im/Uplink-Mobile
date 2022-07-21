@@ -9,7 +9,9 @@ import 'package:ui_showroom/ui_pages/src/bottom_sheet/u_bottom_sheet_options.dar
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
-  const UIShowRoomApp({Key? key, required this.themeData}) : super(key: key);
+  const UIShowRoomApp(
+      {Key key = const Key('UIShowRoomApp'), required this.themeData})
+      : super(key: key);
   final ThemeData themeData;
 
   @override

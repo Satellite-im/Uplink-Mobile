@@ -8,7 +8,9 @@ void main() {
     testWidgets('renders First Page', (tester) async {
       await tester.pumpWidget(const App());
       final _mainAppPageOrUIShowroomPage = find.byWidgetPredicate(
-        (widget) => widget is MaterialApp || widget is UIShowRoomApp,
+        (widget) =>
+            widget.key == const Key('MainApp') ||
+            widget.key == const Key('UIShowRoomApp'),
       );
       expect(_mainAppPageOrUIShowroomPage, findsOneWidget);
     });
