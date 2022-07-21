@@ -28,7 +28,7 @@ void main() {
       'UFAB.big',
       (tester) async {
         await tester.pumpWidget(
-            GoldenTestWidgetPage(widget: UFAB.big(onPressed: () {})));
+            GoldenTestWidgetPage(widget: UFAB.large(onPressed: () {})));
         await expectLater(
             find.byType(UFAB), matchesGoldenFile('goldens/u_fab_big.png'));
       },
