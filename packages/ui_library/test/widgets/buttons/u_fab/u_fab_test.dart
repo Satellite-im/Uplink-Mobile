@@ -25,7 +25,7 @@ void main() {
       tags: 'golden',
     );
     testWidgets(
-      'UFAB.big',
+      'UFAB.large',
       (tester) async {
         await tester.pumpWidget(
             GoldenTestWidgetPage(widget: UFAB.large(onPressed: () {})));
