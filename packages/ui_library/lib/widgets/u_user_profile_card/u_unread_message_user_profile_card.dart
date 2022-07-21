@@ -79,6 +79,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                   width: _widgetWidth - _pictureAndSizedBoxWidth,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: Username(
@@ -88,11 +89,13 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
-                        child: UText(
-                          _lastMessageArrivalTime,
-                          textStyle: UTextStyle.B1_body,
-                          textColor: UColors.textDark,
-                          textAlign: TextAlign.end,
+                        child: SizedBox(
+                          width: 64,
+                          child: UText(
+                            _lastMessageArrivalTime,
+                            textStyle: UTextStyle.M1_micro,
+                            textAlign: TextAlign.end,
+                          ),
                         ),
                       ),
                     ],
@@ -101,7 +104,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                 const SizedBox.square(dimension: 3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: _calculateLastMessageWidth(_widgetWidth),
@@ -118,10 +121,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                       const SizedBox.square(
                         dimension: _lastSizedBoxSize,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: _unreadMessagesIndicator,
-                      ),
+                      _unreadMessagesIndicator,
                     ],
                   ],
                 ),
