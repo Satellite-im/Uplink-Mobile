@@ -56,7 +56,7 @@ class UserProfileCard extends StatelessWidget {
                 ),
               ),
               const SizedBox.square(
-                dimension: 4,
+                dimension: 3,
               ),
               SizedBox(
                 width: _widgetWith - _pictureAndSizedBoxWidth,
