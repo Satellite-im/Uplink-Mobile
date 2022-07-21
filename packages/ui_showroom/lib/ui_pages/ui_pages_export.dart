@@ -7,3 +7,4 @@ export 'src/qr_code/qr_code_export.dart';
 export 'src/u_user_profile_cards/u_user_profile_cards_export.dart';
 export 'src/dialog_widgets/dialog_widgets_export.dart';
 export 'src/popup_menu_item_widgets/popup_menu_item_widgets_export.dart';
+export 'src/file_widgets/file_widgets_export.dart';
