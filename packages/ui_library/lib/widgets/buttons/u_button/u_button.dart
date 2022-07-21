@@ -138,16 +138,16 @@ class UButton extends StatelessWidget {
       if (states.contains(MaterialState.disabled)) {
         if ((_buttonType == _ButtonType.primary) ||
             (_buttonType == _ButtonType.secondary)) {
-          return const EdgeInsets.fromLTRB(16, 11, 24, 11);
+          return const EdgeInsets.fromLTRB(16, 8, 24, 8);
         }
-        return const EdgeInsets.fromLTRB(24, 11, 24, 11);
+        return const EdgeInsets.fromLTRB(24, 13, 24, 12);
       }
 
       if ((_buttonType == _ButtonType.primary) ||
           (_buttonType == _ButtonType.secondary)) {
-        return const EdgeInsets.fromLTRB(16, 11, 24, 11);
+        return const EdgeInsets.fromLTRB(16, 8, 24, 8);
       }
-      return const EdgeInsets.fromLTRB(24, 11, 24, 11);
+      return const EdgeInsets.fromLTRB(24, 13, 24, 12);
     }
 
     return AnimatedOpacity(
