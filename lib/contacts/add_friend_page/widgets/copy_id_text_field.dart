@@ -68,29 +68,16 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
         const SizedBox(height: 24),
         CompositedTransformTarget(
           link: layerLink,
-          child: Container(
-            height: 48,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: UColors.foregroundDark,
-            ),
-            padding: const EdgeInsets.all(16),
-            child: InkWell(
-              child: const UText(
-                userId,
-                textStyle: UTextStyle.H5_fifthHeader,
-                textColor: UColors.white,
-              ),
-              onTap: () {
-                Clipboard.setData(const ClipboardData(text: userId))
-                    .whenComplete(
-                  () => _showOverlay(
-                    context,
-                    text: UAppStrings.addFriendPage_copied,
-                  ),
-                );
-              },
-            ),
+          child: UAccountIDBox(
+            id: userId,
+            onTap: () {
+              Clipboard.setData(const ClipboardData(text: userId)).whenComplete(
+                () => _showOverlay(
+                  context,
+                  text: UAppStrings.addFriendPage_copied,
+                ),
+              );
+            },
           ),
         ),
         const SizedBox(height: 24),
@@ -107,7 +94,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
 
     final overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        width: 72,
+        width: 80,
         child: CompositedTransformFollower(
           link: layerLink,
           showWhenUnlinked: false,
@@ -127,8 +114,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
                     ],
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.fromLTRB(16, 9, 16, 8),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: UColors.ctaBlue,
@@ -136,7 +122,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
                     ),
                     child: UText(
                       text,
-                      textStyle: UTextStyle.B1_body,
+                      textStyle: UTextStyle.B2_medium,
                       textColor: UColors.white,
                     ),
                   ),
