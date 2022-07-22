@@ -14,13 +14,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _appToBuild = Apps.uiShowroom;
+    const _appToBuild = Apps.mainApp;
 
     return ChangeNotifierProvider(
       create: (context) => ThemeModel(),
       builder: (context, _) {
         final themeModel = context.watch<ThemeModel>();
-        return _appToBuild == Apps.mainApp
+        return _appToBuild == Apps.uiShowroom
             ? UIShowRoomApp(themeData: themeModel.getThemeData)
             : MaterialApp(
                 theme: themeModel.getThemeData,
