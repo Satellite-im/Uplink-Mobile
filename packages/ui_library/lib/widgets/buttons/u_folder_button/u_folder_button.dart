@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class UFolderButton extends StatelessWidget {
+class UFolderButton extends StatefulWidget {
   const UFolderButton({
     Key? key,
     required this.name,
@@ -19,6 +19,19 @@ class UFolderButton extends StatelessWidget {
   final bool? isDeleting;
 
   @override
+  State<UFolderButton> createState() => _UFolderButtonState();
+}
+
+class _UFolderButtonState extends State<UFolderButton> {
+  late bool isSelected;
+
+  @override
+  void initState() {
+    super.initState();
+    isSelected = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 168,
@@ -30,7 +43,7 @@ class UFolderButton extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Stack(
           children: [
-            if (isLinked == true)
+            if (widget.isLinked == true)
               const Align(
                 alignment: Alignment.topLeft,
                 child: UIcon(
@@ -38,7 +51,7 @@ class UFolderButton extends StatelessWidget {
                   color: UColors.textMed,
                 ),
               ),
-            if (isFavored == true)
+            if (widget.isFavored == true)
               const Align(
                 alignment: Alignment.topRight,
                 child: UIcon(
@@ -53,34 +66,62 @@ class UFolderButton extends StatelessWidget {
             ),
             Align(
                 alignment: Alignment.bottomLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    UText(
-                      name,
-                      textStyle: UTextStyle.H5_fifthHeader,
-                      textColor: UColors.white,
-                    ),
-                    itemNum > 1
-                        ? UText(
-                            '$itemNum items',
-                            textStyle: UTextStyle.M1_micro,
-                            textColor: UColors.textDark,
-                          )
-                        : UText(
-                            '$itemNum item',
-                            textStyle: UTextStyle.M1_micro,
-                            textColor: UColors.textDark,
-                          ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      UText(
+                        widget.name,
+                        textStyle: UTextStyle.H5_fifthHeader,
+                        textColor: UColors.white,
+                      ),
+                      widget.itemNum > 1
+                          ? UText(
+                              '${widget.itemNum} items',
+                              textStyle: UTextStyle.M1_micro,
+                              textColor: UColors.textDark,
+                            )
+                          : UText(
+                              '${widget.itemNum} item',
+                              textStyle: UTextStyle.M1_micro,
+                              textColor: UColors.textDark,
+                            ),
+                    ],
+                  ),
                 )),
-            if (isDeleting == true)
-              const Align(
+            if (widget.isDeleting == true)
+              Align(
                 alignment: Alignment.bottomRight,
-                child: UIcon(
-                  UIcons.remove,
-                  color: UColors.textMed,
+                child: AnimatedCrossFade(
+                  firstChild: GestureDetector(
+                    child: const UIcon(
+                      UIcons.tap_select_box,
+                      color: UColors.textMed,
+                    ),
+                    onTap: () {
+                      setState(() {
+                        isSelected = true;
+                      });
+                    },
+                  ),
+                  secondChild: GestureDetector(
+                    child: const UIcon(
+                      UIcons.checkmark_rounded,
+                      color: UColors.termRed,
+                    ),
+                    onTap: () {
+                      setState(() {
+                        isSelected = false;
+                      });
+                    },
+                  ),
+                  crossFadeState: isSelected
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: const Duration(milliseconds: 100),
+                  reverseDuration: const Duration(milliseconds: 100),
                 ),
               ),
           ],
