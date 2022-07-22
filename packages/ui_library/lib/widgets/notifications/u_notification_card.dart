@@ -55,7 +55,7 @@ class UNotificationCard extends StatelessWidget {
             USizes.uNotificationFriendRequestUpsideHeightSize,
         NotificationType.reactedComment: USizes.uNotificationStandardHeightSize,
         NotificationType.repliedComment: USizes.uNotificationStandardHeightSize,
-        NotificationType.link: 140.0,
+        NotificationType.link: USizes.uNotificationLinkUpsideHeightSize,
       };
       return _notificationTypeHeight[notificationType] ?? 40.0;
     }
@@ -72,11 +72,19 @@ class UNotificationCard extends StatelessWidget {
             if (uNotification.isUnread)
               UUserProfileNotification(
                 uImage: uNotification.uImage,
+                mainAxisAlignment: uNotification.notificationType ==
+                        NotificationType.friendRequest
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
               )
             else
               UUserProfile(
                 userProfileSize: _userProfileSize,
                 uImage: uNotification.uImage,
+                mainAxisAlignment: uNotification.notificationType ==
+                        NotificationType.friendRequest
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
               ),
             const SizedBox.square(
               dimension: _firstSizedBoxSize,
@@ -170,7 +178,7 @@ class UNotificationCard extends StatelessWidget {
                                 ULibraryStrings.uNotificationCard_handWave,
                                 maxLines: 1,
                                 textOverflow: TextOverflow.ellipsis,
-                                textStyle: UTextStyle.H2_secondaryHeader,
+                                textStyle: UTextStyle.M1_micro,
                                 textColor: UColors.textMed,
                                 textAlign: TextAlign.left,
                               ),

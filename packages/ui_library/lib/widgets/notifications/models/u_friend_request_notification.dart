@@ -36,9 +36,10 @@ class _UFriendRequestNotificationState
     );
   }
 
+  static const _spaceBetweenUpsideAndBottomSide = 8.0;
+
   @override
   Widget build(BuildContext context) {
-    //TODO(Lucas): Friend Request notification will change yet
     switch (_friendRequestState) {
       case _FriendRequestState.requested:
         return Column(
@@ -50,9 +51,11 @@ class _UFriendRequestNotificationState
               messagePrefixIcon: UIcons.add_contact_member,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
+              padding: const EdgeInsets.fromLTRB(
+                  52, _spaceBetweenUpsideAndBottomSide, 0, 0),
               child: SizedBox(
-                height: 40,
+                height: USizes.uNotificationFriendRequesBottomSideHeightSize -
+                    _spaceBetweenUpsideAndBottomSide,
                 child: Row(
                   children: [
                     UButton.filled1(
@@ -91,9 +94,11 @@ class _UFriendRequestNotificationState
               messagePrefixIcon: UIcons.friend_added,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
+              padding: const EdgeInsets.fromLTRB(
+                  52, _spaceBetweenUpsideAndBottomSide, 0, 0),
               child: SizedBox(
-                height: 40,
+                height: USizes.uNotificationFriendRequesBottomSideHeightSize -
+                    _spaceBetweenUpsideAndBottomSide,
                 child: UButton.filled1(
                   label: ULibraryStrings.uNotificationCard_startAConversation,
                   onPressed: () {},
@@ -105,6 +110,7 @@ class _UFriendRequestNotificationState
       case _FriendRequestState.declined:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             UNotificationCard(
               uNotification:
@@ -112,9 +118,11 @@ class _UFriendRequestNotificationState
               messagePrefixIcon: UIcons.remove_friend,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
+              padding: const EdgeInsets.fromLTRB(
+                  52, _spaceBetweenUpsideAndBottomSide, 0, 0),
               child: SizedBox(
-                height: 40,
+                height: USizes.uNotificationFriendRequesBottomSideHeightSize -
+                    _spaceBetweenUpsideAndBottomSide,
                 child: UButton.filled1(
                   label: ULibraryStrings.uNotificationCard_undo,
                   onPressed: () {

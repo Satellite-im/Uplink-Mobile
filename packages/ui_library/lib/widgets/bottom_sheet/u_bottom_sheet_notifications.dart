@@ -71,7 +71,7 @@ class _UBottomSheetNotificationsBody extends StatefulWidget {
 
 class _UBottomSheetNotificationsBodyState
     extends State<_UBottomSheetNotificationsBody> {
-  static const _sentLinkNotificationHeight = 128;
+  static const _sentLinkNotificationHeight = USizes.uNotificationLinkHeightSize;
 
   static const _spaceBetweenNotifications = 24;
 
@@ -85,7 +85,7 @@ class _UBottomSheetNotificationsBodyState
       USizes.uNotificationFriendRequestUpsideHeightSize +
           USizes.uNotificationFriendRequesBottomSideHeightSize;
 
-  static const _whenDateChangeSpace = 31;
+  static const _whenDateChangeSpace = 34;
 
   double _height = 0;
   double _widgetsHeigth = 0;

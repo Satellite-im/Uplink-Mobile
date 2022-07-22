@@ -73,6 +73,9 @@ class USizes {
   static const double uNotificationServerMessageHeightSize = 58.0;
   static const double uNotificationFriendRequestUpsideHeightSize = 59.0;
   static const double uNotificationFriendRequesBottomSideHeightSize = 48.0;
+  static const double uNotificationLinkHeightSize = 140.0;
+  static const double uNotificationLinkBottomSideHeightSize = 92.0;
+  static const double uNotificationLinkUpsideHeightSize = 40.0;
 
   // Width sizes for [Avatar Cards]
   static const double messageOnUnreadMessagesUserProfileCardWidthSize = 248;
