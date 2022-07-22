@@ -28,7 +28,7 @@ class _UFriendRequestNotificationState
       arrivalNotificationTime: widget.uNotification.arrivalNotificationTime,
       notificationType: widget.uNotification.notificationType,
       message: _friendRequestState == _FriendRequestState.requested
-          ? ULibraryStrings.uNotificationCard_sentYouAFriendRequest
+          ? ULibraryStrings.uNotificationCard_receivedAFriendRequest
           : _friendRequestState == _FriendRequestState.accepted
               ? ULibraryStrings.uNotificationCard_youAreNowFriends
               : ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest,
@@ -45,33 +45,38 @@ class _UFriendRequestNotificationState
           children: [
             UNotificationCard(
               uNotification: _uNotificationForDifferentState(
-                  _FriendRequestState.requested),
+                _FriendRequestState.requested,
+              ),
+              messagePrefixIcon: UIcons.add_contact_member,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-              child: Row(
-                children: [
-                  UButton.filled1(
-                    label: ULibraryStrings.uNotificationCard_decline,
-                    onPressed: () {
-                      setState(() {
-                        _friendRequestState = _FriendRequestState.declined;
-                      });
-                    },
-                    color: UColors.ctaDark,
-                  ),
-                  const SizedBox.square(
-                    dimension: 8,
-                  ),
-                  UButton.filled1(
-                    label: ULibraryStrings.uNotificationCard_accept,
-                    onPressed: () {
-                      setState(() {
-                        _friendRequestState = _FriendRequestState.accepted;
-                      });
-                    },
-                  ),
-                ],
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  children: [
+                    UButton.filled1(
+                      label: ULibraryStrings.uNotificationCard_decline,
+                      onPressed: () {
+                        setState(() {
+                          _friendRequestState = _FriendRequestState.declined;
+                        });
+                      },
+                      color: UColors.ctaDark,
+                    ),
+                    const SizedBox.square(
+                      dimension: 8,
+                    ),
+                    UButton.filled1(
+                      label: ULibraryStrings.uNotificationCard_accept,
+                      onPressed: () {
+                        setState(() {
+                          _friendRequestState = _FriendRequestState.accepted;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             )
           ],
@@ -87,9 +92,12 @@ class _UFriendRequestNotificationState
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-              child: UButton.filled1(
-                label: ULibraryStrings.uNotificationCard_startAConversation,
-                onPressed: () {},
+              child: SizedBox(
+                height: 40,
+                child: UButton.filled1(
+                  label: ULibraryStrings.uNotificationCard_startAConversation,
+                  onPressed: () {},
+                ),
               ),
             )
           ],
@@ -105,13 +113,16 @@ class _UFriendRequestNotificationState
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-              child: UButton.filled1(
-                label: ULibraryStrings.uNotificationCard_undo,
-                onPressed: () {
-                  setState(() {
-                    _friendRequestState = _FriendRequestState.requested;
-                  });
-                },
+              child: SizedBox(
+                height: 40,
+                child: UButton.filled1(
+                  label: ULibraryStrings.uNotificationCard_undo,
+                  onPressed: () {
+                    setState(() {
+                      _friendRequestState = _FriendRequestState.requested;
+                    });
+                  },
+                ),
               ),
             ),
           ],

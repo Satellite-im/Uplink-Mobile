@@ -35,7 +35,7 @@ class MockNotification {
         break;
       case 'friend_request':
         notificationType = NotificationType.friendRequest;
-        message = ULibraryStrings.uNotificationCard_sentYouAFriendRequest;
+        message = ULibraryStrings.uNotificationCard_receivedAFriendRequest;
         break;
       case 'replied_comment':
         notificationType = NotificationType.repliedComment;

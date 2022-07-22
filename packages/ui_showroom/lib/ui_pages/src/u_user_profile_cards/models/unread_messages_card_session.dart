@@ -55,7 +55,7 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
             uMessage: UMessage(
               message:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
-              arrivalMessageTime: DateTime(2022, 05, 10, 09, 30),
+              arrivalMessageTime: DateTime(2020, 09, 09, 09, 30),
             ),
             unreadMessages: 1,
           ),

@@ -44,7 +44,7 @@ class _USentMessageNotificationState extends State<_USentMessageNotification> {
                   username: widget.uNotification.username,
                   arrivalNotificationTime:
                       widget.uNotification.arrivalNotificationTime,
-                  notificationType: widget.uNotification.notificationType,
+                  notificationType: NotificationType.message,
                   message: ULibraryStrings.uNotification_sentYouAMessage,
                   uImage: widget.uNotification.uImage,
                 ),
@@ -69,7 +69,7 @@ class _USentMessageNotificationState extends State<_USentMessageNotification> {
                     username: widget.uNotification.username,
                     arrivalNotificationTime:
                         widget.uNotification.arrivalNotificationTime,
-                    notificationType: widget.uNotification.notificationType,
+                    notificationType: NotificationType.link,
                     message: ULibraryStrings.uNotification_sentYouALink,
                     uImage: widget.uNotification.uImage,
                   ),

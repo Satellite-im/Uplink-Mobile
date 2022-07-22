@@ -11,6 +11,7 @@ part 'models/u_sent_link_notification.dart';
 enum NotificationType {
   repliedComment,
   message,
+  link,
   reactedComment,
   friendRequest,
   serverMessage,
@@ -70,6 +71,7 @@ class _UNotificationState extends State<UNotification> {
         return UNotificationCard(
           uNotification: widget,
         );
+      case NotificationType.link:
       case NotificationType.message:
         return _USentMessageNotification(
           uNotification: widget,

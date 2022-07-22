@@ -72,11 +72,21 @@ class _UBottomSheetNotificationsBody extends StatefulWidget {
 class _UBottomSheetNotificationsBodyState
     extends State<_UBottomSheetNotificationsBody> {
   static const _sentLinkNotificationHeight = 128;
+
   static const _spaceBetweenNotifications = 24;
-  static const _otherNotificationHeight = 40;
-  static const _serverNotificationHeight = 52;
-  static const _friendRequestHeight = 96;
+
+  static const _otherNotificationHeight =
+      USizes.uNotificationStandardHeightSize;
+
+  static const _serverNotificationHeight =
+      USizes.uNotificationServerMessageHeightSize;
+
+  static const _friendRequestHeight =
+      USizes.uNotificationFriendRequestUpsideHeightSize +
+          USizes.uNotificationFriendRequesBottomSideHeightSize;
+
   static const _whenDateChangeSpace = 31;
+
   double _height = 0;
   double _widgetsHeigth = 0;
 
@@ -145,8 +155,8 @@ class _UBottomSheetNotificationsBodyState
   void didChangeDependencies() {
     final _factorToGetAvailableSpaceInBottomSheet =
         (MediaQuery.of(context).size.height *
-                _kScreenPercentageAvailavleForBottomSheet) -
-            113;
+                _kScreenPercentageAvailavleForBottomSheet -
+            113);
     _calculateTheHeightOfUNotifications(
       _factorToGetAvailableSpaceInBottomSheet,
     );
@@ -156,7 +166,7 @@ class _UBottomSheetNotificationsBodyState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: _widgetsHeigth + 120,
+      height: _widgetsHeigth + 123,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onVerticalDragUpdate: (details) {

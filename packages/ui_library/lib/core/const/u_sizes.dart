@@ -68,6 +68,12 @@ class USizes {
   // Sizes for [UNavDrawerUserProfileCard]
   static const double uNavDrawerUserProfileCardHeightSize = 88.0;
 
+  // Sizes for [UNotificationCard]
+  static const double uNotificationStandardHeightSize = 40.0;
+  static const double uNotificationServerMessageHeightSize = 58.0;
+  static const double uNotificationFriendRequestUpsideHeightSize = 59.0;
+  static const double uNotificationFriendRequesBottomSideHeightSize = 48.0;
+
   // Width sizes for [Avatar Cards]
   static const double messageOnUnreadMessagesUserProfileCardWidthSize = 248;
   static const double messageOnUserProfileCardWidthSize = 270;
@@ -88,6 +94,7 @@ class USizes {
   static const double switcherTotalHeight = 20.0;
   static const double switcherTotalWidth = 36.0;
   static const double switcherTrackHeight = 16.0;
+
   // Sizes for [UDropDownMenu]
   static const double dropDownMenuButtonHeight = 40;
   static const double dropDownMenuItemHeight = 48;
@@ -101,6 +108,7 @@ class USizes {
   // Sizes for [UUserPictureChange]
   static const double userPictureChangeSize = 100.0;
   static const double userPictureChangeAddButtonSize = 24.0;
+
   // Sizes for [LoadingIndicator]
   static const double loadingIndicatorHeight = 6.0;
 }

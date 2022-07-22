@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ui_showroom/ui_showroom_page.dart';
 import 'package:uplink/app/app.dart';
 
 void main() {
