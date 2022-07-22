@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
-class UImageButton extends StatelessWidget {
+class UImageButton extends StatefulWidget {
   const UImageButton({
     Key? key,
     required this.uImage,
@@ -16,13 +16,26 @@ class UImageButton extends StatelessWidget {
   final bool? isDeleting;
 
   @override
+  State<UImageButton> createState() => _UImageButtonState();
+}
+
+class _UImageButtonState extends State<UImageButton> {
+  late bool isSelected;
+
+  @override
+  void initState() {
+    super.initState();
+    isSelected = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 168,
       width: 160,
       child: Stack(children: [
         ClipRRect(
-          child: uImage,
+          child: widget.uImage,
           borderRadius: BorderRadius.circular(4),
         ),
         Align(
@@ -30,7 +43,7 @@ class UImageButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-                if (isLinked == true)
+                if (widget.isLinked == true)
                   const Align(
                     alignment: Alignment.topLeft,
                     child: UIcon(
@@ -38,7 +51,7 @@ class UImageButton extends StatelessWidget {
                       color: UColors.textMed,
                     ),
                   ),
-                if (isFavored == true)
+                if (widget.isFavored == true)
                   const Align(
                     alignment: Alignment.topRight,
                     child: UIcon(
@@ -46,12 +59,37 @@ class UImageButton extends StatelessWidget {
                       color: UColors.textMed,
                     ),
                   ),
-                if (isDeleting == true)
-                  const Align(
+                if (widget.isDeleting == true)
+                  Align(
                     alignment: Alignment.bottomRight,
-                    child: UIcon(
-                      UIcons.remove,
-                      color: UColors.textMed,
+                    child: AnimatedCrossFade(
+                      firstChild: GestureDetector(
+                        child: const UIcon(
+                          UIcons.tap_select_box,
+                          color: UColors.textMed,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            isSelected = true;
+                          });
+                        },
+                      ),
+                      secondChild: GestureDetector(
+                        child: const UIcon(
+                          UIcons.checkmark_rounded,
+                          color: UColors.termRed,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            isSelected = false;
+                          });
+                        },
+                      ),
+                      crossFadeState: isSelected
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: const Duration(milliseconds: 100),
+                      reverseDuration: const Duration(milliseconds: 100),
                     ),
                   ),
               ],
