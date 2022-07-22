@@ -63,12 +63,14 @@ class USizes {
       42.0;
 
   // Sizes for [UnreadMessagesUserProfileCard]
+  static const double uUnreadMessagesUserProfileCardDateTextWidthSize = 62.0;
   static const double unreadMessagesUserProfileCardWidthSize = 58.0;
 
   // Sizes for [UNavDrawerUserProfileCard]
   static const double uNavDrawerUserProfileCardHeightSize = 88.0;
 
   // Sizes for [UNotificationCard]
+  static const double uNotificationDateTextWidthSize = 62.0;
   static const double uNotificationStandardHeightSize = 40.0;
   static const double uNotificationServerMessageHeightSize = 58.0;
   static const double uNotificationFriendRequestUpsideHeightSize = 59.0;

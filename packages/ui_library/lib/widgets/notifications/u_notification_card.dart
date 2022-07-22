@@ -104,7 +104,7 @@ class UNotificationCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 62,
+                        width: USizes.uNotificationDateTextWidthSize,
                         child: UText(
                           _lastMessageArrivalTime,
                           textStyle: UTextStyle.M1_micro,
