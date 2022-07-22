@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class UImageButton extends StatefulWidget {
+  ///Used in file session to preview image
+  ///
+  ///When [isDeleting] set to ture, it will show a checkbox
+  ///
+  ///You can use [isSelected] in UImageButtonState to get it is checked or not
+  ///
+  ///All the boolean properties are false by default
   const UImageButton({
     Key? key,
     required this.uImage,
@@ -16,10 +23,10 @@ class UImageButton extends StatefulWidget {
   final bool? isDeleting;
 
   @override
-  State<UImageButton> createState() => _UImageButtonState();
+  State<UImageButton> createState() => UImageButtonState();
 }
 
-class _UImageButtonState extends State<UImageButton> {
+class UImageButtonState extends State<UImageButton> {
   late bool isSelected;
 
   @override
