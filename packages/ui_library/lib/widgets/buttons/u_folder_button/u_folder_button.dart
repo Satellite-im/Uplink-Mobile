@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class UFolderButton extends StatefulWidget {
+  ///Used in file session to represent a folder
+  ///
+  ///When [isDeleting] set to ture, it will show a checkbox
+  ///
+  ///You can use [isSelected] in UFolderButtonState to get it is checked or not
+  ///
+  ///All the boolean properties are false by default
   const UFolderButton({
     Key? key,
     required this.name,
@@ -19,10 +26,10 @@ class UFolderButton extends StatefulWidget {
   final bool? isDeleting;
 
   @override
-  State<UFolderButton> createState() => _UFolderButtonState();
+  State<UFolderButton> createState() => UFolderButtonState();
 }
 
-class _UFolderButtonState extends State<UFolderButton> {
+class UFolderButtonState extends State<UFolderButton> {
   late bool isSelected;
 
   @override
