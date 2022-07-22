@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       create: (context) => ThemeModel(),
       builder: (context, _) {
         final themeModel = context.watch<ThemeModel>();
-        return _appToBuild == Apps.uiShowroom
+        return _appToBuild == Apps.mainApp
             ? UIShowRoomApp(themeData: themeModel.getThemeData)
             : MaterialApp(
                 theme: themeModel.getThemeData,
