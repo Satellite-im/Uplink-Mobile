@@ -5,13 +5,18 @@ import 'package:given_when_then_unit_test/given_when_then_unit_test.dart';
 import 'package:shouldly/shouldly.dart';
 
 void main() {
+  given('UTextStyles - text style\'s values', () {
+    then(
+      'Number of text styles should be 12',
+      () => UTextStyle.values.length.should.be(12),
+    );
+  });
   given('H1_primaryHeader UTextStyles - text style\'s values', () {
-    then('Number of text styles should be 12',
-        () => UTextStyle.values.length.should.be(12),
+    then(
+        'H1_primaryHeader fontFamily style should be correct',
+        () =>
+            UTextStyle.H1_primaryHeader.style.fontFamily.should.be('SpaceMono'),
         and: {
-          'H1_primaryHeader fontFamily style should be correct': () =>
-              UTextStyle.H1_primaryHeader.style.fontFamily.should
-                  .be('SpaceMono'),
           'H1_primaryHeader fontSize style should be correct': () =>
               UTextStyle.H1_primaryHeader.style.fontSize.should.be(18.0),
           'H1_primaryHeader fontWeight style should be correct': () =>
