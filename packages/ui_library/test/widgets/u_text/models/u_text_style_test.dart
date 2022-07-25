@@ -5,24 +5,30 @@ import 'package:given_when_then_unit_test/given_when_then_unit_test.dart';
 import 'package:shouldly/shouldly.dart';
 
 void main() {
-  given('UTextStyles - text style\'s values', () {
+  given('H1_primaryHeader UTextStyles - text style\'s values', () {
     then('Number of text styles should be 12',
         () => UTextStyle.values.length.should.be(12),
         and: {
-          'H1 Primary Header fontFamily style should be correct': () =>
+          'H1_primaryHeader fontFamily style should be correct': () =>
               UTextStyle.H1_primaryHeader.style.fontFamily.should
                   .be('SpaceMono'),
-          'H1 Primary Header fontSize style should be correct': () =>
+          'H1_primaryHeader fontSize style should be correct': () =>
               UTextStyle.H1_primaryHeader.style.fontSize.should.be(18.0),
-          'H1 Primary Header fontWeight style should be correct': () =>
+          'H1_primaryHeader fontWeight style should be correct': () =>
               UTextStyle.H1_primaryHeader.style.fontWeight.should
                   .be(FontWeight.w700),
-          'H1 Primary Header style should be correct': () => UTextStyle
+          'H1_primaryHeader style should be correct': () => UTextStyle
               .H1_primaryHeader.style.fontStyle.should
               .be(FontStyle.normal),
-          'H1 Primary Header color style should be correct': () => UTextStyle
+          'H1_primaryHeader color style should be correct': () => UTextStyle
               .H1_primaryHeader.style.color.should
               .be(UColors.textMed),
+        });
+  });
+  given('H2_secondaryHeader UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'H2_secondaryHeader fontFamily should be correct': () => UTextStyle
               .H2_secondaryHeader.style.fontFamily.should
               .be('Poppins'),
@@ -37,6 +43,12 @@ void main() {
           'H2_secondaryHeader color should be correct': () => UTextStyle
               .H2_secondaryHeader.style.color.should
               .be(UColors.white),
+        });
+  });
+  given('H3_tertiaryHeader UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'H3_tertiaryHeader fontFamily should be correct': () => UTextStyle
               .H3_tertiaryHeader.style.fontFamily.should
               .be('SpaceMono'),
@@ -51,6 +63,12 @@ void main() {
           'H3_tertiaryHeader color should be correct': () => UTextStyle
               .H3_tertiaryHeader.style.color.should
               .be(UColors.textMed),
+        });
+  });
+  given('H4_fourthHeader UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'H4_fourthHeader fontFamily should be correct': () => UTextStyle
               .H4_fourthHeader.style.fontFamily.should
               .be('SpaceMono'),
@@ -64,6 +82,12 @@ void main() {
               .be(FontStyle.normal),
           'H4_fourthHeader color should be correct': () =>
               UTextStyle.H4_fourthHeader.style.color.should.be(UColors.white),
+        });
+  });
+  given('H5_fifthHeader UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'H5_fifthHeader fontFamily should be correct': () =>
               UTextStyle.H5_fifthHeader.style.fontFamily.should.be('Poppins'),
           'H5_fifthHeader fontSize should be correct': () =>
@@ -76,6 +100,12 @@ void main() {
               .be(FontStyle.normal),
           'H5_fifthHeader color should be correct': () =>
               UTextStyle.H5_fifthHeader.style.color.should.be(UColors.textMed),
+        });
+  });
+  given('B1_body UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'B1_body fontFamily should be correct': () =>
               UTextStyle.B1_body.style.fontFamily.should.be('Poppins'),
           'B1_body fontSize should be correct': () =>
@@ -86,6 +116,12 @@ void main() {
               UTextStyle.B1_body.style.fontStyle.should.be(FontStyle.normal),
           'B1_body color should be correct': () =>
               UTextStyle.B1_body.style.color.should.be(UColors.white),
+        });
+  });
+  given('B2_medium UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'B2_medium fontFamily should be correct': () =>
               UTextStyle.B2_medium.style.fontFamily.should.be('Poppins'),
           'B2_medium fontSize should be correct': () =>
@@ -96,6 +132,12 @@ void main() {
               UTextStyle.B2_medium.style.fontStyle.should.be(FontStyle.normal),
           'B2_medium color should be correct': () =>
               UTextStyle.B2_medium.style.color.should.be(UColors.white),
+        });
+  });
+  given('B3_bold UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'B3_bold fontFamily should be correct': () =>
               UTextStyle.B3_bold.style.fontFamily.should.be('Poppins'),
           'B3_bold fontSize should be correct': () =>
@@ -106,6 +148,12 @@ void main() {
               UTextStyle.B3_bold.style.fontStyle.should.be(FontStyle.normal),
           'B3_bold color should be correct': () =>
               UTextStyle.B3_bold.style.color.should.be(UColors.white),
+        });
+  });
+  given('B4_italics UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'B4_italics fontFamily should be correct': () =>
               UTextStyle.B4_italics.style.fontFamily.should.be('Poppins'),
           'B4_italics fontSize should be correct': () =>
@@ -116,6 +164,12 @@ void main() {
               UTextStyle.B4_italics.style.fontStyle.should.be(FontStyle.italic),
           'B4_italics color should be correct': () =>
               UTextStyle.B4_italics.style.color.should.be(UColors.white),
+        });
+  });
+  given('M1_micro UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'M1_micro fontFamily should be correct': () =>
               UTextStyle.M1_micro.style.fontFamily.should.be('Poppins'),
           'M1_micro fontSize should be correct': () =>
@@ -126,6 +180,12 @@ void main() {
               UTextStyle.M1_micro.style.fontStyle.should.be(FontStyle.normal),
           'M1_micro color should be correct': () =>
               UTextStyle.M1_micro.style.color.should.be(UColors.textDark),
+        });
+  });
+  given('BUT1_primaryButton UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'BUT1_primaryButton fontFamily should be correct': () => UTextStyle
               .BUT1_primaryButton.style.fontFamily.should
               .be('Poppins'),
@@ -140,6 +200,12 @@ void main() {
           'BUT1_primaryButton color should be correct': () => UTextStyle
               .BUT1_primaryButton.style.color.should
               .be(UColors.white),
+        });
+  });
+  given('BUT2_secondaryButton UTextStyles - text style\'s values', () {
+    then('Number of text styles should be 12',
+        () => UTextStyle.values.length.should.be(12),
+        and: {
           'BUT2_secondaryButton fontFamily should be correct': () => UTextStyle
               .BUT2_secondaryButton.style.fontFamily.should
               .be('Poppins'),
