@@ -14,7 +14,8 @@ void main() {
 
         const expectedCounter = false;
         final actualCounter = await uLocalStorageDevice.getBoolValue(
-            localKey: ULocalKey.isUserLogged);
+          localKey: ULocalKey.isUserLogged,
+        );
 
         expect(actualCounter, expectedCounter);
         await sharedPreferences.clear();
@@ -30,9 +31,12 @@ void main() {
 
         const expectedCounter = true;
         await uLocalStorageDevice.saveBoolValue(
-            localKey: ULocalKey.isUserLogged, value: true);
+          localKey: ULocalKey.isUserLogged,
+          value: true,
+        );
         final actualCounter = await uLocalStorageDevice.getBoolValue(
-            localKey: ULocalKey.isUserLogged);
+          localKey: ULocalKey.isUserLogged,
+        );
 
         expect(actualCounter, expectedCounter);
         // Should be true rather than false, because it has been set.
