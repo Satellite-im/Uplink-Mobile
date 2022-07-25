@@ -4,44 +4,36 @@ import 'package:uplink/utils/services/local_storage_service.dart';
 
 void main() {
   group('ULocalStorageService', () {
-    group('getBoolValue', () {
-      test('return default value for getBoolValue', () async {
-        SharedPreferences.setMockInitialValues({});
-
-        final sharedPreferences = await SharedPreferences.getInstance();
-
-        final uLocalStorageDevice = ULocalStorageService();
-
-        const expectedCounter = false;
-        final actualCounter = await uLocalStorageDevice.getBoolValue(
-          localKey: ULocalKey.isUserLogged,
-        );
-
-        expect(actualCounter, expectedCounter);
-        await sharedPreferences.clear();
+    test('return correct boolean value for getBoolValue', () async {
+      SharedPreferences.setMockInitialValues({
+        ULocalKey.isUserLogged.name: true,
       });
+
+      final uLocalStorageDevice = ULocalStorageService();
+
+      const expectedTrue = true;
+      final _isUserLogged = await uLocalStorageDevice.getBoolValue(
+        localKey: ULocalKey.isUserLogged,
+      );
+
+      expect(_isUserLogged, expectedTrue);
     });
-    group('saveBoolValue', () {
-      test('return newly set value with saveBoolValue', () async {
-        SharedPreferences.setMockInitialValues({});
+    test('return correct value after saveBoolValue is called to set', () async {
+      SharedPreferences.setMockInitialValues({});
 
-        final sharedPreferences = await SharedPreferences.getInstance();
+      final uLocalStorageDevice = ULocalStorageService();
 
-        final uLocalStorageDevice = ULocalStorageService();
+      const _expectedFalse = false;
+      await uLocalStorageDevice.saveBoolValue(
+        localKey: ULocalKey.isPinStored,
+        value: false,
+      );
+      final _isPinStored = await uLocalStorageDevice.getBoolValue(
+        localKey: ULocalKey.isPinStored,
+      );
 
-        const expectedCounter = true;
-        await uLocalStorageDevice.saveBoolValue(
-          localKey: ULocalKey.isUserLogged,
-          value: true,
-        );
-        final actualCounter = await uLocalStorageDevice.getBoolValue(
-          localKey: ULocalKey.isUserLogged,
-        );
-
-        expect(actualCounter, expectedCounter);
-        // Should be true rather than false, because it has been set.
-        await sharedPreferences.clear();
-      });
+      expect(_isPinStored, _expectedFalse);
+      // Should be true rather than false, because it has been set.
     });
   });
 }
