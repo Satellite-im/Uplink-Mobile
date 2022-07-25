@@ -18,16 +18,13 @@ class ULogoutButton extends StatelessWidget {
         color: UColors.textMed,
         size: UIconSize.small,
       ),
-      label: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          SizedBox(width: 8),
-          UText(
-            ULibraryStrings.uButtonLogout,
-            textStyle: UTextStyle.B2_medium,
-            textColor: UColors.textMed,
-          ),
-        ],
+      label: const Padding(
+        padding: EdgeInsets.only(left: 8),
+        child: UText(
+          ULibraryStrings.uButtonLogout,
+          textStyle: UTextStyle.B2_medium,
+          textColor: UColors.textMed,
+        ),
       ),
     );
   }
