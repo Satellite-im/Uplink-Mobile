@@ -77,7 +77,6 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                     }
                   },
                 ),
-                const SizedBox(height: 8),
                 UButton.secondary(
                   label: UAppStrings.recoverySeedPage_screenshotButton,
                   uIconData: UIcons.camera,

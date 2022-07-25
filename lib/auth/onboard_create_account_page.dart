@@ -52,7 +52,6 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                       );
                     },
                   ),
-                  const SizedBox(height: 8),
                   UButton.secondary(
                     label: UAppStrings.createAccountPage_importAccountButton,
                     uIconData: UIcons.import,

@@ -116,6 +116,15 @@ class UButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? getBGColor(Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        if (_color != null) {
+          return _color;
+        } else if ((_buttonType == _ButtonType.primary) ||
+            (_buttonType == _ButtonType.filled1)) {
+          return UColors.ctaBlue;
+        }
+        return UColors.ctaDark;
+      }
       if (_color != null) {
         return _color;
       } else if ((_buttonType == _ButtonType.primary) ||
@@ -126,6 +135,14 @@ class UButton extends StatelessWidget {
     }
 
     EdgeInsetsGeometry? getPadding(Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        if ((_buttonType == _ButtonType.primary) ||
+            (_buttonType == _ButtonType.secondary)) {
+          return const EdgeInsets.fromLTRB(16, 8, 24, 8);
+        }
+        return const EdgeInsets.fromLTRB(24, 13, 24, 12);
+      }
+
       if ((_buttonType == _ButtonType.primary) ||
           (_buttonType == _ButtonType.secondary)) {
         return const EdgeInsets.fromLTRB(16, 8, 24, 8);

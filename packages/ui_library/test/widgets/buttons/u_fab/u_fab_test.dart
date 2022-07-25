@@ -25,10 +25,10 @@ void main() {
       tags: 'golden',
     );
     testWidgets(
-      'UFAB.large',
+      'UFAB.big',
       (tester) async {
         await tester.pumpWidget(
-            GoldenTestWidgetPage(widget: UFAB.large(onPressed: () {})));
+            GoldenTestWidgetPage(widget: UFAB.big(onPressed: () {})));
         await expectLater(
             find.byType(UFAB), matchesGoldenFile('goldens/u_fab_big.png'));
       },
