@@ -10,7 +10,7 @@ void main() {
       final _mainAppPageOrUIShowroomPage = find.byWidgetPredicate(
         (widget) => widget is MaterialApp || widget is UIShowRoomApp,
       );
-      expect(_mainAppPageOrUIShowroomPage, findsOneWidget);
+      expect(_mainAppPageOrUIShowroomPage, findsWidgets);
     });
   });
 }
