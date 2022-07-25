@@ -10,9 +10,9 @@ Map<String, Widget> uFABMap = {
     onPressed: () {},
     key: const Key('UFAB.ios'),
   ),
-  'UFAB.big': UFAB.big(
+  'UFAB.large': UFAB.large(
     onPressed: () {},
-    key: const Key('UFAB.big'),
+    key: const Key('UFAB.large'),
   ),
 };
 
