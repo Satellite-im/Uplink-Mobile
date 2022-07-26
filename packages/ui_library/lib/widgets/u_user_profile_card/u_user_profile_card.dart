@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/global/username/username.dart';
 
-class UserProfileCard extends StatelessWidget {
+class UUserProfileCard extends StatelessWidget {
   /// Creates a card with [UUserProfileWithStatus], username and a message
-  const UserProfileCard({
+  const UUserProfileCard({
     Key? key,
     required Status status,
     required String username,

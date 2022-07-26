@@ -4,9 +4,9 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 import 'package:ui_library/widgets/global/username/username.dart';
 
-class UnreadMessagesUserProfileCard extends StatelessWidget {
+class UUnreadMessagesUserProfileCard extends StatelessWidget {
   /// Creates a card with [UUserProfileWithStatus], username, message and [UnreadMessagesIndicator]
-  const UnreadMessagesUserProfileCard({
+  const UUnreadMessagesUserProfileCard({
     Key? key,
     required Status status,
     required this.username,

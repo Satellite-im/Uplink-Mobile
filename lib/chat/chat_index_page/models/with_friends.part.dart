@@ -46,7 +46,7 @@ class _WithFriends extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: UnreadMessagesUserProfileCard(
+            child: UUnreadMessagesUserProfileCard(
               status: _friend.status,
               username: _friend.username,
               uMessage: _friend.uMessage,
