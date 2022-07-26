@@ -81,6 +81,7 @@ class UserProfilePageState extends State<UserProfilePage>
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         body: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           controller: controller,
           slivers: [
             if (showHomeIndicator == true)
