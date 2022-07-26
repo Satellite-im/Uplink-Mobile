@@ -44,7 +44,7 @@ class UFAB extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           backgroundColor: UColors.ctaBlue,
           foregroundColor: UColors.white,
-          child: const UIcon(UIcons.add_button),
+          child: const UIcon(UIcons.add),
           onPressed: _onPressed,
         );
       case _FABType.ios:
@@ -52,7 +52,7 @@ class UFAB extends StatelessWidget {
           heroTag: key,
           backgroundColor: UColors.ctaBlue,
           foregroundColor: UColors.white,
-          child: const UIcon(UIcons.add_button),
+          child: const UIcon(UIcons.add),
           onPressed: _onPressed,
         );
       case _FABType.large:

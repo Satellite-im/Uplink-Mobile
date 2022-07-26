@@ -35,7 +35,7 @@ class NoFriendBody extends StatelessWidget {
           ],
           UButton.primary(
             label: UAppStrings.noFriendBody_addFriend,
-            uIconData: UIcons.add_contact_member,
+            uIconData: UIcons.add_contact,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute<void>(

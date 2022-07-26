@@ -35,7 +35,7 @@ class _SendMessageButton extends StatelessWidget {
                   onTextSubmitted.call();
                 },
                 child: const UIcon(
-                  UIcons.chatbar_send_button,
+                  UIcons.chatbar_send,
                   color: UColors.ctaBlue,
                 ),
               ),

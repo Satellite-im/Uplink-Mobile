@@ -157,7 +157,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       firstButtonText: UAppStrings.goBackButton,
       secondButtonText: UAppStrings.createProfilePage_allDoneButton,
       firstButtonIcon: UIcons.go_back,
-      secondButtonIcon: UIcons.checkmark_rounded,
+      secondButtonIcon: UIcons.checkmark_2,
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
       },

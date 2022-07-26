@@ -31,7 +31,7 @@ class ChatSearch extends SearchCustomDelegate<MockContactsChat?> {
         close(context, null);
       },
       icon: const UIcon(
-        UIcons.back_arrow_button,
+        UIcons.back_arrow,
         color: UColors.textMed,
       ),
     );

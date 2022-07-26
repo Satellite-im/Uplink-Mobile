@@ -191,7 +191,7 @@ class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
         ),
         IconButton(
           icon: const UIcon(
-            UIcons.menu_bar_notifications,
+            UIcons.notifications,
             color: UColors.textMed,
           ),
           onPressed: () async {
@@ -218,7 +218,7 @@ class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
         ),
         IconButton(
           icon: const UIcon(
-            UIcons.compose_message_button,
+            UIcons.compose_message,
             color: UColors.textMed,
           ),
           onPressed: () async {},

@@ -104,7 +104,7 @@ class FriendRequestListTile extends StatelessWidget {
         shape: const CircleBorder(),
       ),
       child: IconButton(
-        icon: UIcon(type == true ? UIcons.checkmark : UIcons.close_button),
+        icon: UIcon(type == true ? UIcons.checkmark_1 : UIcons.close),
         color: UColors.white,
         onPressed: onTap,
       ),

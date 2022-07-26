@@ -583,7 +583,7 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
                             widget.delegate._queryTextController.clear();
                           },
                           icon: const UIcon(
-                            UIcons.close_button,
+                            UIcons.close,
                             color: UColors.textDark,
                           ),
                         )

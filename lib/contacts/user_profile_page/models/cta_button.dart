@@ -25,7 +25,7 @@ class CTAButton extends StatelessWidget {
     }
     return UButton.primary(
       label: UAppStrings.addFriend,
-      uIconData: UIcons.add_contact_member,
+      uIconData: UIcons.add_contact,
       onPressed: () {
         // TODO(laterYijing): add button action
       },
@@ -54,7 +54,7 @@ class _TwoButtonsRow extends StatelessWidget {
         Expanded(
           child: UButton.primary(
             label: UAppStrings.addFriend,
-            uIconData: UIcons.add_contact_member,
+            uIconData: UIcons.add_contact,
             onPressed: () {},
             disabled: disabled,
           ),

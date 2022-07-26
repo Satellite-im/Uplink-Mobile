@@ -40,7 +40,7 @@ class _WithoutFriendsYet extends StatelessWidget {
             width: double.infinity,
             child: UButton.primary(
               label: UAppStrings.chatIndexPage_addFriendButton,
-              uIconData: UIcons.add_contact_member,
+              uIconData: UIcons.add_contact,
               onPressed: () {},
             ),
           ),

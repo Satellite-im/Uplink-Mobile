@@ -64,7 +64,7 @@ class _ULoadingPageState extends State<ULoadingPage> {
               Center(
                 child: UButton.secondary(
                   label: 'UActionLoading',
-                  uIconData: UIcons.link_button,
+                  uIconData: UIcons.link,
                   onPressed: () async {
                     _isLoading.value = true;
                     setState(() {});

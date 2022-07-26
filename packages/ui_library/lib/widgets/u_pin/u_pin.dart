@@ -215,7 +215,7 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                           width: USizes.pinButtonSize,
                           height: USizes.pinButtonSize,
                           child: const UIcon(
-                            UIcons.pin_entry_backspace_button,
+                            UIcons.pin_entry_backspace,
                             color: UColors.white,
                           )),
                     ),
@@ -234,7 +234,7 @@ class UPinState extends State<UPin> with TickerProviderStateMixin {
                             child: Opacity(
                                 opacity: _rightButtonOpacityAnimation.value,
                                 child: const UIcon(
-                                  UIcons.checkmark_rounded,
+                                  UIcons.checkmark_2,
                                   color: UColors.ctaBlue,
                                 ))))
                   ],

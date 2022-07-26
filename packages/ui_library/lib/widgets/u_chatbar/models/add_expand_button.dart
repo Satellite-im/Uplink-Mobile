@@ -50,7 +50,7 @@ class _AddExpandButton extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.only(right: 16.0),
                     child: UIcon(
-                      UIcons.right_arrow_inline_button,
+                      UIcons.right_arrow_inline_row,
                       color: UColors.ctaBlue,
                     ),
                   ),

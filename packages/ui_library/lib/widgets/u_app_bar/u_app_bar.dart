@@ -101,7 +101,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: (_leading == null)
           ? IconButton(
               icon: UIcon(
-                UIcons.back_arrow_button,
+                UIcons.back_arrow,
                 color: _backIconColor ?? UColors.textMed,
               ),
               onPressed: () async {

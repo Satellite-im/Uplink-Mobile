@@ -164,7 +164,7 @@ class _PinOption extends StatelessWidget {
               opacity: _valueToAnimate,
               duration: _animationDuration,
               child: const UIcon(
-                UIcons.checkmark,
+                UIcons.checkmark_1,
                 color: UColors.ctaBlue,
               ),
             ),

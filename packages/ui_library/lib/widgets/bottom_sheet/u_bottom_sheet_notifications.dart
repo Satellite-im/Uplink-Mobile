@@ -181,7 +181,7 @@ class _UBottomSheetNotificationsBodyState
                 child: Row(
                   children: const [
                     UIcon(
-                      UIcons.menu_bar_notifications,
+                      UIcons.notifications,
                     ),
                     SizedBox.square(
                       dimension: 18,

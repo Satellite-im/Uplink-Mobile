@@ -33,7 +33,7 @@ class UBottomSheetOptionsPage extends StatelessWidget {
                       titleList: ['Switch Account', 'New Account'],
                       iconList: [
                         UIcons.multiple_accounts,
-                        UIcons.add_contact_member
+                        UIcons.add_contact,
                       ],
                       onTapList: [
                         () {

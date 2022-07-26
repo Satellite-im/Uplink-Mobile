@@ -33,15 +33,15 @@ class UAppBarPage extends StatelessWidget {
               title: 'UAppBar.actions',
               widget: UAppBar.actions(title: 'Username', actionList: [
                 IconButton(
-                  icon: const UIcon(UIcons.call),
+                  icon: const UIcon(UIcons.voice_call),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: const UIcon(UIcons.video_call_button),
+                  icon: const UIcon(UIcons.video_call),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: const UIcon(UIcons.pinned_message_button),
+                  icon: const UIcon(UIcons.pinned_message),
                   onPressed: () {},
                 ),
               ])),
