@@ -14,11 +14,10 @@ void main() {
           'UIcon account_id should return correct HEX': () => UIcons
               .account_id.should
               .be(const UIconData(0xe901, uFontFamily: 'UIcons')),
-          'UIcon add_button should return correct HEX': () => UIcons
-              .add_button.should
+          'UIcon add should return correct HEX': () => UIcons.add.should
               .be(const UIconData(0xe902, uFontFamily: 'UIcons')),
-          'UIcon add_contact_member should return correct HEX': () => UIcons
-              .add_contact_member.should
+          'UIcon add_contact should return correct HEX': () => UIcons
+              .add_contact.should
               .be(const UIconData(0xe903, uFontFamily: 'UIcons')),
           'UIcon add_folder should return correct HEX': () => UIcons
               .add_folder.should
@@ -35,13 +34,14 @@ void main() {
           'UIcon audio_on should return correct HEX': () => UIcons
               .audio_on.should
               .be(const UIconData(0xe908, uFontFamily: 'UIcons')),
-          'UIcon back_arrow_button should return correct HEX': () => UIcons
-              .back_arrow_button.should
+          'UIcon back_arrow should return correct HEX': () => UIcons
+              .back_arrow.should
               .be(const UIconData(0xe909, uFontFamily: 'UIcons')),
           'UIcon blocked_contacts should return correct HEX': () => UIcons
               .blocked_contacts.should
               .be(const UIconData(0xe90a, uFontFamily: 'UIcons')),
-          'UIcon call should return correct HEX': () => UIcons.call.should
+          'UIcon voice_call should return correct HEX': () => UIcons
+              .voice_call.should
               .be(const UIconData(0xe90b, uFontFamily: 'UIcons')),
           'UIcon camera should return correct HEX': () => UIcons.camera.should
               .be(const UIconData(0xe90c, uFontFamily: 'UIcons')),
@@ -51,26 +51,25 @@ void main() {
           'UIcon chatbar_gifs should return correct HEX': () => UIcons
               .chatbar_gifs.should
               .be(const UIconData(0xe90e, uFontFamily: 'UIcons')),
-          'UIcon chatbar_send_button should return correct HEX': () => UIcons
-              .chatbar_send_button.should
+          'UIcon chatbar_send should return correct HEX': () => UIcons
+              .chatbar_send.should
               .be(const UIconData(0xe90f, uFontFamily: 'UIcons')),
           'UIcon chatbar_stickers should return correct HEX': () => UIcons
               .chatbar_stickers.should
               .be(const UIconData(0xe910, uFontFamily: 'UIcons')),
-          'UIcon checkmark should return correct HEX': () => UIcons
-              .checkmark.should
+          'UIcon checkmark_1 should return correct HEX': () => UIcons
+              .checkmark_1.should
               .be(const UIconData(0xe911, uFontFamily: 'UIcons')),
-          'UIcon checkmark_rounded should return correct HEX': () => UIcons
-              .checkmark_rounded.should
+          'UIcon checkmark_2 should return correct HEX': () => UIcons
+              .checkmark_2.should
               .be(const UIconData(0xe912, uFontFamily: 'UIcons')),
-          'UIcon close_button should return correct HEX': () => UIcons
-              .close_button.should
+          'UIcon close should return correct HEX': () => UIcons.close.should
               .be(const UIconData(0xe913, uFontFamily: 'UIcons')),
-          'UIcon compose_message_button should return correct HEX': () => UIcons
-              .compose_message_button.should
+          'UIcon compose_message should return correct HEX': () => UIcons
+              .compose_message.should
               .be(const UIconData(0xe914, uFontFamily: 'UIcons')),
-          'UIcon copy_clone_button should return correct HEX': () => UIcons
-              .copy_clone_button.should
+          'UIcon copy_or_clone_button should return correct HEX': () => UIcons
+              .copy_or_clone_button.should
               .be(const UIconData(0xe915, uFontFamily: 'UIcons')),
           'UIcon desktop should return correct HEX': () => UIcons.desktop.should
               .be(const UIconData(0xe916, uFontFamily: 'UIcons')),
@@ -91,13 +90,14 @@ void main() {
           'UIcon end_video_call should return correct HEX': () => UIcons
               .end_video_call.should
               .be(const UIconData(0xe91c, uFontFamily: 'UIcons')),
-          'UIcon favorite_button should return correct HEX': () => UIcons
-              .favorite_button.should
+          'UIcon favorite should return correct HEX': () => UIcons
+              .favorite.should
               .be(const UIconData(0xe91d, uFontFamily: 'UIcons')),
-          'UIcon file should return correct HEX': () => UIcons.file.should
+          'UIcon document should return correct HEX': () => UIcons
+              .document.should
               .be(const UIconData(0xe91e, uFontFamily: 'UIcons')),
-          'UIcon forward_arrow_button should return correct HEX': () => UIcons
-              .forward_arrow_button.should
+          'UIcon forward_arrow should return correct HEX': () => UIcons
+              .forward_arrow.should
               .be(const UIconData(0xe91f, uFontFamily: 'UIcons')),
           'UIcon friend_added should return correct HEX': () => UIcons
               .friend_added.should
@@ -126,8 +126,7 @@ void main() {
           'UIcon lefthand_navigation_drawer should return correct HEX': () =>
               UIcons.lefthand_navigation_drawer.should
                   .be(const UIconData(0xe92a, uFontFamily: 'UIcons')),
-          'UIcon link_button should return correct HEX': () => UIcons
-              .link_button.should
+          'UIcon link should return correct HEX': () => UIcons.link.should
               .be(const UIconData(0xe92b, uFontFamily: 'UIcons')),
           'UIcon list_view should return correct HEX': () => UIcons
               .list_view.should
@@ -144,8 +143,8 @@ void main() {
           'UIcon menu_bar_home should return correct HEX': () => UIcons
               .menu_bar_home.should
               .be(const UIconData(0xe930, uFontFamily: 'UIcons')),
-          'UIcon menu_bar_notifications should return correct HEX': () => UIcons
-              .menu_bar_notifications.should
+          'UIcon notifications should return correct HEX': () => UIcons
+              .notifications.should
               .be(const UIconData(0xe931, uFontFamily: 'UIcons')),
           'UIcon message should return correct HEX': () => UIcons.message.should
               .be(const UIconData(0xe932, uFontFamily: 'UIcons')),
@@ -160,19 +159,18 @@ void main() {
           'UIcon outgoing_requests should return correct HEX': () => UIcons
               .outgoing_requests.should
               .be(const UIconData(0xe936, uFontFamily: 'UIcons')),
-          'UIcon pin_entry_backspace_button should return correct HEX': () =>
-              UIcons.pin_entry_backspace_button.should
-                  .be(const UIconData(0xe937, uFontFamily: 'UIcons')),
-          'UIcon pinned_message_button should return correct HEX': () => UIcons
-              .pinned_message_button.should
+          'UIcon pin_entry_backspace should return correct HEX': () => UIcons
+              .pin_entry_backspace.should
+              .be(const UIconData(0xe937, uFontFamily: 'UIcons')),
+          'UIcon pinned_message should return correct HEX': () => UIcons
+              .pinned_message.should
               .be(const UIconData(0xe938, uFontFamily: 'UIcons')),
           'UIcon qr_code should return correct HEX': () => UIcons.qr_code.should
               .be(const UIconData(0xe939, uFontFamily: 'UIcons')),
           'UIcon qr_code_scanner_border should return correct HEX': () => UIcons
               .qr_code_scanner_border.should
               .be(const UIconData(0xe93a, uFontFamily: 'UIcons')),
-          'UIcon refresh_try_again should return correct HEX': () => UIcons
-              .refresh_try_again.should
+          'UIcon refresh should return correct HEX': () => UIcons.refresh.should
               .be(const UIconData(0xe93b, uFontFamily: 'UIcons')),
           'UIcon remove should return correct HEX': () => UIcons.remove.should
               .be(const UIconData(0xe93c, uFontFamily: 'UIcons')),
@@ -183,11 +181,11 @@ void main() {
               .be(const UIconData(0xe93e, uFontFamily: 'UIcons')),
           'UIcon reveal should return correct HEX': () => UIcons.reveal.should
               .be(const UIconData(0xe93f, uFontFamily: 'UIcons')),
-          'UIcon right_arrow_inline_button should return correct HEX': () =>
-              UIcons.right_arrow_inline_button.should
-                  .be(const UIconData(0xe940, uFontFamily: 'UIcons')),
-          'UIcon save_button should return correct HEX': () => UIcons
-              .save_button.should
+          'UIcon right_arrow_inline_row should return correct HEX': () => UIcons
+              .right_arrow_inline_row.should
+              .be(const UIconData(0xe940, uFontFamily: 'UIcons')),
+          'UIcon download should return correct HEX': () => UIcons
+              .download.should
               .be(const UIconData(0xe941, uFontFamily: 'UIcons')),
           'UIcon search should return correct HEX': () => UIcons.search.should
               .be(const UIconData(0xe942, uFontFamily: 'UIcons')),
@@ -196,16 +194,15 @@ void main() {
               .be(const UIconData(0xe943, uFontFamily: 'UIcons')),
           'UIcon setting should return correct HEX': () => UIcons.setting.should
               .be(const UIconData(0xe944, uFontFamily: 'UIcons')),
-          'UIcon settings_logout should return correct HEX': () => UIcons
-              .settings_logout.should
+          'UIcon logout should return correct HEX': () => UIcons.logout.should
               .be(const UIconData(0xe945, uFontFamily: 'UIcons')),
           'UIcon swap_camera should return correct HEX': () => UIcons
               .swap_camera.should
               .be(const UIconData(0xe946, uFontFamily: 'UIcons')),
           'UIcon tablet should return correct HEX': () => UIcons.tablet.should
               .be(const UIconData(0xe947, uFontFamily: 'UIcons')),
-          'UIcon tap_select_box should return correct HEX': () => UIcons
-              .tap_select_box.should
+          'UIcon select_box should return correct HEX': () => UIcons
+              .select_box.should
               .be(const UIconData(0xe948, uFontFamily: 'UIcons')),
           'UIcon unblock should return correct HEX': () => UIcons.unblock.should
               .be(const UIconData(0xe949, uFontFamily: 'UIcons')),
@@ -217,8 +214,8 @@ void main() {
           'UIcon user_profile should return correct HEX': () => UIcons
               .user_profile.should
               .be(const UIconData(0xe94c, uFontFamily: 'UIcons')),
-          'UIcon video_call_button should return correct HEX': () => UIcons
-              .video_call_button.should
+          'UIcon video_call should return correct HEX': () => UIcons
+              .video_call.should
               .be(const UIconData(0xe94d, uFontFamily: 'UIcons')),
         });
   });
