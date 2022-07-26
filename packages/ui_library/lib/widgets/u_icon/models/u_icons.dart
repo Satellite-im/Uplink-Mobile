@@ -171,8 +171,8 @@ class UIcons {
       UIconData(0xe951, uFontFamily: _kIconsFontFamily);
   static const UIconData video_call =
       UIconData(0xe952, uFontFamily: _kIconsFontFamily);
-  static const UIconData voice_call =
-      UIconData(0xe953, uFontFamily: _kIconsFontFamily);
   static const UIconData video_play =
-      UIconData(0xe94f, uFontFamily: _kIconsFontFamily);
+      UIconData(0xe953, uFontFamily: _kIconsFontFamily);
+  static const UIconData voice_call =
+      UIconData(0xe954, uFontFamily: _kIconsFontFamily);
 }
