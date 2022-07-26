@@ -65,7 +65,8 @@ class ContactsIndexPage extends StatelessWidget {
                   },
                   //indexBar is the initial letter on the right
                   indexBarMargin: const EdgeInsets.only(right: 8),
-                  indexBarWidth: 16,
+                  indexBarWidth: 18,
+                  indexBarItemHeight: 18,
                   indexBarOptions: IndexBarOptions(
                     needRebuild: true,
                     textStyle: UTextStyle.B1_body.style
