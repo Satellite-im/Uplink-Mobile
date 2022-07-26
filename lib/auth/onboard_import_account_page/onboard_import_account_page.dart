@@ -85,9 +85,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                   label: isWrongSeeds
                       ? UAppStrings.onboardImportAccountPage_tryAgain
                       : UAppStrings.onboardImportAccountPage_recover,
-                  uIconData: isWrongSeeds
-                      ? UIcons.refresh_try_again
-                      : UIcons.add_contact_member,
+                  uIconData: isWrongSeeds ? UIcons.refresh : UIcons.add_contact,
                   onPressed: () async {
                     if (selectedPassphraseList.length == 12) {
                       // TODO(yijing): update to bip39 validation

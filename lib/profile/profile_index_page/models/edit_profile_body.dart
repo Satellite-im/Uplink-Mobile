@@ -72,7 +72,7 @@ class _EditProfileBody extends StatelessWidget {
               width: double.infinity,
               child: UButton.primary(
                 label: UAppStrings.editProfilePage_saveChangesButton,
-                uIconData: UIcons.checkmark,
+                uIconData: UIcons.checkmark_1,
                 onPressed: () {},
               ),
             ),

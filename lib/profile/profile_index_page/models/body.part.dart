@@ -42,7 +42,7 @@ class _ProfileIndexBody extends StatelessWidget {
             width: _pageSize.width - 32,
             child: UButton.primary(
               label: UAppStrings.profileIndexPage_editProfile,
-              uIconData: UIcons.compose_message_button,
+              uIconData: UIcons.compose_message,
               onPressed: () {
                 _onTapEditProfile(true);
               },

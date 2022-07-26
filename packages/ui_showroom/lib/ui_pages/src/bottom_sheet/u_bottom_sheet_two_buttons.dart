@@ -50,8 +50,8 @@ class UBottomSheetTwoButtonsPage extends StatelessWidget {
                   label: 'Click here to see the bottom sheet',
                   onPressed: () {
                     UBottomSheetTwoButtons(context,
-                            firstButtonIcon: UIcons.add_button,
-                            secondButtonIcon: UIcons.add_contact_member,
+                            firstButtonIcon: UIcons.add,
+                            secondButtonIcon: UIcons.add_contact,
                             firstButtonOnPressed: () {},
                             secondButtonOnPressed: () {},
                             header: 'Bottom Sheet with two UButtons with icons',

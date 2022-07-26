@@ -54,7 +54,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                   leading: _isEditingProfile
                       ? IconButton(
                           icon: const UIcon(
-                            UIcons.back_arrow_button,
+                            UIcons.back_arrow,
                             color: UColors.white,
                           ),
                           onPressed: () async {
@@ -85,7 +85,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                     ] else ...[
                       IconButton(
                         icon: const UIcon(
-                          UIcons.compose_message_button,
+                          UIcons.compose_message,
                           color: UColors.white,
                         ),
                         onPressed: () {

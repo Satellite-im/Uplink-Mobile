@@ -44,7 +44,7 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                 const SizedBox(height: 48),
                 UButton.primary(
                   label: UAppStrings.recoverySeedPage_iSavedItButton,
-                  uIconData: UIcons.checkmark_rounded,
+                  uIconData: UIcons.checkmark_2,
                   onPressed: () {
                     if (!_isRecoverySeedWordsSaved) {
                       UBottomSheetTwoButtons(
