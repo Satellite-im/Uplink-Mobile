@@ -29,6 +29,7 @@ class UserNote extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: UColors.foregroundDark,
+            contentPadding: const EdgeInsets.fromLTRB(16, 17, 16, 16),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(4),
