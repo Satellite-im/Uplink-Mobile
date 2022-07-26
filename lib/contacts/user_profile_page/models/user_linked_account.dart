@@ -13,23 +13,26 @@ class UserLinkedAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox.square(
-          dimension: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: UNetworksProfiles(
-            networkUsername: networkUsername,
-            networkProfile: networkProfile,
+    return Container(
+      color: UColors.backgroundDark,
+      child: Column(
+        children: [
+          const SizedBox.square(
+            dimension: 20,
           ),
-        ),
-        const SizedBox.square(
-          dimension: 20,
-        ),
-        const UDivider(),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: UNetworksProfiles(
+              networkUsername: networkUsername,
+              networkProfile: networkProfile,
+            ),
+          ),
+          const SizedBox.square(
+            dimension: 20,
+          ),
+          const UDivider(),
+        ],
+      ),
     );
   }
 }
