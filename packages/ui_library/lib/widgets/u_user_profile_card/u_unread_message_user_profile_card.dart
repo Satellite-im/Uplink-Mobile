@@ -4,9 +4,9 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/global/unread_messages_indicator.dart';
 import 'package:ui_library/widgets/global/username/username.dart';
 
-class UnreadMessagesUserProfileCard extends StatelessWidget {
+class UUnreadMessagesUserProfileCard extends StatelessWidget {
   /// Creates a card with [UUserProfileWithStatus], username, message and [UnreadMessagesIndicator]
-  const UnreadMessagesUserProfileCard({
+  const UUnreadMessagesUserProfileCard({
     Key? key,
     required Status status,
     required this.username,
@@ -79,6 +79,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                   width: _widgetWidth - _pictureAndSizedBoxWidth,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: Username(
@@ -105,7 +106,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                 const SizedBox.square(dimension: 3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: _calculateLastMessageWidth(_widgetWidth),
@@ -122,10 +123,7 @@ class UnreadMessagesUserProfileCard extends StatelessWidget {
                       const SizedBox.square(
                         dimension: _lastSizedBoxSize,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: _unreadMessagesIndicator,
-                      ),
+                      _unreadMessagesIndicator,
                     ],
                   ],
                 ),

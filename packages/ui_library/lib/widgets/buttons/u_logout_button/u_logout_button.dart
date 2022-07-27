@@ -12,16 +12,20 @@ class ULogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
-        onPressed: onPressed,
-        icon: const UIcon(
-          UIcons.settings_logout,
-          color: UColors.textMed,
-          size: UIconSize.small,
-        ),
-        label: const UText(
+      onPressed: onPressed,
+      icon: const UIcon(
+        UIcons.settings_logout,
+        color: UColors.textMed,
+        size: UIconSize.small,
+      ),
+      label: const Padding(
+        padding: EdgeInsets.only(left: 8),
+        child: UText(
           ULibraryStrings.uButtonLogout,
           textStyle: UTextStyle.B2_medium,
           textColor: UColors.textMed,
-        ));
+        ),
+      ),
+    );
   }
 }

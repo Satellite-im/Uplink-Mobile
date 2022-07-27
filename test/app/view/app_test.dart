@@ -11,7 +11,7 @@ void main() {
             widget.key == const Key('MainApp') ||
             widget.key == const Key('UIShowRoomApp'),
       );
-      expect(_mainAppPageOrUIShowroomPage, findsOneWidget);
+      expect(_mainAppPageOrUIShowroomPage, findsWidgets);
     });
   });
 }

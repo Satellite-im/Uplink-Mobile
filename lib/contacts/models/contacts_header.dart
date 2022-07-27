@@ -12,7 +12,7 @@ class ContactsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
+      height: 21,
       alignment: Alignment.centerLeft,
       margin: const EdgeInsets.only(left: 16),
       padding: const EdgeInsets.only(left: 8),
@@ -22,7 +22,14 @@ class ContactsHeader extends StatelessWidget {
         ),
         color: UColors.foregroundDark,
       ),
-      child: UText(tag, textStyle: UTextStyle.H3_tertiaryHeader),
+      child: Baseline(
+        baseline: 13,
+        baselineType: TextBaseline.alphabetic,
+        child: UText(
+          tag,
+          textStyle: UTextStyle.H3_tertiaryHeader,
+        ),
+      ),
     );
   }
 }
