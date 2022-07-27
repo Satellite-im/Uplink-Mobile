@@ -29,15 +29,15 @@ class UserProfilePage extends StatefulWidget {
 class UserProfilePageState extends State<UserProfilePage>
     with SingleTickerProviderStateMixin {
   late MockContact user;
-  late double backButtonOpacity;
+  double backButtonOpacity = 1;
   // used to connect draggableScrollableSheet
   ScrollController? controller;
   // used to reduce the top height when it is bottom sheet
-  late double reduecdTopHeight;
+  double reduecdTopHeight = 0;
   // for back navigation in vertical direction of bottomsheet
   late AnimationController _animationController;
-  late bool _isFromBottomSheet;
-  late bool showHomeIndicator;
+  bool _isFromBottomSheet = false;
+  bool showHomeIndicator = false;
 
   @override
   void initState() {
@@ -51,23 +51,16 @@ class UserProfilePageState extends State<UserProfilePage>
 
     if (widget.reduecdTopHeight != null) {
       reduecdTopHeight = widget.reduecdTopHeight!;
-    } else {
-      reduecdTopHeight = 0;
     }
+
     if (widget.backButtonOpacity != null) {
       backButtonOpacity = widget.backButtonOpacity!;
-    } else {
-      backButtonOpacity = 1;
     }
     if (widget.isFromBottomSheet != null) {
       _isFromBottomSheet = widget.isFromBottomSheet!;
-    } else {
-      _isFromBottomSheet = false;
     }
     if (widget.showHomeIndicator != null) {
       showHomeIndicator = widget.showHomeIndicator!;
-    } else {
-      showHomeIndicator = false;
     }
   }
 
