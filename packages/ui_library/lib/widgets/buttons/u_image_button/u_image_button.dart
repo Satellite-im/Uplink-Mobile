@@ -54,7 +54,7 @@ class UImageButtonState extends State<UImageButton> {
                   const Align(
                     alignment: Alignment.topLeft,
                     child: UIcon(
-                      UIcons.link_button,
+                      UIcons.link,
                       color: UColors.textMed,
                     ),
                   ),
@@ -62,7 +62,7 @@ class UImageButtonState extends State<UImageButton> {
                   const Align(
                     alignment: Alignment.topRight,
                     child: UIcon(
-                      UIcons.favorite_button,
+                      UIcons.favorite,
                       color: UColors.textMed,
                     ),
                   ),
@@ -72,7 +72,7 @@ class UImageButtonState extends State<UImageButton> {
                     child: AnimatedCrossFade(
                       firstChild: GestureDetector(
                         child: const UIcon(
-                          UIcons.tap_select_box,
+                          UIcons.select_box,
                           color: UColors.textMed,
                         ),
                         onTap: () {
@@ -83,7 +83,7 @@ class UImageButtonState extends State<UImageButton> {
                       ),
                       secondChild: GestureDetector(
                         child: const UIcon(
-                          UIcons.checkmark_rounded,
+                          UIcons.checkmark_2,
                           color: UColors.termRed,
                         ),
                         onTap: () {
