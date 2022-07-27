@@ -1,8 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/widgets/u_avatars_profile/u_server_profile/u_server_profile.dart';
-import 'package:ui_library/widgets/global/placeholder.dart';
-import 'dart:developer';
 
 void main() {
   group('Widget Test UServerProfile |', () {
@@ -70,6 +70,9 @@ void main() {
     });
   });
   group('Widget Test UServerProfile with custom imagePath |', () {
+    const _imageFromNetwork = 'https://satellite.im/images/logo.webp';
+    HttpOverrides.global = null;
+
     testWidgets('Should return the right size value',
         (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -83,7 +86,7 @@ void main() {
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       UServerProfile(
-                        imagePath: 'https://satellite.im/images/logo.webp',
+                        imagePath: _imageFromNetwork,
                       ),
                     ],
                   ),
