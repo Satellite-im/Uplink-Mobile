@@ -11,6 +11,12 @@ void main() {
         () => UIcons.about.should
             .be(const UIconData(0xe900, uFontFamily: 'UIcons')),
         and: {
+          'UIcon constructor should be called correctly': () {
+            const _constructor = UIconData(0xe900, uFontFamily: 'UIcons');
+            _constructor.uCodePoint.should.be(0xe900);
+            _constructor.uFontFamily.should.be('UIcons');
+            _constructor.uMatchTextDirection.should.be(false);
+          },
           'UIcon account_id should return correct HEX': () => UIcons
               .account_id.should
               .be(const UIconData(0xe901, uFontFamily: 'UIcons')),
