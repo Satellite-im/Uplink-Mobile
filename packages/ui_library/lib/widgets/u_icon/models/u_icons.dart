@@ -25,8 +25,6 @@ class UIcons {
       UIconData(0xe904, uFontFamily: _kIconsFontFamily);
   static const UIconData add_note =
       UIconData(0xe905, uFontFamily: _kIconsFontFamily);
-  static const UIconData android_wave_emoji =
-      UIconData(0xe906, uFontFamily: _kIconsFontFamily);
   static const UIconData apple_watch =
       UIconData(0xe90b, uFontFamily: _kIconsFontFamily);
   static const UIconData audio_off =

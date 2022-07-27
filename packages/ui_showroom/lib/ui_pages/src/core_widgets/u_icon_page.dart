@@ -63,7 +63,6 @@ const _allIcons = <Widget>[
   UIconTextWithPadding(UIcons.add_contact, 'add_contact'),
   UIconTextWithPadding(UIcons.add_folder, 'add_folder'),
   UIconTextWithPadding(UIcons.add_note, 'add_note'),
-  UIconTextWithPadding(UIcons.android_wave_emoji, 'android_wave_emoji'),
   UIconTextWithPadding(UIcons.apple_watch, 'apple_watch'),
   UIconTextWithPadding(UIcons.audio_off, 'audio_off'),
   UIconTextWithPadding(UIcons.audio_on, 'audio_on'),
