@@ -1,3 +1,10 @@
+#Appium Flutter
+/appium-flutter-poc/node_modules/
+/appium-flutter-poc/package-lock.json
+/appium-flutter-poc/appium.log
+/appium-flutter-poc/.DS_Store/
+/appium-flutter-poc/apps/
+
 # Miscellaneous
 *.class
 *.lock
