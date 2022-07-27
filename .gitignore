@@ -125,3 +125,8 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+
+# Appium Tests Files
+/appium-tests/node_modules/
+/appium-tests/package-lock.json
+/appium-tests/appium.log
