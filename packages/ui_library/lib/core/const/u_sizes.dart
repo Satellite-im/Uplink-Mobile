@@ -116,4 +116,12 @@ class USizes {
 
   // Sizes for [LoadingIndicator]
   static const double loadingIndicatorHeight = 6.0;
+
+  // Sizes for [UFolderButton]
+  static const double folderButtonHeight = 168;
+  static const double folderButtonWidth = 160;
+
+  // Sizes for [UImageButton]
+  static const double imageButtonHeight = 168;
+  static const double imageButtonWidth = 160;
 }

@@ -63,7 +63,7 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                 duration: const Duration(seconds: 1),
                 child: IconButton(
                   icon: const UIcon(
-                    UIcons.back_arrow_button,
+                    UIcons.back_arrow,
                     color: UColors.white,
                   ),
                   onPressed: widget.backButtonOnPressed ??
@@ -83,11 +83,11 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                   widget.user.isBlocked == false) ...[
                 IconButton(
                   onPressed: () {},
-                  icon: const UIcon(UIcons.call),
+                  icon: const UIcon(UIcons.voice_call),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const UIcon(UIcons.video_call_button),
+                  icon: const UIcon(UIcons.video_call),
                 ),
               ],
               if (widget.user.relationship == Relationship.none &&

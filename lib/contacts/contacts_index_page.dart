@@ -172,7 +172,7 @@ class _UAppBar extends StatelessWidget {
             );
           },
           icon: const UIcon(
-            UIcons.add_contact_member,
+            UIcons.add_contact,
             color: UColors.textMed,
           ),
         ),

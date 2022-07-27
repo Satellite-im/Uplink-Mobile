@@ -14,7 +14,7 @@ class ULogoutButton extends StatelessWidget {
     return TextButton.icon(
       onPressed: onPressed,
       icon: const UIcon(
-        UIcons.settings_logout,
+        UIcons.logout,
         color: UColors.textMed,
         size: UIconSize.small,
       ),

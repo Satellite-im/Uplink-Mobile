@@ -29,7 +29,7 @@ class _SigninPageState extends State<SigninPage> {
                   UAppStrings.signinPage_newAccount,
                   UAppStrings.signinPage_newAccount,
                 ],
-                iconList: [UIcons.multiple_accounts, UIcons.add_contact_member],
+                iconList: [UIcons.multiple_accounts, UIcons.add_contact],
                 onTapList: [
                   () {
                     // TODO(yijing): add workflow later

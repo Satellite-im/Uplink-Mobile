@@ -87,7 +87,7 @@ class UIconButton extends StatelessWidget {
     final UIcon _icon;
     switch (_iconButtonType) {
       case _UIconButtonType.call:
-        _icon = const UIcon(UIcons.call);
+        _icon = const UIcon(UIcons.voice_call);
         break;
       case _UIconButtonType.end:
         _icon = const UIcon(UIcons.end_call);
@@ -99,13 +99,13 @@ class UIconButton extends StatelessWidget {
         _icon = const UIcon(UIcons.message);
         break;
       case _UIconButtonType.add:
-        _icon = const UIcon(UIcons.add_button);
+        _icon = const UIcon(UIcons.add);
         break;
       case _UIconButtonType.search:
         _icon = const UIcon(UIcons.search);
         break;
       default:
-        _icon = const UIcon(UIcons.call);
+        _icon = const UIcon(UIcons.voice_call);
     }
     return _icon;
   }

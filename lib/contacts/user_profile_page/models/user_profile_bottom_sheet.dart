@@ -28,6 +28,7 @@ class UserProfileBottomSheet extends StatelessWidget {
           //disconnect the profile pages's scrollController with DraggableScrollableSheet's scrollController
           userProfilePageKey.currentState?.controller = null;
           userProfilePageKey.currentState?.reduecdTopHeight = 0;
+          userProfilePageKey.currentState?.showHomeIndicator = false;
         }
         return true;
       },
@@ -43,6 +44,7 @@ class UserProfileBottomSheet extends StatelessWidget {
           reduecdTopHeight: 44,
           backButtonOpacity: 0,
           isFromBottomSheet: true,
+          showHomeIndicator: true,
         ),
       ),
     );

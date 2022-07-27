@@ -38,7 +38,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
           },
           trailing: _isSelected
               ? const UIcon(
-                  UIcons.checkmark_rounded,
+                  UIcons.checkmark_2,
                   color: UColors.ctaBlue,
                 )
               : null,
@@ -52,7 +52,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
           child: UButton.primary(
             disabled: !_isSelected,
             label: UAppStrings.addFriend,
-            uIconData: UIcons.add_contact_member,
+            uIconData: UIcons.add_contact,
             onPressed: () async {
               // TODO(yijing): add send friend request
               context.read<UserNotifier>().sentFriendRequest();

@@ -105,7 +105,7 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
                 ),
                 child: const Center(
                   child: UIcon(
-                    UIcons.add_button,
+                    UIcons.add,
                     size: UIconSize.addPictureProfileButton,
                   ),
                 ),

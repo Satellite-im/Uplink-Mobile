@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_library/core/core_export.dart';
+import 'package:ui_library/ui_library_export.dart';
 
 class UBottomSheet {
   UBottomSheet(
@@ -35,19 +35,7 @@ class UBottomSheet {
         builder: (context) {
           return Wrap(
             children: [
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  decoration: const BoxDecoration(
-                    color: UColors.textDark,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(USizes.barAboveBottomSheetBorderRadius),
-                    ),
-                  ),
-                  height: USizes.barAboveBottomSheetHeightSize,
-                  width: USizes.barAboveBottomSheetWidthSize,
-                ),
-              ),
+              const UHomeIndicator(),
               Container(
                 decoration: const BoxDecoration(
                   color: UColors.modalDark,

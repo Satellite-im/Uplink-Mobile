@@ -12,6 +12,7 @@ class UserProfilePage extends StatefulWidget {
     this.reduecdTopHeight,
     this.backButtonOpacity,
     this.isFromBottomSheet,
+    this.showHomeIndicator,
   }) : super(key: key);
 // TODO(yijing): get user current state info(through id)
   final MockContact user;
@@ -19,6 +20,7 @@ class UserProfilePage extends StatefulWidget {
   final double? reduecdTopHeight;
   final double? backButtonOpacity;
   final bool? isFromBottomSheet;
+  final bool? showHomeIndicator;
 
   @override
   State<UserProfilePage> createState() => UserProfilePageState();
@@ -27,14 +29,15 @@ class UserProfilePage extends StatefulWidget {
 class UserProfilePageState extends State<UserProfilePage>
     with SingleTickerProviderStateMixin {
   late MockContact user;
-  late double backButtonOpacity;
+  double backButtonOpacity = 1;
   // used to connect draggableScrollableSheet
   ScrollController? controller;
   // used to reduce the top height when it is bottom sheet
-  late double reduecdTopHeight;
+  double reduecdTopHeight = 0;
   // for back navigation in vertical direction of bottomsheet
   late AnimationController _animationController;
-  late bool _isFromBottomSheet;
+  bool _isFromBottomSheet = false;
+  bool showHomeIndicator = false;
 
   @override
   void initState() {
@@ -48,106 +51,113 @@ class UserProfilePageState extends State<UserProfilePage>
 
     if (widget.reduecdTopHeight != null) {
       reduecdTopHeight = widget.reduecdTopHeight!;
-    } else {
-      reduecdTopHeight = 0;
     }
+
     if (widget.backButtonOpacity != null) {
       backButtonOpacity = widget.backButtonOpacity!;
-    } else {
-      backButtonOpacity = 1;
     }
     if (widget.isFromBottomSheet != null) {
       _isFromBottomSheet = widget.isFromBottomSheet!;
-    } else {
-      _isFromBottomSheet = false;
+    }
+    if (widget.showHomeIndicator != null) {
+      showHomeIndicator = widget.showHomeIndicator!;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SlideTransition(
       position: Tween<Offset>(begin: Offset.zero, end: const Offset(1, 0))
           .animate(_animationController),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
+        backgroundColor: Colors.transparent,
         body: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           controller: controller,
           slivers: [
+            if (showHomeIndicator == true)
+              const SliverToBoxAdapter(child: UHomeIndicator()),
             SliverToBoxAdapter(
-              child: Stack(
-                children: [
-                  AppBarWithBanner(
-                    user: user,
-                    backButtonOpacity: backButtonOpacity,
-                    reduecdTopHeight: reduecdTopHeight,
-                    backButtonOnPressed: () {
-                      if (_isFromBottomSheet == true) {
-                        _animationController.forward().whenComplete(
-                              () => Navigator.of(context, rootNavigator: true)
-                                  .pop(),
-                            );
-                      } else {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Column(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: UColors.backgroundDark,
+                ),
+                child: Column(
+                  children: [
+                    Stack(
                       children: [
-                        const SizedBox.square(
-                          dimension: 114,
+                        AppBarWithBanner(
+                          user: user,
+                          backButtonOpacity: backButtonOpacity,
+                          reduecdTopHeight: reduecdTopHeight,
+                          backButtonOnPressed: () {
+                            if (_isFromBottomSheet == true) {
+                              _animationController.forward().whenComplete(
+                                    () => Navigator.of(
+                                      context,
+                                      rootNavigator: true,
+                                    ).pop(),
+                                  );
+                            } else {
+                              Navigator.of(context).pop();
+                            }
+                          },
                         ),
-                        UserBasicInfo(user: user),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Column(
+                            children: [
+                              const SizedBox.square(
+                                dimension: 114,
+                              ),
+                              UserBasicInfo(user: user),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox.square(
+                      dimension: 16,
+                    ),
+                    SizedBox(
+                      width: size.width - 32,
+                      child: CTAButton(
+                        user: user,
+                      ),
+                    ),
+                    const SizedBox.square(
+                      dimension: 16,
+                    ),
+                    UserGroupedInfo(user: user),
+                    const SizedBox.square(
+                      dimension: 24,
+                    ),
+                    const UDivider(height: 1),
+                    const SizedBox.square(
+                      dimension: 16,
+                    ),
+                    SizedBox(
+                      width: size.width - 32,
+                      child: UserAbout(user: user),
+                    ),
+                    const SizedBox.square(
+                      dimension: 24,
+                    ),
+                    SizedBox(
+                      width: size.width - 32,
+                      // TODO(yijing): add note function
+                      child: const UserNote(),
+                    ),
+                    if (linkedAccountsList.isNotEmpty &&
+                        user.isBlocked == false)
+                      const UDivider(height: 1),
+                  ],
+                ),
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
-                  const SizedBox.square(
-                    dimension: 16,
-                  ),
-                  CTAButton(
-                    user: user,
-                  ),
-                  const SizedBox.square(
-                    dimension: 16,
-                  ),
-                  UserGroupedInfo(user: user),
-                  const SizedBox.square(
-                    dimension: 24,
-                  ),
-                ]),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: UDivider(height: 1),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
-                  const SizedBox.square(
-                    dimension: 16,
-                  ),
-                  UserAbout(user: user),
-                  const SizedBox.square(
-                    dimension: 24,
-                  ),
-                  // TODO(yijing): add note function
-                  const UserNote(),
-                ]),
-              ),
-            ),
-            if (linkedAccountsList.isNotEmpty && user.isBlocked == false)
-              const SliverToBoxAdapter(
-                child: UDivider(height: 1),
-              ),
             if (user.isBlocked == false)
               SliverList(
                 delegate: SliverChildBuilderDelegate(

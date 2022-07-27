@@ -60,7 +60,7 @@ class URecoverySeedBox extends StatelessWidget {
                   bottom: 0,
                   child: InkWell(
                     child: const UIcon(
-                      UIcons.close_button,
+                      UIcons.close,
                       color: UColors.textMed,
                       size: UIconSize.micro,
                     ),
