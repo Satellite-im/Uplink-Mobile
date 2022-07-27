@@ -28,7 +28,7 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           const SizedBox.square(
             dimension: 16,
           ),
-          UnreadMessagesUserProfileCard(
+          UUnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.offline,
             uImage: UImage(
@@ -45,7 +45,7 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           const SizedBox.square(
             dimension: 8,
           ),
-          UnreadMessagesUserProfileCard(
+          UUnreadMessagesUserProfileCard(
             username: 'usernamelongerverylongveryverylong',
             status: Status.online,
             uImage: UImage(
@@ -62,7 +62,7 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           const SizedBox.square(
             dimension: 8,
           ),
-          UnreadMessagesUserProfileCard(
+          UUnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.online,
             uImage: UImage(
@@ -78,7 +78,7 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           const SizedBox.square(
             dimension: 8,
           ),
-          UnreadMessagesUserProfileCard(
+          UUnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.idle,
             uMessage: UMessage(
@@ -90,7 +90,7 @@ class _UnreadMessagesUserProfileCardSession extends StatelessWidget {
           const SizedBox.square(
             dimension: 8,
           ),
-          UnreadMessagesUserProfileCard(
+          UUnreadMessagesUserProfileCard(
             username: 'usernamelonger',
             status: Status.offline,
             uImage: UImage(

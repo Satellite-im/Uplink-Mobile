@@ -39,6 +39,7 @@ flutter:
     - images/
     - images/placeholders/
     - images/networks_logo/
+    - images/file_graph/
 
   fonts:
     - family: Poppins

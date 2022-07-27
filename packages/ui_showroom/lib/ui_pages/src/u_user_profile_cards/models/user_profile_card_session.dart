@@ -28,7 +28,7 @@ class _UserProfileCard extends StatelessWidget {
           const SizedBox.square(
             dimension: 16,
           ),
-          UserProfileCard(
+          UUserProfileCard(
             username: 'longusernameeeeeeeeeeeeeeeeeeeeeee',
             status: Status.online,
             uImage: UImage(
@@ -41,7 +41,7 @@ class _UserProfileCard extends StatelessWidget {
           const SizedBox.square(
             dimension: 16,
           ),
-          UserProfileCard(
+          UUserProfileCard(
             username: 'username',
             status: Status.online,
             uImage: UImage(

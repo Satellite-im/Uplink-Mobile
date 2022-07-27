@@ -50,6 +50,8 @@ class UIShowRoomApp extends StatelessWidget {
             const UUserProfileCardsPage(),
         UDialogPage.routeName: (context) => const UDialogPage(),
         UPopupMenuItemPage.routeName: (context) => const UPopupMenuItemPage(),
+        UFolderButtonPage.routeName: (context) => const UFolderButtonPage(),
+        UImageButtonPage.routeName: (context) => const UImageButtonPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -205,6 +207,17 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UPopupMenuItemPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'File Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UFolderButtonPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UImageButtonPage.routeName,
                   ),
                 ],
               ),
