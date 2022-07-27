@@ -38,8 +38,8 @@ class UImageButtonState extends State<UImageButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 168,
-      width: 160,
+      height: USizes.imageButtonHeight,
+      width: USizes.imageButtonWidth,
       child: Stack(children: [
         ClipRRect(
           child: widget.uImage,

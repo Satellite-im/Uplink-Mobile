@@ -41,8 +41,8 @@ class UFolderButtonState extends State<UFolderButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 168,
-      width: 160,
+      height: USizes.folderButtonHeight,
+      width: USizes.folderButtonWidth,
       decoration: BoxDecoration(
           color: UColors.backgroundDark,
           borderRadius: BorderRadius.circular(4)),
