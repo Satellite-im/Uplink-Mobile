@@ -22,3 +22,4 @@ export 'u_dialog/u_dialog_export.dart';
 export 'u_popup_menu_item/u_popup_menu_item_export.dart';
 export 'notifications/notifications_export.dart';
 export 'contacts/u_account_id_box.dart';
+export 'text_input/u_text_input.dart';
