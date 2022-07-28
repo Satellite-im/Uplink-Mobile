@@ -2,8 +2,10 @@ name: Running Appium Tests
 
 on:
   workflow_run:
+    pull_request:
+      types: [opened, synchronize, reopened, edited]
     workflows: ['Comment on pull request with APK file']
-    types: [completed]
+      types: [completed]
 
 jobs:
   test:
