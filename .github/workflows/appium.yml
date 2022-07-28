@@ -1,13 +1,9 @@
 name: Running Appium Tests
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
-
   workflow_run:
     workflows: [Flutter CI - Generate APK]
-    types: 
-      - completed
+    types: [completed]
   
 jobs:
   on-success:
