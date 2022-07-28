@@ -2,18 +2,36 @@ name: Running Appium Tests
 
 'on':
   workflow_run:
-    workflows: ['Flutter CI - Generate APK']
+    workflows: [Flutter CI - Generate APK]
     types: [completed]
 
 jobs:
   download_apk:
     runs-on: macos-latest
     steps:
-    - name: Download artifact as .APK
-      uses: actions/download-artifact@v3
-      with:
-        name: android-apk
-        path: /appium-tests/apps/app-profile.apk
+    - name: Download artifact as .zip
+      uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "pr_number"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/appium-tests/apps/android-apk.zip`, Buffer.from(download.data));
+
+    - name: Unzip artifact as .APK
+      run: unzip -l android-apk.zip
 
   test:
     runs-on: macos-latest
