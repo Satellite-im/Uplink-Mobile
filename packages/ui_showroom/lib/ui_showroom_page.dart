@@ -55,6 +55,7 @@ class UIShowRoomApp extends StatelessWidget {
         UFolderButtonPage.routeName: (context) => const UFolderButtonPage(),
         UImageButtonPage.routeName: (context) => const UImageButtonPage(),
         UNotificationsPage.routeName: (context) => const UNotificationsPage(),
+        UTextInputPage.routeName: (context) => const UTextInputPage()
       },
       home: Scaffold(
         appBar: AppBar(
@@ -106,6 +107,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UDividerPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UTextInputPage.routeName,
                   ),
                 ],
               ),
