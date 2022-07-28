@@ -128,5 +128,4 @@ app.*.map.json
 
 # Appium Tests Files
 /appium-tests/node_modules/
-/appium-tests/package-lock.json
 /appium-tests/appium.log
