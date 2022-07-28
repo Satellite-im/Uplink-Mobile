@@ -3,11 +3,10 @@ name: Running Appium Tests
 on:
   workflow_run:
     workflows: [Comment on pull request with APK file]
-    types: 
-      - completed
+    types: [completed]
   
 jobs:
-  download_apk:
+  on-success:
     runs-on: macos-latest
     steps:
     - name: Download artifact as .zip
