@@ -24,6 +24,7 @@ jobs:
   
   test:
     runs-on: macos-latest
+    needs: build
     strategy: # we are using strategy if we need to run on parallel with different devices and version
       matrix:
         api-level: [25] #Google api level
