@@ -9,8 +9,16 @@ name: Running Appium Tests
     types: [completed]
 
 jobs:
-  test:
+  retrieve_apk:
     needs: Flutter CI - Generate APK
+    steps:
+      - name: Retrieve APK built during Flutter CI job
+        uses: actions/download-artifact@v3
+        with:
+          name: debug-apk
+          path: appium-tests/apps
+
+  test:
     runs-on: macos-latest
     strategy: # we are using strategy if we need to run on parallel with different devices and version
       matrix:
@@ -34,11 +42,7 @@ jobs:
       run: |
         chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
         ./appium-tests/scripts/run_appium_server.sh
-    - name: Retrieve APK built during Flutter CI job
-      uses: actions/download-artifact@v3
-      with:
-        name: debug-apk
-        path: appium-tests/apps
+    
     - name: Run Appium Tests 🌡️
       uses: reactivecircus/android-emulator-runner@v2 # install and create the Emulator
       with:
