@@ -234,6 +234,13 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const chatIndexPage_loading = 'Loading...';
   static const chatIndexPage_whatToDoWIthChatBottomSheet =
       'What would you like to do with this chat?';
+  static const chatIndexPage_welcomeNotificationTitle =
+      'Welcome to Satellite.im';
+  static const chatIndexPage_welcomeNotificationMessage =
+      'Nemo enim ipsam voluptatem quia voluptas sit '
+      'aspernatur aut odit aut fugit, sed quia...';
+  static const chatIndexPage_welcomeNotificationImage =
+      'packages/ui_library/images/placeholders/satellite_logo_notification.png';
 
   /// ProfileIndexPage
   static const profileIndexPage_username = 'username';

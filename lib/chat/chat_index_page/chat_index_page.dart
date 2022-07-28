@@ -48,7 +48,9 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                 slivers: [
                   const SliverToBoxAdapter(
                     child: _UAppBar(
-                      mockNotificationsList: [],
+                      mockNotificationsList: [
+                        // TODO(Lucas): Add later what happens when the list was not loaded yet
+                      ],
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -88,7 +90,28 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: _UAppBar(
-                        mockNotificationsList: _notificationsList,
+                        mockNotificationsList: _notificationsList.isNotEmpty
+                            ? _notificationsList
+                            : [
+                                MockNotification(
+                                  username: UAppStrings
+                                      .chatIndexPage_welcomeNotificationTitle,
+                                  arrivalNotificationTime: DateTime.now(),
+                                  isUnread: true,
+                                  message: UAppStrings
+                                      .chatIndexPage_welcomeNotificationMessage,
+                                  notificationType:
+                                      NotificationType.serverMessage,
+                                  uImage: const UImage(
+                                    imagePath: UAppStrings
+                                        .chatIndexPage_welcomeNotificationImage,
+                                    imageSource: ImageSource.local,
+                                    boxDecoration: BoxDecoration(
+                                      color: UColors.backgroundDark,
+                                    ),
+                                  ),
+                                ),
+                              ],
                       ),
                     ),
                     SliverToBoxAdapter(
