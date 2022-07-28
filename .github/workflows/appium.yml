@@ -3,7 +3,8 @@ name: Running Appium Tests
 on:
   workflow_run:
     workflows: [Flutter CI - Generate APK]
-    types: [completed]
+    types: 
+      - completed
   
 jobs:
   on-success:
