@@ -11,7 +11,7 @@ enum UTextInputType {
 class UTextInput extends StatelessWidget {
   const UTextInput.singleLine({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     required String hintText,
     required Function(String) onChanged,
     bool? autofocus,
@@ -29,7 +29,7 @@ class UTextInput extends StatelessWidget {
 
   const UTextInput.multiLines({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     required String hintText,
     required Function(String) onChanged,
     bool? autofocus,
@@ -48,7 +48,7 @@ class UTextInput extends StatelessWidget {
   //used in onboardCreateProfile/TextFieldWithAssociativeSeeds
   const UTextInput.singleLineWithTitle({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     required String textFieldTitle,
     required String hintText,
     required Function(String) onChanged,
@@ -67,7 +67,7 @@ class UTextInput extends StatelessWidget {
 
   const UTextInput.multiLinesWithTitle({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     required String textFieldTitle,
     required String hintText,
     required Function(String) onChanged,
@@ -85,7 +85,7 @@ class UTextInput extends StatelessWidget {
         super(key: key);
 
   final UTextInputType _inputType;
-  final TextEditingController _controller;
+  final TextEditingController? _controller;
   final String? _textFieldTitle;
   final String _hintText;
   final Function(String) _onChanged;
