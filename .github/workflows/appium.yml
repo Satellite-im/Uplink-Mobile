@@ -10,6 +10,7 @@ name: Running Appium Tests
 
 jobs:
   retrieve_apk:
+    runs-on: ubuntu-latest
     needs: Flutter CI - Generate APK
     steps:
       - name: Retrieve APK built during Flutter CI job
