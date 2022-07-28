@@ -112,8 +112,8 @@ class UTextInput extends StatelessWidget {
         SizedBox(
           height: _inputType == UTextInputType.singleLine ||
                   _inputType == UTextInputType.singleLineWithTitle
-              ? 56
-              : 87,
+              ? USizes.singleLineHeight
+              : USizes.multiLinesHeight,
           child: TextField(
             controller: _controller,
             style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
@@ -121,8 +121,8 @@ class UTextInput extends StatelessWidget {
             ),
             maxLines: _inputType == UTextInputType.singleLine ||
                     _inputType == UTextInputType.singleLineWithTitle
-                ? 1
-                : 3,
+                ? USizes.singleLineMaxLines
+                : USizes.multiLinesMaxLines,
             textInputAction: TextInputAction.done,
             cursorColor: UColors.white,
             focusNode: _focusNode,

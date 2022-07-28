@@ -10,12 +10,12 @@ class UAccountIDBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 48,
+        height: USizes.idBoxHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: UColors.foregroundDark,
         ),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 21, 16, 20),
         child: InkWell(
             child: UText(
               id,
