@@ -10,7 +10,6 @@ name: Running Appium Tests
 
 jobs:
   test:
-    uses: './.github/workflows/comment-PR-apk.yml'
     runs-on: macos-latest
     strategy: # we are using strategy if we need to run on parallel with different devices and version
       matrix:
