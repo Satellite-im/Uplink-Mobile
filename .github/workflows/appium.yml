@@ -13,7 +13,8 @@ jobs:
   on-success:
     runs-on: macos-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    matrix:
+    strategy:
+      matrix:
         api-level: [25] #Google api level
         target: [default]
         node-version: [14.x]
