@@ -1,12 +1,16 @@
 name: Running Appium Tests
-on:
+
+'on':
   pull_request:
     types: [opened, synchronize, reopened, edited]
-  workflows: ['Comment on pull request with APK file']
+  
+  workflow_run:
+    workflows: ['Comment on pull request with APK file']
     types: [completed]
 
 jobs:
   test:
+    uses: './.github/workflows/comment-PR-apk.yml'
     runs-on: macos-latest
     strategy: # we are using strategy if we need to run on parallel with different devices and version
       matrix:
