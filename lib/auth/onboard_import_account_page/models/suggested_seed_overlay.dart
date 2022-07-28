@@ -20,6 +20,8 @@ class SuggestedSeedsOverlayState extends State<SuggestedSeedsOverlay> {
   Widget build(BuildContext context) {
     if (widget.suggestedPassphraseList.isNotEmpty) {
       return Material(
+        borderRadius: BorderRadius.circular(4),
+        clipBehavior: Clip.hardEdge,
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 230),
           child: ListView.builder(
