@@ -86,7 +86,8 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 56),
-                  _TextField(
+                  UTextInput.singleLineWithTitle(
+                    controller: _usernameTextFieldController,
                     textFieldTitle:
                         UAppStrings.createProfilePage_usernameTextFieldTitle,
                     hintText:
@@ -96,16 +97,15 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                           ? _isSignInButtonEnabled.value = true
                           : _isSignInButtonEnabled.value = false;
                     },
-                    controller: _usernameTextFieldController,
                   ),
                   const SizedBox.square(dimension: 24),
-                  _TextField(
+                  UTextInput.singleLineWithTitle(
+                    controller: _messageStatusTextFieldController,
                     textFieldTitle: UAppStrings
                         .createProfilePage_statusMessageTextFieldTitle,
                     hintText: UAppStrings
                         .createProfilePage_statusMessageTextFieldHintText,
                     onChanged: (value) {},
-                    controller: _messageStatusTextFieldController,
                   ),
                   const SizedBox.square(dimension: 56),
                   ValueListenableBuilder(
@@ -177,60 +177,4 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
 Future<void> _setUserLogged() async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setBool('isUserLogged', true);
-}
-
-class _TextField extends StatelessWidget {
-  const _TextField({
-    Key? key,
-    required this.controller,
-    required this.textFieldTitle,
-    required this.hintText,
-    required this.onChanged,
-  }) : super(key: key);
-
-  final TextEditingController controller;
-  final String textFieldTitle;
-  final String hintText;
-  final Function(String) onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: UText(
-            textFieldTitle,
-            textStyle: UTextStyle.H3_tertiaryHeader,
-          ),
-        ),
-        const SizedBox.square(dimension: 8.4),
-        SizedBox(
-          height: 48,
-          child: TextField(
-            controller: controller,
-            style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
-              color: Colors.white,
-            ),
-            textAlignVertical: TextAlignVertical.top,
-            textInputAction: TextInputAction.done,
-            cursorColor: UColors.textDark,
-            autocorrect: false,
-            onChanged: onChanged,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: UColors.foregroundDark,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              hintText: hintText,
-              hintStyle: UTextStyle.H5_fifthHeader.style.returnTextStyleType(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }
