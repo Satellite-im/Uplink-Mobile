@@ -55,7 +55,8 @@ class UIShowRoomApp extends StatelessWidget {
         UFolderButtonPage.routeName: (context) => const UFolderButtonPage(),
         UImageButtonPage.routeName: (context) => const UImageButtonPage(),
         UNotificationsPage.routeName: (context) => const UNotificationsPage(),
-        UTextInputPage.routeName: (context) => const UTextInputPage()
+        UTextInputPage.routeName: (context) => const UTextInputPage(),
+        UAccountIDBoxPage.routeName: (context) => const UAccountIDBoxPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -124,6 +125,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UUserPictureChangePage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UAccountIDBoxPage.routeName,
                   ),
                 ],
               ),
