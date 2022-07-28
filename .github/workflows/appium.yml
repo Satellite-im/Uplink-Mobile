@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Download artifact as .zip
       uses: actions/github-script@v6
-        with:
+      with:
           script: |
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
@@ -28,7 +28,7 @@ jobs:
                archive_format: 'zip',
             });
             let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/appium-tests/apps/android-apk.zip`, Buffer.from(download.data));
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/android-apk.zip`, Buffer.from(download.data));  
 
     - name: Unzip artifact as .APK
       run: unzip -l android-apk.zip
