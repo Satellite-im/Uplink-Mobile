@@ -9,6 +9,15 @@ name: Running Appium Tests
     types: [completed]
 
 jobs:
+  download_apk:
+    runs-on: macos-latest
+    steps:
+    - name: Download artifact as .APK
+      uses: actions/download-artifact@v3
+      with:
+        name: android-apk
+        path: /appium-tests/apps/app-profile.apk
+
   test:
     runs-on: macos-latest
     strategy: # we are using strategy if we need to run on parallel with different devices and version
