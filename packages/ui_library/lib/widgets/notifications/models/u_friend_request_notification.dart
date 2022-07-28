@@ -48,7 +48,7 @@ class _UFriendRequestNotificationState
               uNotification: _uNotificationForDifferentState(
                 _FriendRequestState.requested,
               ),
-              messagePrefixIcon: UIcons.add_contact_member,
+              messagePrefixIcon: UIcons.add_contact,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(

@@ -60,6 +60,21 @@ class UNotificationCard extends StatelessWidget {
       return _notificationTypeHeight[notificationType] ?? 40.0;
     }
 
+    String _returnCorrectMessageForEachNotification(
+        NotificationType notificationType) {
+      if (notificationType == NotificationType.reactedComment) {
+        return ULibraryStrings.uNotification_reactedToYourComment;
+      }
+      if (notificationType == NotificationType.repliedComment) {
+        return ULibraryStrings.uNotification_repliedToYourComment;
+      }
+      if (notificationType == NotificationType.friendRequest) {
+        return ULibraryStrings.uNotificationCard_receivedAFriendRequest;
+      }
+
+      return uNotification.message;
+    }
+
     return LayoutBuilder(builder: (context, constraints) {
       final _widgetWidth = constraints.maxWidth;
 
@@ -138,7 +153,8 @@ class UNotificationCard extends StatelessWidget {
                               ? null
                               : _widgetWidth - _pictureAndSizedBoxWidth,
                           child: UText(
-                            uNotification.message,
+                            _returnCorrectMessageForEachNotification(
+                                uNotification.notificationType),
                             maxLines: 2,
                             textOverflow: TextOverflow.ellipsis,
                             textStyle: uNotification.notificationType ==

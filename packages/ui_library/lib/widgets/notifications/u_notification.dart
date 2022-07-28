@@ -67,6 +67,8 @@ class _UNotificationState extends State<UNotification> {
   @override
   Widget build(BuildContext context) {
     switch (widget.notificationType) {
+      case NotificationType.serverMessage:
+      case NotificationType.repliedComment:
       case NotificationType.reactedComment:
         return UNotificationCard(
           uNotification: widget,
@@ -76,16 +78,8 @@ class _UNotificationState extends State<UNotification> {
         return _USentMessageNotification(
           uNotification: widget,
         );
-      case NotificationType.repliedComment:
-        return UNotificationCard(
-          uNotification: widget,
-        );
       case NotificationType.friendRequest:
         return _UFriendRequestNotification(
-          uNotification: widget,
-        );
-      case NotificationType.serverMessage:
-        return UNotificationCard(
           uNotification: widget,
         );
     }

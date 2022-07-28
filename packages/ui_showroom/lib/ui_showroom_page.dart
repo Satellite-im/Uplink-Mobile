@@ -54,6 +54,7 @@ class UIShowRoomApp extends StatelessWidget {
         UPopupMenuItemPage.routeName: (context) => const UPopupMenuItemPage(),
         UFolderButtonPage.routeName: (context) => const UFolderButtonPage(),
         UImageButtonPage.routeName: (context) => const UImageButtonPage(),
+        UNotificationsPage.routeName: (context) => const UNotificationsPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -209,6 +210,14 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UPopupMenuItemPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Notifications Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UNotificationsPage.routeName,
                   ),
                 ],
               ),
