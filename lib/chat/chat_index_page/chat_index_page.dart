@@ -49,7 +49,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                   const SliverToBoxAdapter(
                     child: _UAppBar(
                       mockNotificationsList: [
-                        // TODO(Lucas): Add later what happens when the list was not loaded yet
+                        // TODO(Lucas): What to do when the list was not loaded
                       ],
                     ),
                   ),
@@ -90,7 +90,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: _UAppBar(
-                        mockNotificationsList: _notificationsList.isNotEmpty
+                        mockNotificationsList: _notificationsList.isEmpty
                             ? _notificationsList
                             : [
                                 MockNotification(
