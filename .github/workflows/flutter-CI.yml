@@ -21,3 +21,38 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
+  
+  test:
+    runs-on: macos-latest
+    strategy: # we are using strategy if we need to run on parallel with different devices and version
+      matrix:
+        api-level: [25] #Google api level
+        target: [default]
+        node-version: [14.x]
+    steps:
+    - name: Checkout ✔️
+      uses: actions/checkout@v3 #checkout the code 
+
+    - name: Use Node.js ${{ matrix.node-version }} 🔨
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install NPM dependencies 📦
+      run: |
+        cd appium-tests && npm ci
+
+    - name: Install and Run Appium Server 📱
+      run: |
+        chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
+        ./appium-tests/scripts/run_appium_server.sh
+    
+    - name: Run Appium Tests 🌡️
+      uses: reactivecircus/android-emulator-runner@v2 # install and create the Emulator
+      with:
+        api-level: ${{ matrix.api-level }}
+        target: ${{ matrix.target }}
+        arch: x86_64
+        profile: Nexus 6
+        script: cd appium-tests && npm run android.ci # running our test with info to check the results
+  
