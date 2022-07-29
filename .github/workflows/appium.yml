@@ -22,7 +22,12 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: debug-apk
-        path: ./appium-tests/apps/app-profile.apk
+        path: ./appium-tests/apps
+
+    - name: List files
+      run: |
+        cd appium-tests && cd apps && ls
+        cd .. & cd ..
 
     - name: Checkout ✔️
       uses: actions/checkout@v3 #checkout the code 
