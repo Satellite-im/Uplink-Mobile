@@ -16,6 +16,7 @@ class UUserProfileNotification extends StatelessWidget {
   const UUserProfileNotification({
     Key? key,
     UImage? uImage,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   })  : _uImage = uImage ?? const UImage(),
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
@@ -29,6 +30,7 @@ class UUserProfileNotification extends StatelessWidget {
     Key? key,
     UImage? uImage,
     required String username,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   })  : _uImage = uImage ?? const UImage(),
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
@@ -41,6 +43,8 @@ class UUserProfileNotification extends StatelessWidget {
 
   final String? _userProfileUsername;
 
+  final MainAxisAlignment mainAxisAlignment;
+
   final UImage _uImage;
 
   @override
@@ -50,7 +54,7 @@ class UUserProfileNotification extends StatelessWidget {
     final _correctPositionNotification =
         _uUserProfileSize.size - (_notificationsIndicator._size);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: mainAxisAlignment,
       children: [
         Stack(
           children: [

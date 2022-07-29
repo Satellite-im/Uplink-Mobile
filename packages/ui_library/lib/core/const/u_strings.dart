@@ -37,8 +37,8 @@ class ULibraryStrings {
       'You declined a friend request from';
   static const uNotificationCard_sayHi = 'Say hi ';
   static const uNotificationCard_handWave = '👋';
-  static const uNotificationCard_sentYouAFriendRequest =
-      'Sent you a friend request';
+  static const uNotificationCard_receivedAFriendRequest =
+      'You received a friend request from ';
   static const uNotificationCard_decline = 'Decline';
   static const uNotificationCard_accept = 'Accept';
   static const uNotificationCard_startAConversation = 'Start a conversation';

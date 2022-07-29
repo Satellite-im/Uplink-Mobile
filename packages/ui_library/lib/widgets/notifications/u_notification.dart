@@ -11,6 +11,7 @@ part 'models/u_sent_link_notification.dart';
 enum NotificationType {
   repliedComment,
   message,
+  link,
   reactedComment,
   friendRequest,
   serverMessage,
@@ -66,24 +67,19 @@ class _UNotificationState extends State<UNotification> {
   @override
   Widget build(BuildContext context) {
     switch (widget.notificationType) {
+      case NotificationType.serverMessage:
+      case NotificationType.repliedComment:
       case NotificationType.reactedComment:
         return UNotificationCard(
           uNotification: widget,
         );
+      case NotificationType.link:
       case NotificationType.message:
         return _USentMessageNotification(
           uNotification: widget,
         );
-      case NotificationType.repliedComment:
-        return UNotificationCard(
-          uNotification: widget,
-        );
       case NotificationType.friendRequest:
         return _UFriendRequestNotification(
-          uNotification: widget,
-        );
-      case NotificationType.serverMessage:
-        return UNotificationCard(
           uNotification: widget,
         );
     }

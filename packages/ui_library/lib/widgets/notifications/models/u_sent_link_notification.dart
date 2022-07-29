@@ -17,9 +17,9 @@ class _USentMessageNotification extends StatefulWidget {
 class _USentMessageNotificationState extends State<_USentMessageNotification> {
   int _correctWidthToSubstractToLinkDescription(bool _isVideo) {
     if (!_isVideo) {
-      return 68 + 16 + 8 + 48 + 12;
+      return 68 + 50;
     } else {
-      return 68 + 16 + 8 + 48 + 12 + 14;
+      return 68 + 64;
     }
   }
 
@@ -30,8 +30,6 @@ class _USentMessageNotificationState extends State<_USentMessageNotification> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
-
     return FutureBuilder<Map<String, dynamic>>(
         future: UFetchLinkData().fetch(widget.uNotification.message),
         builder: (context, snapshot) {
@@ -44,7 +42,7 @@ class _USentMessageNotificationState extends State<_USentMessageNotification> {
                   username: widget.uNotification.username,
                   arrivalNotificationTime:
                       widget.uNotification.arrivalNotificationTime,
-                  notificationType: widget.uNotification.notificationType,
+                  notificationType: NotificationType.message,
                   message: ULibraryStrings.uNotification_sentYouAMessage,
                   uImage: widget.uNotification.uImage,
                 ),
@@ -59,109 +57,117 @@ class _USentMessageNotificationState extends State<_USentMessageNotification> {
 
             final _widgetsWidthToSubstract =
                 _correctWidthToSubstractToLinkDescription(_isLinkWithVideo);
-            final _widthLinkDescription =
-                _screenSize.width - _widgetsWidthToSubstract;
-            return Column(
-              children: [
-                UNotificationCard(
-                  uNotification: UNotification(
-                    isUnread: widget.uNotification.isUnread,
-                    username: widget.uNotification.username,
-                    arrivalNotificationTime:
-                        widget.uNotification.arrivalNotificationTime,
-                    notificationType: widget.uNotification.notificationType,
-                    message: ULibraryStrings.uNotification_sentYouALink,
-                    uImage: widget.uNotification.uImage,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
-                  child: Container(
-                    height: 80,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: UColors.foregroundDark,
+
+            return LayoutBuilder(builder: (context, constraints) {
+              final _widgetWidth = constraints.maxWidth;
+              final _widthLinkDescription =
+                  _widgetWidth - _widgetsWidthToSubstract;
+
+              return SizedBox(
+                height: USizes.uNotificationLinkHeightSize,
+                child: Column(
+                  children: [
+                    UNotificationCard(
+                      uNotification: UNotification(
+                        isUnread: widget.uNotification.isUnread,
+                        username: widget.uNotification.username,
+                        arrivalNotificationTime:
+                            widget.uNotification.arrivalNotificationTime,
+                        notificationType: NotificationType.link,
+                        message: ULibraryStrings.uNotification_sentYouALink,
+                        uImage: widget.uNotification.uImage,
                       ),
-                      borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 8,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox.square(
-                            dimension: 8,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(52, 8, 0, 0),
+                      child: Container(
+                        height: USizes.uNotificationLinkBottomSideHeightSize,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: UColors.foregroundDark,
                           ),
-                          SizedBox(
-                            height: 40,
-                            width: _isLinkWithVideo ? 54 : 40,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  UImage(
-                                    imagePath: _linkImage,
-                                    imageSource: ImageSource.network,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  if (_isLinkWithVideo)
-                                    const Positioned(
-                                      child: UIcon(
-                                        UIcons.video_play,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 8,
                           ),
-                          const SizedBox.square(
-                            dimension: 12,
-                          ),
-                          Column(
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              UText(
-                                _siteName,
-                                textStyle: UTextStyle.H5_fifthHeader,
-                              ),
                               const SizedBox.square(
-                                dimension: 2,
+                                dimension: 8,
                               ),
                               SizedBox(
-                                width: _widthLinkDescription,
-                                child: UText(
-                                  _title,
-                                  textStyle: UTextStyle.B3_bold,
-                                  textColor: UColors.textMed,
-                                  textOverflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                                height: 40,
+                                width: _isLinkWithVideo ? 54 : 40,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      UImage(
+                                        imagePath: _linkImage,
+                                        imageSource: ImageSource.network,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      if (_isLinkWithVideo)
+                                        const Positioned(
+                                          child: UIcon(
+                                            UIcons.video_play,
+                                          ),
+                                        ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox.square(
-                                dimension: 1,
+                                dimension: 12,
                               ),
-                              SizedBox(
-                                width: _widthLinkDescription,
-                                child: UText(
-                                  _description,
-                                  textStyle: UTextStyle.B2_medium,
-                                  textColor: UColors.white,
-                                  textOverflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  UText(
+                                    _siteName,
+                                    textStyle: UTextStyle.H5_fifthHeader,
+                                  ),
+                                  const SizedBox.square(
+                                    dimension: 2,
+                                  ),
+                                  SizedBox(
+                                    width: _widthLinkDescription,
+                                    child: UText(
+                                      _title,
+                                      textStyle: UTextStyle.B3_bold,
+                                      textColor: UColors.textMed,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                  const SizedBox.square(
+                                    dimension: 1,
+                                  ),
+                                  SizedBox(
+                                    width: _widthLinkDescription,
+                                    child: UText(
+                                      _description,
+                                      textStyle: UTextStyle.B2_medium,
+                                      textColor: UColors.white,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            );
+              );
+            });
           } else {
             /// TODO(Lucas): Change the widget loader later
             return const UText(

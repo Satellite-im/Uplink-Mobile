@@ -15,6 +15,7 @@ class UUserProfile extends StatelessWidget {
     Key? key,
     UUserProfileSize? userProfileSize,
     UImage? uImage,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   })  : _uImage = uImage ?? const UImage(),
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
@@ -29,6 +30,7 @@ class UUserProfile extends StatelessWidget {
     required String username,
     UUserProfileSize? userProfileSize,
     UImage? uImage,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   })  : _uImage = uImage ?? const UImage(),
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
@@ -41,12 +43,14 @@ class UUserProfile extends StatelessWidget {
 
   final String? _userProfileUsername;
 
+  final MainAxisAlignment mainAxisAlignment;
+
   final UImage? _uImage;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: mainAxisAlignment,
       children: [
         ClipOval(
           child: SizedBox(

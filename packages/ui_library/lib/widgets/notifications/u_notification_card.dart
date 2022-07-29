@@ -31,120 +31,189 @@ class UNotificationCard extends StatelessWidget {
 
     final _pictureAndSizedBoxWidth = _userProfileSize.size + _firstSizedBoxSize;
 
-    final _isFriendRequestNotification = uNotification.notificationType ==
-            NotificationType.friendRequest &&
-        (uNotification.message
-                .contains(ULibraryStrings.uNotificationCard_youAreNowFriends) ||
+    final _isFriendRequestAcceptedNotification =
+        uNotification.notificationType == NotificationType.friendRequest &&
+            (uNotification.message
+                .contains(ULibraryStrings.uNotificationCard_youAreNowFriends));
+
+    final _isFriendRequestDeclinedNotification =
+        uNotification.notificationType == NotificationType.friendRequest &&
             uNotification.message.contains(
-                ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest));
+                ULibraryStrings.uNotificationCard_youDeclinedAFriendRequest);
+
+    final _isFriendRequestReceivedNotification =
+        uNotification.notificationType == NotificationType.friendRequest &&
+            (uNotification.message.contains(
+                ULibraryStrings.uNotificationCard_receivedAFriendRequest));
+
+    double _returnNotificationHeight(NotificationType notificationType) {
+      final _notificationTypeHeight = {
+        NotificationType.serverMessage:
+            USizes.uNotificationServerMessageHeightSize,
+        NotificationType.message: USizes.uNotificationStandardHeightSize,
+        NotificationType.friendRequest:
+            USizes.uNotificationFriendRequestUpsideHeightSize,
+        NotificationType.reactedComment: USizes.uNotificationStandardHeightSize,
+        NotificationType.repliedComment: USizes.uNotificationStandardHeightSize,
+        NotificationType.link: USizes.uNotificationLinkUpsideHeightSize,
+      };
+      return _notificationTypeHeight[notificationType] ?? 40.0;
+    }
+
+    String _returnCorrectMessageForEachNotification(
+        NotificationType notificationType) {
+      if (notificationType == NotificationType.reactedComment) {
+        return ULibraryStrings.uNotification_reactedToYourComment;
+      }
+      if (notificationType == NotificationType.repliedComment) {
+        return ULibraryStrings.uNotification_repliedToYourComment;
+      }
+      return uNotification.message;
+    }
 
     return LayoutBuilder(builder: (context, constraints) {
       final _widgetWidth = constraints.maxWidth;
 
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (uNotification.isUnread)
-            UUserProfileNotification(
-              uImage: uNotification.uImage,
-            )
-          else
-            UUserProfile(
-              userProfileSize: _userProfileSize,
-              uImage: uNotification.uImage,
+      return SizedBox(
+        height: _returnNotificationHeight(uNotification.notificationType),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (uNotification.isUnread)
+              UUserProfileNotification(
+                uImage: uNotification.uImage,
+                mainAxisAlignment: uNotification.notificationType ==
+                        NotificationType.friendRequest
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+              )
+            else
+              UUserProfile(
+                userProfileSize: _userProfileSize,
+                uImage: uNotification.uImage,
+                mainAxisAlignment: uNotification.notificationType ==
+                        NotificationType.friendRequest
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+              ),
+            const SizedBox.square(
+              dimension: _firstSizedBoxSize,
             ),
-          const SizedBox.square(
-            dimension: _firstSizedBoxSize,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: _widgetWidth - _pictureAndSizedBoxWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Username(
-                        username: uNotification.username,
-                        textStyle: UTextStyle.H4_fourthHeader,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: _widgetWidth - _pictureAndSizedBoxWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Username(
+                          username: uNotification.username,
+                          textStyle: UTextStyle.H4_fourthHeader,
+                        ),
                       ),
-                    ),
-                    UText(
-                      _lastMessageArrivalTime,
-                      textStyle: UTextStyle.B1_body,
-                      textColor: UColors.textDark,
-                      textAlign: TextAlign.end,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox.square(
-                dimension: 4,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  if (messagePrefixIcon != null) ...[
-                    UIcon(messagePrefixIcon!),
-                    const SizedBox.square(
-                      dimension: _lastSizedBoxSize,
-                    ),
-                  ],
-                  SizedBox(
-                    width: _isFriendRequestNotification
-                        ? null
-                        : _widgetWidth - _pictureAndSizedBoxWidth,
-                    child: UText(
-                      uNotification.message,
-                      maxLines: 2,
-                      textOverflow: TextOverflow.ellipsis,
-                      textStyle: UTextStyle.B1_body,
-                      textColor: UColors.textMed,
-                      textAlign: TextAlign.left,
-                    ),
+                      SizedBox(
+                        width: USizes.uNotificationDateTextWidthSize,
+                        child: UText(
+                          _lastMessageArrivalTime,
+                          textStyle: UTextStyle.M1_micro,
+                          textColor: UColors.textDark,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
                   ),
-                  if (_isFriendRequestNotification)
-                    UText(
-                      ' ${uNotification.username} !',
-                      maxLines: 1,
-                      textFontWeight: FontWeight.bold,
-                      textOverflow: TextOverflow.ellipsis,
-                      textStyle: UTextStyle.B1_body,
-                      textColor: UColors.white,
-                      textAlign: TextAlign.left,
-                    ),
-                ],
-              ),
-              if (uNotification.message
-                  .contains(ULibraryStrings.uNotificationCard_youAreNowFriends))
+                ),
+                const SizedBox.square(
+                  dimension: 3,
+                ),
                 Row(
-                  children: const [
-                    SizedBox(
-                      width: _lastSizedBoxSize + 24,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (messagePrefixIcon != null) ...[
+                      UIcon(messagePrefixIcon!),
+                      const SizedBox.square(
+                        dimension: _lastSizedBoxSize,
+                      ),
+                    ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: _isFriendRequestAcceptedNotification ||
+                                  _isFriendRequestDeclinedNotification ||
+                                  _isFriendRequestReceivedNotification
+                              ? null
+                              : _widgetWidth - _pictureAndSizedBoxWidth,
+                          child: UText(
+                            _returnCorrectMessageForEachNotification(
+                                uNotification.notificationType),
+                            maxLines: 2,
+                            textOverflow: TextOverflow.ellipsis,
+                            textStyle: uNotification.notificationType ==
+                                    NotificationType.serverMessage
+                                ? UTextStyle.B2_medium
+                                : UTextStyle.B1_body,
+                            textColor: UColors.textMed,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        if (_isFriendRequestReceivedNotification ||
+                            _isFriendRequestDeclinedNotification)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 0.0),
+                            child: UText(
+                              ' ${uNotification.username} !',
+                              maxLines: 1,
+                              textFontWeight: FontWeight.bold,
+                              textOverflow: TextOverflow.ellipsis,
+                              textStyle: UTextStyle.B1_body,
+                              textColor: UColors.white,
+                              textAlign: TextAlign.left,
+                            ),
+                          )
+                        else if (_isFriendRequestAcceptedNotification)
+                          Row(
+                            children: const [
+                              UText(
+                                ULibraryStrings.uNotificationCard_sayHi,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                                textStyle: UTextStyle.B1_body,
+                                textColor: UColors.textMed,
+                                textAlign: TextAlign.left,
+                              ),
+                              UText(
+                                ULibraryStrings.uNotificationCard_handWave,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                                textStyle: UTextStyle.M1_micro,
+                                textColor: UColors.textMed,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                      ],
                     ),
-                    UText(
-                      ULibraryStrings.uNotificationCard_sayHi,
-                      maxLines: 1,
-                      textOverflow: TextOverflow.ellipsis,
-                      textStyle: UTextStyle.B1_body,
-                      textColor: UColors.textMed,
-                      textAlign: TextAlign.left,
-                    ),
-                    UText(
-                      ULibraryStrings.uNotificationCard_handWave,
-                      maxLines: 1,
-                      textOverflow: TextOverflow.ellipsis,
-                      textStyle: UTextStyle.H1_primaryHeader,
-                      textColor: UColors.textMed,
-                      textAlign: TextAlign.left,
-                    ),
+                    if (_isFriendRequestAcceptedNotification)
+                      UText(
+                        ' ${uNotification.username} !',
+                        maxLines: 1,
+                        textFontWeight: FontWeight.bold,
+                        textOverflow: TextOverflow.ellipsis,
+                        textStyle: UTextStyle.B1_body,
+                        textColor: UColors.white,
+                        textAlign: TextAlign.left,
+                      ),
                   ],
                 ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       );
     });
   }
