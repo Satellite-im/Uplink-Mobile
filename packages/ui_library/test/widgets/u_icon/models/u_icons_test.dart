@@ -11,7 +11,7 @@ void main() {
         () => UIcons.about.should
             .be(const UIconData(0xe900, uFontFamily: 'UIcons')),
         and: {
-          'UIcon constructor should be called correctly': () {
+          'UIconData constructor should be called correctly': () {
             const _constructor = UIconData(0xe900, uFontFamily: 'UIcons');
             _constructor.uCodePoint.should.be(0xe900);
             _constructor.uFontFamily.should.be('UIcons');
