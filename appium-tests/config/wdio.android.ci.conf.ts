@@ -25,7 +25,7 @@ config.capabilities = [
         'appium:platformVersion': '7.1.1',
         'appium:automationName': 'UiAutomator1',
         // The path to the app
-        'appium:app': join(process.cwd(), '../build/app/outputs/flutter-apk/app-profile.apk'),
+        'appium:app': join(process.cwd(), './appium-tests/apps/app-profile.apk'),
         // @ts-ignore
         //'appium:appWaitActivity': 'com.satellite.uplink',
         'appium:newCommandTimeout': 240,
