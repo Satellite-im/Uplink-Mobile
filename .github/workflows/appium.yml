@@ -6,9 +6,11 @@ on:
     types: [completed]
   
 jobs:
-  on-success:
+  build:
+    uses: luisecm/Uplink/.github/workflows/flutter-CI.yml@main
+
+  test:
     runs-on: macos-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
         api-level: [25] #Google api level
