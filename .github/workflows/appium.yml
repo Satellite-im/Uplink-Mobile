@@ -5,10 +5,8 @@ on:
     types: [opened, synchronize, reopened, edited]
   
 jobs:
-  build:
+  build and test:
     uses: ./.github/workflows/flutter-CI.yml
-
-  test:
     runs-on: macos-latest
     strategy:
       matrix:
