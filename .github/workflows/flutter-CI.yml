@@ -22,4 +22,9 @@ jobs:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
   
+  test:
+    name: Run and show Appium Tests on Android
+    needs: build
+    uses: luisecm/Uplink/.github/workflows/appium.yml
+  
   
