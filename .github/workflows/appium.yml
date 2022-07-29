@@ -24,13 +24,6 @@ jobs:
         name: apk-android
         path: ./appium-tests/apps/app-profile.apk
 
-      run: |
-        cd ./appium-tests && ls
-        cd ../build && ls
-        cd outputs && ls
-        cd flutter-apk && ls
-        cd ../../..
-
     - name: Checkout ✔️
       uses: actions/checkout@v3 #checkout the code 
 
