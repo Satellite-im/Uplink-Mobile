@@ -14,7 +14,8 @@ class NotificationsPage extends StatefulWidget {
   State<NotificationsPage> createState() => _NotificationsPageState();
 }
 
-class _NotificationsPageState extends State<NotificationsPage> {
+class _NotificationsPageState extends State<NotificationsPage>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +25,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: UNotificationsList(
+            isFromBottomSheet: false,
             uNotificationList: [
               for (final notification in widget.uNotificationsList)
                 UNotification(

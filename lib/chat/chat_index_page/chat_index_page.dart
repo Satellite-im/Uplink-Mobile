@@ -90,7 +90,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: _UAppBar(
-                        mockNotificationsList: _notificationsList.isEmpty
+                        mockNotificationsList: _notificationsList.isNotEmpty
                             ? _notificationsList
                             : [
                                 MockNotification(
@@ -221,18 +221,32 @@ class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
             final _uNotificationList = _prepareNotifications();
             await UBottomSheetNotifications(
               context,
-              animationController: _controller,
               uNotificationsList: _uNotificationList,
               onSlideUp: () async {
                 await Navigator.of(
                   context,
                 ).push(
-                  MaterialPageRoute<Widget>(
+                  // Todo(Lucas): Change transition when change bottomSheet
+                  PageRouteBuilder<Widget>(
                     fullscreenDialog: true,
                     maintainState: false,
-                    builder: (context) => NotificationsPage(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        NotificationsPage(
                       uNotificationsList: _uNotificationList,
                     ),
+                    reverseTransitionDuration:
+                        const Duration(milliseconds: 100),
+                    transitionDuration: const Duration(milliseconds: 10),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(1, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      );
+                    },
                   ),
                 );
               },
