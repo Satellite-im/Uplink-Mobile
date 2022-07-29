@@ -6,7 +6,7 @@ on:
   
 jobs:
   build:
-    uses: luisecm/Uplink/.github/workflows/flutter-CI.yml@main
+    uses: luisecm/Uplink/.github/workflows/flutter-CI.yml@dev
 
   test:
     runs-on: macos-latest
