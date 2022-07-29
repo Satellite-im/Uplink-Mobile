@@ -52,4 +52,5 @@ jobs:
         target: ${{ matrix.target }}
         arch: x86_64
         profile: Nexus 6
-        script: cd appium-tests && npm run android.ci # running our test with info to check the results
+        working-directory: appium-tests/apps
+        script: ls -R && cd .. && npm run android.ci # running our test with info to check the results
