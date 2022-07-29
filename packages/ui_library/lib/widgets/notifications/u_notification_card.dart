@@ -68,10 +68,6 @@ class UNotificationCard extends StatelessWidget {
       if (notificationType == NotificationType.repliedComment) {
         return ULibraryStrings.uNotification_repliedToYourComment;
       }
-      if (notificationType == NotificationType.friendRequest) {
-        return ULibraryStrings.uNotificationCard_receivedAFriendRequest;
-      }
-
       return uNotification.message;
     }
 
