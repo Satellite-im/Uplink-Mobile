@@ -27,10 +27,6 @@ jobs:
         name: debug-apk
         path: appium-tests/apps
 
-    - name: Display structure of Apps folder to confirm APK was downloaded
-      run: ls -R -l && pwd
-      working-directory: appium-tests/apps
-
     - name: Checkout ✔️
       uses: actions/checkout@v3 #checkout the code 
 
@@ -56,4 +52,4 @@ jobs:
         arch: x86_64
         profile: Nexus 6
         working-directory: appium-tests
-        script: cd apps && ls -R -l & cd .. & npm run android.ci # running our test with info to check the results
+        script: npm run android.ci # running our test with info to check the results
