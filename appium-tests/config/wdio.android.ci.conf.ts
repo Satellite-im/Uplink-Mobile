@@ -26,7 +26,7 @@ config.capabilities = [
         'appium:automationName': 'UiAutomator1',
         // The path to the app
         //'appium:app': join(process.cwd(), './apps/app-profile.apk'),
-        'appium:app': 'appium-test/apps/app-profile.apk',
+        'appium:app': join(process.cwd(), './apps/app-profile.apk'),
         // @ts-ignore
         //'appium:appWaitActivity': 'com.satellite.uplink',
         'appium:newCommandTimeout': 240,

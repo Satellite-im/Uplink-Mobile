@@ -18,13 +18,14 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - name: Download build artifact
+    - name: Download APK into repo
+      uses: actions/checkout@v2
       uses: actions/download-artifact@v3
       with:
         name: debug-apk
         path: appium-tests/apps
 
-    - name: Display structure of downloaded files
+    - name: Display structure of Apps folder to confirm APK was downloaded
       run: ls -R
       working-directory: appium-tests/apps
 
@@ -52,5 +53,5 @@ jobs:
         target: ${{ matrix.target }}
         arch: x86_64
         profile: Nexus 6
-        working-directory: appium-tests/apps
-        script: ls -R && cd .. && npm run android.ci # running our test with info to check the results
+        working-directory: appium-tests
+        script: npm run android.ci # running our test with info to check the results
