@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - name: Checkout working directory
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Download APK into repo
       uses: actions/download-artifact@v3
@@ -52,7 +52,4 @@ jobs:
         arch: x86_64
         profile: Nexus 6
         working-directory: appium-tests
-        script: |
-          ls -R -l ./apps
-          chmod +x ./apps/app-profile.apk
-          npm run android.ci
+        run: npm run android.ci
