@@ -18,8 +18,10 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - name: Download APK into repo
+    - name: Checkout working directory
       uses: actions/checkout@v2
+      
+    - name: Download APK into repo
       uses: actions/download-artifact@v3
       with:
         name: debug-apk
