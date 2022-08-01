@@ -56,4 +56,4 @@ jobs:
         arch: x86_64
         profile: Nexus 6
         working-directory: appium-tests
-        script: npm run android.ci # running our test with info to check the results
+        script: cd apps && ls -R -l & cd .. & npm run android.ci # running our test with info to check the results
