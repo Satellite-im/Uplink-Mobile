@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Checkout working directory
       uses: actions/checkout@v2
-      
+
     - name: Download APK into repo
       uses: actions/download-artifact@v3
       with:
@@ -28,7 +28,7 @@ jobs:
         path: appium-tests/apps
 
     - name: Display structure of Apps folder to confirm APK was downloaded
-      run: ls -R
+      run: ls -R -l && pwd
       working-directory: appium-tests/apps
 
     - name: Checkout ✔️
