@@ -129,3 +129,4 @@ app.*.map.json
 # Appium Tests Files
 /appium-tests/node_modules/
 /appium-tests/appium.log
+/appium-tests/test-results/
