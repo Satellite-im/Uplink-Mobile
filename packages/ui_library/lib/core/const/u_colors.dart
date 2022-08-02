@@ -49,4 +49,13 @@ class UColors {
 
   /// FF6F748A
   static const textDark = Color(0xFF6F748A);
+
+  /// FF1C1C29
+  static const loadDark = Color(0xFF1C1C29);
+
+  /// FF2B2B3B
+  static const loadMed = Color(0xFF2B2B3B);
+
+  /// FF38384C
+  static const loadLight = Color(0xFF38384C);
 }
