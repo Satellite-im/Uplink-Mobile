@@ -91,16 +91,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   builder: (context) => GestureDetector(
                                     behavior: HitTestBehavior.opaque,
                                     onTap: () => Navigator.of(context).pop(),
-                                    child: GestureDetector(
-                                      onTap: () {},
-                                      child: QRCodeBottomSheet(
-                                        currentUser: _mockCurrentUser!,
-                                      ),
+                                    child: QRCodeBottomSheet(
+                                      currentUser: _mockCurrentUser!,
                                     ),
                                   ),
                                 );
-
-                                // qrCodeBottomSheet(context, userImagePath).show();
                               },
                             ),
                             IconButton(

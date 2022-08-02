@@ -32,10 +32,10 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
           qrCodePageKey.currentState?.showAppBar = false;
         }
         if (notification.extent == 1) {
-          qrCodePageKey.currentState?.backButtonOpacity = 1;
           qrCodePageKey.currentState?.controller = null;
-          qrCodePageKey.currentState?.reducedTopHeight = 0;
           qrCodePageKey.currentState?.showHomeIndicator = false;
+        }
+        if (notification.extent > 0.98) {
           qrCodePageKey.currentState?.showAppBar = true;
         }
         if (notification.extent > 0.8) {
@@ -47,19 +47,19 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
         return true;
       },
       child: DraggableScrollableSheet(
-        snapSizes: const [0.60, 1],
+        snapSizes: const [0.65, 1],
         minChildSize: 0,
-        initialChildSize: 0.60,
+        initialChildSize: 0.65,
         snap: true,
-        builder: (context, scrollController) => QRCodePage(
-          key: qrCodePageKey,
-          currentUser: widget.currentUser,
-          controller: scrollController,
-          reducedTopHeight: 44,
-          backButtonOpacity: 0,
-          isFromBottomSheet: true,
-          showHomeIndicator: true,
-        ),
+        builder: (context, scrollController) {
+          return QRCodePage(
+            key: qrCodePageKey,
+            currentUser: widget.currentUser,
+            controller: scrollController,
+            isFromBottomSheet: true,
+            showHomeIndicator: true,
+          );
+        },
       ),
     );
   }
