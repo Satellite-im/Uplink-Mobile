@@ -3,6 +3,8 @@ name: Flutter CI - Generate APK
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
+    
+  workflow_call:
 
 jobs:
   build:
@@ -21,3 +23,5 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-profile.apk
+
+  
