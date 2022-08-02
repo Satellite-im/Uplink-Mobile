@@ -145,7 +145,7 @@ export const config: WebdriverIO.Config = {
     afterTest: async function (test, describe, { error }) {
         if (error) {
             let imageFile = await driver.takeScreenshot()
-            let imageFolder = join(process.cwd(), './test-results/' + describe.title)
+            let imageFolder = join(process.cwd(), './test-results/', test.parent)
             await mkdirp(imageFolder)
             await fsp.writeFile(imageFolder + '/' + test.title + ' - Failed.png', imageFile, 'base64')
         }
