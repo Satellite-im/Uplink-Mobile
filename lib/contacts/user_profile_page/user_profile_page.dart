@@ -78,7 +78,9 @@ class UserProfilePageState extends State<UserProfilePage>
           controller: controller,
           slivers: [
             if (showHomeIndicator == true)
-              const SliverToBoxAdapter(child: UHomeIndicator()),
+              const SliverToBoxAdapter(
+                child: UHomeIndicator(),
+              ),
             SliverToBoxAdapter(
               child: Container(
                 decoration: BoxDecoration(
