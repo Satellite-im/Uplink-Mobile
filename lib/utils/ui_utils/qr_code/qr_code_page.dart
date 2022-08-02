@@ -6,16 +6,13 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
 
-part 'qr_code_full_page.dart';
 part 'qr_code_bottom_sheet_body.dart';
 
 class QRCodePage extends StatefulWidget {
   const QRCodePage({
     Key? key,
     required this.currentUser,
-    this.controller,
-    this.reducedTopHeight,
-    this.backButtonOpacity,
+    required this.controller,
     this.isFromBottomSheet,
     this.showHomeIndicator,
     this.showAppBar,
@@ -23,9 +20,7 @@ class QRCodePage extends StatefulWidget {
   }) : super(key: key);
 
   final MockCurrentUser currentUser;
-  final ScrollController? controller;
-  final double? reducedTopHeight;
-  final double? backButtonOpacity;
+  final ScrollController controller;
   final bool? isFromBottomSheet;
   final bool? showHomeIndicator;
   final bool? showAppBar;
@@ -38,20 +33,15 @@ class QRCodePage extends StatefulWidget {
 class QRCodePageState extends State<QRCodePage>
     with SingleTickerProviderStateMixin {
   late MockCurrentUser currentUser;
-  double backButtonOpacity = 1;
-  // used to connect draggableScrollableSheet
   ScrollController? controller;
-  // used to reduce the top height when it is bottom sheet
-  double reducedTopHeight = 0;
-  // for back navigation in vertical direction of bottomsheet
   late AnimationController _animationController;
   bool showHomeIndicator = false;
   bool showAppBar = false;
   bool isPage = false;
+  ScrollPhysics scrollPhysics = const ClampingScrollPhysics();
 
   @override
   void initState() {
-    super.initState();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100),
@@ -62,20 +52,13 @@ class QRCodePageState extends State<QRCodePage>
     if (widget.isPage != null) {
       isPage = widget.isPage!;
     }
-
-    if (widget.reducedTopHeight != null) {
-      reducedTopHeight = widget.reducedTopHeight!;
-    }
-
-    if (widget.backButtonOpacity != null) {
-      backButtonOpacity = widget.backButtonOpacity!;
-    }
     if (widget.showHomeIndicator != null) {
       showHomeIndicator = widget.showHomeIndicator!;
     }
     if (widget.showAppBar != null) {
       showAppBar = widget.showAppBar!;
     }
+    super.initState();
   }
 
   @override
@@ -83,100 +66,46 @@ class QRCodePageState extends State<QRCodePage>
     return SlideTransition(
       position: Tween<Offset>(begin: Offset.zero, end: const Offset(1, 0))
           .animate(_animationController),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: CustomScrollView(
+      child: Container(
+        color: showAppBar ? UColors.backgroundDark : Colors.transparent,
+        padding: EdgeInsets.only(
+          top: MediaQueryData.fromWindow(
+            WidgetsBinding.instance!.window,
+          ).padding.top,
+        ),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: Colors.transparent,
+          body: CustomScrollView(
             controller: controller,
             physics: const ClampingScrollPhysics(),
             slivers: [
-              if (showHomeIndicator == true)
-                const SliverToBoxAdapter(
-                  child: UHomeIndicator(),
+              SliverToBoxAdapter(
+                child: AnimatedCrossFade(
+                  duration: const Duration(milliseconds: 250),
+                  crossFadeState: showAppBar
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  firstChild: const UHomeIndicator(),
+                  secondChild: const SizedBox.shrink(),
                 ),
+              ),
               SliverToBoxAdapter(
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     color: UColors.backgroundDark,
                   ),
-                  child: isPage == true
-                      ? _QRCodeFullPage(
-                          showAppBar: showAppBar,
-                          currentUser: currentUser,
-                        )
-                      : _QRCodeBottomSheet(
-                          currentUser: currentUser,
-                        ),
+                  child: _QRCodeBottomSheet(
+                    currentUser: currentUser,
+                    isPage: isPage,
+                    showAppBar: showAppBar,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _QRCode extends StatelessWidget {
-  const _QRCode({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 36),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const UIcon(
-                UIcons.qr_code_scanner_border,
-                color: UColors.textMed,
-              ),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(math.pi),
-                child: const UIcon(
-                  UIcons.qr_code_scanner_border,
-                  color: UColors.textMed,
-                ),
-              )
-            ],
-          ),
-          const Center(
-            child: SizedBox.square(
-              dimension: 240,
-              child: UQRCode(
-                qrCodeData: UAppStrings.profileIndexPage_qrCodeData,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationX(math.pi),
-                child: const UIcon(
-                  UIcons.qr_code_scanner_border,
-                  color: UColors.textMed,
-                ),
-              ),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationZ(math.pi),
-                child: const UIcon(
-                  UIcons.qr_code_scanner_border,
-                  color: UColors.textMed,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

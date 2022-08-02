@@ -94,7 +94,9 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       title: (_appBarType == _AppBarType.back) ||
               (_appBarType == _AppBarType.actions)
-          ? Text(_title!)
+          ? Text(
+              _title!,
+            )
           : null,
       centerTitle: false,
       titleSpacing: 0,
