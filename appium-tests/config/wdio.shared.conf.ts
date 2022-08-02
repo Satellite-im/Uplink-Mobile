@@ -1,3 +1,9 @@
+const fsp = require('fs').promises
+const mkdirp = require('mkdirp')
+
+import { join } from 'path';
+import { getConfigFileParsingDiagnostics } from 'typescript';
+
 /**
  * All not needed configurations, for this boilerplate, are removed.
  * If you want to know which configuration options you have then you can
@@ -136,4 +142,12 @@ export const config: WebdriverIO.Config = {
     /**
      * NOTE: No Hooks are used in this project, but feel free to add them if you need them.
      */
+    afterTest: async function (test, describe, { error }) {
+        if (error) {
+            let imageFile = await driver.takeScreenshot()
+            let imageFolder = join(process.cwd(), './test-results/' + describe.title)
+            await mkdirp(imageFolder)
+            await fsp.writeFile(imageFolder + '/' + test.title + ' - Failed.png', imageFile, 'base64')
+        }
+    },
 };

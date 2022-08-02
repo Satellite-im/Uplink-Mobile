@@ -51,3 +51,10 @@ jobs:
         working-directory: appium-tests
         script: |
           npm run android.ci
+    
+    - name: Upload Screenshots if tests failed 📷
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: appium-screenshots
+        path: appium-tests/test-results
