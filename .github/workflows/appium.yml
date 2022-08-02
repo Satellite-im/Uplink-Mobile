@@ -18,18 +18,14 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - name: Checkout working directory
+    - name: Checkout working directory 🔖
       uses: actions/checkout@v3
 
-    - name: Download APK into repo
+    - name: Download APK built during action 🗳️
       uses: actions/download-artifact@v3
       with:
         name: debug-apk
         path: appium-tests/apps
-    
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: appium-tests/apps
 
     - name: Use Node.js ${{ matrix.node-version }} 🔨
       uses: actions/setup-node@v3
