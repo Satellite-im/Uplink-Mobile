@@ -17,10 +17,10 @@ class AddFriendAppBar extends StatelessWidget with PreferredSizeWidget {
             color: UColors.textMed,
           ),
           onPressed: () {
-            qrCodeBottomSheet(
-              context,
-              null,
-            ).show();
+            // qrCodeBottomSheet(
+            //   context,
+            //   null,
+            // ).show();
           },
         )
       ],
