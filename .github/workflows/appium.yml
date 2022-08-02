@@ -44,6 +44,10 @@ jobs:
         chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
         ./appium-tests/scripts/run_appium_server.sh
     
+    - name: List of apk generated
+      working-directory: build/app/outputs/flutter-apk
+      run: ls - R -l
+
     - name: Run Appium Tests 🌡️
       uses: reactivecircus/android-emulator-runner@v2 # install and create the Emulator
       with:
@@ -52,4 +56,5 @@ jobs:
         arch: x86_64
         profile: Nexus 6
         working-directory: appium-tests
-        run: npm run android.ci
+        script: |
+          npm run android.ci
