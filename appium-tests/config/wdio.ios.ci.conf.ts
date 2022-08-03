@@ -20,8 +20,6 @@ config.capabilities = [
         // This is `appium:` for all Appium Capabilities which can be found here
         // http://appium.io/docs/en/writing-running-appium/caps/
         "appium:deviceName": "iPhone 12",
-        "appium:platformVersion": "15.2",
-        "appium:udid": "7207FAE5-5CD3-4F45-B899-5D9A96ED911D",
         "appium:orientation": "PORTRAIT",
         "appium:automationName": "XCUITest",
         // The path to the app
