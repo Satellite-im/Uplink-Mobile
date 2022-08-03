@@ -37,13 +37,14 @@ jobs:
       with:
         model: 'iPhone 11'
     
-    - name: Flutter Run App In Debug Mode
-      run: flutter run --debug
-        
     - name: Run Appium Tests 🌡️
-      working-directory: appium-tests
-      run: |
-        npm run ios.ci
+      with:
+        working-directory: ./
+        install: false
+        start: flutter run --debug
+        command: cd appium-tests && npm run ios.ci
+        wait-on: http://127.0.0.1
+        wait-on-timeout: 300
 
     - name: Upload Screenshots if tests failed 📷
       uses: actions/upload-artifact@v2
