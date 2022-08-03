@@ -12,6 +12,10 @@ jobs:
     - name: Checkout working directory 🔖
       uses: actions/checkout@v3
 
+    - name: Extract .app file from .zip file
+      working-directory: appium-tests/apps
+      run: 7z x Runner.zip
+
     - name: Use Node.js ${{ matrix.node-version }} 🔨
       uses: actions/setup-node@v3
       with:

@@ -25,7 +25,7 @@ config.capabilities = [
         // The path to the app
         "appium:app": join(
             process.cwd(),
-            "./apps/Runner.zip"
+            "./apps/Runner.app"
         ),
         "appium:newCommandTimeout": 240,
     },
