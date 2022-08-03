@@ -6,12 +6,14 @@ class _QRCodeBottomSheet extends StatelessWidget {
     required this.currentUser,
     required this.isPage,
     required this.showAppBar,
+    required this.isHalfPage,
     required this.animationController,
   }) : super(key: key);
 
   final MockCurrentUser currentUser;
   final bool isPage;
   final bool showAppBar;
+  final bool isHalfPage;
   final AnimationController animationController;
 
   @override
@@ -71,7 +73,7 @@ class _QRCodeBottomSheet extends StatelessWidget {
             child: Center(
               child: UUserProfile(
                 secondUserProfileSize: UUserProfileSize.large,
-                isFirstSize: !isPage,
+                isFirstSize: !isHalfPage,
                 sizeAnimationDuration: _duration,
                 userProfileSize: UUserProfileSize.normal,
                 uImage: UImage(
@@ -83,11 +85,8 @@ class _QRCodeBottomSheet extends StatelessWidget {
           ),
           AnimatedContainer(
             duration: _duration,
-            height: isPage ? 16 : 12,
+            height: isHalfPage ? 16 : 12,
           ),
-          // const SizedBox.square(
-          //   dimension: 12,
-          // ),
           const UText(
             UAppStrings.profileIndexPage_username,
             textStyle: UTextStyle.H2_secondaryHeader,
@@ -99,16 +98,13 @@ class _QRCodeBottomSheet extends StatelessWidget {
             UAppStrings.profileIndexPage_statusMessage,
             textStyle: UTextStyle.B1_body,
           ),
-          // const SizedBox.square(
-          //   dimension: 24,
-          // ),
           AnimatedContainer(
             duration: _duration,
-            height: isPage ? 32 : 24,
+            height: isHalfPage ? 32 : 24,
           ),
           AnimatedPadding(
             duration: _duration,
-            padding: isPage
+            padding: isHalfPage
                 ? const EdgeInsets.symmetric(horizontal: 36)
                 : const EdgeInsets.symmetric(horizontal: 70),
             child: Row(
@@ -131,15 +127,15 @@ class _QRCodeBottomSheet extends StatelessWidget {
           ),
           AnimatedContainer(
             duration: _duration,
-            height: isPage ? 240 : 172,
-            width: isPage ? 240 : 172,
+            height: isHalfPage ? 240 : 172,
+            width: isHalfPage ? 240 : 172,
             child: const UQRCode(
               qrCodeData: UAppStrings.profileIndexPage_qrCodeData,
             ),
           ),
           AnimatedPadding(
             duration: _duration,
-            padding: isPage
+            padding: isHalfPage
                 ? const EdgeInsets.symmetric(horizontal: 36)
                 : const EdgeInsets.symmetric(horizontal: 70),
             child: Row(
