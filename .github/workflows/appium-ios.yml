@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened, edited]
   
 jobs:
-  build and test:
+  test:
     runs-on: macOS-latest
     steps:
     - name: Checkout working directory 🔖
