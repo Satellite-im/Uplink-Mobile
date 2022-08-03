@@ -1,12 +1,4 @@
-import 'dart:math' as math;
-
-import 'package:flutter/material.dart';
-import 'package:ui_library/ui_library_export.dart';
-
-import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/mock_current_user.dart';
-
-part 'qr_code_bottom_sheet_body.dart';
+part of 'qr_code_bottom_sheet.dart';
 
 class QRCodePage extends StatefulWidget {
   const QRCodePage({
@@ -38,13 +30,12 @@ class QRCodePageState extends State<QRCodePage>
   bool showHomeIndicator = false;
   bool showAppBar = false;
   bool isPage = false;
-  ScrollPhysics scrollPhysics = const ClampingScrollPhysics();
 
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 250),
     );
     currentUser = widget.currentUser;
     controller = widget.controller;
@@ -59,6 +50,12 @@ class QRCodePageState extends State<QRCodePage>
       showAppBar = widget.showAppBar!;
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,7 +75,6 @@ class QRCodePageState extends State<QRCodePage>
           backgroundColor: Colors.transparent,
           body: CustomScrollView(
             controller: controller,
-            physics: const ClampingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: AnimatedCrossFade(
@@ -98,6 +94,7 @@ class QRCodePageState extends State<QRCodePage>
                   ),
                   child: _QRCodeBottomSheet(
                     currentUser: currentUser,
+                    animationController: _animationController,
                     isPage: isPage,
                     showAppBar: showAppBar,
                   ),
