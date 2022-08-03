@@ -21,19 +21,22 @@ jobs:
       run: |
         cd appium-tests && npm ci
 
-    - name: Install and Run Appium Server 📱
+    - name: Install and Run Appium Server 🖥️
       run: |
         chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
         ./appium-tests/scripts/run_appium_server.sh
     
-    - name: Run Appium Tests 🌡️
+    - name: Load iOS Simulator 📱
       uses: futureware-tech/simulator-action@v1 # install and create the Emulator
       with:
         model: 'Iphone 13'
+        
+    - name: Run Appium Tests 🌡️
+      with:
         working-directory: appium-tests
         script: |
           npm run ios.ci
-    
+
     - name: Upload Screenshots if tests failed 📷
       uses: actions/upload-artifact@v2
       if: failure()
