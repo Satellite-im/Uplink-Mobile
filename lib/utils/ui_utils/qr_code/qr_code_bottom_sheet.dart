@@ -33,35 +33,30 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
           _readyToClose = false;
           Navigator.of(context).pop();
         }
-        if (notification.extent < 0.98) {
-          qrCodePageKey.currentState?.showAppBar = false;
-        }
         if (notification.extent == 1) {
-          qrCodePageKey.currentState?.controller = null;
-          qrCodePageKey.currentState?.showHomeIndicator = false;
+          // qrCodePageKey.currentState?.controller.;
         }
-        if (notification.extent > 0.98) {
-          qrCodePageKey.currentState?.showAppBar = true;
-        }
-        if (notification.extent > 0.8) {
-          qrCodePageKey.currentState?.isPage = true;
-        }
-        if (notification.extent < 0.8) {
-          qrCodePageKey.currentState?.isPage = false;
-        }
+
+        qrCodePageKey.currentState?.isHalfPage = notification.extent > 0.8;
+        qrCodePageKey.currentState?.isPage = notification.extent > 0.9;
+        qrCodePageKey.currentState?.showAppBar = notification.extent > 0.98;
+        qrCodePageKey.currentState?.showHomeIndicator =
+            !(notification.extent == 1);
+
         return true;
       },
-      child: DraggableScrollableSheet(
-        snapSizes: const [0.65, 1],
-        minChildSize: 0,
-        initialChildSize: 0.65,
-        snap: true,
-        builder: (context, scrollController) => QRCodePage(
-          key: qrCodePageKey,
-          currentUser: widget.currentUser,
-          controller: scrollController,
-          isFromBottomSheet: true,
-          showHomeIndicator: true,
+      child: GestureDetector(
+        onVerticalDragDown: (details) {},
+        child: DraggableScrollableSheet(
+          snapSizes: const [0.65, 1],
+          minChildSize: 0,
+          initialChildSize: 0.65,
+          snap: true,
+          builder: (context, scrollController) => QRCodePage(
+            key: qrCodePageKey,
+            currentUser: widget.currentUser,
+            controller: scrollController,
+          ),
         ),
       ),
     );
