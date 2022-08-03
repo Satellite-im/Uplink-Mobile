@@ -145,7 +145,12 @@ export const config: WebdriverIO.Config = {
     afterTest: async function (test, describe, { error }) {
         if (error) {
             let imageFile = await driver.takeScreenshot()
-            let imageFolder = join(process.cwd(), './test-results/', test.parent)
+            let imageFolder
+            if (driver.isAndroid) {
+                imageFolder = join(process.cwd(), './test-results/android', test.parent)
+            } else {
+                imageFolder = join(process.cwd(), './test-results/ios', test.parent)
+            }  
             await mkdirp(imageFolder)
             await fsp.writeFile(imageFolder + '/' + test.title + ' - Failed.png', imageFile, 'base64')
         }

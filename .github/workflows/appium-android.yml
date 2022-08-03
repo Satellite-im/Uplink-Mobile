@@ -57,4 +57,4 @@ jobs:
       if: failure()
       with:
         name: appium-screenshots
-        path: appium-tests/test-results
+        path: appium-tests/test-results/android
