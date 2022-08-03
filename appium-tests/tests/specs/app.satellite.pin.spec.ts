@@ -1,11 +1,11 @@
 import PinScreen from '../screenobjects/PinScreen';
 
-describe('Pin Screen Uplink,', () => {
+describe('Pin Screen Uplink', async () =>  {
     beforeEach(async () => {
         await PinScreen.waitForIsShown(true);
     });
 
-    it('Assert screen texts', () => {
+    it('Assert screen texts', async () =>  {
         PinScreen.validateTexts()
     })
 
