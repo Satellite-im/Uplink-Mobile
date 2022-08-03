@@ -32,10 +32,9 @@ jobs:
         model: 'Iphone 13'
         
     - name: Run Appium Tests 🌡️
-      with:
-        working-directory: appium-tests
-        script: |
-          npm run ios.ci
+      working-directory: appium-tests
+      run: |
+        npm run ios.ci
 
     - name: Upload Screenshots if tests failed 📷
       uses: actions/upload-artifact@v2
