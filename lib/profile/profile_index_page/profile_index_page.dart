@@ -23,7 +23,6 @@ class ProfileIndexPage extends StatefulWidget {
 }
 
 class _ProfileIndexPageState extends State<ProfileIndexPage> {
-  final _badgesQuantity = 5;
   bool _isEditingProfile = false;
   final _duration = const Duration(milliseconds: 250);
 
