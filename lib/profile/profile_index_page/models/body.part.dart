@@ -3,16 +3,15 @@ part of '../profile_index_page.dart';
 class _ProfileIndexBody extends StatelessWidget {
   const _ProfileIndexBody({
     Key? key,
-    required int badgesQuantity,
     required Size pageSize,
+    required this.currentUser,
     required Function(bool) onTapEditProfile,
-  })  : _badgesQuantity = badgesQuantity,
-        _pageSize = pageSize,
+  })  : _pageSize = pageSize,
         _onTapEditProfile = onTapEditProfile,
         super(key: key);
 
-  final int _badgesQuantity;
   final Size _pageSize;
+  final MockCurrentUser currentUser;
   final Function(bool) _onTapEditProfile;
 
   @override
@@ -52,7 +51,7 @@ class _ProfileIndexBody extends StatelessWidget {
             dimension: 16,
           ),
           _ProfileData(
-            badgesQuantity: _badgesQuantity,
+            currentUser: currentUser,
           ),
           const SizedBox.square(
             dimension: 24,
@@ -82,10 +81,10 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 18,
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: UText(
-              UAppStrings.profileIndexPage_aboutDescription,
+              currentUser.about!,
               textStyle: UTextStyle.B1_body,
               textColor: UColors.white,
             ),

@@ -1,4 +1,4 @@
-part of 'qr_code_page.dart';
+part of 'qr_code_bottom_sheet.dart';
 
 class _QRCodeBottomSheet extends StatelessWidget {
   const _QRCodeBottomSheet({
@@ -6,16 +6,18 @@ class _QRCodeBottomSheet extends StatelessWidget {
     required this.currentUser,
     required this.isPage,
     required this.showAppBar,
+    required this.animationController,
   }) : super(key: key);
 
   final MockCurrentUser currentUser;
   final bool isPage;
   final bool showAppBar;
+  final AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    const _duration = Duration(milliseconds: 200);
+    const _duration = Duration(milliseconds: 250);
 
     return AnimatedContainer(
       duration: _duration,
@@ -34,19 +36,32 @@ class _QRCodeBottomSheet extends StatelessWidget {
             height: showAppBar ? AppBar().preferredSize.height : 0,
             child: UAppBar.back(
               title: UAppStrings.qrCodePage_appBarTitle,
+              cancelCloseFunctionInBackButton: true,
+              onBackPressed: () {
+                animationController.forward().whenComplete(
+                      () => Navigator.of(context).pop(),
+                    );
+              },
             ),
           ),
-          AnimatedSize(
+          AnimatedContainer(
             duration: _duration,
-            child: isPage
-                ? const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
-                    child: UText(
-                      UAppStrings.qrCodePage_pageDescription,
-                      textStyle: UTextStyle.B1_body,
-                    ),
-                  )
-                : const SizedBox.shrink(),
+            height: showAppBar
+                ? 48
+                : isPage
+                    ? 64
+                    : 0,
+            width: isPage ? (_screenSize.width) : 0,
+            child: AnimatedPadding(
+              duration: _duration,
+              padding: showAppBar
+                  ? const EdgeInsets.fromLTRB(16, 8, 16, 0)
+                  : const EdgeInsets.fromLTRB(16, 30, 16, 0),
+              child: const UText(
+                UAppStrings.qrCodePage_pageDescription,
+                textStyle: UTextStyle.B1_body,
+              ),
+            ),
           ),
           AnimatedPadding(
             duration: _duration,
@@ -54,15 +69,14 @@ class _QRCodeBottomSheet extends StatelessWidget {
                 ? const EdgeInsets.only(top: 24)
                 : const EdgeInsets.only(top: 30),
             child: Center(
-              child: AnimatedSize(
-                duration: _duration,
-                child: UUserProfile(
-                  userProfileSize:
-                      isPage ? UUserProfileSize.large : UUserProfileSize.normal,
-                  uImage: UImage(
-                    imagePath: currentUser.imageAddress,
-                    fit: BoxFit.cover,
-                  ),
+              child: UUserProfile(
+                secondUserProfileSize: UUserProfileSize.large,
+                isFirstSize: !isPage,
+                sizeAnimationDuration: _duration,
+                userProfileSize: UUserProfileSize.normal,
+                uImage: UImage(
+                  imagePath: currentUser.imageAddress,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

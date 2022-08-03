@@ -218,7 +218,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             AnimatedCrossFade(
                               duration: _duration,
                               firstChild: _ProfileIndexBody(
-                                badgesQuantity: _badgesQuantity,
+                                currentUser: _mockCurrentUser!,
                                 pageSize: _size,
                                 onTapEditProfile: (value) {
                                   setState(() {

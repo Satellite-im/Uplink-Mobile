@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_dynamic_calls
 
-import 'dart:math';
 import 'package:ui_library/ui_library_export.dart';
 
 class MockCurrentUser {
@@ -33,14 +32,19 @@ class MockCurrentUser {
         status = Status.offline;
     }
 
+    badgesNum = json['badgesNum'] as int;
+
+    friendNum = json['friendNum'] as int;
+
+    location = json['location'] as String;
+
+    about = json['about'] as String;
+
     bannerImageAddress = json['banner_image_address'] as String;
 
     statusMessage = json['status_message'] as String?;
 
-    //get a random local image path
-    final _random = 1 + Random().nextInt(8);
     imageAddress = json['image_address'] as String;
-    // 'packages/ui_library/images/placeholders/user_avatar_$_random.png';
   }
 
   MockCurrentUser copywith({

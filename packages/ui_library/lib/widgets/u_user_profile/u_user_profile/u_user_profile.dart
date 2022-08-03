@@ -14,12 +14,16 @@ class UUserProfile extends StatelessWidget {
   const UUserProfile({
     Key? key,
     UUserProfileSize? userProfileSize,
+    UUserProfileSize? secondUserProfileSize,
     UImage? uImage,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.isFirstSize,
+    this.sizeAnimationDuration = Duration.zero,
   })  : _uImage = uImage ?? const UImage(),
         _userProfileType = UUserProfileType.noUsername,
         _userProfileUsername = null,
         _size = userProfileSize ?? UUserProfileSize.normal,
+        _secondSize = secondUserProfileSize ?? UUserProfileSize.normal,
         super(key: key);
 
   /// Creates User Profile Widget with name
@@ -29,15 +33,22 @@ class UUserProfile extends StatelessWidget {
     Key? key,
     required String username,
     UUserProfileSize? userProfileSize,
+    UUserProfileSize? secondUserProfileSize,
     UImage? uImage,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.sizeAnimationDuration = Duration.zero,
+    this.isFirstSize,
   })  : _uImage = uImage ?? const UImage(),
         _userProfileUsername = username,
         _userProfileType = UUserProfileType.withUsername,
         _size = userProfileSize ?? UUserProfileSize.normal,
+        _secondSize = secondUserProfileSize ?? UUserProfileSize.normal,
         super(key: key);
 
   final UUserProfileSize _size;
+
+  /// Value used only for size change with animation
+  final UUserProfileSize _secondSize;
 
   final UUserProfileType _userProfileType;
 
@@ -47,15 +58,29 @@ class UUserProfile extends StatelessWidget {
 
   final UImage? _uImage;
 
+  /// Value used only for size change with animation
+  final Duration sizeAnimationDuration;
+
+  /// Value used only for size change with animation
+  final bool? isFirstSize;
+
+  double _changeSize() {
+    if (isFirstSize != null && _secondSize != _size) {
+      return isFirstSize! ? _size.size : _secondSize.size;
+    }
+    return _size.size;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: mainAxisAlignment,
       children: [
         ClipOval(
-          child: SizedBox(
-            height: _size.size,
-            width: _size.size,
+          child: AnimatedContainer(
+            duration: sizeAnimationDuration,
+            height: _changeSize(),
+            width: _changeSize(),
             child: _uImage,
           ),
         ),

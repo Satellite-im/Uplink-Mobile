@@ -1,7 +1,12 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
 
-import 'package:uplink/utils/ui_utils/qr_code/qr_code_page.dart';
+part 'qr_code_bottom_sheet_body.dart';
+part 'qr_code_page.dart';
 
 GlobalKey<QRCodePageState> qrCodePageKey = GlobalKey();
 
@@ -28,7 +33,7 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
           _readyToClose = false;
           Navigator.of(context).pop();
         }
-        if (notification.extent < 1) {
+        if (notification.extent < 0.98) {
           qrCodePageKey.currentState?.showAppBar = false;
         }
         if (notification.extent == 1) {
@@ -51,15 +56,13 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
         minChildSize: 0,
         initialChildSize: 0.65,
         snap: true,
-        builder: (context, scrollController) {
-          return QRCodePage(
-            key: qrCodePageKey,
-            currentUser: widget.currentUser,
-            controller: scrollController,
-            isFromBottomSheet: true,
-            showHomeIndicator: true,
-          );
-        },
+        builder: (context, scrollController) => QRCodePage(
+          key: qrCodePageKey,
+          currentUser: widget.currentUser,
+          controller: scrollController,
+          isFromBottomSheet: true,
+          showHomeIndicator: true,
+        ),
       ),
     );
   }
