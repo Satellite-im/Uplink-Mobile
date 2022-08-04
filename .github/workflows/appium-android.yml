@@ -1,0 +1,60 @@
+name: Running Appium Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  
+jobs:
+  build:
+    uses: ./.github/workflows/flutter-CI.yml
+
+  test:
+    needs: build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [25] #Google api level
+        target: [default]
+        node-version: [14.x]
+
+    steps:
+    - name: Checkout working directory 🔖
+      uses: actions/checkout@v3
+
+    - name: Download APK built during action 🗳️
+      uses: actions/download-artifact@v3
+      with:
+        name: debug-apk
+        path: appium-tests/apps
+
+    - name: Use Node.js ${{ matrix.node-version }} 🔨
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install NPM dependencies 📦
+      run: |
+        cd appium-tests && npm ci
+
+    - name: Install and Run Appium Server 📱
+      run: |
+        chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
+        ./appium-tests/scripts/run_appium_server.sh
+    
+    - name: Run Appium Tests 🌡️
+      uses: reactivecircus/android-emulator-runner@v2 # install and create the Emulator
+      with:
+        api-level: ${{ matrix.api-level }}
+        target: ${{ matrix.target }}
+        arch: x86_64
+        profile: Nexus 6
+        working-directory: appium-tests
+        script: |
+          npm run android.ci
+    
+    - name: Upload Screenshots if tests failed 📷
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: appium-screenshots
+        path: appium-tests/test-results/android

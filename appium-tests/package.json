@@ -6,6 +6,7 @@
         "android.app": "wdio config/wdio.android.app.conf.ts",
         "android.ci": "wdio config/wdio.android.ci.conf.ts",
         "ios.app": "wdio config/wdio.ios.app.conf.ts",
+        "ios.ci": "wdio config/wdio.ios.ci.conf.ts",
         "lint": "eslint config tests"
     },
     "repository": {

@@ -1,0 +1,58 @@
+# Pre-Commit E2E Tests in iOS
+name: Running Appium Tests on iOS
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+    - name: Checkout working directory 🔖
+      uses: actions/checkout@v3
+
+    #- name: Setup Flutter
+    #  uses: subosito/flutter-action@v2
+    #  with:
+    #    flutter-version: '2.10.4'
+    #    channel: 'stable' 
+
+    - name: Use Node.js ${{ matrix.node-version }} 🔨
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install NPM dependencies 📦
+      run: |
+        cd appium-tests && npm ci
+
+    - name: Load iOS Simulator 📱
+      uses: futureware-tech/simulator-action@v1 # install and create the Emulator
+      with:
+        model: 'iPhone 11'
+    
+    #- name: Install Flutter App on iOS Emulator 🌡️
+    #  uses: ifaxity/wait-on-action
+    #  with:
+    #    working-directory: ./
+    #    start: flutter run --debug
+    #    wait-on: http://127.0.0.1
+    #    wait-on-timeout: 300
+
+    - name: Install and Run Appium Server 🖥️
+      run: |
+        chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
+        ./appium-tests/scripts/run_appium_server.sh
+      
+    - name: Run Appium Tests 🌡️
+      working-directory: appium-tests
+      run: |
+        npm run ios.ci
+
+    - name: Upload Screenshots if tests failed 📷
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: appium-screenshots
+        path: appium-tests/test-results/ios
