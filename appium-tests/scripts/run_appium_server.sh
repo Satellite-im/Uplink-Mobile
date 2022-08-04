@@ -1,4 +1,4 @@
 #!/bin/bash
 set -ex
-npm install appium --location=global 
+npm install -g appium
 appium -v
