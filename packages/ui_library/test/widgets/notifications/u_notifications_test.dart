@@ -17,12 +17,15 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: UNotification(
-                username: 'Bob',
-                notificationType: NotificationType.serverMessage,
-                arrivalNotificationTime: DateTime(2022, 07, 01, 09),
-                isUnread: true,
-              ),
+              child: Row(children: [
+                Flexible(
+                    child: UNotification(
+                  username: 'Bob',
+                  notificationType: NotificationType.serverMessage,
+                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                  isUnread: true,
+                ))
+              ]),
             ),
           ),
         ),
@@ -44,20 +47,23 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: UNotification(
-                username: 'Jane',
-                notificationType: NotificationType.message,
-                arrivalNotificationTime: DateTime(2022, 07, 01, 09),
-                isUnread: true,
-              ),
+              child: Row(children: [
+                Flexible(
+                    child: UNotification(
+                  username: 'Jane',
+                  notificationType: NotificationType.serverMessage,
+                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                  isUnread: true,
+                ))
+              ]),
             ),
           ),
         ),
       );
 
       final Size _baseSize = tester.getSize(find.byType(UNotification));
-      expect(_baseSize.width, equals(126.0));
-      expect(_baseSize.height, equals(18.0));
+      expect(_baseSize.width, equals(800.0));
+      expect(_baseSize.height, equals(58.0));
 
       // final _USentMessageNotification _uNotificationCard =
       //     tester.widget(find.byType(_USentMessageNotification));
@@ -71,12 +77,15 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: UNotification(
-                username: 'Alice',
-                notificationType: NotificationType.friendRequest,
-                arrivalNotificationTime: DateTime(2022, 07, 01, 09),
-                isUnread: true,
-              ),
+              child: Row(children: [
+                Flexible(
+                    child: UNotification(
+                  username: 'Alice',
+                  notificationType: NotificationType.serverMessage,
+                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                  isUnread: true,
+                ))
+              ]),
             ),
           ),
         ),
@@ -84,7 +93,7 @@ void main() {
 
       final Size _baseSize = tester.getSize(find.byType(UNotification));
       expect(_baseSize.width, equals(800.0));
-      expect(_baseSize.height, equals(600.0));
+      expect(_baseSize.height, equals(58.0));
 
       // final _UFriendRequestNotification _uNotificationCard =
       //     tester.widget(find.byType(_UFriendRequestNotification));
