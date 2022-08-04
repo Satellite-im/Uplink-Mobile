@@ -22,10 +22,10 @@ jobs:
       run: flutter build ios --release --no-codesign
 
     - name: Compress iOS app to create ipa file
-        run: |
-          mkdir appium-tests/apps/iosApp
-          cp -r build/ios/iphoneos/Runner.app appium-tests/apps/iosApp/
-          zip -r appium-tests/apps/iosApp.ipa appium-tests/apps/iosApp/
+      run: |
+        mkdir appium-tests/apps/iosApp
+        cp -r build/ios/iphoneos/Runner.app appium-tests/apps/iosApp/
+        zip -r appium-tests/apps/iosApp.ipa appium-tests/apps/iosApp/
 
     - name: Use Node.js ${{ matrix.node-version }} 🔨
       uses: actions/setup-node@v3
