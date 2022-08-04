@@ -39,6 +39,10 @@ jobs:
     #    start: flutter run --debug
     #    wait-on: http://127.0.0.1
     #    wait-on-timeout: 300
+    - name: Unzip and install Uplink app
+      run: |
+        7z x appium-tests/apps/Runner.zip
+        xcrun simctl install booted appium-tests/apps/Runner.app
 
     - name: Install and Run Appium Server 🖥️
       run: |
