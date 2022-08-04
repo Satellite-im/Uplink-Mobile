@@ -41,7 +41,7 @@ jobs:
       run: flutter build ios --debug --no-codesign
 
     - name: Copy iOS bundle to apps folder
-      run: cp -r build/ios/iphoneos appium-tests/apps
+      run: cp -r ./build/ios/iphoneos/Runner.app ./appium-tests/apps
       
     - name: Run Appium Tests 🌡️
       working-directory: appium-tests
