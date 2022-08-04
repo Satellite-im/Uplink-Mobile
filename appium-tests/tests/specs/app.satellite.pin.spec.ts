@@ -41,8 +41,4 @@ describe('Pin Screen Uplink', async () =>  {
     it('User should be able to go to Next Screen after typing a PIN', async () => {
         await PinScreen.clickOnNext()
     })
-
-    it('Assert 2 + 2 = 5', async () => {
-        await expect(2+2).toEqual(5)
-    })
 });
