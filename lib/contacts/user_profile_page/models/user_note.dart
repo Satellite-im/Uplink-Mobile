@@ -8,6 +8,7 @@ class UserNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return Column(
       children: [
         const UserProfileTitle(
@@ -17,28 +18,12 @@ class UserNote extends StatelessWidget {
         const SizedBox.square(
           dimension: 16,
         ),
-        TextField(
-          style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
-            color: Colors.white,
-          ),
-          textAlignVertical: TextAlignVertical.top,
-          textInputAction: TextInputAction.done,
-          cursorColor: UColors.textDark,
-          autocorrect: false,
-          onChanged: (value) {},
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: UColors.foregroundDark,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            hintText: UAppStrings.userNote_hintText,
-            hintStyle: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          maxLines: 3,
+        UTextInput.multiLines(
+          controller: controller,
+          hintText: UAppStrings.userNote_hintText,
+          onChanged: (value) {
+            // TODO(yijing): add note feature
+          },
         ),
         const SizedBox.square(
           dimension: 24,

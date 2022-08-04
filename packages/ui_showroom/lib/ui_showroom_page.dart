@@ -9,7 +9,9 @@ import 'package:ui_showroom/ui_pages/src/bottom_sheet/u_bottom_sheet_options.dar
 import 'package:ui_showroom/ui_pages/ui_pages_export.dart';
 
 class UIShowRoomApp extends StatelessWidget {
-  const UIShowRoomApp({Key? key, required this.themeData}) : super(key: key);
+  const UIShowRoomApp(
+      {Key key = const Key('UIShowRoomApp'), required this.themeData})
+      : super(key: key);
   final ThemeData themeData;
 
   @override
@@ -52,6 +54,9 @@ class UIShowRoomApp extends StatelessWidget {
         UPopupMenuItemPage.routeName: (context) => const UPopupMenuItemPage(),
         UFolderButtonPage.routeName: (context) => const UFolderButtonPage(),
         UImageButtonPage.routeName: (context) => const UImageButtonPage(),
+        UNotificationsPage.routeName: (context) => const UNotificationsPage(),
+        UTextInputPage.routeName: (context) => const UTextInputPage(),
+        UAccountIDBoxPage.routeName: (context) => const UAccountIDBoxPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -104,6 +109,9 @@ class UIShowRoomApp extends StatelessWidget {
                   WidgetPageButton(
                     widgetName: UDividerPage.routeName,
                   ),
+                  WidgetPageButton(
+                    widgetName: UTextInputPage.routeName,
+                  ),
                 ],
               ),
               const _WidgetsShowSession(
@@ -117,6 +125,9 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UUserPictureChangePage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: UAccountIDBoxPage.routeName,
                   ),
                 ],
               ),
@@ -207,6 +218,14 @@ class UIShowRoomApp extends StatelessWidget {
                 sessionWidgets: [
                   WidgetPageButton(
                     widgetName: UPopupMenuItemPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Notifications Widgets',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UNotificationsPage.routeName,
                   ),
                 ],
               ),

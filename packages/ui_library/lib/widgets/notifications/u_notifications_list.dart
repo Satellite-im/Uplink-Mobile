@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/core/utils/date_format.dart';
-import 'package:ui_library/widgets/u_text/u_text.dart';
 
-import 'u_notification.dart';
+import '../../ui_library_export.dart';
 
 class UNotificationsList extends StatefulWidget {
   /// This displays multiple [UNotification]
@@ -29,9 +28,12 @@ class UNotificationsList extends StatefulWidget {
   const UNotificationsList({
     Key? key,
     required this.uNotificationList,
+    this.isFromBottomSheet = true,
   }) : super(key: key);
 
   final List<UNotification> uNotificationList;
+
+  final bool isFromBottomSheet;
 
   @override
   State<UNotificationsList> createState() => _UNotificationsListState();
@@ -102,6 +104,9 @@ class _UNotificationsListState extends State<UNotificationsList> {
                 ),
                 textStyle: UTextStyle.H5_fifthHeader,
                 textAlign: TextAlign.left,
+                textColor: widget.isFromBottomSheet
+                    ? UColors.textMed
+                    : UColors.textDark,
               ),
               const SizedBox.square(
                 dimension: 16,

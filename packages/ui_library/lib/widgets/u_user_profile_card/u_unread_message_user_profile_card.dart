@@ -90,10 +90,12 @@ class UUnreadMessagesUserProfileCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
                         child: SizedBox(
-                          width: 64,
+                          width: USizes
+                              .uUnreadMessagesUserProfileCardDateTextWidthSize,
                           child: UText(
                             _lastMessageArrivalTime,
                             textStyle: UTextStyle.M1_micro,
+                            textColor: UColors.textDark,
                             textAlign: TextAlign.end,
                           ),
                         ),

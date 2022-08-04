@@ -23,6 +23,7 @@ class App extends StatelessWidget {
         return _appToBuild == Apps.uiShowroom
             ? UIShowRoomApp(themeData: themeModel.getThemeData)
             : MaterialApp(
+                key: const Key('MainApp'),
                 theme: themeModel.getThemeData,
                 localizationsDelegates: const [
                   AppLocalizations.delegate,

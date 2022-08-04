@@ -63,7 +63,21 @@ class USizes {
       42.0;
 
   // Sizes for [UnreadMessagesUserProfileCard]
+  static const double uUnreadMessagesUserProfileCardDateTextWidthSize = 62.0;
   static const double unreadMessagesUserProfileCardWidthSize = 58.0;
+
+  // Sizes for [UNavDrawerUserProfileCard]
+  static const double uNavDrawerUserProfileCardHeightSize = 88.0;
+
+  // Sizes for [UNotificationCard]
+  static const double uNotificationDateTextWidthSize = 62.0;
+  static const double uNotificationStandardHeightSize = 40.0;
+  static const double uNotificationServerMessageHeightSize = 58.0;
+  static const double uNotificationFriendRequestUpsideHeightSize = 59.0;
+  static const double uNotificationFriendRequesBottomSideHeightSize = 48.0;
+  static const double uNotificationLinkHeightSize = 140.0;
+  static const double uNotificationLinkBottomSideHeightSize = 92.0;
+  static const double uNotificationLinkUpsideHeightSize = 40.0;
 
   // Width sizes for [Avatar Cards]
   static const double messageOnUnreadMessagesUserProfileCardWidthSize = 248;
@@ -85,6 +99,7 @@ class USizes {
   static const double switcherTotalHeight = 20.0;
   static const double switcherTotalWidth = 36.0;
   static const double switcherTrackHeight = 16.0;
+
   // Sizes for [UDropDownMenu]
   static const double dropDownMenuButtonHeight = 40;
   static const double dropDownMenuItemHeight = 48;
@@ -98,6 +113,7 @@ class USizes {
   // Sizes for [UUserPictureChange]
   static const double userPictureChangeSize = 100.0;
   static const double userPictureChangeAddButtonSize = 24.0;
+
   // Sizes for [LoadingIndicator]
   static const double loadingIndicatorHeight = 6.0;
 
@@ -108,4 +124,13 @@ class USizes {
   // Sizes for [UImageButton]
   static const double imageButtonHeight = 168;
   static const double imageButtonWidth = 160;
+
+  // Sizes for [UTextInput]
+  static const double singleLineHeight = 56;
+  static const double multiLinesHeight = 87;
+  static const int singleLineMaxLines = 1;
+  static const int multiLinesMaxLines = 3;
+
+  // Sizes for [UAccountIDBox]
+  static const double idBoxHeight = 56;
 }

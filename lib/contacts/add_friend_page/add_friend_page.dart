@@ -109,6 +109,8 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                 hintText: UAppStrings.addFriendPage_hint,
                               ),
                               keyboardType: TextInputType.none,
+                              style: UTextStyle.M1_micro.style
+                                  .returnTextStyleType(color: UColors.white),
                             ),
                           ),
                           if (state.hasError) ...[

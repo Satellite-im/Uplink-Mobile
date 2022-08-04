@@ -571,7 +571,8 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
                   filled: true,
                   fillColor: UColors.foregroundDark,
                   hintText: searchFieldLabel,
-                  contentPadding: const EdgeInsets.only(top: 12),
+                  //Customized padding
+                  contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 10),
                   prefixIcon: const UIcon(
                     UIcons.search,
                     color: UColors.textDark,
