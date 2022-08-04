@@ -7,25 +7,30 @@ enum ShimmerColor { dark, med, light, white }
 class UShimmer extends StatelessWidget {
   final ShimmerColor shimmerColor;
   final Widget child;
+  final bool? enabled;
 
   const UShimmer.dark({
     Key? key,
     required this.child,
+    this.enabled,
   })  : shimmerColor = ShimmerColor.dark,
         super(key: key);
   const UShimmer.med({
     Key? key,
     required this.child,
+    this.enabled,
   })  : shimmerColor = ShimmerColor.med,
         super(key: key);
   const UShimmer.light({
     Key? key,
     required this.child,
+    this.enabled,
   })  : shimmerColor = ShimmerColor.light,
         super(key: key);
   const UShimmer.white({
     Key? key,
     required this.child,
+    this.enabled,
   })  : shimmerColor = ShimmerColor.white,
         super(key: key);
 
@@ -54,6 +59,7 @@ class UShimmer extends StatelessWidget {
       baseColor: _baseColor,
       highlightColor: _highlightColor,
       child: child,
+      enabled: enabled ?? true,
     );
   }
 }
