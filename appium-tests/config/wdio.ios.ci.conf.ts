@@ -23,11 +23,11 @@ config.capabilities = [
         "appium:orientation": "PORTRAIT",
         "appium:automationName": "XCUITest",
         // The path to the app
-        /*"appium:app": join(
+        "appium:app": join(
             process.cwd(),
             "./apps/Runner.app"
-        ),*/
-        "appName": "Uplink",
+        ),
+        //"appName": "Uplink",
         "appium:newCommandTimeout": 240,
     },
 ];

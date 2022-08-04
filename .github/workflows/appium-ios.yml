@@ -12,11 +12,11 @@ jobs:
     - name: Checkout working directory 🔖
       uses: actions/checkout@v3
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '2.10.4'
-        channel: 'stable' 
+    #- name: Setup Flutter
+    #  uses: subosito/flutter-action@v2
+    #  with:
+    #    flutter-version: '2.10.4'
+    #    channel: 'stable' 
 
     - name: Use Node.js ${{ matrix.node-version }} 🔨
       uses: actions/setup-node@v3
@@ -37,13 +37,13 @@ jobs:
       with:
         model: 'iPhone 11'
     
-    - name: Install Flutter App on iOS Emulator 🌡️
-      uses: ./
-      with:
-        working-directory: ./
-        start: flutter run --debug
-        wait-on: http://127.0.0.1
-        wait-on-timeout: 300
+    #- name: Install Flutter App on iOS Emulator 🌡️
+    #  uses: ifaxity/wait-on-action
+    #  with:
+    #    working-directory: ./
+    #    start: flutter run --debug
+    #    wait-on: http://127.0.0.1
+    #    wait-on-timeout: 300
       
     - name: Run Appium Tests 🌡️
       working-directory: appium-tests
