@@ -19,6 +19,13 @@ dependencies:
   intl: ^0.17.0
   provider: ^6.0.2
   shared_preferences: ^2.0.13
+  warp_dart:
+  # path is to use warp-dart locally
+  # git is to use warp-dart remotely
+    # path: ../warp-dart
+    git:
+      url: https://github.com/Satellite-im/warp-dart
+      ref: UL-161/update-version-and-typos
   ui_library:
     path: 'packages/ui_library'
   # delete showroom when exporting production app
