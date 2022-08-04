@@ -3,6 +3,7 @@ part of '../profile_index_page.dart';
 class _ProfileIndexBody extends StatelessWidget {
   const _ProfileIndexBody({
     Key? key,
+    required this.warp,
     required Size pageSize,
     required this.currentUser,
     required Function(bool) onTapEditProfile,
@@ -10,6 +11,7 @@ class _ProfileIndexBody extends StatelessWidget {
         _onTapEditProfile = onTapEditProfile,
         super(key: key);
 
+  final Warp warp;
   final Size _pageSize;
   final MockCurrentUser currentUser;
   final Function(bool) _onTapEditProfile;
@@ -23,15 +25,15 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 20,
           ),
-          const UText(
-            UAppStrings.profileIndexPage_username,
+          UText(
+            warp.getUsername(),
             textStyle: UTextStyle.H2_secondaryHeader,
           ),
           const SizedBox.square(
             dimension: 2,
           ),
-          const UText(
-            UAppStrings.profileIndexPage_statusMessage,
+          UText(
+            warp.getMessageStatus(),
             textStyle: UTextStyle.B1_body,
           ),
           const SizedBox.square(

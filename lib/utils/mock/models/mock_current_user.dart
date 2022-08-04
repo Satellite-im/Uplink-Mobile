@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'package:ui_library/ui_library_export.dart';
+import 'package:warp_dart/warp_dart.dart' as warp;
 
 class MockCurrentUser {
   MockCurrentUser({

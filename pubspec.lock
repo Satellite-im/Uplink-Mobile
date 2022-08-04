@@ -754,6 +754,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.5.0"
+  warp_dart:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "UL-161/update-version-and-typos"
+      resolved-ref: "8c57190040d3f862b28823912ba117515885d0cd"
+      url: "https://github.com/Satellite-im/warp-dart.git"
+    source: git
+    version: "0.0.1"
   watcher:
     dependency: transitive
     description:
