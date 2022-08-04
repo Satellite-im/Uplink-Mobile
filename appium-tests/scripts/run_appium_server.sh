@@ -1,4 +1,4 @@
 #!/bin/bash
 set -ex
-npm install -g appium@1.8.2-beta
+npm install -g appium@2.0.0-beta.42
 appium -v
