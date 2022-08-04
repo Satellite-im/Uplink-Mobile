@@ -25,7 +25,7 @@ config.capabilities = [
         // The path to the app
         "appium:app": join(
             process.cwd(),
-            "./apps/iosApp.ipa"
+            "./apps/Runner.app"
         ),
         //"appName": "Uplink",
         "appium:newCommandTimeout": 240,
