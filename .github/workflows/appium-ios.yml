@@ -38,14 +38,14 @@ jobs:
         ./appium-tests/scripts/run_appium_server.sh
 
     - name: Build iOS App
-      run: |
-        flutter build ios --debug --no-codesign
+      run: flutter build ios --debug --no-codesign
+
+    - name: Copy iOS bundle to apps folder
+      run: cp -r build/ios/iphoneos appium-tests/apps
       
     - name: Run Appium Tests 🌡️
       working-directory: appium-tests
-      run: |
-        cp -r build/ios/iphoneos appium-tests/apps
-        npm run ios.ci
+      run: npm run ios.ci
 
     - name: Upload Screenshots if tests failed 📷
       uses: actions/upload-artifact@v2
