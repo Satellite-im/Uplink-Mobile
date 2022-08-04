@@ -20,37 +20,31 @@ class LoadingContactsIndexPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: const [
-                    URectContainer(
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 16),
-                    URectContainer(
-                      height: 27,
-                      width: 152,
-                    ),
-                  ],
+              children: const [
+                URectContainer(
+                  height: 24,
+                  width: 24,
                 ),
-                Row(
-                  children: const [
-                    URectContainer(
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 24),
-                    URectContainer(
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 24),
-                    URectContainer(
-                      height: 24,
-                      width: 24,
-                    ),
-                  ],
+                SizedBox(width: 16),
+                Expanded(
+                  child: URectContainer(
+                    height: 27,
+                  ),
+                ),
+                SizedBox(width: 16),
+                URectContainer(
+                  height: 24,
+                  width: 24,
+                ),
+                SizedBox(width: 24),
+                URectContainer(
+                  height: 24,
+                  width: 24,
+                ),
+                SizedBox(width: 24),
+                URectContainer(
+                  height: 24,
+                  width: 24,
                 ),
               ],
             ),
