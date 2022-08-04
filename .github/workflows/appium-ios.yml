@@ -40,9 +40,10 @@ jobs:
     #    wait-on: http://127.0.0.1
     #    wait-on-timeout: 300
     - name: Unzip and install Uplink app
+      working-directory: appium-tests/apps
       run: |
-        7z x appium-tests/apps/Runner.zip
-        xcrun simctl install booted appium-tests/apps/Runner.app
+        7z x Runner.zip
+        xcrun simctl install booted Runner.app
 
     - name: Install and Run Appium Server 🖥️
       run: |
