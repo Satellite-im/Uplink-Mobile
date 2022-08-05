@@ -35,6 +35,64 @@ void main() {
           tester.widget(find.byType(UNotificationCard));
       expect(_uNotificationCard.uNotification.username, equals('Bob'));
     });
+    testWidgets(
+        'Should return the right size and passed username param when notificationType is repliedComment',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: Row(children: [
+                Flexible(
+                    child: UNotification(
+                  username: 'Bob',
+                  notificationType: NotificationType.repliedComment,
+                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                  isUnread: true,
+                ))
+              ]),
+            ),
+          ),
+        ),
+      );
+
+      final Size _baseSize = tester.getSize(find.byType(UNotification));
+      expect(_baseSize.width, equals(800.0));
+      expect(_baseSize.height, equals(40.0));
+
+      final UNotificationCard _uNotificationCard =
+          tester.widget(find.byType(UNotificationCard));
+      expect(_uNotificationCard.uNotification.username, equals('Bob'));
+    });
+    testWidgets(
+        'Should return the right size and passed username param when notificationType is reactedComment',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: Row(children: [
+                Flexible(
+                    child: UNotification(
+                  username: 'Bob',
+                  notificationType: NotificationType.reactedComment,
+                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                  isUnread: true,
+                ))
+              ]),
+            ),
+          ),
+        ),
+      );
+
+      final Size _baseSize = tester.getSize(find.byType(UNotification));
+      expect(_baseSize.width, equals(800.0));
+      expect(_baseSize.height, equals(40.0));
+
+      final UNotificationCard _uNotificationCard =
+          tester.widget(find.byType(UNotificationCard));
+      expect(_uNotificationCard.uNotification.username, equals('Bob'));
+    });
 
     testWidgets(
         'Should return the right size and passed username param when notificationType is message',
