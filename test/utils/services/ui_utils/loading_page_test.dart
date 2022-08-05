@@ -26,7 +26,7 @@ void main() {
         ),
       );
 
-      final Size _baseSize = tester.getSize(find.byType(LoadingPage));
+      final _baseSize = tester.getSize(find.byType(LoadingPage));
       expect(_baseSize.width, equals(40.0));
       expect(_baseSize.height, equals(40.0));
     });
