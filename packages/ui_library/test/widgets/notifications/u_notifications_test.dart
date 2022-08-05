@@ -105,7 +105,7 @@ void main() {
                 Flexible(
                     child: UNotification(
                   username: 'Jane',
-                  notificationType: NotificationType.serverMessage,
+                  notificationType: NotificationType.message,
                   arrivalNotificationTime: DateTime(2022, 07, 01, 09),
                   isUnread: true,
                 ))
@@ -116,8 +116,8 @@ void main() {
       );
 
       final Size _baseSize = tester.getSize(find.byType(UNotification));
-      expect(_baseSize.width, equals(800.0));
-      expect(_baseSize.height, equals(58.0));
+      expect(_baseSize.width, equals(126.0));
+      expect(_baseSize.height, equals(18.0));
     });
 
     testWidgets(
@@ -131,7 +131,7 @@ void main() {
                 Flexible(
                     child: UNotification(
                   username: 'Alice',
-                  notificationType: NotificationType.serverMessage,
+                  notificationType: NotificationType.friendRequest,
                   arrivalNotificationTime: DateTime(2022, 07, 01, 09),
                   isUnread: true,
                 ))
@@ -143,7 +143,7 @@ void main() {
 
       final Size _baseSize = tester.getSize(find.byType(UNotification));
       expect(_baseSize.width, equals(800.0));
-      expect(_baseSize.height, equals(58.0));
+      expect(_baseSize.height, equals(600.0));
     });
   });
 }
