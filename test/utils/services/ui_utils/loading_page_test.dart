@@ -25,7 +25,6 @@ void main() {
 
         final _baseSize = tester.getSize(find.byType(LoadingPage));
         expect(_baseSize.width, equals(40.0));
-        // expect(find.text('body'), findsOneWidget);
       });
     },
     skip: true,
