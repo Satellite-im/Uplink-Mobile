@@ -26,8 +26,24 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Ho
 export ANDROID_HOME="/Users/yourusername/Library/Android/sdk"
 ```
 
-5. Create a `appium-tests/apps` directory. Ask development team to provide .apk file for Android app and .zip file for iOS app. Move the files into the directory `apps`.
-6. Running tests `npm run android.app` or `npm run android.app`
+5. Create a `appium-tests/apps` directory. Ask development team to provide the .apk file for Android app or .zip file for iOS app. 
+6. Move the apk/zip files into the directory `apps`. Ensure that the files that will be placed in this folder have the following location/filename:
+```sh
+# For Android local execution
+./appium-tests/apps/satellite-profile-latest.apk
+# For iOS local execution
+./appium-tests/apps/Runner.zip
+```
+
+Usually, the capabilities that could throw a mismatch on this Appium setup would be the App Filename, or the DeviceName/Platform. Both of these capabilities can be edited to match with your local settings, by editing the following files:
+```sh
+# For Android App Setup
+./appium-tests/conf/wdio.android.app.conf.ts
+# For iOS App Setup
+./appium-tests/conf/wdio.ios.app.conf.ts
+```
+
+7. Running tests `npm run android.app` or `npm run android.app`
 
 ## Configuration files
 
