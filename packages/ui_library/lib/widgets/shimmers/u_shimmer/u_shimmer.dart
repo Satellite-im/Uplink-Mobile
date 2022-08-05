@@ -9,24 +9,59 @@ class UShimmer extends StatelessWidget {
   final Widget child;
   final bool? enabled;
 
+  /// Create a widget with a [UColors.loadDark] shimmer effect
+  ///```dart
+  /// UShimmer.dark(
+  ///    child: URectContainer(
+  ///           height: 20,
+  ///           ),
+  /// ),
+  ///```
   const UShimmer.dark({
     Key? key,
     required this.child,
     this.enabled,
   })  : shimmerColor = ShimmerColor.dark,
         super(key: key);
+
+  /// Create a widget with a [UColors.loadMed] shimmer effect
+  /// ```dart
+  /// UShimmer.med(
+  ///    child: URectContainer(
+  ///           height: 20,
+  ///           ),
+  /// ),
+  ///```
   const UShimmer.med({
     Key? key,
     required this.child,
     this.enabled,
   })  : shimmerColor = ShimmerColor.med,
         super(key: key);
+
+  /// Create a widget with a [UColors.loadLight] shimmer effect
+  /// ```dart
+  /// UShimmer.light(
+  ///    child: URectContainer(
+  ///           height: 20,
+  ///           ),
+  /// ),
+  ///```
   const UShimmer.light({
     Key? key,
     required this.child,
     this.enabled,
   })  : shimmerColor = ShimmerColor.light,
         super(key: key);
+
+  /// Create a widget with a [UColors.white] shimmer effect
+  /// ```dart
+  /// UShimmer.white(
+  ///    child: URectContainer(
+  ///           height: 20,
+  ///           ),
+  /// ),
+  ///```
   const UShimmer.white({
     Key? key,
     required this.child,
