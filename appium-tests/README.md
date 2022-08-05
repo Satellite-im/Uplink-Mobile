@@ -14,8 +14,20 @@ This automation framework is currently based on:
 1. cd appium-tests && npm install
 2. Install Appium on a local machine. You can find detailed instructions for this process [here](https://appium.io/docs/en/about-appium/getting-started/)
 3. Setting up Android and iOS on a local machine. The getting started page from Appium can be a helfpul guide for this process and it can be found [here](https://appium.io/docs/en/about-appium/getting-started/)
-4. Create a `appium-tests/apps` directory. Ask development team to provide .apk file for Android app and .zip file for iOS app. Move the files into the directory `apps`.
-5. Running tests `npm run android.app` or `npm run android.app`
+4. You can run appium-doctor to validate that all Appium necessary dependencies were installed correctly [here](https://github.com/appium/appium-doctor). If environment variables are required, these can be added by editing the ~/.zshrc file:
+```sh
+# Open .zshrc file
+nano ~/.zshrc
+
+# Add the following environment variables to your .zshrc file:
+export PATH="/Users/yourusername/Library/Android/sdk/tools:$PATH"
+export PATH="/Users/yourusername/Library/Android/sdk/platform-tools:$PATH"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home" # Replace with the JDK folder from the JDK version installed on your machine
+export ANDROID_HOME="/Users/yourusername/Library/Android/sdk"
+```
+
+5. Create a `appium-tests/apps` directory. Ask development team to provide .apk file for Android app and .zip file for iOS app. Move the files into the directory `apps`.
+6. Running tests `npm run android.app` or `npm run android.app`
 
 ## Configuration files
 
