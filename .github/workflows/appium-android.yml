@@ -1,4 +1,4 @@
-name: Running Appium Tests
+name: Running Appium Tests on Android
 
 on:
   pull_request:
@@ -38,8 +38,8 @@ jobs:
 
     - name: Install and Run Appium Server 📱
       run: |
-        chmod +x ./appium-tests/scripts/run_appium_server.sh # install and run appium server in the background
-        ./appium-tests/scripts/run_appium_server.sh
+        chmod +x ./appium-tests/scripts/run_appium_android_server.sh # install and run appium server in the background
+        ./appium-tests/scripts/run_appium_android_server.sh
     
     - name: Run Appium Tests 🌡️
       uses: reactivecircus/android-emulator-runner@v2 # install and create the Emulator
