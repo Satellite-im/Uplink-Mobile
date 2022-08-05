@@ -144,6 +144,13 @@ void main() {
       final Size _baseSize = tester.getSize(find.byType(UNotification));
       expect(_baseSize.width, equals(800.0));
       expect(_baseSize.height, equals(600.0));
+
+      expect(find.text('Decline'), findsOneWidget);
+      await tester.tap(find.text('Decline'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('You declined a friend request from'),
+          findsOneWidget);
+      expect(find.textContaining('Undo'), findsOneWidget);
     });
   });
 }
