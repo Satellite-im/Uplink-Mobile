@@ -121,7 +121,7 @@ void main() {
     });
 
     testWidgets(
-        'Should return the right size and passed username param when notificationType is friendRequest',
+        'Should return the right size and passed username param when notificationType is friendRequest and is rejected',
         (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -151,6 +151,37 @@ void main() {
       expect(find.textContaining('You declined a friend request from'),
           findsOneWidget);
       expect(find.textContaining('Undo'), findsOneWidget);
+    });
+
+    testWidgets(
+        'Should return the right size and passed username param when notificationType is friendRequest and is accepted',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: Row(children: [
+                Flexible(
+                    child: UNotification(
+                  username: 'Alice',
+                  notificationType: NotificationType.friendRequest,
+                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                  isUnread: true,
+                ))
+              ]),
+            ),
+          ),
+        ),
+      );
+
+      final Size _baseSize = tester.getSize(find.byType(UNotification));
+      expect(_baseSize.width, equals(800.0));
+      expect(_baseSize.height, equals(600.0));
+
+      expect(find.text('Decline'), findsOneWidget);
+      await tester.tap(find.text('Accept'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('You are now friends with'), findsOneWidget);
     });
   });
 }
