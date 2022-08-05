@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/notifications/u_notification.dart';
 import 'package:ui_library/widgets/notifications/u_notification_card.dart';
 
 void main() {
@@ -127,23 +126,23 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: Row(children: [
-                Flexible(
-                    child: UNotification(
-                  username: 'Alice',
-                  notificationType: NotificationType.friendRequest,
-                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
-                  isUnread: true,
-                ))
-              ]),
+              child: Column(
+                children: [
+                  UNotification(
+                    username: 'Alice',
+                    notificationType: NotificationType.friendRequest,
+                    arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                    isUnread: true,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       );
 
       final Size _baseSize = tester.getSize(find.byType(UNotification));
-      expect(_baseSize.width, equals(800.0));
-      expect(_baseSize.height, equals(600.0));
+      expect(_baseSize.height, equals(107.0));
 
       expect(find.text('Decline'), findsOneWidget);
       await tester.tap(find.text('Decline'));
@@ -159,28 +158,33 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
+            backgroundColor: UColors.backgroundDark,
             body: Center(
-              child: Row(children: [
-                Flexible(
-                    child: UNotification(
-                  username: 'Alice',
-                  notificationType: NotificationType.friendRequest,
-                  arrivalNotificationTime: DateTime(2022, 07, 01, 09),
-                  isUnread: true,
-                ))
-              ]),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  UNotification(
+                    username: 'Alice',
+                    notificationType: NotificationType.friendRequest,
+                    arrivalNotificationTime: DateTime(2022, 07, 01, 09),
+                    isUnread: true,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       );
 
       final Size _baseSize = tester.getSize(find.byType(UNotification));
-      expect(_baseSize.width, equals(800.0));
-      expect(_baseSize.height, equals(600.0));
+      expect(_baseSize.height, equals(107));
 
       expect(find.text('Accept'), findsOneWidget);
+
       await tester.tap(find.text('Accept'));
+
       await tester.pumpAndSettle();
+
       expect(find.textContaining('You are now friends with'), findsOneWidget);
     });
   });
