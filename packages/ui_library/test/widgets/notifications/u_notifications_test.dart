@@ -178,7 +178,7 @@ void main() {
       expect(_baseSize.width, equals(800.0));
       expect(_baseSize.height, equals(600.0));
 
-      expect(find.text('Decline'), findsOneWidget);
+      expect(find.text('Accept'), findsOneWidget);
       await tester.tap(find.text('Accept'));
       await tester.pumpAndSettle();
       expect(find.textContaining('You are now friends with'), findsOneWidget);
