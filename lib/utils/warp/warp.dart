@@ -2,6 +2,7 @@ import 'package:warp_dart/warp_dart.dart' as warp;
 
 warp.DID? did;
 
+// TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
 class Warp {
   final multipass = warp.multipassIpfsTemporary(warp.newTesseractInstance());
 

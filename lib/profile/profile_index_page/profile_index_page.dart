@@ -36,6 +36,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
 
   File? _bannerImageFile;
 
+  // TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
   final warp = Warp();
 
   @override
