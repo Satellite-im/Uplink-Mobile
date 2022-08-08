@@ -57,6 +57,8 @@ class UIShowRoomApp extends StatelessWidget {
         UNotificationsPage.routeName: (context) => const UNotificationsPage(),
         UTextInputPage.routeName: (context) => const UTextInputPage(),
         UAccountIDBoxPage.routeName: (context) => const UAccountIDBoxPage(),
+        UShimmerPage.routeName: (context) => const UShimmerPage(),
+        ShimmerLoadingPage.routeName: (context) => const ShimmerLoadingPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -237,6 +239,17 @@ class UIShowRoomApp extends StatelessWidget {
                   ),
                   WidgetPageButton(
                     widgetName: UImageButtonPage.routeName,
+                  ),
+                ],
+              ),
+              const _WidgetsShowSession(
+                sessionTitle: 'Shimmer',
+                sessionWidgets: [
+                  WidgetPageButton(
+                    widgetName: UShimmerPage.routeName,
+                  ),
+                  WidgetPageButton(
+                    widgetName: ShimmerLoadingPage.routeName,
                   ),
                 ],
               ),
