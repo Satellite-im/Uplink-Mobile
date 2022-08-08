@@ -39,7 +39,9 @@ class _EditProfileBody extends StatelessWidget {
                   controller: usernameTextFieldController,
                   textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
                   hintText: _hintText,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    newUsername = value;
+                  },
                 ),
                 const SizedBox.square(
                   dimension: 32,
@@ -49,7 +51,9 @@ class _EditProfileBody extends StatelessWidget {
                   textFieldTitle:
                       UAppStrings.editProfilePage_statusMessageTitle,
                   hintText: _hintText,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    newMessageStatus = value;
+                  },
                 ),
                 const SizedBox.square(
                   dimension: 32,
@@ -99,11 +103,12 @@ class _EditProfileBody extends StatelessWidget {
                 label: UAppStrings.editProfilePage_saveChangesButton,
                 uIconData: UIcons.checkmark_1,
                 onPressed: () {
-                  if (newUsername != null && newUsername.isNotEmpty) {
-                    warp.changeUsername(newUsername);
+                  if (newUsername != null && newUsername!.isNotEmpty) {
+                    warp.changeUsername(newUsername!);
                   }
-                  if (newMessageStatus != null && newMessageStatus.isNotEmpty) {
-                    warp.changeMessageStatus(newMessageStatus);
+                  if (newMessageStatus != null &&
+                      newMessageStatus!.isNotEmpty) {
+                    warp.changeMessageStatus(newMessageStatus!);
                   }
                   onSaveChanges(true);
                 },
