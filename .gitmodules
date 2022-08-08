@@ -1,4 +1,4 @@
 [submodule "warp-dart"]
 	path = packages/warp-dart
-	url = https://github.com/Satellite-im/warp-dart.git
+	url = git@github.com:Satellite-im/warp-dart.git
 	branch = UL-161/update-version-and-typos
