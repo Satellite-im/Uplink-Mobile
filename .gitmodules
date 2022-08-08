@@ -1,0 +1,3 @@
+[submodule "packages/warp-dart"]
+	path = packages/warp-dart
+	url = https://github.com/Satellite-im/warp-dart.git

@@ -20,12 +20,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.13
   warp_dart:
-  # path is to use warp-dart locally
-  # git is to use warp-dart remotely
-    # path: ../warp-dart
-    git:
-      url: git@github.com:Satellite-im/warp-dart.git
-      ref: UL-161/update-version-and-typos
+    path: packages/warp-dart
   ui_library:
     path: 'packages/ui_library'
   # delete showroom when exporting production app
@@ -53,6 +48,7 @@ flutter:
     - 'lib/utils/mock/data/json/mock_notifications_list.json'
     - 'lib/utils/mock/data/json/mock_online_friends_list.json'
     - 'lib/utils/mock/data/json/mock_offline_friends_list.json'
+    - 'lib/utils/mock/data/json/mock_current_user.json'
     - 'lib/utils/mock/images/'
     - 'packages/ui_library/images/placeholders/'
 

@@ -11,6 +11,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget? _leading;
   final Widget? _flexibleSpace;
   final Color? _backIconColor;
+  final bool cancelCloseFunctionInBackButton;
 
   ///AppBar with a title and back icon
   ///```dart
@@ -22,6 +23,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Function? onBackPressed,
     Widget? flexibleSpace,
     Color? backIconColor,
+    this.cancelCloseFunctionInBackButton = false,
   })  : _appBarType = _AppBarType.back,
         _title = title,
         _onBackPressed = onBackPressed,
@@ -48,6 +50,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
     Color? backIconColor,
   })  : _appBarType = _AppBarType.iconOnly,
         _title = null,
+        cancelCloseFunctionInBackButton = false,
         _onBackPressed = null,
         _actionsList = actionList,
         _flexibleSpace = flexibleSpace,
@@ -82,6 +85,7 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
   })  : _appBarType = _AppBarType.actions,
         _title = title,
         _onBackPressed = null,
+        cancelCloseFunctionInBackButton = false,
         _actionsList = actionList,
         _flexibleSpace = flexibleSpace,
         _leading = leading,
@@ -94,7 +98,9 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       title: (_appBarType == _AppBarType.back) ||
               (_appBarType == _AppBarType.actions)
-          ? Text(_title!)
+          ? Text(
+              _title!,
+            )
           : null,
       centerTitle: false,
       titleSpacing: 0,
@@ -106,7 +112,9 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               onPressed: () async {
                 _onBackPressed?.call();
-                Navigator.pop(context);
+                if (!cancelCloseFunctionInBackButton) {
+                  Navigator.pop(context);
+                }
               },
             )
           : _leading,

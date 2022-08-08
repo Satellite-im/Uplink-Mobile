@@ -3,16 +3,17 @@ part of '../profile_index_page.dart';
 class _ProfileIndexBody extends StatelessWidget {
   const _ProfileIndexBody({
     Key? key,
-    required int badgesQuantity,
+    required this.warp,
     required Size pageSize,
+    required this.currentUser,
     required Function(bool) onTapEditProfile,
-  })  : _badgesQuantity = badgesQuantity,
-        _pageSize = pageSize,
+  })  : _pageSize = pageSize,
         _onTapEditProfile = onTapEditProfile,
         super(key: key);
 
-  final int _badgesQuantity;
+  final Warp warp;
   final Size _pageSize;
+  final MockCurrentUser currentUser;
   final Function(bool) _onTapEditProfile;
 
   @override
@@ -24,15 +25,15 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 20,
           ),
-          const UText(
-            UAppStrings.profileIndexPage_username,
+          UText(
+            warp.getUsername(),
             textStyle: UTextStyle.H2_secondaryHeader,
           ),
           const SizedBox.square(
             dimension: 2,
           ),
-          const UText(
-            UAppStrings.profileIndexPage_statusMessage,
+          UText(
+            warp.getMessageStatus(),
             textStyle: UTextStyle.B1_body,
           ),
           const SizedBox.square(
@@ -52,7 +53,7 @@ class _ProfileIndexBody extends StatelessWidget {
             dimension: 16,
           ),
           _ProfileData(
-            badgesQuantity: _badgesQuantity,
+            currentUser: currentUser,
           ),
           const SizedBox.square(
             dimension: 24,
@@ -82,10 +83,10 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 18,
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: UText(
-              UAppStrings.profileIndexPage_aboutDescription,
+              currentUser.about!,
               textStyle: UTextStyle.B1_body,
               textColor: UColors.white,
             ),

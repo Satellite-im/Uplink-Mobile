@@ -83,11 +83,12 @@ class _UUserPictureChangeState extends State<UUserPictureChange> {
               child: const SizedBox.shrink(),
               builder: (context, _file, child) {
                 return ClipOval(
-                    child: UImage(
-                  imagePath: widget._uImage.imagePath,
-                  imageSource: widget._uImage.imageSource,
-                  fit: BoxFit.cover,
-                ));
+                  child: UImage(
+                    imagePath: widget._uImage.imagePath,
+                    imageSource: widget._uImage.imageSource,
+                    fit: BoxFit.cover,
+                  ),
+                );
               },
             ),
           ),

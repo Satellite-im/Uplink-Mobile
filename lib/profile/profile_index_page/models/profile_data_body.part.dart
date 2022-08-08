@@ -3,11 +3,10 @@ part of '../profile_index_page.dart';
 class _ProfileData extends StatelessWidget {
   const _ProfileData({
     Key? key,
-    required int badgesQuantity,
-  })  : _badgesQuantity = badgesQuantity,
-        super(key: key);
+    required this.currentUser,
+  }) : super(key: key);
 
-  final int _badgesQuantity;
+  final MockCurrentUser currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,8 @@ class _ProfileData extends StatelessWidget {
                   dimension: 8,
                 ),
                 SizedBox(
-                  height: ((_badgesQuantity / 3).ceil() * 24) +
-                      ((_badgesQuantity / 3).floor() * 4),
+                  height: ((currentUser.badgesNum! / 3).ceil() * 24) +
+                      ((currentUser.badgesNum! / 3).floor() * 4),
                   width: (3 * 24) + (2 * 4),
                   child: CustomScrollView(
                     physics: const NeverScrollableScrollPhysics(),
@@ -41,7 +40,7 @@ class _ProfileData extends StatelessWidget {
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 4,
                         children: List.generate(
-                          _badgesQuantity,
+                          currentUser.badgesNum!,
                           (index) => Container(
                             height: 24,
                             width: 24,
@@ -61,16 +60,16 @@ class _ProfileData extends StatelessWidget {
           SizedBox(
             width: 104,
             child: Column(
-              children: const [
-                UText(
+              children: [
+                const UText(
                   UAppStrings.profileIndexPage_location,
                   textStyle: UTextStyle.H5_fifthHeader,
                 ),
-                SizedBox.square(
+                const SizedBox.square(
                   dimension: 8,
                 ),
                 UText(
-                  UAppStrings.profileIndexPage_locationValue,
+                  currentUser.location!,
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),
@@ -83,16 +82,16 @@ class _ProfileData extends StatelessWidget {
           SizedBox(
             width: 104,
             child: Column(
-              children: const [
-                UText(
+              children: [
+                const UText(
                   UAppStrings.profileIndexPage_friends,
                   textStyle: UTextStyle.H5_fifthHeader,
                 ),
-                SizedBox.square(
+                const SizedBox.square(
                   dimension: 8,
                 ),
                 UText(
-                  UAppStrings.profileIndexPage_friendsNumber,
+                  currentUser.friendNum!.toString(),
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),
