@@ -20,7 +20,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.13
   warp_dart:
-    path: packages/warp-dart
+    path: 'packages/warp-dart'
   ui_library:
     path: 'packages/ui_library'
   # delete showroom when exporting production app
