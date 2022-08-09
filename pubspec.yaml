@@ -22,7 +22,7 @@ dependencies:
   warp_dart:
     git:
       url: 'https://github.com/Satellite-im/warp-dart.git'
-      ref: 'UL-161/update-version-and-typos'
+      ref: 'warp-dart-wrapper-v0'
   ui_library:
     path: 'packages/ui_library'
   # delete showroom when exporting production app
