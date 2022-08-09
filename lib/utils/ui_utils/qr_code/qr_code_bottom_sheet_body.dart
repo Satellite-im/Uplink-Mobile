@@ -7,6 +7,7 @@ class _QRCodeBottomSheet extends StatelessWidget {
     required this.isPage,
     required this.showAppBar,
     required this.isHalfPage,
+    required this.fullPageLoaded,
     required this.animationController,
   }) : super(key: key);
 
@@ -14,12 +15,13 @@ class _QRCodeBottomSheet extends StatelessWidget {
   final bool isPage;
   final bool showAppBar;
   final bool isHalfPage;
+  final bool fullPageLoaded;
   final AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    const _duration = Duration(milliseconds: 250);
+    const _duration = Duration(milliseconds: 100);
 
     return AnimatedContainer(
       duration: _duration,
@@ -40,9 +42,11 @@ class _QRCodeBottomSheet extends StatelessWidget {
               title: UAppStrings.qrCodePage_appBarTitle,
               cancelCloseFunctionInBackButton: true,
               onBackPressed: () {
-                animationController.forward().whenComplete(
-                      () => Navigator.of(context).pop(),
-                    );
+                if (fullPageLoaded) {
+                  animationController.forward().whenComplete(
+                        () => Navigator.of(context).pop(),
+                      );
+                }
               },
             ),
           ),

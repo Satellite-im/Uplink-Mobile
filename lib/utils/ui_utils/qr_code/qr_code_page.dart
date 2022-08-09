@@ -23,6 +23,7 @@ class QRCodePageState extends State<QRCodePage>
   bool showAppBar = false;
   bool isPage = false;
   bool isHalfPage = false;
+  bool fullPageLoaded = false;
 
   @override
   void initState() {
@@ -88,6 +89,7 @@ class QRCodePageState extends State<QRCodePage>
                     ),
                     child: _QRCodeBottomSheet(
                       currentUser: currentUser,
+                      fullPageLoaded: fullPageLoaded,
                       isHalfPage: isHalfPage,
                       animationController: _animationController,
                       isPage: isPage,
