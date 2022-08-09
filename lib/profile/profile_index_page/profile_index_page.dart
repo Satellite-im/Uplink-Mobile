@@ -48,7 +48,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
       future: loadingCurrentUser(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Text('');
+          return const SizedBox.shrink();
         } else {
           final _mockCurrentUser = snapshot.data;
           return Scaffold(
