@@ -34,7 +34,8 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
           Navigator.of(context).pop();
         }
         if (notification.extent == 1) {
-          // qrCodePageKey.currentState?.controller.;
+          qrCodePageKey.currentState?.controller = ScrollController();
+          qrCodePageKey.currentState?.fullPageLoaded = true;
         }
 
         qrCodePageKey.currentState?.isHalfPage = notification.extent > 0.8;

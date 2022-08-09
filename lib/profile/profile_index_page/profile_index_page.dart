@@ -48,7 +48,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
       future: loadingCurrentUser(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Text('test');
+          return const Text('');
         } else {
           final _mockCurrentUser = snapshot.data;
           return Scaffold(
@@ -90,8 +90,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   builder: (context) => GestureDetector(
                                     behavior: HitTestBehavior.opaque,
                                     onTap: () => Navigator.of(context).pop(),
-                                    child: QRCodeBottomSheet(
-                                      currentUser: _mockCurrentUser!,
+                                    child: GestureDetector(
+                                      onTap: () {},
+                                      child: QRCodeBottomSheet(
+                                        currentUser: _mockCurrentUser!,
+                                      ),
                                     ),
                                   ),
                                 );
