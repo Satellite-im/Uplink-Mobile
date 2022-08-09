@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
@@ -115,8 +117,9 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                     onChanged: (value) {
                                       state.didChange(value);
                                       if (_isFound) _isFound = false;
-                                      if (_showNoUserError)
+                                      if (_showNoUserError) {
                                         _showNoUserError = false;
+                                      }
                                     },
                                     decoration: const InputDecoration(
                                       hintText: UAppStrings.addFriendPage_hint,
@@ -124,7 +127,8 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                     keyboardType: TextInputType.none,
                                     style: UTextStyle.M1_micro.style
                                         .returnTextStyleType(
-                                            color: UColors.white),
+                                      color: UColors.white,
+                                    ),
                                   ),
                                 ),
                                 if (state.hasError) ...[
