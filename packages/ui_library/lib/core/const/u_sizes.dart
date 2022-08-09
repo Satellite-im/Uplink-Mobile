@@ -124,4 +124,13 @@ class USizes {
   // Sizes for [UImageButton]
   static const double imageButtonHeight = 168;
   static const double imageButtonWidth = 160;
+
+  // Sizes for [UTextInput]
+  static const double singleLineHeight = 56;
+  static const double multiLinesHeight = 87;
+  static const int singleLineMaxLines = 1;
+  static const int multiLinesMaxLines = 3;
+
+  // Sizes for [UAccountIDBox]
+  static const double idBoxHeight = 56;
 }

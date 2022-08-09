@@ -23,32 +23,49 @@ class _EditProfileBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 56,
           ),
-          _TextField(
-            textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
-            hintText: _hintText,
-            onChanged: (value) {},
-            controller: usernameTextFieldController,
-          ),
-          _TextField(
-            textFieldTitle: UAppStrings.editProfilePage_statusMessageTitle,
-            hintText: _hintText,
-            onChanged: (value) {},
-            controller: statusMessageTextFieldController,
-          ),
-          _TextField(
-            textFieldTitle: UAppStrings.editProfilePage_locationTitle,
-            hintText: _hintText,
-            onChanged: (value) {},
-            controller: locationTextFieldController,
-          ),
-          _TextField(
-            textFieldTitle: UAppStrings.editProfilePage_aboutTitle,
-            hintText: _hintText,
-            textFieldHeight: 78,
-            onChanged: (value) {},
-            controller: aboutTextFieldController,
-            textAlignVertical: TextAlignVertical.top,
-            maxLines: 3,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                UTextInput.singleLineWithTitle(
+                  controller: usernameTextFieldController,
+                  textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
+                  hintText: _hintText,
+                  onChanged: (value) {},
+                ),
+                const SizedBox.square(
+                  dimension: 32,
+                ),
+                UTextInput.singleLineWithTitle(
+                  controller: statusMessageTextFieldController,
+                  textFieldTitle:
+                      UAppStrings.editProfilePage_statusMessageTitle,
+                  hintText: _hintText,
+                  onChanged: (value) {},
+                ),
+                const SizedBox.square(
+                  dimension: 32,
+                ),
+                UTextInput.singleLineWithTitle(
+                  controller: locationTextFieldController,
+                  textFieldTitle: UAppStrings.editProfilePage_locationTitle,
+                  hintText: _hintText,
+                  onChanged: (value) {},
+                ),
+                const SizedBox.square(
+                  dimension: 32,
+                ),
+                UTextInput.multiLinesWithTitle(
+                  controller: aboutTextFieldController,
+                  textFieldTitle: UAppStrings.editProfilePage_aboutTitle,
+                  hintText: _hintText,
+                  onChanged: (value) {},
+                ),
+                const SizedBox.square(
+                  dimension: 24,
+                ),
+              ],
+            ),
           ),
           const UDivider(),
           _ProfileOptions(
@@ -123,79 +140,6 @@ class _ProfileOptions extends StatelessWidget {
           ),
           const SizedBox.square(
             dimension: 20,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TextField extends StatelessWidget {
-  const _TextField({
-    Key? key,
-    required this.controller,
-    required this.textFieldTitle,
-    required this.hintText,
-    required this.onChanged,
-    this.textFieldHeight,
-    this.textAlignVertical,
-    this.maxLines,
-  }) : super(key: key);
-
-  final TextEditingController controller;
-  final String textFieldTitle;
-  final String hintText;
-  final Function(String) onChanged;
-  final double? textFieldHeight;
-  final TextAlignVertical? textAlignVertical;
-  final int? maxLines;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: UText(
-              textFieldTitle,
-              textStyle: UTextStyle.H3_tertiaryHeader,
-            ),
-          ),
-          const SizedBox.square(dimension: 8.4),
-          Container(
-            height: textFieldHeight ?? 48,
-            decoration: BoxDecoration(
-              color: UColors.foregroundDark,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: TextField(
-              controller: controller,
-              style: UTextStyle.H5_fifthHeader.style.returnTextStyleType(
-                color: Colors.white,
-              ),
-              textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
-              textInputAction: TextInputAction.done,
-              cursorColor: UColors.textDark,
-              autocorrect: false,
-              onChanged: onChanged,
-              maxLines: maxLines ?? 1,
-              decoration: InputDecoration(
-                isDense: true,
-                filled: true,
-                contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                fillColor: UColors.foregroundDark,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                hintText: hintText,
-                hintStyle:
-                    UTextStyle.H5_fifthHeader.style.returnTextStyleType(),
-              ),
-            ),
           ),
         ],
       ),

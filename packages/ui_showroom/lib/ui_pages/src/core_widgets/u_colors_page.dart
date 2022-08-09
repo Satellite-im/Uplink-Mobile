@@ -14,6 +14,9 @@ Map<String, Color> colorsMap = {
   'defGrey': UColors.defGrey,
   'textMed': UColors.textMed,
   'textDark': UColors.textDark,
+  'loadDark': UColors.loadDark,
+  'loadMed': UColors.loadMed,
+  'loadLight': UColors.loadLight,
 };
 
 class UColorsPage extends StatelessWidget {

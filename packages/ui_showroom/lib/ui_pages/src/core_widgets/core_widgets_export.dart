@@ -5,3 +5,4 @@ export 'u_switcher_page.dart';
 export 'u_app_bar_page.dart';
 export 'u_loading_page.dart';
 export 'u_divider_page.dart';
+export 'u_text_input_page.dart';

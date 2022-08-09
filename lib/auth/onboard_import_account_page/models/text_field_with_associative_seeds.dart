@@ -44,46 +44,26 @@ class _TextFieldWithAssociativeSeedsState
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
       link: layerLink,
-      child: Container(
-        height: 48,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: UColors.foregroundDark,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: TextField(
-          autofocus: true,
-          focusNode: focusNode,
-          autocorrect: false,
-          controller: controller,
-          cursorColor: Colors.white,
-          style: UTextStyle.H5_fifthHeader.style
-              .returnTextStyleType()
-              .copyWith(color: Colors.white),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: UAppStrings.onboardImportAccountPage_hint,
-            hintStyle: UTextStyle.H5_fifthHeader.style
-                .returnTextStyleType()
-                .copyWith(color: UColors.textDark),
-          ),
-          textInputAction: TextInputAction.done,
-          onChanged: (word) {
-            //update suggestedPassphraseList to update the suggestion memu
-            searchPassphrass(controller.text.toLowerCase());
-          },
-          onSubmitted: (passphrase) {
-            final value = passphrase.toLowerCase();
-            if (bip39Dic.contains(value)) {
-              widget.addInSelectedGridView(passphrase);
-              controller.clear();
-              suggestedPassphraseList.clear();
-            } else {
-              controller.clear();
-              suggestedPassphraseList.clear();
-            }
-          },
-        ),
+      child: UTextInput.singleLine(
+        controller: controller,
+        hintText: UAppStrings.onboardImportAccountPage_hint,
+        autofocus: true,
+        focusNode: focusNode,
+        onChanged: (word) {
+          //update suggestedPassphraseList to update the suggestion memu
+          searchPassphrass(controller.text.toLowerCase());
+        },
+        onSubmitted: (passphrase) {
+          final value = passphrase.toLowerCase();
+          if (bip39Dic.contains(value)) {
+            widget.addInSelectedGridView(passphrase);
+            controller.clear();
+            suggestedPassphraseList.clear();
+          } else {
+            controller.clear();
+            suggestedPassphraseList.clear();
+          }
+        },
       ),
     );
   }
@@ -121,7 +101,7 @@ class _TextFieldWithAssociativeSeedsState
           link: layerLink,
           showWhenUnlinked: false,
           //overlay won't show on the screen when move to other pages
-          offset: const Offset(0, 56),
+          offset: const Offset(0, 68),
           child: SuggestedSeedsOverlay(
             suggestedPassphraseList: suggestedPassphraseList,
             onTap: widget.addInSelectedGridView,
