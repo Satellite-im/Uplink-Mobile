@@ -27,6 +27,8 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final _percentualToShowBottomSheet =
+        465 / MediaQuery.of(context).size.height;
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
         if (notification.extent <= 0.3 && _readyToClose) {
@@ -49,9 +51,9 @@ class _QRCodeBottomSheetState extends State<QRCodeBottomSheet> {
       child: GestureDetector(
         onVerticalDragDown: (details) {},
         child: DraggableScrollableSheet(
-          snapSizes: const [0.65, 1],
+          snapSizes: [_percentualToShowBottomSheet, 1],
           minChildSize: 0,
-          initialChildSize: 0.65,
+          initialChildSize: _percentualToShowBottomSheet,
           snap: true,
           builder: (context, scrollController) => QRCodePage(
             key: qrCodePageKey,
