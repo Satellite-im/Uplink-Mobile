@@ -16,6 +16,8 @@ part 'models/network_profiles_body.part.dart';
 part 'models/profile_data_body.part.dart';
 part 'models/delete_picture_popup_menu_widget.part.dart';
 
+GlobalKey<UTextInputState> uTextInputState = GlobalKey();
+
 class ProfileIndexPage extends StatefulWidget {
   const ProfileIndexPage({Key? key}) : super(key: key);
 
@@ -84,6 +86,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                 onPressed: () async {
                                   setState(() {
                                     _isEditingProfile = false;
+                                    uTextInputState.currentState!.resetValues();
                                   });
                                 },
                               )
@@ -245,16 +248,18 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                               ),
                               secondChild: _EditProfileBody(
                                 warp: warp,
-                                onSaveChanges: (value) {
-                                  setState(() {
-                                    _isEditingProfile = false;
-                                    scrollController.animateTo(
-                                      0,
-                                      duration:
-                                          const Duration(milliseconds: 100),
-                                      curve: Curves.ease,
-                                    );
-                                  });
+                                onSaveChanges: (canSave) {
+                                  if (canSave) {
+                                    setState(() {
+                                      _isEditingProfile = false;
+                                      scrollController.animateTo(
+                                        0,
+                                        duration:
+                                            const Duration(milliseconds: 100),
+                                        curve: Curves.ease,
+                                      );
+                                    });
+                                  }
                                 },
                                 usernameTextFieldController:
                                     usernameTextFieldController,
