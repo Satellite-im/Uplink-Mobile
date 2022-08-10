@@ -61,13 +61,12 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
       future: loadingCurrentUser(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Text('');
+          return const SizedBox.shrink();
         } else {
           final _mockCurrentUser = snapshot.data;
           return Scaffold(
             resizeToAvoidBottomInset: true,
             body: CustomScrollView(
-              controller: scrollController,
               shrinkWrap: true,
               slivers: [
                 SliverToBoxAdapter(
@@ -104,8 +103,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   builder: (context) => GestureDetector(
                                     behavior: HitTestBehavior.opaque,
                                     onTap: () => Navigator.of(context).pop(),
-                                    child: QRCodeBottomSheet(
-                                      currentUser: _mockCurrentUser!,
+                                    child: GestureDetector(
+                                      onTap: () {},
+                                      child: QRCodeBottomSheet(
+                                        currentUser: _mockCurrentUser!,
+                                      ),
                                     ),
                                   ),
                                 );
