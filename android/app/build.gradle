@@ -43,8 +43,10 @@ android {
         jvmTarget = '1.8'
     }
 
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
     }
 
     defaultConfig {

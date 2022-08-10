@@ -8,6 +8,7 @@ import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_current_user.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
+import 'package:uplink/utils/warp/warp.dart';
 
 part 'models/body.part.dart';
 part 'models/edit_profile_body.dart';
@@ -35,11 +36,23 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
 
   File? _bannerImageFile;
 
+  // TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
+  final warp = Warp();
+
+  @override
+  void initState() {
+    warp.createUser(username: 'Meowth', messageStatus: 'I am a pokemon!');
+
+    super.initState();
+  }
+
   void _verifyIfHasImage() {
     if (_bannerImageFile != null && _bannerImageFile!.path.isNotEmpty) {
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
+
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +67,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           return Scaffold(
             resizeToAvoidBottomInset: true,
             body: CustomScrollView(
+              controller: scrollController,
               shrinkWrap: true,
               slivers: [
                 SliverToBoxAdapter(
@@ -220,6 +234,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             AnimatedCrossFade(
                               duration: _duration,
                               firstChild: _ProfileIndexBody(
+                                warp: warp,
                                 currentUser: _mockCurrentUser!,
                                 pageSize: _size,
                                 onTapEditProfile: (value) {
@@ -229,6 +244,18 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                 },
                               ),
                               secondChild: _EditProfileBody(
+                                warp: warp,
+                                onSaveChanges: (value) {
+                                  setState(() {
+                                    _isEditingProfile = false;
+                                    scrollController.animateTo(
+                                      0,
+                                      duration:
+                                          const Duration(milliseconds: 100),
+                                      curve: Curves.ease,
+                                    );
+                                  });
+                                },
                                 usernameTextFieldController:
                                     usernameTextFieldController,
                                 statusMessageTextFieldController:
