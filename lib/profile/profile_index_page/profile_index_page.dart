@@ -67,6 +67,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           return Scaffold(
             resizeToAvoidBottomInset: true,
             body: CustomScrollView(
+              controller: scrollController,
               shrinkWrap: true,
               slivers: [
                 SliverToBoxAdapter(
