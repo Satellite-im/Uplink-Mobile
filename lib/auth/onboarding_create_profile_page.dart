@@ -130,14 +130,12 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                                 .startCheckingShortUsernameError();
                           } else if (_usernameTextFieldController.text.length >=
                               5) {
-                            // TODO(warp) : Add warp here
-                            // widget.warp.changeUsername(newUsername!);
+                            // TODO(warp): Add warp here
 
                             if (_messageStatusTextFieldController
                                 .text.isNotEmpty) {
-                              // TODO(warp) : Add warp here
-                              // widget.warp
-                              //     .changeMessageStatus(newMessageStatus!);
+                              // TODO(warp): Add warp here
+
                             }
                             await _callBottomSheets();
                           }
