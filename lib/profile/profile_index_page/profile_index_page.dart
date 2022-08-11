@@ -16,7 +16,8 @@ part 'models/network_profiles_body.part.dart';
 part 'models/profile_data_body.part.dart';
 part 'models/delete_picture_popup_menu_widget.part.dart';
 
-GlobalKey<UTextInputState> uTextInputState = GlobalKey();
+final _uTextInputStateForUsernameField = GlobalKey<UTextInputState>();
+final _uTextInputStateForMessageStatusField = GlobalKey<UTextInputState>();
 
 class ProfileIndexPage extends StatefulWidget {
   const ProfileIndexPage({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final statusMessageTextFieldController = TextEditingController();
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
+  final scrollController = ScrollController();
 
   String? userImagePath;
 
@@ -54,7 +56,17 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
     }
   }
 
-  final scrollController = ScrollController();
+  @override
+  void dispose() {
+    scrollController.dispose();
+    aboutTextFieldController.dispose();
+    locationTextFieldController.dispose();
+    statusMessageTextFieldController.dispose();
+    usernameTextFieldController.dispose();
+    _uTextInputStateForUsernameField.currentState!.dispose();
+    _uTextInputStateForMessageStatusField.currentState!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +98,12 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                 onPressed: () async {
                                   setState(() {
                                     _isEditingProfile = false;
-                                    uTextInputState.currentState!.resetValues();
+                                    _uTextInputStateForUsernameField
+                                        .currentState!
+                                        .resetValues();
+                                    _uTextInputStateForMessageStatusField
+                                        .currentState!
+                                        .resetValues();
                                   });
                                 },
                               )
@@ -248,6 +265,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                               ),
                               secondChild: _EditProfileBody(
                                 warp: warp,
+                                scrollController: scrollController,
                                 onSaveChanges: (canSave) {
                                   if (canSave) {
                                     setState(() {

@@ -158,6 +158,8 @@ class UTextInputState extends State<UTextInput> {
   void resetValues() {
     _textEditingController.removeListener(_listener);
     _showErrorTextForShortUsername = false;
+    _showCounterForUsername = false;
+    _showCounterForMessageStatus = false;
   }
 
   @override

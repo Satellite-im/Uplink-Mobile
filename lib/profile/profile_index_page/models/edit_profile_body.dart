@@ -8,6 +8,7 @@ class _EditProfileBody extends StatefulWidget {
     required this.statusMessageTextFieldController,
     required this.locationTextFieldController,
     required this.aboutTextFieldController,
+    required this.scrollController,
     required this.onSaveChanges,
   }) : super(key: key);
 
@@ -15,6 +16,7 @@ class _EditProfileBody extends StatefulWidget {
   final TextEditingController statusMessageTextFieldController;
   final TextEditingController locationTextFieldController;
   final TextEditingController aboutTextFieldController;
+  final ScrollController scrollController;
   final Function(bool) onSaveChanges;
   final Warp warp;
 
@@ -31,7 +33,11 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
     const _hintText = UAppStrings.editProfilePage_hintText;
     widget.usernameTextFieldController.text = '';
     widget.statusMessageTextFieldController.text = '';
+    widget.locationTextFieldController.text = '';
+    widget.aboutTextFieldController.text = '';
+
     return SingleChildScrollView(
+      controller: widget.scrollController,
       child: Column(
         children: [
           const SizedBox.square(
@@ -42,7 +48,7 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
             child: Column(
               children: [
                 UTextInput.singleLineWithTitle(
-                  key: uTextInputState,
+                  key: _uTextInputStateForUsernameField,
                   controller: widget.usernameTextFieldController,
                   uTextInputRules: UTextInputRules.username,
                   textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
@@ -55,6 +61,7 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
                   dimension: 32,
                 ),
                 UTextInput.singleLineWithTitle(
+                  key: _uTextInputStateForMessageStatusField,
                   controller: widget.statusMessageTextFieldController,
                   uTextInputRules: UTextInputRules.messageStatus,
                   textFieldTitle:
@@ -114,8 +121,13 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
                 onPressed: () {
                   if (widget.usernameTextFieldController.text.isNotEmpty &&
                       widget.usernameTextFieldController.text.length < 5) {
-                    uTextInputState.currentState!
+                    _uTextInputStateForUsernameField.currentState!
                         .startCheckingShortUsernameError();
+                    widget.scrollController.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.ease,
+                    );
                   } else {
                     if (newUsername != null && newUsername!.length >= 5) {
                       widget.warp.changeUsername(newUsername!);
@@ -124,6 +136,10 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
                         newMessageStatus!.isNotEmpty) {
                       widget.warp.changeMessageStatus(newMessageStatus!);
                     }
+                    _uTextInputStateForUsernameField.currentState!
+                        .resetValues();
+                    _uTextInputStateForMessageStatusField.currentState!
+                        .resetValues();
                     widget.onSaveChanges(true);
                   }
                 },
