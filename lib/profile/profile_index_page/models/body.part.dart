@@ -32,9 +32,12 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 2,
           ),
-          UText(
-            warp.getMessageStatus(),
-            textStyle: UTextStyle.B1_body,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: UText(
+              warp.getMessageStatus(),
+              textStyle: UTextStyle.B1_body,
+            ),
           ),
           const SizedBox.square(
             dimension: 16,

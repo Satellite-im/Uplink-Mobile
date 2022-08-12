@@ -1,6 +1,6 @@
 part of '../profile_index_page.dart';
 
-class _EditProfileBody extends StatelessWidget {
+class _EditProfileBody extends StatefulWidget {
   const _EditProfileBody({
     Key? key,
     required this.warp,
@@ -8,6 +8,7 @@ class _EditProfileBody extends StatelessWidget {
     required this.statusMessageTextFieldController,
     required this.locationTextFieldController,
     required this.aboutTextFieldController,
+    required this.scrollController,
     required this.onSaveChanges,
   }) : super(key: key);
 
@@ -15,17 +16,28 @@ class _EditProfileBody extends StatelessWidget {
   final TextEditingController statusMessageTextFieldController;
   final TextEditingController locationTextFieldController;
   final TextEditingController aboutTextFieldController;
+  final ScrollController scrollController;
   final Function(bool) onSaveChanges;
   final Warp warp;
 
   @override
+  State<_EditProfileBody> createState() => _EditProfileBodyState();
+}
+
+class _EditProfileBodyState extends State<_EditProfileBody> {
+  String? newUsername;
+  String? newMessageStatus;
+
+  @override
   Widget build(BuildContext context) {
     const _hintText = UAppStrings.editProfilePage_hintText;
-    usernameTextFieldController.text = '';
-    statusMessageTextFieldController.text = '';
-    String? newUsername;
-    String? newMessageStatus;
+    widget.usernameTextFieldController.text = '';
+    widget.statusMessageTextFieldController.text = '';
+    widget.locationTextFieldController.text = '';
+    widget.aboutTextFieldController.text = '';
+
     return SingleChildScrollView(
+      controller: widget.scrollController,
       child: Column(
         children: [
           const SizedBox.square(
@@ -36,7 +48,9 @@ class _EditProfileBody extends StatelessWidget {
             child: Column(
               children: [
                 UTextInput.singleLineWithTitle(
-                  controller: usernameTextFieldController,
+                  key: _uTextInputStateForUsernameField,
+                  controller: widget.usernameTextFieldController,
+                  uTextInputRules: UTextInputRules.username,
                   textFieldTitle: UAppStrings.editProfilePage_usernameTitle,
                   hintText: _hintText,
                   onChanged: (value) {
@@ -47,7 +61,9 @@ class _EditProfileBody extends StatelessWidget {
                   dimension: 32,
                 ),
                 UTextInput.singleLineWithTitle(
-                  controller: statusMessageTextFieldController,
+                  key: _uTextInputStateForMessageStatusField,
+                  controller: widget.statusMessageTextFieldController,
+                  uTextInputRules: UTextInputRules.messageStatus,
                   textFieldTitle:
                       UAppStrings.editProfilePage_statusMessageTitle,
                   hintText: _hintText,
@@ -59,7 +75,7 @@ class _EditProfileBody extends StatelessWidget {
                   dimension: 32,
                 ),
                 UTextInput.singleLineWithTitle(
-                  controller: locationTextFieldController,
+                  controller: widget.locationTextFieldController,
                   textFieldTitle: UAppStrings.editProfilePage_locationTitle,
                   hintText: _hintText,
                   onChanged: (value) {},
@@ -68,7 +84,7 @@ class _EditProfileBody extends StatelessWidget {
                   dimension: 32,
                 ),
                 UTextInput.multiLinesWithTitle(
-                  controller: aboutTextFieldController,
+                  controller: widget.aboutTextFieldController,
                   textFieldTitle: UAppStrings.editProfilePage_aboutTitle,
                   hintText: _hintText,
                   onChanged: (value) {},
@@ -103,14 +119,29 @@ class _EditProfileBody extends StatelessWidget {
                 label: UAppStrings.editProfilePage_saveChangesButton,
                 uIconData: UIcons.checkmark_1,
                 onPressed: () {
-                  if (newUsername != null && newUsername!.isNotEmpty) {
-                    warp.changeUsername(newUsername!);
+                  if (widget.usernameTextFieldController.text.isNotEmpty &&
+                      widget.usernameTextFieldController.text.length < 5) {
+                    _uTextInputStateForUsernameField.currentState!
+                        .startCheckingShortUsernameError();
+                    widget.scrollController.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.ease,
+                    );
+                  } else {
+                    if (newUsername != null && newUsername!.length >= 5) {
+                      widget.warp.changeUsername(newUsername!);
+                    }
+                    if (newMessageStatus != null &&
+                        newMessageStatus!.isNotEmpty) {
+                      widget.warp.changeMessageStatus(newMessageStatus!);
+                    }
+                    _uTextInputStateForUsernameField.currentState!
+                        .resetValues();
+                    _uTextInputStateForMessageStatusField.currentState!
+                        .resetValues();
+                    widget.onSaveChanges(true);
                   }
-                  if (newMessageStatus != null &&
-                      newMessageStatus!.isNotEmpty) {
-                    warp.changeMessageStatus(newMessageStatus!);
-                  }
-                  onSaveChanges(true);
                 },
               ),
             ),

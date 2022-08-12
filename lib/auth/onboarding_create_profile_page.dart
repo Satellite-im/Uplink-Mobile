@@ -16,6 +16,8 @@ class OnboardCreateProfilePage extends StatefulWidget {
 }
 
 class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
+  final _uTextInputStateForUsernameField = GlobalKey<UTextInputState>();
+  final _uTextInputStateForMessageStatusField = GlobalKey<UTextInputState>();
   final _focusNode = FocusNode();
   final _scrollController = ScrollController();
   final _isSignInButtonEnabled = ValueNotifier<bool>(false);
@@ -44,6 +46,8 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
     _isSignInButtonEnabled.dispose();
     _scrollController.dispose();
     _focusNode.dispose();
+    _uTextInputStateForUsernameField.currentState!.dispose();
+    _uTextInputStateForMessageStatusField.currentState!.dispose();
     super.dispose();
   }
 
@@ -87,7 +91,9 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   ),
                   const SizedBox(height: 56),
                   UTextInput.singleLineWithTitle(
+                    key: _uTextInputStateForUsernameField,
                     controller: _usernameTextFieldController,
+                    uTextInputRules: UTextInputRules.username,
                     textFieldTitle:
                         UAppStrings.createProfilePage_usernameTextFieldTitle,
                     hintText:
@@ -100,7 +106,9 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                   ),
                   const SizedBox.square(dimension: 24),
                   UTextInput.singleLineWithTitle(
+                    key: _uTextInputStateForMessageStatusField,
                     controller: _messageStatusTextFieldController,
+                    uTextInputRules: UTextInputRules.messageStatus,
                     textFieldTitle: UAppStrings
                         .createProfilePage_statusMessageTextFieldTitle,
                     hintText: UAppStrings
@@ -116,7 +124,21 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                         disabled: !_isSignInButtonEnabled.value,
                         uIconData: UIcons.friend_added,
                         onPressed: () async {
-                          await _callBottomSheets();
+                          if (_usernameTextFieldController.text.isNotEmpty &&
+                              _usernameTextFieldController.text.length < 5) {
+                            _uTextInputStateForUsernameField.currentState!
+                                .startCheckingShortUsernameError();
+                          } else if (_usernameTextFieldController.text.length >=
+                              5) {
+                            // TODO(warp): Add warp here
+
+                            if (_messageStatusTextFieldController
+                                .text.isNotEmpty) {
+                              // TODO(warp): Add warp here
+
+                            }
+                            await _callBottomSheets();
+                          }
                         },
                       );
                     },
