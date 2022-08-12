@@ -167,8 +167,8 @@ class UTextInputState extends State<UTextInput> {
     final _isForUsername = widget.uTextInputRules == UTextInputRules.username;
     final _isForMessageStatus =
         widget.uTextInputRules == UTextInputRules.messageStatus;
-    const _maximunLenghtForUsername = 32;
-    const _maximunLenghtForMessageStatus = 128;
+    const _maximunLengthForUsername = 32;
+    const _maximunLengthForMessageStatus = 128;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,9 +204,9 @@ class UTextInputState extends State<UTextInput> {
             autofocus: widget._autofocus,
             autocorrect: false,
             maxLength: _isForUsername
-                ? _maximunLenghtForUsername
+                ? _maximunLengthForUsername
                 : _isForMessageStatus
-                    ? _maximunLenghtForMessageStatus
+                    ? _maximunLengthForMessageStatus
                     : null,
             inputFormatters: _isForUsername
                 ? [
@@ -272,7 +272,7 @@ class UTextInputState extends State<UTextInput> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: UText(
-                    '${_textEditingController.text.length}/${_showCounterForUsername ? '$_maximunLenghtForUsername' : '$_maximunLenghtForMessageStatus'}',
+                    '${_textEditingController.text.length}/${_showCounterForUsername ? '$_maximunLengthForUsername' : '$_maximunLengthForMessageStatus'}',
                     textStyle: UTextStyle.B1_body,
                     textColor: UColors.textMed,
                   ),
