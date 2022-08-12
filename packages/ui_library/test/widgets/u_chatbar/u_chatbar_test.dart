@@ -7,7 +7,6 @@ void main() {
   group('Widget Test UChatBar|', () {
     testWidgets('Should return the right size', (WidgetTester tester) async {
       final _textEditingController = TextEditingController();
-      final List<String> _textList = [];
 
       String _addValue(String value) {
         return value;
