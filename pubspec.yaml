@@ -17,6 +17,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  path_provider: ^2.0.11
   provider: ^6.0.2
   shared_preferences: ^2.0.13
   warp_dart:

@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:warp_dart/mp_ipfs.dart' as mp_ipfs;
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart' as warp;
@@ -10,12 +11,34 @@ warp.DID? did;
 class Warp {
   late multipass.MultiPass? _mpIpfs;
 
-  final store = warp.Tesseract.newStore();
+  warp.Tesseract? tesseract;
+
+  String? tesseractPath;
+
+  void _pathToSaveTesseract() => path_provider
+      .getApplicationSupportDirectory()
+      .then((value) => tesseractPath = value.path);
+
+  // Create a new store of Tesseractå
+  // Unlock Tesseract using pin as passphrase
+  // Save a file for Tesseract
+  // Set auto save
+  void setNewTesseract(int pin) async {
+    tesseract = warp.Tesseract.newStore();
+    tesseract!.unlock('$pin');
+    _pathToSaveTesseract();
+    tesseract!.setFile(tesseractPath!);
+    tesseract!.setAutosave();
+  }
+
+  void verifyIfThereIsATesseract() {
+    _pathToSaveTesseract();
+    final _tesseract = warp.Tesseract.fromFile(tesseractPath!);
+  }
 
   void createUser({required String username, String messageStatus = ''}) {
-    store.unlock('Hello');
-
-    _mpIpfs = mp_ipfs.multipass_ipfs_temporary(store);
+    _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
+    mp_ipfs.multipass_ipfs_persistent(tesseract!, tesseractPath!);
     did = _mpIpfs!.createIdentity(username, 'secured_phrase');
     final _identityUpdated =
         multipass.IdentityUpdate.setStatusMessage(messageStatus);
