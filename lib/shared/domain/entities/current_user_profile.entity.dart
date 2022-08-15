@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
+@immutable
 class CurrentUserProfile {
-  CurrentUserProfile({
+  const CurrentUserProfile({
     required this.username,
     required this.status,
     this.statusMessage,
@@ -12,15 +14,15 @@ class CurrentUserProfile {
     this.friendNum,
     this.about,
   });
-  String username;
-  String? statusMessage;
-  Status status;
-  String? imageAddress;
-  String? bannerImageAddress;
-  int? badgesNum;
-  String? location;
-  int? friendNum;
-  String? about;
+  final String username;
+  final String? statusMessage;
+  final Status status;
+  final String? imageAddress;
+  final String? bannerImageAddress;
+  final int? badgesNum;
+  final String? location;
+  final int? friendNum;
+  final String? about;
 
   CurrentUserProfile copywith({
     String? username,
@@ -46,4 +48,18 @@ class CurrentUserProfile {
         friendNum: friendNum ?? this.friendNum,
         about: about ?? this.about,
       );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is CurrentUserProfile &&
+        other.username == username &&
+        other.statusMessage == statusMessage &&
+        other.status == status &&
+        other.imageAddress == imageAddress;
+  }
+
+  @override
+  int get hashCode => username.hashCode ^ statusMessage.hashCode;
 }

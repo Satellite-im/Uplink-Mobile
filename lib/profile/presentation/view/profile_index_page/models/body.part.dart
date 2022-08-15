@@ -3,7 +3,6 @@ part of '../profile_index_page.dart';
 class _ProfileIndexBody extends StatelessWidget {
   const _ProfileIndexBody({
     Key? key,
-    required this.warp,
     required Size pageSize,
     required this.currentUser,
     required Function(bool) onTapEditProfile,
@@ -11,7 +10,6 @@ class _ProfileIndexBody extends StatelessWidget {
         _onTapEditProfile = onTapEditProfile,
         super(key: key);
 
-  final Warp warp;
   final Size _pageSize;
   final MockCurrentUser currentUser;
   final Function(bool) _onTapEditProfile;
@@ -25,16 +23,50 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 20,
           ),
-          UText(
-            warp.getUsername(),
-            textStyle: UTextStyle.H2_secondaryHeader,
+          BlocBuilder<CurrentUserBloc, CurrentUserState>(
+            bloc: GetIt.I.get<CurrentUserBloc>(),
+            builder: (context, state) {
+              if (state is UpdateCurrentUserSuccess) {
+                return UText(
+                  state.currentUserProfile.username,
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                );
+              } else if (state is UpdateCurrentUserError) {
+                return const UText(
+                  'It was not possible to load the username',
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                );
+              } else {
+                return const UText(
+                  'Loading...',
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                );
+              }
+            },
           ),
           const SizedBox.square(
             dimension: 2,
           ),
-          UText(
-            warp.getMessageStatus(),
-            textStyle: UTextStyle.B1_body,
+          BlocBuilder<CurrentUserBloc, CurrentUserState>(
+            bloc: GetIt.I.get<CurrentUserBloc>(),
+            builder: (context, state) {
+              if (state is UpdateCurrentUserSuccess) {
+                return UText(
+                  state.currentUserProfile.statusMessage ?? '',
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                );
+              } else if (state is UpdateCurrentUserError) {
+                return const UText(
+                  'It was not possible to load the message status',
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                );
+              } else {
+                return const UText(
+                  'Loading...',
+                  textStyle: UTextStyle.H2_secondaryHeader,
+                );
+              }
+            },
           ),
           const SizedBox.square(
             dimension: 16,

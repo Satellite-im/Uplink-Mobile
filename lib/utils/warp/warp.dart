@@ -7,47 +7,66 @@ import 'package:warp_dart/warp.dart' as warp;
 
 warp.DID? did;
 
+late multipass.MultiPass? _mpIpfs;
+
 // TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
 class Warp {
-  late multipass.MultiPass? _mpIpfs;
-
   warp.Tesseract? tesseract;
 
   String? tesseractPath;
 
-  void _pathToSaveTesseract() => path_provider
-      .getApplicationSupportDirectory()
-      .then((value) => tesseractPath = value.path);
+  String? multipassPath;
+
+  Future<void> _pathToSaveTesseract() async {
+    final _directory = await path_provider.getApplicationSupportDirectory();
+    multipassPath = _directory.path;
+    tesseractPath = '${_directory.path}/tesseractUplinkFile';
+  }
 
   // Create a new store of Tesseractå
   // Unlock Tesseract using pin as passphrase
   // Save a file for Tesseract
   // Set auto save
-  void setNewTesseract(int pin) async {
+  Future<void> setNewTesseract(int pin) async {
     tesseract = warp.Tesseract.newStore();
     tesseract!.unlock('$pin');
-    _pathToSaveTesseract();
     tesseract!.setFile(tesseractPath!);
     tesseract!.setAutosave();
   }
 
-  void verifyIfThereIsATesseract(int pin) {
+  Future<bool> verifyIfThereIsATesseract(int pin) async {
     try {
-      _pathToSaveTesseract();
-      final _tesseract = warp.Tesseract.fromFile(tesseractPath!);
-      tesseract = _tesseract;
+      // TODO(warp): just to do tests and build the arch
+      await _pathToSaveTesseract();
+      // tesseract = warp.Tesseract.fromFile(tesseractPath!);
+      await setNewTesseract(pin);
+      // tesseract?.unlock('$pin');
+      // tesseract?.setFile(tesseractPath!);
+      // tesseract?.setAutosave();
+      return false;
     } catch (error) {
-      setNewTesseract(pin);
+      await setNewTesseract(pin);
+      return false;
     }
   }
 
-  void createUser({required String username, String messageStatus = ''}) {
-    _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
-    mp_ipfs.multipass_ipfs_persistent(tesseract!, tesseractPath!);
-    did = _mpIpfs!.createIdentity(username, 'secured_phrase');
-    final _identityUpdated =
-        multipass.IdentityUpdate.setStatusMessage(messageStatus);
-    _mpIpfs!.updateIdentity(_identityUpdated);
+  Future<void> createUser({
+    required String username,
+    String messageStatus = '',
+  }) async {
+    try {
+      final _isThereATesseract = await verifyIfThereIsATesseract(1234);
+      // TODO(warp): just to do tests and build the arch
+      // _mpIpfs ??= mp_ipfs.multipass_ipfs_persistent(tesseract!, multipassPath!);
+      _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
+
+      if (!_isThereATesseract) {
+        did = _mpIpfs!.createIdentity(username, 'secured_phrase');
+        final _identityUpdated =
+            multipass.IdentityUpdate.setStatusMessage(messageStatus);
+        _mpIpfs!.updateIdentity(_identityUpdated);
+      }
+    } catch (error) {}
   }
 
   String getUsername() {

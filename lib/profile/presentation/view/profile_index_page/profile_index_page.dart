@@ -3,8 +3,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/shared/controller/current_user/profile_bloc.dart';
+import 'package:uplink/shared/domain/entities/current_user_profile.entity.dart';
 import 'package:uplink/utils/mock/helpers/loading_current_user.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
@@ -31,6 +35,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final statusMessageTextFieldController = TextEditingController();
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
+  final _controller = GetIt.I.get<CurrentUserBloc>();
 
   String? userImagePath;
 
@@ -41,7 +46,16 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
 
   @override
   void initState() {
-    warp.createUser(username: 'Meowth', messageStatus: 'I am a pokemon!');
+    warp.createUser(
+      username: 'Meowth',
+      messageStatus: 'I am a pokemon!',
+    );
+
+    _controller.currentUserProfile = const CurrentUserProfile(
+      username: 'Meowth',
+      status: Status.online,
+      statusMessage: 'I am a pokemon!',
+    );
 
     super.initState();
   }
@@ -55,6 +69,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final scrollController = ScrollController();
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return FutureBuilder<MockCurrentUser?>(
@@ -64,6 +83,17 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           return const SizedBox.shrink();
         } else {
           final _mockCurrentUser = snapshot.data;
+          _controller
+            ..add(
+              GetUsername(
+                currentUserProfile: _controller.currentUserProfile!,
+              ),
+            )
+            ..add(
+              GetMessageStatus(
+                currentUserProfile: _controller.currentUserProfile!,
+              ),
+            );
           return Scaffold(
             resizeToAvoidBottomInset: true,
             body: CustomScrollView(
@@ -234,7 +264,6 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             AnimatedCrossFade(
                               duration: _duration,
                               firstChild: _ProfileIndexBody(
-                                warp: warp,
                                 currentUser: _mockCurrentUser!,
                                 pageSize: _size,
                                 onTapEditProfile: (value) {
@@ -244,7 +273,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                 },
                               ),
                               secondChild: _EditProfileBody(
-                                warp: warp,
+                                controller: _controller,
                                 onSaveChanges: (value) {
                                   setState(() {
                                     _isEditingProfile = false;

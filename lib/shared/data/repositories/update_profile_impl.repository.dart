@@ -1,5 +1,5 @@
-import 'package:uplink/profile/data/datasource/update_profile.datasource.dart';
-import 'package:uplink/profile/data/repositories/update_profile.repository.dart';
+import 'package:uplink/shared/data/datasource/update_profile.datasource.dart';
+import 'package:uplink/shared/data/repositories/update_profile.repository.dart';
 
 class UpdateProfileRepositoryImpl implements IUpdateProfileRepository {
   const UpdateProfileRepositoryImpl(this._warpDatasource);

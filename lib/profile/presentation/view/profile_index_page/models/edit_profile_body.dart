@@ -3,7 +3,7 @@ part of '../profile_index_page.dart';
 class _EditProfileBody extends StatelessWidget {
   const _EditProfileBody({
     Key? key,
-    required this.warp,
+    required this.controller,
     required this.usernameTextFieldController,
     required this.statusMessageTextFieldController,
     required this.locationTextFieldController,
@@ -16,7 +16,7 @@ class _EditProfileBody extends StatelessWidget {
   final TextEditingController locationTextFieldController;
   final TextEditingController aboutTextFieldController;
   final Function(bool) onSaveChanges;
-  final Warp warp;
+  final CurrentUserBloc controller;
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +104,19 @@ class _EditProfileBody extends StatelessWidget {
                 uIconData: UIcons.checkmark_1,
                 onPressed: () {
                   if (newUsername != null && newUsername!.isNotEmpty) {
-                    warp.changeUsername(newUsername!);
+                    controller.add(
+                      UpdateUsername(
+                        newUsername: newUsername!,
+                      ),
+                    );
                   }
                   if (newMessageStatus != null &&
                       newMessageStatus!.isNotEmpty) {
-                    warp.changeMessageStatus(newMessageStatus!);
+                    controller.add(
+                      UpdateMessageStatus(
+                        newMessageStatus: newMessageStatus!,
+                      ),
+                    );
                   }
                   onSaveChanges(true);
                 },
