@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 @immutable
-class CurrentUserProfile {
-  const CurrentUserProfile({
+class CurrentUser {
+  const CurrentUser({
     required this.username,
     required this.status,
     this.statusMessage,
@@ -24,7 +24,7 @@ class CurrentUserProfile {
   final int? friendNum;
   final String? about;
 
-  CurrentUserProfile copywith({
+  CurrentUser copywith({
     String? username,
     String? statusMessage,
     Status? status,
@@ -37,7 +37,7 @@ class CurrentUserProfile {
     String? about,
     bool? isBlocked,
   }) =>
-      CurrentUserProfile(
+      CurrentUser(
         username: username ?? this.username,
         status: status ?? this.status,
         statusMessage: statusMessage ?? this.statusMessage,
@@ -53,7 +53,7 @@ class CurrentUserProfile {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CurrentUserProfile &&
+    return other is CurrentUser &&
         other.username == username &&
         other.statusMessage == statusMessage &&
         other.status == status &&

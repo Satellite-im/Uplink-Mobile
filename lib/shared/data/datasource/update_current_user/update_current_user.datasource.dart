@@ -1,7 +1,7 @@
-import 'package:uplink/utils/warp/warp.dart';
+import 'package:uplink/utils/services/warp.dart';
 
-class UpdateProfileDataWarp {
-  UpdateProfileDataWarp(this._warp);
+class UpdateCurrentUserDataWarp {
+  UpdateCurrentUserDataWarp(this._warp);
   final Warp _warp;
 
   String getMessageStatus() {

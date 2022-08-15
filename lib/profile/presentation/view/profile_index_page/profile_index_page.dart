@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/shared/controller/current_user/profile_bloc.dart';
-import 'package:uplink/shared/domain/entities/current_user_profile.entity.dart';
+import 'package:uplink/shared/controller/update_current_user/update_current_user_bloc.dart';
+import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/mock/helpers/loading_current_user.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
-import 'package:uplink/utils/warp/warp.dart';
+import 'package:uplink/utils/services/warp.dart';
 
 part 'models/body.part.dart';
 part 'models/edit_profile_body.dart';
@@ -38,7 +38,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final statusMessageTextFieldController = TextEditingController();
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
-  final _controller = GetIt.I.get<CurrentUserBloc>();
+  final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
   final scrollController = ScrollController();
 
   String? userImagePath;
@@ -55,7 +55,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
       messageStatus: 'I am a pokemon!',
     );
 
-    _controller.currentUserProfile = const CurrentUserProfile(
+    _controller.currentUser = const CurrentUser(
       username: 'Meowth',
       status: Status.online,
       statusMessage: 'I am a pokemon!',
@@ -99,14 +99,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           final _mockCurrentUser = snapshot.data;
           _controller
             ..add(
-              GetUsername(
-                currentUserProfile: _controller.currentUserProfile!,
-              ),
+              GetUsername(),
             )
             ..add(
-              GetMessageStatus(
-                currentUserProfile: _controller.currentUserProfile!,
-              ),
+              GetMessageStatus(),
             );
           return Scaffold(
             resizeToAvoidBottomInset: true,

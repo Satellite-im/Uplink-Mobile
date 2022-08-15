@@ -23,15 +23,15 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 20,
           ),
-          BlocBuilder<CurrentUserBloc, CurrentUserState>(
-            bloc: GetIt.I.get<CurrentUserBloc>(),
+          BlocBuilder<UpdateCurrentUserBloc, UpdateCurrentUserState>(
+            bloc: GetIt.I.get<UpdateCurrentUserBloc>(),
             builder: (context, state) {
-              if (state is UpdateCurrentUserSuccess) {
+              if (state is UpdateCurrentUserStateSuccess) {
                 return UText(
-                  state.currentUserProfile.username,
+                  state.currentUser.username,
                   textStyle: UTextStyle.H2_secondaryHeader,
                 );
-              } else if (state is UpdateCurrentUserError) {
+              } else if (state is UpdateCurrentUserStateError) {
                 return const UText(
                   'It was not possible to load the username',
                   textStyle: UTextStyle.H2_secondaryHeader,
@@ -47,15 +47,15 @@ class _ProfileIndexBody extends StatelessWidget {
           const SizedBox.square(
             dimension: 2,
           ),
-          BlocBuilder<CurrentUserBloc, CurrentUserState>(
-            bloc: GetIt.I.get<CurrentUserBloc>(),
+          BlocBuilder<UpdateCurrentUserBloc, UpdateCurrentUserState>(
+            bloc: GetIt.I.get<UpdateCurrentUserBloc>(),
             builder: (context, state) {
-              if (state is UpdateCurrentUserSuccess) {
+              if (state is UpdateCurrentUserStateSuccess) {
                 return UText(
-                  state.currentUserProfile.statusMessage ?? '',
+                  state.currentUser.statusMessage ?? '',
                   textStyle: UTextStyle.H2_secondaryHeader,
                 );
-              } else if (state is UpdateCurrentUserError) {
+              } else if (state is UpdateCurrentUserStateError) {
                 return const UText(
                   'It was not possible to load the message status',
                   textStyle: UTextStyle.H2_secondaryHeader,

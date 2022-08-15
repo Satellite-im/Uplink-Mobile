@@ -1,21 +1,25 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:uplink/shared/controller/warp/warp_bloc.dart';
 import 'package:warp_dart/mp_ipfs.dart' as mp_ipfs;
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart' as warp;
 
 warp.DID? did;
 
-late multipass.MultiPass? _mpIpfs;
-
 // TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
 class Warp {
+  final _warp = GetIt.I.get<WarpBloc>();
+
   warp.Tesseract? tesseract;
 
   String? tesseractPath;
 
   String? multipassPath;
+
+  late multipass.MultiPass? _mpIpfs;
 
   Future<void> _pathToSaveTesseract() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
@@ -61,23 +65,34 @@ class Warp {
       _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
 
       if (!_isThereATesseract) {
-        did = _mpIpfs!.createIdentity(username, 'secured_phrase');
+        did = _warp.multipass.createIdentity(username, 'secured_phrase');
         final _identityUpdated =
             multipass.IdentityUpdate.setStatusMessage(messageStatus);
         _mpIpfs!.updateIdentity(_identityUpdated);
       }
-    } catch (error) {}
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
   String getUsername() {
-    return _mpIpfs!.getOwnIdentity().username;
+    try {
+      return _mpIpfs!.getOwnIdentity().username;
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
   String changeUsername(String newUserName) {
-    multipass.IdentityUpdate.setUsername(newUserName);
-    final _identityUpdated = multipass.IdentityUpdate.setUsername(newUserName);
-    _mpIpfs!.updateIdentity(_identityUpdated);
-    return _mpIpfs!.getOwnIdentity().username;
+    try {
+      multipass.IdentityUpdate.setUsername(newUserName);
+      final _identityUpdated =
+          multipass.IdentityUpdate.setUsername(newUserName);
+      _mpIpfs!.updateIdentity(_identityUpdated);
+      return _mpIpfs!.getOwnIdentity().username;
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
   String changeMessageStatus(String newStatus) {

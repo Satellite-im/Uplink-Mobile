@@ -1,10 +1,10 @@
-import 'package:uplink/shared/data/datasource/update_profile.datasource.dart';
-import 'package:uplink/shared/data/repositories/update_profile.repository.dart';
+import 'package:uplink/shared/data/datasource/update_current_user/update_current_user.datasource.dart';
+import 'package:uplink/shared/data/repositories/update_current_user/update_current_user.repository.dart';
 
-class UpdateProfileRepositoryImpl implements IUpdateProfileRepository {
-  const UpdateProfileRepositoryImpl(this._warpDatasource);
+class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
+  const UpdateCurrentUserRepositoryImpl(this._warpDatasource);
 
-  final UpdateProfileDataWarp _warpDatasource;
+  final UpdateCurrentUserDataWarp _warpDatasource;
 
   @override
   String getMessageStatus() {

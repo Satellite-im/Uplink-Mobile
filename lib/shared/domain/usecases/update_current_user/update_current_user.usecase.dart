@@ -1,9 +1,9 @@
-import 'package:uplink/shared/data/repositories/update_profile.repository.dart';
+import 'package:uplink/shared/data/repositories/update_current_user/update_current_user.repository.dart';
 
-class UpdateProfileUseCase {
-  const UpdateProfileUseCase(this._repository);
+class UpdateCurrentUserUseCase {
+  const UpdateCurrentUserUseCase(this._repository);
 
-  final IUpdateProfileRepository _repository;
+  final IUpdateCurrentUserRepository _repository;
 
   String getUsername() {
     final _username = _repository.getUsername();

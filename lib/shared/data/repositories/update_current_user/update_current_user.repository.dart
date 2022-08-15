@@ -1,4 +1,4 @@
-abstract class IUpdateProfileRepository {
+abstract class IUpdateCurrentUserRepository {
   String getUsername();
 
   String getMessageStatus();
