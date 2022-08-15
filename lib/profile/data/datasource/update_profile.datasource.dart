@@ -1,39 +1,37 @@
-import 'package:uplink/profile/data/repositories/update_profile.repository.dart';
-import 'package:uplink/profile/domain/entities/profile.entity.dart';
 import 'package:uplink/utils/warp/warp.dart';
 
-class UpdateProfileData implements IUpdateProfileRepository {
+class UpdateProfileDataWarp {
   final Warp _warp = Warp();
 
-  void _enableWarp() {
-    _warp.store.unlock('Hello');
-    _warp._mpIpfs = _warp.mp_ipfs.multipass_ipfs_temporary(store);
-  }
-
-  @override
-  Future<String> getMessageStatus() {
+  String getMessageStatus() {
     try {
-      return _mpIpfs!.getOwnIdentity().status_message;
+      return _warp.getMessageStatus();
     } catch (error) {
       throw Exception(error);
     }
   }
 
-  @override
-  Future<String> getUsername() {
-    // TODO: implement getUsername
-    throw UnimplementedError();
+  String getUsername() {
+    try {
+      return _warp.getUsername();
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
-  @override
-  Future<CurrentUserProfile> modifyMessageStatus(String newMessageStatus) {
-    // TODO: implement modifyMessageStatus
-    throw UnimplementedError();
+  void modifyMessageStatus(String newMessageStatus) {
+    try {
+      _warp.changeMessageStatus(newMessageStatus);
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
-  @override
-  Future<CurrentUserProfile> modifyUsername(String newUsername) {
-    // TODO: implement modifyUsername
-    throw UnimplementedError();
+  void modifyUsername(String newUsername) {
+    try {
+      _warp.changeUsername(newUsername);
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 }

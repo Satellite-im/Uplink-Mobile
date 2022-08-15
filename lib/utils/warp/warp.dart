@@ -31,9 +31,14 @@ class Warp {
     tesseract!.setAutosave();
   }
 
-  void verifyIfThereIsATesseract() {
-    _pathToSaveTesseract();
-    final _tesseract = warp.Tesseract.fromFile(tesseractPath!);
+  void verifyIfThereIsATesseract(int pin) {
+    try {
+      _pathToSaveTesseract();
+      final _tesseract = warp.Tesseract.fromFile(tesseractPath!);
+      tesseract = _tesseract;
+    } catch (error) {
+      setNewTesseract(pin);
+    }
   }
 
   void createUser({required String username, String messageStatus = ''}) {

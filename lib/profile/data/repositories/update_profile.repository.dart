@@ -1,11 +1,9 @@
-import 'package:uplink/profile/domain/entities/profile.entity.dart';
-
 abstract class IUpdateProfileRepository {
-  Future<String> getUsername();
+  String getUsername();
 
-  Future<String> getMessageStatus();
+  String getMessageStatus();
 
-  Future<void> modifyUsername(String newUsername);
+  void modifyUsername(String newUsername);
 
-  Future<void> modifyMessageStatus(String newMessageSat);
+  void modifyMessageStatus(String newMessageStatus);
 }
