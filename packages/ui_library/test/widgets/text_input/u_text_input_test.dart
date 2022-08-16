@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_library/widgets/text_input/u_text_input.dart';
 
 void main() {
   group('Widget Test UTextInput|', () {
