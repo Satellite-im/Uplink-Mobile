@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
@@ -53,7 +54,8 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
     super.dispose();
   }
 
-  final _warp = GetIt.I.get<WarpBloc>();
+  final _authController = GetIt.I.get<AuthBloc>();
+  final _warpController = GetIt.I.get<WarpBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -134,13 +136,6 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
                                 .startCheckingShortUsernameError();
                           } else if (_usernameTextFieldController.text.length >=
                               5) {
-                            // TODO(warp): Add warp here
-
-                            if (_messageStatusTextFieldController
-                                .text.isNotEmpty) {
-                              // TODO(warp): Add warp here
-
-                            }
                             await _callBottomSheets();
                           }
                         },
@@ -189,7 +184,24 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       },
       secondButtonOnPressed: () {
         // TODO(yijing): update user log in state
-        _setUserLogged();
+
+        _warpController.add(
+          EnableWarp(
+            _authController.pinValue!,
+          ),
+        );
+        _authController
+          ..add(
+            CreateNewCurrentUser(
+              currentUser: CurrentUser.newUser(
+                username: _usernameTextFieldController.text,
+                statusMessage: _messageStatusTextFieldController.text,
+              ),
+            ),
+          )
+          ..add(
+            SaveAuthKeys(),
+          );
 
         Navigator.of(context).push(
           MaterialPageRoute<void>(
@@ -199,9 +211,4 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       },
     ).show();
   }
-}
-
-Future<void> _setUserLogged() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('isUserLogged', true);
 }

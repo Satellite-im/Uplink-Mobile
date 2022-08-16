@@ -16,12 +16,7 @@ class CreateNewCurrentUser extends AuthEvent {
   List<Object> get props => [currentUser, password];
 }
 
-class SaveAuthKeys extends AuthEvent {
-  SaveAuthKeys({required this.pinValue});
-  final String pinValue;
-  @override
-  List<Object> get props => [pinValue];
-}
+class SaveAuthKeys extends AuthEvent {}
 
 class GetAuthKeys extends AuthEvent {
   @override

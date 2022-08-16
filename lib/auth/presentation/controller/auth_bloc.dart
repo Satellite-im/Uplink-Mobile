@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
@@ -31,9 +33,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<SaveAuthKeys>((event, emit) async {
       try {
-        await _storeAuthKeysUseCase.savePinValue(
-          pinValue: event.pinValue,
-        );
+        if (savePin) {
+          await _storeAuthKeysUseCase.savePinValue(
+            pinValue: pinValue!,
+          );
+        }
+
         await _storeAuthKeysUseCase.saveIsUserLoggedValue();
       } catch (error) {
         emit(SaveAuthKeysError());
@@ -42,15 +47,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<GetAuthKeys>((event, emit) async {
       try {
-        emit(GetAuthKeysError());
+        emit(GetAuthKeysLoading());
 
         final _pinValuesMap = await _storeAuthKeysUseCase.getPinValue();
         final _isUserLoggedValue =
             await _storeAuthKeysUseCase.getIsUserLoggedValue();
 
+        final _pinValue = _pinValuesMap[ULocalKey.pinValue] == null
+            ? null
+            : _pinValuesMap[ULocalKey.pinValue] as String;
+        final _isPinStored = _pinValuesMap[ULocalKey.isPinStored] == null
+            ? false
+            : _pinValuesMap[ULocalKey.isPinStored] as bool;
+
         final _authKeysMap = {
-          ULocalKey.pinValue: _pinValuesMap[ULocalKey.pinValue] as String,
-          ULocalKey.isPinStored: _pinValuesMap[ULocalKey.isPinStored] as bool,
+          ULocalKey.pinValue: _pinValue,
+          ULocalKey.isPinStored: _isPinStored,
           ULocalKey.isUserLogged: _isUserLoggedValue,
         };
 
@@ -60,6 +72,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
   }
+
+  String? pinValue;
+  bool savePin = false;
 
   final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
   final CreateCurrentUserUseCase _createCurrentUserUseCase;

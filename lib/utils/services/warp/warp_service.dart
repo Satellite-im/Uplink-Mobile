@@ -15,9 +15,11 @@ class Warp {
     try {
       _warp.currentUserDID =
           _warp.multipass?.createIdentity(username, password);
+
       final _identityUpdated =
           multipass.IdentityUpdate.setStatusMessage(messageStatus);
-      _warp.multipass!.updateIdentity(_identityUpdated);
+
+      _warp.multipass?.updateIdentity(_identityUpdated);
       return _warp.currentUserDID.toString();
     } catch (error) {
       throw Exception(error);

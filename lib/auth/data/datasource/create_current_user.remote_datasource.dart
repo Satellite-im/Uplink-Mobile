@@ -1,7 +1,7 @@
 import 'package:uplink/utils/services/warp/warp_service.dart';
 
-class CreateCurrentUserDataWarp {
-  CreateCurrentUserDataWarp(this._warp);
+class CreateCurrentUserData {
+  CreateCurrentUserData(this._warp);
   final Warp _warp;
 
   Future<String> createCurrentUser({

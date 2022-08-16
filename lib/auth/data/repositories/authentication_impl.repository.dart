@@ -10,7 +10,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
     this._localDatasource,
   );
 
-  final CreateCurrentUserDataWarp _remoteDatasource;
+  final CreateCurrentUserData _remoteDatasource;
   final StoreAuthKeysData _localDatasource;
 
   @override

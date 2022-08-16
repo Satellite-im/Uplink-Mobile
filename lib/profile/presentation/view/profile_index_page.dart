@@ -45,27 +45,6 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
 
   File? _bannerImageFile;
 
-  // TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
-  final warp = Warp();
-
-  @override
-  void initState() {
-    warp.createUser(
-      username: 'Meowth',
-      password: 'pikachu',
-      messageStatus: 'I am a pokemon!',
-    );
-
-    _controller.currentUser = const CurrentUser(
-      did: 'tasdysdhgu7gh',
-      username: 'Meowth',
-      status: Status.online,
-      statusMessage: 'I am a pokemon!',
-    );
-
-    super.initState();
-  }
-
   void _verifyIfHasImage() {
     if (_bannerImageFile != null && _bannerImageFile!.path.isNotEmpty) {
       Navigator.of(context, rootNavigator: true).pop();

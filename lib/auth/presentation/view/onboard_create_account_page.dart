@@ -1,10 +1,11 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/utils_export.dart';
 
 class OnboardCreateAccountPage extends StatefulWidget {
   const OnboardCreateAccountPage({Key? key}) : super(key: key);
@@ -15,8 +16,9 @@ class OnboardCreateAccountPage extends StatefulWidget {
 }
 
 class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
-  bool storedPin = false;
   bool allowedNotificaiton = false;
+  final _authController = GetIt.I.get<AuthBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,13 +88,9 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                           textStyle: UTextStyle.H5_fifthHeader,
                         ),
                         USwitcher(
-                          switchValue: storedPin,
+                          switchValue: _authController.savePin,
                           onSwitch: (value) async {
-                            storedPin = value;
-                            await ULocalStorageService().saveBoolValue(
-                              localKey: ULocalKey.isPinStored,
-                              value: storedPin,
-                            );
+                            _authController.savePin = value;
                           },
                         ),
                       ],
@@ -116,7 +114,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                           textStyle: UTextStyle.H5_fifthHeader,
                         ),
                         USwitcher(
-                          switchValue: storedPin,
+                          switchValue: allowedNotificaiton,
                           onSwitch: (value) {
                             allowedNotificaiton = value;
                           },

@@ -1,12 +1,20 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
 class SigninPage extends StatefulWidget {
-  const SigninPage({Key? key}) : super(key: key);
+  const SigninPage({
+    Key? key,
+    required this.authController,
+  }) : super(key: key);
+
+  final AuthBloc authController;
 
   @override
   State<SigninPage> createState() => _SigninPageState();
@@ -71,6 +79,7 @@ class _SigninPageState extends State<SigninPage> {
                   rightButtonFn: (pin) {
                     // TODO(yijing): update pin validatio
                     if (pin == '9999') {
+                      GetIt.I.get<WarpBloc>().add(EnableWarp(pin));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute<void>(
                           builder: (context) => const MainBottomNavigationBar(),
