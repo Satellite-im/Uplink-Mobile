@@ -4,13 +4,13 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
-  flutter: "2.10.4"
+  sdk: ">=2.17.6 <3.0.0"
+  flutter: "3.0.5"
 
 dependencies:
   azlistview: ^2.0.0
   bloc: ^8.0.3
-  dropdown_button2: ^1.4.0
+  dropdown_button2: ^1.7.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

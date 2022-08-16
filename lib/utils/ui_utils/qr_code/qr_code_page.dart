@@ -62,7 +62,7 @@ class QRCodePageState extends State<QRCodePage>
           color: showAppBar ? UColors.backgroundDark : Colors.transparent,
           padding: EdgeInsets.only(
             top: MediaQueryData.fromWindow(
-              WidgetsBinding.instance!.window,
+              WidgetsBinding.instance.window,
             ).padding.top,
           ),
           child: Scaffold(
