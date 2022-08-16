@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:uplink/app/app.dart';
 import 'package:uplink/bootstrap.dart';
-import 'package:uplink/profile/data/datasource/update_current_user.datasource.dart';
+import 'package:uplink/profile/data/datasource/update_current_user.remote_datasource.dart';
 import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 import 'package:uplink/profile/data/repositories/update_current_user_impl.repository.dart';
 import 'package:uplink/profile/domain/usecases/update_current_user.usecase.dart';
@@ -32,8 +32,8 @@ void _registerDependencieToUpdateCurrentUser(GetIt _getIt) {
     ..registerLazySingleton<IUpdateCurrentUserRepository>(
       () => UpdateCurrentUserRepositoryImpl(_getIt()),
     )
-    ..registerLazySingleton<UpdateCurrentUserDataWarp>(
-      () => UpdateCurrentUserDataWarp(
+    ..registerLazySingleton<UpdateCurrentUserData>(
+      () => UpdateCurrentUserData(
         Warp(),
       ),
     )

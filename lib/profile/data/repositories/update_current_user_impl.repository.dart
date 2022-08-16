@@ -1,15 +1,15 @@
-import 'package:uplink/profile/data/datasource/update_current_user.datasource.dart';
+import 'package:uplink/profile/data/datasource/update_current_user.remote_datasource.dart';
 import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 
 class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
-  const UpdateCurrentUserRepositoryImpl(this._warpDatasource);
+  const UpdateCurrentUserRepositoryImpl(this._remoteDatasource);
 
-  final UpdateCurrentUserDataWarp _warpDatasource;
+  final UpdateCurrentUserData _remoteDatasource;
 
   @override
   String getMessageStatus() {
     try {
-      return _warpDatasource.getMessageStatus();
+      return _remoteDatasource.getMessageStatus();
     } catch (error) {
       throw UnimplementedError();
     }
@@ -18,7 +18,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
   @override
   String getUsername() {
     try {
-      return _warpDatasource.getUsername();
+      return _remoteDatasource.getUsername();
     } catch (error) {
       throw UnimplementedError();
     }
@@ -27,7 +27,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
   @override
   void modifyMessageStatus(String newMessageStatus) {
     try {
-      _warpDatasource.modifyMessageStatus(newMessageStatus);
+      _remoteDatasource.modifyMessageStatus(newMessageStatus);
     } catch (error) {
       throw UnimplementedError();
     }
@@ -36,7 +36,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
   @override
   void modifyUsername(String newUsername) {
     try {
-      _warpDatasource.modifyUsername(newUsername);
+      _remoteDatasource.modifyUsername(newUsername);
     } catch (error) {
       throw UnimplementedError();
     }

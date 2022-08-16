@@ -4,6 +4,7 @@ import 'package:ui_library/ui_library_export.dart';
 @immutable
 class CurrentUser {
   const CurrentUser({
+    required this.did,
     required this.username,
     required this.status,
     this.statusMessage,
@@ -14,6 +15,20 @@ class CurrentUser {
     this.friendNum,
     this.about,
   });
+
+  const CurrentUser.newUser({
+    required this.username,
+    this.imageAddress,
+    this.statusMessage,
+  })  : did = null,
+        bannerImageAddress = null,
+        status = Status.online,
+        badgesNum = null,
+        location = null,
+        friendNum = null,
+        about = null;
+
+  final String? did;
   final String username;
   final String? statusMessage;
   final Status status;
@@ -25,6 +40,7 @@ class CurrentUser {
   final String? about;
 
   CurrentUser copywith({
+    String? did,
     String? username,
     String? statusMessage,
     Status? status,
@@ -38,6 +54,7 @@ class CurrentUser {
     bool? isBlocked,
   }) =>
       CurrentUser(
+        did: did ?? this.did,
         username: username ?? this.username,
         status: status ?? this.status,
         statusMessage: statusMessage ?? this.statusMessage,
@@ -54,6 +71,7 @@ class CurrentUser {
     if (identical(this, other)) return true;
 
     return other is CurrentUser &&
+        other.did == did &&
         other.username == username &&
         other.statusMessage == statusMessage &&
         other.status == status &&

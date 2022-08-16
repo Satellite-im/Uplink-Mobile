@@ -1,74 +1,24 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:get_it/get_it.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
-import 'package:warp_dart/mp_ipfs.dart' as mp_ipfs;
 import 'package:warp_dart/multipass.dart' as multipass;
-import 'package:warp_dart/warp.dart' as warp;
 
-warp.DID? did;
-
-// TODO(Lucas): Warp is here and the profile pages just for Mock purposes, change these things later
 class Warp {
   final _warp = GetIt.I.get<WarpBloc>();
 
-  warp.Tesseract? tesseract;
-
-  String? tesseractPath;
-
-  String? multipassPath;
-
-  late multipass.MultiPass? _mpIpfs;
-
-  Future<void> _pathToSaveTesseract() async {
-    final _directory = await path_provider.getApplicationSupportDirectory();
-    multipassPath = _directory.path;
-    tesseractPath = '${_directory.path}/tesseractUplinkFile';
-  }
-
-  // Create a new store of Tesseractå
-  // Unlock Tesseract using pin as passphrase
-  // Save a file for Tesseract
-  // Set auto save
-  Future<void> setNewTesseract(int pin) async {
-    tesseract = warp.Tesseract.newStore();
-    tesseract!.unlock('$pin');
-    tesseract!.setFile(tesseractPath!);
-    tesseract!.setAutosave();
-  }
-
-  Future<bool> verifyIfThereIsATesseract(int pin) async {
-    try {
-      // TODO(warp): just to do tests and build the arch
-      await _pathToSaveTesseract();
-      // tesseract = warp.Tesseract.fromFile(tesseractPath!);
-      await setNewTesseract(pin);
-      // tesseract?.unlock('$pin');
-      // tesseract?.setFile(tesseractPath!);
-      // tesseract?.setAutosave();
-      return false;
-    } catch (error) {
-      await setNewTesseract(pin);
-      return false;
-    }
-  }
-
-  Future<void> createUser({
+  Future<String> createUser({
     required String username,
     String messageStatus = '',
+    required String password,
   }) async {
     try {
-      // final _isThereATesseract = await verifyIfThereIsATesseract(1234);
-      // TODO(warp): just to do tests and build the arch
-      // _mpIpfs ??= mp_ipfs.multipass_ipfs_persistent(tesseract!, multipassPath!);
-      // _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
-
       _warp.currentUserDID =
-          _warp.multipass?.createIdentity(username, 'secured_phrase');
+          _warp.multipass?.createIdentity(username, password);
       final _identityUpdated =
           multipass.IdentityUpdate.setStatusMessage(messageStatus);
       _warp.multipass!.updateIdentity(_identityUpdated);
+      return _warp.currentUserDID.toString();
     } catch (error) {
       throw Exception(error);
     }
@@ -76,7 +26,7 @@ class Warp {
 
   String getUsername() {
     try {
-      return _mpIpfs!.getOwnIdentity().username;
+      return _warp.multipass!.getOwnIdentity().username;
     } catch (error) {
       throw Exception(error);
     }
@@ -87,21 +37,29 @@ class Warp {
       multipass.IdentityUpdate.setUsername(newUserName);
       final _identityUpdated =
           multipass.IdentityUpdate.setUsername(newUserName);
-      _mpIpfs!.updateIdentity(_identityUpdated);
-      return _mpIpfs!.getOwnIdentity().username;
+      _warp.multipass!.updateIdentity(_identityUpdated);
+      return _warp.multipass!.getOwnIdentity().username;
     } catch (error) {
       throw Exception(error);
     }
   }
 
   String changeMessageStatus(String newStatus) {
-    final _identityUpdated =
-        multipass.IdentityUpdate.setStatusMessage(newStatus);
-    _mpIpfs!.updateIdentity(_identityUpdated);
-    return _mpIpfs!.getOwnIdentity().status_message;
+    try {
+      final _identityUpdated =
+          multipass.IdentityUpdate.setStatusMessage(newStatus);
+      _warp.multipass!.updateIdentity(_identityUpdated);
+      return _warp.multipass!.getOwnIdentity().status_message;
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
   String getMessageStatus() {
-    return _mpIpfs!.getOwnIdentity().status_message;
+    try {
+      return _warp.multipass!.getOwnIdentity().status_message;
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 }

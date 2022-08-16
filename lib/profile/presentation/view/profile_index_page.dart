@@ -52,10 +52,12 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   void initState() {
     warp.createUser(
       username: 'Meowth',
+      password: 'pikachu',
       messageStatus: 'I am a pokemon!',
     );
 
     _controller.currentUser = const CurrentUser(
+      did: 'tasdysdhgu7gh',
       username: 'Meowth',
       status: Status.online,
       statusMessage: 'I am a pokemon!',

@@ -46,7 +46,9 @@ class App extends StatelessWidget {
 
                       if (signinDataMap[ULocalKey.isUserLogged] == true &&
                           signinDataMap[ULocalKey.isPinStored] == true) {
-                        GetIt.I.get<WarpBloc>().add(EnableWarp('1234'));
+                        final _pinValue =
+                            signinDataMap[ULocalKey.pinValue] as String;
+                        GetIt.I.get<WarpBloc>().add(EnableWarp(_pinValue));
                         return const MainBottomNavigationBar();
                       } else if (signinDataMap[ULocalKey.isUserLogged] ==
                               true &&
