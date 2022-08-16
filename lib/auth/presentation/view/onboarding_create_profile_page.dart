@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
@@ -50,6 +52,8 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
     _uTextInputStateForMessageStatusField.currentState!.dispose();
     super.dispose();
   }
+
+  final _warp = GetIt.I.get<WarpBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +190,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       secondButtonOnPressed: () {
         // TODO(yijing): update user log in state
         _setUserLogged();
+
         Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (context) => const MainBottomNavigationBar(),

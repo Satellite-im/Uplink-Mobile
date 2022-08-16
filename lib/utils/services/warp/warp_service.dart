@@ -2,7 +2,7 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:uplink/shared/controller/warp/warp_bloc.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/mp_ipfs.dart' as mp_ipfs;
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart' as warp;
@@ -59,17 +59,16 @@ class Warp {
     String messageStatus = '',
   }) async {
     try {
-      final _isThereATesseract = await verifyIfThereIsATesseract(1234);
+      // final _isThereATesseract = await verifyIfThereIsATesseract(1234);
       // TODO(warp): just to do tests and build the arch
       // _mpIpfs ??= mp_ipfs.multipass_ipfs_persistent(tesseract!, multipassPath!);
-      _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
+      // _mpIpfs = mp_ipfs.multipass_ipfs_temporary(tesseract!);
 
-      if (!_isThereATesseract) {
-        did = _warp.multipass.createIdentity(username, 'secured_phrase');
-        final _identityUpdated =
-            multipass.IdentityUpdate.setStatusMessage(messageStatus);
-        _mpIpfs!.updateIdentity(_identityUpdated);
-      }
+      _warp.currentUserDID =
+          _warp.multipass?.createIdentity(username, 'secured_phrase');
+      final _identityUpdated =
+          multipass.IdentityUpdate.setStatusMessage(messageStatus);
+      _warp.multipass!.updateIdentity(_identityUpdated);
     } catch (error) {
       throw Exception(error);
     }

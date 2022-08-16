@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:uplink/profile/domain/usecases/update_current_user.usecase.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
-import 'package:uplink/shared/domain/usecases/update_current_user/update_current_user.usecase.dart';
 
 part 'update_current_user_event.dart';
 part 'update_current_user_state.dart';

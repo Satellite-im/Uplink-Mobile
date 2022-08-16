@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/onboard_import_account_page/models/bip39.dart';
-import 'package:uplink/auth/onboard_import_account_page/models/suggested_seed_overlay.dart';
+import 'package:uplink/auth/presentation/view/onboard_import_account_page/models/bip39.dart';
+import 'package:uplink/auth/presentation/view/onboard_import_account_page/models/suggested_seed_overlay.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class TextFieldWithAssociativeSeeds extends StatefulWidget {

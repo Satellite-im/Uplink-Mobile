@@ -1,5 +1,5 @@
-import 'package:uplink/shared/data/datasource/update_current_user/update_current_user.datasource.dart';
-import 'package:uplink/shared/data/repositories/update_current_user/update_current_user.repository.dart';
+import 'package:uplink/profile/data/datasource/update_current_user.datasource.dart';
+import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 
 class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
   const UpdateCurrentUserRepositoryImpl(this._warpDatasource);

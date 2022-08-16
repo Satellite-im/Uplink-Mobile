@@ -1,4 +1,4 @@
-import 'package:uplink/shared/data/repositories/update_current_user/update_current_user.repository.dart';
+import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 
 class UpdateCurrentUserUseCase {
   const UpdateCurrentUserUseCase(this._repository);

@@ -1,4 +1,4 @@
-import 'package:uplink/utils/services/warp.dart';
+import 'package:uplink/utils/services/warp/warp_service.dart';
 
 class UpdateCurrentUserDataWarp {
   UpdateCurrentUserDataWarp(this._warp);

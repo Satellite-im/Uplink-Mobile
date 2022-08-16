@@ -7,18 +7,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/shared/controller/update_current_user/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/mock/helpers/loading_current_user.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
+import 'package:uplink/utils/services/warp/warp_service.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
-import 'package:uplink/utils/services/warp.dart';
 
 part 'models/body.part.dart';
+part 'models/delete_picture_popup_menu_widget.part.dart';
 part 'models/edit_profile_body.dart';
 part 'models/network_profiles_body.part.dart';
 part 'models/profile_data_body.part.dart';
-part 'models/delete_picture_popup_menu_widget.part.dart';
 
 final _uTextInputStateForUsernameField = GlobalKey<UTextInputState>();
 final _uTextInputStateForMessageStatusField = GlobalKey<UTextInputState>();

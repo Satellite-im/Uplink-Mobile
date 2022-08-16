@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/onboarding_create_profile_page.dart';
+import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardPrivacySettingSecondPage extends StatefulWidget {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/auth_export.dart';
+import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
 class OnboardPinPage extends StatefulWidget {
   const OnboardPinPage({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class OnboardPinPage extends StatefulWidget {
 
 class _OnboardPinPageState extends State<OnboardPinPage> {
   int _pinLength = 4;
-
+  final _warp = GetIt.I.get<WarpBloc>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +42,7 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
                   key: UniqueKey(),
                   pinLength: _pinLength,
                   rightButtonFn: (pin) {
+                    _warp.add(EnableWarp(pin));
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (context) => const OnboardCreateAccountPage(),

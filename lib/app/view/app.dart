@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_showroom/ui_showroom_export.dart';
-import 'package:uplink/auth/auth_export.dart';
+import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/l10n.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
 enum Apps { mainApp, uiShowroom }
@@ -41,8 +43,10 @@ class App extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       final signinDataMap = snapshot.data!;
+
                       if (signinDataMap[ULocalKey.isUserLogged] == true &&
                           signinDataMap[ULocalKey.isPinStored] == true) {
+                        GetIt.I.get<WarpBloc>().add(EnableWarp('1234'));
                         return const MainBottomNavigationBar();
                       } else if (signinDataMap[ULocalKey.isUserLogged] ==
                               true &&
