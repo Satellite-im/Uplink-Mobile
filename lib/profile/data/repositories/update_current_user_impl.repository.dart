@@ -11,7 +11,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
     try {
       return _remoteDatasource.getMessageStatus();
     } catch (error) {
-      throw UnimplementedError();
+      throw Exception(error);
     }
   }
 
@@ -20,7 +20,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
     try {
       return _remoteDatasource.getUsername();
     } catch (error) {
-      throw UnimplementedError();
+      throw Exception(error);
     }
   }
 
@@ -29,7 +29,16 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
     try {
       return _remoteDatasource.getProfilePicture();
     } catch (error) {
-      throw UnimplementedError();
+      throw Exception(error);
+    }
+  }
+
+  @override
+  String getBannerPicture() {
+    try {
+      return _remoteDatasource.getBannerPicture();
+    } catch (error) {
+      throw Exception(error);
     }
   }
 
@@ -38,7 +47,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
     try {
       _remoteDatasource.modifyMessageStatus(newMessageStatus);
     } catch (error) {
-      throw UnimplementedError();
+      throw Exception(error);
     }
   }
 
@@ -47,7 +56,7 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
     try {
       _remoteDatasource.modifyUsername(newUsername);
     } catch (error) {
-      throw UnimplementedError();
+      throw Exception(error);
     }
   }
 
@@ -56,7 +65,16 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
     try {
       _remoteDatasource.modifyProfilePicture(base64Image);
     } catch (error) {
-      throw UnimplementedError();
+      throw Exception(error);
+    }
+  }
+
+  @override
+  void modifyBannerPicture(String base64Image) {
+    try {
+      _remoteDatasource.modifyBannerPicture(base64Image);
+    } catch (error) {
+      throw Exception(error);
     }
   }
 }

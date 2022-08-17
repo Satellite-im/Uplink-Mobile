@@ -44,3 +44,16 @@ class GetProfilePicture extends UpdateCurrentUserEvent {
   @override
   List<Object> get props => [];
 }
+
+class UpdateBannerPicture extends UpdateCurrentUserEvent {
+  UpdateBannerPicture({required this.bannerPicture});
+
+  final File bannerPicture;
+  @override
+  List<Object> get props => [bannerPicture];
+}
+
+class GetBannerPicture extends UpdateCurrentUserEvent {
+  @override
+  List<Object> get props => [];
+}

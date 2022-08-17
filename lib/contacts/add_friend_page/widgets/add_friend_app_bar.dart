@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/mock_current_user.dart';
+import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
 
 class AddFriendAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -10,7 +10,7 @@ class AddFriendAppBar extends StatelessWidget with PreferredSizeWidget {
     required this.currentUser,
   }) : super(key: key);
 
-  final MockCurrentUser currentUser;
+  final CurrentUser currentUser;
 
   @override
   Widget build(BuildContext context) {

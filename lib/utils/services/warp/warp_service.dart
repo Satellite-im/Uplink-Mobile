@@ -1,10 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'dart:convert';
-
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
+import 'package:warp_dart/warp.dart';
 
 class Warp {
   final _warp = GetIt.I.get<WarpBloc>();
@@ -80,6 +79,28 @@ class Warp {
           multipass.IdentityUpdate.setPicture(_base64Image);
       _warp.multipass!.updateIdentity(_identityUpdated);
       return getProfilePicture();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  String getBannerPicture() {
+    try {
+      return _warp.multipass!.getOwnIdentity().graphics.profile_banner;
+    } on WarpException {
+      throw Exception(['WARP_EXCEPTION', 'get_banner_picture']);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  String changeBannerPicture(String _base64Image) {
+    try {
+      final _identityUpdated = multipass.IdentityUpdate.setBanner(_base64Image);
+      _warp.multipass!.updateIdentity(_identityUpdated);
+      return getBannerPicture();
+    } on WarpException {
+      throw Exception(['WARP_EXCEPTION', 'update_banner_picture']);
     } catch (error) {
       throw Exception(error);
     }

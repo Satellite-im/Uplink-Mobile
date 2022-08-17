@@ -4,14 +4,14 @@ class _ProfileIndexBody extends StatelessWidget {
   const _ProfileIndexBody({
     Key? key,
     required Size pageSize,
-    required this.currentUser,
+    required this.controller,
     required Function(bool) onTapEditProfile,
   })  : _pageSize = pageSize,
         _onTapEditProfile = onTapEditProfile,
         super(key: key);
 
   final Size _pageSize;
-  final MockCurrentUser currentUser;
+  final UpdateCurrentUserBloc controller;
   final Function(bool) _onTapEditProfile;
 
   @override
@@ -24,7 +24,7 @@ class _ProfileIndexBody extends StatelessWidget {
             dimension: 20,
           ),
           BlocBuilder<UpdateCurrentUserBloc, UpdateCurrentUserState>(
-            bloc: GetIt.I.get<UpdateCurrentUserBloc>(),
+            bloc: controller,
             builder: (context, state) {
               if (state is UpdateCurrentUserStateSuccess) {
                 return UText(
@@ -48,7 +48,7 @@ class _ProfileIndexBody extends StatelessWidget {
             dimension: 2,
           ),
           BlocBuilder<UpdateCurrentUserBloc, UpdateCurrentUserState>(
-            bloc: GetIt.I.get<UpdateCurrentUserBloc>(),
+            bloc: controller,
             builder: (context, state) {
               if (state is UpdateCurrentUserStateSuccess) {
                 return UText(
@@ -85,7 +85,7 @@ class _ProfileIndexBody extends StatelessWidget {
             dimension: 16,
           ),
           _ProfileData(
-            currentUser: currentUser,
+            controller: controller,
           ),
           const SizedBox.square(
             dimension: 24,
@@ -118,7 +118,7 @@ class _ProfileIndexBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: UText(
-              currentUser.about!,
+              controller.currentUser!.about ?? '',
               textStyle: UTextStyle.B1_body,
               textColor: UColors.white,
             ),

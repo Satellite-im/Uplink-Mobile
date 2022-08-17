@@ -28,6 +28,14 @@ class UpdateCurrentUserData {
     }
   }
 
+  String getBannerPicture() {
+    try {
+      return _warp.getBannerPicture();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   void modifyMessageStatus(String newMessageStatus) {
     try {
       _warp.changeMessageStatus(newMessageStatus);
@@ -47,6 +55,14 @@ class UpdateCurrentUserData {
   void modifyProfilePicture(String base64Image) {
     try {
       _warp.changeProfilePicture(base64Image);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  void modifyBannerPicture(String base64Image) {
+    try {
+      _warp.changeBannerPicture(base64Image);
     } catch (error) {
       throw Exception(error);
     }

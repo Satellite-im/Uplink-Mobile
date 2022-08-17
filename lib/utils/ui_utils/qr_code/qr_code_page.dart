@@ -7,7 +7,7 @@ class QRCodePage extends StatefulWidget {
     required this.controller,
   }) : super(key: key);
 
-  final MockCurrentUser currentUser;
+  final CurrentUser currentUser;
   final ScrollController controller;
 
   @override
@@ -16,7 +16,7 @@ class QRCodePage extends StatefulWidget {
 
 class QRCodePageState extends State<QRCodePage>
     with SingleTickerProviderStateMixin {
-  late MockCurrentUser currentUser;
+  late CurrentUser currentUser;
   ScrollController? controller;
   late AnimationController _animationController;
   bool showHomeIndicator = true;

@@ -37,8 +37,9 @@ class UpdateCurrentUserUseCase {
     final _base64Image = _repository.getProfilePicture();
     final _imageBytes = base64.decode(_base64Image);
     final _appTempDir = await path_provider.getTemporaryDirectory();
-    final _fileToSaveImage =
-        File('${_appTempDir.path}/profile_picture${DateTime.now()}.jpg');
+    final _fileToSaveImage = File(
+      '${_appTempDir.path}/profile_picture_${DateTime.now().millisecondsSinceEpoch}.jpg',
+    );
     final _imageFile = await _fileToSaveImage.writeAsBytes(_imageBytes);
     return _imageFile;
   }
@@ -55,5 +56,30 @@ class UpdateCurrentUserUseCase {
     }
 
     return getProfilePicture();
+  }
+
+  Future<File> getBannerePicture() async {
+    final _base64Image = _repository.getBannerPicture();
+    final _imageBytes = base64.decode(_base64Image);
+    final _appTempDir = await path_provider.getTemporaryDirectory();
+    final _fileToSaveImage = File(
+      '${_appTempDir.path}/banner_picture_${DateTime.now().millisecondsSinceEpoch}.jpg',
+    );
+    final _imageFile = await _fileToSaveImage.writeAsBytes(_imageBytes);
+    return _imageFile;
+  }
+
+  Future<File> modifyBannerPicture({
+    required File imageFile,
+  }) async {
+    if (imageFile.path.isEmpty) {
+      _repository.modifyBannerPicture('');
+    } else {
+      final _imageBytes = await imageFile.readAsBytes();
+      final _base64Image = base64Encode(_imageBytes);
+      _repository.modifyBannerPicture(_base64Image);
+    }
+
+    return getBannerePicture();
   }
 }

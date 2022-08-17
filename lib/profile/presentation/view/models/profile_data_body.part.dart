@@ -3,10 +3,10 @@ part of '../profile_index_page.dart';
 class _ProfileData extends StatelessWidget {
   const _ProfileData({
     Key? key,
-    required this.currentUser,
+    required this.controller,
   }) : super(key: key);
 
-  final MockCurrentUser currentUser;
+  final UpdateCurrentUserBloc controller;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,11 @@ class _ProfileData extends StatelessWidget {
                   dimension: 8,
                 ),
                 SizedBox(
-                  height: ((currentUser.badgesNum! / 3).ceil() * 24) +
-                      ((currentUser.badgesNum! / 3).floor() * 4),
+                  height: (((controller.currentUser!.badgesNum ?? 0) / 3)
+                              .ceil() *
+                          24) +
+                      (((controller.currentUser!.badgesNum ?? 0) / 3).floor() *
+                          4),
                   width: (3 * 24) + (2 * 4),
                   child: CustomScrollView(
                     physics: const NeverScrollableScrollPhysics(),
@@ -40,7 +43,7 @@ class _ProfileData extends StatelessWidget {
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 4,
                         children: List.generate(
-                          currentUser.badgesNum!,
+                          controller.currentUser!.badgesNum ?? 0,
                           (index) => Container(
                             height: 24,
                             width: 24,
@@ -69,7 +72,7 @@ class _ProfileData extends StatelessWidget {
                   dimension: 8,
                 ),
                 UText(
-                  currentUser.location!,
+                  controller.currentUser!.location ?? '',
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),
@@ -91,7 +94,9 @@ class _ProfileData extends StatelessWidget {
                   dimension: 8,
                 ),
                 UText(
-                  currentUser.friendNum!.toString(),
+                  controller.currentUser!.friendNum == null
+                      ? '0'
+                      : controller.currentUser!.friendNum.toString(),
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),

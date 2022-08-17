@@ -51,6 +51,20 @@ class UpdateCurrentUserBloc
       }
     });
 
+    on<GetBannerPicture>((event, emit) async {
+      try {
+        emit(UpdateCurrentUserStateLoading());
+        final _bannerPicture =
+            await _updateCurrentUserUseCase.getBannerePicture();
+        currentUser = currentUser!.copywith(bannerPicture: _bannerPicture);
+
+        emit(UpdateCurrentUserStateSuccess(currentUser!));
+      } catch (error) {
+        emit(UpdateCurrentUserStateError());
+        addError(error);
+      }
+    });
+
     on<UpdateProfilePicture>((event, emit) async {
       try {
         emit(UpdateCurrentUserStateLoading());
@@ -66,7 +80,26 @@ class UpdateCurrentUserBloc
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
         emit(UpdateCurrentUserStateError());
-        addError(error);
+        addError(error, StackTrace.current);
+      }
+    });
+
+    on<UpdateBannerPicture>((event, emit) async {
+      try {
+        emit(UpdateCurrentUserStateLoading());
+        final _newBannerPicture =
+            await _updateCurrentUserUseCase.modifyProfilePicture(
+          imageFile: event.bannerPicture,
+        );
+        currentUser = currentUser!.copywith(
+          bannerPicture:
+              _newBannerPicture.path.isEmpty ? null : _newBannerPicture,
+        );
+
+        emit(UpdateCurrentUserStateSuccess(currentUser!));
+      } catch (error) {
+        emit(UpdateCurrentUserStateError());
+        addError(error, StackTrace.current);
       }
     });
 

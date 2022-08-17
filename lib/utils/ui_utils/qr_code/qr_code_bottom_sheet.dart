@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/mock_current_user.dart';
+import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
 part 'qr_code_bottom_sheet_body.dart';
 part 'qr_code_page.dart';
@@ -16,7 +16,7 @@ class QRCodeBottomSheet extends StatefulWidget {
     required this.currentUser,
   }) : super(key: key);
 
-  final MockCurrentUser currentUser;
+  final CurrentUser currentUser;
 
   @override
   State<QRCodeBottomSheet> createState() => _QRCodeBottomSheetState();
