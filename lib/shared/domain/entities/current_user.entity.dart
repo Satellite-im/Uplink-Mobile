@@ -72,12 +72,9 @@ class CurrentUser {
 
     return other is CurrentUser &&
         other.did == did &&
-        other.username == username &&
-        other.statusMessage == statusMessage &&
-        other.status == status &&
-        other.imageAddress == imageAddress;
+        other.username == username;
   }
 
   @override
-  int get hashCode => username.hashCode ^ statusMessage.hashCode;
+  int get hashCode => did.hashCode ^ username.hashCode;
 }

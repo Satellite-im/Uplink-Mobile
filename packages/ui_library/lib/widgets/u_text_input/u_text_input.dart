@@ -214,7 +214,7 @@ class UTextInputState extends State<UTextInput> {
                       RegExp('@'),
                     ),
                     FilteringTextInputFormatter.allow(
-                      RegExp('[A-Za-z0-9\$#+-.!/;:?\'"<>_=(){}[]&*]*'),
+                      RegExp('[A-Za-z0-9\$#+-.!/;:?\'"<>_=(){} []&*]*'),
                     ),
                   ]
                 : null,
