@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:uplink/profile/domain/usecases/update_current_user.usecase.dart';
@@ -27,6 +29,39 @@ class UpdateCurrentUserBloc
         emit(UpdateCurrentUserStateLoading());
         final _messageStatus = _updateCurrentUserUseCase.getMessageStatus();
         currentUser = currentUser!.copywith(statusMessage: _messageStatus);
+
+        emit(UpdateCurrentUserStateSuccess(currentUser!));
+      } catch (error) {
+        emit(UpdateCurrentUserStateError());
+        addError(error);
+      }
+    });
+
+    on<GetProfilePicture>((event, emit) async {
+      try {
+        emit(UpdateCurrentUserStateLoading());
+        final _profilePicture =
+            await _updateCurrentUserUseCase.getProfilePicture();
+        currentUser = currentUser!.copywith(profilePicture: _profilePicture);
+
+        emit(UpdateCurrentUserStateSuccess(currentUser!));
+      } catch (error) {
+        emit(UpdateCurrentUserStateError());
+        addError(error);
+      }
+    });
+
+    on<UpdateProfilePicture>((event, emit) async {
+      try {
+        emit(UpdateCurrentUserStateLoading());
+        final _newProfilePicture =
+            await _updateCurrentUserUseCase.modifyProfilePicture(
+          imageFile: event.profilePicture,
+        );
+        currentUser = currentUser!.copywith(
+          profilePicture:
+              _newProfilePicture.path.isEmpty ? null : _newProfilePicture,
+        );
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {

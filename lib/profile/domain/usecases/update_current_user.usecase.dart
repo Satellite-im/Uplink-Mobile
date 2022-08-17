@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 
 class UpdateCurrentUserUseCase {
@@ -27,5 +31,29 @@ class UpdateCurrentUserUseCase {
   }) {
     _repository.modifyUsername(newUsername);
     return getUsername();
+  }
+
+  Future<File> getProfilePicture() async {
+    final _base64Image = _repository.getProfilePicture();
+    final _imageBytes = base64.decode(_base64Image);
+    final _appTempDir = await path_provider.getTemporaryDirectory();
+    final _fileToSaveImage =
+        File('${_appTempDir.path}/profile_picture${DateTime.now()}.jpg');
+    final _imageFile = await _fileToSaveImage.writeAsBytes(_imageBytes);
+    return _imageFile;
+  }
+
+  Future<File> modifyProfilePicture({
+    required File imageFile,
+  }) async {
+    if (imageFile.path.isEmpty) {
+      _repository.modifyProfilePicture('');
+    } else {
+      final _imageBytes = await imageFile.readAsBytes();
+      final _base64Image = base64Encode(_imageBytes);
+      _repository.modifyProfilePicture(_base64Image);
+    }
+
+    return getProfilePicture();
   }
 }

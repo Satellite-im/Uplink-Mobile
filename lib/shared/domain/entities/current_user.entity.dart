@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
@@ -8,8 +10,8 @@ class CurrentUser {
     required this.username,
     required this.status,
     this.statusMessage,
-    this.imageAddress,
-    this.bannerImageAddress,
+    this.profilePicture,
+    this.bannerPicture,
     this.badgesNum,
     this.location,
     this.friendNum,
@@ -18,10 +20,10 @@ class CurrentUser {
 
   const CurrentUser.newUser({
     required this.username,
-    this.imageAddress,
+    this.profilePicture,
     this.statusMessage,
   })  : did = null,
-        bannerImageAddress = null,
+        bannerPicture = null,
         status = Status.online,
         badgesNum = null,
         location = null,
@@ -32,8 +34,8 @@ class CurrentUser {
   final String username;
   final String? statusMessage;
   final Status status;
-  final String? imageAddress;
-  final String? bannerImageAddress;
+  final File? profilePicture;
+  final File? bannerPicture;
   final int? badgesNum;
   final String? location;
   final int? friendNum;
@@ -44,8 +46,8 @@ class CurrentUser {
     String? username,
     String? statusMessage,
     Status? status,
-    String? imageAddress,
-    String? bannerImageAddress,
+    File? profilePicture,
+    File? bannerPicture,
     bool? friendRequestSent,
     int? badgesNum,
     String? location,
@@ -58,8 +60,8 @@ class CurrentUser {
         username: username ?? this.username,
         status: status ?? this.status,
         statusMessage: statusMessage ?? this.statusMessage,
-        imageAddress: imageAddress ?? this.imageAddress,
-        bannerImageAddress: bannerImageAddress ?? this.bannerImageAddress,
+        profilePicture: profilePicture ?? this.profilePicture,
+        bannerPicture: bannerPicture ?? this.bannerPicture,
         badgesNum: badgesNum ?? this.badgesNum,
         location: location ?? this.location,
         friendNum: friendNum ?? this.friendNum,

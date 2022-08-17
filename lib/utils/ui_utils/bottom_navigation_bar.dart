@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
+import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/profile/profile_export.dart';
 import 'package:uplink/utils/mock/helpers/loading_current_user.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
@@ -37,6 +40,8 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
       _currentIndex = value;
     });
   }
+
+  final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -89,31 +94,66 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
                   ),
                 ),
                 BottomNavigationBarItem(
-                  icon: _currentIndex == 3
-                      ? Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: UColors.ctaBlue,
-                              width: 2,
-                            ),
-                          ),
-                          child: UUserProfile(
-                            userProfileSize: UUserProfileSize.topMenuBar,
-                            uImage: UImage(
-                              imagePath: _mockCurrentUser?.imageAddress,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : UUserProfileWithStatus(
-                          userProfileSize: UUserProfileSize.topMenuBar,
-                          uImage: UImage(
-                            imagePath: _mockCurrentUser?.imageAddress,
-                            fit: BoxFit.cover,
-                          ),
-                          status: Status.online,
-                        ),
+                  icon: BlocBuilder<UpdateCurrentUserBloc,
+                      UpdateCurrentUserState>(
+                    bloc: _controller,
+                    builder: (context, state) {
+                      if (state is UpdateCurrentUserStateSuccess &&
+                          _controller.currentUser?.profilePicture != null) {
+                        return _currentIndex == 3
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: UColors.ctaBlue,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: UUserProfile(
+                                  userProfileSize: UUserProfileSize.topMenuBar,
+                                  uImage: UImage(
+                                    imagePath: _controller
+                                        .currentUser?.profilePicture?.path,
+                                    imageSource: ImageSource.file,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                            : UUserProfileWithStatus(
+                                userProfileSize: UUserProfileSize.topMenuBar,
+                                uImage: UImage(
+                                  imagePath: _controller
+                                      .currentUser?.profilePicture?.path,
+                                  fit: BoxFit.cover,
+                                  imageSource: ImageSource.file,
+                                ),
+                                status: Status.online,
+                              );
+                      } else {
+                        return _currentIndex == 3
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: UColors.ctaBlue,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: const UUserProfile(
+                                  userProfileSize: UUserProfileSize.topMenuBar,
+                                  uImage: UImage(
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                            : const UUserProfileWithStatus(
+                                userProfileSize: UUserProfileSize.topMenuBar,
+                                uImage: UImage(),
+                                status: Status.online,
+                              );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

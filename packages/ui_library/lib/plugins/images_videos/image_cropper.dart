@@ -25,6 +25,7 @@ class UImageCropper {
           ? CropAspectRatio(
               ratioX: uCropAspectRatio.ratioX, ratioY: uCropAspectRatio.ratioY)
           : null,
+      compressQuality: 40,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ],

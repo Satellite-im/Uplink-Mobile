@@ -20,6 +20,14 @@ class UpdateCurrentUserData {
     }
   }
 
+  String getProfilePicture() {
+    try {
+      return _warp.getProfilePicture();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   void modifyMessageStatus(String newMessageStatus) {
     try {
       _warp.changeMessageStatus(newMessageStatus);
@@ -31,6 +39,14 @@ class UpdateCurrentUserData {
   void modifyUsername(String newUsername) {
     try {
       _warp.changeUsername(newUsername);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  void modifyProfilePicture(String base64Image) {
+    try {
+      _warp.changeProfilePicture(base64Image);
     } catch (error) {
       throw Exception(error);
     }

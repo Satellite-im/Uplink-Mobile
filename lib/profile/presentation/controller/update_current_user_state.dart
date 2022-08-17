@@ -19,3 +19,18 @@ class UpdateCurrentUserStateSuccess extends UpdateCurrentUserState {
 }
 
 class UpdateCurrentUserStateError extends UpdateCurrentUserState {}
+
+// class UpdateProfilePictureInitial extends UpdateProfilePictureState {}
+
+// class UpdateProfilePictureLoading extends UpdateProfilePictureState {}
+
+// class UpdateProfilePictureSuccess extends UpdateProfilePictureState {
+//   UpdateProfilePictureSuccess(this.currentUser);
+
+//   final CurrentUser currentUser;
+
+//   @override
+//   List<Object> get props => [currentUser];
+// }
+
+// class UpdateProfilePictureError extends UpdateProfilePictureState {}

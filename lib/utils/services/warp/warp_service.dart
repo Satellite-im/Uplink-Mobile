@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:convert';
+
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
@@ -14,10 +16,10 @@ class Warp {
   }) async {
     try {
       _warp.currentUserDID =
-          _warp.multipass?.createIdentity(username, password);
+          _warp.multipass?.createIdentity(username.trim(), password);
 
       final _identityUpdated =
-          multipass.IdentityUpdate.setStatusMessage(messageStatus);
+          multipass.IdentityUpdate.setStatusMessage(messageStatus.trim());
 
       _warp.multipass?.updateIdentity(_identityUpdated);
       return _warp.currentUserDID.toString();
@@ -34,13 +36,20 @@ class Warp {
     }
   }
 
+  String getMessageStatus() {
+    try {
+      return _warp.multipass!.getOwnIdentity().status_message;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   String changeUsername(String newUserName) {
     try {
-      multipass.IdentityUpdate.setUsername(newUserName);
       final _identityUpdated =
-          multipass.IdentityUpdate.setUsername(newUserName);
+          multipass.IdentityUpdate.setUsername(newUserName.trim());
       _warp.multipass!.updateIdentity(_identityUpdated);
-      return _warp.multipass!.getOwnIdentity().username;
+      return getUsername();
     } catch (error) {
       throw Exception(error);
     }
@@ -49,17 +58,28 @@ class Warp {
   String changeMessageStatus(String newStatus) {
     try {
       final _identityUpdated =
-          multipass.IdentityUpdate.setStatusMessage(newStatus);
+          multipass.IdentityUpdate.setStatusMessage(newStatus.trim());
       _warp.multipass!.updateIdentity(_identityUpdated);
-      return _warp.multipass!.getOwnIdentity().status_message;
+      return getMessageStatus();
     } catch (error) {
       throw Exception(error);
     }
   }
 
-  String getMessageStatus() {
+  String getProfilePicture() {
     try {
-      return _warp.multipass!.getOwnIdentity().status_message;
+      return _warp.multipass!.getOwnIdentity().graphics.profile_picture;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  String changeProfilePicture(String _base64Image) {
+    try {
+      final _identityUpdated =
+          multipass.IdentityUpdate.setPicture(_base64Image);
+      _warp.multipass!.updateIdentity(_identityUpdated);
+      return getProfilePicture();
     } catch (error) {
       throw Exception(error);
     }

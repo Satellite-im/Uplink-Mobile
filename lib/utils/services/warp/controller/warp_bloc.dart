@@ -24,6 +24,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
                 _tesseract,
                 _multipassPath!,
               );
+
         emit(WarpStateSuccess());
       } catch (error) {
         emit(WarpStateError());
@@ -51,13 +52,14 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
       ..setAutosave();
   }
 
+  // It checj is there is a tesseract instance in the device
+  // If not, it will create a new one
   Future<bool> _checkIfTesseractExists(String passphrase) async {
     try {
       _tesseract = multipassTest == MultipassTest.persistent
           ? warp.Tesseract.fromFile(_tesseractPath!)
           : warp.Tesseract.newStore();
-      // await _enableTesseract(passphrase);
-      _tesseract.unlock(passphrase);
+      await _enableTesseract(passphrase);
       return true;
     } catch (error) {
       _tesseract = warp.Tesseract.newStore();

@@ -25,6 +25,15 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
   }
 
   @override
+  String getProfilePicture() {
+    try {
+      return _remoteDatasource.getProfilePicture();
+    } catch (error) {
+      throw UnimplementedError();
+    }
+  }
+
+  @override
   void modifyMessageStatus(String newMessageStatus) {
     try {
       _remoteDatasource.modifyMessageStatus(newMessageStatus);
@@ -37,6 +46,15 @@ class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
   void modifyUsername(String newUsername) {
     try {
       _remoteDatasource.modifyUsername(newUsername);
+    } catch (error) {
+      throw UnimplementedError();
+    }
+  }
+
+  @override
+  void modifyProfilePicture(String base64Image) {
+    try {
+      _remoteDatasource.modifyProfilePicture(base64Image);
     } catch (error) {
       throw UnimplementedError();
     }

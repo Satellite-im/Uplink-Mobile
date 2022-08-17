@@ -8,10 +8,8 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
-import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/mock/helpers/loading_current_user.dart';
 import 'package:uplink/utils/mock/models/mock_current_user.dart';
-import 'package:uplink/utils/services/warp/warp_service.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
 
 part 'models/body.part.dart';
@@ -39,9 +37,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
   final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
-  final scrollController = ScrollController();
 
-  String? userImagePath;
+  final scrollController = ScrollController();
 
   File? _bannerImageFile;
 
@@ -64,8 +61,18 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    _controller
+      ..add(
+        GetUsername(),
+      )
+      ..add(
+        GetMessageStatus(),
+      )
+      ..add(
+        GetProfilePicture(),
+      );
+    super.initState();
   }
 
   @override
@@ -78,13 +85,6 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
           return const SizedBox.shrink();
         } else {
           final _mockCurrentUser = snapshot.data;
-          _controller
-            ..add(
-              GetUsername(),
-            )
-            ..add(
-              GetMessageStatus(),
-            );
           return Scaffold(
             resizeToAvoidBottomInset: true,
             body: CustomScrollView(
@@ -197,9 +197,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             ),
                             _DeletePicturePopupMenu(
                               removeAvatarOnPressed: () {
-                                setState(() {
-                                  userImagePath = null;
-                                });
+                                _controller.add(
+                                  UpdateProfilePicture(
+                                    profilePicture: File(''),
+                                  ),
+                                );
                               },
                               removeBannerOnPressed: () {
                                 setState(() {
@@ -231,8 +233,11 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             ),
                             Container(
                               decoration: (_bannerImageFile == null &&
-                                      userImagePath == null &&
-                                      _mockCurrentUser?.imageAddress == null &&
+                                      _controller.currentUser?.profilePicture ==
+                                          null &&
+                                      _controller.currentUser?.profilePicture
+                                              ?.path ==
+                                          null &&
                                       _mockCurrentUser?.bannerImageAddress ==
                                           null)
                                   ? BoxDecoration(
@@ -242,19 +247,42 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                       ),
                                     )
                                   : null,
-                              child: UUserPictureChange(
-                                showChangeImageButton: _isEditingProfile,
-                                uImage: UImage(
-                                  imagePath: userImagePath ??
-                                      _mockCurrentUser?.imageAddress,
-                                  imageSource: userImagePath == null
-                                      ? ImageSource.network
-                                      : ImageSource.local,
-                                ),
-                                onPictureSelected: (value) {
-                                  setState(() {
-                                    userImagePath = value?.path;
-                                  });
+                              child: BlocBuilder<UpdateCurrentUserBloc,
+                                  UpdateCurrentUserState>(
+                                bloc: _controller,
+                                builder: (context, state) {
+                                  if (state is UpdateCurrentUserStateSuccess &&
+                                      _controller.currentUser?.profilePicture !=
+                                          null) {
+                                    return UUserPictureChange(
+                                      showChangeImageButton: _isEditingProfile,
+                                      uImage: UImage(
+                                        imagePath: _controller.currentUser
+                                                ?.profilePicture?.path ??
+                                            _mockCurrentUser?.imageAddress,
+                                        imageSource: ImageSource.file,
+                                      ),
+                                      onPictureSelected: (value) {
+                                        _controller.add(
+                                          UpdateProfilePicture(
+                                            profilePicture: value!,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return UUserPictureChange(
+                                      showChangeImageButton: _isEditingProfile,
+                                      uImage: const UImage(),
+                                      onPictureSelected: (value) {
+                                        _controller.add(
+                                          UpdateProfilePicture(
+                                            profilePicture: value!,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
                               ),
                             ),

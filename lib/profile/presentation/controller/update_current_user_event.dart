@@ -31,3 +31,16 @@ class UpdateMessageStatus extends UpdateCurrentUserEvent {
   @override
   List<Object> get props => [newMessageStatus];
 }
+
+class UpdateProfilePicture extends UpdateCurrentUserEvent {
+  UpdateProfilePicture({required this.profilePicture});
+
+  final File profilePicture;
+  @override
+  List<Object> get props => [profilePicture];
+}
+
+class GetProfilePicture extends UpdateCurrentUserEvent {
+  @override
+  List<Object> get props => [];
+}
