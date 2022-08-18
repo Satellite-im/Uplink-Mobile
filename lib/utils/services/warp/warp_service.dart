@@ -17,11 +17,9 @@ class Warp {
       _warp.currentUserDID =
           _warp.multipass?.createIdentity(username.trim(), password);
 
-      final _identityUpdated =
-          multipass.IdentityUpdate.setStatusMessage(messageStatus.trim());
-
-      _warp.multipass?.updateIdentity(_identityUpdated);
-      return _warp.currentUserDID.toString();
+      changeMessageStatus(messageStatus);
+      changeProfilePicture('');
+      return _warp.currentUserDID.toString().replaceAll('did:key:', '');
     } catch (error) {
       throw Exception(error);
     }
@@ -58,6 +56,7 @@ class Warp {
     try {
       final _identityUpdated =
           multipass.IdentityUpdate.setStatusMessage(newStatus.trim());
+
       _warp.multipass!.updateIdentity(_identityUpdated);
       return getMessageStatus();
     } catch (error) {

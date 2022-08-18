@@ -118,7 +118,7 @@ class _ProfileIndexBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: UText(
-              controller.currentUser!.about ?? '',
+              controller.currentUser?.about ?? '',
               textStyle: UTextStyle.B1_body,
               textColor: UColors.white,
             ),

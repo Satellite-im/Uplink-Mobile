@@ -229,14 +229,15 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             fit: BoxFit.cover,
                           ),
                         );
+                      } else {
+                        return const SizedBox(
+                          height: 164,
+                          width: double.infinity,
+                          child: UImage(
+                            fit: BoxFit.cover,
+                          ),
+                        );
                       }
-                      return const SizedBox(
-                        height: 164,
-                        width: double.infinity,
-                        child: UImage(
-                          fit: BoxFit.cover,
-                        ),
-                      );
                     },
                   ),
                 ),

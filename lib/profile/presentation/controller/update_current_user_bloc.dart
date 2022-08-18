@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:uplink/profile/domain/usecases/update_current_user.usecase.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
 part 'update_current_user_event.dart';
@@ -10,12 +12,12 @@ part 'update_current_user_state.dart';
 
 class UpdateCurrentUserBloc
     extends Bloc<UpdateCurrentUserEvent, UpdateCurrentUserState> {
-  UpdateCurrentUserBloc(this._updateCurrentUserUseCase)
+  UpdateCurrentUserBloc(this._updateCurrentUserRepository)
       : super(UpdateCurrentUserStateInitial()) {
     on<GetUsername>((event, emit) {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _username = _updateCurrentUserUseCase.getUsername();
+        final _username = _updateCurrentUserRepository.getUsername();
         currentUser = currentUser!.copywith(username: _username);
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
@@ -27,7 +29,7 @@ class UpdateCurrentUserBloc
     on<GetMessageStatus>((event, emit) {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _messageStatus = _updateCurrentUserUseCase.getMessageStatus();
+        final _messageStatus = _updateCurrentUserRepository.getMessageStatus();
         currentUser = currentUser!.copywith(statusMessage: _messageStatus);
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
@@ -40,9 +42,22 @@ class UpdateCurrentUserBloc
     on<GetProfilePicture>((event, emit) async {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _profilePicture =
-            await _updateCurrentUserUseCase.getProfilePicture();
-        currentUser = currentUser!.copywith(profilePicture: _profilePicture);
+        File? _imageFile;
+        final _base64Image = _updateCurrentUserRepository.getProfilePicture();
+        if (_base64Image.isEmpty) {
+          _imageFile = File('');
+        } else {
+          final _imageBytes = base64.decode(_base64Image);
+          final _appTempDir = await path_provider.getTemporaryDirectory();
+          final _fileToSaveImage = File(
+            '${_appTempDir.path}/profile_picture_${DateTime.now().millisecondsSinceEpoch}.jpg',
+          );
+          _imageFile = await _fileToSaveImage.writeAsBytes(_imageBytes);
+        }
+
+        currentUser = currentUser!.copywith(
+          profilePicture: (_imageFile.path.isEmpty) ? null : _imageFile,
+        );
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
@@ -54,9 +69,23 @@ class UpdateCurrentUserBloc
     on<GetBannerPicture>((event, emit) async {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _bannerPicture =
-            await _updateCurrentUserUseCase.getBannerePicture();
-        currentUser = currentUser!.copywith(bannerPicture: _bannerPicture);
+        File? _imageFile;
+
+        final _base64Image = _updateCurrentUserRepository.getBannerPicture();
+        if (_base64Image.isEmpty) {
+          _imageFile = File('');
+        } else {
+          final _imageBytes = base64.decode(_base64Image);
+          final _appTempDir = await path_provider.getTemporaryDirectory();
+          final _fileToSaveImage = File(
+            '${_appTempDir.path}/banner_picture_${DateTime.now().millisecondsSinceEpoch}.jpg',
+          );
+          _imageFile = await _fileToSaveImage.writeAsBytes(_imageBytes);
+        }
+
+        currentUser = currentUser!.copywith(
+          bannerPicture: (_imageFile.path.isEmpty) ? null : _imageFile,
+        );
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
@@ -68,13 +97,17 @@ class UpdateCurrentUserBloc
     on<UpdateProfilePicture>((event, emit) async {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _newProfilePicture =
-            await _updateCurrentUserUseCase.modifyProfilePicture(
-          imageFile: event.profilePicture,
-        );
+
+        if (event.profilePicture.path.isEmpty) {
+          _updateCurrentUserRepository.modifyProfilePicture('');
+        } else {
+          final _imageBytes = await event.profilePicture.readAsBytes();
+          final _base64Image = base64Encode(_imageBytes);
+          _updateCurrentUserRepository.modifyProfilePicture(_base64Image);
+        }
         currentUser = currentUser!.copywith(
           profilePicture:
-              _newProfilePicture.path.isEmpty ? null : _newProfilePicture,
+              event.profilePicture.path.isEmpty ? null : event.profilePicture,
         );
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
@@ -87,13 +120,18 @@ class UpdateCurrentUserBloc
     on<UpdateBannerPicture>((event, emit) async {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _newBannerPicture =
-            await _updateCurrentUserUseCase.modifyProfilePicture(
-          imageFile: event.bannerPicture,
-        );
+
+        if (event.bannerPicture.path.isEmpty) {
+          _updateCurrentUserRepository.modifyBannerPicture('');
+        } else {
+          final _imageBytes = await event.bannerPicture.readAsBytes();
+          final _base64Image = base64Encode(_imageBytes);
+          _updateCurrentUserRepository.modifyBannerPicture(_base64Image);
+        }
+
         currentUser = currentUser!.copywith(
           bannerPicture:
-              _newBannerPicture.path.isEmpty ? null : _newBannerPicture,
+              event.bannerPicture.path.isEmpty ? null : event.bannerPicture,
         );
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
@@ -106,10 +144,11 @@ class UpdateCurrentUserBloc
     on<UpdateUsername>((event, emit) {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _newUsername = _updateCurrentUserUseCase.modifyUsername(
-          newUsername: event.newUsername,
+        _updateCurrentUserRepository.modifyUsername(
+          event.newUsername,
         );
-        currentUser = currentUser!.copywith(username: _newUsername);
+
+        currentUser = currentUser!.copywith(username: event.newUsername);
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
@@ -121,10 +160,12 @@ class UpdateCurrentUserBloc
     on<UpdateMessageStatus>((event, emit) {
       try {
         emit(UpdateCurrentUserStateLoading());
-        final _newMessageStatus = _updateCurrentUserUseCase.modifyMessageStatus(
-          newMessageStatus: event.newMessageStatus,
+        _updateCurrentUserRepository.modifyMessageStatus(
+          event.newMessageStatus,
         );
-        currentUser = currentUser!.copywith(statusMessage: _newMessageStatus);
+        currentUser = currentUser!.copywith(
+          statusMessage: event.newMessageStatus,
+        );
 
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
@@ -135,5 +176,5 @@ class UpdateCurrentUserBloc
   }
   CurrentUser? currentUser;
 
-  final UpdateCurrentUserUseCase _updateCurrentUserUseCase;
+  final IUpdateCurrentUserRepository _updateCurrentUserRepository;
 }
