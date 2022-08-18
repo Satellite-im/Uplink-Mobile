@@ -19,12 +19,11 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
     required String password,
   }) async {
     try {
-      final _did = await _remoteDatasource.createCurrentUser(
-        username: newUser.username,
+      final _newUser = await _remoteDatasource.createCurrentUser(
+        newUser: newUser,
         password: password,
-        statusMessage: newUser.statusMessage,
       );
-      return newUser.copywith(did: _did);
+      return _newUser;
     } catch (error) {
       throw Exception(error);
     }

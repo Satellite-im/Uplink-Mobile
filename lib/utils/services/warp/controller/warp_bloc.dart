@@ -14,18 +14,18 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   WarpBloc() : super(WarpStateInitial()) {
     on<EnableWarp>((event, emit) async {
       try {
-        emit(WarpStateLoading());
-        await _definePathToTesseractAndMultipass();
-        await _checkIfTesseractExists(event.passphrase);
+        if (_tesseract == null || multipass == null) {
+          emit(WarpStateLoading());
+          await _definePathToTesseractAndMultipass();
+          await _checkIfTesseractExists(event.passphrase);
 
-        multipass ??= multipassTest == MultipassTest.temporary
-            ? warp_mp_ipfs.multipass_ipfs_temporary(_tesseract)
-            : warp_mp_ipfs.multipass_ipfs_persistent(
-                _tesseract,
-                _multipassPath!,
-              );
+          multipass = warp_mp_ipfs.multipass_ipfs_persistent(
+            _tesseract!,
+            _multipassPath!,
+          );
 
-        emit(WarpStateSuccess());
+          emit(WarpStateSuccess());
+        }
       } catch (error) {
         emit(WarpStateError());
         addError(error);
@@ -46,7 +46,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Save a file for Tesseract
   // Set auto save
   Future<void> _enableTesseract(String passphrase) async {
-    _tesseract
+    _tesseract!
       ..unlock(passphrase)
       ..setFile(_tesseractPath!)
       ..setAutosave();
@@ -56,9 +56,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // If not, it will create a new one
   Future<bool> _checkIfTesseractExists(String passphrase) async {
     try {
-      _tesseract = multipassTest == MultipassTest.persistent
-          ? warp.Tesseract.fromFile(_tesseractPath!)
-          : warp.Tesseract.newStore();
+      _tesseract = warp.Tesseract.fromFile(_tesseractPath!);
       await _enableTesseract(passphrase);
       return true;
     } catch (error) {
@@ -68,7 +66,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
     }
   }
 
-  late warp.Tesseract _tesseract;
+  warp.Tesseract? _tesseract;
 
   warp_multipass.MultiPass? multipass;
 
@@ -77,6 +75,4 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   String? _tesseractPath;
 
   String? _multipassPath;
-
-  final multipassTest = MultipassTest.persistent;
 }

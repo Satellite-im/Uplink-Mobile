@@ -4,8 +4,6 @@ import 'package:uplink/auth/data/datasource/create_current_user.remote_datasourc
 import 'package:uplink/auth/data/datasource/store_auth_keys.local_datasource.dart';
 import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/auth/data/repositories/authentication_impl.repository.dart';
-import 'package:uplink/auth/domain/usecases/create_current_user.usecase.dart';
-import 'package:uplink/auth/domain/usecases/store_auth_keys.usecase.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/bootstrap.dart';
 import 'package:uplink/contacts/add_friend_page/data/datasource/add_friend.remote_datasource.dart';
@@ -77,12 +75,7 @@ void _registerDependenciesToAuth(GetIt _getIt) {
     )
     ..registerLazySingleton<AuthBloc>(
       () => AuthBloc(
-        CreateCurrentUserUseCase(
-          _getIt(),
-        ),
-        StoreAuthKeysUseCase(
-          _getIt(),
-        ),
+        _getIt(),
       ),
     );
 }

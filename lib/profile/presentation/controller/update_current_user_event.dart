@@ -57,3 +57,12 @@ class GetBannerPicture extends UpdateCurrentUserEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetAllUserInfo extends UpdateCurrentUserEvent {
+  GetAllUserInfo({this.currentUser});
+
+  final CurrentUser? currentUser;
+
+  @override
+  List<Object> get props => [];
+}

@@ -58,24 +58,6 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   }
 
   @override
-  void initState() {
-    _controller
-      ..add(
-        GetUsername(),
-      )
-      ..add(
-        GetMessageStatus(),
-      )
-      ..add(
-        GetProfilePicture(),
-      )
-      ..add(
-        GetBannerPicture(),
-      );
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(

@@ -55,7 +55,6 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
   }
 
   final _authController = GetIt.I.get<AuthBloc>();
-  final _warpController = GetIt.I.get<WarpBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -183,19 +182,13 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         Navigator.of(context).pop();
       },
       secondButtonOnPressed: () {
-        // TODO(yijing): update user log in state
-
-        _warpController.add(
-          EnableWarp(
-            _authController.pinValue!,
-          ),
-        );
         _authController
           ..add(
             CreateNewCurrentUser(
               currentUser: CurrentUser.newUser(
                 username: _usernameTextFieldController.text,
                 statusMessage: _messageStatusTextFieldController.text,
+                profilePicture: _userPicture,
               ),
             ),
           )

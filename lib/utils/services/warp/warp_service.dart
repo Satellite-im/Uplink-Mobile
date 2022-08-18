@@ -10,15 +10,16 @@ class Warp {
 
   Future<String> createUser({
     required String username,
-    String messageStatus = '',
+    required String messageStatus,
     required String password,
+    required String base64Image,
   }) async {
     try {
       _warp.currentUserDID =
           _warp.multipass?.createIdentity(username.trim(), password);
 
       changeMessageStatus(messageStatus);
-      changeProfilePicture('');
+      changeProfilePicture(base64Image);
       return _warp.currentUserDID.toString().replaceAll('did:key:', '');
     } catch (error) {
       throw Exception(error);

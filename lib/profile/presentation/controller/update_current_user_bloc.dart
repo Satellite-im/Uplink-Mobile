@@ -14,6 +14,25 @@ class UpdateCurrentUserBloc
     extends Bloc<UpdateCurrentUserEvent, UpdateCurrentUserState> {
   UpdateCurrentUserBloc(this._updateCurrentUserRepository)
       : super(UpdateCurrentUserStateInitial()) {
+    on<GetAllUserInfo>((event, emit) {
+      try {
+        emit(UpdateCurrentUserStateLoading());
+        if (event.currentUser == null) {
+          add(GetUsername());
+          add(GetMessageStatus());
+          add(GetProfilePicture());
+          add(GetBannerPicture());
+        } else {
+          currentUser = event.currentUser;
+        }
+
+        emit(UpdateCurrentUserStateSuccess(currentUser!));
+      } catch (error) {
+        emit(UpdateCurrentUserStateError());
+        addError(error);
+      }
+    });
+
     on<GetUsername>((event, emit) {
       try {
         emit(UpdateCurrentUserStateLoading());

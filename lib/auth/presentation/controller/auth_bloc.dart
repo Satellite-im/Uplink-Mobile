@@ -3,8 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:uplink/auth/domain/usecases/create_current_user.usecase.dart';
-import 'package:uplink/auth/domain/usecases/store_auth_keys.usecase.dart';
+import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/services_export.dart';
@@ -14,17 +13,19 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
-    this._createCurrentUserUseCase,
-    this._storeAuthKeysUseCase,
+    this._repository,
   ) : super(AuthInitial()) {
     on<CreateNewCurrentUser>((event, emit) async {
       try {
         emit(AuthLoading());
-        final _currentUser = await _createCurrentUserUseCase.createCurrentUser(
+        final _currentUser = await _repository.createCurrentUser(
           newUser: event.currentUser,
           password: event.password,
         );
-        _updateCurrentUserController.currentUser = _currentUser;
+        _updateCurrentUserController.add(
+          GetAllUserInfo(currentUser: _currentUser),
+        );
+
         emit(AuthSuccess());
       } catch (error) {
         emit(AuthError());
@@ -34,12 +35,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SaveAuthKeys>((event, emit) async {
       try {
         if (savePin) {
-          await _storeAuthKeysUseCase.savePinValue(
+          await _repository.savePinValue(
             pinValue: pinValue!,
           );
         }
 
-        await _storeAuthKeysUseCase.saveIsUserLoggedValue();
+        await _repository.saveUserIsLoggedValue();
       } catch (error) {
         emit(SaveAuthKeysError());
       }
@@ -49,9 +50,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         emit(GetAuthKeysLoading());
 
-        final _pinValuesMap = await _storeAuthKeysUseCase.getPinValue();
-        final _isUserLoggedValue =
-            await _storeAuthKeysUseCase.getIsUserLoggedValue();
+        final _pinValuesMap = await _repository.getPinValue();
+        final _isUserLoggedValue = await _repository.getUserIsLoggedValue();
 
         final _pinValue = _pinValuesMap[ULocalKey.pinValue] == null
             ? null
@@ -77,6 +77,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   bool savePin = false;
 
   final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
-  final CreateCurrentUserUseCase _createCurrentUserUseCase;
-  final StoreAuthKeysUseCase _storeAuthKeysUseCase;
+  final IAuthenticationRepository _repository;
 }
