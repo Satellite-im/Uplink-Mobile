@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/helpers/build_user_list_tile_long_press.dart';
-import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
-class FriendBody extends StatelessWidget {
-  const FriendBody({Key? key, required this.user}) : super(key: key);
+class BlockedBody extends StatelessWidget {
+  const BlockedBody({Key? key, required this.user}) : super(key: key);
 
-  final MockContact user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -19,25 +18,41 @@ class FriendBody extends StatelessWidget {
       children: [
         const SizedBox(height: 24),
         ContactListTile(
-          name: user.name,
-          status: user.status,
+          name: user.username,
+          status: user.status ?? Status.offline,
           statusMessage: user.statusMessage,
-          imageAddress: user.imageAddress,
-          onLongPress: () {
-            buildUserListTileLongPress(context, user);
-          },
+          imageAddress:
+              user.profilePicture == null ? '' : user.profilePicture!.path,
           trailing: const UIcon(
-            UIcons.friend_added,
+            UIcons.blocked_contacts,
             color: UColors.textDark,
           ),
+          onLongPress: () {
+            UBottomSheetOptions(
+              context,
+              sheetTitle: UAppStrings.moreOptions,
+              titleList: [
+                UAppStrings.buildUserListTileLongPress_profile,
+                UAppStrings.report,
+              ],
+              iconList: [UIcons.user_profile, UIcons.report],
+              colorList: [UColors.white, UColors.termRed],
+              onTapList: [
+                // TODO(yijing): add profile pages
+                () {},
+                // TODO(yijing): add report pages
+                () {},
+              ],
+            ).show();
+          },
         ),
         const SizedBox(height: 56),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: UButton.primary(
-            label: UAppStrings.friendBody_remove,
-            uIconData: UIcons.remove_friend,
-            color: UColors.termRed,
+            label: UAppStrings.unblock,
+            uIconData: UIcons.unblock,
+            color: UColors.ctaBlue,
             onPressed: () {
               final userNotifier = context.read<UserNotifier>();
               //Dialog widget cut the route of context, we need to
@@ -48,18 +63,19 @@ class FriendBody extends StatelessWidget {
                   return ChangeNotifierProvider.value(
                     value: userNotifier,
                     child: UDialogUserProfile(
-                      bodyText: UAppStrings.friendBody_remove_q,
-                      buttonText: UAppStrings.remove,
-                      buttonColor: UColors.termRed,
+                      bodyText: UAppStrings.unblockDialogQ,
+                      buttonText: UAppStrings.unblock,
                       popButtonText: UAppStrings.goBackButton,
                       onTap: () {
-                        userNotifier.removeFriend();
+                        userNotifier.unblockFriend();
                         Navigator.of(context).pop();
                       },
-                      username: user.name,
+                      username: user.username,
                       uImage: UImage(
-                        imagePath: user.imageAddress,
                         imageSource: ImageSource.local,
+                        imagePath: user.profilePicture == null
+                            ? ''
+                            : user.profilePicture!.path,
                       ),
                       statusMessage: user.statusMessage,
                     ),

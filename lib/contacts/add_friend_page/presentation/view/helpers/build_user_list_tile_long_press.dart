@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
-void buildUserListTileLongPress(BuildContext context, MockContact user) {
+void buildUserListTileLongPress(BuildContext context, User user) {
   UBottomSheetOptions(
     context,
     sheetTitle: UAppStrings.moreOptions,
@@ -43,9 +43,11 @@ void buildUserListTileLongPress(BuildContext context, MockContact user) {
                   userNotifier.blockFriend();
                   Navigator.of(context).pop();
                 },
-                username: user.name,
+                username: user.username,
                 uImage: UImage(
-                  imagePath: user.imageAddress,
+                  imagePath: user.profilePicture == null
+                      ? ''
+                      : user.profilePicture!.path,
                   imageSource: ImageSource.local,
                 ),
                 statusMessage: user.statusMessage,

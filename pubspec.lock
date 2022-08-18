@@ -799,11 +799,9 @@ packages:
   warp_dart:
     dependency: "direct main"
     description:
-      path: "."
-      ref: warp-dart-wrapper-v0
-      resolved-ref: "814231f58f127e404f87e5f26e73ae557e87ac40"
-      url: "https://github.com/Satellite-im/warp-dart.git"
-    source: git
+      path: "../warp-dart"
+      relative: true
+    source: path
     version: "0.0.1"
   watcher:
     dependency: transitive

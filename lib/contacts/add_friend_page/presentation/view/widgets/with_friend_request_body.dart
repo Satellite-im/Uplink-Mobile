@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/helpers/build_user_list_tile_long_press.dart';
-import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/helpers/build_user_list_tile_long_press.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class WithFriendRequestBody extends StatelessWidget {
   const WithFriendRequestBody({Key? key, required this.user}) : super(key: key);
 
-  final MockContact user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,11 @@ class WithFriendRequestBody extends StatelessWidget {
       children: [
         const SizedBox(height: 24),
         ContactListTile(
-          name: user.name,
-          status: user.status,
+          name: user.username,
+          status: user.status ?? Status.offline,
           statusMessage: user.statusMessage,
-          imageAddress: user.imageAddress,
+          imageAddress:
+              user.profilePicture == null ? '' : user.profilePicture!.path,
           onLongPress: () {
             buildUserListTileLongPress(context, user);
           },
@@ -56,7 +57,7 @@ class WithFriendRequestBody extends StatelessWidget {
                           style: UTextStyle.B1_body.style.returnTextStyleType(),
                           children: <TextSpan>[
                             TextSpan(
-                              text: user.name,
+                              text: user.username,
                               style: UTextStyle.H4_fourthHeader.style
                                   .returnTextStyleType(),
                             ),

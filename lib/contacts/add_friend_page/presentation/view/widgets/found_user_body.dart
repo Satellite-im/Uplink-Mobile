@@ -1,19 +1,20 @@
 // ignore_for_file: lines_longer_than_80_chars, no_default_cases
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
-import 'package:uplink/contacts/add_friend_page/widgets/widgets_export.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/widgets/widgets_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class FoundUserBody extends StatelessWidget {
   const FoundUserBody({
     Key? key,
+    required this.user,
   }) : super(key: key);
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<UserNotifier>().user;
+    // final user = context.watch<UserNotifier>().user;
 
     switch (user.relationship) {
       case Relationship.block:
@@ -21,11 +22,11 @@ class FoundUserBody extends StatelessWidget {
       case Relationship.friend:
         return FriendBody(user: user);
       case Relationship.none:
-        if (user.friendRequestSent == false) {
-          return WithoutFriendRequestBody(user: user);
-        } else {
-          return WithFriendRequestBody(user: user);
-        }
+        // if (user.friendRequestSent == false) {
+        //   return WithoutFriendRequestBody(user: user);
+        // } else {
+        return WithFriendRequestBody(user: user);
+      // }
       default:
         return WithoutFriendRequestBody(user: user);
     }

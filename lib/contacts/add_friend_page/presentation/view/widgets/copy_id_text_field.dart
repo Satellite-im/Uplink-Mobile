@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 
 class CopyIDTextField extends StatefulWidget {
   const CopyIDTextField({
@@ -21,6 +23,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
   late AnimationController? _animationController;
   late Animation<double> _animation;
   Timer _timerForOverlay = Timer(Duration.zero, () {});
+  final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
 
   @override
   void initState() {
@@ -41,8 +44,6 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
 
   @override
   Widget build(BuildContext context) {
-    // TODO(yijing): update account id
-    const userId = 'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -69,9 +70,11 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
         CompositedTransformTarget(
           link: layerLink,
           child: UAccountIDBox(
-            id: userId,
+            id: _currentUserController.currentUser!.did!,
             onTap: () {
-              Clipboard.setData(const ClipboardData(text: userId)).whenComplete(
+              Clipboard.setData(
+                ClipboardData(text: _currentUserController.currentUser!.did),
+              ).whenComplete(
                 () => _showOverlay(
                   context,
                   text: UAppStrings.addFriendPage_copied,

@@ -104,4 +104,28 @@ class Warp {
       throw Exception(error);
     }
   }
+
+  Map<String, dynamic> findUserByDid(String _userDid) {
+    try {
+      final _userIdentity = _warp.multipass!
+          .getIdentity(multipass.Identifier.fromDID('did:key:$_userDid'));
+      final _userMap = {
+        'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
+        'username': _userIdentity.username,
+        'status_message': _userIdentity.status_message,
+        'profile_picture': _userIdentity.graphics.profile_picture,
+        'banner_picture': _userIdentity.graphics.profile_banner,
+      };
+      return _userMap;
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'find_user_by_did',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['find_user_by_did', error]);
+    }
+  }
 }

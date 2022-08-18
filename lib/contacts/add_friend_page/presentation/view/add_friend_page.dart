@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/models/models_export.dart';
-import 'package:uplink/contacts/add_friend_page/widgets/widgets_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/add_friend_bloc.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/models/models_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/mock/data/data_export.dart';
@@ -22,12 +23,13 @@ class AddFriendPage extends StatefulWidget {
 
 class _AddFriendPageState extends State<AddFriendPage> {
   late GlobalKey<FormFieldState<String>> _formfieldKey;
-  bool _disableSearchButton = true;
+  bool _disableSearchButton = false;
   //In search mode,someone is found
   bool _isFound = false;
   //In search mode, no user is found
   bool _showNoUserError = false;
   late TextEditingController _textController;
+  final _addFriendController = GetIt.I.get<AddFriendBloc>();
 
   @override
   void initState() {
@@ -87,13 +89,13 @@ class _AddFriendPageState extends State<AddFriendPage> {
                     key: _formfieldKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if (value!.length < UAppNums.accountIdLength &&
-                          value.isNotEmpty) {
-                        return UAppStrings.addFriendPage_lessCharacters;
-                      } else if (value.length > UAppNums.accountIdLength &&
-                          value.isNotEmpty) {
-                        return UAppStrings.addFriendPage_moreCharacters;
-                      }
+                      // if (value!.length < UAppNums.accountIdLength &&
+                      //     value.isNotEmpty) {
+                      //   return UAppStrings.addFriendPage_lessCharacters;
+                      // } else if (value.length > UAppNums.accountIdLength &&
+                      //     value.isNotEmpty) {
+                      //   return UAppStrings.addFriendPage_moreCharacters;
+                      // }
                       return null;
                     },
                     builder: (FormFieldState<String> state) {
@@ -157,11 +159,13 @@ class _AddFriendPageState extends State<AddFriendPage> {
                       label: UAppStrings.search,
                       uIconData: UIcons.search,
                       onPressed: () async {
+                        _addFriendController.add(
+                          SearchUser(userDid: _textController.text),
+                        );
                         if (_formfieldKey.currentState!.validate()) {
                           // TODO(yijing): update search account ID
                           setState(() {
-                            if (_textController.text ==
-                                'pBr8xM9WKfbGnLK8EJEiKEivBhBos5EDdJv5Wzbib94') {
+                            if (_addFriendController.user != null) {
                               _isFound = true;
                             } else {
                               _showNoUserError = true;
@@ -179,7 +183,9 @@ class _AddFriendPageState extends State<AddFriendPage> {
               ChangeNotifierProvider(
                 create: (context) =>
                     UserNotifier(blockedUserWithoutFriendRequest),
-                builder: (context, child) => const FoundUserBody(),
+                builder: (context, child) => FoundUserBody(
+                  user: _addFriendController.user!,
+                ),
               ),
           ],
         ),

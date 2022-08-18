@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/helpers/build_user_list_tile_long_press.dart';
-import 'package:uplink/contacts/add_friend_page/models/user_notifier.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/helpers/build_user_list_tile_long_press.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
 import 'package:uplink/contacts/models/contact_list_tile.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class WithoutFriendRequestBody extends StatefulWidget {
   const WithoutFriendRequestBody({Key? key, required this.user})
       : super(key: key);
 
-  final MockContact user;
+  final User user;
 
   @override
   State<WithoutFriendRequestBody> createState() =>
@@ -27,10 +27,12 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
       children: [
         const SizedBox(height: 24),
         ContactListTile(
-          name: widget.user.name,
-          status: widget.user.status,
+          name: widget.user.username,
+          status: widget.user.status ?? Status.offline,
           statusMessage: widget.user.statusMessage,
-          imageAddress: widget.user.imageAddress,
+          imageAddress: widget.user.profilePicture == null
+              ? ''
+              : widget.user.profilePicture!.path,
           onTap: () {
             setState(() {
               _isSelected = true;
@@ -66,7 +68,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
                       style: UTextStyle.B1_body.style.returnTextStyleType(),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '${widget.user.name}!',
+                          text: '${widget.user.username}!',
                           style: UTextStyle.H4_fourthHeader.style
                               .returnTextStyleType(),
                         ),
