@@ -11,7 +11,7 @@ class AddFriendRepositoryImpl implements IAddFriendRepository {
     try {
       return _remoteDatasource.findUserByDid(userDid);
     } catch (error) {
-      throw Exception(error);
+      rethrow;
     }
   }
 }

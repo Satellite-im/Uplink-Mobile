@@ -20,13 +20,28 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   final _authController = GetIt.I.get<AuthBloc>();
+  final _warpController = GetIt.I.get<WarpBloc>();
 
   @override
   void initState() {
     _authController.add(GetAuthKeys());
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      _warpController.add(DropMultipass());
+    }
   }
 
   @override
@@ -57,7 +72,7 @@ class _AppState extends State<App> {
                           signinDataMap[ULocalKey.isPinStored] == true) {
                         final _pinValue =
                             signinDataMap[ULocalKey.pinValue] as String;
-                        GetIt.I.get<WarpBloc>().add(EnableWarp(_pinValue));
+                        _warpController.add(EnableWarp(_pinValue));
                         return const MainBottomNavigationBar();
                       } else if (signinDataMap[ULocalKey.isUserLogged] ==
                               true &&

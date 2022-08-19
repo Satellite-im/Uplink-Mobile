@@ -31,6 +31,17 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         addError(error);
       }
     });
+
+    on<DropMultipass>((event, emit) async {
+      try {
+        emit(WarpStateLoading());
+        multipass!.drop();
+        emit(WarpStateSuccess());
+      } catch (error) {
+        emit(WarpStateError());
+        addError(error);
+      }
+    });
   }
 
   // Define Tesseract path and file name to save

@@ -130,9 +130,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
                             ),
                             child: const UUserProfile(
                               userProfileSize: UUserProfileSize.topMenuBar,
-                              uImage: UImage(
-                                fit: BoxFit.cover,
-                              ),
+                              uImage: UImage(),
                             ),
                           )
                         : const UUserProfileWithStatus(

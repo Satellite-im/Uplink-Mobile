@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
@@ -89,13 +90,13 @@ class _AddFriendPageState extends State<AddFriendPage> {
                     key: _formfieldKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      // if (value!.length < UAppNums.accountIdLength &&
-                      //     value.isNotEmpty) {
-                      //   return UAppStrings.addFriendPage_lessCharacters;
-                      // } else if (value.length > UAppNums.accountIdLength &&
-                      //     value.isNotEmpty) {
-                      //   return UAppStrings.addFriendPage_moreCharacters;
-                      // }
+                      if (value!.length < UAppNums.accountIdLength &&
+                          value.isNotEmpty) {
+                        return UAppStrings.addFriendPage_lessCharacters;
+                      } else if (value.length > UAppNums.accountIdLength &&
+                          value.isNotEmpty) {
+                        return UAppStrings.addFriendPage_moreCharacters;
+                      }
                       return null;
                     },
                     builder: (FormFieldState<String> state) {
@@ -180,12 +181,23 @@ class _AddFriendPageState extends State<AddFriendPage> {
             ),
             // TODO(demo): change user type here to see different scenarios
             if (_isFound)
-              ChangeNotifierProvider(
-                create: (context) =>
-                    UserNotifier(blockedUserWithoutFriendRequest),
-                builder: (context, child) => FoundUserBody(
-                  user: _addFriendController.user!,
-                ),
+              BlocBuilder<AddFriendBloc, AddFriendState>(
+                bloc: _addFriendController,
+                builder: (context, state) {
+                  if (state is AddFriendSuccess &&
+                      _addFriendController.user != null) {
+                    return ChangeNotifierProvider(
+                      create: (context) =>
+                          UserNotifier(blockedUserWithoutFriendRequest),
+                      builder: (context, child) => FoundUserBody(
+                        user: _addFriendController.user!,
+                      ),
+                    );
+                  } else {
+                    _isFound = false;
+                    return const SizedBox.shrink();
+                  }
+                },
               ),
           ],
         ),

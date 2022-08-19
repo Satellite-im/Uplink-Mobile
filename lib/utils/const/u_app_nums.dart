@@ -1,4 +1,4 @@
 class UAppNums {
   //AddFriendPage
-  static const accountIdLength = 43;
+  static const accountIdLength = 48;
 }

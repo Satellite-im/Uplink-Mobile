@@ -13,6 +13,13 @@ class EnableWarp extends WarpEvent {
   List<Object> get props => [];
 }
 
+class DropMultipass extends WarpEvent {
+  DropMultipass();
+
+  @override
+  List<Object> get props => [];
+}
+
 class GetUserDID extends WarpEvent {
   @override
   List<Object> get props => [];

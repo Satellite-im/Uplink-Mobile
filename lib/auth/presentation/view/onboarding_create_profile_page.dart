@@ -7,7 +7,6 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
-import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {

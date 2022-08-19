@@ -17,7 +17,6 @@ class Warp {
     try {
       _warp.currentUserDID =
           _warp.multipass?.createIdentity(username.trim(), password);
-
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
       return _warp.currentUserDID.toString().replaceAll('did:key:', '');
@@ -108,8 +107,9 @@ class Warp {
 
   Map<String, dynamic> findUserByDid(String _userDid) {
     try {
-      final _userIdentity = _warp.multipass!
-          .getIdentity(multipass.Identifier.fromDID('did:key:$_userDid'));
+      final _userIdentity = _warp.multipass!.getIdentity(
+        multipass.Identifier.fromDIDString('did:key:$_userDid'),
+      );
       final _userMap = {
         'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
         'username': _userIdentity.username,

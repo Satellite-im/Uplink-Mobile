@@ -52,8 +52,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
     locationTextFieldController.dispose();
     statusMessageTextFieldController.dispose();
     usernameTextFieldController.dispose();
-    _uTextInputStateForUsernameField.currentState!.dispose();
-    _uTextInputStateForMessageStatusField.currentState!.dispose();
+    _uTextInputStateForUsernameField.currentState?.dispose();
+    _uTextInputStateForMessageStatusField.currentState?.dispose();
     super.dispose();
   }
 
