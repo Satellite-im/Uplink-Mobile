@@ -49,8 +49,8 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
     _isSignInButtonEnabled.dispose();
     _scrollController.dispose();
     _focusNode.dispose();
-    _uTextInputStateForUsernameField.currentState!.dispose();
-    _uTextInputStateForMessageStatusField.currentState!.dispose();
+    _uTextInputStateForUsernameField.currentState?.dispose();
+    _uTextInputStateForMessageStatusField.currentState?.dispose();
     super.dispose();
   }
 
