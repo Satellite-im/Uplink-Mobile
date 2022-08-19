@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   golden_toolkit: ^0.13.0
-  shared_preferences: ^2.0.13
+  shared_preferences: ^2.0.15
   alchemist: ^0.3.2
   image_cropper: ^2.0.2
   image_picker: ^0.8.5+3
