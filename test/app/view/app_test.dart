@@ -15,7 +15,7 @@ void main() {
         );
         expect(_mainAppPageOrUIShowroomPage, findsWidgets);
       },
-      // TODO: Add register mock dependencies later
+      // TODO(test): Add register mock dependencies later
       skip: true,
     );
   });
