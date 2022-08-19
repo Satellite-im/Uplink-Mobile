@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.2
+  provider: ^6.0.3
   ui_library:
     path: '../ui_library'
 
