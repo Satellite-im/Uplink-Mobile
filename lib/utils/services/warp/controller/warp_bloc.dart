@@ -63,7 +63,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
       ..setAutosave();
   }
 
-  // It checj is there is a tesseract instance in the device
+  // It check is there is a tesseract instance in the device
   // If not, it will create a new one
   Future<bool> _checkIfTesseractExists(String passphrase) async {
     try {
