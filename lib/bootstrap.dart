@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls, lines_longer_than_80_chars
+
 import 'dart:async';
 import 'dart:developer';
 
@@ -10,7 +12,7 @@ class AppBlocObserver extends BlocObserver {
     super.onCreate(bloc);
     log(
       'onCreate(controller: ${bloc.runtimeType}, '
-      'initialState: ${bloc.state})',
+      'initialState: ${bloc.state.runtimeType})',
     );
   }
 
@@ -19,7 +21,7 @@ class AppBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
     log(
       'onChange(controller: ${bloc.runtimeType}, Change { beforeState: '
-      '${change.currentState}, currentState: ${change.nextState}})',
+      '${change.currentState.runtimeType}, currentState: ${change.nextState.runtimeType}})',
     );
   }
 
@@ -32,7 +34,7 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
-    log('onClose(controller: ${bloc.runtimeType}, lastState: ${bloc.state})');
+    log('onClose(controller: ${bloc.runtimeType}, lastState: ${bloc.state.runtimeType})');
   }
 }
 

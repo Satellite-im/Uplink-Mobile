@@ -11,7 +11,7 @@ class _QRCodeBottomSheet extends StatelessWidget {
     required this.animationController,
   }) : super(key: key);
 
-  final MockCurrentUser currentUser;
+  final CurrentUser currentUser;
   final bool isPage;
   final bool showAppBar;
   final bool isHalfPage;
@@ -81,7 +81,8 @@ class _QRCodeBottomSheet extends StatelessWidget {
                 sizeAnimationDuration: _duration,
                 userProfileSize: UUserProfileSize.normal,
                 uImage: UImage(
-                  imagePath: currentUser.imageAddress,
+                  imagePath: currentUser.profilePicture?.path,
+                  imageSource: ImageSource.file,
                   fit: BoxFit.cover,
                 ),
               ),
