@@ -41,7 +41,9 @@ void _registerDependencieToEnableWarp(GetIt _getIt) {
 void _registerDependencieAddFriend(GetIt _getIt) {
   _getIt
     ..registerLazySingleton<IAddFriendRepository>(
-      () => AddFriendRepositoryImpl(_getIt()),
+      () => AddFriendRepositoryImpl(
+        _getIt(),
+      ),
     )
     ..registerLazySingleton<AddFriendData>(
       () => AddFriendData(
@@ -83,7 +85,9 @@ void _registerDependenciesToAuth(GetIt _getIt) {
 void _registerDependencieToUpdateCurrentUser(GetIt _getIt) {
   _getIt
     ..registerLazySingleton<IUpdateCurrentUserRepository>(
-      () => UpdateCurrentUserRepositoryImpl(_getIt()),
+      () => UpdateCurrentUserRepositoryImpl(
+        _getIt(),
+      ),
     )
     ..registerLazySingleton<UpdateCurrentUserData>(
       () => UpdateCurrentUserData(
