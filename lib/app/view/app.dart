@@ -69,7 +69,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                     if (state is GetAuthKeysSuccess) {
                       final signinDataMap = state.authKeysMap;
                       if (signinDataMap[ULocalKey.isUserLogged] == true &&
-                          signinDataMap[ULocalKey.isPinStored] == true) {
+                          signinDataMap[ULocalKey.isPinStored] == true &&
+                          signinDataMap[ULocalKey.pinValue] != null) {
                         final _pinValue =
                             signinDataMap[ULocalKey.pinValue] as String;
                         _warpController.add(EnableWarp(_pinValue));
