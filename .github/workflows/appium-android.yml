@@ -13,10 +13,8 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [25] #Google api level
-        target: [default]
-        node-version: [14.x]
-
+        api-level: [31] # Running one instance on Android 12
+        
     steps:
     - name: Checkout working directory 🔖
       uses: actions/checkout@v3
@@ -27,10 +25,10 @@ jobs:
         name: debug-apk
         path: appium-tests/apps
 
-    - name: Use Node.js ${{ matrix.node-version }} 🔨
+    - name: Setup Node.js 🔨
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 16
 
     - name: Install NPM dependencies 📦
       run: |
@@ -40,14 +38,13 @@ jobs:
         chmod +x ./appium-tests/scripts/run_appium_android_server.sh # install and run appium server in the background
         ./appium-tests/scripts/run_appium_android_server.sh
     
-    - name: Run Appium Tests 🌡️
+    - name: Start Emulator and Run Tests 🌡️
       uses: reactivecircus/android-emulator-runner@v2 # install and create the Emulator
       with:
         api-level: ${{ matrix.api-level }}
-        target: ${{ matrix.target }}
+        avd-name: android-appium
         arch: x86_64
-        profile: Nexus 6
-        working-directory: appium-tests
+        working-directory: appium-tests 
         script: |
           npm run android.ci
     
@@ -57,3 +54,10 @@ jobs:
       with:
         name: appium-screenshots
         path: appium-tests/test-results/android
+
+    - name: Upload Appium Log if tests failed 📷
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: appium-log
+        path: appium-tests/appium.log
