@@ -69,34 +69,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                   bloc: _authController,
                   builder: (context, state) {
                     if (state is GetAuthKeysSuccess) {
-                      final signinDataMap = state.authKeysMap;
-                      if (signinDataMap[ULocalKey.isUserLogged] == true &&
-                          signinDataMap[ULocalKey.isPinStored] == true &&
-                          signinDataMap[ULocalKey.pinValue] != null) {
-                        final _pinValue =
-                            signinDataMap[ULocalKey.pinValue] as String;
-                        _warpController.add(EnableWarp(_pinValue));
-                        return BlocBuilder<WarpBloc, WarpState>(
-                          bloc: _warpController,
-                          builder: (context, state) {
-                            if (state is WarpStateSuccess) {
-                              _currentUserController.add(GetAllUserInfo());
-                              return const MainBottomNavigationBar();
-                            }
-                            return const SizedBox.shrink();
-                          },
-                        );
-                      } else if (signinDataMap[ULocalKey.isUserLogged] ==
-                              true &&
-                          signinDataMap[ULocalKey.isPinStored] != true) {
-                        return SigninPage(
-                          authController: _authController,
-                        );
-                      } else {
-                        return const OnboardPinPage();
-                      }
-                    } else if (state is GetAuthKeysLoading) {
-                      return const ULoadingIndicator();
+                      return _ifIsSuccess(
+                        state,
+                        _warpController,
+                        _currentUserController,
+                        _authController,
+                      );
                     } else if (state is GetAuthKeysError) {
                       return const UText(
                         'Unexpected Error Happened',
@@ -110,5 +88,44 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               );
       },
     );
+  }
+}
+
+Widget _ifIsSuccess(
+  GetAuthKeysSuccess state,
+  WarpBloc _warpController,
+  UpdateCurrentUserBloc _currentUserController,
+  AuthBloc _authController,
+) {
+  final signinDataMap = state.authKeysMap;
+  if (signinDataMap[ULocalKey.isUserLogged] == true &&
+      signinDataMap[ULocalKey.isPinStored] == true &&
+      signinDataMap[ULocalKey.pinValue] != null) {
+    final _pinValue = signinDataMap[ULocalKey.pinValue] as String;
+    _warpController.add(EnableWarp(_pinValue));
+    return BlocBuilder<WarpBloc, WarpState>(
+      bloc: _warpController,
+      builder: (context, state) {
+        if (state is WarpStateSuccess) {
+          _currentUserController.add(GetAllUserInfo());
+          return const MainBottomNavigationBar();
+        }
+        return UActionLoading(
+          dashLoadingIndicatorPadding:
+              const EdgeInsets.symmetric(horizontal: 16),
+          isLoading: ValueNotifier(
+            true,
+          ),
+          child: const SizedBox.shrink(),
+        );
+      },
+    );
+  } else if (signinDataMap[ULocalKey.isUserLogged] == true &&
+      signinDataMap[ULocalKey.isPinStored] != true) {
+    return SigninPage(
+      authController: _authController,
+    );
+  } else {
+    return const OnboardPinPage();
   }
 }

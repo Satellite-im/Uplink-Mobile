@@ -100,6 +100,9 @@ class _OnboardPrivacySettingFirstPageState
                   );
                 },
               ),
+              const SizedBox.square(
+                dimension: 16,
+              ),
             ],
           ),
         ),

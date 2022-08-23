@@ -1,10 +1,12 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
@@ -21,6 +23,8 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  final _warpController = GetIt.I.get<WarpBloc>();
+  final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,14 +76,31 @@ class _SigninPageState extends State<SigninPage> {
             Flexible(flex: 3, child: Container()),
             Stack(
               children: [
-                UPin(
-                  key: UniqueKey(),
-                  // TODO(yijing): Get user's pin code length and update the pinLength
-                  pinLength: 4,
-                  rightButtonFn: (pin) {
-                    // TODO(yijing): update pin validatio
-                    if (pin == '9999') {
-                      GetIt.I.get<WarpBloc>().add(EnableWarp(pin));
+                BlocListener<WarpBloc, WarpState>(
+                  bloc: _warpController,
+                  child: _warpController.multipass == null
+                      ? UPin(
+                          key: UniqueKey(),
+                          // TODO(yijing): Get user's pin code length and update the pinLength
+                          pinLength: 4,
+                          rightButtonFn: (pin) {
+                            // TODO(yijing): update pin validatio
+                            if (pin == '9999') {
+                              _warpController.add(EnableWarp(pin));
+                            }
+                          },
+                        )
+                      : UActionLoading(
+                          dashLoadingIndicatorPadding:
+                              const EdgeInsets.symmetric(horizontal: 16),
+                          isLoading: ValueNotifier(
+                            true,
+                          ),
+                          child: const SizedBox.shrink(),
+                        ),
+                  listener: (context, state) {
+                    if (_warpController.multipass != null) {
+                      _updateCurrentUserController.add(GetAllUserInfo());
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute<void>(
                           builder: (context) => const MainBottomNavigationBar(),
