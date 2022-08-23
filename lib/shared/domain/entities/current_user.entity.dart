@@ -8,7 +8,7 @@ class CurrentUser {
   const CurrentUser({
     required this.did,
     required this.username,
-    required this.status,
+    this.status = Status.offline,
     this.statusMessage,
     this.profilePicture,
     this.bannerPicture,

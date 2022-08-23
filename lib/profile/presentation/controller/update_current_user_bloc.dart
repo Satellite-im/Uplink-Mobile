@@ -14,18 +14,27 @@ class UpdateCurrentUserBloc
     extends Bloc<UpdateCurrentUserEvent, UpdateCurrentUserState> {
   UpdateCurrentUserBloc(this._updateCurrentUserRepository)
       : super(UpdateCurrentUserStateInitial()) {
-    on<GetAllUserInfo>((event, emit) {
+    on<GetAllUserInfo>((event, emit) async {
       try {
         emit(UpdateCurrentUserStateLoading());
         if (event.currentUser == null) {
-          add(GetUsername());
-          add(GetMessageStatus());
-          add(GetProfilePicture());
-          add(GetBannerPicture());
+          currentUser = await _updateCurrentUserRepository.getCurrentUserInfo();
         } else {
           currentUser = event.currentUser;
         }
 
+        emit(UpdateCurrentUserStateSuccess(currentUser!));
+      } catch (error) {
+        emit(UpdateCurrentUserStateError());
+        addError(error);
+      }
+    });
+
+    on<GetDid>((event, emit) {
+      try {
+        emit(UpdateCurrentUserStateLoading());
+        final _did = _updateCurrentUserRepository.getDid();
+        currentUser = currentUser!.copywith(did: _did);
         emit(UpdateCurrentUserStateSuccess(currentUser!));
       } catch (error) {
         emit(UpdateCurrentUserStateError());
@@ -193,7 +202,8 @@ class UpdateCurrentUserBloc
       }
     });
   }
-  CurrentUser? currentUser;
+  // TODO: It should not has initial value, just for test purpose
+  CurrentUser? currentUser = const CurrentUser.newUser(username: '');
 
   final IUpdateCurrentUserRepository _updateCurrentUserRepository;
 }

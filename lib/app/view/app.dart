@@ -8,6 +8,7 @@ import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/l10n.dart';
+import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
@@ -23,6 +24,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   final _authController = GetIt.I.get<AuthBloc>();
   final _warpController = GetIt.I.get<WarpBloc>();
+  final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
 
   @override
   void initState() {
@@ -74,7 +76,16 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                         final _pinValue =
                             signinDataMap[ULocalKey.pinValue] as String;
                         _warpController.add(EnableWarp(_pinValue));
-                        return const MainBottomNavigationBar();
+                        return BlocBuilder<WarpBloc, WarpState>(
+                          bloc: _warpController,
+                          builder: (context, state) {
+                            if (state is WarpStateSuccess) {
+                              _currentUserController.add(GetAllUserInfo());
+                              return const MainBottomNavigationBar();
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        );
                       } else if (signinDataMap[ULocalKey.isUserLogged] ==
                               true &&
                           signinDataMap[ULocalKey.isPinStored] != true) {
