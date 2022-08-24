@@ -69,13 +69,13 @@ class LoadingContactsIndexPage extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 24,
         ),
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => const SizedBox(height: 20),
+            separatorBuilder: (context, index) => const SizedBox(height: 24),
             itemBuilder: (context, index) => Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
