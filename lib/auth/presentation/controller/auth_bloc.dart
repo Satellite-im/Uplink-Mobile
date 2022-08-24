@@ -34,11 +34,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<SaveAuthKeys>((event, emit) async {
       try {
-        if (savePin) {
-          await _repository.savePinValue(
-            pinValue: pinValue!,
-          );
-        }
+        await _repository.savePinValue(
+          pinValue: pinValue!,
+          storePin: storePin,
+        );
 
         await _repository.saveUserIsLoggedValue();
       } catch (error) {
@@ -74,7 +73,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   String? pinValue;
-  bool savePin = false;
+  bool storePin = false;
 
   final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
   final IAuthenticationRepository _repository;

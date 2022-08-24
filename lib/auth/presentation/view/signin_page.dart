@@ -84,8 +84,7 @@ class _SigninPageState extends State<SigninPage> {
                           // TODO(yijing): Get user's pin code length and update the pinLength
                           pinLength: 4,
                           rightButtonFn: (pin) {
-                            // TODO(yijing): update pin validatio
-                            if (pin == '9999') {
+                            if (pin == widget.authController.pinValue) {
                               _warpController.add(EnableWarp(pin));
                             }
                           },

@@ -121,7 +121,9 @@ Widget _ifIsSuccess(
       },
     );
   } else if (signinDataMap[ULocalKey.isUserLogged] == true &&
-      signinDataMap[ULocalKey.isPinStored] != true) {
+      signinDataMap[ULocalKey.isPinStored] != true &&
+      signinDataMap[ULocalKey.pinValue] != null) {
+    _authController.pinValue = signinDataMap[ULocalKey.pinValue] as String;
     return SigninPage(
       authController: _authController,
     );

@@ -61,9 +61,9 @@ class _OnboardPrivacySettingFirstPageState
                           UAppStrings.privacySettingFirstPage_secondOptionTitle,
                       subTitle: UAppStrings
                           .privacySettingFirstPage_secondOptionSubTitle,
-                      switchValue: _authController.savePin,
+                      switchValue: _authController.storePin,
                       onSwitch: (value) {
-                        _authController.savePin = value;
+                        _authController.storePin = value;
                       },
                     ),
                     _buildSettingListTile(

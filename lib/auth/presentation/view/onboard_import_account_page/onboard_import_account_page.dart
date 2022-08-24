@@ -92,6 +92,7 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                       if (selectedPassphraseList
                           .every((element) => element == 'about')) {
                         // TODO(yijing): update user log in state
+                        // TODO(Lucas): Change this by bloc event
                         await ULocalStorageService()
                             .saveBoolValue(
                               localKey: ULocalKey.isUserLogged,

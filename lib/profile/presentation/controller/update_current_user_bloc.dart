@@ -202,7 +202,6 @@ class UpdateCurrentUserBloc
       }
     });
   }
-  // TODO: It should not has initial value, just for test purpose
   CurrentUser? currentUser = const CurrentUser.newUser(username: '');
 
   final IUpdateCurrentUserRepository _updateCurrentUserRepository;
