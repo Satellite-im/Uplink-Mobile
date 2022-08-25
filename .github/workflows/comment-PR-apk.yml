@@ -15,7 +15,7 @@ jobs:
           script: |
             cd android/app/src/main/jniLibs/arm64-v8a;
             wget https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp.so;
-            wget https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so;
+            wgetsddsds https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so;
             async function upsertComment(owner, repo, issue_number, purpose, body) {
               const {data: comments} = await github.rest.issues.listComments(
                 {owner, repo, issue_number});
