@@ -17,7 +17,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
-      - run: cd android/app/src/main/jniLibs/arm64-v8a
       - run: wget https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp.so
       - run: wget https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so
       - run: flutter pub get
