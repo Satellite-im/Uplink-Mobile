@@ -48,7 +48,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    const _appToBuild = Apps.uiShowroom;
+    const _appToBuild = Apps.mainApp;
 
     return ChangeNotifierProvider(
       create: (context) => ThemeModel(),
