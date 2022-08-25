@@ -14,19 +14,17 @@ class FoundUserBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final user = context.watch<UserNotifier>().user;
-
     switch (user.relationship) {
       case Relationship.block:
         return BlockedBody(user: user);
       case Relationship.friend:
         return FriendBody(user: user);
       case Relationship.none:
-        // if (user.friendRequestSent == false) {
-        //   return WithoutFriendRequestBody(user: user);
-        // } else {
-        return WithFriendRequestBody(user: user);
-      // }
+        if (user.friendRequestSent == false) {
+          return WithoutFriendRequestBody(user: user);
+        } else {
+          return WithFriendRequestBody(user: user);
+        }
       default:
         return WithoutFriendRequestBody(user: user);
     }

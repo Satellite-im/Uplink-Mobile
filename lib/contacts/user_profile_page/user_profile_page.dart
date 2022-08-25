@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/mock/data/data_export.dart';
-import 'package:uplink/utils/mock/models/mock_contact.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({
@@ -15,7 +15,7 @@ class UserProfilePage extends StatefulWidget {
     this.showHomeIndicator,
   }) : super(key: key);
 // TODO(yijing): get user current state info(through id)
-  final MockContact user;
+  final User user;
   final ScrollController? controller;
   final double? reduecdTopHeight;
   final double? backButtonOpacity;
@@ -28,7 +28,7 @@ class UserProfilePage extends StatefulWidget {
 
 class UserProfilePageState extends State<UserProfilePage>
     with SingleTickerProviderStateMixin {
-  late MockContact user;
+  late User user;
   double backButtonOpacity = 1;
   // used to connect draggableScrollableSheet
   ScrollController? controller;

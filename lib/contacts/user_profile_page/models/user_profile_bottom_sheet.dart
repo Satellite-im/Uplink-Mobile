@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:uplink/contacts/user_profile_page/user_profile_page.dart';
-import 'package:uplink/utils/mock/models/mock_contact.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 GlobalKey<UserProfilePageState> userProfilePageKey = GlobalKey();
 
@@ -12,7 +12,7 @@ class UserProfileBottomSheet extends StatelessWidget {
     required this.user,
   }) : super(key: key);
 
-  final MockContact user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {

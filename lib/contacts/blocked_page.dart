@@ -125,21 +125,21 @@ class BlockedPage extends StatelessWidget {
             //     builder: (context) => UserProfilePage(user: user),
             //   ),
             // );
-            showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              useRootNavigator: true,
-              builder: (context) => GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () => Navigator.of(context).pop(),
-                //close the sheet when the outside is tapped
-                child: GestureDetector(
-                  onTap: () {},
-                  child: UserProfileBottomSheet(user: user),
-                ),
-              ),
-            );
+            // showModalBottomSheet<void>(
+            //   context: context,
+            //   isScrollControlled: true,
+            //   backgroundColor: Colors.transparent,
+            //   useRootNavigator: true,
+            //   builder: (context) => GestureDetector(
+            //     behavior: HitTestBehavior.opaque,
+            //     onTap: () => Navigator.of(context).pop(),
+            //     //close the sheet when the outside is tapped
+            //     child: GestureDetector(
+            //       onTap: () {},
+            //       child: UserProfileBottomSheet(user: user),
+            //     ),
+            //   ),
+            // );
           },
         ),
       ],

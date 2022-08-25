@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class CTAButton extends StatelessWidget {
   const CTAButton({Key? key, required this.user}) : super(key: key);
 
-  final MockContact user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {

@@ -26,6 +26,7 @@ class AddFriendData {
         statusMessage: _userMap['status_message'] as String,
         profilePicture: _profilePictureFile,
         bannerPicture: _bannerPictureFile,
+        relationship: Relationship.none,
       );
     } catch (error) {
       rethrow;
