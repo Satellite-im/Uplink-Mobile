@@ -19,9 +19,6 @@ jobs:
               const marker = `<!-- bot: ${purpose} -->`;
               body = marker + "\n" + body;
               const existing = comments.filter((c) => c.body.includes(marker));
-              cd android/app/src/main/jniLibs/arm64-v8a;
-              wget https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp.so;
-              wget https://github.com/Satellite-im/warp-dart/blob/main/android/src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so;
               if (existing.length > 0) {
                 const last = existing[existing.length - 1];
                 core.info(`Updating comment ${last.id}`);
