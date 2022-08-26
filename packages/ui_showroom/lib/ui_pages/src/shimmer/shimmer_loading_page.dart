@@ -32,7 +32,7 @@ class _ShimmerLoadingPageState extends State<ShimmerLoadingPage> {
             items: <String>[
               'Loading ContactsIndexPage',
               'Loading ChatIndexPage',
-              'Free',
+              'Loading ProfileIndexPage',
               'Four'
             ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -46,6 +46,8 @@ class _ShimmerLoadingPageState extends State<ShimmerLoadingPage> {
                 currentBody = const LoadingContactsIndexPage();
               } else if (newValue == 'Loading ChatIndexPage') {
                 currentBody = const LoadingChatIndexPage();
+              } else if (newValue == 'Loading ProfileIndexPage') {
+                currentBody = const LoadingProfileIndexPage();
               }
               setState(() {
                 _body = currentBody;
