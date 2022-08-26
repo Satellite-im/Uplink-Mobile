@@ -25,6 +25,7 @@ config.capabilities = [
         //'appium:platformVersion': '12',
         'appium:automationName': 'UiAutomator2',
         'appium:avd': 'android-appium',
+        'appium:avdLaunchTimeout': 120000,
         // The path to the app
         'appium:app': join(process.cwd(), './apps/app-profile.apk'),
         'appium:newCommandTimeout': 240,
