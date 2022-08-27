@@ -46,7 +46,12 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
+        if (file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
+            println('Using jniLibs in Uplink...')
+        } else {
+            println('Using jniLibs in Warp-dart...')
+            main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
+        }
     }
 
     defaultConfig {
