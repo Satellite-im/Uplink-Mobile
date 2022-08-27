@@ -46,11 +46,11 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        if (file("android/app/src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
+        if (file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
             println('libwarp.so already exist, not necessary change the source dir for jniLibs')
         } else {
-            println('libwarp.so do not exist, changing the source dir for jniLibs...')
-            main.jniLibs.srcDirs += (['../../../warp-dart/android/src/main/jniLibs'])
+            println('libwarp.so do not exist, changing jniLibs source dir to warp-dart repo...')
+            main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
         }
 
     }
