@@ -49,11 +49,15 @@ android {
             if (!file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
                 println('Downloading libwarp.so from warp-dart...')
                 def proc = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/arm64-v8a/libwarp.so -P $workingDir/app/src/main/jniLibs/arm64-v8a".execute()
+                def proc2 = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/x86/libwarp.so -P $workingDir/app/src/main/jniLibs/x86".execute()
+                def proc3 = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/x86_64/libwarp.so -P $workingDir/app/src/main/jniLibs/x86_64".execute()
                 }
 
             if (!file("./src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so").exists()) {
                 println('Downloading libwarp_mp_ipfs.so from warp-dart...')
                 def proc = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so -P $workingDir/app/src/main/jniLibs/arm64-v8a".execute()
+                def proc2 = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/x86/libwarp_mp_ipfs.so -P $workingDir/app/src/main/jniLibs/x86".execute()
+                def proc3 = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/x86_64/libwarp_mp_ipfs.so -P $workingDir/app/src/main/jniLibs/x86_64".execute()
             }
         }
     }
