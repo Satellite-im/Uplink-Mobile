@@ -161,7 +161,7 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.1"
   file:
     dependency: transitive
     description:
@@ -482,7 +482,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.7"
+    version: "2.1.2"
   permission_handler:
     dependency: transitive
     description:
@@ -807,8 +807,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: main
-      resolved-ref: de76ab27f08f0094c10256216d0306c8853aa9de
+      ref: HEAD
+      resolved-ref: "6ef7da918734c49163c8331e4593018e0fa2610f"
       url: "https://github.com/Satellite-im/warp-dart.git"
     source: git
     version: "0.0.1"
@@ -839,7 +839,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.2"
+    version: "2.7.0"
   xdg_directories:
     dependency: transitive
     description:
