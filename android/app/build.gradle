@@ -43,15 +43,23 @@ android {
         jvmTarget = '1.8'
     }
 
+    task myPrebuildTask(type: Exec) {
+        preBuild.doFirst {
+            workingDir "$rootProject.projectDir/"
+            if (!file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
+                println('Downloading libwarp.so from warp-dart...')
+                def proc = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/arm64-v8a/libwarp.so -P $workingDir/app/src/main/jniLibs/arm64-v8a".execute()
+                }
+
+            if (!file("./src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so").exists()) {
+                println('Downloading libwarp_mp_ipfs.so from warp-dart...')
+                def proc = "wget https://raw.githubusercontent.com/Satellite-im/warp-dart/main/android/src/main/jniLibs/arm64-v8a/libwarp_mp_ipfs.so -P $workingDir/app/src/main/jniLibs/arm64-v8a".execute()
+            }
+        }
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        if (file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
-            println('Using jniLibs in Uplink...')
-        } else {
-            println('Using jniLibs in Warp-dart...')
-            main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
-        }
     }
 
     defaultConfig {
