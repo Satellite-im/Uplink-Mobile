@@ -7,7 +7,7 @@ abstract class IAuthenticationRepository {
     required String password,
   });
 
-  Future<void> savePinValue({required String pinValue});
+  Future<void> savePinValue({required String pinValue, required bool storePin});
 
   Future<void> saveUserIsLoggedValue();
 

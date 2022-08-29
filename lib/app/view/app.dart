@@ -8,6 +8,7 @@ import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/l10n.dart';
+import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
@@ -23,6 +24,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   final _authController = GetIt.I.get<AuthBloc>();
   final _warpController = GetIt.I.get<WarpBloc>();
+  final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
 
   @override
   void initState() {
@@ -67,25 +69,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                   bloc: _authController,
                   builder: (context, state) {
                     if (state is GetAuthKeysSuccess) {
-                      final signinDataMap = state.authKeysMap;
-                      if (signinDataMap[ULocalKey.isUserLogged] == true &&
-                          signinDataMap[ULocalKey.isPinStored] == true &&
-                          signinDataMap[ULocalKey.pinValue] != null) {
-                        final _pinValue =
-                            signinDataMap[ULocalKey.pinValue] as String;
-                        _warpController.add(EnableWarp(_pinValue));
-                        return const MainBottomNavigationBar();
-                      } else if (signinDataMap[ULocalKey.isUserLogged] ==
-                              true &&
-                          signinDataMap[ULocalKey.isPinStored] != true) {
-                        return SigninPage(
-                          authController: _authController,
-                        );
-                      } else {
-                        return const OnboardPinPage();
-                      }
-                    } else if (state is GetAuthKeysLoading) {
-                      return const ULoadingIndicator();
+                      return _ifIsSuccess(
+                        state,
+                        _warpController,
+                        _currentUserController,
+                        _authController,
+                      );
                     } else if (state is GetAuthKeysError) {
                       return const UText(
                         'Unexpected Error Happened',
@@ -99,5 +88,46 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               );
       },
     );
+  }
+}
+
+Widget _ifIsSuccess(
+  GetAuthKeysSuccess state,
+  WarpBloc _warpController,
+  UpdateCurrentUserBloc _currentUserController,
+  AuthBloc _authController,
+) {
+  final signinDataMap = state.authKeysMap;
+  if (signinDataMap[ULocalKey.isUserLogged] == true &&
+      signinDataMap[ULocalKey.isPinStored] == true &&
+      signinDataMap[ULocalKey.pinValue] != null) {
+    final _pinValue = signinDataMap[ULocalKey.pinValue] as String;
+    _warpController.add(EnableWarp(_pinValue));
+    return BlocBuilder<WarpBloc, WarpState>(
+      bloc: _warpController,
+      builder: (context, state) {
+        if (state is WarpStateSuccess) {
+          _currentUserController.add(GetAllUserInfo());
+          return const MainBottomNavigationBar();
+        }
+        return UActionLoading(
+          dashLoadingIndicatorPadding:
+              const EdgeInsets.symmetric(horizontal: 16),
+          isLoading: ValueNotifier(
+            true,
+          ),
+          child: const SizedBox.shrink(),
+        );
+      },
+    );
+  } else if (signinDataMap[ULocalKey.isUserLogged] == true &&
+      signinDataMap[ULocalKey.isPinStored] != true &&
+      signinDataMap[ULocalKey.pinValue] != null) {
+    _authController.pinValue = signinDataMap[ULocalKey.pinValue] as String;
+    return SigninPage(
+      authController: _authController,
+    );
+  } else {
+    return const OnboardPinPage();
   }
 }

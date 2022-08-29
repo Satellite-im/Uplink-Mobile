@@ -88,9 +88,9 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                           textStyle: UTextStyle.H5_fifthHeader,
                         ),
                         USwitcher(
-                          switchValue: _authController.savePin,
+                          switchValue: _authController.storePin,
                           onSwitch: (value) async {
-                            _authController.savePin = value;
+                            _authController.storePin = value;
                           },
                         ),
                       ],

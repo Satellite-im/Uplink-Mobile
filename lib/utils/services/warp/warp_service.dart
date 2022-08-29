@@ -25,9 +25,36 @@ class Warp {
     }
   }
 
+  Map<String, dynamic> getCurrentUserInfo() {
+    try {
+      final _currentUserIdentity = _warp.multipass!.getOwnIdentity();
+      final _currentUserMap = {
+        'did':
+            _currentUserIdentity.did_key.toString().replaceAll('did:key:', ''),
+        'username': _currentUserIdentity.username,
+        'status_message': _currentUserIdentity.status_message,
+        'profile_picture': _currentUserIdentity.graphics.profile_picture,
+        'banner_picture': _currentUserIdentity.graphics.profile_banner,
+      };
+      return _currentUserMap;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  String getDid() {
+    try {
+      final _did = _warp.multipass!.getOwnIdentity().did_key.toString();
+      return _did.replaceAll('did:key:', '');
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   String getUsername() {
     try {
-      return _warp.multipass!.getOwnIdentity().username;
+      final _username = _warp.multipass!.getOwnIdentity().username;
+      return _username;
     } catch (error) {
       throw Exception(error);
     }
@@ -66,7 +93,9 @@ class Warp {
 
   String getProfilePicture() {
     try {
-      return _warp.multipass!.getOwnIdentity().graphics.profile_picture;
+      final _profilePictureBase64String =
+          _warp.multipass!.getOwnIdentity().graphics.profile_picture;
+      return _profilePictureBase64String;
     } catch (error) {
       throw Exception(error);
     }
@@ -85,7 +114,9 @@ class Warp {
 
   String getBannerPicture() {
     try {
-      return _warp.multipass!.getOwnIdentity().graphics.profile_banner;
+      final _bannerPictureBase64String =
+          _warp.multipass!.getOwnIdentity().graphics.profile_banner;
+      return _bannerPictureBase64String;
     } on WarpException {
       throw Exception(['WARP_EXCEPTION', 'get_banner_picture']);
     } catch (error) {

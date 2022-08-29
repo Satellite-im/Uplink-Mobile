@@ -48,9 +48,15 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> savePinValue({required String pinValue}) async {
+  Future<void> savePinValue({
+    required String pinValue,
+    required bool storePin,
+  }) async {
     try {
-      await _localDatasource.savePinValue(pinValue: pinValue);
+      await _localDatasource.savePinValue(
+        pinValue: pinValue,
+        storePin: storePin,
+      );
     } catch (error) {
       throw Exception(error);
     }
