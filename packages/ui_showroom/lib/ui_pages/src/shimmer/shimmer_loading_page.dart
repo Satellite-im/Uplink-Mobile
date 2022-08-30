@@ -29,8 +29,12 @@ class _ShimmerLoadingPageState extends State<ShimmerLoadingPage> {
           const SizedBox(width: 50),
           DropdownButton(
             value: dropdownValue,
-            items: <String>['Loading ContactsIndexPage', 'Two', 'Free', 'Four']
-                .map<DropdownMenuItem<String>>((String value) {
+            items: <String>[
+              'Loading ContactsIndexPage',
+              'Loading ChatIndexPage',
+              'Loading ProfileIndexPage',
+              'Four'
+            ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -40,6 +44,10 @@ class _ShimmerLoadingPageState extends State<ShimmerLoadingPage> {
               Widget currentBody = Center(child: Text(newValue!));
               if (newValue == 'Loading ContactsIndexPage') {
                 currentBody = const LoadingContactsIndexPage();
+              } else if (newValue == 'Loading ChatIndexPage') {
+                currentBody = const LoadingChatIndexPage();
+              } else if (newValue == 'Loading ProfileIndexPage') {
+                currentBody = const LoadingProfileIndexPage();
               }
               setState(() {
                 _body = currentBody;

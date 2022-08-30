@@ -43,10 +43,19 @@ android {
         jvmTarget = '1.8'
     }
 
-
+    task cloneWarpDart(type: Exec) {
+        preBuild.doFirst {
+            if (!file("../../../warp-dart/android/src/main/jniLibs/arm64-v8a/libwarp.so").exists() && !file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
+                println('Need to git clone warp-dart repo as the same level as Uplink...')
+                ant.fail "Dynamic libs could not be found -> Need warp-dart repository at the same level as Uplink!"
+        }
+    }
+    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
+        if (!file("./src/main/jniLibs/arm64-v8a/libwarp.so").exists()) {
+            main.jniLibs.srcDirs = (['../../../warp-dart/android/src/main/jniLibs'])
+        } 
     }
 
     defaultConfig {
