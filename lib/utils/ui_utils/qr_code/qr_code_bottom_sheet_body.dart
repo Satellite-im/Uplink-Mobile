@@ -92,15 +92,15 @@ class _QRCodeBottomSheet extends StatelessWidget {
             duration: _duration,
             height: isHalfPage ? 16 : 12,
           ),
-          const UText(
-            UAppStrings.profileIndexPage_username,
+          UText(
+            currentUser.username,
             textStyle: UTextStyle.H2_secondaryHeader,
           ),
           const SizedBox.square(
             dimension: 2,
           ),
-          const UText(
-            UAppStrings.profileIndexPage_statusMessage,
+          UText(
+            currentUser.statusMessage ?? '',
             textStyle: UTextStyle.B1_body,
           ),
           AnimatedContainer(

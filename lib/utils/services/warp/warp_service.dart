@@ -62,7 +62,7 @@ class Warp {
 
   String getMessageStatus() {
     try {
-      return _warp.multipass!.getOwnIdentity().status_message;
+      return _warp.multipass!.getOwnIdentity().status_message!;
     } catch (error) {
       throw Exception(error);
     }
@@ -138,8 +138,8 @@ class Warp {
 
   Map<String, dynamic> findUserByDid(String _userDid) {
     try {
-      final _userIdentity = _warp.multipass!.getIdentity(
-        multipass.Identifier.fromDIDString('did:key:$_userDid'),
+      final _userIdentity = _warp.multipass!.getIdentityByDID(
+        'did:key:$_userDid',
       );
       final _userMap = {
         'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
