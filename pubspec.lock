@@ -808,7 +808,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "6ef7da918734c49163c8331e4593018e0fa2610f"
+      resolved-ref: d1eef7d7d9a67d18389f0ec23d35099f441a6441
       url: "https://github.com/Satellite-im/warp-dart.git"
     source: git
     version: "0.0.1"
