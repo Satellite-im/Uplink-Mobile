@@ -5,6 +5,11 @@ abstract class UpdateCurrentUserEvent {
   List<Object> get props => [];
 }
 
+class GetDid extends UpdateCurrentUserEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class GetUsername extends UpdateCurrentUserEvent {
   @override
   List<Object> get props => [];

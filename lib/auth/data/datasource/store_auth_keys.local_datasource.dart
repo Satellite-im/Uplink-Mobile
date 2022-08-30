@@ -4,7 +4,10 @@ class StoreAuthKeysData {
   StoreAuthKeysData(this._localStorageService);
   final ULocalStorageService _localStorageService;
 
-  Future<void> savePinValue({required String pinValue}) async {
+  Future<void> savePinValue({
+    required String pinValue,
+    required bool storePin,
+  }) async {
     try {
       await _localStorageService.saveStringValue(
         localKey: ULocalKey.pinValue,
@@ -12,7 +15,7 @@ class StoreAuthKeysData {
       );
       await _localStorageService.saveBoolValue(
         localKey: ULocalKey.isPinStored,
-        value: true,
+        value: storePin,
       );
     } catch (error) {
       throw Exception(error);

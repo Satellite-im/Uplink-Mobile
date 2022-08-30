@@ -3,6 +3,7 @@
 *.lock
 *.log
 *.pyc
+*.so
 *.swp
 .DS_Store
 .atom/

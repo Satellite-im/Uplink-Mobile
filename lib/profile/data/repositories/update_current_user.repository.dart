@@ -1,4 +1,10 @@
+import 'package:uplink/shared/domain/entities/current_user.entity.dart';
+
 abstract class IUpdateCurrentUserRepository {
+  Future<CurrentUser> getCurrentUserInfo();
+
+  String getDid();
+
   String getUsername();
 
   String getMessageStatus();
