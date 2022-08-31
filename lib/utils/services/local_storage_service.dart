@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum ULocalKey { isUserLogged, isPinStored, pinValue }
 
+//TODO(yijing): update with HydratedBloc
 class ULocalStorageService {
   Future<void> saveStringValue({
     required ULocalKey localKey,

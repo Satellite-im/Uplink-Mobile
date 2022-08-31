@@ -11,11 +11,11 @@ part 'warp_state.dart';
 enum MultipassTest { temporary, persistent }
 
 class WarpBloc extends Bloc<WarpEvent, WarpState> {
-  WarpBloc() : super(WarpStateInitial()) {
-    on<EnableWarp>((event, emit) async {
+  WarpBloc() : super(WarpInitial()) {
+    on<WarpStarted>((event, emit) async {
       try {
         if (_tesseract == null || multipass == null) {
-          emit(WarpStateLoading());
+          emit(WarpLoadInProgress());
           await _definePathToTesseractAndMultipass();
           await _checkIfTesseractExists(event.passphrase);
 
@@ -24,21 +24,21 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
             _multipassPath!,
           );
 
-          emit(WarpStateSuccess());
+          emit(WarpLoadSuccess());
         }
       } catch (error) {
-        emit(WarpStateError());
+        emit(WarpLoadFailure());
         addError(error);
       }
     });
 
-    on<DropMultipass>((event, emit) async {
+    on<WarpDropMultipass>((event, emit) async {
       try {
-        emit(WarpStateLoading());
+        emit(WarpLoadInProgress());
         multipass!.drop();
-        emit(WarpStateSuccess());
+        emit(WarpLoadSuccess());
       } catch (error) {
-        emit(WarpStateError());
+        emit(WarpLoadFailure());
         addError(error);
       }
     });

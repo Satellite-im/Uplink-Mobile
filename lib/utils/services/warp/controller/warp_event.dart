@@ -5,22 +5,22 @@ abstract class WarpEvent {
   List<Object> get props => [];
 }
 
-class EnableWarp extends WarpEvent {
-  EnableWarp(this.passphrase);
+class WarpStarted extends WarpEvent {
+  WarpStarted(this.passphrase);
 
   final String passphrase;
   @override
   List<Object> get props => [];
 }
 
-class DropMultipass extends WarpEvent {
-  DropMultipass();
+class WarpDropMultipass extends WarpEvent {
+  WarpDropMultipass();
 
   @override
   List<Object> get props => [];
 }
 
-class GetUserDID extends WarpEvent {
-  @override
-  List<Object> get props => [];
-}
+// class WarpGetUserDID extends WarpEvent {
+//   @override
+//   List<Object> get props => [];
+// }
