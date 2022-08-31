@@ -6,9 +6,9 @@ abstract class WarpEvent {
 }
 
 class WarpStarted extends WarpEvent {
-  WarpStarted(this.passphrase);
+  WarpStarted(this.pin);
 
-  final String passphrase;
+  final String pin;
   @override
   List<Object> get props => [];
 }

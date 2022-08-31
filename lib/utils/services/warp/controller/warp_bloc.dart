@@ -16,8 +16,8 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
       try {
         if (_tesseract == null || multipass == null) {
           emit(WarpLoadInProgress());
-          await _definePathToTesseractAndMultipass();
-          await _checkIfTesseractExists(event.passphrase);
+          await _getPathOfTesseractAndMultipass();
+          await _getTesseract(event.pin);
 
           multipass = warp_mp_ipfs.multipass_ipfs_persistent(
             _tesseract!,
@@ -44,9 +44,8 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
     });
   }
 
-  // Define Tesseract path and file name to save
-  // Define Multipass path to save
-  Future<void> _definePathToTesseractAndMultipass() async {
+  /// Get the file path to save tesseract and multipass
+  Future<void> _getPathOfTesseractAndMultipass() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
     _multipassPath = _directory.path;
     _tesseractPath = '${_directory.path}/tesseract';
@@ -56,25 +55,21 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Unlock Tesseract using pin as passphrase
   // Save a file for Tesseract
   // Set auto save
-  Future<void> _enableTesseract(String passphrase) async {
+  Future<void> _enableTesseract(String pin) async {
     _tesseract!
-      ..unlock(passphrase)
+      ..unlock(pin)
       ..setFile(_tesseractPath!)
       ..setAutosave();
   }
 
-  // It check is there is a tesseract instance in the device
-  // If not, it will create a new one
-  Future<bool> _checkIfTesseractExists(String passphrase) async {
+  /// Get Tesseract from the devive. If not, create a new one
+  Future<void> _getTesseract(String pin) async {
     try {
       _tesseract = warp.Tesseract.fromFile(_tesseractPath!);
-      await _enableTesseract(passphrase);
-      return true;
     } catch (error) {
       _tesseract = warp.Tesseract.newStore();
-      await _enableTesseract(passphrase);
-      return false;
     }
+    await _enableTesseract(pin);
   }
 
   warp.Tesseract? _tesseract;
