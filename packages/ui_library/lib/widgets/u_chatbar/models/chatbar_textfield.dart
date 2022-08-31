@@ -25,35 +25,36 @@ class _ChatBarTextField extends StatelessWidget {
     return Expanded(
       child: Align(
         alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 4.0),
-          child: TextField(
-            scrollPhysics: numberOfLines <= 12 && _isSendMessageState
-                ? const NeverScrollableScrollPhysics(
-                    parent: RangeMaintainingScrollPhysics())
-                : const BouncingScrollPhysics(),
-            textInputAction: TextInputAction.newline,
-            controller: controller,
-            keyboardType: TextInputType.multiline,
-            style: UTextStyle.H5_fifthHeader.style
-                .returnTextStyleType(color: Colors.white),
-            minLines: 1,
-            maxLines: 12,
-            focusNode: _focusNode,
-            cursorColor: UColors.textDark,
-            autocorrect: false,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: ULibraryStrings.uChatBarHintText,
-              hintStyle: UTextStyle.H5_fifthHeader.style.returnTextStyleType(),
-            ),
-            onChanged: (value) {
-              onChanged(value);
-            },
-            onSubmitted: (_) {
-              onSubmitted();
-            },
+        child: TextField(
+          scrollPhysics: numberOfLines <= 12 && _isSendMessageState
+              ? const NeverScrollableScrollPhysics(
+                  parent: RangeMaintainingScrollPhysics())
+              : const BouncingScrollPhysics(),
+          textInputAction: TextInputAction.newline,
+          controller: controller,
+          keyboardType: TextInputType.multiline,
+          style: UTextStyle.B1_body.style.returnTextStyleType(
+            color: Colors.white,
           ),
+          minLines: 1,
+          maxLines: 12,
+          focusNode: _focusNode,
+          cursorColor: UColors.textDark,
+          autocorrect: false,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.fromLTRB(0, 8, 0, 15),
+            hintText: ULibraryStrings.uChatBarHintText,
+            hintStyle: UTextStyle.B1_body.style.returnTextStyleType(
+              color: UColors.textDark,
+            ),
+          ),
+          onChanged: (value) {
+            onChanged(value);
+          },
+          onSubmitted: (_) {
+            onSubmitted();
+          },
         ),
       ),
     );

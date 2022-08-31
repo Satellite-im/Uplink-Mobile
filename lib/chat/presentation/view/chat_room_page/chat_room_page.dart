@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class ChatRoomPage extends StatefulWidget {
@@ -11,11 +12,64 @@ class ChatRoomPage extends StatefulWidget {
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final _textEditingController = TextEditingController();
 
-  final List<String> _textList = [];
+  final List<Widget> _textList = [];
 
   void _addValue(String value) {
     setState(() {
-      _textList.add(value);
+      _textList.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 0, 6),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Center(
+                    child: UUserProfileWithStatus(
+                      userProfileSize: UUserProfileSize.normal,
+                      uImage: UImage(
+                        imagePath: '',
+                        // _controller.currentUser?.profilePicture?.path,
+                        fit: BoxFit.cover,
+                        imageSource: ImageSource.file,
+                      ),
+                      status: Status.online,
+                    ),
+                  ),
+                  const SizedBox.square(
+                    dimension: 12,
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: UColors.foregroundDark,
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: UText(
+                        value,
+                        textStyle: UTextStyle.B1_body,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox.square(
+                dimension: 12,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 52),
+                child: UText(
+                  DateFormatUtils.formatDateForMessageArrived(
+                    DateTime.now(),
+                  ),
+                  textStyle: UTextStyle.M1_micro,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     });
   }
 
@@ -63,7 +117,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    return Text(_textList[index]);
+                    return _textList[index];
                   },
                   itemCount: _textList.length,
                 ),

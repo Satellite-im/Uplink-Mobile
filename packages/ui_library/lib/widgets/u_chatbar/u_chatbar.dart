@@ -114,8 +114,9 @@ class _UChatbarState extends State<UChatbar> {
   void _calculateContainerSize() {
     final textSpan = TextSpan(
       text: widget.textEditingController.text,
-      style: UTextStyle.H5_fifthHeader.style
-          .returnTextStyleType(color: Colors.white),
+      style: UTextStyle.B1_body.style.returnTextStyleType(
+        color: Colors.white,
+      ),
     );
 
     final textPainter = TextPainter(
@@ -125,7 +126,7 @@ class _UChatbarState extends State<UChatbar> {
     );
     final _screenSize = MediaQuery.of(context).size;
     const _textFieldWidthFactor = 173;
-    const _textFieldWidthFactorWithItems = 95;
+    const _textFieldWidthFactorWithItems = 94;
     final _textFieldWidth = _screenSize.width -
         _textFieldWidthFactor -
         (_isSendMessageState ? 0 : _textFieldWidthFactorWithItems);
@@ -135,9 +136,10 @@ class _UChatbarState extends State<UChatbar> {
     numberOfLines = textPainter.computeLineMetrics().length;
 
     if (numberOfLines <= (_screenSize.width > 360 ? 12 : 10)) {
-      if ((numberOfLines - numberOfLinesBefore == 2) ||
-          (numberOfLines == numberOfLinesBefore) ||
-          (numberOfLines - numberOfLinesBefore < 0)) {
+      if (((numberOfLines - numberOfLinesBefore == 2) ||
+              (numberOfLines == numberOfLinesBefore) ||
+              (numberOfLines - numberOfLinesBefore < 0)) &&
+          numberOfLines != 0) {
         _containerSize = 40 + (numberOfLines * 16);
       } else if (widget.textEditingController.text.isEmpty) {
         _containerSize = 56;
