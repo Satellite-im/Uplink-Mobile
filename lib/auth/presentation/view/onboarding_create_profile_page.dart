@@ -181,6 +181,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         Navigator.of(context).pop();
       },
       secondButtonOnPressed: () {
+        // TODO(yijing): add loading page
         _authController
           ..add(
             CreateNewCurrentUser(

@@ -42,7 +42,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.detached) {
-      _warpController.add(DropMultipass());
+      _warpController.add(WarpDropMultipass());
     }
   }
 
@@ -65,6 +65,16 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
+                // home: RepositoryProvider.value(
+                //   value: AuthenticationRepository(),
+                //   child: BlocProvider(
+                //     create: (_) => AppBloc(
+                //       authenticationRepository: _authenticationRepository,
+                //     ),
+                //     child: const AppView(),
+                //   ),
+                // ),
+                /****** */
                 home: BlocBuilder<AuthBloc, AuthState>(
                   bloc: _authController,
                   builder: (context, state) {
@@ -102,11 +112,11 @@ Widget _ifIsSuccess(
       signinDataMap[ULocalKey.isPinStored] == true &&
       signinDataMap[ULocalKey.pinValue] != null) {
     final _pinValue = signinDataMap[ULocalKey.pinValue] as String;
-    _warpController.add(EnableWarp(_pinValue));
+    _warpController.add(WarpStarted(_pinValue));
     return BlocBuilder<WarpBloc, WarpState>(
       bloc: _warpController,
       builder: (context, state) {
-        if (state is WarpStateSuccess) {
+        if (state is WarpLoadSuccess) {
           _currentUserController.add(GetAllUserInfo());
           return const MainBottomNavigationBar();
         }

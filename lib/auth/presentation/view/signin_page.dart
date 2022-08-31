@@ -85,7 +85,7 @@ class _SigninPageState extends State<SigninPage> {
                           pinLength: 4,
                           rightButtonFn: (pin) {
                             if (pin == widget.authController.pinValue) {
-                              _warpController.add(EnableWarp(pin));
+                              _warpController.add(WarpStarted(pin));
                             }
                           },
                         )
