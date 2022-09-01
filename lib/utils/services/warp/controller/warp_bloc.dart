@@ -76,8 +76,6 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   warp_multipass.MultiPass? multipass;
 
-  late warp.DID? currentUserDID;
-
   String? _tesseractPath;
 
   String? _multipassPath;
