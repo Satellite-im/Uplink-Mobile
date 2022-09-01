@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
     this._repository,
   ) : super(AuthInitial()) {
-    on<AuthCreateCurrentUser>((event, emit) async {
+    on<AuthSignUp>((event, emit) async {
       try {
         emit(AuthLoadInProgress());
         final _currentUser = await _repository.createCurrentUser(

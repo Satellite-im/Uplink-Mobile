@@ -16,8 +16,6 @@ class AuthLoadFailure extends AuthState {
   final String message;
 }
 
-// class SaveAuthKeysError extends AuthState {}
-
 class GetAuthKeysLoading extends AuthState {}
 
 class GetAuthKeysSuccess extends AuthState {
@@ -28,5 +26,3 @@ class GetAuthKeysSuccess extends AuthState {
   @override
   List<Object> get props => [authKeysMap];
 }
-
-// class GetAuthKeysError extends AuthState {}

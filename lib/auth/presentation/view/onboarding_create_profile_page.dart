@@ -184,7 +184,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         // TODO(yijing): add loading page
         _authController
           ..add(
-            AuthCreateCurrentUser(
+            AuthSignUp(
               currentUser: CurrentUser.newUser(
                 username: _usernameTextFieldController.text,
                 statusMessage: _messageStatusTextFieldController.text,

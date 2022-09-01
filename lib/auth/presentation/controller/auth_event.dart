@@ -7,9 +7,9 @@ abstract class AuthEvent {
 
 class AuthStarted extends AuthEvent {}
 
-class AuthCreateCurrentUser extends AuthEvent {
+class AuthSignUp extends AuthEvent {
   // TODO(password): For now the password is empty because it is not working
-  AuthCreateCurrentUser({
+  AuthSignUp({
     required this.currentUser,
   }) : password = '';
   final CurrentUser currentUser;
