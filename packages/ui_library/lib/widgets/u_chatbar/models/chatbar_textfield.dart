@@ -43,7 +43,7 @@ class _ChatBarTextField extends StatelessWidget {
           autocorrect: false,
           decoration: InputDecoration(
             border: InputBorder.none,
-            contentPadding: const EdgeInsets.fromLTRB(0, 8, 0, 15),
+            contentPadding: const EdgeInsets.fromLTRB(0, 8, 0, 14),
             hintText: ULibraryStrings.uChatBarHintText,
             hintStyle: UTextStyle.B1_body.style.returnTextStyleType(
               color: UColors.textDark,

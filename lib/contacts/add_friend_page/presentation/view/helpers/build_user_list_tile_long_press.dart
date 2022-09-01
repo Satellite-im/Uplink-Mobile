@@ -30,7 +30,9 @@ void buildUserListTileLongPress(BuildContext context, User user) {
 
         Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute<void>(
-            builder: (context) => const ChatRoomPage(),
+            builder: (context) => ChatRoomPage(
+              user: user,
+            ),
           ),
         );
       },

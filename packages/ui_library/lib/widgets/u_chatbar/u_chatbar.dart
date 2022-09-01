@@ -67,7 +67,7 @@ class _UChatbarState extends State<UChatbar> {
   double _containerSize = 56;
 
   final _duration = const Duration(
-    milliseconds: 200,
+    milliseconds: 100,
   );
 
   @override
