@@ -184,7 +184,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         // TODO(yijing): add loading page
         _authController
           ..add(
-            CreateNewCurrentUser(
+            AuthCreateCurrentUser(
               currentUser: CurrentUser.newUser(
                 username: _usernameTextFieldController.text,
                 statusMessage: _messageStatusTextFieldController.text,
@@ -193,7 +193,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
             ),
           )
           ..add(
-            SaveAuthKeys(),
+            AuthSetPinData(),
           );
 
         Navigator.of(context).push(

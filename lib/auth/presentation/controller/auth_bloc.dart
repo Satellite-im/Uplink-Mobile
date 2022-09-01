@@ -15,9 +15,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
     this._repository,
   ) : super(AuthInitial()) {
-    on<CreateNewCurrentUser>((event, emit) async {
+    on<AuthCreateCurrentUser>((event, emit) async {
       try {
-        emit(AuthLoading());
+        emit(AuthLoadInProgress());
         final _currentUser = await _repository.createCurrentUser(
           newUser: event.currentUser,
           password: event.password,
@@ -26,13 +26,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           GetAllUserInfo(currentUser: _currentUser),
         );
 
-        emit(AuthSuccess());
+        emit(AuthLoadSuccess());
       } catch (error) {
-        emit(AuthError());
+        emit(AuthLoadFailure(message: 'Failed to create current user'));
       }
     });
 
-    on<SaveAuthKeys>((event, emit) async {
+    on<AuthSetPinData>((event, emit) async {
       try {
         await _repository.savePinValue(
           pinValue: pinValue!,
@@ -41,11 +41,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         await _repository.saveUserIsLoggedValue();
       } catch (error) {
-        emit(SaveAuthKeysError());
+        emit(AuthLoadFailure(message: 'Failed to set local pin data'));
       }
     });
 
-    on<GetAuthKeys>((event, emit) async {
+    on<AuthGetPinData>((event, emit) async {
       try {
         emit(GetAuthKeysLoading());
 
@@ -67,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(GetAuthKeysSuccess(_authKeysMap));
       } catch (error) {
-        emit(GetAuthKeysError());
+        emit(AuthLoadFailure(message: 'Failed to get local pin data'));
       }
     });
   }
