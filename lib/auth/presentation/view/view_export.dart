@@ -1,3 +1,4 @@
+export 'linking_satellites_page.dart';
 export 'onboard_create_account_page.dart';
 export 'onboard_import_account_page/onboard_import_account_page.dart';
 export 'onboard_pin_page.dart';
