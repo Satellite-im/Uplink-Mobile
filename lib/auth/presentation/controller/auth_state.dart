@@ -7,13 +7,16 @@ abstract class AuthState {
 
 class AuthInitial extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class AuthLoadInProgress extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class AuthLoadSuccess extends AuthState {}
 
-class AuthError extends AuthState {}
+class AuthLoadFailure extends AuthState {
+  AuthLoadFailure({required this.message});
+  final String message;
+}
 
-class SaveAuthKeysError extends AuthState {}
+// class SaveAuthKeysError extends AuthState {}
 
 class GetAuthKeysLoading extends AuthState {}
 
@@ -26,4 +29,4 @@ class GetAuthKeysSuccess extends AuthState {
   List<Object> get props => [authKeysMap];
 }
 
-class GetAuthKeysError extends AuthState {}
+// class GetAuthKeysError extends AuthState {}

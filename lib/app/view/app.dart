@@ -28,7 +28,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _authController.add(GetAuthKeys());
+    _authController.add(AuthGetPinData());
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -85,7 +85,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                         _currentUserController,
                         _authController,
                       );
-                    } else if (state is GetAuthKeysError) {
+                    } else if (state is AuthLoadFailure) {
                       return const UText(
                         'Unexpected Error Happened',
                         textStyle: UTextStyle.H2_secondaryHeader,
