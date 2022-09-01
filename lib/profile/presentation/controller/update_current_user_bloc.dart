@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
+import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
 part 'update_current_user_event.dart';
@@ -204,5 +204,5 @@ class UpdateCurrentUserBloc
   }
   CurrentUser? currentUser = const CurrentUser.newUser(username: '');
 
-  final IUpdateCurrentUserRepository _updateCurrentUserRepository;
+  final IUserProfileRepository _updateCurrentUserRepository;
 }

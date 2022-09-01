@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:uplink/app/app.dart';
-import 'package:uplink/auth/data/datasource/create_current_user.remote_datasource.dart';
-import 'package:uplink/auth/data/datasource/store_auth_keys.local_datasource.dart';
+import 'package:uplink/auth/data/datasource/auth_local_data.local_datasource.dart';
+import 'package:uplink/auth/data/datasource/warp_current_user_data.remote_datasource.dart';
 import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/auth/data/repositories/authentication_impl.repository.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
@@ -10,9 +10,9 @@ import 'package:uplink/contacts/add_friend_page/data/datasource/add_friend.remot
 import 'package:uplink/contacts/add_friend_page/data/repositories/add_friend_impl.repository.dart';
 import 'package:uplink/contacts/add_friend_page/data/repositories/add_friend_repository.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/add_friend_bloc.dart';
-import 'package:uplink/profile/data/datasource/update_current_user.remote_datasource.dart';
-import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
-import 'package:uplink/profile/data/repositories/update_current_user_impl.repository.dart';
+import 'package:uplink/profile/data/datasource/user_profile_data.remote_datasource.dart';
+import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
+import 'package:uplink/profile/data/repositories/user_profile_impl.repository.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/services/services_export.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
@@ -47,7 +47,7 @@ void _registerDependencieAddFriend(GetIt _getIt) {
     )
     ..registerLazySingleton<AddFriendData>(
       () => AddFriendData(
-        Warp(),
+        WarpService(),
       ),
     )
     ..registerLazySingleton<AddFriendBloc>(
@@ -65,13 +65,13 @@ void _registerDependenciesToAuth(GetIt _getIt) {
         _getIt(),
       ),
     )
-    ..registerLazySingleton<CreateCurrentUserData>(
-      () => CreateCurrentUserData(
-        Warp(),
+    ..registerLazySingleton<WarpCurrentUserData>(
+      () => WarpCurrentUserData(
+        WarpService(),
       ),
     )
-    ..registerLazySingleton<StoreAuthKeysData>(
-      () => StoreAuthKeysData(
+    ..registerLazySingleton<AuthLocalData>(
+      () => AuthLocalData(
         ULocalStorageService(),
       ),
     )
@@ -84,14 +84,14 @@ void _registerDependenciesToAuth(GetIt _getIt) {
 
 void _registerDependencieToUpdateCurrentUser(GetIt _getIt) {
   _getIt
-    ..registerLazySingleton<IUpdateCurrentUserRepository>(
-      () => UpdateCurrentUserRepositoryImpl(
+    ..registerLazySingleton<IUserProfileRepository>(
+      () => UserProfileRepositoryImpl(
         _getIt(),
       ),
     )
-    ..registerLazySingleton<UpdateCurrentUserData>(
-      () => UpdateCurrentUserData(
-        Warp(),
+    ..registerLazySingleton<UserProfileData>(
+      () => UserProfileData(
+        WarpService(),
       ),
     )
     ..registerLazySingleton<UpdateCurrentUserBloc>(
