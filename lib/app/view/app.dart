@@ -65,21 +65,11 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                // home: RepositoryProvider.value(
-                //   value: AuthenticationRepository(),
-                //   child: BlocProvider(
-                //     create: (_) => AppBloc(
-                //       authenticationRepository: _authenticationRepository,
-                //     ),
-                //     child: const AppView(),
-                //   ),
-                // ),
-                /****** */
                 home: BlocBuilder<AuthBloc, AuthState>(
                   bloc: _authController,
                   builder: (context, state) {
                     if (state is GetAuthKeysSuccess) {
-                      return _ifIsSuccess(
+                      return _buildEntryPage(
                         state,
                         _warpController,
                         _currentUserController,
@@ -101,7 +91,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   }
 }
 
-Widget _ifIsSuccess(
+Widget _buildEntryPage(
   GetAuthKeysSuccess state,
   WarpBloc _warpController,
   UpdateCurrentUserBloc _currentUserController,
