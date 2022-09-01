@@ -8,6 +8,8 @@ import 'package:warp_dart/warp.dart';
 class WarpService {
   final _warpBloc = GetIt.I.get<WarpBloc>();
 
+  late DID? currentUserDID;
+
   Future<String> createUser({
     required String username,
     required String messageStatus,
@@ -15,11 +17,11 @@ class WarpService {
     required String base64Image,
   }) async {
     try {
-      _warpBloc.currentUserDID =
+      currentUserDID =
           _warpBloc.multipass?.createIdentity(username.trim(), password);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
-      return _warpBloc.currentUserDID.toString().replaceAll('did:key:', '');
+      return currentUserDID.toString().replaceAll('did:key:', '');
     } catch (error) {
       throw Exception(error);
     }
