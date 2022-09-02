@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:warp_dart/mp_ipfs.dart' as warp_mp_ipfs;

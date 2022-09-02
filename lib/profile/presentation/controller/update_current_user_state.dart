@@ -1,7 +1,8 @@
 part of 'update_current_user_bloc.dart';
 
 @immutable
-abstract class UpdateCurrentUserState {
+abstract class UpdateCurrentUserState extends Equatable {
+  @override
   List<Object> get props => [];
 }
 
