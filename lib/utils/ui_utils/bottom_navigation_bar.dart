@@ -44,7 +44,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   @override
   void initState() {
     super.initState();
-    // TODO（yijing)：add loading page for this call
+    // TODO(yijing): add loading page for this call
     _controller.add(GetAllUserInfo());
   }
 
