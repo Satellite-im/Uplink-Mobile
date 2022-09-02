@@ -98,8 +98,7 @@ class _SigninPageState extends State<SigninPage> {
                           child: const SizedBox.shrink(),
                         ),
                   listener: (context, state) {
-                    if (_warpController.multipass != null) {
-                      _updateCurrentUserController.add(GetAllUserInfo());
+                    if (state is WarpLoadSuccess) {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute<void>(
                           builder: (context) => const MainBottomNavigationBar(),

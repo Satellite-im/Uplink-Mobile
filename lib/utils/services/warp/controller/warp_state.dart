@@ -3,12 +3,24 @@
 part of 'warp_bloc.dart';
 
 @immutable
-abstract class WarpState {}
+abstract class WarpState extends Equatable {}
 
-class WarpInitial extends WarpState {}
+class WarpInitial extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
 
-class WarpLoadInProgress extends WarpState {}
+class WarpLoadInProgress extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
 
-class WarpLoadSuccess extends WarpState {}
+class WarpLoadSuccess extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
 
-class WarpLoadFailure extends WarpState {}
+class WarpLoadFailure extends WarpState {
+  @override
+  List<Object?> get props => [];
+}

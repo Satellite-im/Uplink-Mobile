@@ -42,6 +42,13 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
 
   @override
+  void initState() {
+    super.initState();
+    // TODO（yijing)：add loading page for this call
+    _controller.add(GetAllUserInfo());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {

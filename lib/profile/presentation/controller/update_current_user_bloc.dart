@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
