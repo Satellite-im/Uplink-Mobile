@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
@@ -24,7 +23,6 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage> {
   final _warpController = GetIt.I.get<WarpBloc>();
-  final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
