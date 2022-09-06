@@ -25,6 +25,11 @@ class _AppState extends State<App> {
   final _authController = GetIt.I.get<AuthBloc>();
   final _warpController = GetIt.I.get<WarpBloc>();
   final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  @override
+  void initState() {
+    super.initState();
+    _authController.add(AuthGetPinData());
+  }
 
   @override
   void initState() {
@@ -63,12 +68,16 @@ class _AppState extends State<App> {
                         _authController,
                       );
                     } else if (state is AuthLoadFailure) {
-                      return const UText(
-                        'Unexpected Error Happened',
-                        textStyle: UTextStyle.H2_secondaryHeader,
+                      return const ScaffoldCenterPage(
+                        child: UText(
+                          'AuthLoadFailure in AuthBloc',
+                          textStyle: UTextStyle.H2_secondaryHeader,
+                        ),
                       );
                     } else {
-                      return const ULoadingIndicator();
+                      return const ScaffoldCenterPage(
+                        child: ULoadingIndicator(),
+                      );
                     }
                   },
                 ),
