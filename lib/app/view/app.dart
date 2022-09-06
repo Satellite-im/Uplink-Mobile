@@ -21,7 +21,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> with WidgetsBindingObserver {
+class _AppState extends State<App> {
   final _authController = GetIt.I.get<AuthBloc>();
   final _warpController = GetIt.I.get<WarpBloc>();
   final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
@@ -29,14 +29,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     _authController.add(AuthGetPinData());
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
+    super.initState();
   }
 
   @override
