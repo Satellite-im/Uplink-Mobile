@@ -93,11 +93,11 @@ Widget _buildEntryPage(
   UpdateCurrentUserBloc _currentUserController,
   AuthBloc _authController,
 ) {
-  final signinDataMap = state.authKeysMap;
-  if (signinDataMap[ULocalKey.isUserLogged] == true &&
-      signinDataMap[ULocalKey.isPinStored] == true &&
-      signinDataMap[ULocalKey.pinValue] != null) {
-    final _pinValue = signinDataMap[ULocalKey.pinValue] as String;
+  final authKeysMap = state.authKeysMap;
+  if (authKeysMap[ULocalKey.isUserLogged] == true &&
+      authKeysMap[ULocalKey.isPinStored] == true &&
+      authKeysMap[ULocalKey.pinValue] != null) {
+    final _pinValue = authKeysMap[ULocalKey.pinValue] as String;
     _warpController.add(WarpStarted(_pinValue));
     return BlocBuilder<WarpBloc, WarpState>(
       bloc: _warpController,
@@ -116,10 +116,10 @@ Widget _buildEntryPage(
         );
       },
     );
-  } else if (signinDataMap[ULocalKey.isUserLogged] == true &&
-      signinDataMap[ULocalKey.isPinStored] != true &&
-      signinDataMap[ULocalKey.pinValue] != null) {
-    _authController.pinValue = signinDataMap[ULocalKey.pinValue] as String;
+  } else if (authKeysMap[ULocalKey.isUserLogged] == true &&
+      authKeysMap[ULocalKey.isPinStored] != true &&
+      authKeysMap[ULocalKey.pinValue] != null) {
+    _authController.pinValue = authKeysMap[ULocalKey.pinValue] as String;
     return SigninPage(
       authController: _authController,
     );
