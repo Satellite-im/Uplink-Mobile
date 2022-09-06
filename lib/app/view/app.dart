@@ -8,7 +8,7 @@ import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/l10n.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
@@ -29,13 +29,6 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _authController.add(AuthGetPinData());
-  }
-
-  @override
-  void initState() {
-    _authController.add(AuthGetPinData());
-
-    super.initState();
   }
 
   @override

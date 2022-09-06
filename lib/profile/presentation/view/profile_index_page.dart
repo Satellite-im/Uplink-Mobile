@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
 
 part 'models/body.part.dart';

@@ -5,7 +5,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/profile/profile_export.dart';
 
 class MainBottomNavigationBar extends StatefulWidget {
