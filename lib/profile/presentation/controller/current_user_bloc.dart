@@ -8,69 +8,68 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
-part 'update_current_user_event.dart';
-part 'update_current_user_state.dart';
+part 'current_user_event.dart';
+part 'current_user_state.dart';
 
-class UpdateCurrentUserBloc
-    extends Bloc<UpdateCurrentUserEvent, UpdateCurrentUserState> {
-  UpdateCurrentUserBloc(this._updateCurrentUserRepository)
-      : super(UpdateCurrentUserStateInitial()) {
-    on<GetAllUserInfo>((event, emit) async {
+class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
+  CurrentUserBloc(this._updateCurrentUserRepository)
+      : super(CurrentUserInitial()) {
+    on<GetCurrentUserInfo>((event, emit) async {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         if (event.currentUser == null) {
           currentUser = await _updateCurrentUserRepository.getCurrentUserInfo();
         } else {
           currentUser = event.currentUser;
         }
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<GetDid>((event, emit) {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         final _did = _updateCurrentUserRepository.getDid();
         currentUser = currentUser!.copywith(did: _did);
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<GetUsername>((event, emit) {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         final _username = _updateCurrentUserRepository.getUsername();
         currentUser = currentUser!.copywith(username: _username);
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<GetMessageStatus>((event, emit) {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         final _messageStatus = _updateCurrentUserRepository.getMessageStatus();
         currentUser = currentUser!.copywith(statusMessage: _messageStatus);
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<GetProfilePicture>((event, emit) async {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         File? _imageFile;
         final _base64Image = _updateCurrentUserRepository.getProfilePicture();
         if (_base64Image.isEmpty) {
@@ -88,16 +87,16 @@ class UpdateCurrentUserBloc
           profilePicture: (_imageFile.path.isEmpty) ? null : _imageFile,
         );
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<GetBannerPicture>((event, emit) async {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         File? _imageFile;
 
         final _base64Image = _updateCurrentUserRepository.getBannerPicture();
@@ -116,16 +115,16 @@ class UpdateCurrentUserBloc
           bannerPicture: (_imageFile.path.isEmpty) ? null : _imageFile,
         );
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<UpdateProfilePicture>((event, emit) async {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
 
         if (event.profilePicture.path.isEmpty) {
           _updateCurrentUserRepository.modifyProfilePicture('');
@@ -139,16 +138,16 @@ class UpdateCurrentUserBloc
               event.profilePicture.path.isEmpty ? null : event.profilePicture,
         );
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error, StackTrace.current);
       }
     });
 
     on<UpdateBannerPicture>((event, emit) async {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
 
         if (event.bannerPicture.path.isEmpty) {
           _updateCurrentUserRepository.modifyBannerPicture('');
@@ -163,32 +162,32 @@ class UpdateCurrentUserBloc
               event.bannerPicture.path.isEmpty ? null : event.bannerPicture,
         );
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error, StackTrace.current);
       }
     });
 
     on<UpdateUsername>((event, emit) {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         _updateCurrentUserRepository.modifyUsername(
           event.newUsername,
         );
 
         currentUser = currentUser!.copywith(username: event.newUsername);
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });
 
     on<UpdateMessageStatus>((event, emit) {
       try {
-        emit(UpdateCurrentUserStateLoading());
+        emit(CurrentUserLoadInProgress());
         _updateCurrentUserRepository.modifyMessageStatus(
           event.newMessageStatus,
         );
@@ -196,9 +195,9 @@ class UpdateCurrentUserBloc
           statusMessage: event.newMessageStatus,
         );
 
-        emit(UpdateCurrentUserStateSuccess(currentUser!));
+        emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(UpdateCurrentUserStateError());
+        emit(CurrentUserLoadFailure());
         addError(error);
       }
     });

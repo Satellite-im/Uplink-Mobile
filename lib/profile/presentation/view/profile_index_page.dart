@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final statusMessageTextFieldController = TextEditingController();
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
-  final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _controller = GetIt.I.get<CurrentUserBloc>();
 
   final scrollController = ScrollController();
 
@@ -120,7 +121,9 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           UIcons.hamburger_menu,
                           color: UColors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          log('logout button');
+                        },
                       ),
                     ] else ...[
                       IconButton(
@@ -195,11 +198,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       ),
                     ]
                   ],
-                  flexibleSpace: BlocBuilder<UpdateCurrentUserBloc,
-                      UpdateCurrentUserState>(
+                  flexibleSpace: BlocBuilder<CurrentUserBloc, CurrentUserState>(
                     bloc: _controller,
                     builder: (context, state) {
-                      if (state is UpdateCurrentUserStateSuccess &&
+                      if (state is CurrentUserLoadSuccess &&
                           _controller.currentUser?.bannerPicture != null) {
                         return SizedBox(
                           height: 164,
@@ -246,11 +248,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                 ),
                               )
                             : null,
-                        child: BlocBuilder<UpdateCurrentUserBloc,
-                            UpdateCurrentUserState>(
+                        child: BlocBuilder<CurrentUserBloc, CurrentUserState>(
                           bloc: _controller,
                           builder: (context, state) {
-                            if (state is UpdateCurrentUserStateSuccess &&
+                            if (state is CurrentUserLoadSuccess &&
                                 _controller.currentUser?.profilePicture !=
                                     null) {
                               return UUserPictureChange(

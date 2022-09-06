@@ -6,7 +6,7 @@ class _ProfileData extends StatelessWidget {
     required this.controller,
   }) : super(key: key);
 
-  final UpdateCurrentUserBloc controller;
+  final CurrentUserBloc controller;
 
   @override
   Widget build(BuildContext context) {

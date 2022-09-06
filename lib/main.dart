@@ -94,8 +94,8 @@ void _registerDependencieToUpdateCurrentUser(GetIt _getIt) {
         WarpMultipass(),
       ),
     )
-    ..registerLazySingleton<UpdateCurrentUserBloc>(
-      () => UpdateCurrentUserBloc(
+    ..registerLazySingleton<CurrentUserBloc>(
+      () => CurrentUserBloc(
         _getIt(),
       ),
     );
