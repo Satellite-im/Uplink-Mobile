@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:uplink/auth/data/repositories/authentication.repository.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/services_export.dart';
 

@@ -1,4 +1,4 @@
-part of 'update_current_user_bloc.dart';
+part of 'current_user_bloc.dart';
 
 @immutable
 abstract class CurrentUserEvent {
