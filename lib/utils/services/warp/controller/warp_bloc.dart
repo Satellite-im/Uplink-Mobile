@@ -3,6 +3,8 @@ import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:warp_dart/mp_ipfs.dart' as warp_mp_ipfs;
 import 'package:warp_dart/multipass.dart' as warp_multipass;
+import 'package:warp_dart/raygun.dart' as warp_raygun;
+import 'package:warp_dart/rg_ipfs.dart' as rg_ipfs;
 import 'package:warp_dart/warp.dart' as warp;
 
 part 'warp_event.dart';
@@ -21,7 +23,12 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
           multipass = warp_mp_ipfs.multipass_ipfs_persistent(
             _tesseract!,
-            _multipassPath!,
+            _directoryPath!,
+          );
+
+          raygun = rg_ipfs.raygun_ipfs_persistent(
+            multipass!,
+            _directoryPath!,
           );
 
           emit(WarpStateSuccess());
@@ -48,7 +55,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Define Multipass path to save
   Future<void> _definePathToTesseractAndMultipass() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
-    _multipassPath = _directory.path;
+    _directoryPath = _directory.path;
     _tesseractPath = '${_directory.path}/tesseract';
   }
 
@@ -81,9 +88,11 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   warp_multipass.MultiPass? multipass;
 
+  warp_raygun.Raygun? raygun;
+
   late warp.DID? currentUserDID;
 
   String? _tesseractPath;
 
-  String? _multipassPath;
+  String? _directoryPath;
 }

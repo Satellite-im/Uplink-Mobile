@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/core/utils/date_format.dart';
@@ -8,8 +10,7 @@ import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_raygun.dart';
 
-part 'models/message_received.dart';
-part 'models/message_sent.dart';
+part 'models/u_chat_message.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({
@@ -26,80 +27,124 @@ class ChatRoomPage extends StatefulWidget {
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final _textEditingController = TextEditingController();
   final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _scrollController = ScrollController();
   final _warpRaygun = WarpRaygun();
+  String? _lastMessageReceived;
 
-  @override
-  void initState() {
-    _warpRaygun
-      ..enableRayGun()
-      ..createConversation(widget.user.did!);
-
-    // final _receivedMessagesList = _warpRaygun.receiveMessage();
-
-    // for (final element in _receivedMessagesList) {
-    //   _receivedMessageList.add(
-    //     MessageReceived(
-    //       messageReceived: Message(
-    //         message: element,
-    //         messageSentTime: DateTime.now(),
-    //       ),
-    //       showCompleteMessage: false,
-    //       // hideProfilePicture: false,
-    //       user: widget.user,
-    //     ),
-    //   );
-    // }
-    super.initState();
-  }
-
-  final List<MessageReceived> _receivedMessageList = [];
+  final List<UChatMessage> _messageList = [];
 
   void _addValue(String value) {
     setState(() {
-      // bool _hideProfilePicture = false;
-      if (_receivedMessageList.isNotEmpty &&
-          _receivedMessageList.last.key
-              .toString()
-              .contains('message_received')) {
-        // _hideProfilePicture = true;
-        final _lastMessage = _receivedMessageList.last.messageReceived;
-        _receivedMessageList
-          ..removeLast()
-          ..add(
-            MessageReceived(
-              key: Key('message_received_${_lastMessage.messageSentTime}'),
-              messageReceived: _lastMessage,
+      var _hideProfilePicture = false;
+
+      if (_messageList.isNotEmpty &&
+          _messageList.first.key.toString().contains('message_received')) {
+        _hideProfilePicture = true;
+        final _lastMessage = _messageList.first;
+        _messageList
+          ..removeAt(0)
+          ..insert(
+            0,
+            UChatMessage(
+              key: Key(
+                'message_received_${_lastMessage.chatMessage.messageSentTime}',
+              ),
+              chatMessage: _lastMessage.chatMessage,
               showCompleteMessage: false,
-              // hideProfilePicture: false,
+              hideProfilePicture: _lastMessage.hideProfilePicture,
+              currentUser: _currentUserController.currentUser!,
               user: widget.user,
             ),
           );
       }
-      _receivedMessageList.add(
-        MessageReceived(
+      _messageList.insert(
+        0,
+        UChatMessage(
           key: Key('message_received_${DateTime.now()}'),
-          messageReceived: Message(
+          chatMessage: ChatMessage(
             message: value,
             messageSentTime: DateTime.now(),
+            chatMessageType: ChatMessageType.received,
           ),
-          // hideProfilePicture: false,
+          hideProfilePicture: _hideProfilePicture,
+          currentUser: _currentUserController.currentUser!,
           user: widget.user,
         ),
       );
+      _scrollController.jumpTo(0);
     });
   }
 
   void _sendMessage(String value) {
     setState(() {
+      var _hideProfilePicture = false;
       _warpRaygun.sendMessage(value);
+      if (_messageList.isNotEmpty &&
+          _messageList.first.key.toString().contains('message_sent')) {
+        _hideProfilePicture = true;
+        final _lastMessage = _messageList.first;
+        _messageList
+          ..removeAt(0)
+          ..insert(
+            0,
+            UChatMessage(
+              key: Key(
+                'message_sent_${_lastMessage.chatMessage.messageSentTime}',
+              ),
+              chatMessage: _lastMessage.chatMessage,
+              showCompleteMessage: false,
+              hideProfilePicture: _lastMessage.hideProfilePicture,
+              currentUser: _currentUserController.currentUser!,
+              user: widget.user,
+            ),
+          );
+      }
+      _messageList.insert(
+        0,
+        UChatMessage(
+          key: Key('message_sent_${DateTime.now()}'),
+          currentUser: _currentUserController.currentUser!,
+          user: widget.user,
+          hideProfilePicture: _hideProfilePicture,
+          chatMessage: ChatMessage(
+            message: value,
+            messageSentTime: DateTime.now(),
+            chatMessageType: ChatMessageType.sent,
+          ),
+        ),
+      );
+      _scrollController.jumpTo(0);
     });
+  }
+
+  @override
+  void initState() {
+    _warpRaygun.createConversation(widget.user.did!);
+    Timer.periodic(const Duration(milliseconds: 300), (timer) {
+      final message = _warpRaygun.receiveMessage().last;
+      if (_lastMessageReceived != message) {
+        _lastMessageReceived = message;
+        _addValue(message);
+      }
+    });
+    setState(() {
+      final _warpChatMessages = _warpRaygun.getAllMessagesForOneConversation(
+        _currentUserController.currentUser!,
+        widget.user,
+      );
+      for (final element in _warpChatMessages) {
+        _messageList.add(element);
+      }
+    });
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.actions(
-        title: 'username',
+        title: widget.user.username,
         actionList: [
           IconButton(
             icon: const UIcon(
@@ -136,32 +181,31 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           child: Column(
             children: [
               Expanded(
-                child: StreamBuilder<Object>(
-                    stream: null,
-                    builder: (context, snapshot) {
-                      return ListView.builder(
-                        itemBuilder: (context, index) {
-                          return _receivedMessageList[index];
-                        },
-                        itemCount: _receivedMessageList.length,
-                      );
-                    }),
+                child: ListView.builder(
+                  controller: _scrollController,
+                  shrinkWrap: true,
+                  reverse: true,
+                  itemBuilder: (context, index) {
+                    return _messageList[index];
+                  },
+                  itemCount: _messageList.length,
+                ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: UChatbar(
                   textEditingController: _textEditingController,
-                  onMsg: _sendMessage,
+                  onMsg: (value) {
+                    _sendMessage(value.trim());
+                  },
                   onImage: () {
                     _addValue('image');
                   },
                   onSticker: () {
+                    _warpRaygun.createConversation(widget.user.did!);
                     _addValue('sticker');
                   },
-                  onEmoji: () {
-                    _warpRaygun.receiveMessage();
-                    _addValue('emoji');
-                  },
+                  onEmoji: () {},
                   onGif: () {
                     _addValue('gif');
                   },
