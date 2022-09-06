@@ -39,13 +39,13 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     });
   }
 
-  final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _controller = GetIt.I.get<CurrentUserBloc>();
 
   @override
   void initState() {
     super.initState();
     // TODO(yijing): add loading page for this call
-    _controller.add(GetAllUserInfo());
+    _controller.add(GetCurrentUserInfo());
   }
 
   @override
@@ -91,10 +91,10 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: BlocBuilder<UpdateCurrentUserBloc, UpdateCurrentUserState>(
+              icon: BlocBuilder<CurrentUserBloc, CurrentUserState>(
                 bloc: _controller,
                 builder: (context, state) {
-                  if (state is UpdateCurrentUserStateSuccess &&
+                  if (state is CurrentUserLoadSuccess &&
                       _controller.currentUser?.profilePicture != null) {
                     return _currentIndex == 3
                         ? Container(

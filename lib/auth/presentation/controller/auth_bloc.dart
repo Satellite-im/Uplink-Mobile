@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password,
         );
         _updateCurrentUserController.add(
-          GetAllUserInfo(currentUser: _currentUser),
+          GetCurrentUserInfo(currentUser: _currentUser),
         );
 
         emit(AuthLoadSuccess());
@@ -75,6 +75,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   String? pinValue;
   bool storePin = false;
 
-  final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _updateCurrentUserController = GetIt.I.get<CurrentUserBloc>();
   final IAuthenticationRepository _repository;
 }

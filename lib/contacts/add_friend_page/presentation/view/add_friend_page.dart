@@ -61,7 +61,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AddFriendAppBar(
-        currentUser: GetIt.I.get<UpdateCurrentUserBloc>().currentUser!,
+        currentUser: GetIt.I.get<CurrentUserBloc>().currentUser!,
       ),
       body: SingleChildScrollView(
         child: Column(

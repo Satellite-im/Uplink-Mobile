@@ -23,7 +23,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
   late AnimationController? _animationController;
   late Animation<double> _animation;
   Timer _timerForOverlay = Timer(Duration.zero, () {});
-  final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 
   @override
   void initState() {
