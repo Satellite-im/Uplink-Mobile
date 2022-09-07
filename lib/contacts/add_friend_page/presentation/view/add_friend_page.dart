@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/presentation/controller/add_friend_bloc.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
@@ -25,7 +25,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
   //In search mode, no user is found
   late TextEditingController _textController;
   String oldIdToSearch = '';
-  final _addFriendController = GetIt.I.get<AddFriendBloc>();
+  final _friendController = GetIt.I.get<FriendBloc>();
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
           _disableSearchButton = true;
         }
         if (_textController.text != oldIdToSearch) {
-          _addFriendController.user = null;
+          _friendController.user = null;
         }
       });
     });
@@ -53,7 +53,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
   void dispose() {
     _textController.dispose();
 
-    _addFriendController.user = null;
+    _friendController.user = null;
     super.dispose();
   }
 
@@ -134,10 +134,10 @@ class _AddFriendPageState extends State<AddFriendPage> {
                       );
                     },
                   ),
-                  BlocBuilder<AddFriendBloc, AddFriendState>(
-                    bloc: _addFriendController,
+                  BlocBuilder<FriendBloc, FriendState>(
+                    bloc: _friendController,
                     builder: (context, state) {
-                      if (state is AddFriendError &&
+                      if (state is FriendLoadFailure &&
                           oldIdToSearch == _textController.text &&
                           _textController.text.length == 48) {
                         return Column(
@@ -157,10 +157,10 @@ class _AddFriendPageState extends State<AddFriendPage> {
                       return const SizedBox.shrink();
                     },
                   ),
-                  BlocBuilder<AddFriendBloc, AddFriendState>(
-                    bloc: _addFriendController,
+                  BlocBuilder<FriendBloc, FriendState>(
+                    bloc: _friendController,
                     builder: (context, state) {
-                      if (_addFriendController.user == null) {
+                      if (_friendController.user == null) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -173,8 +173,10 @@ class _AddFriendPageState extends State<AddFriendPage> {
                               uIconData: UIcons.search,
                               onPressed: () {
                                 oldIdToSearch = _textController.text;
-                                _addFriendController.add(
-                                  SearchUser(userDid: _textController.text),
+                                _friendController.add(
+                                  SearchUserStarted(
+                                    userDid: _textController.text,
+                                  ),
                                 );
                               },
                             ),
@@ -187,13 +189,13 @@ class _AddFriendPageState extends State<AddFriendPage> {
                 ],
               ),
             ),
-            BlocBuilder<AddFriendBloc, AddFriendState>(
-              bloc: _addFriendController,
+            BlocBuilder<FriendBloc, FriendState>(
+              bloc: _friendController,
               builder: (context, state) {
-                if (state is AddFriendSuccess &&
-                    _addFriendController.user != null) {
+                if (state is FriendLoadSuccess &&
+                    _friendController.user != null) {
                   return FoundUserBody(
-                    user: _addFriendController.user!,
+                    user: _friendController.user!,
                   );
                 } else {
                   return const SizedBox.shrink();

@@ -6,10 +6,10 @@ import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/auth/data/repositories/authentication_impl.repository.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/bootstrap.dart';
-import 'package:uplink/contacts/add_friend_page/data/datasource/add_friend.remote_datasource.dart';
-import 'package:uplink/contacts/add_friend_page/data/repositories/add_friend_impl.repository.dart';
-import 'package:uplink/contacts/add_friend_page/data/repositories/add_friend_repository.dart';
-import 'package:uplink/contacts/add_friend_page/presentation/controller/add_friend_bloc.dart';
+import 'package:uplink/contacts/add_friend_page/data/datasource/friend.remote_datasource.dart';
+import 'package:uplink/contacts/add_friend_page/data/repositories/friend_impl.repository.dart';
+import 'package:uplink/contacts/add_friend_page/data/repositories/friend_repository.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/profile/data/datasource/update_current_user.remote_datasource.dart';
 import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
 import 'package:uplink/profile/data/repositories/update_current_user_impl.repository.dart';
@@ -29,7 +29,7 @@ void _registerDependencies() {
   _registerDependencieToEnableWarp(_getIt);
   _registerDependenciesToAuth(_getIt);
   _registerDependencieToUpdateCurrentUser(_getIt);
-  _registerDependencieAddFriend(_getIt);
+  _registerDependencieFriend(_getIt);
 }
 
 void _registerDependencieToEnableWarp(GetIt _getIt) {
@@ -38,20 +38,20 @@ void _registerDependencieToEnableWarp(GetIt _getIt) {
   );
 }
 
-void _registerDependencieAddFriend(GetIt _getIt) {
+void _registerDependencieFriend(GetIt _getIt) {
   _getIt
-    ..registerLazySingleton<IAddFriendRepository>(
-      () => AddFriendRepositoryImpl(
+    ..registerLazySingleton<IFriendRepository>(
+      () => FriendRepositoryImpl(
         _getIt(),
       ),
     )
-    ..registerLazySingleton<AddFriendData>(
-      () => AddFriendData(
+    ..registerLazySingleton<FriendData>(
+      () => FriendData(
         Warp(),
       ),
     )
-    ..registerLazySingleton<AddFriendBloc>(
-      () => AddFriendBloc(
+    ..registerLazySingleton<FriendBloc>(
+      () => FriendBloc(
         _getIt(),
       ),
     );
