@@ -16,7 +16,7 @@ import 'package:uplink/profile/data/repositories/user_profile_impl.repository.da
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/utils/services/services_export.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
-import 'package:uplink/utils/services/warp/warp_service.dart';
+import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
 void main() {
   _registerDependencies();

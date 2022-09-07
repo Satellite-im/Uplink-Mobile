@@ -108,17 +108,17 @@ class BlockedPage extends StatelessWidget {
           imageAddress: item.contact.imageAddress,
           onTap: () {
             // TODO(demo): change the user info here to test
-            final user = item.contact.copywith(
-              bannerImageAddress: 'lib/utils/mock/images/bannerImage1.png',
-              badgesNum: 5,
-              location: 'State, USA',
-              friendNum: 20,
-              relationship: Relationship.block,
-              friendRequestSent: false,
-              // isBlocked: true,
-              about:
-                  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
-            );
+            // final user = item.contact.copywith(
+            //   bannerImageAddress: 'lib/utils/mock/images/bannerImage1.png',
+            //   badgesNum: 5,
+            //   location: 'State, USA',
+            //   friendNum: 20,
+            //   relationship: Relationship.block,
+            //   friendRequestSent: false,
+            //   // isBlocked: true,
+            //   about:
+            //       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae beatae vitae dicta sunt explicabo. ',
+            // );
             // the following comments are for demo purpose
             // Navigator.of(context).push(
             //   MaterialPageRoute<void>(

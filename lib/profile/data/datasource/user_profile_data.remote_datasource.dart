@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
-import 'package:uplink/utils/services/warp/warp_service.dart';
+import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
 class UserProfileData {
   UserProfileData(this._warp);

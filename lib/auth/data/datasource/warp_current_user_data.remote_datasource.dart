@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
-import 'package:uplink/utils/services/warp/warp_service.dart';
+import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
 class WarpCurrentUserData {
   WarpCurrentUserData(this._warp);

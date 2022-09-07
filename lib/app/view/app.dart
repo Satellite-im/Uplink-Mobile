@@ -40,13 +40,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.detached) {
-      _warpController.add(WarpDropMultipass());
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     const _appToBuild = Apps.mainApp;
 

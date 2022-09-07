@@ -12,15 +12,3 @@ class WarpStarted extends WarpEvent {
   @override
   List<Object> get props => [];
 }
-
-class WarpDropMultipass extends WarpEvent {
-  WarpDropMultipass();
-
-  @override
-  List<Object> get props => [];
-}
-
-// class WarpGetUserDID extends WarpEvent {
-//   @override
-//   List<Object> get props => [];
-// }
