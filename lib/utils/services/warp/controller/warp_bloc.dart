@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:warp_dart/mp_ipfs.dart' as warp_mp_ipfs;
@@ -13,13 +14,13 @@ part 'warp_state.dart';
 enum MultipassTest { temporary, persistent }
 
 class WarpBloc extends Bloc<WarpEvent, WarpState> {
-  WarpBloc() : super(WarpStateInitial()) {
-    on<EnableWarp>((event, emit) async {
+  WarpBloc() : super(WarpInitial()) {
+    on<WarpStarted>((event, emit) async {
       try {
         if (_tesseract == null || multipass == null) {
-          emit(WarpStateLoading());
-          await _definePathToTesseractAndMultipass();
-          await _checkIfTesseractExists(event.passphrase);
+          emit(WarpLoadInProgress());
+          await _getPathOfTesseractAndMultipass();
+          await _getTesseract(event.pin);
 
           multipass = warp_mp_ipfs.multipass_ipfs_persistent(
             _tesseract!,
@@ -31,29 +32,17 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
             _directoryPath!,
           );
 
-          emit(WarpStateSuccess());
+          emit(WarpLoadSuccess());
         }
       } catch (error) {
-        emit(WarpStateError());
-        addError(error);
-      }
-    });
-
-    on<DropMultipass>((event, emit) async {
-      try {
-        emit(WarpStateLoading());
-        multipass!.drop();
-        emit(WarpStateSuccess());
-      } catch (error) {
-        emit(WarpStateError());
+        emit(WarpLoadFailure());
         addError(error);
       }
     });
   }
 
-  // Define Tesseract path and file name to save
-  // Define Multipass and Raygun path to save
-  Future<void> _definePathToTesseractAndMultipass() async {
+  /// Get the file path to save tesseract and multipass
+  Future<void> _getPathOfTesseractAndMultipass() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
     _directoryPath = _directory.path;
     _tesseractPath = '${_directory.path}/tesseract';
@@ -63,25 +52,21 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Unlock Tesseract using pin as passphrase
   // Save a file for Tesseract
   // Set auto save
-  Future<void> _enableTesseract(String passphrase) async {
+  Future<void> _enableTesseract(String pin) async {
     _tesseract!
-      ..unlock(passphrase)
+      ..unlock(pin)
       ..setFile(_tesseractPath!)
       ..setAutosave();
   }
 
-  // It check is there is a tesseract instance in the device
-  // If not, it will create a new one
-  Future<bool> _checkIfTesseractExists(String passphrase) async {
+  /// Get Tesseract from the devive. If not, create a new one
+  Future<void> _getTesseract(String pin) async {
     try {
       _tesseract = warp.Tesseract.fromFile(_tesseractPath!);
-      await _enableTesseract(passphrase);
-      return true;
     } catch (error) {
       _tesseract = warp.Tesseract.newStore();
-      await _enableTesseract(passphrase);
-      return false;
     }
+    await _enableTesseract(pin);
   }
 
   warp.Tesseract? _tesseract;

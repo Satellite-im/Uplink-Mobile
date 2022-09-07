@@ -1,7 +1,7 @@
 import 'package:uplink/utils/services/services_export.dart';
 
-class StoreAuthKeysData {
-  StoreAuthKeysData(this._localStorageService);
+class AuthLocalData {
+  AuthLocalData(this._localStorageService);
   final ULocalStorageService _localStorageService;
 
   Future<void> savePinValue({

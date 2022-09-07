@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_service.dart';
 
-class CreateCurrentUserData {
-  CreateCurrentUserData(this._warp);
-  final Warp _warp;
+class WarpCurrentUserData {
+  WarpCurrentUserData(this._warp);
+  final WarpService _warp;
 
   Future<CurrentUser> createCurrentUser({
     required CurrentUser newUser,

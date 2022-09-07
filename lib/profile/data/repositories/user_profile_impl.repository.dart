@@ -1,11 +1,11 @@
-import 'package:uplink/profile/data/datasource/update_current_user.remote_datasource.dart';
-import 'package:uplink/profile/data/repositories/update_current_user.repository.dart';
+import 'package:uplink/profile/data/datasource/user_profile_data.remote_datasource.dart';
+import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
-class UpdateCurrentUserRepositoryImpl implements IUpdateCurrentUserRepository {
-  const UpdateCurrentUserRepositoryImpl(this._remoteDatasource);
+class UserProfileRepositoryImpl implements IUserProfileRepository {
+  const UserProfileRepositoryImpl(this._remoteDatasource);
 
-  final UpdateCurrentUserData _remoteDatasource;
+  final UserProfileData _remoteDatasource;
 
   @override
   Future<CurrentUser> getCurrentUserInfo() {

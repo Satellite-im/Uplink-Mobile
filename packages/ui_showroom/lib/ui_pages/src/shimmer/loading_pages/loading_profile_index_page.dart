@@ -19,41 +19,41 @@ class LoadingProfileIndexPage extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              UShimmer.med(child: URectContainer(height: 21)),
-              SizedBox(height: 4),
-              UShimmer.dark(
+              const UShimmer.med(child: URectContainer(height: 21)),
+              const SizedBox(height: 4),
+              const UShimmer.dark(
                 child: URectContainer(height: 18),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               UShimmer.med(
                   child: URectContainer(
                 height: 40,
                 bordRadius: BorderRadius.circular(50),
               )),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Column(
                       children: [
-                        UShimmer.dark(
+                        const UShimmer.dark(
                           child: URectContainer(height: 15),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ...List.generate(
                                 3,
-                                (index) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2),
+                                (index) => const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 2),
                                       child: UShimmer.light(
                                           child: URectContainer(
                                               height: 24, width: 24)),
@@ -63,10 +63,10 @@ class LoadingProfileIndexPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Column(
-                      children: [
+                      children: const [
                         UShimmer.dark(
                           child: URectContainer(height: 15),
                         ),
@@ -77,10 +77,10 @@ class LoadingProfileIndexPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Column(
-                      children: [
+                      children: const [
                         UShimmer.dark(
                           child: URectContainer(height: 15),
                         ),
@@ -96,14 +96,14 @@ class LoadingProfileIndexPage extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 24,
         ),
-        UDivider(),
+        const UDivider(),
         Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 24),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
           child: Column(
-            children: [
+            children: const [
               UShimmer.dark(
                   child: URectContainer(
                 height: 24,
@@ -118,15 +118,15 @@ class LoadingProfileIndexPage extends StatelessWidget {
             ],
           ),
         ),
-        UDivider(),
+        const UDivider(),
         Expanded(
           child: ListView.separated(
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const UDivider(),
-            itemBuilder: (context, index) => UShimmer.dark(
+            itemBuilder: (context, index) => const UShimmer.dark(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
                 child: URectContainer(height: 24),
               ),
             ),

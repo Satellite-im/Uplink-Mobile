@@ -5,9 +5,11 @@ abstract class AuthEvent {
   List<Object> get props => [];
 }
 
-class CreateNewCurrentUser extends AuthEvent {
+class AuthStarted extends AuthEvent {}
+
+class AuthSignUp extends AuthEvent {
   // TODO(password): For now the password is empty because it is not working
-  CreateNewCurrentUser({
+  AuthSignUp({
     required this.currentUser,
   }) : password = '';
   final CurrentUser currentUser;
@@ -16,9 +18,9 @@ class CreateNewCurrentUser extends AuthEvent {
   List<Object> get props => [currentUser, password];
 }
 
-class SaveAuthKeys extends AuthEvent {}
+class AuthSetPinData extends AuthEvent {}
 
-class GetAuthKeys extends AuthEvent {
+class AuthGetPinData extends AuthEvent {
   @override
   List<Object> get props => [];
 }
