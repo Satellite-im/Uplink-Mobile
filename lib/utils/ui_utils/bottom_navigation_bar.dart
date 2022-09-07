@@ -39,13 +39,13 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     });
   }
 
-  final _controller = GetIt.I.get<CurrentUserBloc>();
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 
   @override
   void initState() {
     super.initState();
     // TODO(yijing): add loading page for this call
-    _controller.add(GetCurrentUserInfo());
+    _currentUserController.add(GetCurrentUserInfo());
   }
 
   @override
@@ -92,10 +92,11 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
             ),
             BottomNavigationBarItem(
               icon: BlocBuilder<CurrentUserBloc, CurrentUserState>(
-                bloc: _controller,
+                bloc: _currentUserController,
                 builder: (context, state) {
                   if (state is CurrentUserLoadSuccess &&
-                      _controller.currentUser?.profilePicture != null) {
+                      _currentUserController.currentUser?.profilePicture !=
+                          null) {
                     return _currentIndex == 3
                         ? Container(
                             decoration: BoxDecoration(
@@ -108,7 +109,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
                             child: UUserProfile(
                               userProfileSize: UUserProfileSize.topMenuBar,
                               uImage: UImage(
-                                imagePath: _controller
+                                imagePath: _currentUserController
                                     .currentUser?.profilePicture?.path,
                                 imageSource: ImageSource.file,
                                 fit: BoxFit.cover,
@@ -118,8 +119,8 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
                         : UUserProfileWithStatus(
                             userProfileSize: UUserProfileSize.topMenuBar,
                             uImage: UImage(
-                              imagePath:
-                                  _controller.currentUser?.profilePicture?.path,
+                              imagePath: _currentUserController
+                                  .currentUser?.profilePicture?.path,
                               fit: BoxFit.cover,
                               imageSource: ImageSource.file,
                             ),
