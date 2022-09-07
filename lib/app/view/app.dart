@@ -24,7 +24,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final _authController = GetIt.I.get<AuthBloc>();
   final _warpController = GetIt.I.get<WarpBloc>();
-  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +57,6 @@ class _AppState extends State<App> {
                       return _buildEntryPage(
                         state,
                         _warpController,
-                        _currentUserController,
                         _authController,
                       );
                     } else if (state is AuthLoadFailure) {
@@ -83,7 +82,6 @@ class _AppState extends State<App> {
 Widget _buildEntryPage(
   GetAuthKeysSuccess state,
   WarpBloc _warpController,
-  CurrentUserBloc _currentUserController,
   AuthBloc _authController,
 ) {
   final authKeysMap = state.authKeysMap;
@@ -96,16 +94,17 @@ Widget _buildEntryPage(
       bloc: _warpController,
       builder: (context, state) {
         if (state is WarpLoadSuccess) {
-          _currentUserController.add(GetCurrentUserInfo());
           return const MainBottomNavigationBar();
         }
-        return UActionLoading(
-          dashLoadingIndicatorPadding:
-              const EdgeInsets.symmetric(horizontal: 16),
-          isLoading: ValueNotifier(
-            true,
+        return ScaffoldCenterPage(
+          child: UActionLoading(
+            dashLoadingIndicatorPadding:
+                const EdgeInsets.symmetric(horizontal: 16),
+            isLoading: ValueNotifier(
+              true,
+            ),
+            child: const SizedBox.shrink(),
           ),
-          child: const SizedBox.shrink(),
         );
       },
     );
