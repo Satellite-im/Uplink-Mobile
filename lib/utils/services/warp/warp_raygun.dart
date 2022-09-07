@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:uplink/chat/domain/message.dart';
+import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -109,6 +109,8 @@ class WarpRaygun {
             user: user,
             hideProfilePicture: _hideProfilePicture,
             chatMessage: ChatMessage(
+              conversationId: _currentWarpMessage.conversationId,
+              messageId: _currentWarpMessage.id,
               message: _currentWarpMessage.value.first,
               messageSentTime: _messageDateTime,
               chatMessageType: _chatMessageType,

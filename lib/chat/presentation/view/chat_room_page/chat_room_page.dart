@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/chat/domain/message.dart';
+import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -62,6 +62,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         UChatMessage(
           key: Key('message_received_${DateTime.now()}'),
           chatMessage: ChatMessage(
+            conversationId: conversationID!,
             message: value,
             messageSentTime: DateTime.now(),
             chatMessageType: ChatMessageType.received,
@@ -107,6 +108,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           user: widget.user,
           hideProfilePicture: _hideProfilePicture,
           chatMessage: ChatMessage(
+            conversationId: conversationID!,
             message: value,
             messageSentTime: DateTime.now(),
             chatMessageType: ChatMessageType.sent,

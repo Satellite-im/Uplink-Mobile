@@ -52,7 +52,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   }
 
   // Define Tesseract path and file name to save
-  // Define Multipass path to save
+  // Define Multipass and Raygun path to save
   Future<void> _definePathToTesseractAndMultipass() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
     _directoryPath = _directory.path;
