@@ -1,6 +1,6 @@
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
-abstract class IUpdateCurrentUserRepository {
+abstract class IUserProfileRepository {
   Future<CurrentUser> getCurrentUserInfo();
 
   String getDid();

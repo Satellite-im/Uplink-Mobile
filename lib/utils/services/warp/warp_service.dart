@@ -5,8 +5,8 @@ import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart';
 
-class Warp {
-  final _warp = GetIt.I.get<WarpBloc>();
+class WarpMultipass {
+  final _warpBloc = GetIt.I.get<WarpBloc>();
 
   Future<String> createUser({
     required String username,
@@ -15,11 +15,11 @@ class Warp {
     required String base64Image,
   }) async {
     try {
-      _warp.currentUserDID =
-          _warp.multipass?.createIdentity(username.trim(), password);
+      final _currentUserDID =
+          _warpBloc.multipass?.createIdentity(username.trim(), password);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
-      return _warp.currentUserDID.toString().replaceAll('did:key:', '');
+      return _currentUserDID.toString().replaceAll('did:key:', '');
     } catch (error) {
       throw Exception(error);
     }
@@ -27,7 +27,7 @@ class Warp {
 
   Map<String, dynamic> getCurrentUserInfo() {
     try {
-      final _currentUserIdentity = _warp.multipass!.getOwnIdentity();
+      final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
       final _currentUserMap = {
         'did':
             _currentUserIdentity.did_key.toString().replaceAll('did:key:', ''),
@@ -44,7 +44,7 @@ class Warp {
 
   String getDid() {
     try {
-      final _did = _warp.multipass!.getOwnIdentity().did_key.toString();
+      final _did = _warpBloc.multipass!.getOwnIdentity().did_key.toString();
       return _did.replaceAll('did:key:', '');
     } catch (error) {
       throw Exception(error);
@@ -53,7 +53,7 @@ class Warp {
 
   String getUsername() {
     try {
-      final _username = _warp.multipass!.getOwnIdentity().username;
+      final _username = _warpBloc.multipass!.getOwnIdentity().username;
       return _username;
     } catch (error) {
       throw Exception(error);
@@ -62,7 +62,7 @@ class Warp {
 
   String getMessageStatus() {
     try {
-      return _warp.multipass!.getOwnIdentity().status_message!;
+      return _warpBloc.multipass!.getOwnIdentity().status_message!;
     } catch (error) {
       throw Exception(error);
     }
@@ -72,7 +72,7 @@ class Warp {
     try {
       final _identityUpdated =
           multipass.IdentityUpdate.setUsername(newUserName.trim());
-      _warp.multipass!.updateIdentity(_identityUpdated);
+      _warpBloc.multipass!.updateIdentity(_identityUpdated);
       return getUsername();
     } catch (error) {
       throw Exception(error);
@@ -84,7 +84,7 @@ class Warp {
       final _identityUpdated =
           multipass.IdentityUpdate.setStatusMessage(newStatus.trim());
 
-      _warp.multipass!.updateIdentity(_identityUpdated);
+      _warpBloc.multipass!.updateIdentity(_identityUpdated);
       return getMessageStatus();
     } catch (error) {
       throw Exception(error);
@@ -94,7 +94,7 @@ class Warp {
   String getProfilePicture() {
     try {
       final _profilePictureBase64String =
-          _warp.multipass!.getOwnIdentity().graphics.profile_picture;
+          _warpBloc.multipass!.getOwnIdentity().graphics.profile_picture;
       return _profilePictureBase64String;
     } catch (error) {
       throw Exception(error);
@@ -105,7 +105,7 @@ class Warp {
     try {
       final _identityUpdated =
           multipass.IdentityUpdate.setPicture(_base64Image);
-      _warp.multipass!.updateIdentity(_identityUpdated);
+      _warpBloc.multipass!.updateIdentity(_identityUpdated);
       return getProfilePicture();
     } catch (error) {
       throw Exception(error);
@@ -115,7 +115,7 @@ class Warp {
   String getBannerPicture() {
     try {
       final _bannerPictureBase64String =
-          _warp.multipass!.getOwnIdentity().graphics.profile_banner;
+          _warpBloc.multipass!.getOwnIdentity().graphics.profile_banner;
       return _bannerPictureBase64String;
     } on WarpException {
       throw Exception(['WARP_EXCEPTION', 'get_banner_picture']);
@@ -127,7 +127,7 @@ class Warp {
   String changeBannerPicture(String _base64Image) {
     try {
       final _identityUpdated = multipass.IdentityUpdate.setBanner(_base64Image);
-      _warp.multipass!.updateIdentity(_identityUpdated);
+      _warpBloc.multipass!.updateIdentity(_identityUpdated);
       return getBannerPicture();
     } on WarpException {
       throw Exception(['WARP_EXCEPTION', 'update_banner_picture']);
@@ -138,7 +138,7 @@ class Warp {
 
   Map<String, dynamic> findUserByDid(String _userDid) {
     try {
-      final _userIdentity = _warp.multipass!.getIdentityByDID(
+      final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
         'did:key:$_userDid',
       );
       final _userMap = {

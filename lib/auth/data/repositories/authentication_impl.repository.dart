@@ -1,5 +1,5 @@
-import 'package:uplink/auth/data/datasource/create_current_user.remote_datasource.dart';
-import 'package:uplink/auth/data/datasource/store_auth_keys.local_datasource.dart';
+import 'package:uplink/auth/data/datasource/auth_local_data.local_datasource.dart';
+import 'package:uplink/auth/data/datasource/warp_current_user_data.remote_datasource.dart';
 import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/services_export.dart';
@@ -10,8 +10,8 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
     this._localDatasource,
   );
 
-  final CreateCurrentUserData _remoteDatasource;
-  final StoreAuthKeysData _localDatasource;
+  final WarpCurrentUserData _remoteDatasource;
+  final AuthLocalData _localDatasource;
 
   @override
   Future<CurrentUser> createCurrentUser({

@@ -44,7 +44,7 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
                   key: UniqueKey(),
                   pinLength: _pinLength,
                   rightButtonFn: (pin) {
-                    _warp.add(EnableWarp(pin));
+                    _warp.add(WarpStarted(pin));
                     _authController.pinValue = pin;
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(

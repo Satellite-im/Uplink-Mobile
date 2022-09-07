@@ -7,7 +7,7 @@ import 'package:uplink/utils/services/warp/warp_service.dart';
 
 class FriendData {
   FriendData(this._warp);
-  final Warp _warp;
+  final WarpMultipass _warp;
 
   Future<User> findUserByDid(String userDid) async {
     try {

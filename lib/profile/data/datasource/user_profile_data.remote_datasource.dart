@@ -5,9 +5,9 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_service.dart';
 
-class UpdateCurrentUserData {
-  UpdateCurrentUserData(this._warp);
-  final Warp _warp;
+class UserProfileData {
+  UserProfileData(this._warp);
+  final WarpMultipass _warp;
 
   Future<CurrentUser> getCurrentUserInfo() async {
     try {

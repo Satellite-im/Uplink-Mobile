@@ -28,7 +28,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _authController.add(GetAuthKeys());
+    _authController.add(AuthGetPinData());
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -42,7 +42,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.detached) {
-      _warpController.add(DropMultipass());
+      _warpController.add(WarpDropMultipass());
     }
   }
 
@@ -69,13 +69,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                   bloc: _authController,
                   builder: (context, state) {
                     if (state is GetAuthKeysSuccess) {
-                      return _ifIsSuccess(
+                      return _buildEntryPage(
                         state,
                         _warpController,
                         _currentUserController,
                         _authController,
                       );
-                    } else if (state is GetAuthKeysError) {
+                    } else if (state is AuthLoadFailure) {
                       return const UText(
                         'Unexpected Error Happened',
                         textStyle: UTextStyle.H2_secondaryHeader,
@@ -91,7 +91,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   }
 }
 
-Widget _ifIsSuccess(
+Widget _buildEntryPage(
   GetAuthKeysSuccess state,
   WarpBloc _warpController,
   UpdateCurrentUserBloc _currentUserController,
@@ -102,11 +102,11 @@ Widget _ifIsSuccess(
       signinDataMap[ULocalKey.isPinStored] == true &&
       signinDataMap[ULocalKey.pinValue] != null) {
     final _pinValue = signinDataMap[ULocalKey.pinValue] as String;
-    _warpController.add(EnableWarp(_pinValue));
+    _warpController.add(WarpStarted(_pinValue));
     return BlocBuilder<WarpBloc, WarpState>(
       bloc: _warpController,
       builder: (context, state) {
-        if (state is WarpStateSuccess) {
+        if (state is WarpLoadSuccess) {
           _currentUserController.add(GetAllUserInfo());
           return const MainBottomNavigationBar();
         }
