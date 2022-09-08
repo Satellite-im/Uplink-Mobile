@@ -16,7 +16,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   @override
   Future<CurrentUser> createCurrentUser({
     required CurrentUser newUser,
-    required String password,
+    required String? password,
   }) async {
     try {
       final _newUser = await _remoteDatasource.createCurrentUser(
@@ -57,6 +57,15 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
         pinValue: pinValue,
         storePin: storePin,
       );
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  Future<void> deletePinValue() async {
+    try {
+      await _localDatasource.deletePinValue();
     } catch (error) {
       throw Exception(error);
     }

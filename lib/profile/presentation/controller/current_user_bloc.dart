@@ -12,20 +12,19 @@ part 'current_user_event.dart';
 part 'current_user_state.dart';
 
 class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
-  CurrentUserBloc(this._updateCurrentUserRepository)
-      : super(CurrentUserInitial()) {
+  CurrentUserBloc(this._currentUserRepository) : super(CurrentUserInitial()) {
     on<GetCurrentUserInfo>((event, emit) async {
       try {
         emit(CurrentUserLoadInProgress());
         if (event.currentUser == null) {
-          currentUser = await _updateCurrentUserRepository.getCurrentUserInfo();
+          currentUser = await _currentUserRepository.getCurrentUserInfo();
         } else {
           currentUser = event.currentUser;
         }
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('GetCurrentUserInfo failed'));
         addError(error);
       }
     });
@@ -33,11 +32,11 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
     on<GetDid>((event, emit) {
       try {
         emit(CurrentUserLoadInProgress());
-        final _did = _updateCurrentUserRepository.getDid();
+        final _did = _currentUserRepository.getDid();
         currentUser = currentUser!.copywith(did: _did);
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('GetDid failed'));
         addError(error);
       }
     });
@@ -45,11 +44,11 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
     on<GetUsername>((event, emit) {
       try {
         emit(CurrentUserLoadInProgress());
-        final _username = _updateCurrentUserRepository.getUsername();
+        final _username = _currentUserRepository.getUsername();
         currentUser = currentUser!.copywith(username: _username);
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('GetUsername failed'));
         addError(error);
       }
     });
@@ -57,12 +56,12 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
     on<GetMessageStatus>((event, emit) {
       try {
         emit(CurrentUserLoadInProgress());
-        final _messageStatus = _updateCurrentUserRepository.getMessageStatus();
+        final _messageStatus = _currentUserRepository.getMessageStatus();
         currentUser = currentUser!.copywith(statusMessage: _messageStatus);
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('GetMessageStatus failed'));
         addError(error);
       }
     });
@@ -71,7 +70,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
       try {
         emit(CurrentUserLoadInProgress());
         File? _imageFile;
-        final _base64Image = _updateCurrentUserRepository.getProfilePicture();
+        final _base64Image = _currentUserRepository.getProfilePicture();
         if (_base64Image.isEmpty) {
           _imageFile = File('');
         } else {
@@ -89,7 +88,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('GetProfilePicture failed'));
         addError(error);
       }
     });
@@ -99,7 +98,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
         emit(CurrentUserLoadInProgress());
         File? _imageFile;
 
-        final _base64Image = _updateCurrentUserRepository.getBannerPicture();
+        final _base64Image = _currentUserRepository.getBannerPicture();
         if (_base64Image.isEmpty) {
           _imageFile = File('');
         } else {
@@ -117,7 +116,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('GetBannerPicture failed'));
         addError(error);
       }
     });
@@ -127,11 +126,11 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
         emit(CurrentUserLoadInProgress());
 
         if (event.profilePicture.path.isEmpty) {
-          _updateCurrentUserRepository.modifyProfilePicture('');
+          _currentUserRepository.modifyProfilePicture('');
         } else {
           final _imageBytes = await event.profilePicture.readAsBytes();
           final _base64Image = base64Encode(_imageBytes);
-          _updateCurrentUserRepository.modifyProfilePicture(_base64Image);
+          _currentUserRepository.modifyProfilePicture(_base64Image);
         }
         currentUser = currentUser!.copywith(
           profilePicture:
@@ -140,7 +139,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('UpdateProfilePicture failed'));
         addError(error, StackTrace.current);
       }
     });
@@ -150,11 +149,11 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
         emit(CurrentUserLoadInProgress());
 
         if (event.bannerPicture.path.isEmpty) {
-          _updateCurrentUserRepository.modifyBannerPicture('');
+          _currentUserRepository.modifyBannerPicture('');
         } else {
           final _imageBytes = await event.bannerPicture.readAsBytes();
           final _base64Image = base64Encode(_imageBytes);
-          _updateCurrentUserRepository.modifyBannerPicture(_base64Image);
+          _currentUserRepository.modifyBannerPicture(_base64Image);
         }
 
         currentUser = currentUser!.copywith(
@@ -164,7 +163,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('UpdateBannerPicture failed'));
         addError(error, StackTrace.current);
       }
     });
@@ -172,7 +171,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
     on<UpdateUsername>((event, emit) {
       try {
         emit(CurrentUserLoadInProgress());
-        _updateCurrentUserRepository.modifyUsername(
+        _currentUserRepository.modifyUsername(
           event.newUsername,
         );
 
@@ -180,7 +179,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('UpdateUsername failed'));
         addError(error);
       }
     });
@@ -188,7 +187,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
     on<UpdateMessageStatus>((event, emit) {
       try {
         emit(CurrentUserLoadInProgress());
-        _updateCurrentUserRepository.modifyMessageStatus(
+        _currentUserRepository.modifyMessageStatus(
           event.newMessageStatus,
         );
         currentUser = currentUser!.copywith(
@@ -197,12 +196,12 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         emit(CurrentUserLoadSuccess(currentUser!));
       } catch (error) {
-        emit(CurrentUserLoadFailure());
+        emit(CurrentUserLoadFailure('UpdateMessageStatus failed'));
         addError(error);
       }
     });
   }
   CurrentUser? currentUser = const CurrentUser.newUser(username: '');
 
-  final IUserProfileRepository _updateCurrentUserRepository;
+  final IUserProfileRepository _currentUserRepository;
 }

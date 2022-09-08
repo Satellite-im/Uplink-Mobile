@@ -16,10 +16,10 @@ class AuthLoadFailure extends AuthState {
   final String message;
 }
 
-class GetAuthKeysLoading extends AuthState {}
+class AuthKeysLoadInProgress extends AuthState {}
 
-class GetAuthKeysSuccess extends AuthState {
-  GetAuthKeysSuccess(this.authKeysMap);
+class AuthKeysLoadSuccess extends AuthState {
+  AuthKeysLoadSuccess(this.authKeysMap);
 
   final Map<ULocalKey, dynamic> authKeysMap;
 

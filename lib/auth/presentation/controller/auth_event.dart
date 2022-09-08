@@ -8,14 +8,14 @@ abstract class AuthEvent {
 class AuthStarted extends AuthEvent {}
 
 class AuthSignUp extends AuthEvent {
-  // TODO(password): For now the password is empty because it is not working
+  // TODO(password): All the password are null right now
   AuthSignUp({
     required this.currentUser,
-  }) : password = '';
+  }) : password = null;
   final CurrentUser currentUser;
-  final String password;
+  final String? password;
   @override
-  List<Object> get props => [currentUser, password];
+  List<Object> get props => [currentUser];
 }
 
 class AuthSetPinData extends AuthEvent {}
@@ -24,3 +24,5 @@ class AuthGetPinData extends AuthEvent {
   @override
   List<Object> get props => [];
 }
+
+class AuthLogout extends AuthEvent {}
