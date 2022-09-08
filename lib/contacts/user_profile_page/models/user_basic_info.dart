@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class UserBasicInfo extends StatelessWidget {
   const UserBasicInfo({Key? key, required this.user}) : super(key: key);
-  final MockContact user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          decoration: user.imageAddress == null
+          decoration: user.profilePicture == null
               ? BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -19,12 +19,15 @@ class UserBasicInfo extends StatelessWidget {
                   ),
                 )
               : null,
-          child: SizedBox(
-            width: USizes.userPictureChangeSize,
-            height: USizes.userPictureChangeSize,
-            child: UImage(
-              imagePath: user.imageAddress,
-              imageSource: ImageSource.local,
+          child: ClipOval(
+            child: SizedBox(
+              width: USizes.userPictureChangeSize,
+              height: USizes.userPictureChangeSize,
+              child: UImage(
+                imagePath: user.profilePicture?.path,
+                imageSource: ImageSource.file,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
@@ -32,7 +35,7 @@ class UserBasicInfo extends StatelessWidget {
           dimension: 20,
         ),
         UText(
-          user.name,
+          user.username,
           textStyle: UTextStyle.H2_secondaryHeader,
         ),
         const SizedBox.square(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class AppBarWithBanner extends StatefulWidget {
   const AppBarWithBanner({
@@ -12,7 +12,7 @@ class AppBarWithBanner extends StatefulWidget {
     this.backButtonOnPressed,
   }) : super(key: key);
 
-  final MockContact user;
+  final User user;
   final double? backButtonOpacity;
   final double? reduecdTopHeight;
   final VoidCallback? backButtonOnPressed;
@@ -42,70 +42,73 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 164,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          // TODO(laterYijing): change to UImage
-          image: AssetImage('lib/utils/mock/images/bannerImage1.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: AnimatedPadding(
-          padding: EdgeInsets.only(top: 60 - _reduecdTopHeight),
-          duration: const Duration(seconds: 1),
-          child: Row(
-            children: [
-              AnimatedOpacity(
-                opacity: _backButtonOpacity,
-                duration: const Duration(seconds: 1),
-                child: IconButton(
-                  icon: const UIcon(
-                    UIcons.back_arrow,
-                    color: UColors.white,
-                  ),
-                  onPressed: widget.backButtonOnPressed ??
-                      () => Navigator.of(context).pop(),
-                ),
-              ),
-              const Expanded(
-                child: SizedBox.shrink(),
-              ),
-              if (widget.user.relationship == Relationship.block &&
-                  widget.user.isBlocked == false)
-                const UIcon(
-                  UIcons.blocked_contacts,
-                  color: UColors.textDark,
-                ),
-              if (widget.user.relationship == Relationship.friend &&
-                  widget.user.isBlocked == false) ...[
-                IconButton(
-                  onPressed: () {},
-                  icon: const UIcon(UIcons.voice_call),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const UIcon(UIcons.video_call),
-                ),
-              ],
-              if (widget.user.relationship == Relationship.none &&
-                  widget.user.friendRequestSent == true &&
-                  widget.user.isBlocked == false)
-                const UIcon(
-                  UIcons.outgoing_requests,
-                  color: UColors.textDark,
-                ),
-              //hamburger menu
-              HamburgerMenuButton(
-                user: widget.user,
-              ),
-              const SizedBox(width: 8),
-            ],
+    return Stack(
+      children: [
+        SizedBox(
+          height: 164,
+          width: double.infinity,
+          child: UImage(
+            imagePath: widget.user.bannerPicture?.path,
+            imageSource: ImageSource.file,
+            fit: BoxFit.cover,
           ),
         ),
-      ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: AnimatedPadding(
+            padding: EdgeInsets.only(top: 60 - _reduecdTopHeight),
+            duration: const Duration(seconds: 1),
+            child: Row(
+              children: [
+                AnimatedOpacity(
+                  opacity: _backButtonOpacity,
+                  duration: const Duration(seconds: 1),
+                  child: IconButton(
+                    icon: const UIcon(
+                      UIcons.back_arrow,
+                      color: UColors.white,
+                    ),
+                    onPressed: widget.backButtonOnPressed ??
+                        () => Navigator.of(context).pop(),
+                  ),
+                ),
+                const Expanded(
+                  child: SizedBox.shrink(),
+                ),
+                if (widget.user.relationship == Relationship.block &&
+                    widget.user.isBlocked == false)
+                  const UIcon(
+                    UIcons.blocked_contacts,
+                    color: UColors.textDark,
+                  ),
+                if (widget.user.relationship == Relationship.friend &&
+                    widget.user.isBlocked == false) ...[
+                  IconButton(
+                    onPressed: () {},
+                    icon: const UIcon(UIcons.voice_call),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const UIcon(UIcons.video_call),
+                  ),
+                ],
+                if (widget.user.relationship == Relationship.none &&
+                    widget.user.friendRequestSent == true &&
+                    widget.user.isBlocked == false)
+                  const UIcon(
+                    UIcons.outgoing_requests,
+                    color: UColors.textDark,
+                  ),
+                //hamburger menu
+                HamburgerMenuButton(
+                  user: widget.user,
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -116,7 +119,7 @@ class HamburgerMenuButton extends StatelessWidget {
     required this.user,
   }) : super(key: key);
 
-  final MockContact user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +137,12 @@ class HamburgerMenuButton extends StatelessWidget {
                 bodyText: UAppStrings.unblockDialogQ,
                 buttonText: UAppStrings.unblock,
                 popButtonText: UAppStrings.goBackButton,
-                username: user.name,
+                username: user.username,
                 statusMessage: user.statusMessage,
                 uImage: UImage(
-                  imagePath: user.imageAddress,
-                  imageSource: ImageSource.local,
+                  imagePath: user.profilePicture?.path,
+                  imageSource: ImageSource.file,
+                  fit: BoxFit.cover,
                 ),
                 onTap: () {
                   // TODO(yijing): add unblock workflow
@@ -153,11 +157,12 @@ class HamburgerMenuButton extends StatelessWidget {
                 bodyText: UAppStrings.blockDialogQ,
                 buttonText: UAppStrings.block,
                 popButtonText: UAppStrings.goBackButton,
-                username: user.name,
+                username: user.username,
                 statusMessage: user.statusMessage,
                 uImage: UImage(
-                  imagePath: user.imageAddress,
-                  imageSource: ImageSource.local,
+                  imagePath: user.profilePicture?.path,
+                  imageSource: ImageSource.file,
+                  fit: BoxFit.cover,
                 ),
                 onTap: () {
                   // TODO(yijing): add block workflow

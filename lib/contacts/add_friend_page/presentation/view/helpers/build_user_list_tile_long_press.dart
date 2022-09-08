@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
+import 'package:uplink/contacts/user_profile_page/models/user_profile_bottom_sheet.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
@@ -37,7 +38,24 @@ void buildUserListTileLongPress(BuildContext context, User user) {
         );
       },
       // TODO(yijing): add profile pages
-      () {},
+      () {
+        Navigator.of(context, rootNavigator: true).pop();
+        showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          builder: (context) => GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.of(context).pop(),
+            //close the sheet when the outside is tapped
+            child: GestureDetector(
+              onTap: () {},
+              child: UserProfileBottomSheet(user: user),
+            ),
+          ),
+        );
+      },
       () {
         final userNotifier = context.read<UserNotifier>();
         Navigator.of(context, rootNavigator: true).pop();
