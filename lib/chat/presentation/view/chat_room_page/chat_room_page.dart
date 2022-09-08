@@ -130,7 +130,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     }
     setState(() {});
 
-    Timer.periodic(const Duration(milliseconds: 600), (timer) {
+    Timer.periodic(const Duration(milliseconds: 10), (timer) {
       final _messageList = _warpRaygun.receiveMessage();
       if (_messageList.isNotEmpty &&
           lastMessageReceived != _messageList.first) {
