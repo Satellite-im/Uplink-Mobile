@@ -13,6 +13,7 @@ import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 part 'models/body.part.dart';
 part 'models/delete_picture_popup_menu_widget.part.dart';
@@ -136,10 +137,10 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                               ..deleteLocalMultipass()
                               ..deleteLocalTesseract();
                             _authController.add(AuthLogout());
-                            Navigator.of(context).pushAndRemoveUntil(
+                            Navigator.of(context, rootNavigator: true)
+                                .pushAndRemoveUntil(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) => const App(),
-                                maintainState: false,
                               ),
                               (route) => false,
                             );
