@@ -48,12 +48,10 @@ class CurrentUser {
     Status? status,
     File? profilePicture,
     File? bannerPicture,
-    bool? friendRequestSent,
     int? badgesNum,
     String? location,
     int? friendNum,
     String? about,
-    bool? isBlocked,
   }) =>
       CurrentUser(
         did: did ?? this.did,

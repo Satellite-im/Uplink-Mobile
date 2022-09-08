@@ -26,9 +26,9 @@ class UImageCropper {
               ratioX: uCropAspectRatio.ratioX, ratioY: uCropAspectRatio.ratioY)
           : null,
       // TODO: Using low images quality to save app performance
-      compressQuality: 10,
-      maxHeight: 262,
-      maxWidth: 262,
+      compressQuality: 50,
+      maxHeight: 500,
+      maxWidth: 500,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ],

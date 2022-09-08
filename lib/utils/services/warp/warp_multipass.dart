@@ -5,7 +5,7 @@ import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart';
 
-class WarpService {
+class WarpMultipass {
   final _warpBloc = GetIt.I.get<WarpBloc>();
 
   Future<String> createUser({

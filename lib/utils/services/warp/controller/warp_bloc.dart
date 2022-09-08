@@ -32,17 +32,6 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         addError(error);
       }
     });
-
-    on<WarpDropMultipass>((event, emit) async {
-      try {
-        emit(WarpLoadInProgress());
-        multipass!.drop();
-        emit(WarpLoadSuccess());
-      } catch (error) {
-        emit(WarpLoadFailure());
-        addError(error);
-      }
-    });
   }
 
   /// Get the file path to save tesseract and multipass

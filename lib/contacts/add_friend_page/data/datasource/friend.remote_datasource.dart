@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/shared/domain/entities/user.entity.dart';
-import 'package:uplink/utils/services/warp/warp_service.dart';
+import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
-class AddFriendData {
-  AddFriendData(this._warp);
-  final WarpService _warp;
+class FriendData {
+  FriendData(this._warp);
+  final WarpMultipass _warp;
 
   Future<User> findUserByDid(String userDid) async {
     try {
@@ -26,6 +26,7 @@ class AddFriendData {
         statusMessage: _userMap['status_message'] as String,
         profilePicture: _profilePictureFile,
         bannerPicture: _bannerPictureFile,
+        relationship: Relationship.none,
       );
     } catch (error) {
       rethrow;
