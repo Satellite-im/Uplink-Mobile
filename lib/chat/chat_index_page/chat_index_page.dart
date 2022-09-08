@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_index_page/models/search/chat_search.dart';
+import 'package:uplink/chat/chat_index_page/side_drawer.dart';
 import 'package:uplink/chat/notifications_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
@@ -47,7 +48,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
               return CustomScrollView(
                 slivers: [
                   const SliverToBoxAdapter(
-                    child: _UAppBar(
+                    child: _ChatIndexAppBar(
                       mockNotificationsList: [
                         // TODO(Lucas): What to do when the list was not loaded
                       ],
@@ -89,7 +90,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
                 child: CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
-                      child: _UAppBar(
+                      child: _ChatIndexAppBar(
                         mockNotificationsList: _notificationsList.isNotEmpty
                             ? _notificationsList
                             : [
@@ -140,12 +141,13 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
           },
         ),
       ),
+      drawer: const SideDrawer(),
     );
   }
 }
 
-class _UAppBar extends StatefulWidget {
-  const _UAppBar({
+class _ChatIndexAppBar extends StatefulWidget {
+  const _ChatIndexAppBar({
     Key? key,
     required this.mockNotificationsList,
   }) : super(key: key);
@@ -153,10 +155,11 @@ class _UAppBar extends StatefulWidget {
   final List<MockNotification> mockNotificationsList;
 
   @override
-  State<_UAppBar> createState() => _UAppBarState();
+  State<_ChatIndexAppBar> createState() => _ChatIndexAppBarState();
 }
 
-class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
+class _ChatIndexAppBarState extends State<_ChatIndexAppBar>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -266,7 +269,9 @@ class _UAppBarState extends State<_UAppBar> with TickerProviderStateMixin {
           UIcons.lefthand_navigation_drawer,
           color: UColors.textMed,
         ),
-        onPressed: () async {},
+        onPressed: () async {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       title: UAppStrings.chatIndexPage_appBarTitle,
     );
