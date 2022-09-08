@@ -1,5 +1,8 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:io';
+import 'dart:math';
+
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
@@ -16,7 +19,7 @@ class WarpService {
   }) async {
     try {
       final _currentUserDID =
-          _warpBloc.multipass?.createIdentity(username.trim(), password);
+          _warpBloc.multipass?.createIdentity(username.trim(), null);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
       return _currentUserDID.toString().replaceAll('did:key:', '');
@@ -36,6 +39,7 @@ class WarpService {
         'profile_picture': _currentUserIdentity.graphics.profile_picture,
         'banner_picture': _currentUserIdentity.graphics.profile_banner,
       };
+
       return _currentUserMap;
     } catch (error) {
       throw Exception(error);

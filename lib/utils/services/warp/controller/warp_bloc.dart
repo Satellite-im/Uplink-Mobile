@@ -39,6 +39,22 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         addError(error);
       }
     });
+
+    on<RaygunStarted>((event, emit) {
+      try {
+        emit(WarpLoadInProgress());
+
+        raygun = rg_ipfs.raygun_ipfs_persistent(
+          multipass!,
+          _directoryPath!,
+        );
+
+        emit(WarpLoadSuccess());
+      } catch (error) {
+        emit(WarpLoadFailure());
+        addError(error);
+      }
+    });
   }
 
   /// Get the file path to save tesseract and multipass

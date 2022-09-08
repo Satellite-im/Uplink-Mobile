@@ -29,7 +29,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
   final _scrollController = ScrollController();
   final _warpRaygun = WarpRaygun();
-  String? _lastMessageReceived;
 
   final List<UChatMessage> _messageList = [];
 
@@ -122,24 +121,30 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   @override
   void initState() {
     _warpRaygun.createConversation(widget.user.did!);
-    Timer.periodic(const Duration(milliseconds: 300), (timer) {
-      final message = _warpRaygun.receiveMessage().last;
-      if (_lastMessageReceived != message) {
-        _lastMessageReceived = message;
-        _addValue(message);
-      }
-    });
-    setState(() {
-      final _warpChatMessages = _warpRaygun.getAllMessagesForOneConversation(
-        _currentUserController.currentUser!,
-        widget.user,
-      );
-      for (final element in _warpChatMessages) {
-        _messageList.add(element);
+    final _warpChatMessages = _warpRaygun.getAllMessagesForOneConversation(
+      _currentUserController.currentUser!,
+      widget.user,
+    );
+    for (final element in _warpChatMessages) {
+      _messageList.add(element);
+    }
+    setState(() {});
+
+    Timer.periodic(const Duration(milliseconds: 600), (timer) {
+      final _messageList = _warpRaygun.receiveMessage();
+      if (_messageList.isNotEmpty &&
+          lastMessageReceived != _messageList.first) {
+        lastMessageReceived = _messageList.first;
+        if (mounted) _addValue(lastMessageReceived!);
       }
     });
 
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
