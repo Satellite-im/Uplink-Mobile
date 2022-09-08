@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,7 +10,6 @@ import 'package:ui_showroom/ui_showroom_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/l10n.dart';
-import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
@@ -53,7 +54,7 @@ class _AppState extends State<App> {
                 home: BlocBuilder<AuthBloc, AuthState>(
                   bloc: _authController,
                   builder: (context, state) {
-                    if (state is GetAuthKeysSuccess) {
+                    if (state is AuthKeysLoadSuccess) {
                       return _buildEntryPage(
                         state,
                         _warpController,
@@ -80,11 +81,17 @@ class _AppState extends State<App> {
 }
 
 Widget _buildEntryPage(
-  GetAuthKeysSuccess state,
+  AuthKeysLoadSuccess state,
   WarpBloc _warpController,
   AuthBloc _authController,
 ) {
   final authKeysMap = state.authKeysMap;
+  log('isUserLogged');
+  log('${authKeysMap[ULocalKey.isUserLogged]}');
+  log('isPinStored');
+  log('${authKeysMap[ULocalKey.isPinStored]}');
+  log('pinValue');
+  log('${authKeysMap[ULocalKey.pinValue]}');
   if (authKeysMap[ULocalKey.isUserLogged] == true &&
       authKeysMap[ULocalKey.isPinStored] == true &&
       authKeysMap[ULocalKey.pinValue] != null) {

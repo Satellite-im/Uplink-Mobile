@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -60,6 +62,40 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
       _tesseract = warp.Tesseract.newStore();
     }
     await _enableTesseract(pin);
+  }
+
+  Future<void> dropMultipass() async {
+    try {
+      multipass!.drop();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> dropTesseract() async {
+    try {
+      _tesseract!
+        ..lock()
+        ..drop();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> deleteLocalTesseract() async {
+    try {
+      Directory('$_tesseractPath').deleteSync(recursive: true);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> deleteLocalMultipass() async {
+    try {
+      Directory('$_multipassPath').deleteSync(recursive: true);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   warp.Tesseract? _tesseract;

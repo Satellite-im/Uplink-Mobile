@@ -19,4 +19,7 @@ class CurrentUserLoadSuccess extends CurrentUserState {
   List<Object> get props => [currentUser];
 }
 
-class CurrentUserLoadFailure extends CurrentUserState {}
+class CurrentUserLoadFailure extends CurrentUserState {
+  CurrentUserLoadFailure(this.message);
+  final String message;
+}

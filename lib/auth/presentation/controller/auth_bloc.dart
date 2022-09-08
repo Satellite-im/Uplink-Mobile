@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
@@ -22,12 +24,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           newUser: event.currentUser,
           password: event.password,
         );
-        _updateCurrentUserController.add(
+        log('_currentUser is created: ${_currentUser.did}');
+        _currentUserController.add(
           GetCurrentUserInfo(currentUser: _currentUser),
         );
 
         emit(AuthLoadSuccess());
       } catch (error) {
+        log('Failed to create current user');
         emit(AuthLoadFailure(message: 'Failed to create current user'));
       }
     });
@@ -41,13 +45,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         await _repository.saveUserIsLoggedValue();
       } catch (error) {
+        log('Failed to set local pin data');
         emit(AuthLoadFailure(message: 'Failed to set local pin data'));
       }
     });
 
     on<AuthGetPinData>((event, emit) async {
       try {
-        emit(GetAuthKeysLoading());
+        emit(AuthKeysLoadInProgress());
 
         final _pinValuesMap = await _repository.getPinValue();
         final _isUserLoggedValue = await _repository.getUserIsLoggedValue();
@@ -65,8 +70,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ULocalKey.isUserLogged: _isUserLoggedValue,
         };
 
-        emit(GetAuthKeysSuccess(_authKeysMap));
+        emit(AuthKeysLoadSuccess(_authKeysMap));
       } catch (error) {
+        log('Failed to get local pin data');
+        emit(AuthLoadFailure(message: 'Failed to get local pin data'));
+      }
+    });
+
+    on<AuthLogout>((event, emit) async {
+      try {
+        emit(AuthKeysLoadInProgress());
+// delete local storage for auth key/pins info
+        await _repository.deletePinValue();
+        final _emptyAuthKeysMap = {
+          ULocalKey.pinValue: null,
+          ULocalKey.isPinStored: false,
+          ULocalKey.isUserLogged: false,
+        };
+
+        emit(AuthKeysLoadSuccess(_emptyAuthKeysMap));
+      } catch (error) {
+        log('Failed to get local pin data');
         emit(AuthLoadFailure(message: 'Failed to get local pin data'));
       }
     });
@@ -75,6 +99,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   String? pinValue;
   bool storePin = false;
 
-  final _updateCurrentUserController = GetIt.I.get<CurrentUserBloc>();
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
   final IAuthenticationRepository _repository;
 }

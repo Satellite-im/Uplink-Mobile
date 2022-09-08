@@ -22,6 +22,16 @@ class AuthLocalData {
     }
   }
 
+  Future<void> deletePinValue() async {
+    try {
+      await _localStorageService.deleteValue(localKey: ULocalKey.pinValue);
+      await _localStorageService.deleteValue(localKey: ULocalKey.isPinStored);
+      await _localStorageService.deleteValue(localKey: ULocalKey.isUserLogged);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   Future<Map<ULocalKey, dynamic>> getPinValue() async {
     try {
       return await _localStorageService.getMultipleValues(
