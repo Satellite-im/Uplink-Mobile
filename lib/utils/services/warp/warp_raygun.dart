@@ -20,6 +20,9 @@ class WarpRaygun {
 
   void createConversation(String userDID) {
     try {
+      conversationID = null;
+      _userDID = null;
+      lastMessageReceived = null;
       if (_warp.raygun == null) {
         _warp.add(RaygunStarted());
         sleep(const Duration(seconds: 1));
@@ -28,13 +31,13 @@ class WarpRaygun {
       _userDID = userDID;
       final _currentUserConversations = _warp.raygun!.listConversation();
       for (final conversation in _currentUserConversations) {
-        if (conversation.recipients[0].pointer.toString().contains(_userDID!) ||
-            conversation.recipients[1].pointer.toString().contains(_userDID!)) {
+        if (conversation.recipients[0].toString().contains(_userDID!) ||
+            conversation.recipients[1].toString().contains(_userDID!)) {
           conversationID = conversation.id;
         }
       }
 
-      if (_currentUserConversations.isEmpty) {
+      if (conversationID == null) {
         final conversation =
             _warp.raygun!.createConversation('did:key:$userDID');
         conversationID = conversation.id;
