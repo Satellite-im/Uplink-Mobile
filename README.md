@@ -1,6 +1,6 @@
 # Uplink
 
-Flutter Satellite.im Minimal Secure Chat Client
+Satellite.im Secure Chat Client using Flutter and Warp
 
 ---
 
