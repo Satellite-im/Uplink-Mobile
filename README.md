@@ -14,7 +14,7 @@ To run this project either use the launch configuration in VSCode
 or use the following command:
 
 ```sh
-$ flutter run --target lib/main.dart 
+$ flutter run 
 ```
 
 _\*Uplink works on iOS, Android, Web, and Windows._
