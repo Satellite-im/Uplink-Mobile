@@ -8,6 +8,7 @@ import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class ContactsIndexPage extends StatelessWidget {
   const ContactsIndexPage({Key? key}) : super(key: key);
@@ -148,7 +149,9 @@ class _UAppBar extends StatelessWidget {
           UIcons.lefthand_navigation_drawer,
           color: UColors.textMed,
         ),
-        onPressed: () {},
+        onPressed: () {
+          bottomBarScaffoldStateKey.currentState?.openDrawer();
+        },
       ),
       actionList: [
         IconButton(
