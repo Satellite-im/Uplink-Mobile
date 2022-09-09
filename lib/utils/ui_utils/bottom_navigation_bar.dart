@@ -1,12 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
+import 'package:uplink/chat/chat_index_page/side_drawer.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/profile/profile_export.dart';
+
+final bottomBarScaffoldStateKey = GlobalKey<ScaffoldState>();
 
 class MainBottomNavigationBar extends StatefulWidget {
   const MainBottomNavigationBar({Key? key}) : super(key: key);
@@ -18,19 +21,11 @@ class MainBottomNavigationBar extends StatefulWidget {
 
 class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   int _currentIndex = 0;
-  final _screens = [
-    ChatIndexPage(
-      key: GlobalKey<NavigatorState>(),
-    ),
-    FilesIndexPage(
-      key: GlobalKey<NavigatorState>(),
-    ),
-    ContactsIndexPage(
-      key: GlobalKey<NavigatorState>(),
-    ),
-    ProfileIndexPage(
-      key: GlobalKey<NavigatorState>(),
-    ),
+  final _screens = const [
+    ChatIndexPage(),
+    FilesIndexPage(),
+    ContactsIndexPage(),
+    ProfileIndexPage(),
   ];
 
   void _updateIndex(int value) {
@@ -54,103 +49,111 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
       onWillPop: () async {
         return false;
       },
-      child: CupertinoTabScaffold(
-        tabBuilder: (context, index) {
-          return CupertinoTabView(
-            builder: (context) {
-              return CupertinoPageScaffold(
-                child: _screens[index],
-              );
-            },
-          );
-        },
-        tabBar: CupertinoTabBar(
+      child: Scaffold(
+        key: bottomBarScaffoldStateKey,
+        drawer: const SideDrawer(),
+        //use IndexedStack to keep the state in every screen
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _screens,
+        ),
+        bottomNavigationBar: SizedBox(
           height: 80,
-          backgroundColor: UColors.backgroundDark,
-          currentIndex: _currentIndex,
-          onTap: _updateIndex,
-          items: [
-            BottomNavigationBarItem(
-              icon: Center(
-                child: UIcon(
-                  UIcons.menu_bar_home,
-                  color: _currentIndex == 0 ? UColors.ctaBlue : UColors.defGrey,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: UColors.backgroundDark,
+            currentIndex: _currentIndex,
+            onTap: _updateIndex,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: [
+              BottomNavigationBarItem(
+                icon: Center(
+                  child: UIcon(
+                    UIcons.menu_bar_home,
+                    color:
+                        _currentIndex == 0 ? UColors.ctaBlue : UColors.defGrey,
+                  ),
                 ),
+                label: 'Chat',
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: UIcon(
-                UIcons.menu_bar_files,
-                color: _currentIndex == 1 ? UColors.ctaBlue : UColors.defGrey,
+              BottomNavigationBarItem(
+                icon: UIcon(
+                  UIcons.menu_bar_files,
+                  color: _currentIndex == 1 ? UColors.ctaBlue : UColors.defGrey,
+                ),
+                label: 'File',
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: UIcon(
-                UIcons.menu_bar_contacts,
-                color: _currentIndex == 2 ? UColors.ctaBlue : UColors.defGrey,
+              BottomNavigationBarItem(
+                icon: UIcon(
+                  UIcons.menu_bar_contacts,
+                  color: _currentIndex == 2 ? UColors.ctaBlue : UColors.defGrey,
+                ),
+                label: 'Contact',
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: BlocBuilder<CurrentUserBloc, CurrentUserState>(
-                bloc: _currentUserController,
-                builder: (context, state) {
-                  if (state is CurrentUserLoadSuccess &&
-                      _currentUserController.currentUser?.profilePicture !=
-                          null) {
-                    return _currentIndex == 3
-                        ? Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: UColors.ctaBlue,
-                                width: 2,
+              BottomNavigationBarItem(
+                icon: BlocBuilder<CurrentUserBloc, CurrentUserState>(
+                  bloc: _currentUserController,
+                  builder: (context, state) {
+                    if (state is CurrentUserLoadSuccess &&
+                        _currentUserController.currentUser?.profilePicture !=
+                            null) {
+                      return _currentIndex == 3
+                          ? Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: UColors.ctaBlue,
+                                  width: 2,
+                                ),
                               ),
-                            ),
-                            child: UUserProfile(
+                              child: UUserProfile(
+                                userProfileSize: UUserProfileSize.topMenuBar,
+                                uImage: UImage(
+                                  imagePath: _currentUserController
+                                      .currentUser?.profilePicture?.path,
+                                  imageSource: ImageSource.file,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          : UUserProfileWithStatus(
                               userProfileSize: UUserProfileSize.topMenuBar,
                               uImage: UImage(
                                 imagePath: _currentUserController
                                     .currentUser?.profilePicture?.path,
-                                imageSource: ImageSource.file,
                                 fit: BoxFit.cover,
+                                imageSource: ImageSource.file,
                               ),
-                            ),
-                          )
-                        : UUserProfileWithStatus(
-                            userProfileSize: UUserProfileSize.topMenuBar,
-                            uImage: UImage(
-                              imagePath: _currentUserController
-                                  .currentUser?.profilePicture?.path,
-                              fit: BoxFit.cover,
-                              imageSource: ImageSource.file,
-                            ),
-                            status: Status.online,
-                          );
-                  } else {
-                    return _currentIndex == 3
-                        ? Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: UColors.ctaBlue,
-                                width: 2,
+                              status: Status.online,
+                            );
+                    } else {
+                      return _currentIndex == 3
+                          ? Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: UColors.ctaBlue,
+                                  width: 2,
+                                ),
                               ),
-                            ),
-                            child: const UUserProfile(
+                              child: const UUserProfile(
+                                userProfileSize: UUserProfileSize.topMenuBar,
+                                uImage: UImage(),
+                              ),
+                            )
+                          : const UUserProfileWithStatus(
                               userProfileSize: UUserProfileSize.topMenuBar,
                               uImage: UImage(),
-                            ),
-                          )
-                        : const UUserProfileWithStatus(
-                            userProfileSize: UUserProfileSize.topMenuBar,
-                            uImage: UImage(),
-                            status: Status.online,
-                          );
-                  }
-                },
+                              status: Status.online,
+                            );
+                    }
+                  },
+                ),
+                label: 'Profile',
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
