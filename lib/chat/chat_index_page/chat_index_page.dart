@@ -8,6 +8,7 @@ import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_notifications.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
 
 part 'models/favorites_friends.part.dart';
@@ -269,8 +270,8 @@ class _ChatIndexAppBarState extends State<_ChatIndexAppBar>
           UIcons.lefthand_navigation_drawer,
           color: UColors.textMed,
         ),
-        onPressed: () async {
-          Scaffold.of(context).openDrawer();
+        onPressed: () {
+          bottomBarScaffoldStateKey.currentState?.openDrawer();
         },
       ),
       title: UAppStrings.chatIndexPage_appBarTitle,
