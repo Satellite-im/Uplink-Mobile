@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_index_page/models/search/chat_search.dart';
-import 'package:uplink/chat/chat_index_page/side_drawer.dart';
 import 'package:uplink/chat/notifications_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
-import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
-import 'package:uplink/utils/mock/helpers/loading_notifications.dart';
+import 'package:uplink/utils/mock/helpers/helpers_export.dart';
 import 'package:uplink/utils/mock/models/models_export.dart';
-import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
-import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
+import 'package:uplink/utils/ui_utils/ui_utils_export.dart';
 
 part 'models/favorites_friends.part.dart';
 part 'models/with_friends.part.dart';
