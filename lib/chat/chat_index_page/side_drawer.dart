@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
@@ -14,6 +13,7 @@ class SideDrawer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // user info
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 52, 0, 16),
             child: Column(
@@ -30,10 +30,12 @@ class SideDrawer extends StatelessWidget {
                   userProfileSize: UUserProfileSize.normal,
                   status: Status.online,
                 ),
+                SizedBox(height: 8),
                 UText(
                   'username',
                   textStyle: UTextStyle.H4_fourthHeader,
                 ),
+                SizedBox(height: 3),
                 UText(
                   'Something something space station',
                   textStyle: UTextStyle.B1_body,
@@ -43,6 +45,7 @@ class SideDrawer extends StatelessWidget {
             ),
           ),
           const UDivider(),
+          //options
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -64,17 +67,16 @@ class SideDrawer extends StatelessWidget {
             ],
           ),
           const UDivider(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 15, 0, 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _DrawerTextButton(text: 'Privacy Policy', onPressed: () {}),
-                _DrawerTextButton(text: 'Terms of Service', onPressed: () {}),
-              ],
-            ),
+          // text buttons
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _DrawerTextListTile(text: 'Privacy Policy', onTap: () {}),
+              _DrawerTextListTile(text: 'Terms of Service', onTap: () {}),
+            ],
           ),
           const UDivider(),
+          // logout
           _DrawerListTile(
             leadingUIconData: UIcons.logout,
             onTap: () {
@@ -116,26 +118,25 @@ class _DrawerListTile extends StatelessWidget {
   }
 }
 
-class _DrawerTextButton extends StatelessWidget {
-  const _DrawerTextButton({
+class _DrawerTextListTile extends StatelessWidget {
+  const _DrawerTextListTile({
     Key? key,
     required this.text,
-    required this.onPressed,
+    required this.onTap,
   }) : super(key: key);
   final String text;
-  final void Function() onPressed;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-      onPressed: onPressed,
-      child: UText(
+    return ListTile(
+      leading: UText(
         text,
         textStyle: UTextStyle.BUT2_secondaryButton,
         textColor: UColors.white,
         textAlign: TextAlign.left,
       ),
+      onTap: onTap,
     );
   }
 }
