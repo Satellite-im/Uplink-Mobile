@@ -19,7 +19,7 @@ class WarpMultipass {
   }) async {
     try {
       final _currentUserDID =
-          _warpBloc.multipass?.createIdentity(username.trim(), null);
+          _warpBloc.multipass?.createIdentity(username.trim(), password);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
       return _currentUserDID.toString().replaceAll('did:key:', '');
