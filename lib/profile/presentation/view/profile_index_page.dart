@@ -1,17 +1,13 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/app/view/app.dart';
-import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
-import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
 import 'package:uplink/utils/utils_export.dart';
 

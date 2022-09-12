@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -48,6 +49,8 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Save a file for Tesseract
   // Set auto save
   Future<void> _enableTesseract(String pin) async {
+    log('tessact path');
+    log(_tesseractPath ?? '');
     _tesseract!
       ..unlock(pin)
       ..setFile(_tesseractPath!)
@@ -56,10 +59,14 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   /// Get Tesseract from the devive. If not, create a new one
   Future<void> _getTesseract(String pin) async {
+    final fileList = Directory(_tesseractPath!).list().toList().toString();
+    log(fileList);
     try {
+      log('get tesseract from file');
       _tesseract = warp.Tesseract.fromFile(_tesseractPath!);
     } catch (error) {
       _tesseract = warp.Tesseract.newStore();
+      log('create a new Tesseract');
     }
     await _enableTesseract(pin);
   }
@@ -84,7 +91,11 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   Future<void> deleteLocalTesseract() async {
     try {
-      Directory('$_tesseractPath').deleteSync(recursive: true);
+      final _tesseractPathTrimed =
+          _tesseractPath!.substring(0, _tesseractPath!.length - 1);
+      log('delete tesseract: $_tesseractPath');
+
+      Directory(_tesseractPathTrimed).deleteSync(recursive: true);
     } catch (e) {
       throw Exception(e);
     }
