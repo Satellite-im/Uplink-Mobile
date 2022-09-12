@@ -45,115 +45,109 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        key: bottomBarScaffoldStateKey,
-        drawer: const SideDrawer(),
-        //use IndexedStack to keep the state in every screen
-        body: IndexedStack(
-          index: _currentIndex,
-          children: _screens,
-        ),
-        bottomNavigationBar: SizedBox(
-          height: 80,
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: UColors.backgroundDark,
-            currentIndex: _currentIndex,
-            onTap: _updateIndex,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: [
-              BottomNavigationBarItem(
-                icon: Center(
-                  child: UIcon(
-                    UIcons.menu_bar_home,
-                    color:
-                        _currentIndex == 0 ? UColors.ctaBlue : UColors.defGrey,
-                  ),
+    return Scaffold(
+      key: bottomBarScaffoldStateKey,
+      drawer: const SideDrawer(),
+      //use IndexedStack to keep the state in every screen
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 80,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: UColors.backgroundDark,
+          currentIndex: _currentIndex,
+          onTap: _updateIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: Center(
+                child: UIcon(
+                  UIcons.menu_bar_home,
+                  color: _currentIndex == 0 ? UColors.ctaBlue : UColors.defGrey,
                 ),
-                label: 'Chat',
               ),
-              BottomNavigationBarItem(
-                icon: UIcon(
-                  UIcons.menu_bar_files,
-                  color: _currentIndex == 1 ? UColors.ctaBlue : UColors.defGrey,
-                ),
-                label: 'File',
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: UIcon(
+                UIcons.menu_bar_files,
+                color: _currentIndex == 1 ? UColors.ctaBlue : UColors.defGrey,
               ),
-              BottomNavigationBarItem(
-                icon: UIcon(
-                  UIcons.menu_bar_contacts,
-                  color: _currentIndex == 2 ? UColors.ctaBlue : UColors.defGrey,
-                ),
-                label: 'Contact',
+              label: 'File',
+            ),
+            BottomNavigationBarItem(
+              icon: UIcon(
+                UIcons.menu_bar_contacts,
+                color: _currentIndex == 2 ? UColors.ctaBlue : UColors.defGrey,
               ),
-              BottomNavigationBarItem(
-                icon: BlocBuilder<CurrentUserBloc, CurrentUserState>(
-                  bloc: _currentUserController,
-                  builder: (context, state) {
-                    if (state is CurrentUserLoadSuccess &&
-                        _currentUserController.currentUser?.profilePicture !=
-                            null) {
-                      return _currentIndex == 3
-                          ? Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: UColors.ctaBlue,
-                                  width: 2,
-                                ),
+              label: 'Contact',
+            ),
+            BottomNavigationBarItem(
+              icon: BlocBuilder<CurrentUserBloc, CurrentUserState>(
+                bloc: _currentUserController,
+                builder: (context, state) {
+                  if (state is CurrentUserLoadSuccess &&
+                      _currentUserController.currentUser?.profilePicture !=
+                          null) {
+                    return _currentIndex == 3
+                        ? Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: UColors.ctaBlue,
+                                width: 2,
                               ),
-                              child: UUserProfile(
-                                userProfileSize: UUserProfileSize.topMenuBar,
-                                uImage: UImage(
-                                  imagePath: _currentUserController
-                                      .currentUser?.profilePicture?.path,
-                                  imageSource: ImageSource.file,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )
-                          : UUserProfileWithStatus(
+                            ),
+                            child: UUserProfile(
                               userProfileSize: UUserProfileSize.topMenuBar,
                               uImage: UImage(
                                 imagePath: _currentUserController
                                     .currentUser?.profilePicture?.path,
-                                fit: BoxFit.cover,
                                 imageSource: ImageSource.file,
+                                fit: BoxFit.cover,
                               ),
-                              status: Status.online,
-                            );
-                    } else {
-                      return _currentIndex == 3
-                          ? Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: UColors.ctaBlue,
-                                  width: 2,
-                                ),
+                            ),
+                          )
+                        : UUserProfileWithStatus(
+                            userProfileSize: UUserProfileSize.topMenuBar,
+                            uImage: UImage(
+                              imagePath: _currentUserController
+                                  .currentUser?.profilePicture?.path,
+                              fit: BoxFit.cover,
+                              imageSource: ImageSource.file,
+                            ),
+                            status: Status.online,
+                          );
+                  } else {
+                    return _currentIndex == 3
+                        ? Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: UColors.ctaBlue,
+                                width: 2,
                               ),
-                              child: const UUserProfile(
-                                userProfileSize: UUserProfileSize.topMenuBar,
-                                uImage: UImage(),
-                              ),
-                            )
-                          : const UUserProfileWithStatus(
+                            ),
+                            child: const UUserProfile(
                               userProfileSize: UUserProfileSize.topMenuBar,
                               uImage: UImage(),
-                              status: Status.online,
-                            );
-                    }
-                  },
-                ),
-                label: 'Profile',
+                            ),
+                          )
+                        : const UUserProfileWithStatus(
+                            userProfileSize: UUserProfileSize.topMenuBar,
+                            uImage: UImage(),
+                            status: Status.online,
+                          );
+                  }
+                },
               ),
-            ],
-          ),
+              label: 'Profile',
+            ),
+          ],
         ),
       ),
     );
