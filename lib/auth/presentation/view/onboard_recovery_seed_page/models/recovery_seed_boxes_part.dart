@@ -1,24 +1,22 @@
 part of '../onboard_recovery_seed_page.dart';
 
-List<String> _seedList = [
-  'art',
-  'bus',
-  'drink',
-  'frost',
-  'hour',
-  'cute',
-  'fly',
-  'frost',
-  'hour',
-  'grow',
-  'join',
-  'paint'
-];
-
-class _RecoverySeedBoxes extends StatelessWidget {
+class _RecoverySeedBoxes extends StatefulWidget {
   const _RecoverySeedBoxes({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_RecoverySeedBoxes> createState() => _RecoverySeedBoxesState();
+}
+
+class _RecoverySeedBoxesState extends State<_RecoverySeedBoxes> {
+  final _warpController = GetIt.I.get<WarpBloc>();
+  late List<String> _seedList;
+  @override
+  void initState() {
+    super.initState();
+    _seedList = _warpController.get12RecoverySeeds().split(' ');
+  }
 
   @override
   Widget build(BuildContext context) {
