@@ -1,14 +1,16 @@
+// ignore_for_file: cascade_invocations
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
-import 'package:uplink/utils/services/warp/warp_raygun.dart';
 
 part 'models/u_chat_message.dart';
 
@@ -26,125 +28,28 @@ class ChatRoomPage extends StatefulWidget {
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final _textEditingController = TextEditingController();
-  final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _chatController = GetIt.I.get<ChatBloc>();
   final _scrollController = ScrollController();
-  final _warpRaygun = WarpRaygun();
-
-  final List<UChatMessage> _messageList = [];
 
   void _addValue(String value) {
-    setState(() {
-      var _hideProfilePicture = false;
-
-      if (_messageList.isNotEmpty &&
-          _messageList.first.key.toString().contains('message_received')) {
-        _hideProfilePicture = true;
-        final _lastMessage = _messageList.first;
-        _messageList
-          ..removeAt(0)
-          ..insert(
-            0,
-            UChatMessage(
-              key: Key(
-                'message_received_${_lastMessage.chatMessage.messageSentTime}',
-              ),
-              chatMessage: _lastMessage.chatMessage,
-              showCompleteMessage: false,
-              hideProfilePicture: _lastMessage.hideProfilePicture,
-              currentUser: _currentUserController.currentUser!,
-              user: widget.user,
-            ),
-          );
-      }
-      _messageList.insert(
-        0,
-        UChatMessage(
-          key: Key('message_received_${DateTime.now()}'),
-          chatMessage: ChatMessage(
-            conversationId: conversationID!,
-            message: value,
-            messageSentTime: DateTime.now(),
-            chatMessageType: ChatMessageType.received,
-          ),
-          hideProfilePicture: _hideProfilePicture,
-          currentUser: _currentUserController.currentUser!,
-          user: widget.user,
-        ),
-      );
-      _scrollController.jumpTo(0);
-    });
+    _scrollController.jumpTo(0);
   }
 
-  void _sendMessage(String value) {
-    setState(() {
-      var _hideProfilePicture = false;
-      _warpRaygun.sendMessage(value);
-      if (_messageList.isNotEmpty &&
-          _messageList.first.key.toString().contains('message_sent')) {
-        _hideProfilePicture = true;
-        final _lastMessage = _messageList.first;
-        _messageList
-          ..removeAt(0)
-          ..insert(
-            0,
-            UChatMessage(
-              key: Key(
-                'message_sent_${_lastMessage.chatMessage.messageSentTime}',
-              ),
-              chatMessage: _lastMessage.chatMessage,
-              showCompleteMessage: false,
-              hideProfilePicture: _lastMessage.hideProfilePicture,
-              currentUser: _currentUserController.currentUser!,
-              user: widget.user,
-            ),
-          );
-      }
-      _messageList.insert(
-        0,
-        UChatMessage(
-          key: Key('message_sent_${DateTime.now()}'),
-          currentUser: _currentUserController.currentUser!,
-          user: widget.user,
-          hideProfilePicture: _hideProfilePicture,
-          chatMessage: ChatMessage(
-            conversationId: conversationID!,
-            message: value,
-            messageSentTime: DateTime.now(),
-            chatMessageType: ChatMessageType.sent,
-          ),
-        ),
-      );
-      _scrollController.jumpTo(0);
-    });
+  Future<void> _sendMessage(String value) async {
+    _scrollController.jumpTo(0);
   }
 
   @override
   void initState() {
-    _warpRaygun.createConversation(widget.user.did!);
-    final _warpChatMessages = _warpRaygun.getAllMessagesForOneConversation(
-      _currentUserController.currentUser!,
-      widget.user,
-    );
-    for (final element in _warpChatMessages) {
-      _messageList.add(element);
-    }
-    setState(() {});
-
-    Timer.periodic(const Duration(milliseconds: 10), (timer) {
-      final _messageList = _warpRaygun.receiveMessage();
-      if (_messageList.isNotEmpty &&
-          lastMessageReceived != _messageList.first) {
-        lastMessageReceived = _messageList.first;
-        if (mounted) _addValue(lastMessageReceived!);
-      }
-    });
-
+    _chatController.add(CreateConversationStarted(widget.user));
     super.initState();
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void dispose() {
+    _scrollController.dispose();
+    _chatController.dispose();
+    super.dispose();
   }
 
   @override
@@ -187,32 +92,55 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         child: Center(
           child: Column(
             children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollController,
-                  shrinkWrap: true,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    return _messageList[index];
-                  },
-                  itemCount: _messageList.length,
-                ),
+              BlocBuilder<ChatBloc, ChatState>(
+                bloc: _chatController,
+                builder: (context, state) {
+                  if (state is ChatLoadSucces) {
+                    return Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return state.chatMessages[index];
+                        },
+                        itemCount: state.chatMessages.length,
+                      ),
+                    );
+                  } else if (state is ChatLoadInProgress) {
+                    return Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return state.chatMessages[index];
+                        },
+                        itemCount: state.chatMessages.length,
+                      ),
+                    );
+                  } else {
+                    return const Expanded(child: SizedBox.shrink());
+                  }
+                },
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: UChatbar(
                   textEditingController: _textEditingController,
-                  onMsg: (value) {
-                    _sendMessage(value.trim());
+                  onMsg: (value) async {
+                    _chatController.add(SendNewMessageStarted(value));
+                    await _sendMessage(value.trim());
                   },
                   onImage: () {
                     _addValue('image');
                   },
-                  onSticker: () {
-                    _warpRaygun.createConversation(widget.user.did!);
-                    _addValue('sticker');
+                  onSticker: () async {
+                    await _sendMessage('sticker');
                   },
-                  onEmoji: () {},
+                  onEmoji: () async {
+                    await _sendMessage('Emoji');
+                  },
                   onGif: () {
                     _addValue('gif');
                   },
