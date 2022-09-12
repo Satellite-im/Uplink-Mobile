@@ -46,11 +46,7 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
                   rightButtonFn: (pin) {
                     _warp.add(WarpStarted(pin));
                     _authController.pinValue = pin;
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (context) => const OnboardCreateAccountPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/OnboardCreateAccount');
                   },
                 ),
                 Align(

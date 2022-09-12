@@ -1,6 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/app/view/app.dart';
+import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({Key? key}) : super(key: key);
@@ -80,7 +84,21 @@ class SideDrawer extends StatelessWidget {
           _DrawerListTile(
             leadingUIconData: UIcons.logout,
             onTap: () {
-              log('log out');
+              final _warpController = GetIt.I.get<WarpBloc>();
+              final _authController = GetIt.I.get<AuthBloc>();
+              try {
+                _warpController
+                  ..dropMultipass()
+                  ..dropTesseract()
+                  ..deleteLocalTesseract()
+                  ..deleteLocalMultipass();
+
+                _authController.add(AuthLogout());
+              } catch (e) {
+                log(e.toString());
+              }
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/', (route) => false);
             },
             title: 'Logout',
           ),

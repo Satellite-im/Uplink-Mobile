@@ -195,12 +195,17 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         });
 
         await signUpAndSetPinData().whenComplete(
-          () => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute<void>(
-              builder: (context) => const MainBottomNavigationBar(),
-            ),
+          () => Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/MainBottomNavigationBar',
             (route) => false,
           ),
+          // () => Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+          //   MaterialPageRoute<void>(
+          //     builder: (context) => const MainBottomNavigationBar(),
+          //   ),
+          //   (route) => false,
+          // ),
         );
       },
     ).show();
