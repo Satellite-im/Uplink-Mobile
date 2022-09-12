@@ -99,6 +99,12 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
     await _enableTesseract(pin);
   }
 
+  String get12RecoverySeeds() {
+    final _recoverySeeds = warp.mnemonic_standard_phrase();
+    log('recoverySeeds: $_recoverySeeds');
+    return _recoverySeeds;
+  }
+
   warp.Tesseract? _tesseract;
 
   warp_multipass.MultiPass? multipass;
