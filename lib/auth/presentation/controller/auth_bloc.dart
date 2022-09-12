@@ -24,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           newUser: event.currentUser,
           passphrase: event.passphrase,
         );
+        log('sign up with passphrase: ${event.passphrase}');
         log('_currentUser is created: ${_currentUser.did}');
         _currentUserController.add(
           GetCurrentUserInfo(currentUser: _currentUser),

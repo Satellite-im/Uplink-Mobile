@@ -10,6 +10,7 @@ import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/linking_satellites_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -57,6 +58,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
   }
 
   final _authController = GetIt.I.get<AuthBloc>();
+  final _warpController = GetIt.I.get<WarpBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -194,19 +196,18 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
           _isSigningUp = true;
         });
 
-        signUpAndSetPinData().whenComplete(() {
-          log('signUpAndSetPinData completed');
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            '/MainBottomNavigationBar',
-            (route) => false,
-          );
-        });
+        signUpAndSetPinData();
+        log('signUpAndSetPinData completed');
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/MainBottomNavigationBar',
+          (route) => false,
+        );
       },
     ).show();
   }
 
-  Future<void> signUpAndSetPinData() async {
+  void signUpAndSetPinData() {
     _authController
       ..add(
         AuthSignUp(
@@ -215,10 +216,13 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
             statusMessage: _messageStatusTextFieldController.text,
             profilePicture: _userPicture,
           ),
+          passphrase: _warpController.recoverySeeds,
         ),
       )
       ..add(
         AuthSetPinData(),
       );
+    //delete the recovery seeds in warp bloc
+    _warpController.deleteRecoverySeeds();
   }
 }
