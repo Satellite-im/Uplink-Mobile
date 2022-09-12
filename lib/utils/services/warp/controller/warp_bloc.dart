@@ -17,6 +17,12 @@ enum MultipassTest { temporary, persistent }
 class WarpBloc extends Bloc<WarpEvent, WarpState> {
   WarpBloc() : super(WarpInitial()) {
     on<WarpStarted>((event, emit) async {
+      if (_tesseract == null) {
+        log('_tesseract is null');
+      }
+      if (multipass == null) {
+        log('multipass is null');
+      }
       try {
         if (_tesseract == null || multipass == null) {
           emit(WarpLoadInProgress());
@@ -59,7 +65,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   /// Get Tesseract from the devive. If not, create a new one
   Future<void> _getTesseract(String pin) async {
-    final fileList = Directory(_tesseractPath!).list().toList().toString();
+    final fileList = File(_tesseractPath!).toString();
     log(fileList);
     try {
       log('get tesseract from file');
@@ -91,12 +97,12 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   Future<void> deleteLocalTesseract() async {
     try {
-      final _tesseractPathTrimed =
-          _tesseractPath!.substring(0, _tesseractPath!.length - 1);
       log('delete tesseract: $_tesseractPath');
 
-      Directory(_tesseractPathTrimed).deleteSync(recursive: true);
+      await File(_tesseractPath!).delete();
+      log('delete tesseract succeed');
     } catch (e) {
+      log('error in delete tesseract');
       throw Exception(e);
     }
   }
