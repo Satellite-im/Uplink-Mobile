@@ -11,7 +11,8 @@ class AuthSignUp extends AuthEvent {
   // TODO(passphrase): All the passphrase are null right now
   AuthSignUp({
     required this.currentUser,
-  }) : passphrase = null;
+    required this.passphrase,
+  });
   final CurrentUser currentUser;
   final String? passphrase;
   @override

@@ -100,9 +100,14 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   }
 
   String get12RecoverySeeds() {
-    final _recoverySeeds = warp.mnemonic_standard_phrase();
-    log('recoverySeeds: $_recoverySeeds');
-    return _recoverySeeds;
+    recoverySeeds = warp.mnemonic_standard_phrase();
+    log('get12RecoverySeeds: $recoverySeeds');
+    return recoverySeeds!;
+  }
+
+  void deleteRecoverySeeds() {
+    recoverySeeds = null;
+    log('deleted recovery seeds');
   }
 
   warp.Tesseract? _tesseract;
@@ -112,4 +117,6 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   String? _tesseractPath;
 
   String? _multipassPath;
+
+  String? recoverySeeds;
 }
