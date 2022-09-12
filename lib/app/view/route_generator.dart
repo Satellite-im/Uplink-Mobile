@@ -50,7 +50,7 @@ class RouteGenerator {
           builder: (context) => const MainBottomNavigationBar(),
         );
       default:
-        // TODO(yijing) : improve error page
+        // TODO(yijing): improve error page
         return MaterialPageRoute<void>(
           builder: (context) {
             return Scaffold(
