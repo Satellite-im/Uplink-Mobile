@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
@@ -21,6 +22,7 @@ class WarpCurrentUserData {
         final _base64Image = base64Encode(_imageBytes);
         _imageFileConvertedToBase64 = _base64Image;
       }
+      log('_warp.createUser started ');
 
       final _did = await _warp.createUser(
         username: newUser.username,

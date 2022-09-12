@@ -86,6 +86,7 @@ Widget _buildEntryPage(
   log('${authKeysMap[ULocalKey.isPinStored]}');
   log('pinValue');
   log('${authKeysMap[ULocalKey.pinValue]}');
+
   if (authKeysMap[ULocalKey.isUserLogged] == true &&
       authKeysMap[ULocalKey.isPinStored] == true &&
       authKeysMap[ULocalKey.pinValue] != null) {

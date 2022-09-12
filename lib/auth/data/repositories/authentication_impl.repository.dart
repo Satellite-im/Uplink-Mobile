@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:uplink/auth/data/datasource/auth_local_data.local_datasource.dart';
 import 'package:uplink/auth/data/datasource/warp_current_user_data.remote_datasource.dart';
 import 'package:uplink/auth/data/repositories/authentication.repository.dart';
@@ -18,6 +20,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
     required CurrentUser newUser,
     required String? password,
   }) async {
+    log('createCurrentUser password $password');
     try {
       final _newUser = await _remoteDatasource.createCurrentUser(
         newUser: newUser,
@@ -25,6 +28,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
       );
       return _newUser;
     } catch (error) {
+      log('createCurrentUser failed');
       throw Exception(error);
     }
   }

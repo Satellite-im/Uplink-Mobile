@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -187,19 +188,20 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
       },
-      secondButtonOnPressed: () async {
+      secondButtonOnPressed: () {
         setState(() {
           Navigator.of(context).pop(); //close bottom sheet
           _isSigningUp = true;
         });
 
-        await signUpAndSetPinData().whenComplete(
-          () => Navigator.pushNamedAndRemoveUntil(
+        signUpAndSetPinData().whenComplete(() {
+          log('signUpAndSetPinData completed');
+          Navigator.pushNamedAndRemoveUntil(
             context,
             '/MainBottomNavigationBar',
             (route) => false,
-          ),
-        );
+          );
+        });
       },
     ).show();
   }
