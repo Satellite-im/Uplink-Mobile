@@ -8,12 +8,12 @@ abstract class AuthEvent {
 class AuthStarted extends AuthEvent {}
 
 class AuthSignUp extends AuthEvent {
-  // TODO(password): All the password are null right now
+  // TODO(passphrase): All the passphrase are null right now
   AuthSignUp({
     required this.currentUser,
-  }) : password = null;
+  }) : passphrase = null;
   final CurrentUser currentUser;
-  final String? password;
+  final String? passphrase;
   @override
   List<Object> get props => [currentUser];
 }

@@ -22,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthLoadInProgress());
         final _currentUser = await _repository.createCurrentUser(
           newUser: event.currentUser,
-          password: event.password,
+          passphrase: event.passphrase,
         );
         log('_currentUser is created: ${_currentUser.did}');
         _currentUserController.add(
