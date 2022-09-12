@@ -6,6 +6,7 @@ import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/auth/data/repositories/authentication_impl.repository.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/bootstrap.dart';
+import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
 import 'package:uplink/contacts/add_friend_page/data/datasource/friend.remote_datasource.dart';
 import 'package:uplink/contacts/add_friend_page/data/repositories/friend_impl.repository.dart';
 import 'package:uplink/contacts/add_friend_page/data/repositories/friend_repository.dart';
@@ -30,12 +31,17 @@ void _registerDependencies() {
   _registerDependenciesToAuth(_getIt);
   _registerDependencieToUpdateCurrentUser(_getIt);
   _registerDependencieFriend(_getIt);
+  _registerDependencieChat(_getIt);
 }
 
 void _registerDependencieToEnableWarp(GetIt _getIt) {
   _getIt.registerLazySingleton<WarpBloc>(
     WarpBloc.new,
   );
+}
+
+void _registerDependencieChat(GetIt _getIt) {
+  _getIt.registerLazySingleton<ChatBloc>(ChatBloc.new);
 }
 
 void _registerDependencieFriend(GetIt _getIt) {
