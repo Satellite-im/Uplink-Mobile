@@ -40,8 +40,6 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
-  final _warpController = GetIt.I.get<WarpBloc>();
-  final _authController = GetIt.I.get<AuthBloc>();
 
   final scrollController = ScrollController();
 
@@ -128,26 +126,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           UIcons.hamburger_menu,
                           color: UColors.white,
                         ),
-                        onPressed: () {
-                          // TODO(yijing): add drop raygun
-                          try {
-                            _warpController
-                              ..dropMultipass()
-                              ..dropTesseract()
-                              ..deleteLocalMultipass()
-                              ..deleteLocalTesseract();
-                            _authController.add(AuthLogout());
-                            Navigator.of(context, rootNavigator: true)
-                                .pushAndRemoveUntil(
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) => const App(),
-                              ),
-                              (route) => false,
-                            );
-                          } catch (e) {
-                            log(e.toString());
-                          }
-                        },
+                        onPressed: () {},
                       ),
                     ] else ...[
                       IconButton(
