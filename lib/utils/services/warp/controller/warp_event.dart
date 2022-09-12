@@ -12,3 +12,7 @@ class WarpStarted extends WarpEvent {
   @override
   List<Object> get props => [];
 }
+
+class WarpReseted extends WarpEvent {
+  WarpReseted();
+}

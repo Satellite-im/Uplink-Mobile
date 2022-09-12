@@ -16,31 +16,42 @@ enum MultipassTest { temporary, persistent }
 
 class WarpBloc extends Bloc<WarpEvent, WarpState> {
   WarpBloc() : super(WarpInitial()) {
-    on<WarpStarted>((event, emit) async {
-      if (_tesseract == null) {
-        log('_tesseract is null');
-      }
-      if (multipass == null) {
-        log('multipass is null');
-      }
-      try {
-        if (_tesseract == null || multipass == null) {
-          emit(WarpLoadInProgress());
-          await _getPathOfTesseractAndMultipass();
-          await _getTesseract(event.pin);
-
-          multipass = warp_mp_ipfs.multipass_ipfs_persistent(
-            _tesseract!,
-            _multipassPath!,
-          );
-
-          emit(WarpLoadSuccess());
+    on<WarpStarted>(
+      (event, emit) async {
+        if (_tesseract == null) {
+          log('_tesseract is null');
         }
-      } catch (error) {
-        emit(WarpLoadFailure());
-        addError(error);
-      }
-    });
+        if (multipass == null) {
+          log('multipass is null');
+        }
+        try {
+          if (_tesseract == null || multipass == null) {
+            emit(WarpLoadInProgress());
+            await _getPathOfTesseractAndMultipass();
+            await _getTesseract(event.pin);
+
+            multipass = warp_mp_ipfs.multipass_ipfs_persistent(
+              _tesseract!,
+              _multipassPath!,
+            );
+
+            emit(WarpLoadSuccess());
+          }
+        } catch (error) {
+          emit(WarpLoadFailure());
+          addError(error);
+        }
+      },
+    );
+
+    //delete previous pointer of multipass when logout
+    on<WarpReseted>(
+      (event, emit) {
+        emit(WarpLoadInProgress());
+        multipass = null;
+        emit(WarpInitial());
+      },
+    );
   }
 
   /// Get the file path to save tesseract and multipass
