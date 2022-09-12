@@ -92,11 +92,9 @@ class _OnboardPrivacySettingFirstPageState
               UButton.filled1(
                 label: UAppStrings.continueButton,
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) =>
-                          const OnboardPrivacySettingSecondPage(),
-                    ),
+                  Navigator.pushNamed(
+                    context,
+                    '/OnboardPrivacySettingSecond',
                   );
                 },
               ),

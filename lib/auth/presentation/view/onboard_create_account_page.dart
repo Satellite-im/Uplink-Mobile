@@ -47,11 +47,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     label: UAppStrings.createAccountPage_appBarTitle,
                     uIconData: UIcons.menu_bar_contacts,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<Widget>(
-                          builder: (context) => const OnboardRecoverySeedPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, '/OnboardRecoverySeed');
                     },
                   ),
                   const SizedBox(height: 8),
@@ -59,12 +55,7 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     label: UAppStrings.createAccountPage_importAccountButton,
                     uIconData: UIcons.import,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (context) =>
-                              const OnboardImportAccountPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, '/OnboardImportAccount');
                     },
                   ),
                 ],

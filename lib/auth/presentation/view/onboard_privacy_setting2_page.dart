@@ -48,10 +48,9 @@ class _OnboardPrivacySettingSecondPageState
               UButton.filled1(
                 label: UAppStrings.continueButton,
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) => const OnboardCreateProfilePage(),
-                    ),
+                  Navigator.pushNamed(
+                    context,
+                    '/OnboardCreateProfile',
                   );
                 },
               ),
