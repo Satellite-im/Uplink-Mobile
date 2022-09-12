@@ -8,7 +8,6 @@ abstract class AuthEvent {
 class AuthStarted extends AuthEvent {}
 
 class AuthSignUp extends AuthEvent {
-  // TODO(passphrase): All the passphrase are null right now
   AuthSignUp({
     required this.currentUser,
     required this.passphrase,
