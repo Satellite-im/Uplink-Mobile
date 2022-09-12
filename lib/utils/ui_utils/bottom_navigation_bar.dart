@@ -7,6 +7,7 @@ import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
 import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
 import 'package:uplink/profile/profile_export.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
 class MainBottomNavigationBar extends StatefulWidget {
   const MainBottomNavigationBar({Key? key}) : super(key: key);
@@ -40,12 +41,14 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   }
 
   final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _warpController = GetIt.I.get<WarpBloc>();
 
   @override
   void initState() {
     super.initState();
     // TODO(yijing): add loading page for this call
     _controller.add(GetAllUserInfo());
+    _warpController.add(RaygunStarted());
   }
 
   @override

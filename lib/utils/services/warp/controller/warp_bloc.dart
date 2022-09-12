@@ -27,11 +27,6 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
             _directoryPath!,
           );
 
-          raygun = rg_ipfs.raygun_ipfs_persistent(
-            multipass!,
-            _directoryPath!,
-          );
-
           emit(WarpLoadSuccess());
         }
       } catch (error) {

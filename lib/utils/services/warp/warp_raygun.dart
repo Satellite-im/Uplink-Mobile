@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
@@ -11,22 +9,18 @@ import 'package:warp_dart/warp.dart';
 
 String? conversationID;
 
-String? _userDID;
-
-String? lastMessageReceived;
-
 class WarpRaygun {
   final _warp = GetIt.I.get<WarpBloc>();
 
-  void createConversation(String userDID) {
+  String? lastMessageIDReceived;
+
+  String? _userDID;
+
+  String createConversation(String userDID) {
     try {
       conversationID = null;
       _userDID = null;
-      lastMessageReceived = null;
-      if (_warp.raygun == null) {
-        _warp.add(RaygunStarted());
-        sleep(const Duration(seconds: 1));
-      }
+      lastMessageIDReceived = null;
 
       _userDID = userDID;
       final _currentUserConversations = _warp.raygun!.listConversation();
@@ -42,6 +36,7 @@ class WarpRaygun {
             _warp.raygun!.createConversation('did:key:$userDID');
         conversationID = conversation.id;
       }
+      return conversationID!;
     } catch (error) {
       throw Exception(['create_conversation_exception', error]);
     }
@@ -49,30 +44,29 @@ class WarpRaygun {
 
   void sendMessage(String newMessage) {
     try {
-      final _listMessages = <String>[newMessage.trim()];
-      _warp.raygun!.send(conversationID!, _listMessages);
+      _warp.raygun!.send(conversationID!, [newMessage.trim()]);
     } catch (error) {
       throw Exception(['send_message_exception', error]);
     }
   }
 
-  List<String> receiveMessage() {
+  List<String> getLastMessageReceived() {
     try {
       final _messages = <String>[];
-      final _lastRaygunMessage =
-          _warp.raygun!.getMessages(conversationID!).last;
+      final _raygunMessages = _warp.raygun!.getMessages(conversationID!);
 
+      final _lastRaygunMessage = _raygunMessages.last;
       if (_lastRaygunMessage.sender.toString().contains(_userDID!)) {
-        _messages.add(_lastRaygunMessage.value.first);
+        _messages
+          ..add(_lastRaygunMessage.value.first)
+          ..add(_lastRaygunMessage.id);
       }
       return _messages;
-    } on WarpException catch (warpError) {
-      if (warpError.error_message == 'Message is empty') {
+    } on WarpException catch (error) {
+      if (error.error_message == 'Message is empty') {
         return [];
       }
-      throw Exception(['get_all_messages_exception', warpError]);
-    } catch (error) {
-      throw Exception(['receive_message_exception', error]);
+      throw Exception(['get_last_message_received', error]);
     }
   }
 
@@ -99,7 +93,6 @@ class WarpRaygun {
             'did:key:${currentUser.did}') {
           _chatMessageType = ChatMessageType.sent;
         }
-
         if (i != 0 &&
                 _currentWarpMessage.sender.toString() !=
                     _raygunMessages[i - 1].sender.toString() ||
@@ -153,10 +146,10 @@ class WarpRaygun {
             element.chatMessage.chatMessageType == ChatMessageType.received,
       );
 
-      lastMessageReceived = _lastUChatMessageReceived.chatMessage.message;
+      lastMessageIDReceived = _lastUChatMessageReceived.chatMessage.messageId;
     } catch (error) {
       if (error is StateError && error.message == 'No element') {
-        lastMessageReceived = null;
+        lastMessageIDReceived = null;
       } else {
         throw Exception(['get_last_message_received_exception', error]);
       }
