@@ -90,8 +90,8 @@ class SideDrawer extends StatelessWidget {
                   ..dropMultipass()
                   ..dropTesseract()
                   ..deleteLocalTesseract()
-                  ..deleteLocalMultipass();
-
+                  ..deleteLocalMultipass()
+                  ..add(WarpReseted());
                 _authController.add(AuthLogout());
               } catch (e) {
                 log(e.toString());
