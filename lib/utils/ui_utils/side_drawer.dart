@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -11,6 +13,7 @@ class SideDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _currentUserController = GetIt.I.get<CurrentUserBloc>();
     return Drawer(
       width: 304,
       backgroundColor: UColors.modalDark,
@@ -20,32 +23,40 @@ class SideDrawer extends StatelessWidget {
           // user info
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 52, 0, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                UUserProfileWithStatus(
-                  // TODO(yijing): update to user profile in warp
-                  uImage: UImage(
-                    imagePath:
-                        'packages/ui_library/images/placeholders/user_avatar_1.png',
-                    imageSource: ImageSource.local,
-                    fit: BoxFit.cover,
-                  ),
-                  userProfileSize: UUserProfileSize.normal,
-                  status: Status.online,
-                ),
-                SizedBox(height: 8),
-                UText(
-                  'username',
-                  textStyle: UTextStyle.H4_fourthHeader,
-                ),
-                SizedBox(height: 3),
-                UText(
-                  'Something something space station',
-                  textStyle: UTextStyle.B1_body,
-                  textColor: UColors.textMed,
-                ),
-              ],
+            child: BlocBuilder<CurrentUserBloc, CurrentUserState>(
+              bloc: _currentUserController,
+              builder: (context, state) {
+                if (state is CurrentUserLoadSuccess) {
+                  final user = state.currentUser;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      UUserProfileWithStatus(
+                        uImage: UImage(
+                          imagePath: user.profilePicture?.path,
+                          imageSource: ImageSource.file,
+                          fit: BoxFit.cover,
+                        ),
+                        userProfileSize: UUserProfileSize.normal,
+                        // TODO(yijing): update user status from warp
+                        status: Status.online,
+                      ),
+                      const SizedBox(height: 8),
+                      UText(
+                        user.username,
+                        textStyle: UTextStyle.H4_fourthHeader,
+                      ),
+                      const SizedBox(height: 3),
+                      UText(
+                        user.statusMessage ?? '',
+                        textStyle: UTextStyle.B1_body,
+                        textColor: UColors.textMed,
+                      ),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ),
           const UDivider(),
