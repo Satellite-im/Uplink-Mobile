@@ -19,10 +19,10 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
     on<WarpStarted>(
       (event, emit) async {
         if (_tesseract == null) {
-          log('_tesseract is null');
+          log('WarpStarted -> tesseract is null');
         }
         if (multipass == null) {
-          log('multipass is null');
+          log('WarpStarted -> multipass is null');
         }
         try {
           if (_tesseract == null || multipass == null) {
@@ -54,9 +54,9 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
           // delete local multipass and tesseract files
           Directory('$_multipassPath').deleteSync(recursive: true);
           Directory('$_tesseractPath').deleteSync(recursive: true);
-          log('delete tesseract and multipass succeessfully');
+          log('WarpLogout -> delete tesseract and multipass succeessfully');
         } catch (e) {
-          log('error in WarpLogout');
+          log('WarpLogout -> error');
           throw Exception(e);
         }
         //set multipass pointer to null
@@ -78,8 +78,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Save a file for Tesseract
   // Set auto save
   Future<void> _enableTesseract(String pin) async {
-    log('tessact path');
-    log(_tesseractPath ?? '');
+    log('Tesseract -> tessact path : $_tesseractPath');
     _tesseract!
       ..unlock(pin)
       ..setFile(_tesseractPath!)
@@ -91,11 +90,11 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
     final fileList = File(_tesseractPath!).toString();
     log(fileList);
     try {
-      log('get tesseract from file');
+      log('Tesseract -> get tesseract from file');
       _tesseract = warp.Tesseract.fromFile(_tesseractPath!);
     } catch (error) {
       _tesseract = warp.Tesseract.newStore();
-      log('create a new Tesseract');
+      log('Tesseract -> create a new Tesseract');
     }
     await _enableTesseract(pin);
   }
