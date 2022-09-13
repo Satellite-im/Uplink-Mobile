@@ -80,12 +80,9 @@ Widget _buildEntryPage(
   AuthBloc _authController,
 ) {
   final authKeysMap = state.authKeysMap;
-  log('isUserLogged');
-  log('${authKeysMap[ULocalKey.isUserLogged]}');
-  log('isPinStored');
-  log('${authKeysMap[ULocalKey.isPinStored]}');
-  log('pinValue');
-  log('${authKeysMap[ULocalKey.pinValue]}');
+  log('authKeysMap -> isUserLogged:${authKeysMap[ULocalKey.isUserLogged]}');
+  log('authKeysMap -> isPinStored:${authKeysMap[ULocalKey.isPinStored]}');
+  log('authKeysMap -> pinValue:${authKeysMap[ULocalKey.pinValue]}');
 
   if (authKeysMap[ULocalKey.isUserLogged] == true &&
       authKeysMap[ULocalKey.isPinStored] == true &&
