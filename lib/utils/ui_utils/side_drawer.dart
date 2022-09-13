@@ -59,7 +59,7 @@ class SideDrawer extends StatelessWidget {
                 title: UAppStrings.sideDrawer_location,
               ),
               _DrawerListTile(
-                leadingUIconData: UIcons.location,
+                leadingUIconData: UIcons.info,
                 onTap: () {},
                 title: UAppStrings.sideDrawer_help,
               ),
