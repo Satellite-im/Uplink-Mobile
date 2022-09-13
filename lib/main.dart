@@ -14,7 +14,7 @@ import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_b
 import 'package:uplink/profile/data/datasource/user_profile_data.remote_datasource.dart';
 import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
 import 'package:uplink/profile/data/repositories/user_profile_impl.repository.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/services_export.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
@@ -100,8 +100,8 @@ void _registerDependencieToUpdateCurrentUser(GetIt _getIt) {
         WarpMultipass(),
       ),
     )
-    ..registerLazySingleton<UpdateCurrentUserBloc>(
-      () => UpdateCurrentUserBloc(
+    ..registerLazySingleton<CurrentUserBloc>(
+      () => CurrentUserBloc(
         _getIt(),
       ),
     );

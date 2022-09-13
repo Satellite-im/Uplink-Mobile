@@ -1,26 +1,26 @@
-part of 'update_current_user_bloc.dart';
+part of 'current_user_bloc.dart';
 
 @immutable
-abstract class UpdateCurrentUserEvent {
+abstract class CurrentUserEvent {
   List<Object> get props => [];
 }
 
-class GetDid extends UpdateCurrentUserEvent {
+class GetDid extends CurrentUserEvent {
   @override
   List<Object> get props => [];
 }
 
-class GetUsername extends UpdateCurrentUserEvent {
+class GetUsername extends CurrentUserEvent {
   @override
   List<Object> get props => [];
 }
 
-class GetMessageStatus extends UpdateCurrentUserEvent {
+class GetMessageStatus extends CurrentUserEvent {
   @override
   List<Object> get props => [];
 }
 
-class UpdateUsername extends UpdateCurrentUserEvent {
+class UpdateUsername extends CurrentUserEvent {
   UpdateUsername({required this.newUsername});
 
   final String newUsername;
@@ -29,7 +29,7 @@ class UpdateUsername extends UpdateCurrentUserEvent {
   List<Object> get props => [newUsername];
 }
 
-class UpdateMessageStatus extends UpdateCurrentUserEvent {
+class UpdateMessageStatus extends CurrentUserEvent {
   UpdateMessageStatus({required this.newMessageStatus});
 
   final String newMessageStatus;
@@ -37,7 +37,7 @@ class UpdateMessageStatus extends UpdateCurrentUserEvent {
   List<Object> get props => [newMessageStatus];
 }
 
-class UpdateProfilePicture extends UpdateCurrentUserEvent {
+class UpdateProfilePicture extends CurrentUserEvent {
   UpdateProfilePicture({required this.profilePicture});
 
   final File profilePicture;
@@ -45,12 +45,12 @@ class UpdateProfilePicture extends UpdateCurrentUserEvent {
   List<Object> get props => [profilePicture];
 }
 
-class GetProfilePicture extends UpdateCurrentUserEvent {
+class GetProfilePicture extends CurrentUserEvent {
   @override
   List<Object> get props => [];
 }
 
-class UpdateBannerPicture extends UpdateCurrentUserEvent {
+class UpdateBannerPicture extends CurrentUserEvent {
   UpdateBannerPicture({required this.bannerPicture});
 
   final File bannerPicture;
@@ -58,13 +58,13 @@ class UpdateBannerPicture extends UpdateCurrentUserEvent {
   List<Object> get props => [bannerPicture];
 }
 
-class GetBannerPicture extends UpdateCurrentUserEvent {
+class GetBannerPicture extends CurrentUserEvent {
   @override
   List<Object> get props => [];
 }
 
-class GetAllUserInfo extends UpdateCurrentUserEvent {
-  GetAllUserInfo({this.currentUser});
+class GetCurrentUserInfo extends CurrentUserEvent {
+  GetCurrentUserInfo({this.currentUser});
 
   final CurrentUser? currentUser;
 

@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/view/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 
 class CopyIDTextField extends StatefulWidget {
   const CopyIDTextField({
@@ -23,7 +23,7 @@ class _CopyIDTextFieldState extends State<CopyIDTextField>
   late AnimationController? _animationController;
   late Animation<double> _animation;
   Timer _timerForOverlay = Timer(Duration.zero, () {});
-  final _currentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 
   @override
   void initState() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class FilesIndexPage extends StatefulWidget {
   const FilesIndexPage({Key? key}) : super(key: key);
@@ -42,7 +43,9 @@ class _FilesIndexPageState extends State<FilesIndexPage> {
             UIcons.lefthand_navigation_drawer,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () async {
+            bottomBarScaffoldStateKey.currentState?.openDrawer();
+          },
         ),
         title: UAppStrings.filesIndexPage_appBarTitle,
       ),

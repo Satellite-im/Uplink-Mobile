@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
-import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardPrivacySettingFirstPage extends StatefulWidget {
@@ -92,11 +91,9 @@ class _OnboardPrivacySettingFirstPageState
               UButton.filled1(
                 label: UAppStrings.continueButton,
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) =>
-                          const OnboardPrivacySettingSecondPage(),
-                    ),
+                  Navigator.pushNamed(
+                    context,
+                    '/OnboardPrivacySettingSecond',
                   );
                 },
               ),

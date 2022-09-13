@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/services/warp/warp_raygun.dart';
@@ -32,7 +32,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         user = event.user;
         conversationID = _warpRaygun.createConversation(user!.did!);
         chatMessagesList = _warpRaygun.getAllMessagesForOneConversation(
-          _updateCurrentUserController.currentUser!,
+          _currentUserController.currentUser!,
           user!,
         );
         add(GetNewMessageFromUserStarted());
@@ -83,7 +83,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             chatMessage: _lastMessage.chatMessage,
             showCompleteMessage: false,
             hideProfilePicture: _lastMessage.hideProfilePicture,
-            currentUser: _updateCurrentUserController.currentUser!,
+            currentUser: _currentUserController.currentUser!,
             user: user!,
           ),
         );
@@ -92,7 +92,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       0,
       UChatMessage(
         key: Key('message_sent_${DateTime.now()}'),
-        currentUser: _updateCurrentUserController.currentUser!,
+        currentUser: _currentUserController.currentUser!,
         user: user!,
         hideProfilePicture: _hideProfilePicture,
         chatMessage: ChatMessage(
@@ -123,7 +123,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             chatMessage: _lastMessage.chatMessage,
             showCompleteMessage: false,
             hideProfilePicture: _lastMessage.hideProfilePicture,
-            currentUser: _updateCurrentUserController.currentUser!,
+            currentUser: _currentUserController.currentUser!,
             user: user!,
           ),
         );
@@ -140,7 +140,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           chatMessageType: ChatMessageType.received,
         ),
         hideProfilePicture: _hideProfilePicture,
-        currentUser: _updateCurrentUserController.currentUser!,
+        currentUser: _currentUserController.currentUser!,
         user: user!,
       ),
     );
@@ -151,7 +151,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Timer? _callGetNewMessage;
 
   final _warp = GetIt.I.get<WarpBloc>();
-  final _updateCurrentUserController = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
   final _warpRaygun = WarpRaygun();
 
   User? user;

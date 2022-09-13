@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardPrivacySettingSecondPage extends StatefulWidget {
@@ -48,10 +47,9 @@ class _OnboardPrivacySettingSecondPageState
               UButton.filled1(
                 label: UAppStrings.continueButton,
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) => const OnboardCreateProfilePage(),
-                    ),
+                  Navigator.pushNamed(
+                    context,
+                    '/OnboardCreateProfile',
                   );
                 },
               ),

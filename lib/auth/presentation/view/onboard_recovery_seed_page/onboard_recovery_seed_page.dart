@@ -19,11 +19,6 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
   final _isLoading = ValueNotifier(false);
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return UActionLoading(
       dashLoadingIndicatorPadding: const EdgeInsets.only(left: 48),
@@ -68,11 +63,9 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                         secondButtonText: UAppStrings.continueButton,
                       ).show();
                     } else {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (context) =>
-                              const OnboardPrivacySettingFirstPage(),
-                        ),
+                      Navigator.pushNamed(
+                        context,
+                        '/OnboardPrivacySettingFirst',
                       );
                     }
                   },

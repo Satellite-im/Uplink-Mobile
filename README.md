@@ -1,6 +1,6 @@
 # Uplink
 
-Flutter Satellite.im Minimal Secure Chat Client
+Satellite.im Secure Chat Client using Flutter and Warp
 
 ---
 
@@ -14,7 +14,7 @@ To run this project either use the launch configuration in VSCode
 or use the following command:
 
 ```sh
-$ flutter run --target lib/main.dart 
+$ flutter run 
 ```
 
 _\*Uplink works on iOS, Android, Web, and Windows._

@@ -7,8 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/profile/presentation/controller/update_current_user_bloc.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/ui_utils/qr_code/qr_code_bottom_sheet.dart';
+import 'package:uplink/utils/utils_export.dart';
 
 part 'models/body.part.dart';
 part 'models/delete_picture_popup_menu_widget.part.dart';
@@ -34,13 +35,13 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
   final statusMessageTextFieldController = TextEditingController();
   final locationTextFieldController = TextEditingController();
   final aboutTextFieldController = TextEditingController();
-  final _controller = GetIt.I.get<UpdateCurrentUserBloc>();
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 
   final scrollController = ScrollController();
 
   void _verifyIfHasImage() {
-    if (_controller.currentUser!.bannerPicture != null &&
-        _controller.currentUser!.bannerPicture!.path.isNotEmpty) {
+    if (_currentUserController.currentUser!.bannerPicture != null &&
+        _currentUserController.currentUser!.bannerPicture!.path.isNotEmpty) {
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
@@ -108,7 +109,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                               child: GestureDetector(
                                 onTap: () {},
                                 child: QRCodeBottomSheet(
-                                  currentUser: _controller.currentUser!,
+                                  currentUser:
+                                      _currentUserController.currentUser!,
                                 ),
                               ),
                             ),
@@ -150,7 +152,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   ratioY: 164,
                                 ),
                               );
-                              _controller.add(
+                              _currentUserController.add(
                                 UpdateBannerPicture(
                                   bannerPicture: _bannerImageFile!,
                                 ),
@@ -167,7 +169,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   ratioY: 164,
                                 ),
                               );
-                              _controller.add(
+                              _currentUserController.add(
                                 UpdateBannerPicture(
                                   bannerPicture: _bannerImageFile!,
                                 ),
@@ -179,14 +181,14 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       ),
                       _DeletePicturePopupMenu(
                         removeAvatarOnPressed: () {
-                          _controller.add(
+                          _currentUserController.add(
                             UpdateProfilePicture(
                               profilePicture: File(''),
                             ),
                           );
                         },
                         removeBannerOnPressed: () {
-                          _controller.add(
+                          _currentUserController.add(
                             UpdateBannerPicture(
                               bannerPicture: File(''),
                             ),
@@ -195,18 +197,18 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       ),
                     ]
                   ],
-                  flexibleSpace: BlocBuilder<UpdateCurrentUserBloc,
-                      UpdateCurrentUserState>(
-                    bloc: _controller,
+                  flexibleSpace: BlocBuilder<CurrentUserBloc, CurrentUserState>(
+                    bloc: _currentUserController,
                     builder: (context, state) {
-                      if (state is UpdateCurrentUserStateSuccess &&
-                          _controller.currentUser?.bannerPicture != null) {
+                      if (state is CurrentUserLoadSuccess &&
+                          _currentUserController.currentUser?.bannerPicture !=
+                              null) {
                         return SizedBox(
                           height: 164,
                           width: double.infinity,
                           child: UImage(
-                            imagePath:
-                                _controller.currentUser?.bannerPicture?.path,
+                            imagePath: _currentUserController
+                                .currentUser?.bannerPicture?.path,
                             imageSource: ImageSource.file,
                             fit: BoxFit.cover,
                           ),
@@ -231,37 +233,42 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                         dimension: 114,
                       ),
                       Container(
-                        decoration: (_controller.currentUser?.bannerPicture ==
-                                    null &&
-                                _controller.currentUser?.profilePicture ==
-                                    null &&
-                                _controller.currentUser?.profilePicture?.path ==
-                                    null &&
-                                _controller.currentUser?.bannerPicture?.path ==
-                                    null)
-                            ? BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: UColors.backgroundDark,
-                                ),
-                              )
-                            : null,
-                        child: BlocBuilder<UpdateCurrentUserBloc,
-                            UpdateCurrentUserState>(
-                          bloc: _controller,
+                        decoration:
+                            (_currentUserController
+                                            .currentUser?.bannerPicture ==
+                                        null &&
+                                    _currentUserController
+                                            .currentUser?.profilePicture ==
+                                        null &&
+                                    _currentUserController.currentUser
+                                            ?.profilePicture?.path ==
+                                        null &&
+                                    _currentUserController
+                                            .currentUser?.bannerPicture?.path ==
+                                        null)
+                                ? BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: UColors.backgroundDark,
+                                    ),
+                                  )
+                                : null,
+                        child: BlocBuilder<CurrentUserBloc, CurrentUserState>(
+                          bloc: _currentUserController,
                           builder: (context, state) {
-                            if (state is UpdateCurrentUserStateSuccess &&
-                                _controller.currentUser?.profilePicture !=
+                            if (state is CurrentUserLoadSuccess &&
+                                _currentUserController
+                                        .currentUser?.profilePicture !=
                                     null) {
                               return UUserPictureChange(
                                 showChangeImageButton: _isEditingProfile,
                                 uImage: UImage(
-                                  imagePath: _controller
+                                  imagePath: _currentUserController
                                       .currentUser?.profilePicture?.path,
                                   imageSource: ImageSource.file,
                                 ),
                                 onPictureSelected: (value) {
-                                  _controller.add(
+                                  _currentUserController.add(
                                     UpdateProfilePicture(
                                       profilePicture: value!,
                                     ),
@@ -273,7 +280,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                 showChangeImageButton: _isEditingProfile,
                                 uImage: const UImage(),
                                 onPictureSelected: (value) {
-                                  _controller.add(
+                                  _currentUserController.add(
                                     UpdateProfilePicture(
                                       profilePicture: value!,
                                     ),
@@ -287,7 +294,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       AnimatedCrossFade(
                         duration: _duration,
                         firstChild: _ProfileIndexBody(
-                          controller: _controller,
+                          controller: _currentUserController,
                           pageSize: _size,
                           onTapEditProfile: (value) {
                             setState(() {
@@ -296,7 +303,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                           },
                         ),
                         secondChild: _EditProfileBody(
-                          controller: _controller,
+                          controller: _currentUserController,
                           scrollController: scrollController,
                           onSaveChanges: (canSave) {
                             if (canSave) {

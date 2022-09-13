@@ -297,4 +297,12 @@ Would you like to give Satellite.im access to your camera roll?''';
   ///UserNote
   static const userNote_note = 'Note';
   static const userNote_hintText = 'Tap to add note';
+
+  ///SideDrawer
+  static const sideDrawer_location = 'Location';
+  static const sideDrawer_help = 'Help';
+  static const sideDrawer_settings = 'Settings';
+  static const sideDrawer_privacy = 'Privacy Policy';
+  static const sideDrawer_terms = 'Terms of Service';
+  static const sideDrawer_logout = 'Logout';
 }

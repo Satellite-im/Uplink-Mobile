@@ -18,7 +18,7 @@ class _EditProfileBody extends StatefulWidget {
   final TextEditingController aboutTextFieldController;
   final ScrollController scrollController;
   final Function(bool) onSaveChanges;
-  final UpdateCurrentUserBloc controller;
+  final CurrentUserBloc controller;
 
   @override
   State<_EditProfileBody> createState() => _EditProfileBodyState();

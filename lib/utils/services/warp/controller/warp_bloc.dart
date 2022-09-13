@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -15,23 +18,51 @@ enum MultipassTest { temporary, persistent }
 
 class WarpBloc extends Bloc<WarpEvent, WarpState> {
   WarpBloc() : super(WarpInitial()) {
-    on<WarpStarted>((event, emit) async {
-      try {
-        if (_tesseract == null || multipass == null) {
-          emit(WarpLoadInProgress());
-          await _getPathOfTesseractAndMultipass();
-          await _getTesseract(event.pin);
-
-          multipass = warp_mp_ipfs.multipass_ipfs_persistent(
-            _tesseract!,
-            _directoryPath!,
-          );
-
-          emit(WarpLoadSuccess());
+    on<WarpStarted>(
+      (event, emit) async {
+        if (_tesseract == null) {
+          log('WarpStarted -> tesseract is null');
         }
+        if (multipass == null) {
+          log('WarpStarted -> multipass is null');
+        }
+        try {
+          if (_tesseract == null || multipass == null) {
+            emit(WarpLoadInProgress());
+            await _getPathOfTesseractAndMultipass();
+            await _getTesseract(event.pin);
+
+            multipass = warp_mp_ipfs.multipass_ipfs_persistent(
+              _tesseract!,
+              _directoryPath!,
+            );
+
+            emit(WarpLoadSuccess());
+          }
+        } catch (error) {
+          emit(WarpLoadFailure());
+          addError(error);
+        }
+      },
+    );
+    on<WarpLogout>((event, emit) {
+      emit(WarpLoadInProgress());
+      try {
+        multipass!.drop();
+        _tesseract!
+          ..lock()
+          ..drop();
+        // delete local multipass and tesseract files
+        Directory('$_directoryPath').deleteSync(recursive: true);
+        Directory('$_tesseractPath').deleteSync(recursive: true);
+        multipass = null;
+        _tesseract = null;
+        log('WarpLogout -> delete tesseract and multipass succeessfully');
       } catch (error) {
-        emit(WarpLoadFailure());
+        log('WarpLogout -> error');
         addError(error);
+        emit(WarpLoadFailure());
+        throw Exception(error);
       }
     });
 
@@ -64,6 +95,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   // Save a file for Tesseract
   // Set auto save
   Future<void> _enableTesseract(String pin) async {
+    log('Tesseract -> tessact path : $_tesseractPath');
     _tesseract!
       ..unlock(pin)
       ..setFile(_tesseractPath!)
@@ -72,10 +104,14 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   /// Get Tesseract from the devive. If not, create a new one
   Future<void> _getTesseract(String pin) async {
+    final fileList = File(_tesseractPath!).toString();
+    log(fileList);
     try {
+      log('Tesseract -> get tesseract from file');
       _tesseract = warp.Tesseract.fromFile(_tesseractPath!);
     } catch (error) {
       _tesseract = warp.Tesseract.newStore();
+      log('Tesseract -> create a new Tesseract');
     }
     await _enableTesseract(pin);
   }

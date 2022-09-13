@@ -15,6 +15,17 @@ class ULocalStorageService {
     }
   }
 
+  Future<void> deleteValue({
+    required ULocalKey localKey,
+  }) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(localKey.name);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   Future<void> saveBoolValue({
     required ULocalKey localKey,
     required bool value,

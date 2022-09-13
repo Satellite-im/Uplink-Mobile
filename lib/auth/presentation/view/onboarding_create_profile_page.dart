@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/auth/presentation/view/linking_satellites_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
-import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
@@ -188,19 +188,20 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
       firstButtonOnPressed: () async {
         Navigator.of(context).pop();
       },
-      secondButtonOnPressed: () async {
+      secondButtonOnPressed: () {
         setState(() {
           Navigator.of(context).pop(); //close bottom sheet
           _isSigningUp = true;
         });
 
-        await signUpAndSetPinData().whenComplete(
-          () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute<void>(
-              builder: (context) => const MainBottomNavigationBar(),
-            ),
-          ),
-        );
+        signUpAndSetPinData().whenComplete(() {
+          log('signUpAndSetPinData completed');
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/MainBottomNavigationBar',
+            (route) => false,
+          );
+        });
       },
     ).show();
   }
