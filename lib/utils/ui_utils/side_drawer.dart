@@ -86,12 +86,7 @@ class SideDrawer extends StatelessWidget {
               final _warpController = GetIt.I.get<WarpBloc>();
               final _authController = GetIt.I.get<AuthBloc>();
               try {
-                _warpController
-                  ..dropMultipass()
-                  ..dropTesseract()
-                  ..deleteLocalTesseract()
-                  ..deleteLocalMultipass()
-                  ..add(WarpReseted());
+                _warpController.add(WarpLogout());
                 _authController.add(AuthLogout());
               } catch (e) {
                 log(e.toString());

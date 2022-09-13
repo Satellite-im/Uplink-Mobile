@@ -43,11 +43,23 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         }
       },
     );
-
-    //delete previous pointer of multipass when logout
-    on<WarpReseted>(
+    on<WarpLogout>(
       (event, emit) {
         emit(WarpLoadInProgress());
+        try {
+          multipass!.drop();
+          _tesseract!
+            ..lock()
+            ..drop();
+          // delete local multipass and tesseract files
+          Directory('$_multipassPath').deleteSync(recursive: true);
+          Directory('$_tesseractPath').deleteSync(recursive: true);
+          log('delete tesseract and multipass succeessfully');
+        } catch (e) {
+          log('error in WarpLogout');
+          throw Exception(e);
+        }
+        //set multipass pointer to null
         multipass = null;
         emit(WarpInitial());
       },
@@ -57,7 +69,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   /// Get the file path to save tesseract and multipass
   Future<void> _getPathOfTesseractAndMultipass() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
-    _multipassPath = _directory.path;
+    _multipassPath = '${_directory.path}/multipass';
     _tesseractPath = '${_directory.path}/tesseract';
   }
 
@@ -86,44 +98,6 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
       log('create a new Tesseract');
     }
     await _enableTesseract(pin);
-  }
-
-  Future<void> dropMultipass() async {
-    try {
-      multipass!.drop();
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<void> dropTesseract() async {
-    try {
-      _tesseract!
-        ..lock()
-        ..drop();
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<void> deleteLocalTesseract() async {
-    try {
-      log('delete tesseract: $_tesseractPath');
-
-      await File(_tesseractPath!).delete();
-      log('delete tesseract succeed');
-    } catch (e) {
-      log('error in delete tesseract');
-      throw Exception(e);
-    }
-  }
-
-  Future<void> deleteLocalMultipass() async {
-    try {
-      Directory('$_multipassPath').deleteSync(recursive: true);
-    } catch (e) {
-      throw Exception(e);
-    }
   }
 
   warp.Tesseract? _tesseract;
