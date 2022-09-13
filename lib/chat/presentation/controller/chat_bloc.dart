@@ -46,17 +46,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event, emit) {
         _callGetNewMessage =
             Timer.periodic(const Duration(milliseconds: 300), (timer) {
-          if (emit.isDone) {
-            emit(ChatLoadInProgress(chatMessagesList));
-          }
           final _lastMessageReceived = _warpRaygun.getLastMessageReceived();
 
           if (_lastMessageReceived.isNotEmpty &&
               _lastMessageReceivedID != _lastMessageReceived.last) {
             _lastMessageReceivedID = _lastMessageReceived.last;
             _prepareLastMessageReceivedToUI(_lastMessageReceived.first);
-          }
-          if (emit.isDone) {
             emit(ChatLoadSucces(chatMessagesList));
           }
         });
@@ -66,6 +61,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void dispose() {
     _callGetNewMessage!.cancel();
+    chatMessagesList.clear();
+    conversationID = null;
+    user = null;
   }
 
   void _prepareNewMessageSentToUI(SendNewMessageStarted event) {
@@ -130,6 +128,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           ),
         );
     }
+
     chatMessagesList.insert(
       0,
       UChatMessage(
