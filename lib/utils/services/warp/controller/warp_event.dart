@@ -13,6 +13,6 @@ class WarpStarted extends WarpEvent {
   List<Object> get props => [];
 }
 
-class WarpReseted extends WarpEvent {
-  WarpReseted();
+class WarpLogout extends WarpEvent {
+  WarpLogout();
 }
