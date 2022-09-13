@@ -35,7 +35,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           _currentUserController.currentUser!,
           user!,
         );
-        add(GetNewMessageFromUserStarted());
+        emit(ChatLoadSucces(chatMessagesList));
       } catch (error) {
         addError(error);
         emit(ChatLoadError());
@@ -50,6 +50,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
           if (_lastMessageReceived.isNotEmpty &&
               _lastMessageReceivedID != _lastMessageReceived.last) {
+            emit(ChatLoadInProgress(chatMessagesList));
             _lastMessageReceivedID = _lastMessageReceived.last;
             _prepareLastMessageReceivedToUI(_lastMessageReceived.first);
             emit(ChatLoadSucces(chatMessagesList));

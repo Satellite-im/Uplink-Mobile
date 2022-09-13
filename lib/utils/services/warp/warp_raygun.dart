@@ -7,12 +7,12 @@ import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/warp.dart';
 
-String? conversationID;
-
 class WarpRaygun {
   final _warp = GetIt.I.get<WarpBloc>();
 
   String? lastMessageIDReceived;
+
+  String? conversationID;
 
   String? _userDID;
 

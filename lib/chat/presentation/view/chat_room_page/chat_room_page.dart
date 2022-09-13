@@ -31,14 +31,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   final _chatController = GetIt.I.get<ChatBloc>();
   final _scrollController = ScrollController();
 
-  void _addValue(String value) {
-    _scrollController.jumpTo(0);
-  }
-
-  Future<void> _sendMessage(String value) async {
-    _scrollController.jumpTo(0);
-  }
-
   @override
   void initState() {
     _chatController.add(CreateConversationStarted(widget.user));
@@ -95,28 +87,16 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
               BlocBuilder<ChatBloc, ChatState>(
                 bloc: _chatController,
                 builder: (context, state) {
-                  if (state is ChatLoadSucces) {
+                  if (state is ChatLoadSucces || state is ChatLoadInProgress) {
                     return Expanded(
                       child: ListView.builder(
                         controller: _scrollController,
                         shrinkWrap: true,
                         reverse: true,
                         itemBuilder: (context, index) {
-                          return state.chatMessages[index];
+                          return _chatController.chatMessagesList[index];
                         },
-                        itemCount: state.chatMessages.length,
-                      ),
-                    );
-                  } else if (state is ChatLoadInProgress) {
-                    return Expanded(
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        shrinkWrap: true,
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          return state.chatMessages[index];
-                        },
-                        itemCount: state.chatMessages.length,
+                        itemCount: _chatController.chatMessagesList.length,
                       ),
                     );
                   } else {
@@ -130,20 +110,11 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                   textEditingController: _textEditingController,
                   onMsg: (value) async {
                     _chatController.add(SendNewMessageStarted(value));
-                    await _sendMessage(value.trim());
                   },
-                  onImage: () {
-                    _addValue('image');
-                  },
-                  onSticker: () async {
-                    await _sendMessage('sticker');
-                  },
-                  onEmoji: () async {
-                    await _sendMessage('Emoji');
-                  },
-                  onGif: () {
-                    _addValue('gif');
-                  },
+                  onImage: () {},
+                  onSticker: () async {},
+                  onEmoji: () async {},
+                  onGif: () {},
                 ),
               ),
             ],
