@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -55,17 +56,17 @@ class SideDrawer extends StatelessWidget {
               _DrawerListTile(
                 leadingUIconData: UIcons.location,
                 onTap: () {},
-                title: 'Location',
+                title: UAppStrings.sideDrawer_location,
               ),
               _DrawerListTile(
                 leadingUIconData: UIcons.location,
                 onTap: () {},
-                title: 'Help',
+                title: UAppStrings.sideDrawer_help,
               ),
               _DrawerListTile(
                 leadingUIconData: UIcons.setting,
                 onTap: () {},
-                title: 'Settings',
+                title: UAppStrings.sideDrawer_settings,
               ),
             ],
           ),
@@ -74,8 +75,14 @@ class SideDrawer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _DrawerTextListTile(text: 'Privacy Policy', onTap: () {}),
-              _DrawerTextListTile(text: 'Terms of Service', onTap: () {}),
+              _DrawerTextListTile(
+                text: UAppStrings.sideDrawer_privacy,
+                onTap: () {},
+              ),
+              _DrawerTextListTile(
+                text: UAppStrings.sideDrawer_terms,
+                onTap: () {},
+              ),
             ],
           ),
           const UDivider(),
@@ -94,7 +101,7 @@ class SideDrawer extends StatelessWidget {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil('/', (route) => false);
             },
-            title: 'Logout',
+            title: UAppStrings.sideDrawer_logout,
           ),
         ],
       ),
