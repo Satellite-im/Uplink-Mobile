@@ -35,7 +35,7 @@ class SuggestedSeedsOverlayState extends State<SuggestedSeedsOverlay> {
               if (tapedWordIndex == index) highlight = true;
               return InkWell(
                 child: Container(
-                  color: highlight ? UColors.ctaBlue : UColors.foregroundDark,
+                  color: highlight ? UColors.highlight : UColors.foregroundDark,
                   height: 48,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
