@@ -104,7 +104,14 @@ class _TextFieldWithAssociativeSeedsState
           offset: const Offset(0, 68),
           child: SuggestedSeedsOverlay(
             suggestedPassphraseList: suggestedPassphraseList,
-            onTap: widget.addInSelectedGridView,
+            onTap: (passphrase) {
+              widget.addInSelectedGridView(passphrase);
+              //delete the texts in text field
+              controller.clear();
+              suggestedPassphraseList.clear();
+              //close suggested passphrase list
+              overlayEntry?.remove();
+            },
           ),
         ),
       ),
