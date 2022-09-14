@@ -58,4 +58,7 @@ class UColors {
 
   /// FF38384C
   static const loadLight = Color(0xFF38384C);
+
+  /// FF151A26
+  static const highlight = Color(0xFF151A26);
 }
