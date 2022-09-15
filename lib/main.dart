@@ -6,6 +6,9 @@ import 'package:uplink/auth/data/repositories/authentication.repository.dart';
 import 'package:uplink/auth/data/repositories/authentication_impl.repository.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/bootstrap.dart';
+import 'package:uplink/chat/data/datasource/chat.remote_datasource.dart';
+import 'package:uplink/chat/data/repositories/chat.repository.dart';
+import 'package:uplink/chat/data/repositories/chat_impl.repository.dart';
 import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
 import 'package:uplink/contacts/add_friend_page/data/datasource/friend.remote_datasource.dart';
 import 'package:uplink/contacts/add_friend_page/data/repositories/friend_impl.repository.dart';
@@ -18,6 +21,7 @@ import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/services_export.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
+import 'package:uplink/utils/services/warp/warp_raygun.dart';
 
 void main() {
   _registerDependencies();
@@ -41,7 +45,22 @@ void _registerDependencieToEnableWarp(GetIt _getIt) {
 }
 
 void _registerDependencieChat(GetIt _getIt) {
-  _getIt.registerLazySingleton<ChatBloc>(ChatBloc.new);
+  _getIt
+    ..registerLazySingleton<IChatRepository>(
+      () => ChatRepositoryImpl(
+        _getIt(),
+      ),
+    )
+    ..registerLazySingleton<ChatData>(
+      () => ChatData(
+        WarpRaygun(),
+      ),
+    )
+    ..registerLazySingleton<ChatBloc>(
+      () => ChatBloc(
+        _getIt(),
+      ),
+    );
 }
 
 void _registerDependencieFriend(GetIt _getIt) {
