@@ -23,4 +23,7 @@ class ChatLoadSucces extends ChatState {
   List<Object> get props => [chatMessages];
 }
 
-class ChatLoadError extends ChatState {}
+class ChatLoadError extends ChatState {
+  @override
+  List<Object> get props => [];
+}
