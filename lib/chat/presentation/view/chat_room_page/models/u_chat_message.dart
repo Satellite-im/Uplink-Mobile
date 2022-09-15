@@ -112,7 +112,7 @@ class UChatMessage extends StatelessWidget {
                   : const EdgeInsets.only(left: 52),
               child: UText(
                 DateFormatUtils.formatDateTwelveHours(
-                  DateTime.now(),
+                  chatMessage.messageSentTime,
                 ),
                 textStyle: UTextStyle.M1_micro,
               ),

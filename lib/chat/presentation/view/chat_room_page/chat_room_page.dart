@@ -30,10 +30,15 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   final _textEditingController = TextEditingController();
   final _chatController = GetIt.I.get<ChatBloc>();
   final _scrollController = ScrollController();
+  late Timer _getLastMessageTimer;
 
   @override
   void initState() {
     _chatController.add(CreateConversationStarted(widget.user));
+    _getLastMessageTimer =
+        Timer.periodic(const Duration(milliseconds: 300), (timer) {
+      _chatController.add(GetNewMessageFromUserStarted());
+    });
     super.initState();
   }
 
@@ -41,6 +46,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void dispose() {
     _scrollController.dispose();
     _chatController.dispose();
+    _getLastMessageTimer.cancel();
     super.dispose();
   }
 

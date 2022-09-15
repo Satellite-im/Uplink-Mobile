@@ -1,25 +1,28 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uplink/chat/data/repositories/chat.repository.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
-import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
-import 'package:uplink/utils/services/warp/warp_raygun.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatBloc() : super(ChatInitial()) {
+  ChatBloc(this._repository) : super(ChatInitial()) {
     on<SendNewMessageStarted>((event, emit) {
       try {
         emit(ChatLoadInProgress(chatMessagesList));
-        _warp.raygun!.send(conversationID!, [event.newMessageSent]);
-        _prepareNewMessageSentToUI(event);
+        final _chatMessageToSent = ChatMessage.sendMessage(
+          conversationId: _conversationID!,
+          message: event.newMessageSent,
+          messageSentTime: DateTime.now(),
+          chatMessageType: ChatMessageType.sent,
+        );
+        _repository.sendMessage(newMessage: _chatMessageToSent);
+        _prepareNewMessageSentToUI(_chatMessageToSent);
         emit(ChatLoadSucces(chatMessagesList));
       } catch (error) {
         addError(error);
@@ -29,12 +32,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<CreateConversationStarted>((event, emit) {
       try {
-        user = event.user;
-        conversationID = _warpRaygun.createConversation(user!.did!);
-        chatMessagesList = _warpRaygun.getAllMessagesForOneConversation(
-          _currentUserController.currentUser!,
-          user!,
+        _user = event.user;
+        _conversationID = _repository.createConversation(user: _user!);
+        final _allMessagesInConversation =
+            _repository.getAllMessagesInConversation(
+          conversationID: _conversationID!,
+          user: _user!,
         );
+        chatMessagesList = _prepareAllMessagesForUI(_allMessagesInConversation);
         emit(ChatLoadSucces(chatMessagesList));
       } catch (error) {
         addError(error);
@@ -44,30 +49,101 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<GetNewMessageFromUserStarted>(
       (event, emit) {
-        _callGetNewMessage =
-            Timer.periodic(const Duration(milliseconds: 300), (timer) {
-          final _lastMessageReceived = _warpRaygun.getLastMessageReceived();
+        try {
+          final _lastMessageReceived = _repository.getLastMessageReceived(
+            conversationID: _conversationID!,
+            user: _user!,
+          );
 
-          if (_lastMessageReceived.isNotEmpty &&
-              _lastMessageReceivedID != _lastMessageReceived.last) {
+          if (_lastMessageReceived != null &&
+              _lastMessageReceivedID != _lastMessageReceived.messageId) {
             emit(ChatLoadInProgress(chatMessagesList));
-            _lastMessageReceivedID = _lastMessageReceived.last;
-            _prepareLastMessageReceivedToUI(_lastMessageReceived.first);
+            _lastMessageReceivedID = _lastMessageReceived.messageId!;
+            _prepareLastMessageReceivedToUI(_lastMessageReceived);
             emit(ChatLoadSucces(chatMessagesList));
           }
-        });
+        } catch (error) {
+          addError(error);
+          emit(ChatLoadError());
+        }
       },
     );
   }
 
-  void dispose() {
-    _callGetNewMessage!.cancel();
-    chatMessagesList.clear();
-    conversationID = null;
-    user = null;
+  List<UChatMessage> chatMessagesList = [];
+
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
+  final IChatRepository _repository;
+
+  User? _user;
+
+  String? _conversationID;
+
+  String _lastMessageReceivedID = '';
+
+  List<UChatMessage> _prepareAllMessagesForUI(
+    List<ChatMessage> allMessages,
+  ) {
+    try {
+      final list = <UChatMessage>[];
+
+      if (allMessages.isEmpty) {
+        return [];
+      }
+
+      for (var i = 0; i < allMessages.length; i++) {
+        var _hideProfilePicture = true;
+        var _showCompleteMessage = true;
+        var _chatMessageType = ChatMessageType.received;
+
+        final _currentWarpMessage = allMessages[i];
+
+        if (_currentWarpMessage.senderDID ==
+            _currentUserController.currentUser!.did!) {
+          _chatMessageType = ChatMessageType.sent;
+        }
+        if (i != 0 &&
+                _currentWarpMessage.senderDID != allMessages[i - 1].senderDID ||
+            i == 0) {
+          _hideProfilePicture = false;
+        }
+
+        if (i != allMessages.length - 1 &&
+            _currentWarpMessage.senderDID == allMessages[i + 1].senderDID) {
+          _showCompleteMessage = false;
+        }
+        final _messageDateTime = DateTime.fromMillisecondsSinceEpoch(
+          _currentWarpMessage.messageSentTime.millisecondsSinceEpoch,
+        );
+        list.add(
+          UChatMessage(
+            key: _chatMessageType == ChatMessageType.sent
+                ? Key('message_sent_$_messageDateTime')
+                : Key('message_received_$_messageDateTime'),
+            currentUser: _currentUserController.currentUser!,
+            showCompleteMessage: _showCompleteMessage,
+            user: _user!,
+            hideProfilePicture: _hideProfilePicture,
+            chatMessage: _currentWarpMessage,
+          ),
+        );
+      }
+      final _lastUChatMessageReceived = list.lastWhere(
+        (element) =>
+            element.chatMessage.chatMessageType == ChatMessageType.received,
+      );
+      _lastMessageReceivedID = _lastUChatMessageReceived.chatMessage.messageId!;
+      return list.reversed.toList();
+    } catch (error) {
+      throw Exception(['get_all_messages_exception', error]);
+    }
   }
 
-  void _prepareNewMessageSentToUI(SendNewMessageStarted event) {
+  void dispose() {
+    chatMessagesList.clear();
+  }
+
+  void _prepareNewMessageSentToUI(ChatMessage chatMessage) {
     var _hideProfilePicture = false;
     if (chatMessagesList.isNotEmpty &&
         chatMessagesList.first.key.toString().contains('message_sent')) {
@@ -85,28 +161,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             showCompleteMessage: false,
             hideProfilePicture: _lastMessage.hideProfilePicture,
             currentUser: _currentUserController.currentUser!,
-            user: user!,
+            user: _user!,
           ),
         );
     }
     chatMessagesList.insert(
       0,
       UChatMessage(
-        key: Key('message_sent_${DateTime.now()}'),
+        key: Key('message_sent_${chatMessage.messageSentTime}'),
         currentUser: _currentUserController.currentUser!,
-        user: user!,
+        user: _user!,
         hideProfilePicture: _hideProfilePicture,
-        chatMessage: ChatMessage(
-          conversationId: conversationID!,
-          message: event.newMessageSent,
-          messageSentTime: DateTime.now(),
-          chatMessageType: ChatMessageType.sent,
-        ),
+        chatMessage: chatMessage,
       ),
     );
   }
 
-  void _prepareLastMessageReceivedToUI(String value) {
+  void _prepareLastMessageReceivedToUI(ChatMessage chatMessage) {
     var _hideProfilePicture = false;
 
     if (chatMessagesList.isNotEmpty &&
@@ -125,7 +196,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             showCompleteMessage: false,
             hideProfilePicture: _lastMessage.hideProfilePicture,
             currentUser: _currentUserController.currentUser!,
-            user: user!,
+            user: _user!,
           ),
         );
     }
@@ -133,31 +204,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     chatMessagesList.insert(
       0,
       UChatMessage(
-        key: Key('message_received_${DateTime.now()}'),
-        chatMessage: ChatMessage(
-          conversationId: conversationID!,
-          message: value,
-          messageSentTime: DateTime.now(),
-          chatMessageType: ChatMessageType.received,
-        ),
+        key: Key('message_received_${chatMessage.messageSentTime}'),
+        chatMessage: chatMessage,
         hideProfilePicture: _hideProfilePicture,
         currentUser: _currentUserController.currentUser!,
-        user: user!,
+        user: _user!,
       ),
     );
   }
-
-  List<UChatMessage> chatMessagesList = [];
-
-  Timer? _callGetNewMessage;
-
-  final _warp = GetIt.I.get<WarpBloc>();
-  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
-  final _warpRaygun = WarpRaygun();
-
-  User? user;
-
-  String? conversationID;
-
-  String _lastMessageReceivedID = '';
 }
