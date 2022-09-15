@@ -51,7 +51,7 @@ class SuggestedSeedsOverlayState extends State<SuggestedSeedsOverlay> {
                   tapedWordIndex = index;
                 }),
                 onTapUp: (details) => Timer(
-                  const Duration(milliseconds: 300),
+                  const Duration(milliseconds: 400),
                   () => widget.onTap(
                     widget.suggestedPassphraseList[index],
                   ),
