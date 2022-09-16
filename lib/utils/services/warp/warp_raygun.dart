@@ -7,10 +7,6 @@ import 'package:warp_dart/warp.dart';
 class WarpRaygun {
   final _warp = GetIt.I.get<WarpBloc>();
 
-  String? lastMessageIDReceived;
-
-  String? conversationID;
-
   String createConversation(String userDID) {
     try {
       final _currentUserConversations = _warp.raygun!.listConversation();
