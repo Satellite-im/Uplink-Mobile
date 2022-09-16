@@ -5,14 +5,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:ui_library/core/utils/date_format.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
-import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
-
-part 'models/u_chat_message.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({

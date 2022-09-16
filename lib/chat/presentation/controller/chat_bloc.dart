@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/chat/data/repositories/chat.repository.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
-import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
+import 'package:uplink/chat/presentation/view/chat_room_page/models/u_chat_message.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 

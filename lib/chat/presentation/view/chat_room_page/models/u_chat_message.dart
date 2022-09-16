@@ -1,4 +1,9 @@
-part of '../chat_room_page.dart';
+import 'package:flutter/material.dart';
+import 'package:ui_library/core/utils/date_format.dart';
+import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/chat/domain/chat_message.dart';
+import 'package:uplink/shared/domain/entities/current_user.entity.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class UChatMessage extends StatelessWidget {
   const UChatMessage({
