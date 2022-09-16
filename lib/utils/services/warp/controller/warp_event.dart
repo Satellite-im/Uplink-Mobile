@@ -27,10 +27,6 @@ class WarpDropMultipass extends WarpEvent {
   List<Object> get props => [];
 }
 
-// class WarpGetUserDID extends WarpEvent {
-//   @override
-//   List<Object> get props => [];
-// }
 class WarpLogout extends WarpEvent {
   WarpLogout();
 }
