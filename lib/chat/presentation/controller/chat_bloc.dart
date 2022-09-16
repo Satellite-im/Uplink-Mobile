@@ -128,11 +128,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           ),
         );
       }
-      final _lastUChatMessageReceived = list.lastWhere(
-        (element) =>
-            element.chatMessage.chatMessageType == ChatMessageType.received,
-      );
-      _lastMessageReceivedID = _lastUChatMessageReceived.chatMessage.messageId!;
+      if (list.isNotEmpty &&
+          list.any(
+            (element) =>
+                element.chatMessage.chatMessageType == ChatMessageType.received,
+          )) {
+        list.lastWhere(
+          (element) {
+            if (element.chatMessage.chatMessageType ==
+                ChatMessageType.received) {
+              _lastMessageReceivedID = element.chatMessage.messageId!;
+              return true;
+            }
+            return false;
+          },
+        );
+      }
+
       return list.reversed.toList();
     } catch (error) {
       throw Exception(['get_all_messages_exception', error]);
