@@ -19,6 +19,7 @@ class UChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _sentMessage = chatMessage.chatMessageType == ChatMessageType.sent;
+    final _screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: showCompleteMessage
           ? _sentMessage
@@ -33,9 +34,16 @@ class UChatMessage extends StatelessWidget {
         children: [
           if (_sentMessage)
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                const SizedBox(
+                  width: 53,
+                ),
                 Container(
+                  constraints: BoxConstraints(
+                    maxWidth: _screenSize.width - 40 - 28 - 53,
+                  ),
                   decoration: const BoxDecoration(
                     color: UColors.ctaBlue,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -69,6 +77,7 @@ class UChatMessage extends StatelessWidget {
             )
           else
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
                   child: hideProfilePicture
@@ -88,6 +97,9 @@ class UChatMessage extends StatelessWidget {
                   dimension: 12,
                 ),
                 Container(
+                  constraints: BoxConstraints(
+                    maxWidth: _screenSize.width - 40 - 28 - 53,
+                  ),
                   decoration: const BoxDecoration(
                     color: UColors.foregroundDark,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -113,6 +125,7 @@ class UChatMessage extends StatelessWidget {
               child: UText(
                 DateFormatUtils.formatDateTwelveHours(
                   chatMessage.messageSentTime,
+                  lowerCase: true,
                 ),
                 textStyle: UTextStyle.M1_micro,
               ),
