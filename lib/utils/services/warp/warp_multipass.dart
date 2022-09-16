@@ -15,8 +15,9 @@ class WarpMultipass {
     required String base64Image,
   }) async {
     try {
+      // TODO(password): Let as null just for this PR
       final _currentUserDID =
-          _warpBloc.multipass?.createIdentity(username.trim(), '');
+          _warpBloc.multipass?.createIdentity(username.trim(), null);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
       return _currentUserDID.toString().replaceAll('did:key:', '');

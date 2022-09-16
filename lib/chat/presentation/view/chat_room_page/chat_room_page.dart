@@ -117,10 +117,18 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                   onMsg: (value) async {
                     _chatController.add(SendNewMessageStarted(value));
                   },
-                  onImage: () {},
-                  onSticker: () async {},
-                  onEmoji: () async {},
-                  onGif: () {},
+                  onImage: () {
+                    // TODO(Chat): add onImage function
+                  },
+                  onSticker: () {
+                    // TODO(Chat): add onSticker function
+                  },
+                  onEmoji: () {
+                    // TODO(Chat): add onEmoji function
+                  },
+                  onGif: () {
+                    // TODO(Chat): add onGif function
+                  },
                 ),
               ),
             ],
