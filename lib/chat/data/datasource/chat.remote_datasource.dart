@@ -65,17 +65,16 @@ class ChatData {
     User user,
   ) {
     try {
-      // TODO(fields): Some files have not been initialized, let the code here to use later
-      // final _reactionsMap = message['reactions'] as List<Map<String, dynamic>>;
+      final _reactionsMap = message['reactions'] as List<Map<String, dynamic>>;
       final _reactions = <Reactions>[];
 
-      // for (final element in _reactionsMap) {
-      //   final _emoji = element['emoji'] as String;
-      //   final _sendersDID = element['senders_did'] as List<String>;
+      for (final element in _reactionsMap) {
+        final _emoji = element['emoji'] as String;
+        final _sendersDID = element['senders_did'] as List<String>;
 
-      //   final _reaction = Reactions(_emoji, _sendersDID);
-      //   _reactions.add(_reaction);
-      // }
+        final _reaction = Reactions(_emoji, _sendersDID);
+        _reactions.add(_reaction);
+      }
       final _senderDID = message['sender'] as String;
       final _chatMessage = ChatMessage.receiveMessage(
         conversationId: message['conversation_id'] as String,

@@ -36,25 +36,26 @@ class WarpRaygun {
       final _raygunMessages = _warp.raygun!.getMessages(conversationID);
 
       for (final message in _raygunMessages) {
-        // TODO(fields): Some files have not been initialized, let the code here to use later
-        // final _reactions = <Map<String, dynamic>>[];
-        // for (final reaction in message.reactions) {
-        //   final _reactionMap = {
-        //     'emoji': reaction.emoji,
-        //     'senders_did': reaction.sender
-        //         .map((e) => e.toString().replaceAll('did:key:', '')),
-        //   };
-        //   _reactions.add(_reactionMap);
-        // }
+        final _reactions = <Map<String, dynamic>>[];
+        if (message.reactions.isNotEmpty) {
+          for (final reaction in message.reactions) {
+            final _reactionMap = {
+              'emoji': reaction.emoji,
+              'senders_did': reaction.sender
+                  .map((e) => e.toString().replaceAll('did:key:', '')),
+            };
+            _reactions.add(_reactionMap);
+          }
+        }
 
         final _message = {
           'message_id': message.id,
-          'date_time': message.date,
+          'date_time': message.date.toLocal(),
           'pinned': message.pinned,
-          // 'reactions': _reactions,
+          'reactions': _reactions,
           'conversation_id': message.conversationId,
-          // 'metadata': message.metadata,
-          // 'replied': message.replied,
+          'metadata': message.metadata,
+          'replied': message.replied,
           'sender': message.sender.toString().replaceAll('did:key:', ''),
           'value': message.value.first,
         };
@@ -62,6 +63,11 @@ class WarpRaygun {
         _messagesMap.add(_message);
       }
       return _messagesMap;
+    } on WarpException catch (error) {
+      if (error.error_message == 'Message is empty') {
+        return <Map<String, dynamic>>[];
+      }
+      throw Exception(['get_all_messages_from_conversation', error]);
     } catch (error) {
       throw Exception(['get_all_messages_from_conversation', error]);
     }
@@ -87,14 +93,25 @@ class WarpRaygun {
 
       final _lastRaygunMessage = _raygunMessages.last;
       if (_lastRaygunMessage.sender.toString().contains(userDID)) {
-        // TODO(fields): Some files have not been initialized, let the code here to use later
+        final _reactions = <Map<String, dynamic>>[];
+        if (_lastRaygunMessage.reactions.isNotEmpty) {
+          for (final reaction in _lastRaygunMessage.reactions) {
+            final _reactionMap = {
+              'emoji': reaction.emoji,
+              'senders_did': reaction.sender
+                  .map((e) => e.toString().replaceAll('did:key:', '')),
+            };
+            _reactions.add(_reactionMap);
+          }
+        }
         final _message = {
           'message_id': _lastRaygunMessage.id,
-          'date_time': _lastRaygunMessage.date,
+          'date_time': _lastRaygunMessage.date.toLocal(),
           'pinned': _lastRaygunMessage.pinned,
-          // 'reactions': _lastRaygunMessage.reactions,
+          'reactions': _reactions,
+          'metadata': _lastRaygunMessage.metadata,
           'conversation_id': _lastRaygunMessage.conversationId,
-          // 'replied': _lastRaygunMessage.replied,
+          'replied': _lastRaygunMessage.replied,
           'sender':
               _lastRaygunMessage.sender.toString().replaceAll('did:key:', ''),
           'value': _lastRaygunMessage.value.first,
@@ -107,6 +124,8 @@ class WarpRaygun {
       if (error.error_message == 'Message is empty') {
         return null;
       }
+      throw Exception(['get_last_message_received', error]);
+    } catch (error) {
       throw Exception(['get_last_message_received', error]);
     }
   }
