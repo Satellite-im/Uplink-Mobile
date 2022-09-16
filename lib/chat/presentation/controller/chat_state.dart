@@ -1,3 +1,5 @@
+// ignore_for_file: use_late_for_private_fields_and_variables
+
 part of 'chat_bloc.dart';
 
 @immutable
