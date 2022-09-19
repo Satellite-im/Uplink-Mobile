@@ -20,7 +20,7 @@ class TextFieldWithAssociativeSeeds extends StatefulWidget {
 class _TextFieldWithAssociativeSeedsState
     extends State<TextFieldWithAssociativeSeeds> {
   OverlayEntry? overlayEntry;
-  final controller = TextEditingController();
+  final textEditingController = TextEditingController();
   final focusNode = FocusNode();
   List<String> suggestedPassphraseList = [];
   final layerLink = LayerLink();
@@ -34,7 +34,7 @@ class _TextFieldWithAssociativeSeedsState
 
   @override
   void dispose() {
-    controller.dispose();
+    textEditingController.dispose();
     focusNode.dispose();
     overlayEntry?.dispose();
     super.dispose();
@@ -45,7 +45,7 @@ class _TextFieldWithAssociativeSeedsState
     return CompositedTransformTarget(
       link: layerLink,
       child: UTextInput.singleLine(
-        controller: controller,
+        controller: textEditingController,
         hintText: UAppStrings.onboardImportAccountPage_hint,
         autofocus: true,
         focusNode: focusNode,
@@ -57,10 +57,10 @@ class _TextFieldWithAssociativeSeedsState
           final value = passphrase.toLowerCase();
           if (bip39Dic.contains(value)) {
             widget.addInSelectedGridView(passphrase);
-            controller.clear();
+            textEditingController.clear();
             suggestedPassphraseList.clear();
           } else {
-            controller.clear();
+            textEditingController.clear();
             suggestedPassphraseList.clear();
           }
         },
@@ -107,7 +107,7 @@ class _TextFieldWithAssociativeSeedsState
             onTap: (passphrase) {
               widget.addInSelectedGridView(passphrase);
               //delete the texts in text field
-              controller.clear();
+              textEditingController.clear();
               suggestedPassphraseList.clear();
               //close suggested passphrase list
               overlayEntry?.remove();
