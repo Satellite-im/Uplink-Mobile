@@ -113,7 +113,9 @@ class _AddFriendPageState extends State<AddFriendPage> {
                               decoration: const InputDecoration(
                                 hintText: UAppStrings.addFriendPage_hint,
                               ),
-                              keyboardType: TextInputType.none,
+                              // TODO(Test): Back it to "TextInputType.none"
+
+                              keyboardType: TextInputType.name,
                               style:
                                   UTextStyle.M1_micro.style.returnTextStyleType(
                                 color: UColors.white,

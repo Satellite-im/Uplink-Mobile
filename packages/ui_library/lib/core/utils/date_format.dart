@@ -1,9 +1,13 @@
 import 'package:intl/intl.dart';
 
 class DateFormatUtils {
-  static String formatDateTwelveHours(DateTime dateTime) {
+  static String formatDateTwelveHours(DateTime dateTime,
+      {bool lowerCase = false}) {
     final inputFormat = DateTime(dateTime.year, dateTime.month, dateTime.day,
         dateTime.hour, dateTime.minute);
+    if (lowerCase) {
+      return DateFormat('hh:mma').format(inputFormat).toString().toLowerCase();
+    }
     return DateFormat('hh:mma').format(inputFormat).toString();
   }
 

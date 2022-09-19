@@ -36,6 +36,7 @@ class WarpMultipass {
         'profile_picture': _currentUserIdentity.graphics.profile_picture,
         'banner_picture': _currentUserIdentity.graphics.profile_banner,
       };
+
       return _currentUserMap;
     } catch (error) {
       throw Exception(error);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
 import 'package:uplink/contacts/user_profile_page/models/user_profile_bottom_sheet.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
@@ -25,7 +26,17 @@ void buildUserListTileLongPress(BuildContext context, User user) {
     colorList: [UColors.white, UColors.white, UColors.white, UColors.termRed],
     onTapList: [
       // TODO(yijing): add message pages
-      () {},
+      () {
+        Navigator.of(context, rootNavigator: true).pop();
+
+        Navigator.of(context, rootNavigator: true).push(
+          MaterialPageRoute<void>(
+            builder: (context) => ChatRoomPage(
+              user: user,
+            ),
+          ),
+        );
+      },
       // TODO(yijing): add profile pages
       () {
         Navigator.of(context, rootNavigator: true).pop();

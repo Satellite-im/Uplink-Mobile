@@ -7,6 +7,7 @@ import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/profile/profile_export.dart';
+import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/ui_utils/ui_utils_export.dart';
 
 final bottomBarScaffoldStateKey = GlobalKey<ScaffoldState>();
@@ -35,12 +36,14 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   }
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
+  final _warpController = GetIt.I.get<WarpBloc>();
 
   @override
   void initState() {
     super.initState();
     // TODO(yijing): add loading page for this call
     _currentUserController.add(GetCurrentUserInfo());
+    _warpController.add(RaygunStarted());
   }
 
   @override

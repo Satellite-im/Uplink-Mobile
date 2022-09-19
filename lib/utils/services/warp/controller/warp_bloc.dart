@@ -7,6 +7,8 @@ import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:warp_dart/mp_ipfs.dart' as warp_mp_ipfs;
 import 'package:warp_dart/multipass.dart' as warp_multipass;
+import 'package:warp_dart/raygun.dart' as warp_raygun;
+import 'package:warp_dart/rg_ipfs.dart' as rg_ipfs;
 import 'package:warp_dart/warp.dart' as warp;
 
 part 'warp_event.dart';
@@ -27,7 +29,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         try {
           if (_tesseract == null || multipass == null) {
             emit(WarpLoadInProgress());
-            await _getPathOfTesseractAndMultipass();
+            await _getAllServicesPath();
             await _getTesseract(event.pin);
 
             multipass = warp_mp_ipfs.multipass_ipfs_persistent(
@@ -43,33 +45,53 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         }
       },
     );
-    on<WarpLogout>(
-      (event, emit) {
-        emit(WarpLoadInProgress());
-        try {
-          multipass!.drop();
-          _tesseract!
-            ..lock()
-            ..drop();
-          // delete local multipass and tesseract files
-          Directory('$_multipassPath').deleteSync(recursive: true);
-          Directory('$_tesseractPath').deleteSync(recursive: true);
-          log('WarpLogout -> delete tesseract and multipass succeessfully');
-        } catch (e) {
-          log('WarpLogout -> error');
-          throw Exception(e);
-        }
-        //set multipass pointer to null
+    on<WarpLogout>((event, emit) {
+      emit(WarpLoadInProgress());
+      try {
+        multipass!.drop();
+        raygun!.drop();
+        _tesseract!
+          ..lock()
+          ..drop();
+        // delete local multipass and tesseract files
+        Directory('$_multipassPath').deleteSync(recursive: true);
+        Directory('$_tesseractPath').deleteSync(recursive: true);
+        Directory('$_raygunPath').deleteSync(recursive: true);
         multipass = null;
+        _tesseract = null;
+        raygun = null;
         emit(WarpInitial());
-      },
-    );
+        log('WarpLogout -> delete tesseract and multipass succeessfully');
+      } catch (error) {
+        log('WarpLogout -> error');
+        addError(error);
+        emit(WarpLoadFailure());
+        throw Exception(error);
+      }
+    });
+
+    on<RaygunStarted>((event, emit) {
+      try {
+        emit(WarpLoadInProgress());
+
+        raygun = rg_ipfs.raygun_ipfs_persistent(
+          multipass!,
+          _raygunPath!,
+        );
+
+        emit(WarpLoadSuccess());
+      } catch (error) {
+        emit(WarpLoadFailure());
+        addError(error);
+      }
+    });
   }
 
   /// Get the file path to save tesseract and multipass
-  Future<void> _getPathOfTesseractAndMultipass() async {
+  Future<void> _getAllServicesPath() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
-    _multipassPath = '${_directory.path}/multipass';
+    _multipassPath = '${_directory.path}/multipass/';
+    _raygunPath = '${_directory.path}/raygun/';
     _tesseractPath = '${_directory.path}/tesseract';
   }
 
@@ -114,9 +136,15 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   warp_multipass.MultiPass? multipass;
 
+  warp_raygun.Raygun? raygun;
+
+  late warp.DID? currentUserDID;
+
   String? _tesseractPath;
 
   String? _multipassPath;
+
+  String? _raygunPath;
 
   String? recoverySeeds;
 }
