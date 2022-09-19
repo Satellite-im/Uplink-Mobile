@@ -10,7 +10,7 @@ class WarpCurrentUserData {
 
   Future<CurrentUser> createCurrentUser({
     required CurrentUser newUser,
-    required String? passphrase,
+    required String passphrase,
   }) async {
     try {
       String? _imageFileConvertedToBase64;

@@ -11,7 +11,7 @@ class WarpMultipass {
   Future<String> createUser({
     required String username,
     required String messageStatus,
-    required String? passphrase,
+    required String passphrase,
     required String base64Image,
   }) async {
     try {

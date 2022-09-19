@@ -216,7 +216,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
             statusMessage: _messageStatusTextFieldController.text,
             profilePicture: _userPicture,
           ),
-          passphrase: _warpController.recoverySeeds,
+          passphrase: _warpController.recoverySeeds!,
         ),
       )
       ..add(
