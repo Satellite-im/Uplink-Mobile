@@ -29,7 +29,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         try {
           if (_tesseract == null || multipass == null) {
             emit(WarpLoadInProgress());
-            await _getPathOfTesseractAndMultipass();
+            await _getAllServicesPath();
             await _getTesseract(event.pin);
 
             multipass = warp_mp_ipfs.multipass_ipfs_persistent(
@@ -87,7 +87,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   }
 
   /// Get the file path to save tesseract and multipass
-  Future<void> _getPathOfTesseractAndMultipass() async {
+  Future<void> _getAllServicesPath() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
     _multipassPath = '${_directory.path}/multipass/';
     _raygunPath = '${_directory.path}/raygun/';
