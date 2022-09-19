@@ -51,7 +51,7 @@ class _TextFieldWithAssociativeSeedsState
         focusNode: focusNode,
         onChanged: (word) {
           //update suggestedPassphraseList to update the suggestion memu
-          searchPassphrass(controller.text.toLowerCase());
+          searchWordInBIP39Dic(word.toLowerCase());
         },
         onSubmitted: (passphrase) {
           final value = passphrase.toLowerCase();
@@ -68,7 +68,7 @@ class _TextFieldWithAssociativeSeedsState
     );
   }
 
-  void searchPassphrass(String query) {
+  void searchWordInBIP39Dic(String query) {
     final _tempDicList = <String>[...bip39Dic];
 
     if (query.isNotEmpty) {
