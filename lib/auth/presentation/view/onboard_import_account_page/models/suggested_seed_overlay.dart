@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
@@ -33,9 +34,9 @@ class SuggestedSeedsOverlayState extends State<SuggestedSeedsOverlay> {
               final passphrase = widget.suggestedPassphraseList[index];
               var highlight = false;
               if (tapedWordIndex == index) highlight = true;
-              return InkWell(
+              return GestureDetector(
                 child: Container(
-                  color: highlight ? UColors.ctaBlue : UColors.foregroundDark,
+                  color: highlight ? UColors.highlight : UColors.foregroundDark,
                   height: 48,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -46,12 +47,15 @@ class SuggestedSeedsOverlayState extends State<SuggestedSeedsOverlay> {
                     textStyle: UTextStyle.BUT1_primaryButton,
                   ),
                 ),
-                onTap: () {
-                  setState(() {
-                    tapedWordIndex = index;
-                    widget.onTap(widget.suggestedPassphraseList[index]);
-                  });
-                },
+                onTapDown: (details) => setState(() {
+                  tapedWordIndex = index;
+                }),
+                onTapUp: (details) => Timer(
+                  const Duration(milliseconds: 400),
+                  () => widget.onTap(
+                    widget.suggestedPassphraseList[index],
+                  ),
+                ),
               );
             },
           ),

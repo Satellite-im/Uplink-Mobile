@@ -9,6 +9,8 @@ import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/utils_export.dart';
 
+GlobalKey<UPinState> uPinStateKey = GlobalKey();
+
 class SigninPage extends StatefulWidget {
   const SigninPage({
     Key? key,
@@ -78,12 +80,13 @@ class _SigninPageState extends State<SigninPage> {
                   bloc: _warpController,
                   child: _warpController.multipass == null
                       ? UPin(
-                          key: UniqueKey(),
-                          // TODO(yijing): Get user's pin code length and update the pinLength
-                          pinLength: 4,
+                          key: uPinStateKey,
+                          pinLength: widget.authController.pinValue!.length,
                           rightButtonFn: (pin) {
                             if (pin == widget.authController.pinValue) {
                               _warpController.add(WarpStarted(pin));
+                            } else {
+                              uPinStateKey.currentState?.notifyWrongPin();
                             }
                           },
                         )

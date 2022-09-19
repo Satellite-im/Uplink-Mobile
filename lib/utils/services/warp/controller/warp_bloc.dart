@@ -34,7 +34,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
             multipass = warp_mp_ipfs.multipass_ipfs_persistent(
               _tesseract!,
-              _directoryPath!,
+              _multipassPath!,
             );
 
             emit(WarpLoadSuccess());
@@ -53,8 +53,9 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
           ..lock()
           ..drop();
         // delete local multipass and tesseract files
-        Directory('$_directoryPath').deleteSync(recursive: true);
+        Directory('$_multipassPath').deleteSync(recursive: true);
         Directory('$_tesseractPath').deleteSync(recursive: true);
+        Directory('$_raygunPath').deleteSync(recursive: true);
         multipass = null;
         _tesseract = null;
         log('WarpLogout -> delete tesseract and multipass succeessfully');
@@ -72,7 +73,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
         raygun = rg_ipfs.raygun_ipfs_persistent(
           multipass!,
-          _directoryPath!,
+          _raygunPath!,
         );
 
         emit(WarpLoadSuccess());
@@ -86,7 +87,8 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   /// Get the file path to save tesseract and multipass
   Future<void> _getPathOfTesseractAndMultipass() async {
     final _directory = await path_provider.getApplicationSupportDirectory();
-    _directoryPath = _directory.path;
+    _multipassPath = '${_directory.path}/multipass/';
+    _raygunPath = '${_directory.path}/raygun/';
     _tesseractPath = '${_directory.path}/tesseract';
   }
 
@@ -116,6 +118,17 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
     await _enableTesseract(pin);
   }
 
+  String get12RecoverySeeds() {
+    recoverySeeds = warp.mnemonic_standard_phrase();
+    log('get12RecoverySeeds: $recoverySeeds');
+    return recoverySeeds!;
+  }
+
+  void deleteRecoverySeeds() {
+    recoverySeeds = null;
+    log('deleted recovery seeds');
+  }
+
   warp.Tesseract? _tesseract;
 
   warp_multipass.MultiPass? multipass;
@@ -126,5 +139,9 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
   String? _tesseractPath;
 
-  String? _directoryPath;
+  String? _multipassPath;
+
+  String? _raygunPath;
+
+  String? recoverySeeds;
 }

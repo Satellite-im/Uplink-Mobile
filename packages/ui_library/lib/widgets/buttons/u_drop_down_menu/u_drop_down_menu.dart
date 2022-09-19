@@ -72,7 +72,7 @@ class UDropDownMenuState extends State<UDropDownMenu> {
                 ))
             .toList(),
         value: selectedValue ??= widget.items.first,
-        selectedItemHighlightColor: UColors.ctaBlue,
+        selectedItemHighlightColor: UColors.highlight,
         onChanged: (value) {
           setState(() {
             selectedValue = value as String;

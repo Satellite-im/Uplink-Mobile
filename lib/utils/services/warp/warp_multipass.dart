@@ -11,13 +11,12 @@ class WarpMultipass {
   Future<String> createUser({
     required String username,
     required String messageStatus,
-    required String? password,
+    required String passphrase,
     required String base64Image,
   }) async {
     try {
-      // TODO(password): Let as null just for this PR
       final _currentUserDID =
-          _warpBloc.multipass?.createIdentity(username.trim(), null);
+          _warpBloc.multipass?.createIdentity(username.trim(), passphrase);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
       return _currentUserDID.toString().replaceAll('did:key:', '');

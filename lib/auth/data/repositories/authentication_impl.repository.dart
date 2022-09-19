@@ -18,13 +18,13 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   @override
   Future<CurrentUser> createCurrentUser({
     required CurrentUser newUser,
-    required String? password,
+    required String passphrase,
   }) async {
-    log('createCurrentUser password $password');
+    log('createCurrentUser passphrase $passphrase');
     try {
       final _newUser = await _remoteDatasource.createCurrentUser(
         newUser: newUser,
-        password: password,
+        passphrase: passphrase,
       );
       return _newUser;
     } catch (error) {
