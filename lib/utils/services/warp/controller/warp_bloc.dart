@@ -58,6 +58,8 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         Directory('$_raygunPath').deleteSync(recursive: true);
         multipass = null;
         _tesseract = null;
+        raygun = null;
+        emit(WarpInitial());
         log('WarpLogout -> delete tesseract and multipass succeessfully');
       } catch (error) {
         log('WarpLogout -> error');
