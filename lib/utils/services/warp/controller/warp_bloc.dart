@@ -49,6 +49,7 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
       emit(WarpLoadInProgress());
       try {
         multipass!.drop();
+        raygun!.drop();
         _tesseract!
           ..lock()
           ..drop();

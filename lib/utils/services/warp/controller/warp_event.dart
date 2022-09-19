@@ -20,13 +20,6 @@ class RaygunStarted extends WarpEvent {
   List<Object> get props => [];
 }
 
-class WarpDropMultipass extends WarpEvent {
-  WarpDropMultipass();
-
-  @override
-  List<Object> get props => [];
-}
-
 class WarpLogout extends WarpEvent {
   WarpLogout();
 }
