@@ -18,7 +18,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   @override
   Future<CurrentUser> createCurrentUser({
     required CurrentUser newUser,
-    required String? passphrase,
+    required String passphrase,
   }) async {
     log('createCurrentUser passphrase $passphrase');
     try {

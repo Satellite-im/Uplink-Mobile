@@ -13,7 +13,7 @@ class AuthSignUp extends AuthEvent {
     required this.passphrase,
   });
   final CurrentUser currentUser;
-  final String? passphrase;
+  final String passphrase;
   @override
   List<Object> get props => [currentUser];
 }

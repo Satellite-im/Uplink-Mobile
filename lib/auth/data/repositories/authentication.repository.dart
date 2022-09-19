@@ -4,7 +4,7 @@ import 'package:uplink/utils/services/services_export.dart';
 abstract class IAuthenticationRepository {
   Future<CurrentUser> createCurrentUser({
     required CurrentUser newUser,
-    required String? passphrase,
+    required String passphrase,
   });
 
   Future<void> savePinValue({required String pinValue, required bool storePin});
