@@ -173,7 +173,11 @@ class WarpMultipass {
 
   void sendFriendRequest(String _userDID) {
     try {
-      _warpBloc.multipass!.sendFriendRequest(DID.fromString(_userDID));
+      _warpBloc.multipass!.sendFriendRequest(
+        DID.fromString(
+          _returnCompleteDID(_userDID),
+        ),
+      );
     } on WarpException catch (error) {
       throw Exception([
         'WARP_EXCEPTION',
