@@ -27,9 +27,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     on<SendFriendRequestStarted>((event, emit) async {
       try {
         emit(FriendLoadInProgress());
-        await _friendRepository.findUserByDid(user!.did!);
-        _warpMultipass.sendFriendRequest(user!.did!);
-        user = user?.copywith(status: Status.online);
+        _friendRepository.sendFriendRequest(user!.did!);
         emit(FriendLoadSuccess(user!));
       } catch (error) {
         addError(error);
@@ -41,6 +39,4 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   User? user;
 
   final IFriendRepository _friendRepository;
-
-  final _warpMultipass = GetIt.I.get<WarpMultipass>();
 }
