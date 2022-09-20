@@ -19,7 +19,7 @@ class WarpMultipass {
           _warpBloc.multipass?.createIdentity(username.trim(), passphrase);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
-      return _currentUserDID.toString().replaceAll('did:key:', '');
+      return _transformDIDtoString(_currentUserDID!);
     } catch (error) {
       throw Exception(error);
     }
@@ -29,8 +29,7 @@ class WarpMultipass {
     try {
       final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
       final _currentUserMap = {
-        'did':
-            _currentUserIdentity.did_key.toString().replaceAll('did:key:', ''),
+        'did': _transformDIDtoString(_currentUserIdentity.did_key),
         'username': _currentUserIdentity.username,
         'status_message': _currentUserIdentity.status_message,
         'profile_picture': _currentUserIdentity.graphics.profile_picture,
@@ -45,8 +44,8 @@ class WarpMultipass {
 
   String getDid() {
     try {
-      final _did = _warpBloc.multipass!.getOwnIdentity().did_key.toString();
-      return _did.replaceAll('did:key:', '');
+      final _did = _warpBloc.multipass!.getOwnIdentity().did_key;
+      return _transformDIDtoString(_did);
     } catch (error) {
       throw Exception(error);
     }
@@ -131,7 +130,7 @@ class WarpMultipass {
       _warpBloc.multipass!.updateIdentity(_identityUpdated);
       return getBannerPicture();
     } on WarpException {
-      throw Exception(['WARP_EXCEPTION', 'update_banner_picture']);
+      throw Exception(['WARP_EXCEPTION', 'change_banner_picture']);
     } catch (error) {
       throw Exception(error);
     }
@@ -140,7 +139,7 @@ class WarpMultipass {
   Map<String, dynamic> findUserByDid(String _userDid) {
     try {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
-        'did:key:$_userDid',
+        _returnCompleteDID(_userDid),
       );
       final _userMap = {
         'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
@@ -161,4 +160,19 @@ class WarpMultipass {
       throw Exception(['find_user_by_did', error]);
     }
   }
+
+  void sendFriendRequest(String _userDID) {
+    try {
+      _warpBloc.multipass!.sendFriendRequest(DID.fromString(_userDID));
+    } on WarpException {
+      throw Exception(['WARP_EXCEPTION', 'send_friend_request']);
+    } catch (error) {
+      throw Exception(['send_friend_request', error]);
+    }
+  }
 }
+
+String _returnCompleteDID(String _userDID) => 'did:key:$_userDID';
+
+String _transformDIDtoString(DID did) =>
+    did.toString().replaceAll('did:key:', '');
