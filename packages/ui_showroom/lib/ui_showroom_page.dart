@@ -350,7 +350,7 @@ class WidgetPageButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: UColors.ctaBlue),
+        style: ElevatedButton.styleFrom(backgroundColor: UColors.ctaBlue),
         onPressed: () {
           Navigator.pushNamed(context, widgetName);
         },
