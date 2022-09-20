@@ -189,6 +189,36 @@ class WarpMultipass {
       throw Exception(['send_friend_request', error]);
     }
   }
+
+  List<Map<String, dynamic>> listIncomingFriendRequests(String _userDID) {
+    try {
+      final _incomingRequestList = <Map<String, dynamic>>[];
+      final _incomingRequests = _warpBloc.multipass!.listIncomingRequest();
+
+      for (final friendRequest in _incomingRequests) {
+        final _userMap =
+            findUserByDid(_transformDIDtoString(friendRequest.from));
+
+        final _friendRequestMap = {
+          'user': _userMap,
+          'status': friendRequest.status,
+        };
+        _incomingRequestList.add(
+          _friendRequestMap,
+        );
+      }
+      return _incomingRequestList;
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'send_friend_request',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['send_friend_request', error]);
+    }
+  }
 }
 
 String _returnCompleteDID(String _userDID) => 'did:key:$_userDID';
