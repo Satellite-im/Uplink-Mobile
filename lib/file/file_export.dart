@@ -1,1 +1,1 @@
-export 'files_index_page.dart';
+export 'file_index_page.dart';

@@ -219,8 +219,8 @@ Would you like to give Satellite.im access to your camera roll?''';
   ///buildUserListTileLongPress
   static const buildUserListTileLongPress_profile = 'Profile';
 
-  /// FilesIndexPage
-  static const filesIndexPage_appBarTitle = 'Files';
+  /// FileIndexPage
+  static const fileIndexPage_appBarTitle = 'Files';
 
   /// ChatIndexPage
   static const chatIndexPage_appBarTitle = 'Chats';

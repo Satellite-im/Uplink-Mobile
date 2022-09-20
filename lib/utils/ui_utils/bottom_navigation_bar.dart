@@ -25,7 +25,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   int _currentIndex = 0;
   final _screens = const [
     ChatIndexPage(),
-    FilesIndexPage(),
+    FileIndexPage(),
     ContactsIndexPage(),
     ProfileIndexPage(),
   ];
