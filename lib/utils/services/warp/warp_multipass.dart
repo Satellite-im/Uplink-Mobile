@@ -117,8 +117,13 @@ class WarpMultipass {
       final _bannerPictureBase64String =
           _warpBloc.multipass!.getOwnIdentity().graphics.profile_banner;
       return _bannerPictureBase64String;
-    } on WarpException {
-      throw Exception(['WARP_EXCEPTION', 'get_banner_picture']);
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'get_banner_picture',
+        error.error_type,
+        error.error_message,
+      ]);
     } catch (error) {
       throw Exception(error);
     }
@@ -129,8 +134,13 @@ class WarpMultipass {
       final _identityUpdated = multipass.IdentityUpdate.setBanner(_base64Image);
       _warpBloc.multipass!.updateIdentity(_identityUpdated);
       return getBannerPicture();
-    } on WarpException {
-      throw Exception(['WARP_EXCEPTION', 'change_banner_picture']);
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'change_banner_picture',
+        error.error_type,
+        error.error_message,
+      ]);
     } catch (error) {
       throw Exception(error);
     }
@@ -164,8 +174,13 @@ class WarpMultipass {
   void sendFriendRequest(String _userDID) {
     try {
       _warpBloc.multipass!.sendFriendRequest(DID.fromString(_userDID));
-    } on WarpException {
-      throw Exception(['WARP_EXCEPTION', 'send_friend_request']);
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'send_friend_request',
+        error.error_type,
+        error.error_message
+      ]);
     } catch (error) {
       throw Exception(['send_friend_request', error]);
     }
