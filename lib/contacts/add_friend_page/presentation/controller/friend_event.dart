@@ -13,3 +13,10 @@ class SearchUserStarted extends FriendEvent {
   @override
   List<Object> get props => [userDid];
 }
+
+class SendFriendRequestStarted extends FriendEvent {
+  SendFriendRequestStarted();
+
+  @override
+  List<Object> get props => [];
+}

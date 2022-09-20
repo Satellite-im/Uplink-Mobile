@@ -14,4 +14,9 @@ class FriendRepositoryImpl implements IFriendRepository {
       rethrow;
     }
   }
+
+  @override
+  void sendFriendRequest(String userDid) {
+    _remoteDatasource.sendFriendRequest(userDid);
+  }
 }

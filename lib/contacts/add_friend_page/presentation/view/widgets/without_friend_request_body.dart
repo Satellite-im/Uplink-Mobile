@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/view/helpers/build_user_list_tile_long_press.dart';
-import 'package:uplink/contacts/add_friend_page/presentation/view/models/user_notifier.dart';
 import 'package:uplink/contacts/models/contact_list_tile.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -20,6 +20,8 @@ class WithoutFriendRequestBody extends StatefulWidget {
 
 class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
   bool _isSelected = false;
+  final _friendController = GetIt.I.get<FriendBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +59,8 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
             uIconData: UIcons.add_contact,
             onPressed: () async {
               // TODO(yijing): add send friend request
-              context.read<UserNotifier>().sentFriendRequest();
+              // context.read<UserNotifier>().sentFriendRequest();
+              _friendController.add(SendFriendRequestStarted());
               await showDialog<void>(
                 context: context,
                 builder: (context) => UDialogSingleButtonCustomBody(

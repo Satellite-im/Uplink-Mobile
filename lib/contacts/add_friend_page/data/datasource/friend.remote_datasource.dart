@@ -35,6 +35,14 @@ class FriendData {
     }
   }
 
+  void sendFriendRequest(String userDid) {
+    try {
+      _warp.sendFriendRequest(userDid);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<File> _transformBase64ImageIntoFileImage(
     String _base64Image,
     String _fileName,
