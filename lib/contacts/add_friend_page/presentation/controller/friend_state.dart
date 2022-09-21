@@ -10,12 +10,12 @@ class FriendInitial extends FriendState {}
 class FriendLoadInProgress extends FriendState {}
 
 class FriendLoadSuccess extends FriendState {
-  FriendLoadSuccess(this.user);
+  FriendLoadSuccess([this.user]);
 
-  final User user;
+  final User? user;
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [];
 }
 
 class FriendLoadFailure extends FriendState {}
