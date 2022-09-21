@@ -10,10 +10,19 @@ class FriendRequest {
   static Future<FriendRequest> fromMap(
     Map<String, dynamic> friendRequest,
   ) async {
-    final _user =
-        await User.fromMap(friendRequest['user'] as Map<String, dynamic>);
-    const friendRequestStatus = FriendRequestStatus.pending;
-    return FriendRequest(_user, friendRequestStatus: friendRequestStatus);
+    try {
+      final _user =
+          await User.fromMap(friendRequest['user'] as Map<String, dynamic>);
+      final _friendRequestStatus = FriendRequestStatus.values
+          .firstWhere((element) => element.name == friendRequest['status']);
+
+      return FriendRequest(
+        _user,
+        friendRequestStatus: _friendRequestStatus,
+      );
+    } on Exception catch (error) {
+      throw Exception(['FriendRequest_fromMap', error]);
+    }
   }
 
   final User user;

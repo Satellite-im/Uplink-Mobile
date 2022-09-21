@@ -1,57 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/helpers/loading_friend_requests.dart';
-import 'package:uplink/utils/mock/models/mock_contact.dart';
 
-class FriendRequestPage extends StatelessWidget {
+class FriendRequestPage extends StatefulWidget {
   const FriendRequestPage({Key? key}) : super(key: key);
+
+  @override
+  State<FriendRequestPage> createState() => _FriendRequestPageState();
+}
+
+class _FriendRequestPageState extends State<FriendRequestPage> {
+  final _friendController = GetIt.I.get<FriendBloc>();
+
+  @override
+  void initState() {
+    _friendController.add(ListIncomingFriendRequestsStarted());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(title: UAppStrings.friendRequestPage_appBarTitle),
-      body: FutureBuilder<List<MockContact>>(
-        future: loadingFriendRequests(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final friendRequestsList = snapshot.data!;
-            if (friendRequestsList.isEmpty) {
-              return const EmptyBody(
-                text: UAppStrings.friendRequestPage_emptyBody,
-              );
-            } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MiniTitleWithNum(
-                    title: UAppStrings.friendRequestPage_received,
-                    num: friendRequestsList.length,
+      body: BlocBuilder<FriendBloc, FriendState>(
+        bloc: _friendController,
+        builder: (context, state) {
+          if (state is FriendLoadSuccess &&
+              _friendController.incomingFriendRequestsList.isNotEmpty) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MiniTitleWithNum(
+                  title: UAppStrings.friendRequestPage_received,
+                  num: _friendController.incomingFriendRequestsList.length,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount:
+                        _friendController.incomingFriendRequestsList.length,
+                    itemBuilder: (context, index) {
+                      final item =
+                          _friendController.incomingFriendRequestsList[index];
+                      return FriendRequestListTile(
+                        name: item.user.username,
+                        statusMessage: item.user.statusMessage,
+                        status: item.user.status ?? Status.offline,
+                        imageAddress: item.user.profilePicture?.path ?? '',
+                        onTap: () {
+                          // TODO(yijing): update to user profile page
+                        },
+                      );
+                    },
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: friendRequestsList.length,
-                      itemBuilder: (context, index) {
-                        final item = friendRequestsList[index];
-                        return FriendRequestListTile(
-                          name: item.name,
-                          statusMessage: item.statusMessage,
-                          status: item.status,
-                          imageAddress: item.imageAddress,
-                          onTap: () {
-                            // TODO(yijing): update to user profile page
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            }
+                ),
+              ],
+            );
+          } else if (state is FriendLoadInProgress) {
+            return const Center(child: ULoadingIndicator());
+          } else {
+            return const EmptyBody(
+              text: UAppStrings.friendRequestPage_emptyBody,
+            );
           }
-          // TODO(yijing): update indicator
-          return const Center(child: ULoadingIndicator());
         },
       ),
     );

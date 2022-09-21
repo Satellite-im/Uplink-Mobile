@@ -20,3 +20,10 @@ class SendFriendRequestStarted extends FriendEvent {
   @override
   List<Object> get props => [];
 }
+
+class ListIncomingFriendRequestsStarted extends FriendEvent {
+  ListIncomingFriendRequestsStarted();
+
+  @override
+  List<Object> get props => [];
+}
