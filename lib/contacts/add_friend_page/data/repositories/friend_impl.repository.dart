@@ -7,9 +7,9 @@ class FriendRepositoryImpl implements IFriendRepository {
 
   final FriendData _remoteDatasource;
   @override
-  Future<User> findUserByDid(String userDid) {
+  Future<User> findUserByDid(String userDid) async {
     try {
-      return _remoteDatasource.findUserByDid(userDid);
+      return await _remoteDatasource.findUserByDid(userDid);
     } catch (error) {
       rethrow;
     }

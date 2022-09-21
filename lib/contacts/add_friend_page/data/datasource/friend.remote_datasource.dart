@@ -9,7 +9,7 @@ class FriendData {
     try {
       final _userMap = _warp.findUserByDid(userDid);
 
-      return await User.fromJson(_userMap);
+      return await User.fromMap(_userMap);
     } catch (error) {
       rethrow;
     }
@@ -22,4 +22,16 @@ class FriendData {
       rethrow;
     }
   }
+
+  // List<FriendRequest> listIncomingFriendRequests() {
+  //   try {
+  //     final _friendRequestList = <FriendRequest>[];
+  //     final _friendRequestsMapList = _warp.listIncomingFriendRequests();
+  //     for (final element in _friendRequestsMapList) {
+  //       final _friendRequest = FriendRequest(User.fromJson(element['user'],));
+  //     }
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  // }
 }
