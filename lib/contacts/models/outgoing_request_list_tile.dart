@@ -26,7 +26,7 @@ class OutgoingRequestListTile extends StatelessWidget {
         // TODO(yijing): update to online image in profuction app
         uImage: UImage(
           imagePath: imageAddress,
-          imageSource: ImageSource.local,
+          imageSource: ImageSource.file,
         ),
         userProfileSize: UUserProfileSize.normal,
         status: status,
