@@ -1,3 +1,4 @@
+import 'package:uplink/contacts/add_friend_page/domain/friend_request.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
@@ -23,15 +24,19 @@ class FriendData {
     }
   }
 
-  // List<FriendRequest> listIncomingFriendRequests() {
-  //   try {
-  //     final _friendRequestList = <FriendRequest>[];
-  //     final _friendRequestsMapList = _warp.listIncomingFriendRequests();
-  //     for (final element in _friendRequestsMapList) {
-  //       final _friendRequest = FriendRequest(User.fromJson(element['user'],));
-  //     }
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
+  Future<List<FriendRequest>> listIncomingFriendRequests() async {
+    try {
+      final _friendRequestList = <FriendRequest>[];
+      final _friendRequestsMapList = _warp.listIncomingFriendRequests();
+      for (final element in _friendRequestsMapList) {
+        final _friendRequest = await FriendRequest.fromMap(element);
+        _friendRequestList.add(_friendRequest);
+      }
+      return _friendRequestList;
+    } catch (error) {
+      throw Exception(
+        ['list_incoming_friend_requests_remote_datasource', error],
+      );
+    }
+  }
 }

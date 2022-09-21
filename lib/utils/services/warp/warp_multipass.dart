@@ -190,7 +190,7 @@ class WarpMultipass {
     }
   }
 
-  List<Map<String, dynamic>> listIncomingFriendRequests(String _userDID) {
+  List<Map<String, dynamic>> listIncomingFriendRequests() {
     try {
       final _incomingRequestList = <Map<String, dynamic>>[];
       final _incomingRequests = _warpBloc.multipass!.listIncomingRequest();
@@ -201,7 +201,7 @@ class WarpMultipass {
 
         final _friendRequestMap = {
           'user': _userMap,
-          'status': friendRequest.status,
+          'status': friendRequest.status.name,
         };
         _incomingRequestList.add(
           _friendRequestMap,
