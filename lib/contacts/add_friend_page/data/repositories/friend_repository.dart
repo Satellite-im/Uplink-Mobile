@@ -7,4 +7,6 @@ abstract class IFriendRepository {
   void sendFriendRequest(String userDid);
 
   Future<List<FriendRequest>> listIncomingFriendRequests();
+
+  Future<List<FriendRequest>> listOutgoingFriendRequests();
 }

@@ -18,4 +18,8 @@ class FriendRepositoryImpl implements IFriendRepository {
   @override
   Future<List<FriendRequest>> listIncomingFriendRequests() async =>
       _remoteDatasource.listIncomingFriendRequests();
+
+  @override
+  Future<List<FriendRequest>> listOutgoingFriendRequests() async =>
+      _remoteDatasource.listOutgoingFriendRequests();
 }

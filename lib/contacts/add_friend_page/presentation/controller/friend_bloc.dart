@@ -46,11 +46,25 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadFailure());
       }
     });
+
+    on<ListOutgoingFriendRequestsStarted>((event, emit) async {
+      try {
+        emit(FriendLoadInProgress());
+        outgoingFriendRequestsList =
+            await _friendRepository.listOutgoingFriendRequests();
+        emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
   }
 
   User? user;
 
   List<FriendRequest> incomingFriendRequestsList = [];
+
+  List<FriendRequest> outgoingFriendRequestsList = [];
 
   final IFriendRepository _friendRepository;
 }

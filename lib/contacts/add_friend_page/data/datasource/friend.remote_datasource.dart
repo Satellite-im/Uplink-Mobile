@@ -39,4 +39,20 @@ class FriendData {
       );
     }
   }
+
+  Future<List<FriendRequest>> listOutgoingFriendRequests() async {
+    try {
+      final _outgoingFriendRequestList = <FriendRequest>[];
+      final _outgoingFriendRequestsMapList = _warp.listOutgoingFriendRequests();
+      for (final element in _outgoingFriendRequestsMapList) {
+        final _friendRequest = await FriendRequest.fromMap(element);
+        _outgoingFriendRequestList.add(_friendRequest);
+      }
+      return _outgoingFriendRequestList;
+    } catch (error) {
+      throw Exception(
+        ['list_outgoing_friend_requests_remote_datasource', error],
+      );
+    }
+  }
 }

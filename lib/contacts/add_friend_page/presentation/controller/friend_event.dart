@@ -27,3 +27,10 @@ class ListIncomingFriendRequestsStarted extends FriendEvent {
   @override
   List<Object> get props => [];
 }
+
+class ListOutgoingFriendRequestsStarted extends FriendEvent {
+  ListOutgoingFriendRequestsStarted();
+
+  @override
+  List<Object> get props => [];
+}

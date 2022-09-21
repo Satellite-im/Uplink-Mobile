@@ -211,12 +211,41 @@ class WarpMultipass {
     } on WarpException catch (error) {
       throw Exception([
         'WARP_EXCEPTION',
-        'send_friend_request',
+        'list_incmoing_friend_request',
         error.error_type,
         error.error_message
       ]);
     } catch (error) {
-      throw Exception(['send_friend_request', error]);
+      throw Exception(['list_incmoing_friend_request', error]);
+    }
+  }
+
+  List<Map<String, dynamic>> listOutgoingFriendRequests() {
+    try {
+      final _outgoingRequestList = <Map<String, dynamic>>[];
+      final _outgoingRequests = _warpBloc.multipass!.listOutgoingRequest();
+
+      for (final friendRequest in _outgoingRequests) {
+        final _userMap = findUserByDid(_transformDIDtoString(friendRequest.to));
+
+        final _friendRequestMap = {
+          'user': _userMap,
+          'status': friendRequest.status.name,
+        };
+        _outgoingRequestList.add(
+          _friendRequestMap,
+        );
+      }
+      return _outgoingRequestList;
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'list_outgoing_friend_request',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['list_outgoing_friend_request', error]);
     }
   }
 }
