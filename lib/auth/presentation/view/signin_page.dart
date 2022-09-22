@@ -7,7 +7,6 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
-import 'package:uplink/utils/utils_export.dart';
 
 GlobalKey<UPinState> uPinStateKey = GlobalKey();
 
@@ -100,10 +99,9 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                   listener: (context, state) {
                     if (state is WarpLoadSuccess) {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute<void>(
-                          builder: (context) => const MainBottomNavigationBar(),
-                        ),
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/MainBottomNavigationBar',
                         (route) => false,
                       );
                     }
