@@ -100,10 +100,9 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                   listener: (context, state) {
                     if (state is WarpLoadSuccess) {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute<void>(
-                          builder: (context) => const MainBottomNavigationBar(),
-                        ),
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/MainBottomNavigationBar',
                         (route) => false,
                       );
                     }
