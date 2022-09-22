@@ -24,3 +24,18 @@ class WarpLoadFailure extends WarpState {
   @override
   List<Object?> get props => [];
 }
+
+class RaygunLoadInProgress extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
+
+class RaygunLoadSuccess extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
+
+class RaygunLoadFailure extends WarpState {
+  @override
+  List<Object?> get props => [];
+}

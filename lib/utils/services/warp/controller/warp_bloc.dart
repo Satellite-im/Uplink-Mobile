@@ -72,16 +72,16 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
 
     on<RaygunStarted>((event, emit) {
       try {
-        emit(WarpLoadInProgress());
+        emit(RaygunLoadInProgress());
 
         raygun = rg_ipfs.raygun_ipfs_persistent(
           multipass!,
           _raygunPath!,
         );
 
-        emit(WarpLoadSuccess());
+        emit(RaygunLoadSuccess());
       } catch (error) {
-        emit(WarpLoadFailure());
+        emit(RaygunLoadFailure());
         addError(error);
       }
     });
