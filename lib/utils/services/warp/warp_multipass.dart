@@ -146,7 +146,7 @@ class WarpMultipass {
     }
   }
 
-  Map<String, dynamic> findUserByDid(String _userDid) {
+  Map<String, dynamic>? findUserByDid(String _userDid) {
     try {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
         _returnCompleteDID(_userDid),
@@ -167,6 +167,10 @@ class WarpMultipass {
         error.error_message
       ]);
     } catch (error) {
+      if (error.toString().contains('Identity not found')) {
+        return null;
+      }
+
       throw Exception(['find_user_by_did', error]);
     }
   }
@@ -199,13 +203,15 @@ class WarpMultipass {
         final _userMap =
             findUserByDid(_transformDIDtoString(friendRequest.from));
 
-        final _friendRequestMap = {
-          'user': _userMap,
-          'status': friendRequest.status.name,
-        };
-        _incomingRequestList.add(
-          _friendRequestMap,
-        );
+        if (_userMap != null) {
+          final _friendRequestMap = {
+            'user': _userMap,
+            'status': friendRequest.status.name,
+          };
+          _incomingRequestList.add(
+            _friendRequestMap,
+          );
+        }
       }
       return _incomingRequestList;
     } on WarpException catch (error) {
@@ -216,7 +222,7 @@ class WarpMultipass {
         error.error_message
       ]);
     } catch (error) {
-      throw Exception(['list_incmoing_friend_request', error]);
+      throw Exception(['list_incoming_friend_request', error]);
     }
   }
 

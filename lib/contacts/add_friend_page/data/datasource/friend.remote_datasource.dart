@@ -10,6 +10,10 @@ class FriendData {
     try {
       final _userMap = _warp.findUserByDid(userDid);
 
+      if (_userMap == null) {
+        throw Exception('Identity not found');
+      }
+
       return await User.fromMap(_userMap);
     } catch (error) {
       rethrow;
