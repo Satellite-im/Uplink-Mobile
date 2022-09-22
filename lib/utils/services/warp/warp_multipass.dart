@@ -149,7 +149,7 @@ class WarpMultipass {
   Map<String, dynamic>? findUserByDid(String _userDid) {
     try {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
-        _returnCompleteDID(_userDid),
+        _returnCompleteDID(_userDid).toString(),
       );
       final _userMap = {
         'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
@@ -178,9 +178,7 @@ class WarpMultipass {
   void sendFriendRequest(String _userDID) {
     try {
       _warpBloc.multipass!.sendFriendRequest(
-        DID.fromString(
-          _returnCompleteDID(_userDID),
-        ),
+        _returnCompleteDID(_userDID),
       );
     } on WarpException catch (error) {
       throw Exception([
@@ -234,13 +232,15 @@ class WarpMultipass {
       for (final friendRequest in _outgoingRequests) {
         final _userMap = findUserByDid(_transformDIDtoString(friendRequest.to));
 
-        final _friendRequestMap = {
-          'user': _userMap,
-          'status': friendRequest.status.name,
-        };
-        _outgoingRequestList.add(
-          _friendRequestMap,
-        );
+        if (_userMap != null) {
+          final _friendRequestMap = {
+            'user': _userMap,
+            'status': friendRequest.status.name,
+          };
+          _outgoingRequestList.add(
+            _friendRequestMap,
+          );
+        }
       }
       return _outgoingRequestList;
     } on WarpException catch (error) {
@@ -254,9 +254,25 @@ class WarpMultipass {
       throw Exception(['list_outgoing_friend_request', error]);
     }
   }
+
+  void acceptFriendRequest(String userDID) {
+    try {
+      _warpBloc.multipass!.acceptFriendRequest(_returnCompleteDID(userDID));
+    } catch (error) {
+      throw Exception(['accept_friend_request', error]);
+    }
+  }
+
+  void denyFriendRequest(String userDID) {
+    try {
+      _warpBloc.multipass!.denyFriendRequest(_returnCompleteDID(userDID));
+    } catch (error) {
+      throw Exception(['deny_friend_request', error]);
+    }
+  }
 }
 
-String _returnCompleteDID(String _userDID) => 'did:key:$_userDID';
+DID _returnCompleteDID(String _userDID) => DID.fromString('did:key:$_userDID');
 
 String _transformDIDtoString(DID did) =>
     did.toString().replaceAll('did:key:', '');

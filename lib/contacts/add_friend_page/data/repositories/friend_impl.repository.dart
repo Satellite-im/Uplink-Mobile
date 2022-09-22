@@ -22,4 +22,14 @@ class FriendRepositoryImpl implements IFriendRepository {
   @override
   Future<List<FriendRequest>> listOutgoingFriendRequests() async =>
       _remoteDatasource.listOutgoingFriendRequests();
+
+  @override
+  void acceptFriendRequest(String userDID) {
+    _remoteDatasource.acceptFriendRequest(userDID);
+  }
+
+  @override
+  void denyFriendRequest(String userDID) {
+    _remoteDatasource.denyFriendRequest(userDID);
+  }
 }

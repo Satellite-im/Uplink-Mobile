@@ -58,6 +58,28 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadFailure());
       }
     });
+
+    on<FriendRequestAcceptanceStarted>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.acceptFriendRequest(event.user.did!);
+        emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
+    on<FriendRequestDenialStarted>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.denyFriendRequest(event.user.did!);
+        emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
   }
 
   User? user;

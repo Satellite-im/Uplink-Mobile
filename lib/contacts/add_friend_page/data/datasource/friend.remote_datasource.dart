@@ -59,4 +59,12 @@ class FriendData {
       );
     }
   }
+
+  void acceptFriendRequest(String userDID) {
+    _warp.acceptFriendRequest(userDID);
+  }
+
+  void denyFriendRequest(String userDID) {
+    _warp.denyFriendRequest(userDID);
+  }
 }

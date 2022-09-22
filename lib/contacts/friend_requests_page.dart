@@ -46,10 +46,7 @@ class _FriendRequestPageState extends State<FriendRequestPage> {
                       final item =
                           _friendController.incomingFriendRequestsList[index];
                       return FriendRequestListTile(
-                        name: item.user.username,
-                        statusMessage: item.user.statusMessage,
-                        status: item.user.status ?? Status.offline,
-                        imageAddress: item.user.profilePicture?.path ?? '',
+                        user: item.user,
                         onTap: () {
                           // TODO(yijing): update to user profile page
                         },
