@@ -63,6 +63,8 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       try {
         emit(FriendLoadInProgress());
         _friendRepository.acceptFriendRequest(event.user.did!);
+        add(ListIncomingFriendRequestsStarted());
+        add(ListFriendsStarted());
         emit(FriendLoadSuccess());
       } catch (error) {
         addError(error);
@@ -74,6 +76,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       try {
         emit(FriendLoadInProgress());
         _friendRepository.denyFriendRequest(event.user.did!);
+        add(ListIncomingFriendRequestsStarted());
         emit(FriendLoadSuccess());
       } catch (error) {
         addError(error);

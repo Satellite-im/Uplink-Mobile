@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
-import 'package:uplink/contacts/add_friend_page/presentation/view/widgets/friend_body.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
