@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/view/widgets/friend_body.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/contacts/models/models_export.dart';
+import 'package:uplink/contacts/user_profile_page/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
@@ -22,12 +24,6 @@ class ContactsIndexPage extends StatefulWidget {
 
 class _ContactsIndexPageState extends State<ContactsIndexPage> {
   final _friendController = GetIt.I.get<FriendBloc>();
-
-  @override
-  void initState() {
-    _friendController.add(ListFriendsStarted());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +146,22 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
           status: item.contact.status ?? Status.offline,
           statusMessage: item.contact.statusMessage,
           imageAddress: item.contact.profilePicture?.path ?? '',
-          onTap: () {},
+          onTap: () {
+            showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              useRootNavigator: true,
+              builder: (context) => GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.of(context).pop(),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: UserProfileBottomSheet(user: item.contact),
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

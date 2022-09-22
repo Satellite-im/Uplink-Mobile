@@ -259,7 +259,6 @@ class WarpMultipass {
     try {
       final _friendsList = <Map<String, dynamic>>[];
       final _friends = _warpBloc.multipass!.listFriends();
-
       for (final friend in _friends) {
         final _userMap = findUserByDid(_transformDIDtoString(friend));
 

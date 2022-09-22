@@ -67,7 +67,11 @@ class FriendData {
 
       for (final friendMap in _friendsMapList) {
         final _friendUser = await User.fromMap(friendMap);
-        _friendsUserList.add(_friendUser);
+        _friendsUserList.add(
+          _friendUser.copywith(
+            relationship: Relationship.friend,
+          ),
+        );
       }
 
       return _friendsUserList;
