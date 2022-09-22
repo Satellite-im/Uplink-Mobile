@@ -255,6 +255,33 @@ class WarpMultipass {
     }
   }
 
+  List<Map<String, dynamic>> listFriends() {
+    try {
+      final _friendsList = <Map<String, dynamic>>[];
+      final _friends = _warpBloc.multipass!.listFriends();
+
+      for (final friend in _friends) {
+        final _userMap = findUserByDid(_transformDIDtoString(friend));
+
+        if (_userMap != null) {
+          _friendsList.add(
+            _userMap,
+          );
+        }
+      }
+      return _friendsList;
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'list_friends',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['list_friends', error]);
+    }
+  }
+
   void acceptFriendRequest(String userDID) {
     try {
       _warpBloc.multipass!.acceptFriendRequest(_returnCompleteDID(userDID));

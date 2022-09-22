@@ -52,3 +52,10 @@ class FriendRequestDenialStarted extends FriendEvent {
   @override
   List<Object> get props => [user];
 }
+
+class ListFriendsStarted extends FriendEvent {
+  ListFriendsStarted();
+
+  @override
+  List<Object> get props => [];
+}

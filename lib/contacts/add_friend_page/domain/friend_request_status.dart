@@ -1,5 +1,5 @@
 enum FriendRequestStatus {
-  accepted(),
+  accepted,
   denied,
   pending,
   friendRemoved,

@@ -60,6 +60,22 @@ class FriendData {
     }
   }
 
+  Future<List<User>> listFriends() async {
+    try {
+      final _friendsUserList = <User>[];
+      final _friendsMapList = _warp.listFriends();
+
+      for (final friendMap in _friendsMapList) {
+        final _friendUser = await User.fromMap(friendMap);
+        _friendsUserList.add(_friendUser);
+      }
+
+      return _friendsUserList;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   void acceptFriendRequest(String userDID) {
     _warp.acceptFriendRequest(userDID);
   }

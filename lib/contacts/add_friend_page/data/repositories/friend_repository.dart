@@ -10,6 +10,8 @@ abstract class IFriendRepository {
 
   Future<List<FriendRequest>> listOutgoingFriendRequests();
 
+  Future<List<User>> listFriends();
+
   void acceptFriendRequest(String userDID);
 
   void denyFriendRequest(String userDID);
