@@ -22,9 +22,10 @@ dependencies:
   provider: ^6.0.3
   shared_preferences: ^2.0.15
   warp_dart:
-    git:
-      url: 'https://github.com/Satellite-im/warp-dart.git'
-      ref: 'main'
+    path: ../warp-dart
+    # git:
+    #   url: 'https://github.com/Satellite-im/warp-dart.git'
+    #   ref: 'main'
   ui_library:
     path: 'packages/ui_library'
   # delete showroom when exporting production app
