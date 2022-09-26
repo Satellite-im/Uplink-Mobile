@@ -35,4 +35,9 @@ class FriendRepositoryImpl implements IFriendRepository {
   void denyFriendRequest(String userDID) {
     _remoteDatasource.denyFriendRequest(userDID);
   }
+
+  @override
+  void cancelFriendRequestSent(String userDID) {
+    _remoteDatasource.cancelFriendRequestSent(userDID);
+  }
 }

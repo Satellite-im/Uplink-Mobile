@@ -92,6 +92,18 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       }
     });
 
+    on<CancelFriendRequestSent>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.cancelFriendRequestSent(event.user.did!);
+        add(ListOutgoingFriendRequestsStarted());
+        emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
     on<ListFriendsStarted>((event, emit) async {
       try {
         emit(FriendLoadInProgress());

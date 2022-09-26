@@ -15,4 +15,6 @@ abstract class IFriendRepository {
   void acceptFriendRequest(String userDID);
 
   void denyFriendRequest(String userDID);
+
+  void cancelFriendRequestSent(String userDID);
 }

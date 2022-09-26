@@ -87,4 +87,8 @@ class FriendData {
   void denyFriendRequest(String userDID) {
     _warp.denyFriendRequest(userDID);
   }
+
+  void cancelFriendRequestSent(String userDID) {
+    _warp.cancelFriendRequestSent(userDID);
+  }
 }

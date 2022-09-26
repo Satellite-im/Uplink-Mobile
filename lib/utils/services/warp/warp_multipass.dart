@@ -301,6 +301,14 @@ class WarpMultipass {
       throw Exception(['deny_friend_request', error]);
     }
   }
+
+  void cancelFriendRequestSent(String userDID) {
+    try {
+      _warpBloc.multipass!.closeFriendRequest(_returnCompleteDID(userDID));
+    } catch (error) {
+      throw Exception(['cancel_friend_request_sent', error]);
+    }
+  }
 }
 
 DID _returnCompleteDID(String _userDID) => DID.fromString('did:key:$_userDID');

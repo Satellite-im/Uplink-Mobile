@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class OutgoingRequestListTile extends StatelessWidget {
   const OutgoingRequestListTile({
     Key? key,
-    required this.name,
-    this.statusMessage,
-    this.imageAddress,
-    required this.status,
+    required this.user,
     required this.onTap,
   }) : super(key: key);
 
-  final String name;
-  final String? statusMessage;
-  final Status status;
-  final String? imageAddress;
+  final User user;
   final VoidCallback onTap;
 
   @override
@@ -25,19 +22,19 @@ class OutgoingRequestListTile extends StatelessWidget {
       leading: UUserProfileWithStatus(
         // TODO(yijing): update to online image in profuction app
         uImage: UImage(
-          imagePath: imageAddress,
+          imagePath: user.profilePicture?.path,
           imageSource: ImageSource.file,
         ),
         userProfileSize: UUserProfileSize.normal,
-        status: status,
+        status: user.status ?? Status.offline,
       ),
       horizontalTitleGap: 12,
       title: UText(
-        name,
+        user.username,
         textStyle: UTextStyle.H4_fourthHeader,
       ),
       subtitle: UText(
-        statusMessage ?? '',
+        user.statusMessage ?? '',
         textStyle: UTextStyle.B1_body,
         textColor: UColors.textMed,
       ),
@@ -57,7 +54,7 @@ class OutgoingRequestListTile extends StatelessWidget {
             secondButtonColor: UColors.termRed,
             secondButtonOnPressed: () {
               Navigator.of(context, rootNavigator: true).pop();
-              // TODO(yijing): add delete friend request function
+              GetIt.I.get<FriendBloc>().add(CancelFriendRequestSent(user));
               showDialog<void>(
                 context: context,
                 builder: (dialogContext) => UDialogSingleButtonCustomBody(
@@ -68,7 +65,7 @@ class OutgoingRequestListTile extends StatelessWidget {
                       style: UTextStyle.B1_body.style.returnTextStyleType(),
                       children: <TextSpan>[
                         TextSpan(
-                          text: name,
+                          text: user.username,
                           style: UTextStyle.H4_fourthHeader.style
                               .returnTextStyleType(),
                         ),
