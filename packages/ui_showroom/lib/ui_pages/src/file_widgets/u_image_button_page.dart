@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 List<Widget> uImageButtonList = const [
-  UImageButton(
+  UImageButton.uImage(
     uImage: UImage(),
     isDeleting: true,
     isFavored: true,
-    isLinked: true,
+    isShared: true,
   ),
-  UImageButton(
+  UImageButton.uImage(
     uImage: UImage(),
     isFavored: true,
   ),
-  UImageButton(
+  UImageButton.uImage(
     uImage: UImage(),
-    isLinked: true,
+    isShared: true,
   ),
-  UImageButton(
+  UImageButton.uImage(
     uImage: UImage(),
     isDeleting: true,
   ),
