@@ -73,7 +73,6 @@ class UChatMessage extends StatelessWidget {
                           userProfileSize: UUserProfileSize.normal,
                           uImage: UImage(
                             imagePath: currentUser.profilePicture?.path,
-                            fit: BoxFit.cover,
                             imageSource: ImageSource.file,
                           ),
                         ),
@@ -93,7 +92,6 @@ class UChatMessage extends StatelessWidget {
                           userProfileSize: UUserProfileSize.normal,
                           uImage: UImage(
                             imagePath: user.profilePicture?.path,
-                            fit: BoxFit.cover,
                             imageSource: ImageSource.file,
                           ),
                         ),

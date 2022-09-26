@@ -83,7 +83,6 @@ class _QRCodeBottomSheet extends StatelessWidget {
                 uImage: UImage(
                   imagePath: currentUser.profilePicture?.path,
                   imageSource: ImageSource.file,
-                  fit: BoxFit.cover,
                 ),
               ),
             ),

@@ -50,7 +50,6 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
           child: UImage(
             imagePath: widget.user.bannerPicture?.path,
             imageSource: ImageSource.file,
-            fit: BoxFit.cover,
           ),
         ),
         Align(
@@ -142,7 +141,6 @@ class HamburgerMenuButton extends StatelessWidget {
                 uImage: UImage(
                   imagePath: user.profilePicture?.path,
                   imageSource: ImageSource.file,
-                  fit: BoxFit.cover,
                 ),
                 onTap: () {
                   // TODO(yijing): add unblock workflow
@@ -162,7 +160,6 @@ class HamburgerMenuButton extends StatelessWidget {
                 uImage: UImage(
                   imagePath: user.profilePicture?.path,
                   imageSource: ImageSource.file,
-                  fit: BoxFit.cover,
                 ),
                 onTap: () {
                   // TODO(yijing): add block workflow

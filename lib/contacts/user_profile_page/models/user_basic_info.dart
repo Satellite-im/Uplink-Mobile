@@ -26,7 +26,6 @@ class UserBasicInfo extends StatelessWidget {
               child: UImage(
                 imagePath: user.profilePicture?.path,
                 imageSource: ImageSource.file,
-                fit: BoxFit.cover,
               ),
             ),
           ),

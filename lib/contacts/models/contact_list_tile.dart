@@ -38,7 +38,6 @@ class ContactListTile extends StatelessWidget {
           uImage: UImage(
             imagePath: imageAddress,
             imageSource: ImageSource.file,
-            fit: BoxFit.cover,
           ),
           userProfileSize: UUserProfileSize.normal,
           status: status,

@@ -72,7 +72,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 userProfileSize: UUserProfileSize.topMenuBar,
                 uImage: UImage(
                   imagePath: widget.user.profilePicture?.path,
-                  fit: BoxFit.cover,
                   imageSource: ImageSource.file,
                 ),
                 status: Status.online,

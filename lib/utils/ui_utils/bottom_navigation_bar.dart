@@ -115,7 +115,6 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
                                 imagePath: _currentUserController
                                     .currentUser?.profilePicture?.path,
                                 imageSource: ImageSource.file,
-                                fit: BoxFit.cover,
                               ),
                             ),
                           )
@@ -124,7 +123,6 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
                             uImage: UImage(
                               imagePath: _currentUserController
                                   .currentUser?.profilePicture?.path,
-                              fit: BoxFit.cover,
                               imageSource: ImageSource.file,
                             ),
                             status: Status.online,
