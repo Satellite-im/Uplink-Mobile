@@ -94,36 +94,39 @@ class UAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      title: (_appBarType == _AppBarType.back) ||
-              (_appBarType == _AppBarType.actions)
-          ? Text(
-              _title!,
-            )
-          : null,
-      centerTitle: false,
-      titleSpacing: 0,
-      leading: (_leading == null)
-          ? IconButton(
-              icon: UIcon(
-                UIcons.back_arrow,
-                color: _backIconColor ?? UColors.textMed,
-              ),
-              onPressed: () async {
-                _onBackPressed?.call();
-                if (!cancelCloseFunctionInBackButton) {
-                  Navigator.pop(context);
-                }
-              },
-            )
-          : _leading,
-      actions: (_appBarType == _AppBarType.iconOnly) ||
-              (_appBarType == _AppBarType.actions)
-          ? _actionsList!
-          : null,
-      elevation: 0,
-      flexibleSpace: _flexibleSpace,
+    return Padding(
+      padding: const EdgeInsets.only(right: 4),
+      child: AppBar(
+        backgroundColor: Colors.transparent,
+        title: (_appBarType == _AppBarType.back) ||
+                (_appBarType == _AppBarType.actions)
+            ? Text(
+                _title!,
+              )
+            : null,
+        centerTitle: false,
+        titleSpacing: 0,
+        leading: (_leading == null)
+            ? IconButton(
+                icon: UIcon(
+                  UIcons.back_arrow,
+                  color: _backIconColor ?? UColors.textMed,
+                ),
+                onPressed: () async {
+                  _onBackPressed?.call();
+                  if (!cancelCloseFunctionInBackButton) {
+                    Navigator.pop(context);
+                  }
+                },
+              )
+            : _leading,
+        actions: (_appBarType == _AppBarType.iconOnly) ||
+                (_appBarType == _AppBarType.actions)
+            ? _actionsList!
+            : null,
+        elevation: 0,
+        flexibleSpace: _flexibleSpace,
+      ),
     );
   }
 
