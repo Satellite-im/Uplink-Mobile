@@ -210,16 +210,13 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                             imagePath: _currentUserController
                                 .currentUser?.bannerPicture?.path,
                             imageSource: ImageSource.file,
-                            fit: BoxFit.cover,
                           ),
                         );
                       } else {
                         return const SizedBox(
                           height: 164,
                           width: double.infinity,
-                          child: UImage(
-                            fit: BoxFit.cover,
-                          ),
+                          child: UImage(),
                         );
                       }
                     },
