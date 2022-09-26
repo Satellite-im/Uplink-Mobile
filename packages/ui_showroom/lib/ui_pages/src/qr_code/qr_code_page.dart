@@ -23,7 +23,7 @@ class UQRCodePage extends StatelessWidget {
                 SizedBox.square(
                   dimension: 200,
                   child: UQRCode(
-                    qrCodeData: 'example1',
+                    userDID: 'example1',
                   ),
                 ),
                 SizedBox.square(
@@ -32,7 +32,7 @@ class UQRCodePage extends StatelessWidget {
                 SizedBox.square(
                   dimension: 200,
                   child: UQRCode(
-                    qrCodeData: 'test2',
+                    userDID: 'test2',
                   ),
                 ),
                 SizedBox.square(
@@ -41,7 +41,7 @@ class UQRCodePage extends StatelessWidget {
                 SizedBox.square(
                   dimension: 200,
                   child: UQRCode(
-                    qrCodeData:
+                    userDID:
                         'test test example long line, long text, huge data',
                   ),
                 ),
