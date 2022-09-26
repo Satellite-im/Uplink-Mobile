@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
@@ -61,27 +62,37 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
               _friendController.add(SendFriendRequestStarted());
               await showDialog<void>(
                 context: context,
-                builder: (context) => UDialogSingleButtonCustomBody(
-                  title: UAppStrings.withoutFriendRequestBody_sent,
-                  body: RichText(
-                    text: TextSpan(
-                      text: UAppStrings.withoutFriendRequestBody_request,
-                      style: UTextStyle.B1_body.style.returnTextStyleType(),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '${widget.user.username}!',
-                          style: UTextStyle.H4_fourthHeader.style
-                              .returnTextStyleType(),
+                builder: (context) => BlocBuilder<FriendBloc, FriendState>(
+                  bloc: _friendController,
+                  builder: (context, state) {
+                    if (state is FriendLoadSuccess) {
+                      return UDialogSingleButtonCustomBody(
+                        title: UAppStrings.withoutFriendRequestBody_sent,
+                        body: RichText(
+                          text: TextSpan(
+                            text: UAppStrings.withoutFriendRequestBody_request,
+                            style:
+                                UTextStyle.B1_body.style.returnTextStyleType(),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${widget.user.username}!',
+                                style: UTextStyle.H4_fourthHeader.style
+                                    .returnTextStyleType(),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                  buttonText: UAppStrings.okay,
+                        buttonText: UAppStrings.okay,
+                      );
+                    }
+                    Navigator.of(context).pop();
+                    return const SizedBox.shrink();
+                  },
                 ),
               );
             },
           ),
-        )
+        ),
       ],
     );
   }
