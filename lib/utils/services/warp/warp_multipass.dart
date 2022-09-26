@@ -151,6 +151,7 @@ class WarpMultipass {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
         _returnCompleteDID(_userDid).toString(),
       );
+
       final _userMap = {
         'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
         'username': _userIdentity.username,
@@ -292,6 +293,10 @@ class WarpMultipass {
   void denyFriendRequest(String userDID) {
     try {
       _warpBloc.multipass!.denyFriendRequest(_returnCompleteDID(userDID));
+    } on WarpException catch (error) {
+      if (error.error_message == 'Cannot find friend request') {
+        return;
+      }
     } catch (error) {
       throw Exception(['deny_friend_request', error]);
     }

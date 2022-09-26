@@ -19,8 +19,12 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         user = user?.copywith(status: Status.online);
         emit(FriendLoadSuccess(user));
       } catch (error) {
+        emit(
+          FriendLoadFailure(
+            FriendLoadFailureTypesX.fromString(error.toString()),
+          ),
+        );
         addError(error);
-        emit(FriendLoadFailure());
       }
     });
 
@@ -30,8 +34,12 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         _friendRepository.sendFriendRequest(user!.did!);
         emit(FriendLoadSuccess(user));
       } catch (error) {
+        emit(
+          FriendLoadFailure(
+            FriendLoadFailureTypesX.fromString(error.toString()),
+          ),
+        );
         addError(error);
-        emit(FriendLoadFailure());
       }
     });
 
