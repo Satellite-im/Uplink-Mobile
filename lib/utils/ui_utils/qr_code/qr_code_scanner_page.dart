@@ -7,6 +7,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class QRCodeScannerPage extends StatefulWidget {
   const QRCodeScannerPage({Key? key}) : super(key: key);
@@ -36,6 +37,10 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       duration: const Duration(milliseconds: 400),
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController!);
+    _friendController
+      ..add(ListIncomingFriendRequestsStarted())
+      ..add(ListOutgoingFriendRequestsStarted())
+      ..add(ListFriendsStarted());
 
     Timer.periodic(const Duration(seconds: 3), (timer) {
       _lastQRCodeScanned = '';
@@ -157,6 +162,13 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           allowDuplicates: true,
           controller: cameraController,
           onDetect: (qrCode, args) {
+            if (qrCode.format != BarcodeFormat.qrCode && !_isDialogOpened) {
+              showErrorOverlay(
+                context,
+                text: 'Error: It is not a QR Code',
+              );
+              return;
+            }
             if (qrCode.rawValue == null ||
                 _lastQRCodeScanned == qrCode.rawValue ||
                 _isDialogOpened) {
@@ -173,44 +185,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                   ),
                 );
                 _isDialogOpened = true;
-                showDialog<void>(
-                  context: context,
-                  builder: (context) => BlocBuilder<FriendBloc, FriendState>(
-                    bloc: _friendController,
-                    builder: (context, state) {
-                      if (state is FriendLoadSuccess) {
-                        return UDialogUserProfile(
-                          bodyText:
-                              UAppStrings.qrCodePage_addFriendDialogMessage,
-                          popButtonText: UAppStrings.goBackButton,
-                          popButtonOnTap: () {
-                            _isDialogOpened = false;
-                          },
-                          username: state.user!.username,
-                          statusMessage: state.user!.statusMessage,
-                          uImage: UImage(
-                            imagePath: state.user!.profilePicture?.path,
-                            imageSource: ImageSource.file,
-                            fit: BoxFit.cover,
-                          ),
-                          buttonText:
-                              UAppStrings.qrCodePage_addFriendDialogButtonText,
-                          onTap: () {
-                            _friendController.add(SendFriendRequestStarted());
-                            _isDialogOpened = false;
-                          },
-                        );
-                      } else if (state is FriendLoadFailure) {
-                        Navigator.of(context).pop();
-                        showErrorOverlay(
-                          context,
-                          text: state.frienLoadFailureTypes!.errorMessage,
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                );
+                _verifyRelationShipBetweenUsers(_friendController.user!);
               } else {
                 showErrorOverlay(
                   context,
@@ -222,5 +197,204 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
         ),
       ),
     );
+  }
+
+  void _verifyRelationShipBetweenUsers(User user) {
+    final _areUsersFriends =
+        _friendController.friendsList.any((element) => element.did == user.did);
+    final _isThereIncomingFriendRequest = _friendController
+        .incomingFriendRequestsList
+        .any((element) => element.user.did == user.did);
+    final _isThereOutgoingFriendRequest = _friendController
+        .outgoingFriendRequestsList
+        .any((element) => element.user.did == user.did);
+
+    if (_areUsersFriends) {
+      showDialog<void>(
+        context: context,
+        builder: (context) => UDialogUserProfile(
+          showPopButton: false,
+          bodyText: '',
+          useBodyRichText: true,
+          bodyRichText: RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'You and ',
+                  style: UTextStyle.B1_body.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+                TextSpan(
+                  text: user.username,
+                  style: UTextStyle.B3_bold.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+                TextSpan(
+                  text: ' are already friends!',
+                  style: UTextStyle.B1_body.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          popButtonText: UAppStrings.goBackButton,
+          username: user.username,
+          statusMessage: user.statusMessage,
+          uImage: UImage(
+            imagePath: user.profilePicture?.path,
+            imageSource: ImageSource.file,
+            fit: BoxFit.cover,
+          ),
+          buttonText: UAppStrings.okay,
+          onTap: () {
+            Navigator.of(context).pop();
+            _isDialogOpened = false;
+          },
+        ),
+      );
+    } else if (_isThereIncomingFriendRequest) {
+      showDialog<void>(
+        context: context,
+        builder: (context) => UDialogUserProfile(
+          bodyText: '',
+          useBodyRichText: true,
+          bodyRichText: RichText(
+            text: TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                TextSpan(
+                  text: user.username,
+                  style: UTextStyle.B3_bold.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+                TextSpan(
+                  text: ' has already sent you a friend request. '
+                      'Do you want to accept it?',
+                  style: UTextStyle.B1_body.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          popButtonText: UAppStrings.goBackButton,
+          username: user.username,
+          statusMessage: user.statusMessage,
+          uImage: UImage(
+            imagePath: user.profilePicture?.path,
+            imageSource: ImageSource.file,
+            fit: BoxFit.cover,
+          ),
+          buttonText: UAppStrings.okay,
+          onTap: () {
+            _friendController.add(FriendRequestAcceptanceStarted(user));
+            _isDialogOpened = false;
+            Navigator.of(context).pop();
+          },
+        ),
+      );
+    } else if (_isThereOutgoingFriendRequest) {
+      showDialog<void>(
+        context: context,
+        builder: (context) => UDialogUserProfile(
+          showPopButton: false,
+          bodyText: '',
+          useBodyRichText: true,
+          bodyRichText: RichText(
+            text: TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'You already sent a friend request to ',
+                  style: UTextStyle.B1_body.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+                TextSpan(
+                  text: user.username,
+                  style: UTextStyle.B3_bold.style.returnTextStyleType(
+                    color: UColors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          popButtonText: UAppStrings.goBackButton,
+          username: user.username,
+          statusMessage: user.statusMessage,
+          uImage: UImage(
+            imagePath: user.profilePicture?.path,
+            imageSource: ImageSource.file,
+            fit: BoxFit.cover,
+          ),
+          buttonText: UAppStrings.okay,
+          onTap: () {
+            Navigator.of(context).pop();
+            _isDialogOpened = false;
+          },
+        ),
+      );
+    } else {
+      showDialog<void>(
+        context: context,
+        builder: (context) => BlocBuilder<FriendBloc, FriendState>(
+          bloc: _friendController,
+          builder: (context, state) {
+            if (state is FriendLoadSuccess) {
+              return UDialogUserProfile(
+                bodyText: '',
+                useBodyRichText: true,
+                bodyRichText: RichText(
+                  text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Do you want to add ',
+                        style: UTextStyle.B1_body.style.returnTextStyleType(
+                          color: UColors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: user.username,
+                        style: UTextStyle.B3_bold.style.returnTextStyleType(
+                          color: UColors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: " to your contact's list?",
+                        style: UTextStyle.B1_body.style.returnTextStyleType(
+                          color: UColors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                popButtonText: UAppStrings.goBackButton,
+                popButtonOnTap: () => _isDialogOpened = false,
+                username: state.user!.username,
+                statusMessage: state.user!.statusMessage,
+                uImage: UImage(
+                  imagePath: state.user!.profilePicture?.path,
+                  imageSource: ImageSource.file,
+                  fit: BoxFit.cover,
+                ),
+                buttonText: UAppStrings.qrCodePage_addFriendDialogButtonText,
+                onTap: () {
+                  _friendController.add(SendFriendRequestStarted());
+                  _isDialogOpened = false;
+                },
+              );
+            } else if (state is FriendLoadFailure) {
+              Navigator.of(context).pop();
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      );
+    }
   }
 }
