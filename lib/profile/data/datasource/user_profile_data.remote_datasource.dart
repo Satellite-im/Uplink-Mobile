@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
+import 'package:uplink/utils/helpers/base_64.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
 class UserProfileData {
@@ -12,11 +9,13 @@ class UserProfileData {
   Future<CurrentUser> getCurrentUserInfo() async {
     try {
       final _currentUserInfoMap = _warp.getCurrentUserInfo();
-      final _profilePictureFile = await _transformBase64ImageIntoFileImage(
+      final _profilePictureFile =
+          await Base64Convert().transformBase64ImageIntoFileImage(
         _currentUserInfoMap['profile_picture'] as String,
         'profile_picture',
       );
-      final _bannerPictureFile = await _transformBase64ImageIntoFileImage(
+      final _bannerPictureFile =
+          await Base64Convert().transformBase64ImageIntoFileImage(
         _currentUserInfoMap['banner_picture'] as String,
         'banner_picture',
       );
@@ -103,25 +102,5 @@ class UserProfileData {
     } catch (error) {
       throw Exception(error);
     }
-  }
-}
-
-Future<File> _transformBase64ImageIntoFileImage(
-  String _base64Image,
-  String _fileName,
-) async {
-  try {
-    if (_base64Image.isEmpty) {
-      return File('');
-    } else {
-      final _imageBytes = base64.decode(_base64Image);
-      final _appTempDir = await path_provider.getTemporaryDirectory();
-      final _fileToSaveImage = File(
-        '${_appTempDir.path}/${_fileName}_${DateTime.now().millisecondsSinceEpoch}.jpg',
-      );
-      return await _fileToSaveImage.writeAsBytes(_imageBytes);
-    }
-  } catch (error) {
-    return File('');
   }
 }

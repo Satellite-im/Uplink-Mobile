@@ -1,58 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/mock/helpers/loading_outgoing_requests.dart';
-import 'package:uplink/utils/mock/models/mock_contact.dart';
 
-class OutgoingRequestPage extends StatelessWidget {
+class OutgoingRequestPage extends StatefulWidget {
   const OutgoingRequestPage({Key? key}) : super(key: key);
+
+  @override
+  State<OutgoingRequestPage> createState() => _OutgoingRequestPageState();
+}
+
+class _OutgoingRequestPageState extends State<OutgoingRequestPage> {
+  final _friendController = GetIt.I.get<FriendBloc>();
+
+  @override
+  void initState() {
+    _friendController.add(ListOutgoingFriendRequestsStarted());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(title: UAppStrings.outgoingRequestPage_appBarTitle),
-      body: FutureBuilder<List<MockContact>>(
-        future: loadingOutgoingRequests(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final friendRequestsList = snapshot.data!;
-
-            if (friendRequestsList.isEmpty) {
-              return const EmptyBody(
-                text: UAppStrings.outgoingRequestPage_emptyBody,
-              );
-            } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MiniTitleWithNum(
-                    title: UAppStrings.outgoingRequestPage_sent,
-                    num: friendRequestsList.length,
+      body: BlocBuilder<FriendBloc, FriendState>(
+        bloc: _friendController,
+        builder: (context, state) {
+          if (state is FriendLoadSuccess &&
+              _friendController.outgoingFriendRequestsList.isNotEmpty) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MiniTitleWithNum(
+                  title: UAppStrings.outgoingRequestPage_sent,
+                  num: _friendController.outgoingFriendRequestsList.length,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount:
+                        _friendController.outgoingFriendRequestsList.length,
+                    itemBuilder: (context, index) {
+                      final item =
+                          _friendController.outgoingFriendRequestsList[index];
+                      return OutgoingRequestListTile(
+                        user: item.user,
+                        onTap: () {
+                          // TODO(yijing): update to user profile page
+                        },
+                      );
+                    },
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: friendRequestsList.length,
-                      itemBuilder: (context, index) {
-                        final item = friendRequestsList[index];
-                        return OutgoingRequestListTile(
-                          name: item.name,
-                          statusMessage: item.statusMessage,
-                          status: item.status,
-                          imageAddress: item.imageAddress,
-                          onTap: () {
-                            // TODO(yijing): update to user profile page
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            }
+                ),
+              ],
+            );
+          } else if (state is FriendLoadInProgress) {
+            return const Center(child: ULoadingIndicator());
+          } else {
+            return const EmptyBody(
+              text: UAppStrings.outgoingRequestPage_emptyBody,
+            );
           }
-          // TODO(yijing): update to standard indicator
-          return const Center(child: ULoadingIndicator());
         },
       ),
     );

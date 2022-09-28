@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/utils/helpers/base_64.dart';
 
 enum Relationship {
   none,
@@ -26,6 +27,33 @@ class User {
     this.friendNum,
     this.about,
   });
+
+  static Future<User> fromMap(Map<String, dynamic> _userMap) async {
+    try {
+      final _profilePictureFile =
+          await Base64Convert().transformBase64ImageIntoFileImage(
+        _userMap['profile_picture'] as String,
+        'profile_picture',
+      );
+      final _bannerPictureFile =
+          await Base64Convert().transformBase64ImageIntoFileImage(
+        _userMap['banner_picture'] as String,
+        'banner_picture',
+      );
+      return User(
+        did: _userMap['did'] as String,
+        username: _userMap['username'] as String,
+        statusMessage: _userMap['status_message'] != null
+            ? _userMap['status_message'] as String
+            : null,
+        profilePicture: _profilePictureFile,
+        bannerPicture: _bannerPictureFile,
+        relationship: Relationship.none,
+      );
+    } on Exception catch (error) {
+      throw Exception(['User_from_map', error]);
+    }
+  }
 
   final String? did;
   final String username;
