@@ -197,11 +197,11 @@ class _QRCodeBottomSheet extends StatelessWidget {
                                       bodyText: UAppStrings
                                           .qrCodePage_addFriendDialogMessage,
                                       popButtonText: UAppStrings.goBackButton,
-                                      username: state.user.username,
-                                      statusMessage: state.user.statusMessage,
+                                      username: state.user!.username,
+                                      statusMessage: state.user!.statusMessage,
                                       uImage: UImage(
                                         imagePath:
-                                            state.user.profilePicture?.path,
+                                            state.user!.profilePicture?.path,
                                         imageSource: ImageSource.file,
                                         fit: BoxFit.cover,
                                       ),
