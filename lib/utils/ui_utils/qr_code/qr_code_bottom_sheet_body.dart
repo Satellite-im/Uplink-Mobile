@@ -22,7 +22,6 @@ class _QRCodeBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     const _duration = Duration(milliseconds: 100);
-    final _friendController = GetIt.I.get<FriendBloc>();
 
     return AnimatedContainer(
       duration: _duration,
@@ -180,43 +179,9 @@ class _QRCodeBottomSheet extends StatelessWidget {
                   label: UAppStrings.qrCodePage_buttonText,
                   uIconData: UIcons.camera,
                   onPressed: () {
-                    Navigator.of(context).push<UQRCodeScanner>(
+                    Navigator.of(context).push<QRCodeScannerPage>(
                       MaterialPageRoute(
-                        builder: (context) => UQRCodeScanner(
-                          onFindQrCode: (userDID) async {
-                            _friendController
-                                .add(SearchUserStarted(userDid: userDID));
-                            await showDialog<void>(
-                              context: context,
-                              builder: (context) =>
-                                  BlocBuilder<FriendBloc, FriendState>(
-                                bloc: _friendController,
-                                builder: (context, state) {
-                                  if (state is FriendLoadSuccess) {
-                                    return UDialogUserProfile(
-                                      bodyText: UAppStrings
-                                          .qrCodePage_addFriendDialogMessage,
-                                      popButtonText: UAppStrings.goBackButton,
-                                      username: state.user!.username,
-                                      statusMessage: state.user!.statusMessage,
-                                      uImage: UImage(
-                                        imagePath:
-                                            state.user!.profilePicture?.path,
-                                        imageSource: ImageSource.file,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      buttonText: UAppStrings
-                                          .qrCodePage_addFriendDialogButtonText,
-                                      onTap: () {},
-                                    );
-                                  }
-                                  Navigator.of(context).pop();
-                                  return const SizedBox.shrink();
-                                },
-                              ),
-                            );
-                          },
-                        ),
+                        builder: (context) => const QRCodeScannerPage(),
                       ),
                     );
                   },
