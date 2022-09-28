@@ -8,6 +8,7 @@ class UDialogUserProfile extends StatelessWidget {
       required this.bodyText,
       required this.buttonText,
       required this.popButtonText,
+      this.popButtonOnTap,
       required this.onTap,
       UImage? uImage,
       this.buttonColor,
@@ -19,6 +20,7 @@ class UDialogUserProfile extends StatelessWidget {
   final String buttonText;
   final Color? buttonColor;
   final String popButtonText;
+  final VoidCallback? popButtonOnTap;
   final VoidCallback onTap;
   final UImage? _uImage;
   final String username;
@@ -64,7 +66,10 @@ class UDialogUserProfile extends StatelessWidget {
               ),
               UButton.filled2(
                 label: popButtonText,
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  popButtonOnTap?.call();
+                  Navigator.of(context).pop();
+                },
               ),
             ],
           ),
