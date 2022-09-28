@@ -175,17 +175,24 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
               return;
             } else {
               final code = qrCode.rawValue!;
-              _lastQRCodeScanned = qrCode.rawValue!;
-
               if (code.contains(_didKeyCodeBeginning)) {
                 _friendController.add(
                   SearchUserStarted(
-                    userDid:
-                        _lastQRCodeScanned.replaceAll(_didKeyCodeBeginning, ''),
+                    userDid: code.replaceAll(_didKeyCodeBeginning, ''),
                   ),
                 );
-                _isDialogOpened = true;
-                _verifyRelationShipBetweenUsers(_friendController.user!);
+                _friendController.stream.listen((state) {
+                  if (state is FriendLoadSuccess && _isDialogOpened == false) {
+                    _isDialogOpened = true;
+                    _verifyRelationShipBetweenUsers(_friendController.user!);
+                  } else if (state is FriendLoadFailure) {
+                    showErrorOverlay(
+                      context,
+                      text: state.frienLoadFailureTypes!.errorMessage,
+                    );
+                  }
+                  _lastQRCodeScanned = qrCode.rawValue!;
+                });
               } else {
                 showErrorOverlay(
                   context,
