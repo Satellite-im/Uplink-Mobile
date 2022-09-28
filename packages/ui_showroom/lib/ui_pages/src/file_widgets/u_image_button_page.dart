@@ -6,7 +6,6 @@ List<Widget> uImageButtonList = const [
     uImage: UImage(),
     isDeleting: true,
     isFavored: true,
-    isShared: true,
   ),
   UImageButton.uImage(
     uImage: UImage(),
@@ -14,7 +13,6 @@ List<Widget> uImageButtonList = const [
   ),
   UImageButton.uImage(
     uImage: UImage(),
-    isShared: true,
   ),
   UImageButton.uImage(
     uImage: UImage(),
