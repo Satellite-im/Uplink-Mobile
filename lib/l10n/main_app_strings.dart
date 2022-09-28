@@ -287,6 +287,9 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Sed ut perspiciatis unde omnis iste natus error sit '
       'voluptatem accusantium doloremque laudantium.';
   static const qrCodePage_buttonText = 'Allow Camera Scan';
+  static const qrCodePage_addFriendDialogButtonText = 'Add Friend';
+  static const qrCodePage_addFriendDialogMessage =
+      'Do you want to add this user to your contact’s list?';
 
   /// Notifications
   static const notifications_appBarTitle = 'Notifications';

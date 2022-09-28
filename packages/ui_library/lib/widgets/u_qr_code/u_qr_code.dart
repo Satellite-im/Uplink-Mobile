@@ -16,9 +16,9 @@ class UQRCode extends StatelessWidget {
       color: Colors.white,
       margin: const EdgeInsets.all(2),
       child: QrImage(
-        data: userDID,
-        padding: EdgeInsets.zero,
-        backgroundColor: Colors.transparent,
+        data: 'did:key:$userDID',
+        padding: const EdgeInsets.all(8),
+        backgroundColor: Colors.white,
         version: QrVersions.auto,
         gapless: false,
       ),
