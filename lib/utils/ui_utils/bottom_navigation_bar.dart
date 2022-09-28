@@ -5,7 +5,8 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/contacts_export.dart';
-import 'package:uplink/file/file_export.dart';
+import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/file/presentation/view/file_index_page.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/profile/profile_export.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
@@ -33,7 +34,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   void _updateIndex(int value) {
     setState(() {
       _currentIndex = value;
-      if (_currentIndex == 2) {
+      if (_currentIndex == 1) {
+        GetIt.I.get<ItemListBloc>().add(GetItemList());
+      } else if (_currentIndex == 2) {
         GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
       }
     });
