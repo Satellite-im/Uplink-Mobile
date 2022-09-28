@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
+import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/contacts_export.dart';
 import 'package:uplink/file/file_export.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
@@ -32,6 +33,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   void _updateIndex(int value) {
     setState(() {
       _currentIndex = value;
+      if (_currentIndex == 2) {
+        GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+      }
     });
   }
 

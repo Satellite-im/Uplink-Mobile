@@ -144,12 +144,12 @@ class _AddFriendPageState extends State<AddFriendPage> {
                           _textController.text.length == 48) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            SizedBox(
+                          children: [
+                            const SizedBox(
                               height: 24,
                             ),
                             UText(
-                              UAppStrings.addFriendPage_noAccountFound,
+                              state.frienLoadFailureTypes!.errorMessage,
                               textStyle: UTextStyle.B1_body,
                               textColor: UColors.termRed,
                             ),
