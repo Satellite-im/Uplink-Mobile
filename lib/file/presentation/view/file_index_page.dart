@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/file/presentation/view/widgets/loading_gridview.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 
 class FileIndexPage extends StatefulWidget {
@@ -43,32 +44,37 @@ class _FileIndexPageState extends State<FileIndexPage> {
               height: 40,
               child: Row(
                 children: [
-                  BlocBuilder<ItemListBloc, ItemListState>(
-                    bloc: _itemListController,
-                    builder: (context, state) {
-                      if (state is ItemListLoadSuccess) {
-                        return UText(
-                          state.itemList.isEmpty
-                              ? 'No items'
-                              : '${state.itemList.length} items',
-                          textStyle: UTextStyle.H5_fifthHeader,
+                  Expanded(
+                    child: BlocBuilder<ItemListBloc, ItemListState>(
+                      bloc: _itemListController,
+                      builder: (context, state) {
+                        if (state is ItemListLoadSuccess) {
+                          return UText(
+                            state.itemList.isEmpty
+                                ? 'No items'
+                                : '${state.itemList.length} items',
+                            textStyle: UTextStyle.H5_fifthHeader,
+                          );
+                        } else if (state is ItemListLoadFailure) {
+                          return const UText(
+                            '## items',
+                            textStyle: UTextStyle.H5_fifthHeader,
+                          );
+                        }
+                        // Initial and loading state
+                        return const UShimmer.med(
+                          child: URectContainer(
+                            height: 18,
+                          ),
                         );
-                      } else if (state is ItemListLoadFailure) {
-                        return const UText(
-                          '## items',
-                          textStyle: UTextStyle.H5_fifthHeader,
-                        );
-                      }
-                      // Initial and loading state
-                      return const CircularProgressIndicator();
-                    },
+                      },
+                    ),
                   ),
-                  const Expanded(child: SizedBox.shrink()),
+                  const SizedBox(width: 16),
                   ItemLayoutButton(
                     onPressed: () {
                       setState(() {
                         gridViewIsSelected = true;
-                        log('grid view selected');
                       });
                     },
                     isSelected: gridViewIsSelected,
@@ -79,7 +85,6 @@ class _FileIndexPageState extends State<FileIndexPage> {
                     onPressed: () {
                       setState(() {
                         gridViewIsSelected = false;
-                        log('list view selected');
                       });
                     },
                     isSelected: !gridViewIsSelected,
@@ -115,7 +120,7 @@ class _FileIndexPageState extends State<FileIndexPage> {
                     );
                   }
                   // Initial and loading state
-                  return const CircularProgressIndicator();
+                  return const LoadingGridView();
                 },
               ),
             ),
