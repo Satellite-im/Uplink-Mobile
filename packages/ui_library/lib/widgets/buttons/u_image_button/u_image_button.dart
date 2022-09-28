@@ -14,7 +14,6 @@ class UImageButton extends StatefulWidget {
   const UImageButton.uImage({
     Key? key,
     required this.uImage,
-    this.isShared,
     this.isFavored,
     this.isDeleting,
   })  : unit8ListImage = null,
@@ -23,7 +22,6 @@ class UImageButton extends StatefulWidget {
   const UImageButton.unit8ListImage({
     Key? key,
     required this.unit8ListImage,
-    this.isShared,
     this.isFavored,
     this.isDeleting,
   })  : uImage = null,
@@ -31,7 +29,6 @@ class UImageButton extends StatefulWidget {
 
   final Uint8List? unit8ListImage;
   final UImage? uImage;
-  final bool? isShared;
   final bool? isFavored;
   final bool? isDeleting;
 
@@ -64,14 +61,6 @@ class UImageButtonState extends State<UImageButton> {
               padding: const EdgeInsets.all(8.0),
               child: Stack(
                 children: [
-                  if (widget.isShared == true)
-                    const Align(
-                      alignment: Alignment.topLeft,
-                      child: UIcon(
-                        UIcons.link,
-                        color: UColors.textMed,
-                      ),
-                    ),
                   if (widget.isFavored == true)
                     const Align(
                       alignment: Alignment.topRight,
@@ -133,14 +122,6 @@ class UImageButtonState extends State<UImageButton> {
         padding: const EdgeInsets.all(8.0),
         child: Stack(
           children: [
-            if (widget.isShared == true)
-              const Align(
-                alignment: Alignment.topLeft,
-                child: UIcon(
-                  UIcons.link,
-                  color: UColors.textMed,
-                ),
-              ),
             if (widget.isFavored == true)
               const Align(
                 alignment: Alignment.topRight,
