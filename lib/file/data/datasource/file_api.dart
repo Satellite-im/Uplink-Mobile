@@ -6,4 +6,5 @@ abstract class IFileApi {
   // TODO(yijing): create a concrete class to communicate with constellation
 
   Future<List<Item>> getItemList();
+  Future<void> uploadItem(Item item);
 }

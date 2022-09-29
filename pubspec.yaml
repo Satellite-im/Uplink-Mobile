@@ -30,6 +30,7 @@ dependencies:
   # delete showroom when exporting production app
   ui_showroom:
     path: 'packages/ui_showroom'
+  flutter_image_compress: ^1.1.3
 
 dev_dependencies:
   bloc_test: ^9.1.0
