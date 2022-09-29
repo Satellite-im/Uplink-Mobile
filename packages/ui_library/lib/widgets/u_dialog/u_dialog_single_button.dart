@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class UDialogSingleButton extends StatelessWidget {
-  const UDialogSingleButton(
-      {Key? key,
-      required this.title,
-      required this.bodyText,
-      required this.buttonText})
-      : super(key: key);
+  const UDialogSingleButton({
+    Key? key,
+    required this.title,
+    required this.bodyText,
+    required this.buttonText,
+    this.onPop,
+  }) : super(key: key);
   final String title;
   final String bodyText;
   final String buttonText;
+  final VoidCallback? onPop;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,10 @@ class UDialogSingleButton extends StatelessWidget {
           ),
           UButton.filled1(
             label: buttonText,
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              onPop?.call();
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),
