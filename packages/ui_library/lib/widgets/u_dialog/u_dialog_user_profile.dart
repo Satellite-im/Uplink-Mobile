@@ -56,7 +56,7 @@ class UDialogUserProfile extends StatelessWidget {
             textStyle: UTextStyle.H2_secondaryHeader,
             textColor: UColors.white,
           ),
-          if (statusMessage != null || statusMessage!.isNotEmpty)
+          if (statusMessage != null && statusMessage!.isNotEmpty)
             UText(
               statusMessage ?? '',
               textStyle: UTextStyle.B1_body,
