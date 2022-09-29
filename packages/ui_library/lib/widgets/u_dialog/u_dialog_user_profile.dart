@@ -56,11 +56,12 @@ class UDialogUserProfile extends StatelessWidget {
             textStyle: UTextStyle.H2_secondaryHeader,
             textColor: UColors.white,
           ),
-          UText(
-            statusMessage ?? '',
-            textStyle: UTextStyle.B1_body,
-            textColor: UColors.textMed,
-          ),
+          if (statusMessage != null || statusMessage!.isNotEmpty)
+            UText(
+              statusMessage ?? '',
+              textStyle: UTextStyle.B1_body,
+              textColor: UColors.textMed,
+            ),
           const SizedBox(height: 16),
           if (useBodyRichText) ...[
             bodyRichText!,

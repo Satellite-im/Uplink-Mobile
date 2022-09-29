@@ -49,9 +49,11 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
 
   @override
   void dispose() {
+    _friendController.add(ResetFriendDataStarted());
     _animationController?.dispose();
     _timerForOverlay.cancel();
     cameraController.dispose();
+
     super.dispose();
   }
 
@@ -234,7 +236,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 ),
                 TextSpan(
                   text: user.username,
-                  style: UTextStyle.B3_bold.style.returnTextStyleType(
+                  style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
                     color: UColors.white,
                   ),
                 ),
@@ -270,11 +272,10 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           useBodyRichText: true,
           bodyRichText: RichText(
             text: TextSpan(
-              style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
                   text: user.username,
-                  style: UTextStyle.B3_bold.style.returnTextStyleType(
+                  style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
                     color: UColors.white,
                   ),
                 ),
@@ -313,7 +314,6 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           useBodyRichText: true,
           bodyRichText: RichText(
             text: TextSpan(
-              style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
                   text: 'You already sent a friend request to ',
@@ -323,7 +323,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 ),
                 TextSpan(
                   text: user.username,
-                  style: UTextStyle.B3_bold.style.returnTextStyleType(
+                  style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
                     color: UColors.white,
                   ),
                 ),
@@ -357,7 +357,6 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 useBodyRichText: true,
                 bodyRichText: RichText(
                   text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
                         text: 'Do you want to add ',
@@ -367,7 +366,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                       ),
                       TextSpan(
                         text: user.username,
-                        style: UTextStyle.B3_bold.style.returnTextStyleType(
+                        style: UTextStyle.H3_tertiaryHeader.style
+                            .returnTextStyleType(
                           color: UColors.white,
                         ),
                       ),

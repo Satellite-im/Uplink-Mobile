@@ -5,6 +5,13 @@ abstract class FriendEvent {
   List<Object> get props => [];
 }
 
+class ResetFriendDataStarted extends FriendEvent {
+  ResetFriendDataStarted();
+
+  @override
+  List<Object> get props => [];
+}
+
 class SearchUserStarted extends FriendEvent {
   SearchUserStarted({required this.userDid});
 
