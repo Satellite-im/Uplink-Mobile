@@ -4,6 +4,7 @@ import 'package:ui_library/core/core_export.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/app/view/main_app.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
+import 'package:uplink/file/presentation/view/name_file_page.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class RouteGenerator {
@@ -48,6 +49,11 @@ class RouteGenerator {
       case '/MainBottomNavigationBar':
         return MaterialPageRoute<void>(
           builder: (context) => const MainBottomNavigationBar(),
+        );
+// File
+      case '/NameFilePage':
+        return MaterialPageRoute<void>(
+          builder: (context) => const NameFilePage(),
         );
       default:
         // TODO(yijing): improve error page

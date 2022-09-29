@@ -8,4 +8,7 @@ class FileRepositoryImpl implements IFileRepository {
 
   @override
   Future<List<Item>> getItemList() => _fileApi.getItemList();
+
+  @override
+  Future<void> uploadItem(Item item) => _fileApi.uploadItem(item);
 }
