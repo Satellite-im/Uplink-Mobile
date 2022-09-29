@@ -8,7 +8,7 @@ import 'package:ui_library/plugins/permissions/request_permissions.dart';
 import 'image_cropper.dart';
 
 /// Define the format of the crop
-enum UCropStyle { circle, rectangle }
+enum UCropStyle { circle, rectangle, none }
 
 /// This class pick a image from camera or gallery
 ///
@@ -26,7 +26,7 @@ class UImagePicker {
     UCropAspectRatio? uCropAspectRatio,
   }) async {
     XFile? pickedFile;
-    File? _imageCroppedFile;
+    File? _processedFile;
     final _galleryPermissionStatus = await URequestPermissions(
       shouldShowPermissionDialog: shouldShowPermissionDialog,
     ).getPermissionToAccessGallery(context);
@@ -37,14 +37,18 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      _imageCroppedFile = await _uImageCropper.cropImage(
-        File(pickedFile.path),
-        uCropStyle: uCropStyle,
-        uCropAspectRatio: uCropAspectRatio,
-      );
+      if (uCropStyle != UCropStyle.none) {
+        _processedFile = await _uImageCropper.cropImage(
+          File(pickedFile.path),
+          uCropStyle: uCropStyle,
+          uCropAspectRatio: uCropAspectRatio,
+        );
+      } else {
+        _processedFile = File(pickedFile.path);
+      }
     }
 
-    return _imageCroppedFile;
+    return _processedFile;
   }
 
   Future<File?> pickImageFromCamera(
@@ -53,7 +57,7 @@ class UImagePicker {
     UCropAspectRatio? uCropAspectRatio,
   }) async {
     XFile? pickedFile;
-    File? _imageCroppedFile;
+    File? _processedFile;
 
     final _cameraPermissionStatus = await URequestPermissions(
       shouldShowPermissionDialog: shouldShowPermissionDialog,
@@ -67,14 +71,18 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      _imageCroppedFile = await _uImageCropper.cropImage(
-        File(pickedFile.path),
-        uCropStyle: uCropStyle,
-        uCropAspectRatio: uCropAspectRatio,
-      );
+      if (uCropStyle != UCropStyle.none) {
+        _processedFile = await _uImageCropper.cropImage(
+          File(pickedFile.path),
+          uCropStyle: uCropStyle,
+          uCropAspectRatio: uCropAspectRatio,
+        );
+      } else {
+        _processedFile = File(pickedFile.path);
+      }
     }
 
-    return _imageCroppedFile;
+    return _processedFile;
   }
 }
 
