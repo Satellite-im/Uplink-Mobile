@@ -118,11 +118,12 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                   _isDialogOpened = true;
                   _QRCodeScannerFeedbackDialogs.showErrorAccountNotFoundDialog(
                     context,
-                    onPopButtonTap: () {
+                    onCloseDialog: () {
                       Timer(_timerDuration, () {
                         _timerFunction.call();
                       });
                     },
+                    onPopButtonTap: () {},
                   );
                 }
                 _lastQRCodeScanned = qrCode.rawValue!;
@@ -133,11 +134,12 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
 
               _QRCodeScannerFeedbackDialogs.showErrorInvalidQRCodeDialog(
                 context,
-                onPopButtonTap: () {
+                onCloseDialog: () {
                   Timer(_timerDuration, () {
                     _timerFunction.call();
                   });
                 },
+                onPopButtonTap: () {},
               );
             }
           }
@@ -160,10 +162,12 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       _QRCodeScannerFeedbackDialogs.showUsersAreAlreadyFriendsDialog(
         context,
         user,
-        onTap: () {
+        onCloseDialog: () {
           Timer(_timerDuration, () {
             _timerFunction.call();
           });
+        },
+        onTap: () {
           Navigator.of(context).pop();
         },
       );
@@ -171,11 +175,13 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       _QRCodeScannerFeedbackDialogs.showOtherUserAlreadySentFriendRequestDialog(
         context,
         user,
-        onTap: () {
-          _friendController.add(FriendRequestAcceptanceStarted(user));
+        onCloseDialog: () {
           Timer(_timerDuration, () {
             _timerFunction.call();
           });
+        },
+        onTap: () {
+          _friendController.add(FriendRequestAcceptanceStarted(user));
           Navigator.of(context).pop();
         },
       );
@@ -183,36 +189,43 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       _QRCodeScannerFeedbackDialogs.showCurrentUserSentFriendRequestDialog(
         context,
         user,
-        onTap: () {
+        onCloseDialog: () {
           Timer(_timerDuration, () {
             _timerFunction.call();
           });
+        },
+        onTap: () {
           Navigator.of(context).pop();
         },
       );
     } else {
+      var _openedNewDialog = false;
       _QRCodeScannerFeedbackDialogs.showSendFriendRequestToOtherUserDialog(
         context,
         user,
         _friendController,
-        onPopButtonTap: () {
-          Timer(_timerDuration, () {
-            _timerFunction.call();
-          });
+        onCloseDialog: () {
+          if (!_openedNewDialog) {
+            Timer(_timerDuration, () {
+              _timerFunction.call();
+            });
+          }
         },
+        onPopButtonTap: () {},
         onTap: () {
+          _openedNewDialog = true;
           _friendController.add(SendFriendRequestStarted());
           Navigator.of(context).pop();
           _QRCodeScannerFeedbackDialogs.showFriendRequestSentDialog(
             context,
             user,
-            onTap: () {
+            onCloseDialog: () {
               _friendController.add(ListOutgoingFriendRequestsStarted());
-              Navigator.of(context).pop();
               Timer(_timerDuration, () {
                 _timerFunction.call();
               });
             },
+            onTap: () => Navigator.of(context).pop(),
           );
         },
       );

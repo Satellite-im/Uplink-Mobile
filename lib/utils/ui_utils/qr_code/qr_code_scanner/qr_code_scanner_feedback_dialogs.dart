@@ -5,6 +5,7 @@ class _QRCodeScannerFeedbackDialogs {
     BuildContext context,
     User user, {
     required VoidCallback onTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -14,26 +15,7 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(
-                text: 'You and ',
-                style: UTextStyle.B1_body.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-              TextSpan(
-                text: user.username,
-                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-              TextSpan(
-                text: ' are already friends!',
-                style: UTextStyle.B1_body.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-            ],
+            children: UAppStrings.usersAreAlreadyFriendsBodyDialog(user),
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -47,13 +29,16 @@ class _QRCodeScannerFeedbackDialogs {
         buttonText: UAppStrings.okay,
         onTap: onTap,
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 
   static void showOtherUserAlreadySentFriendRequestDialog(
     BuildContext context,
     User user, {
     required VoidCallback onTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -77,13 +62,16 @@ class _QRCodeScannerFeedbackDialogs {
         buttonText: UAppStrings.okay,
         onTap: onTap,
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 
   static void showCurrentUserSentFriendRequestDialog(
     BuildContext context,
     User user, {
     required VoidCallback onTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -107,7 +95,9 @@ class _QRCodeScannerFeedbackDialogs {
         buttonText: UAppStrings.okay,
         onTap: onTap,
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 
   static void showSendFriendRequestToOtherUserDialog(
@@ -116,6 +106,7 @@ class _QRCodeScannerFeedbackDialogs {
     FriendBloc _friendController, {
     required VoidCallback onTap,
     required VoidCallback onPopButtonTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -150,13 +141,16 @@ class _QRCodeScannerFeedbackDialogs {
           return const SizedBox.shrink();
         },
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 
   static void showFriendRequestSentDialog(
     BuildContext context,
     User user, {
     required VoidCallback onTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -180,12 +174,15 @@ class _QRCodeScannerFeedbackDialogs {
         buttonText: UAppStrings.okay,
         onTap: onTap,
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 
   static void showErrorInvalidQRCodeDialog(
     BuildContext context, {
     required VoidCallback onPopButtonTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -195,12 +192,15 @@ class _QRCodeScannerFeedbackDialogs {
         buttonText: UAppStrings.okay,
         onPop: onPopButtonTap,
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 
   static void showErrorAccountNotFoundDialog(
     BuildContext context, {
     required VoidCallback onPopButtonTap,
+    required VoidCallback onCloseDialog,
   }) {
     showDialog<void>(
       context: context,
@@ -210,6 +210,8 @@ class _QRCodeScannerFeedbackDialogs {
         buttonText: UAppStrings.okay,
         onPop: onPopButtonTap,
       ),
-    );
+    ).then((value) {
+      onCloseDialog.call();
+    });
   }
 }
