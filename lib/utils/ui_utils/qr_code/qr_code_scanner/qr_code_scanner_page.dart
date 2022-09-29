@@ -103,7 +103,6 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
             return;
           } else {
             final code = qrCode.rawValue!;
-
             if (code.contains(_didKeyCodeBeginning)) {
               _friendController.add(
                 SearchUserStarted(
@@ -117,7 +116,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 } else if (state is FriendLoadFailure &&
                     _isDialogOpened == false) {
                   _isDialogOpened = true;
-                  _QRCodeScannerFeedbackDialogs.showErrorDialog(
+                  _QRCodeScannerFeedbackDialogs.showErrorAccountNotFoundDialog(
                     context,
                     onPopButtonTap: () {
                       Timer(_timerDuration, () {

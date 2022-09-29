@@ -1,5 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
+import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
+
 class UAppStrings {
   /// General Strings
   static const continueButton = 'Continue';
@@ -288,8 +292,93 @@ Would you like to give Satellite.im access to your camera roll?''';
       'voluptatem accusantium doloremque laudantium.';
   static const qrCodePage_buttonText = 'Allow Camera Scan';
   static const qrCodePage_addFriendDialogButtonText = 'Add Friend';
-  static const qrCodePage_addFriendDialogMessage =
-      'Do you want to add this user to your contact’s list?';
+
+  /// QRCodeScannerPage
+  static List<TextSpan> userAlreadySentYouAFriendRequestBodyDialog(User user) {
+    return [
+      TextSpan(
+        text: user.username,
+        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: ' has already sent you a friend request. '
+            'Do you want to accept it?',
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+    ];
+  }
+
+  static List<TextSpan> currentUserSentFriendRequestBodyDialog(User user) {
+    return [
+      TextSpan(
+        text: 'You already sent a friend request to ',
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: user.username,
+        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+    ];
+  }
+
+  static List<TextSpan> sendFriendRequestToOtherUserBodyDialog(User user) {
+    return [
+      TextSpan(
+        text: 'Do you want to add ',
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: user.username,
+        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: " to your contact's list?",
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+    ];
+  }
+
+  static List<TextSpan> friendRequestSentBodyDialog(User user) {
+    return [
+      TextSpan(
+        text: 'You sent a friend request to ',
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: '${user.username}!',
+        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+    ];
+  }
+
+  static const qrCodeScannerPage_errorInvalidQRCodeDialogTitle =
+      'Invalid QR Code';
+  static const qrCodeScannerPage_errorInvalidQRCodeDialogBody =
+      'Oops! It looks like the code you’re trying to scan is invalid. '
+      'Please try again.';
+  static const qrCodeScannerPage_errorAccountNotFoundDialogTitle =
+      'Account Not Found';
+
+  static const qrCodeScannerPage_errorAccountNotFoundDialogBody = 'Oops! '
+      'It looks like the QR code you’re trying to scan is no longer available.';
 
   /// Notifications
   static const notifications_appBarTitle = 'Notifications';

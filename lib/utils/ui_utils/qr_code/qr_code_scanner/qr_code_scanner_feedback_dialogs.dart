@@ -62,21 +62,8 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(
-                text: user.username,
-                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-              TextSpan(
-                text: ' has already sent you a friend request. '
-                    'Do you want to accept it?',
-                style: UTextStyle.B1_body.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-            ],
+            children:
+                UAppStrings.userAlreadySentYouAFriendRequestBodyDialog(user),
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -106,20 +93,7 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(
-                text: 'You already sent a friend request to ',
-                style: UTextStyle.B1_body.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-              TextSpan(
-                text: user.username,
-                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-            ],
+            children: UAppStrings.currentUserSentFriendRequestBodyDialog(user),
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -154,27 +128,8 @@ class _QRCodeScannerFeedbackDialogs {
               useBodyRichText: true,
               bodyRichText: RichText(
                 text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Do you want to add ',
-                      style: UTextStyle.B1_body.style.returnTextStyleType(
-                        color: UColors.white,
-                      ),
-                    ),
-                    TextSpan(
-                      text: user.username,
-                      style: UTextStyle.H3_tertiaryHeader.style
-                          .returnTextStyleType(
-                        color: UColors.white,
-                      ),
-                    ),
-                    TextSpan(
-                      text: " to your contact's list?",
-                      style: UTextStyle.B1_body.style.returnTextStyleType(
-                        color: UColors.white,
-                      ),
-                    ),
-                  ],
+                  children:
+                      UAppStrings.sendFriendRequestToOtherUserBodyDialog(user),
                 ),
               ),
               popButtonText: UAppStrings.goBackButton,
@@ -211,20 +166,7 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(
-                text: 'You sent a friend request to ',
-                style: UTextStyle.B1_body.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-              TextSpan(
-                text: '${user.username}!',
-                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-                  color: UColors.white,
-                ),
-              ),
-            ],
+            children: UAppStrings.friendRequestSentBodyDialog(user),
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -248,25 +190,23 @@ class _QRCodeScannerFeedbackDialogs {
     showDialog<void>(
       context: context,
       builder: (context) => UDialogSingleButton(
-        title: 'Invalid QR Code',
-        bodyText:
-            'Oops! It looks like the code you’re trying to scan is invalid. Please try again.',
+        title: UAppStrings.qrCodeScannerPage_errorInvalidQRCodeDialogTitle,
+        bodyText: UAppStrings.qrCodeScannerPage_errorInvalidQRCodeDialogBody,
         buttonText: UAppStrings.okay,
         onPop: onPopButtonTap,
       ),
     );
   }
 
-  static void showErrorDialog(
+  static void showErrorAccountNotFoundDialog(
     BuildContext context, {
     required VoidCallback onPopButtonTap,
   }) {
     showDialog<void>(
       context: context,
       builder: (context) => UDialogSingleButton(
-        title: 'Account Not Found',
-        bodyText:
-            'Oops! It looks like the QR code you’re trying to scan is no longer available.',
+        title: UAppStrings.qrCodeScannerPage_errorAccountNotFoundDialogTitle,
+        bodyText: UAppStrings.qrCodeScannerPage_errorAccountNotFoundDialogBody,
         buttonText: UAppStrings.okay,
         onPop: onPopButtonTap,
       ),
