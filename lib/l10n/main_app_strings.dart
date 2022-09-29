@@ -294,6 +294,29 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const qrCodePage_addFriendDialogButtonText = 'Add Friend';
 
   /// QRCodeScannerPage
+  static List<TextSpan> usersAreAlreadyFriendsBodyDialog(User user) {
+    return [
+      TextSpan(
+        text: 'You and ',
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: user.username,
+        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+      TextSpan(
+        text: ' are already friends!',
+        style: UTextStyle.B1_body.style.returnTextStyleType(
+          color: UColors.white,
+        ),
+      ),
+    ];
+  }
+
   static List<TextSpan> userAlreadySentYouAFriendRequestBodyDialog(User user) {
     return [
       TextSpan(
