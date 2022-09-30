@@ -25,14 +25,15 @@ class _EditProfileBody extends StatefulWidget {
 }
 
 class _EditProfileBodyState extends State<_EditProfileBody> {
-  String? newUsername;
-  String? newMessageStatus;
-
   @override
   Widget build(BuildContext context) {
+    var newUsername = widget.controller.currentUser?.username ?? '';
+    var newMessageStatus = widget.controller.currentUser?.statusMessage ?? '';
     const _hintText = UAppStrings.editProfilePage_hintText;
-    widget.usernameTextFieldController.text = '';
-    widget.statusMessageTextFieldController.text = '';
+    widget.usernameTextFieldController.text =
+        widget.controller.currentUser?.username ?? '';
+    widget.statusMessageTextFieldController.text =
+        widget.controller.currentUser?.statusMessage ?? '';
     widget.locationTextFieldController.text = '';
     widget.aboutTextFieldController.text = '';
 
@@ -119,8 +120,8 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
                 label: UAppStrings.editProfilePage_saveChangesButton,
                 uIconData: UIcons.checkmark_1,
                 onPressed: () {
-                  if (widget.usernameTextFieldController.text.isNotEmpty &&
-                      widget.usernameTextFieldController.text.length < 5) {
+                  if (widget.usernameTextFieldController.text.trim().length <
+                      5) {
                     _uTextInputStateForUsernameField.currentState!
                         .startCheckingShortUsernameError();
                     widget.scrollController.animateTo(
@@ -129,18 +130,20 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
                       curve: Curves.ease,
                     );
                   } else {
-                    if (newUsername != null && newUsername!.isNotEmpty) {
+                    if (newUsername.trim() !=
+                            widget.controller.currentUser?.username &&
+                        newUsername.isNotEmpty) {
                       widget.controller.add(
                         UpdateUsername(
-                          newUsername: newUsername!,
+                          newUsername: newUsername,
                         ),
                       );
                     }
-                    if (newMessageStatus != null &&
-                        newMessageStatus!.isNotEmpty) {
+                    if (newMessageStatus.trim() !=
+                        widget.controller.currentUser?.statusMessage) {
                       widget.controller.add(
                         UpdateMessageStatus(
-                          newMessageStatus: newMessageStatus!,
+                          newMessageStatus: newMessageStatus,
                         ),
                       );
                     }
