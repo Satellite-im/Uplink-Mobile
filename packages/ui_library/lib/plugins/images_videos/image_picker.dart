@@ -26,7 +26,7 @@ class UImagePicker {
     UCropAspectRatio? uCropAspectRatio,
   }) async {
     XFile? pickedFile;
-    File? _processedFile;
+    File? _imageCroppedFile;
     final _galleryPermissionStatus = await URequestPermissions(
       shouldShowPermissionDialog: shouldShowPermissionDialog,
     ).getPermissionToAccessGallery(context);
@@ -37,18 +37,14 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      if (uCropStyle != UCropStyle.none) {
-        _processedFile = await _uImageCropper.cropImage(
-          File(pickedFile.path),
-          uCropStyle: uCropStyle,
-          uCropAspectRatio: uCropAspectRatio,
-        );
-      } else {
-        _processedFile = File(pickedFile.path);
-      }
+      _imageCroppedFile = await _uImageCropper.cropImage(
+        File(pickedFile.path),
+        uCropStyle: uCropStyle,
+        uCropAspectRatio: uCropAspectRatio,
+      );
     }
 
-    return _processedFile;
+    return _imageCroppedFile;
   }
 
   Future<File?> pickImageFromCamera(
@@ -58,7 +54,7 @@ class UImagePicker {
     CameraDevice device = CameraDevice.front,
   }) async {
     XFile? pickedFile;
-    File? _processedFile;
+    File? _imageCroppedFile;
 
     final _cameraPermissionStatus = await URequestPermissions(
       shouldShowPermissionDialog: shouldShowPermissionDialog,
@@ -72,18 +68,14 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      if (uCropStyle != UCropStyle.none) {
-        _processedFile = await _uImageCropper.cropImage(
-          File(pickedFile.path),
-          uCropStyle: uCropStyle,
-          uCropAspectRatio: uCropAspectRatio,
-        );
-      } else {
-        _processedFile = File(pickedFile.path);
-      }
+      _imageCroppedFile = await _uImageCropper.cropImage(
+        File(pickedFile.path),
+        uCropStyle: uCropStyle,
+        uCropAspectRatio: uCropAspectRatio,
+      );
     }
 
-    return _processedFile;
+    return _imageCroppedFile;
   }
 }
 
