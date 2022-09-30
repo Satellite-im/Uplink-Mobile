@@ -55,6 +55,7 @@ class UImagePicker {
     BuildContext context, {
     UCropStyle uCropStyle = UCropStyle.circle,
     UCropAspectRatio? uCropAspectRatio,
+    CameraDevice device = CameraDevice.front,
   }) async {
     XFile? pickedFile;
     File? _processedFile;
@@ -66,7 +67,7 @@ class UImagePicker {
     if (_cameraPermissionStatus == PermissionStatus.granted) {
       pickedFile = await _picker.pickImage(
         source: ImageSource.camera,
-        preferredCameraDevice: CameraDevice.front,
+        preferredCameraDevice: device,
       );
     }
 
