@@ -45,6 +45,7 @@ Future<dynamic> uploadPhoto(BuildContext context) async {
               thumbnail: _base64String,
               type: ItemType.photo,
               size: _imageFile.lengthSync(),
+              file: _imageFile,
               creationDateTime: DateTime.now(),
               modifiedDateTime: DateTime.now(),
             );
@@ -70,7 +71,7 @@ Future<dynamic> uploadPhoto(BuildContext context) async {
         if (_fileName != null) {
           final _uint8List = await FlutterImageCompress.compressWithFile(
             _imageFile.path,
-            quality: 10,
+            quality: 30,
           );
           if (_uint8List != null) {
             final _base64String = base64Encode(_uint8List);
@@ -79,6 +80,7 @@ Future<dynamic> uploadPhoto(BuildContext context) async {
               thumbnail: _base64String,
               type: ItemType.photo,
               size: _imageFile.lengthSync(),
+              file: _imageFile,
               creationDateTime: DateTime.now(),
               modifiedDateTime: DateTime.now(),
             );
