@@ -31,9 +31,11 @@ class Item extends Equatable {
   final ItemType type;
   final int size;
   bool isFavorited;
-  // dateTime when upload the item
+
+  /// DateTime when upload the item
   final DateTime creation;
-  // dateTime when change the item name
+
+  /// DateTime when change the item name
   DateTime modified;
 
   @override

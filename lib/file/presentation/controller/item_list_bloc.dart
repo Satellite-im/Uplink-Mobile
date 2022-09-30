@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uplink/file/data/repository/file_repository.dart';
@@ -15,7 +14,7 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
         final _itemList = await _fileRepository.getItemList();
         emit(ItemListLoadSuccess(_itemList));
       } catch (e) {
-        log('ItemListBloc -> GetItemList Error:$e');
+        addError('ItemListBloc -> GetItemList Error:$e');
         emit(ItemListLoadFailure());
       }
     });
