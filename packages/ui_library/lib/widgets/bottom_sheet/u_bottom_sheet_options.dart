@@ -83,7 +83,7 @@ class _UBottomSheetOptionsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 55, 16, 40),
+      padding: const EdgeInsets.fromLTRB(32, 36, 16, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
