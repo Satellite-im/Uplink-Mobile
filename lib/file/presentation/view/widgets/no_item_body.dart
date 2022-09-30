@@ -1,7 +1,6 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class NoItemBody extends StatelessWidget {
   const NoItemBody({
@@ -13,12 +12,13 @@ class NoItemBody extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const UText('Secure Storage', textStyle: UTextStyle.H1_primaryHeader),
+        const UText(UAppStrings.noItemBody_title,
+            textStyle: UTextStyle.H1_primaryHeader),
         const SizedBox(
           height: 16,
         ),
         const UText(
-          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.',
+          UAppStrings.noItemBody_content,
           textStyle: UTextStyle.B1_body,
         ),
         const SizedBox(
@@ -27,7 +27,7 @@ class NoItemBody extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: UButton.primary(
-            label: 'Add a File',
+            label: UAppStrings.noItemBody_buttonText,
             uIconData: UIcons.document,
             onPressed: () {},
           ),
