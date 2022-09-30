@@ -30,7 +30,25 @@ class FileIndexAppbar extends StatelessWidget {
             UIcons.hamburger_menu,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () {
+            UBottomSheetOptions(
+              context,
+              sheetTitle: UAppStrings.moreOptions,
+              titleList: [
+                'Favorites',
+                'Remove',
+              ],
+              iconList: [UIcons.favorite, UIcons.remove],
+              onTapList: [
+                () {
+                  // TODO(yijing): add workflow later
+                },
+                () {
+                  // TODO(yijing): add workflow later
+                },
+              ],
+            ).show();
+          },
         ),
       ],
       leading: IconButton(
