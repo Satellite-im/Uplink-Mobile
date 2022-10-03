@@ -44,6 +44,7 @@ jobs:
         api-level: ${{ matrix.api-level }}
         avd-name: android-appium
         arch: x86_64
+        disk-size: 4G
         working-directory: appium-tests 
         script: |
           npm run android.ci
