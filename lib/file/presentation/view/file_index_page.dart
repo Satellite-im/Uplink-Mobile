@@ -234,9 +234,16 @@ class ItemGridView extends StatelessWidget {
         final _item = itemList[index];
         final _imageUint8List = base64.decode(_item.thumbnail!);
         if (itemList[index].type == ItemType.photo) {
-          return UImageButton.unit8ListImage(
-            unit8ListImage: _imageUint8List,
-            isFavored: _item.isFavorited,
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed('/PhotoDetailPage', arguments: itemList[index]);
+            },
+            onLongPress: () {},
+            child: UImageButton.unit8ListImage(
+              unit8ListImage: _imageUint8List,
+              isFavored: _item.isFavorited,
+            ),
           );
         }
         // TODO(yijing): show thumbnail when item is not photo
