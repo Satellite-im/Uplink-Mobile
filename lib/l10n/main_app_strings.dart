@@ -312,4 +312,8 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem'
       ' accusantium doloremque laudantium.';
   static const noItemBody_buttonText = 'Add a File';
+  static const file_index_page_no_items = 'No items';
+  static const file_index_page_items = ' items';
+  static const file_index_page_items_in_error = '## items';
+  static const file_index_page_load_in_error = "Can't not load the files";
 }

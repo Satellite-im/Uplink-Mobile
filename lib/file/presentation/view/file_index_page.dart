@@ -10,6 +10,7 @@ import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/file/presentation/view/widgets/loading_gridview.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class FileIndexPage extends StatefulWidget {
   const FileIndexPage({Key? key}) : super(key: key);
@@ -50,17 +51,17 @@ class _FileIndexPageState extends State<FileIndexPage> {
                         if (state is ItemListLoadSuccess) {
                           return UText(
                             state.itemList.isEmpty
-                                ? 'No items'
-                                : '${state.itemList.length} items',
+                                ? UAppStrings.file_index_page_no_items
+                                : state.itemList.length.toString() +
+                                    UAppStrings.file_index_page_items,
                             textStyle: UTextStyle.H5_fifthHeader,
                           );
                         } else if (state is ItemListLoadFailure) {
                           return const UText(
-                            '## items',
+                            UAppStrings.file_index_page_items_in_error,
                             textStyle: UTextStyle.H5_fifthHeader,
                           );
                         }
-                        // Initial and loading state
                         return const UShimmer.med(
                           child: URectContainer(
                             height: 18,
@@ -114,7 +115,7 @@ class _FileIndexPageState extends State<FileIndexPage> {
                           );
                   } else if (state is ItemListLoadFailure) {
                     return const UText(
-                      "Can't not load the files",
+                      UAppStrings.file_index_page_load_in_error,
                       textStyle: UTextStyle.H5_fifthHeader,
                     );
                   }

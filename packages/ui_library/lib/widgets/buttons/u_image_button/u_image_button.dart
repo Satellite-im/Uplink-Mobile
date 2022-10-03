@@ -6,7 +6,9 @@ import 'package:ui_library/ui_library_export.dart';
 class UImageButton extends StatefulWidget {
   ///Used in file session to preview image
   ///
-  ///When [isDeleting] set to ture, it will show a checkbox
+  ///Build from a [UImage] as image source
+  ///
+  ///When [isDeleting] set to true, it will show a checkbox
   ///
   ///You can use [isSelected] in UImageButtonState to get it is checked or not
   ///
@@ -19,6 +21,15 @@ class UImageButton extends StatefulWidget {
   })  : unit8ListImage = null,
         super(key: key);
 
+  ///Used in file session to preview image
+  ///
+  ///Build from [Uint8List] as image source
+  ///
+  ///When [isDeleting] set to true, it will show a checkbox
+  ///
+  ///You can use [isSelected] in UImageButtonState to get it is checked or not
+  ///
+  ///All the boolean properties are false by default
   const UImageButton.unit8ListImage({
     Key? key,
     required this.unit8ListImage,
