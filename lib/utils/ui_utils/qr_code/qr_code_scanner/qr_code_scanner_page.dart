@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
@@ -112,7 +112,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
               _friendController.stream.listen((state) {
                 if (state is FriendLoadSuccess && _isDialogOpened == false) {
                   _isDialogOpened = true;
-                  _verifyRelationShipBetweenUsers(_friendController.user!);
+                  _verifyRelationshipBetweenUsers(_friendController.user!);
                 } else if (state is FriendLoadFailure &&
                     _isDialogOpened == false) {
                   _isDialogOpened = true;
@@ -148,7 +148,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
     );
   }
 
-  void _verifyRelationShipBetweenUsers(User user) {
+  void _verifyRelationshipBetweenUsers(User user) {
     final _areUsersFriends =
         _friendController.friendsList.any((element) => element.did == user.did);
     final _isThereIncomingFriendRequest = _friendController
