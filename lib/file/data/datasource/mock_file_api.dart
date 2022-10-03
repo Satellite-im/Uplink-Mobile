@@ -19,8 +19,8 @@ class MockFileApi implements FileApi {
             type: ItemType.photo,
             isFavorited: true,
             size: 378,
-            creation: DateTime.now(),
-            modified: DateTime.now(),
+            creationDateTime: DateTime.now(),
+            modifiedDateTime: DateTime.now(),
           ),
         );
       });

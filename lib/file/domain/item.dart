@@ -23,8 +23,8 @@ class Item extends Equatable {
     required this.type,
     required this.size,
     this.isFavorited = false,
-    required this.creation,
-    required this.modified,
+    required this.creationDateTime,
+    required this.modifiedDateTime,
   });
   String name;
   final String? thumbnail;
@@ -33,10 +33,10 @@ class Item extends Equatable {
   bool isFavorited;
 
   /// DateTime when upload the item
-  final DateTime creation;
+  final DateTime creationDateTime;
 
   /// DateTime when change the item name
-  DateTime modified;
+  DateTime modifiedDateTime;
 
   @override
   List<Object?> get props => [
@@ -45,7 +45,7 @@ class Item extends Equatable {
         type,
         size,
         isFavorited,
-        creation,
-        modified,
+        creationDateTime,
+        modifiedDateTime,
       ];
 }
