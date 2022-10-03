@@ -9,14 +9,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 Future<dynamic> uploadPhoto(BuildContext context) async {
   final _itemListController = GetIt.I.get<ItemListBloc>();
   return UBottomSheetTwoButtons(
     context,
-    header: 'Upload your picture from',
-    firstButtonText: 'Take Photo',
-    secondButtonText: 'Camera Roll',
+    header: UAppStrings.upload_photo_title,
+    firstButtonText: UAppStrings.upload_photo_camera,
+    secondButtonText: UAppStrings.upload_photo_gallary,
     firstButtonIcon: UIcons.camera,
     secondButtonIcon: UIcons.image,
     firstButtonOnPressed: () async {
