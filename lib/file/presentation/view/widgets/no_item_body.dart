@@ -12,8 +12,10 @@ class NoItemBody extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const UText(UAppStrings.noItemBody_title,
-            textStyle: UTextStyle.H1_primaryHeader),
+        const UText(
+          UAppStrings.noItemBody_title,
+          textStyle: UTextStyle.H1_primaryHeader,
+        ),
         const SizedBox(
           height: 16,
         ),
