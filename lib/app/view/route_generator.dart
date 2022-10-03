@@ -4,16 +4,15 @@ import 'package:ui_library/core/core_export.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/app/view/main_app.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
+import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/view/name_file_page.dart';
+import 'package:uplink/file/presentation/view/photo_detail_page.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(
     RouteSettings settings,
   ) {
-    //Getting arguments passed in while calling Navigator.pushNamed
-    // final args = settings.arguments;
-
     switch (settings.name) {
       case '/':
         return MaterialPageRoute<void>(
@@ -54,6 +53,13 @@ class RouteGenerator {
       case '/NameFilePage':
         return MaterialPageRoute<void>(
           builder: (context) => const NameFilePage(),
+        );
+      case '/PhotoDetailPage':
+        final _arg = settings.arguments! as Item;
+        return MaterialPageRoute<void>(
+          builder: (context) => PhotoDetailPage(
+            item: _arg,
+          ),
         );
       default:
         // TODO(yijing): improve error page
