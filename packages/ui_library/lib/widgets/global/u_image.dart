@@ -21,7 +21,7 @@ class UImage extends StatelessWidget {
     ///
     /// if null, the value will be [ImageSource.network]
     this.imageSource = ImageSource.network,
-    this.fit,
+    this.fit = BoxFit.cover,
     this.boxDecoration,
     this.cacheHeight,
     this.cacheWidth,

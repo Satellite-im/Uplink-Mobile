@@ -35,7 +35,6 @@ class SideDrawer extends StatelessWidget {
                         uImage: UImage(
                           imagePath: user.profilePicture?.path,
                           imageSource: ImageSource.file,
-                          fit: BoxFit.cover,
                         ),
                         userProfileSize: UUserProfileSize.normal,
                         // TODO(yijing): update user status from warp
