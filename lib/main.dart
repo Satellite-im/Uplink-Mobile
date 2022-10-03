@@ -15,6 +15,7 @@ import 'package:uplink/contacts/add_friend_page/data/repositories/friend_impl.re
 import 'package:uplink/contacts/add_friend_page/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/add_friend_page/presentation/controller/friend_bloc.dart';
 import 'package:uplink/file/data/data_export.dart';
+import 'package:uplink/file/data/repository/file_impl_repository.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/profile/data/datasource/user_profile_data.remote_datasource.dart';
 import 'package:uplink/profile/data/repositories/user_profile.repository.dart';
@@ -131,12 +132,13 @@ void _registerDependencieToUpdateCurrentUser(GetIt _getIt) {
 
 void _registerDependencieFile(GetIt _getIt) {
   _getIt
-    ..registerLazySingleton<FileRepository>(
-      () => FileRepository(
+    ..registerLazySingleton<IFileRepository>(
+      () => FileRepositoryImpl(
         _getIt(),
       ),
     )
-    ..registerLazySingleton<FileApi>(MockFileApi.new)
+    // TODO(yijing): switch to constellation when it is ready
+    ..registerLazySingleton<IFileApi>(MockFileApi.new)
     ..registerLazySingleton<ItemListBloc>(
       () => ItemListBloc(
         _getIt(),
