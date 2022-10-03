@@ -58,6 +58,56 @@ class UImageButtonState extends State<UImageButton> {
 
   @override
   Widget build(BuildContext context) {
+    // local variable for the icons/buttons on the image
+    final _iconsLayer = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Stack(
+        children: [
+          if (widget.isFavored == true)
+            const Align(
+              alignment: Alignment.topRight,
+              child: UIcon(
+                UIcons.favorite,
+                color: UColors.textMed,
+              ),
+            ),
+          if (widget.isDeleting == true)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: AnimatedCrossFade(
+                firstChild: GestureDetector(
+                  child: const UIcon(
+                    UIcons.select_box,
+                    color: UColors.textMed,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      isSelected = true;
+                    });
+                  },
+                ),
+                secondChild: GestureDetector(
+                  child: const UIcon(
+                    UIcons.checkmark_2,
+                    color: UColors.termRed,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      isSelected = false;
+                    });
+                  },
+                ),
+                crossFadeState: isSelected
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+                duration: const Duration(milliseconds: 100),
+                reverseDuration: const Duration(milliseconds: 100),
+              ),
+            ),
+        ],
+      ),
+    );
+
     if (widget.uImage != null) {
       return SizedBox(
         height: USizes.imageButtonHeight,
@@ -68,58 +118,12 @@ class UImageButtonState extends State<UImageButton> {
             borderRadius: BorderRadius.circular(4),
           ),
           Align(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Stack(
-                children: [
-                  if (widget.isFavored == true)
-                    const Align(
-                      alignment: Alignment.topRight,
-                      child: UIcon(
-                        UIcons.favorite,
-                        color: UColors.textMed,
-                      ),
-                    ),
-                  if (widget.isDeleting == true)
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: AnimatedCrossFade(
-                        firstChild: GestureDetector(
-                          child: const UIcon(
-                            UIcons.select_box,
-                            color: UColors.textMed,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              isSelected = true;
-                            });
-                          },
-                        ),
-                        secondChild: GestureDetector(
-                          child: const UIcon(
-                            UIcons.checkmark_2,
-                            color: UColors.termRed,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              isSelected = false;
-                            });
-                          },
-                        ),
-                        crossFadeState: isSelected
-                            ? CrossFadeState.showSecond
-                            : CrossFadeState.showFirst,
-                        duration: const Duration(milliseconds: 100),
-                        reverseDuration: const Duration(milliseconds: 100),
-                      ),
-                    ),
-                ],
-              ),
-            ),
+            child: _iconsLayer,
           ),
         ]),
       );
     }
+
     return Container(
       height: USizes.imageButtonHeight,
       width: USizes.imageButtonWidth,
@@ -129,54 +133,7 @@ class UImageButtonState extends State<UImageButton> {
           ),
           image: DecorationImage(
               image: MemoryImage(widget.unit8ListImage!), fit: BoxFit.cover)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Stack(
-          children: [
-            if (widget.isFavored == true)
-              const Align(
-                alignment: Alignment.topRight,
-                child: UIcon(
-                  UIcons.favorite,
-                  color: UColors.textMed,
-                ),
-              ),
-            if (widget.isDeleting == true)
-              Align(
-                alignment: Alignment.bottomRight,
-                child: AnimatedCrossFade(
-                  firstChild: GestureDetector(
-                    child: const UIcon(
-                      UIcons.select_box,
-                      color: UColors.textMed,
-                    ),
-                    onTap: () {
-                      setState(() {
-                        isSelected = true;
-                      });
-                    },
-                  ),
-                  secondChild: GestureDetector(
-                    child: const UIcon(
-                      UIcons.checkmark_2,
-                      color: UColors.termRed,
-                    ),
-                    onTap: () {
-                      setState(() {
-                        isSelected = false;
-                      });
-                    },
-                  ),
-                  crossFadeState: isSelected
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  duration: const Duration(milliseconds: 100),
-                  reverseDuration: const Duration(milliseconds: 100),
-                ),
-              ),
-          ],
-        ),
-      ),
+      child: _iconsLayer,
     );
   }
 }
