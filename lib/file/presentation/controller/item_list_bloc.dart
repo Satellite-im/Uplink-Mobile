@@ -19,5 +19,5 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
       }
     });
   }
-  final FileRepository _fileRepository;
+  final IFileRepository _fileRepository;
 }

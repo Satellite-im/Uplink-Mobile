@@ -1,10 +1,7 @@
-import 'package:uplink/file/data/datasource/file_api.dart';
+// ignore_for_file: one_member_abstracts
+
 import 'package:uplink/file/domain/item.dart';
 
-class FileRepository {
-  FileRepository(this._fileApi);
-
-  final FileApi _fileApi;
-
-  Future<List<Item>> getItemList() => _fileApi.getItemList();
+abstract class IFileRepository {
+  Future<List<Item>> getItemList();
 }

@@ -2,7 +2,7 @@ import 'package:uplink/file/data/datasource/file_api.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/utils/mock/data/mock_base64_str.dart';
 
-class MockFileApi implements FileApi {
+class MockFileApi implements IFileApi {
   @override
   Future<List<Item>> getItemList() async {
     var itemList = <Item>[];
