@@ -1,9 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:flutter/material.dart';
-import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/shared/domain/entities/user.entity.dart';
-
 class UAppStrings {
   /// General Strings
   static const continueButton = 'Continue';
