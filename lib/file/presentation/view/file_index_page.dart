@@ -234,12 +234,56 @@ class ItemGridView extends StatelessWidget {
         final _item = itemList[index];
         final _imageUint8List = base64.decode(_item.thumbnail!);
         if (itemList[index].type == ItemType.photo) {
+          final _item = itemList[index];
           return GestureDetector(
             onTap: () {
               Navigator.of(context)
-                  .pushNamed('/PhotoDetailPage', arguments: itemList[index]);
+                  .pushNamed('/PhotoDetailPage', arguments: _item);
             },
-            onLongPress: () {},
+            onLongPress: () {
+              UBottomSheetOptions(
+                context,
+                sheetTitle: 'File Options',
+                titleList: [
+                  if (_item.isFavorited) 'Favorited' else 'Favorite',
+                  'Copy',
+                  'Rename',
+                  'Save',
+                  'Remove',
+                ],
+                iconList: [
+                  UIcons.favorite,
+                  UIcons.copy_or_clone_button,
+                  UIcons.edit,
+                  UIcons.download,
+                  UIcons.remove
+                ],
+                colorList: [
+                  if (_item.isFavorited) UColors.ctaBlue else UColors.white,
+                  UColors.white,
+                  UColors.white,
+                  UColors.white,
+                  UColors.white,
+                ],
+                onTapList: [
+                  () {
+                    // TODO(yijing): add workflow later
+                  },
+                  () {
+                    // TODO(yijing): add workflow later
+                  },
+                  () {
+                    // TODO(yijing): add workflow later
+                  },
+                  () {
+                    // TODO(yijing): add workflow later
+                  },
+                  () {
+                    // TODO(yijing): add workflow later
+                  },
+                ],
+              ).show();
+            },
             child: UImageButton.unit8ListImage(
               unit8ListImage: _imageUint8List,
               isFavored: _item.isFavorited,
