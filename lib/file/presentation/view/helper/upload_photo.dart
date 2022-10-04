@@ -23,9 +23,9 @@ Future<void> uploadPhoto(BuildContext context) async {
         context,
         await UImagePicker(
           shouldShowPermissionDialog: true,
+          withCropper: false,
         ).pickImageFromCamera(
           context,
-          uCropStyle: UCropStyle.none,
           device: CameraDevice.rear,
         ),
       );
@@ -35,7 +35,8 @@ Future<void> uploadPhoto(BuildContext context) async {
         context,
         await UImagePicker(
           shouldShowPermissionDialog: true,
-        ).pickImageFromGallery(context, uCropStyle: UCropStyle.none),
+          withCropper: false,
+        ).pickImageFromGallery(context),
       );
     },
   ).show();

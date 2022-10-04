@@ -14,9 +14,13 @@ enum UCropStyle { circle, rectangle, none }
 ///
 /// It already handles with device's permissions
 class UImagePicker {
-  UImagePicker({this.shouldShowPermissionDialog = false});
+  UImagePicker({
+    this.shouldShowPermissionDialog = false,
+    this.withCropper = true,
+  });
 
   final bool shouldShowPermissionDialog;
+  final bool withCropper;
   final _picker = ImagePicker();
   final _uImageCropper = UImageCropper();
 
@@ -37,11 +41,16 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      _imageCroppedFile = await _uImageCropper.cropImage(
-        File(pickedFile.path),
-        uCropStyle: uCropStyle,
-        uCropAspectRatio: uCropAspectRatio,
-      );
+      if (withCropper == true) {
+        _imageCroppedFile = await _uImageCropper.cropImage(
+          File(pickedFile.path),
+          uCropStyle: uCropStyle,
+          uCropAspectRatio: uCropAspectRatio,
+        );
+        return _imageCroppedFile;
+      } else {
+        _imageCroppedFile = File(pickedFile.path);
+      }
     }
 
     return _imageCroppedFile;
@@ -68,11 +77,15 @@ class UImagePicker {
     }
 
     if (pickedFile != null) {
-      _imageCroppedFile = await _uImageCropper.cropImage(
-        File(pickedFile.path),
-        uCropStyle: uCropStyle,
-        uCropAspectRatio: uCropAspectRatio,
-      );
+      if (withCropper == true) {
+        _imageCroppedFile = await _uImageCropper.cropImage(
+          File(pickedFile.path),
+          uCropStyle: uCropStyle,
+          uCropAspectRatio: uCropAspectRatio,
+        );
+      } else {
+        _imageCroppedFile = File(pickedFile.path);
+      }
     }
 
     return _imageCroppedFile;
