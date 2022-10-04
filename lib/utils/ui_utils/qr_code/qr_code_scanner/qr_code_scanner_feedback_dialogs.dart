@@ -15,7 +15,26 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: UAppStrings.usersAreAlreadyFriendsBodyDialog(user),
+            children: [
+              TextSpan(
+                text: UAppStrings.qrCodeScannerPage_friendsDialodFirst,
+                style: UTextStyle.B1_body.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+              TextSpan(
+                text: user.username,
+                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+              TextSpan(
+                text: UAppStrings.qrCodeScannerPage_friendsDialodSecond,
+                style: UTextStyle.B1_body.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+            ],
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -24,7 +43,6 @@ class _QRCodeScannerFeedbackDialogs {
         uImage: UImage(
           imagePath: user.profilePicture?.path,
           imageSource: ImageSource.file,
-          fit: BoxFit.cover,
         ),
         buttonText: UAppStrings.okay,
         onTap: onTap,
@@ -47,8 +65,20 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children:
-                UAppStrings.userAlreadySentYouAFriendRequestBodyDialog(user),
+            children: [
+              TextSpan(
+                text: user.username,
+                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+              TextSpan(
+                text: UAppStrings.qrCodeScannerPage_incomingFriendRequestDialog,
+                style: UTextStyle.B1_body.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+            ],
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -57,7 +87,6 @@ class _QRCodeScannerFeedbackDialogs {
         uImage: UImage(
           imagePath: user.profilePicture?.path,
           imageSource: ImageSource.file,
-          fit: BoxFit.cover,
         ),
         buttonText: UAppStrings.okay,
         onTap: onTap,
@@ -81,7 +110,20 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: UAppStrings.currentUserSentFriendRequestBodyDialog(user),
+            children: [
+              TextSpan(
+                text: UAppStrings.qrCodeScannerPage_outgoingFriendRequestDialog,
+                style: UTextStyle.B1_body.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+              TextSpan(
+                text: user.username,
+                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+            ],
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -90,7 +132,6 @@ class _QRCodeScannerFeedbackDialogs {
         uImage: UImage(
           imagePath: user.profilePicture?.path,
           imageSource: ImageSource.file,
-          fit: BoxFit.cover,
         ),
         buttonText: UAppStrings.okay,
         onTap: onTap,
@@ -119,8 +160,29 @@ class _QRCodeScannerFeedbackDialogs {
               useBodyRichText: true,
               bodyRichText: RichText(
                 text: TextSpan(
-                  children:
-                      UAppStrings.sendFriendRequestToOtherUserBodyDialog(user),
+                  children: [
+                    TextSpan(
+                      text: UAppStrings
+                          .qrCodeScannerPage_sendFriendRequestDialogFirst,
+                      style: UTextStyle.B1_body.style.returnTextStyleType(
+                        color: UColors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: user.username,
+                      style: UTextStyle.H3_tertiaryHeader.style
+                          .returnTextStyleType(
+                        color: UColors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: UAppStrings
+                          .qrCodeScannerPage_sendFriendRequestDialogSecond,
+                      style: UTextStyle.B1_body.style.returnTextStyleType(
+                        color: UColors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               popButtonText: UAppStrings.goBackButton,
@@ -130,7 +192,6 @@ class _QRCodeScannerFeedbackDialogs {
               uImage: UImage(
                 imagePath: state.user!.profilePicture?.path,
                 imageSource: ImageSource.file,
-                fit: BoxFit.cover,
               ),
               buttonText: UAppStrings.qrCodePage_addFriendDialogButtonText,
               onTap: onTap,
@@ -160,7 +221,20 @@ class _QRCodeScannerFeedbackDialogs {
         useBodyRichText: true,
         bodyRichText: RichText(
           text: TextSpan(
-            children: UAppStrings.friendRequestSentBodyDialog(user),
+            children: [
+              TextSpan(
+                text: UAppStrings.qrCodeScannerPage_friendRequestSentDialog,
+                style: UTextStyle.B1_body.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+              TextSpan(
+                text: '${user.username}!',
+                style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
+                  color: UColors.white,
+                ),
+              ),
+            ],
           ),
         ),
         popButtonText: UAppStrings.goBackButton,
@@ -169,7 +243,6 @@ class _QRCodeScannerFeedbackDialogs {
         uImage: UImage(
           imagePath: user.profilePicture?.path,
           imageSource: ImageSource.file,
-          fit: BoxFit.cover,
         ),
         buttonText: UAppStrings.okay,
         onTap: onTap,

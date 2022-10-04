@@ -294,103 +294,20 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const qrCodePage_addFriendDialogButtonText = 'Add Friend';
 
   /// QRCodeScannerPage
-  static List<TextSpan> usersAreAlreadyFriendsBodyDialog(User user) {
-    return [
-      TextSpan(
-        text: 'You and ',
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: user.username,
-        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: ' are already friends!',
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-    ];
-  }
+  static const qrCodeScannerPage_friendsDialodFirst = 'You and ';
+  static const qrCodeScannerPage_friendsDialodSecond = ' are already friends!';
+  static const qrCodeScannerPage_incomingFriendRequestDialog =
+      ' has already sent you a friend request. '
+      'Do you want to accept it?';
+  static const qrCodeScannerPage_outgoingFriendRequestDialog =
+      'You already sent a friend request to ';
+  static const qrCodeScannerPage_sendFriendRequestDialogFirst =
+      'Do you want to add ';
+  static const qrCodeScannerPage_sendFriendRequestDialogSecond =
+      " to your contact's list?";
 
-  static List<TextSpan> userAlreadySentYouAFriendRequestBodyDialog(User user) {
-    return [
-      TextSpan(
-        text: user.username,
-        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: ' has already sent you a friend request. '
-            'Do you want to accept it?',
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-    ];
-  }
-
-  static List<TextSpan> currentUserSentFriendRequestBodyDialog(User user) {
-    return [
-      TextSpan(
-        text: 'You already sent a friend request to ',
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: user.username,
-        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-    ];
-  }
-
-  static List<TextSpan> sendFriendRequestToOtherUserBodyDialog(User user) {
-    return [
-      TextSpan(
-        text: 'Do you want to add ',
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: user.username,
-        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: " to your contact's list?",
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-    ];
-  }
-
-  static List<TextSpan> friendRequestSentBodyDialog(User user) {
-    return [
-      TextSpan(
-        text: 'You sent a friend request to ',
-        style: UTextStyle.B1_body.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-      TextSpan(
-        text: '${user.username}!',
-        style: UTextStyle.H3_tertiaryHeader.style.returnTextStyleType(
-          color: UColors.white,
-        ),
-      ),
-    ];
-  }
+  static const qrCodeScannerPage_friendRequestSentDialog =
+      'You sent a friend request to ';
 
   static const qrCodeScannerPage_errorInvalidQRCodeDialogTitle =
       'Invalid QR Code';
