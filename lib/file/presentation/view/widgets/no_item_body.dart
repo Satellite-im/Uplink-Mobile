@@ -1,20 +1,13 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/presentation/view/helper/upload_photo.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-class NoItemBody extends StatefulWidget {
+class NoItemBody extends StatelessWidget {
   const NoItemBody({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<NoItemBody> createState() => _NoItemBodyState();
-}
-
-class _NoItemBodyState extends State<NoItemBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
