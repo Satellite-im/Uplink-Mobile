@@ -18,72 +18,58 @@ class UImageCropper {
     CroppedFile? croppedFile;
 
     if (uCropStyle == UCropStyle.none) {
-      croppedFile = await ImageCropper()
-          .cropImage(sourcePath: imageFile.path, uiSettings: [
-        AndroidUiSettings(
-          toolbarTitle: ULibraryStrings.uImageCropperTitle,
-          toolbarColor: UColors.foregroundDark,
-          cropGridColumnCount: 0,
-          cropGridRowCount: 0,
-          backgroundColor: UColors.backgroundDark,
-          toolbarWidgetColor: UColors.white,
-          activeControlsWidgetColor: UColors.ctaBlue,
-          statusBarColor: UColors.backgroundDark,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false,
-          hideBottomControls: false,
-        ),
-        IOSUiSettings(
-          minimumAspectRatio: 0.5,
-          title: ULibraryStrings.uImageCropperTitle,
-          resetButtonHidden: true,
-          aspectRatioPickerButtonHidden: true,
-        ),
-      ]);
+      croppedFile = await ImageCropper().cropImage(
+          sourcePath: imageFile.path,
+          uiSettings: _getUISetting(hasShape: false));
     } else {
       croppedFile = await ImageCropper().cropImage(
-        sourcePath: imageFile.path,
-        cropStyle: uCropStyle == UCropStyle.circle
-            ? CropStyle.circle
-            : CropStyle.rectangle,
-        aspectRatio: uCropAspectRatio != null
-            ? CropAspectRatio(
-                ratioX: uCropAspectRatio.ratioX,
-                ratioY: uCropAspectRatio.ratioY)
-            : null,
-        // TODO: Using low images quality to save app performance
-        compressQuality: 50,
-        maxHeight: 500,
-        maxWidth: 500,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-        ],
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: ULibraryStrings.uImageCropperTitle,
-            toolbarColor: UColors.foregroundDark,
-            cropGridColumnCount: 0,
-            cropGridRowCount: 0,
-            backgroundColor: UColors.backgroundDark,
-            toolbarWidgetColor: UColors.white,
-            activeControlsWidgetColor: UColors.ctaBlue,
-            statusBarColor: UColors.backgroundDark,
-            initAspectRatio: CropAspectRatioPreset.square,
-            lockAspectRatio: false,
-            hideBottomControls: false,
-          ),
-          IOSUiSettings(
-            minimumAspectRatio: 0.5,
-            title: ULibraryStrings.uImageCropperTitle,
-            resetButtonHidden: true,
-            aspectRatioPickerButtonHidden: true,
-          ),
-        ],
-      );
+          sourcePath: imageFile.path,
+          cropStyle: uCropStyle == UCropStyle.circle
+              ? CropStyle.circle
+              : CropStyle.rectangle,
+          aspectRatio: uCropAspectRatio != null
+              ? CropAspectRatio(
+                  ratioX: uCropAspectRatio.ratioX,
+                  ratioY: uCropAspectRatio.ratioY)
+              : null,
+          // TODO: Using low images quality to save app performance
+          compressQuality: 50,
+          maxHeight: 500,
+          maxWidth: 500,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+          ],
+          uiSettings: _getUISetting(hasShape: true));
     }
 
     if (croppedFile != null) _imageCroppedFile = File(croppedFile.path);
 
     return _imageCroppedFile;
   }
+}
+
+List<PlatformUiSettings> _getUISetting({required bool hasShape}) {
+  return [
+    AndroidUiSettings(
+      toolbarTitle: ULibraryStrings.uImageCropperTitle,
+      toolbarColor: UColors.foregroundDark,
+      cropGridColumnCount: 0,
+      cropGridRowCount: 0,
+      backgroundColor: UColors.backgroundDark,
+      toolbarWidgetColor: UColors.white,
+      activeControlsWidgetColor: UColors.ctaBlue,
+      statusBarColor: UColors.backgroundDark,
+      initAspectRatio: hasShape == true
+          ? CropAspectRatioPreset.square
+          : CropAspectRatioPreset.original,
+      lockAspectRatio: false,
+      hideBottomControls: false,
+    ),
+    IOSUiSettings(
+      minimumAspectRatio: 0.5,
+      title: ULibraryStrings.uImageCropperTitle,
+      resetButtonHidden: true,
+      aspectRatioPickerButtonHidden: true,
+    ),
+  ];
 }
