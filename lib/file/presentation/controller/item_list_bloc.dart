@@ -30,6 +30,20 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
         emit(ItemListLoadFailure());
       }
     });
+
+    on<SwitchFavoriteStatus>(
+      (event, emit) async {
+        emit(ItemListLoadInProgress());
+        try {
+          await _fileRepository.switchFavoriteStatus(event.item);
+          final _itemList = await _fileRepository.getItemList();
+          emit(ItemListLoadSuccess(_itemList));
+        } catch (e) {
+          addError('ItemListBloc -> SwitchFavoriteStatus Error:$e');
+          emit(ItemListLoadFailure());
+        }
+      },
+    );
   }
   final IFileRepository _fileRepository;
 }

@@ -7,7 +7,7 @@ class MockFileApi implements IFileApi {
   @override
   Future<void> uploadItem(Item item) async {
     await Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(milliseconds: 500),
       () {
         itemList.add(item);
       },
@@ -21,7 +21,7 @@ class MockFileApi implements IFileApi {
 
     if (_hasItem == true) {
       await Future.delayed(
-        const Duration(seconds: 1),
+        const Duration(milliseconds: 500),
         () {},
       );
       // await Future.delayed(
@@ -43,5 +43,15 @@ class MockFileApi implements IFileApi {
       // );
     }
     return itemList;
+  }
+
+  @override
+  Future<void> switchFavoriteStatus(Item item) async {
+    await Future.delayed(
+      const Duration(milliseconds: 10),
+      () {
+        item.isFavorited = !item.isFavorited;
+      },
+    );
   }
 }
