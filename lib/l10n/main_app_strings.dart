@@ -287,6 +287,34 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Sed ut perspiciatis unde omnis iste natus error sit '
       'voluptatem accusantium doloremque laudantium.';
   static const qrCodePage_buttonText = 'Allow Camera Scan';
+  static const qrCodePage_addFriendDialogButtonText = 'Add Friend';
+
+  /// QRCodeScannerPage
+  static const qrCodeScannerPage_friendsDialodFirst = 'You and ';
+  static const qrCodeScannerPage_friendsDialodSecond = ' are already friends!';
+  static const qrCodeScannerPage_incomingFriendRequestDialog =
+      ' has already sent you a friend request. '
+      'Do you want to accept it?';
+  static const qrCodeScannerPage_outgoingFriendRequestDialog =
+      'You already sent a friend request to ';
+  static const qrCodeScannerPage_sendFriendRequestDialogFirst =
+      'Do you want to add ';
+  static const qrCodeScannerPage_sendFriendRequestDialogSecond =
+      " to your contact's list?";
+
+  static const qrCodeScannerPage_friendRequestSentDialog =
+      'You sent a friend request to ';
+
+  static const qrCodeScannerPage_errorInvalidQRCodeDialogTitle =
+      'Invalid QR Code';
+  static const qrCodeScannerPage_errorInvalidQRCodeDialogBody =
+      'Oops! It looks like the code you’re trying to scan is invalid. '
+      'Please try again.';
+  static const qrCodeScannerPage_errorAccountNotFoundDialogTitle =
+      'Account Not Found';
+
+  static const qrCodeScannerPage_errorAccountNotFoundDialogBody = 'Oops! '
+      'It looks like the QR code you’re trying to scan is no longer available.';
 
   /// Notifications
   static const notifications_appBarTitle = 'Notifications';

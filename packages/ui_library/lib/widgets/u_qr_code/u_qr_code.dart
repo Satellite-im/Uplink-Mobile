@@ -5,10 +5,10 @@ class UQRCode extends StatelessWidget {
   /// Generate a QR code
   const UQRCode({
     Key? key,
-    required this.qrCodeData,
+    required this.userDID,
   }) : super(key: key);
 
-  final String qrCodeData;
+  final String userDID;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class UQRCode extends StatelessWidget {
       color: Colors.white,
       margin: const EdgeInsets.all(2),
       child: QrImage(
-        data: qrCodeData,
-        padding: EdgeInsets.zero,
-        backgroundColor: Colors.transparent,
+        data: 'did:key:$userDID',
+        padding: const EdgeInsets.all(4),
+        backgroundColor: Colors.white,
         version: QrVersions.auto,
         gapless: false,
       ),

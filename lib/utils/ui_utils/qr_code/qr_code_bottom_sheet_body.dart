@@ -133,8 +133,8 @@ class _QRCodeBottomSheet extends StatelessWidget {
             duration: _duration,
             height: isHalfPage ? 240 : 172,
             width: isHalfPage ? 240 : 172,
-            child: const UQRCode(
-              qrCodeData: UAppStrings.profileIndexPage_qrCodeData,
+            child: UQRCode(
+              userDID: currentUser.did!,
             ),
           ),
           AnimatedPadding(
@@ -178,7 +178,11 @@ class _QRCodeBottomSheet extends StatelessWidget {
                   label: UAppStrings.qrCodePage_buttonText,
                   uIconData: UIcons.camera,
                   onPressed: () {
-                    // TODO(Lucas): add function here later
+                    Navigator.of(context).push<QRCodeScannerPage>(
+                      MaterialPageRoute(
+                        builder: (context) => const QRCodeScannerPage(),
+                      ),
+                    );
                   },
                 ),
               ),

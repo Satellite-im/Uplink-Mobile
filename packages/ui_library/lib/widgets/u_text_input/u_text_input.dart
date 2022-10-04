@@ -113,7 +113,7 @@ class UTextInputState extends State<UTextInput> {
   late TextEditingController _textEditingController;
 
   void startCheckingShortUsernameError() {
-    if (_textEditingController.text.length < 5) {
+    if (_textEditingController.text.trim().length < 5) {
       setState(() {
         _showErrorTextForShortUsername = true;
       });
@@ -124,7 +124,7 @@ class UTextInputState extends State<UTextInput> {
 
   void _listener() {
     _showErrorTextForShortUsername = _textEditingController.text.isNotEmpty &&
-        !(_textEditingController.text.length >= 5);
+        !(_textEditingController.text.trim().length >= 5);
   }
 
   @override

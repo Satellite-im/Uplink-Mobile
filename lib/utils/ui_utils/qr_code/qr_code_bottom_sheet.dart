@@ -5,6 +5,8 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 
+import 'package:uplink/utils/ui_utils/qr_code/qr_code_scanner/qr_code_scanner_page.dart';
+
 part 'qr_code_bottom_sheet_body.dart';
 part 'qr_code_page.dart';
 
