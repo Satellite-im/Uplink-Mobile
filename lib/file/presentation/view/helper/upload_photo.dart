@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -12,7 +10,7 @@ import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-Future<dynamic> uploadPhoto(BuildContext context) async {
+Future<void> uploadPhoto(BuildContext context) async {
   return UBottomSheetTwoButtons(
     context,
     header: UAppStrings.upload_photo_title,
@@ -21,23 +19,24 @@ Future<dynamic> uploadPhoto(BuildContext context) async {
     firstButtonIcon: UIcons.camera,
     secondButtonIcon: UIcons.image,
     firstButtonOnPressed: () async {
-      final _imageFile = await UImagePicker(
-        shouldShowPermissionDialog: true,
-      ).pickImageFromCamera(
+      await _nameAndUploadItem(
         context,
-        uCropStyle: UCropStyle.none,
-        device: CameraDevice.rear,
+        await UImagePicker(
+          shouldShowPermissionDialog: true,
+        ).pickImageFromCamera(
+          context,
+          uCropStyle: UCropStyle.none,
+          device: CameraDevice.rear,
+        ),
       );
-
-      await _nameAndUploadItem(context, _imageFile);
     },
     secondButtonOnPressed: () async {
-      // similar code as uploading from camera
-      final _imageFile = await UImagePicker(
-        shouldShowPermissionDialog: true,
-      ).pickImageFromGallery(context, uCropStyle: UCropStyle.none);
-
-      await _nameAndUploadItem(context, _imageFile);
+      await _nameAndUploadItem(
+        context,
+        await UImagePicker(
+          shouldShowPermissionDialog: true,
+        ).pickImageFromGallery(context, uCropStyle: UCropStyle.none),
+      );
     },
   ).show();
 }

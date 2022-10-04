@@ -26,16 +26,14 @@ class _NameFilePageState extends State<NameFilePage> {
             }
           },
           onChanged: (value) {
-            if (value.length > 2) {
-              setState(() {
+            setState(() {
+              if (value.length > 2) {
                 _fileName = value;
                 _isFABLight = true;
-              });
-            } else {
-              setState(() {
+              } else {
                 _isFABLight = false;
-              });
-            }
+              }
+            });
           },
         ),
       ),
