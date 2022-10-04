@@ -13,3 +13,8 @@ class UploadItem extends ItemListEvent {
   const UploadItem({required this.item});
   final Item item;
 }
+
+class SwitchFavoriteStatus extends ItemListEvent {
+  const SwitchFavoriteStatus(this.item);
+  final Item item;
+}

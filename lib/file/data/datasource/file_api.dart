@@ -7,4 +7,5 @@ abstract class IFileApi {
 
   Future<List<Item>> getItemList();
   Future<void> uploadItem(Item item);
+  Future<void> switchFavoriteStatus(Item item);
 }
