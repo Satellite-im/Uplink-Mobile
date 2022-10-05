@@ -151,6 +151,7 @@ class WarpMultipass {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
         _returnCompleteDID(_userDid).toString(),
       );
+      final _usersRelationship = _getUsersRelationship(_userDid);
 
       final _userMap = {
         'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
@@ -158,6 +159,7 @@ class WarpMultipass {
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
         'banner_picture': _userIdentity.graphics.profile_banner,
+        'relationship': _usersRelationship,
       };
       return _userMap;
     } on WarpException catch (error) {
@@ -190,6 +192,29 @@ class WarpMultipass {
       ]);
     } catch (error) {
       throw Exception(['send_friend_request', error]);
+    }
+  }
+
+  Map<String, bool> _getUsersRelationship(String _userDID) {
+    try {
+      final _userRelationship = _warpBloc.multipass!.identityRelationship(
+        _returnCompleteDID(_userDID),
+      );
+      return {
+        'blocked': _userRelationship.blocked,
+        'friends': _userRelationship.friends,
+        'receivedFriendRequest': _userRelationship.receivedFriendRequest,
+        'sentFriendRequest': _userRelationship.sentFriendRequest,
+      };
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'get_users_relationship',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['get_users_relationship', error]);
     }
   }
 
