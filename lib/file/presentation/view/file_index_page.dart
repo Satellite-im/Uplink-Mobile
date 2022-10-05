@@ -9,7 +9,6 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
-import 'package:uplink/file/presentation/view/widgets/loading_gridview.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
@@ -241,48 +240,102 @@ class ItemGridView extends StatelessWidget {
                   .pushNamed('/PhotoDetailPage', arguments: _item);
             },
             onLongPress: () {
-              UBottomSheetOptions(
-                context,
-                sheetTitle: 'File Options',
-                titleList: [
-                  if (_item.isFavorited) 'Favorited' else 'Favorite',
-                  'Copy',
-                  'Rename',
-                  'Save',
-                  'Remove',
-                ],
-                iconList: [
-                  UIcons.favorite,
-                  UIcons.copy_or_clone_button,
-                  UIcons.edit,
-                  UIcons.download,
-                  UIcons.remove
-                ],
-                colorList: [
-                  if (_item.isFavorited) UColors.ctaBlue else UColors.white,
-                  UColors.white,
-                  UColors.white,
-                  UColors.white,
-                  UColors.white,
-                ],
-                onTapList: [
-                  () {
-                    // TODO(yijing): add workflow later
-                  },
-                  () {
-                    // TODO(yijing): add workflow later
-                  },
-                  () {
-                    // TODO(yijing): add workflow later
-                  },
-                  () {
-                    // TODO(yijing): add workflow later
-                  },
-                  () {
-                    // TODO(yijing): add workflow later
-                  },
-                ],
-              ).show();
+              final _itemListController = GetIt.I.get<ItemListBloc>();
+              showModalBottomSheet<void>(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                useRootNavigator: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft:
+                        Radius.circular(USizes.barAboveBottomSheetBorderRadius),
+                    topRight:
+                        Radius.circular(USizes.barAboveBottomSheetBorderRadius),
+                  ),
+                ),
+                builder: (context) {
+                  return StatefulBuilder(
+                    builder: (context, setState) => Wrap(
+                      children: [
+                        const UHomeIndicator(),
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: UColors.modalDark,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(
+                                USizes.bottomSheetTemplateBorderRadius,
+                              ),
+                              topRight: Radius.circular(
+                                USizes.bottomSheetTemplateBorderRadius,
+                              ),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(32, 36, 16, 40),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const UText(
+                                  'File Options',
+                                  textStyle: UTextStyle.H3_tertiaryHeader,
+                                ),
+                                const SizedBox(
+                                  height: 9.4,
+                                ),
+                                BlocBuilder<ItemListBloc, ItemListState>(
+                                  bloc: _itemListController,
+                                  builder: (context, state) => OptionListTile(
+                                    uIconData: UIcons.favorite,
+                                    color: _item.isFavorited
+                                        ? UColors.ctaBlue
+                                        : UColors.white,
+                                    title: _item.isFavorited
+                                        ? 'Favorited'
+                                        : 'Favorite',
+                                    onTap: () {
+                                      setState(
+                                        () {
+                                          _itemListController
+                                              .add(SwitchFavoriteStatus(_item));
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                                OptionListTile(
+                                  uIconData: UIcons.copy_or_clone_button,
+                                  color: UColors.white,
+                                  title: 'Copy',
+                                  onTap: () {},
+                                ),
+                                OptionListTile(
+                                  uIconData: UIcons.edit,
+                                  color: UColors.white,
+                                  title: 'Rename',
+                                  onTap: () {},
+                                ),
+                                OptionListTile(
+                                  uIconData: UIcons.download,
+                                  color: UColors.white,
+                                  title: 'Save',
+                                  onTap: () {},
+                                ),
+                                OptionListTile(
+                                  uIconData: UIcons.remove,
+                                  color: UColors.white,
+                                  title: 'Remove',
+                                  onTap: () {},
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
             },
             child: UImageButton.unit8ListImage(
               unit8ListImage: _imageUint8List,
