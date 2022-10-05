@@ -76,10 +76,14 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                       color: UColors.white,
                       title: 'Rename',
                       onTap: () async {
+                        final _arg = {
+                          'item': item,
+                          'isRename': true,
+                        };
                         final _fileName =
                             await Navigator.of(context).popAndPushNamed(
                           '/NameFilePage',
-                          arguments: item,
+                          arguments: _arg,
                         ) as String?;
 
                         if (_fileName != null) {
