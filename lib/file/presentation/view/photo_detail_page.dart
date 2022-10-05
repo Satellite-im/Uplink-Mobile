@@ -47,9 +47,13 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                 ),
                 IconButton(
                   onPressed: () async {
+                    final _arg = {
+                      'item': widget.item,
+                      'isRename': true,
+                    };
                     final _fileName = await Navigator.of(context).pushNamed(
                       '/NameFilePage',
-                      arguments: widget.item,
+                      arguments: _arg,
                     ) as String?;
 
                     if (_fileName != null) {

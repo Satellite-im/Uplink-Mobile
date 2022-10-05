@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class NameFilePage extends StatefulWidget {
-  const NameFilePage({super.key, this.item});
+  const NameFilePage({super.key, this.item, this.isRename});
 
   final Item? item;
+  final bool? isRename;
 
   @override
   State<NameFilePage> createState() => _NameFilePageState();
@@ -25,7 +27,9 @@ class _NameFilePageState extends State<NameFilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.back(title: 'Upload File'),
+      appBar: UAppBar.back(
+        title: widget.isRename == true ? 'Rename' : 'Upload File',
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: UTextInput.singleLineWithTitle(
@@ -34,7 +38,11 @@ class _NameFilePageState extends State<NameFilePage> {
           hintText: 'Text Input Field',
           onSubmitted: (fileName) {
             if (fileName.length > 2) {
-              Navigator.of(context).pop(fileName);
+              if (widget.isRename == true) {
+                _showConfirmBottomSheet(context, _fileName).show();
+              } else {
+                Navigator.of(context).pop(fileName);
+              }
             }
           },
           onChanged: (value) {
@@ -54,12 +62,36 @@ class _NameFilePageState extends State<NameFilePage> {
         child: UFAB.large(
           onPressed: () {
             if (_isFABLight) {
-              Navigator.of(context).pop(_fileName);
+              if (widget.isRename == true) {
+                _showConfirmBottomSheet(context, _fileName).show();
+              } else {
+                Navigator.of(context).pop(_fileName);
+              }
             }
           },
           uIconData: UIcons.checkmark_1,
         ),
       ),
+    );
+  }
+
+  UBottomSheetTwoButtons _showConfirmBottomSheet(
+    BuildContext context,
+    String fileName,
+  ) {
+    return UBottomSheetTwoButtons(
+      context,
+      firstButtonOnPressed: () {
+        Navigator.of(context).pop();
+      },
+      secondButtonOnPressed: () {
+        Navigator.of(context)
+          ..pop()
+          ..pop(fileName);
+      },
+      header: 'Do you want to save your changes?',
+      firstButtonText: UAppStrings.cancelButton,
+      secondButtonText: 'Save',
     );
   }
 }

@@ -51,10 +51,11 @@ class RouteGenerator {
         );
 // File
       case '/NameFilePage':
-        final _arg = settings.arguments as Item?;
+        final _arg = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute<void>(
           builder: (context) => NameFilePage(
-            item: _arg,
+            item: _arg?['item'] as Item?,
+            isRename: _arg?['isRename'] as bool?,
           ),
         );
       case '/PhotoDetailPage':
