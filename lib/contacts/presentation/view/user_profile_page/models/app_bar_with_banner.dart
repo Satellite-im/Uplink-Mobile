@@ -75,13 +75,13 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                   child: SizedBox.shrink(),
                 ),
                 if (widget.user.relationship == Relationship.block &&
-                    widget.user.isBlocked == false)
+                    widget.user.relationship != Relationship.block)
                   const UIcon(
                     UIcons.blocked_contacts,
                     color: UColors.textDark,
                   ),
                 if (widget.user.relationship == Relationship.friend &&
-                    widget.user.isBlocked == false) ...[
+                    widget.user.relationship != Relationship.block) ...[
                   IconButton(
                     onPressed: () {},
                     icon: const UIcon(UIcons.voice_call),
@@ -92,8 +92,7 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                   ),
                 ],
                 if (widget.user.relationship == Relationship.none &&
-                    widget.user.friendRequestSent == true &&
-                    widget.user.isBlocked == false)
+                    widget.user.relationship == Relationship.sentFriendRequest)
                   const UIcon(
                     UIcons.outgoing_requests,
                     color: UColors.textDark,

@@ -45,8 +45,6 @@ class User {
     this.bannerPicture,
     this.badgesNum,
     this.location,
-    this.friendRequestSent = false,
-    this.isBlocked = false,
     this.friendNum,
     this.about,
   });
@@ -91,8 +89,6 @@ class User {
   final File? bannerPicture;
   final int? badgesNum;
   final String? location;
-  final bool friendRequestSent;
-  final bool isBlocked;
   final int? friendNum;
   final String? about;
 
@@ -122,8 +118,6 @@ class User {
         location: location ?? this.location,
         relationship: relationship ?? this.relationship,
         friendNum: friendNum ?? this.friendNum,
-        isBlocked: isBlocked ?? this.isBlocked,
-        friendRequestSent: friendRequestSent ?? this.friendRequestSent,
         about: about ?? this.about,
       );
 

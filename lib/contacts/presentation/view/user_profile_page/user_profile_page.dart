@@ -163,13 +163,13 @@ class UserProfilePageState extends State<UserProfilePage>
                         child: const UserNote(),
                       ),
                       if (linkedAccountsList.isNotEmpty &&
-                          user.isBlocked == false)
+                          user.relationship != Relationship.block)
                         const UDivider(height: 1),
                     ],
                   ),
                 ),
               ),
-              if (user.isBlocked == false)
+              if (user.relationship != Relationship.block)
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
