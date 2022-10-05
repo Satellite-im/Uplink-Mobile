@@ -105,7 +105,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadInProgress());
         _friendRepository.cancelFriendRequestSent(event.user.did!);
         add(ListOutgoingFriendRequestsStarted());
-        emit(FriendLoadSuccess());
+        emit(FriendLoadSuccess(user));
       } catch (error) {
         addError(error);
         emit(FriendLoadFailure());
