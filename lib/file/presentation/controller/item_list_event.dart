@@ -8,3 +8,8 @@ abstract class ItemListEvent extends Equatable {
 }
 
 class GetItemList extends ItemListEvent {}
+
+class UploadItem extends ItemListEvent {
+  const UploadItem({required this.item});
+  final Item item;
+}

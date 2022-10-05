@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/file/presentation/view/helper/upload_photo.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class NoItemBody extends StatelessWidget {
@@ -31,7 +32,7 @@ class NoItemBody extends StatelessWidget {
           child: UButton.primary(
             label: UAppStrings.noItemBody_buttonText,
             uIconData: UIcons.document,
-            onPressed: () {},
+            onPressed: () => uploadPhoto(context),
           ),
         )
       ],

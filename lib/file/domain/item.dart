@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 /// ItemType is for different types of objects are used in File session
@@ -22,6 +24,7 @@ class Item extends Equatable {
     this.thumbnail,
     required this.type,
     required this.size,
+    required this.file,
     this.isFavorited = false,
     required this.creationDateTime,
     required this.modifiedDateTime,
@@ -30,6 +33,7 @@ class Item extends Equatable {
   final String? thumbnail;
   final ItemType type;
   final int size;
+  final File file;
   bool isFavorited;
 
   /// DateTime when upload the item

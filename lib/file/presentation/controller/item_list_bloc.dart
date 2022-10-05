@@ -18,6 +18,18 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
         emit(ItemListLoadFailure());
       }
     });
+
+    on<UploadItem>((event, emit) async {
+      emit(ItemListLoadInProgress());
+      try {
+        await _fileRepository.uploadItem(event.item);
+        final _itemList = await _fileRepository.getItemList();
+        emit(ItemListLoadSuccess(_itemList));
+      } catch (e) {
+        addError('ItemListBloc -> UploadItem Error:$e');
+        emit(ItemListLoadFailure());
+      }
+    });
   }
   final IFileRepository _fileRepository;
 }

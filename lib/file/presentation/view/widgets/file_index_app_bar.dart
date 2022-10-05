@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/file/presentation/view/helper/upload_photo.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
@@ -22,7 +23,7 @@ class FileIndexAppbar extends StatelessWidget {
             UIcons.add_folder,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () => uploadPhoto(context),
         ),
         IconButton(
           icon: const UIcon(

@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -142,7 +143,7 @@ class ItemListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: 10,
+      itemCount: itemList.length,
       itemBuilder: (context, index) {
         final _itemName = itemList[index].name;
         final _itemSize = itemList[index].size;
@@ -190,7 +191,7 @@ class ItemListView extends StatelessWidget {
                 ),
                 // TODO(yijing): update size unit
                 subtitle: UText(
-                  '${_itemSize.toString()} KB',
+                  _itemSize.toFileSize(decimals: 1),
                   textStyle: UTextStyle.M1_micro,
                 ),
                 trailing: IconButton(
@@ -276,5 +277,13 @@ class ItemLayoutButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension on int {
+  String toFileSize({int decimals = 0}) {
+    final suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
+    final i = (log(this) / log(1024)).floor();
+    return '${(this / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
   }
 }
