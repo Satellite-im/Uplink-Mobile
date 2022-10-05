@@ -18,3 +18,9 @@ class SwitchFavoriteStatus extends ItemListEvent {
   const SwitchFavoriteStatus(this.item);
   final Item item;
 }
+
+class RenameItem extends ItemListEvent {
+  const RenameItem({required this.item, required this.name});
+  final Item item;
+  final String name;
+}

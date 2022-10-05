@@ -14,4 +14,7 @@ class FileRepositoryImpl implements IFileRepository {
   @override
   Future<void> switchFavoriteStatus(Item item) =>
       _fileApi.switchFavoriteStatus(item);
+  @override
+  Future<void> renameItem({required Item item, required String name}) =>
+      _fileApi.renameItem(item: item, name: name);
 }

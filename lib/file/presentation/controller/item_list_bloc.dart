@@ -44,6 +44,20 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
         }
       },
     );
+
+    on<RenameItem>(
+      (event, emit) async {
+        emit(ItemListLoadInProgress());
+        try {
+          await _fileRepository.renameItem(item: event.item, name: event.name);
+          final _itemList = await _fileRepository.getItemList();
+          emit(ItemListLoadSuccess(_itemList));
+        } catch (e) {
+          addError('ItemListBloc -> RenameItem Error:$e');
+          emit(ItemListLoadFailure());
+        }
+      },
+    );
   }
   final IFileRepository _fileRepository;
 }
