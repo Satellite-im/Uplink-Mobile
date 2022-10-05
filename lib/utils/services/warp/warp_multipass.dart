@@ -195,29 +195,6 @@ class WarpMultipass {
     }
   }
 
-  Map<String, bool> _getUsersRelationship(String _userDID) {
-    try {
-      final _userRelationship = _warpBloc.multipass!.identityRelationship(
-        _returnCompleteDID(_userDID),
-      );
-      return {
-        'blocked': _userRelationship.blocked,
-        'friends': _userRelationship.friends,
-        'receivedFriendRequest': _userRelationship.receivedFriendRequest,
-        'sentFriendRequest': _userRelationship.sentFriendRequest,
-      };
-    } on WarpException catch (error) {
-      throw Exception([
-        'WARP_EXCEPTION',
-        'get_users_relationship',
-        error.error_type,
-        error.error_message
-      ]);
-    } catch (error) {
-      throw Exception(['get_users_relationship', error]);
-    }
-  }
-
   List<Map<String, dynamic>> listIncomingFriendRequests() {
     try {
       final _incomingRequestList = <Map<String, dynamic>>[];
@@ -304,6 +281,45 @@ class WarpMultipass {
       ]);
     } catch (error) {
       throw Exception(['list_friends', error]);
+    }
+  }
+
+  Map<String, bool> _getUsersRelationship(String _userDID) {
+    try {
+      final _userRelationship = _warpBloc.multipass!.identityRelationship(
+        _returnCompleteDID(_userDID),
+      );
+      return {
+        'blocked': _userRelationship.blocked,
+        'friends': _userRelationship.friends,
+        'receivedFriendRequest': _userRelationship.receivedFriendRequest,
+        'sentFriendRequest': _userRelationship.sentFriendRequest,
+      };
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'get_users_relationship',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['get_users_relationship', error]);
+    }
+  }
+
+  void blockUser(String userDID) {
+    try {
+      _warpBloc.multipass!.block(_returnCompleteDID(userDID));
+    } catch (error) {
+      throw Exception(['block_user', error]);
+    }
+  }
+
+  void unblockcUser(String userDID) {
+    try {
+      _warpBloc.multipass!.unblock(_returnCompleteDID(userDID));
+    } catch (error) {
+      throw Exception(['unblock_user', error]);
     }
   }
 

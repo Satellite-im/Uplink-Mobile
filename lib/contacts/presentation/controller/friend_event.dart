@@ -69,6 +69,24 @@ class CancelFriendRequestSent extends FriendEvent {
   List<Object> get props => [];
 }
 
+class BlockUserStarted extends FriendEvent {
+  BlockUserStarted(this.user);
+
+  final User user;
+
+  @override
+  List<Object> get props => [];
+}
+
+class UnblockUserStarted extends FriendEvent {
+  UnblockUserStarted(this.user);
+
+  final User user;
+
+  @override
+  List<Object> get props => [];
+}
+
 class ListFriendsStarted extends FriendEvent {
   ListFriendsStarted();
 

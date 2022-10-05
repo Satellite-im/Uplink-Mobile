@@ -173,7 +173,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                               uIconData: UIcons.search,
                               onPressed: () {
                                 oldIdToSearch = _textController.text;
-                                // TODO(Test): Code for keyboard not bother the tests
+                                // TODO(Test): Code for keyboard not bother the tests, remove it on production
                                 final currentFocus = FocusScope.of(context);
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();

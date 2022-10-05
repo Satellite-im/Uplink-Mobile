@@ -45,7 +45,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       }
     });
 
-    on<SendFriendRequestStarted>((event, emit) async {
+    on<SendFriendRequestStarted>((event, emit) {
       try {
         emit(FriendLoadInProgress());
         _friendRepository.sendFriendRequest(user!.did!);
@@ -126,6 +126,28 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadInProgress());
         friendsList = await _friendRepository.listFriends();
         emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
+    on<BlockUserStarted>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.blockUser(event.user.did!);
+        emit(FriendLoadSuccess(user));
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
+    on<UnblockUserStarted>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.unblockUser(event.user.did!);
+        emit(FriendLoadSuccess(user));
       } catch (error) {
         addError(error);
         emit(FriendLoadFailure());

@@ -80,6 +80,14 @@ class FriendData {
     }
   }
 
+  void blockUser(String userDID) {
+    _warp.blockUser(userDID);
+  }
+
+  void unblockUser(String userDID) {
+    _warp.unblockcUser(userDID);
+  }
+
   void acceptFriendRequest(String userDID) {
     _warp.acceptFriendRequest(userDID);
   }
