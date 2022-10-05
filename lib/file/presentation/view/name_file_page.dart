@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/file/domain/item.dart';
 
 class NameFilePage extends StatefulWidget {
-  const NameFilePage({super.key});
+  const NameFilePage({super.key, this.item});
+
+  final Item? item;
 
   @override
   State<NameFilePage> createState() => _NameFilePageState();
@@ -11,6 +14,14 @@ class NameFilePage extends StatefulWidget {
 class _NameFilePageState extends State<NameFilePage> {
   bool _isFABLight = false;
   late String _fileName;
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController(text: widget.item?.name);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +29,7 @@ class _NameFilePageState extends State<NameFilePage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: UTextInput.singleLineWithTitle(
+          controller: _textEditingController,
           textFieldTitle: 'Name',
           hintText: 'Text Input Field',
           onSubmitted: (fileName) {

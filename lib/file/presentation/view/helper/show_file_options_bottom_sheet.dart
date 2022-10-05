@@ -75,7 +75,19 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                       uIconData: UIcons.edit,
                       color: UColors.white,
                       title: 'Rename',
-                      onTap: () {},
+                      onTap: () async {
+                        final _fileName =
+                            await Navigator.of(context).popAndPushNamed(
+                          '/NameFilePage',
+                          arguments: item,
+                        ) as String?;
+
+                        if (_fileName != null) {
+                          _itemListController.add(
+                            RenameItem(item: item, name: _fileName),
+                          );
+                        }
+                      },
                     ),
                     OptionListTile(
                       uIconData: UIcons.download,

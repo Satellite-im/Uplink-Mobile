@@ -51,8 +51,11 @@ class RouteGenerator {
         );
 // File
       case '/NameFilePage':
+        final _arg = settings.arguments as Item?;
         return MaterialPageRoute<void>(
-          builder: (context) => const NameFilePage(),
+          builder: (context) => NameFilePage(
+            item: _arg,
+          ),
         );
       case '/PhotoDetailPage':
         final _arg = settings.arguments! as Item;

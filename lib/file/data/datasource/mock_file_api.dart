@@ -54,4 +54,14 @@ class MockFileApi implements IFileApi {
       },
     );
   }
+
+  @override
+  Future<void> renameItem({required Item item, required String name}) async {
+    await Future.delayed(
+      const Duration(milliseconds: 10),
+      () {
+        item.name = name;
+      },
+    );
+  }
 }

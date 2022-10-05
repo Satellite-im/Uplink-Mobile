@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:uplink/file/domain/item.dart';
 
 abstract class IFileApi {
@@ -8,4 +6,5 @@ abstract class IFileApi {
   Future<List<Item>> getItemList();
   Future<void> uploadItem(Item item);
   Future<void> switchFavoriteStatus(Item item);
+  Future<void> renameItem({required Item item, required String name});
 }
