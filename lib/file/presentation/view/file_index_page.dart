@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/file/presentation/view/helper/show_file_options_bottom_sheet.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
@@ -142,9 +143,7 @@ class ItemListView extends StatelessWidget {
     return ListView.separated(
       itemCount: itemList.length,
       itemBuilder: (context, index) {
-        final _itemName = itemList[index].name;
-        final _itemSize = itemList[index].size;
-        final _itemType = itemList[index].type;
+        final _item = itemList[index];
         Uint8List? _itemUnit8ListImage;
         if (itemList[index].thumbnail != null) {
           _itemUnit8ListImage = base64Decode(itemList[index].thumbnail!);
@@ -161,7 +160,7 @@ class ItemListView extends StatelessWidget {
               child: ListTile(
                 dense: true,
                 visualDensity: const VisualDensity(vertical: -1),
-                leading: _itemType == ItemType.photo
+                leading: _item.type == ItemType.photo
                     ? Container(
                         height: 40,
                         width: 40,
@@ -182,18 +181,20 @@ class ItemListView extends StatelessWidget {
                         color: UColors.foregroundDark,
                       ),
                 title: UText(
-                  _itemName,
+                  _item.name,
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),
                 // TODO(yijing): update size unit
                 subtitle: UText(
-                  _itemSize.toFileSize(decimals: 1),
+                  _item.size.toFileSize(decimals: 1),
                   textStyle: UTextStyle.M1_micro,
                 ),
                 trailing: IconButton(
                   icon: const UIcon(UIcons.hamburger_menu),
-                  onPressed: () {},
+                  onPressed: () {
+                    showFileOptionsBottomSheet(context, _item);
+                  },
                   visualDensity: const VisualDensity(horizontal: -2),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
@@ -238,102 +239,7 @@ class ItemGridView extends StatelessWidget {
                   .pushNamed('/PhotoDetailPage', arguments: _item);
             },
             onLongPress: () {
-              final _itemListController = GetIt.I.get<ItemListBloc>();
-              showModalBottomSheet<void>(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                useRootNavigator: true,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft:
-                        Radius.circular(USizes.barAboveBottomSheetBorderRadius),
-                    topRight:
-                        Radius.circular(USizes.barAboveBottomSheetBorderRadius),
-                  ),
-                ),
-                builder: (context) {
-                  return StatefulBuilder(
-                    builder: (context, setState) => Wrap(
-                      children: [
-                        const UHomeIndicator(),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: UColors.modalDark,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(
-                                USizes.bottomSheetTemplateBorderRadius,
-                              ),
-                              topRight: Radius.circular(
-                                USizes.bottomSheetTemplateBorderRadius,
-                              ),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(32, 36, 16, 40),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const UText(
-                                  'File Options',
-                                  textStyle: UTextStyle.H3_tertiaryHeader,
-                                ),
-                                const SizedBox(
-                                  height: 9.4,
-                                ),
-                                BlocBuilder<ItemListBloc, ItemListState>(
-                                  bloc: _itemListController,
-                                  builder: (context, state) => OptionListTile(
-                                    uIconData: UIcons.favorite,
-                                    color: _item.isFavorited
-                                        ? UColors.ctaBlue
-                                        : UColors.white,
-                                    title: _item.isFavorited
-                                        ? 'Favorited'
-                                        : 'Favorite',
-                                    onTap: () {
-                                      setState(
-                                        () {
-                                          _itemListController
-                                              .add(SwitchFavoriteStatus(_item));
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                                OptionListTile(
-                                  uIconData: UIcons.copy_or_clone_button,
-                                  color: UColors.white,
-                                  title: 'Copy',
-                                  onTap: () {},
-                                ),
-                                OptionListTile(
-                                  uIconData: UIcons.edit,
-                                  color: UColors.white,
-                                  title: 'Rename',
-                                  onTap: () {},
-                                ),
-                                OptionListTile(
-                                  uIconData: UIcons.download,
-                                  color: UColors.white,
-                                  title: 'Save',
-                                  onTap: () {},
-                                ),
-                                OptionListTile(
-                                  uIconData: UIcons.remove,
-                                  color: UColors.white,
-                                  title: 'Remove',
-                                  onTap: () {},
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
+              showFileOptionsBottomSheet(context, _item);
             },
             child: UImageButton.unit8ListImage(
               unit8ListImage: _imageUint8List,
