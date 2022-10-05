@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/domain/friend_request.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 part 'friend_event.dart';
@@ -21,6 +23,13 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     on<SearchUserStarted>((event, emit) async {
       try {
         emit(FriendLoadInProgress());
+        if (event.userDid == _currentUserController.currentUser!.did) {
+          emit(
+            FriendLoadFailure(FriendLoadFailureTypes.yourselfSentFriendRequest),
+          );
+          return;
+        }
+
         user = null;
         user = await _friendRepository.findUserByDid(event.userDid);
         // TODO(Status): Change it when we have status from Warp
@@ -131,6 +140,8 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   List<FriendRequest> outgoingFriendRequestsList = [];
 
   List<User> friendsList = [];
+
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 
   final IFriendRepository _friendRepository;
 }
