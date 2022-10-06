@@ -52,7 +52,12 @@ class _AddFriendPageState extends State<AddFriendPage> {
   void dispose() {
     _textController.dispose();
 
-    _friendController.user = null;
+    _friendController.add(
+      ResetFriendDataStarted(
+        resetFriendsListValue: false,
+      ),
+    );
+
     super.dispose();
   }
 

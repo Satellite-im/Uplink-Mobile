@@ -17,24 +17,25 @@ class FoundUserBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _friendController = GetIt.I.get<FriendBloc>();
     return BlocBuilder<FriendBloc, FriendState>(
       bloc: GetIt.I.get<FriendBloc>(),
       builder: (context, state) {
-        if (state is FriendLoadSuccess && state.user != null) {
-          switch (user.relationship) {
+        if (state is FriendLoadSuccess && _friendController.user != null) {
+          switch (_friendController.user!.relationship) {
             case Relationship.block:
-              return BlockedBody(user: state.user!);
+              return BlockedBody(user: _friendController.user!);
             case Relationship.friend:
-              return FriendBody(user: state.user!);
+              return FriendBody(user: _friendController.user!);
             case Relationship.receivedFriendRequest:
             case Relationship.sentFriendRequest:
-              return WithFriendRequestBody(user: state.user!);
+              return WithFriendRequestBody(user: _friendController.user!);
             case Relationship.none:
             default:
-              return WithoutFriendRequestBody(user: state.user!);
+              return WithoutFriendRequestBody(user: _friendController.user!);
           }
         }
-        return WithoutFriendRequestBody(user: user);
+        return BlockedBody(user: _friendController.user!);
       },
     );
   }

@@ -6,10 +6,16 @@ abstract class FriendEvent {
 }
 
 class ResetFriendDataStarted extends FriendEvent {
-  ResetFriendDataStarted();
+  ResetFriendDataStarted({
+    this.resetUserValue = true,
+    this.resetFriendsListValue = true,
+  });
+
+  final bool resetUserValue;
+  final bool resetFriendsListValue;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [resetUserValue, resetFriendsListValue];
 }
 
 class SearchUserStarted extends FriendEvent {
