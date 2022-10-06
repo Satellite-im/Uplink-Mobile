@@ -36,6 +36,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   ];
 
   void _updateIndex(int value) {
+    final _friendController = GetIt.I.get<FriendBloc>();
     setState(() {
       _currentIndex = value;
       if (_currentIndex == 1) {
@@ -44,7 +45,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
       } else if (_currentIndex == 2) {
         _timerToListFriends =
             Timer.periodic(const Duration(seconds: 1), (timer) {
-          GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+          if (_friendController.state is FriendLoadSuccess) {
+            _friendController.add(ListFriendsStarted());
+          }
         });
       } else {
         _timerToListFriends.cancel();
