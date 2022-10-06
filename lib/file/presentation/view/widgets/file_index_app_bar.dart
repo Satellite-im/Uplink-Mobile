@@ -41,7 +41,7 @@ class FileIndexAppbar extends StatelessWidget {
               iconList: [UIcons.favorite, UIcons.remove],
               onTapList: [
                 () {
-                  // TODO(yijing): add workflow later
+                  Navigator.of(context).popAndPushNamed('/FavoritesListPage');
                 },
                 () {
                   // TODO(yijing): add workflow later

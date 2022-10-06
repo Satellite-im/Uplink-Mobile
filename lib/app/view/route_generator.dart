@@ -5,8 +5,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/app/view/main_app.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/file/domain/item.dart';
-import 'package:uplink/file/presentation/view/name_file_page.dart';
-import 'package:uplink/file/presentation/view/photo_detail_page.dart';
+import 'package:uplink/file/presentation/view/view_export.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class RouteGenerator {
@@ -64,6 +63,10 @@ class RouteGenerator {
           builder: (context) => PhotoDetailPage(
             item: _arg,
           ),
+        );
+      case '/FavoritesListPage':
+        return MaterialPageRoute<void>(
+          builder: (context) => const FavoritesListPage(),
         );
       default:
         // TODO(yijing): improve error page
