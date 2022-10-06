@@ -27,15 +27,15 @@ class FoundUserBody extends StatelessWidget {
               return BlockedBody(user: _friendController.user!);
             case Relationship.friend:
               return FriendBody(user: _friendController.user!);
-            case Relationship.receivedFriendRequest:
             case Relationship.sentFriendRequest:
               return WithFriendRequestBody(user: _friendController.user!);
             case Relationship.none:
+            case Relationship.receivedFriendRequest:
             default:
               return WithoutFriendRequestBody(user: _friendController.user!);
           }
         }
-        return BlockedBody(user: _friendController.user!);
+        return WithoutFriendRequestBody(user: _friendController.user!);
       },
     );
   }
