@@ -87,6 +87,15 @@ class UnblockUserStarted extends FriendEvent {
   List<Object> get props => [];
 }
 
+class RemoveFriend extends FriendEvent {
+  RemoveFriend(this.user);
+
+  final User user;
+
+  @override
+  List<Object> get props => [];
+}
+
 class ListFriendsStarted extends FriendEvent {
   ListFriendsStarted();
 

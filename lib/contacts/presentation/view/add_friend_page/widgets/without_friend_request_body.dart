@@ -85,7 +85,6 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
                         buttonText: UAppStrings.okay,
                       );
                     }
-                    Navigator.of(context).pop();
                     return const SizedBox.shrink();
                   },
                 ),

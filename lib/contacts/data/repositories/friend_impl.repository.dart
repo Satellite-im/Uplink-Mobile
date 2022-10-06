@@ -50,4 +50,9 @@ class FriendRepositoryImpl implements IFriendRepository {
   void unblockUser(String userDID) {
     _remoteDatasource.unblockUser(userDID);
   }
+
+  @override
+  void removeFriend(String userDID) {
+    _remoteDatasource.removeFriend(userDID);
+  }
 }

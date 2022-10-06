@@ -323,6 +323,14 @@ class WarpMultipass {
     }
   }
 
+  void removeFriend(String userDID) {
+    try {
+      _warpBloc.multipass!.removeFriend(_returnCompleteDID(userDID));
+    } catch (error) {
+      throw Exception(['remove_friend', error]);
+    }
+  }
+
   void acceptFriendRequest(String userDID) {
     try {
       _warpBloc.multipass!.acceptFriendRequest(_returnCompleteDID(userDID));

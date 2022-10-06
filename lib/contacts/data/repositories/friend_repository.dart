@@ -21,4 +21,6 @@ abstract class IFriendRepository {
   void blockUser(String userDID);
 
   void unblockUser(String userDID);
+
+  void removeFriend(String userDID);
 }

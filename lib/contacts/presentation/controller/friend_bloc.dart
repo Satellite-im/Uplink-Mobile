@@ -153,6 +153,17 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadFailure());
       }
     });
+
+    on<RemoveFriend>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.removeFriend(event.user.did!);
+        emit(FriendLoadSuccess(user));
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
   }
 
   User? user;

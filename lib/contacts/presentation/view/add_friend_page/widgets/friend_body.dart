@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/add_friend_page/helpers/build_user_list_tile_long_press.dart';
 import 'package:uplink/contacts/presentation/view/add_friend_page/models/models_export.dart';
 import 'package:uplink/contacts/presentation/view/models/models_export.dart';
@@ -40,35 +42,36 @@ class FriendBody extends StatelessWidget {
             uIconData: UIcons.remove_friend,
             color: UColors.termRed,
             onPressed: () {
-              final userNotifier = context.read<UserNotifier>();
-              //Dialog widget cut the route of context, we need to
-              //get the existing UserNotifier and expose it to the dialog widget
+              final _friendController = GetIt.I.get<FriendBloc>();
               showDialog<void>(
                 context: context,
                 builder: (context) {
-                  return ChangeNotifierProvider.value(
-                    value: userNotifier,
-                    child: UDialogUserProfile(
-                      bodyText: UAppStrings.friendBody_remove_q,
-                      buttonText: UAppStrings.remove,
-                      buttonColor: UColors.termRed,
-                      popButtonText: UAppStrings.goBackButton,
-                      onTap: () {
-                        userNotifier.removeFriend();
-                        Navigator.of(context).pop();
-                      },
-                      username: user.username,
-                      uImage: UImage(
-                        imagePath: user.profilePicture == null
-                            ? ''
-                            : user.profilePicture!.path,
-                        imageSource: ImageSource.local,
-                      ),
-                      statusMessage: user.statusMessage,
+                  return UDialogUserProfile(
+                    bodyText: UAppStrings.friendBody_remove_q,
+                    buttonText: UAppStrings.remove,
+                    buttonColor: UColors.termRed,
+                    popButtonText: UAppStrings.goBackButton,
+                    onTap: () {
+                      _friendController.add(RemoveFriend(user));
+                      Navigator.of(context).pop();
+                    },
+                    username: user.username,
+                    uImage: UImage(
+                      imagePath: user.profilePicture == null
+                          ? ''
+                          : user.profilePicture!.path,
+                      imageSource: ImageSource.local,
                     ),
+                    statusMessage: user.statusMessage,
                   );
                 },
-              );
+              ).then((value) {
+                _friendController.add(
+                  SearchUserStarted(
+                    userDid: user.did!,
+                  ),
+                );
+              });
             },
           ),
         )

@@ -88,6 +88,10 @@ class FriendData {
     _warp.unblockcUser(userDID);
   }
 
+  void removeFriend(String userDID) {
+    _warp.removeFriend(userDID);
+  }
+
   void acceptFriendRequest(String userDID) {
     _warp.acceptFriendRequest(userDID);
   }
