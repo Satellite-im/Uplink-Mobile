@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -24,6 +26,8 @@ class MainBottomNavigationBar extends StatefulWidget {
 
 class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   int _currentIndex = 0;
+  Timer _timerToListFriends = Timer(Duration.zero, () {});
+
   final _screens = const [
     ChatIndexPage(),
     FileIndexPage(),
@@ -35,9 +39,15 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     setState(() {
       _currentIndex = value;
       if (_currentIndex == 1) {
+        _timerToListFriends.cancel();
         GetIt.I.get<ItemListBloc>().add(GetItemList());
       } else if (_currentIndex == 2) {
-        GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+        _timerToListFriends =
+            Timer.periodic(const Duration(seconds: 1), (timer) {
+          GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+        });
+      } else {
+        _timerToListFriends.cancel();
       }
     });
   }
