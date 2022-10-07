@@ -1,8 +1,5 @@
-import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:ui_library/ui_library_export.dart';
 
 class UImageButton extends StatefulWidget {
@@ -91,7 +88,7 @@ class UImageButtonState extends State<UImageButton> {
                   onPressed: () {
                     setState(() {
                       isSelected = true;
-                      widget.onSelected!.call();
+                      widget.onSelected?.call();
                     });
                   },
                 ),
@@ -103,7 +100,7 @@ class UImageButtonState extends State<UImageButton> {
                   onPressed: () {
                     setState(() {
                       isSelected = false;
-                      widget.unSelected!.call();
+                      widget.unSelected?.call();
                     });
                   },
                 ),
