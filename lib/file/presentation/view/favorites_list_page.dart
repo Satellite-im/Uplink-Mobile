@@ -40,7 +40,7 @@ class _FavoritesListPageState extends State<FavoritesListPage> {
           ),
         ],
       ),
-      body: const FileIndexBody(isFavoritesList: true),
+      body: const FileIndexBody.favoritesList(),
     );
   }
 }

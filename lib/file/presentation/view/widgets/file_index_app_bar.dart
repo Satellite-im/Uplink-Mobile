@@ -44,7 +44,7 @@ class FileIndexAppbar extends StatelessWidget {
                   Navigator.of(context).popAndPushNamed('/FavoritesListPage');
                 },
                 () {
-                  // TODO(yijing): add workflow later
+                  Navigator.of(context).popAndPushNamed('/RemoveListPage');
                 },
               ],
             ).show();

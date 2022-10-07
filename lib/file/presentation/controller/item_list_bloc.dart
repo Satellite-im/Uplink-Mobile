@@ -58,6 +58,19 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
         }
       },
     );
+    on<RemoveItems>(
+      (event, emit) async {
+        emit(ItemListLoadInProgress());
+        try {
+          await _fileRepository.removeItems(event.removeItemList);
+          final _itemList = await _fileRepository.getItemList();
+          emit(ItemListLoadSuccess(_itemList));
+        } catch (e) {
+          addError('ItemListBloc -> RemoveItems Error:$e');
+          emit(ItemListLoadFailure());
+        }
+      },
+    );
   }
   final IFileRepository _fileRepository;
 }
