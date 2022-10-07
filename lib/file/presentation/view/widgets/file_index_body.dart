@@ -158,6 +158,7 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                           )
                         : ItemListView(
                             itemList: _removeList,
+                            isRemoveList: true,
                           );
                   } else {
                     // item list
@@ -189,77 +190,142 @@ class _FileIndexBodyState extends State<FileIndexBody> {
   }
 }
 
-class ItemListView extends StatelessWidget {
+class ItemListView extends StatefulWidget {
   const ItemListView({
     Key? key,
     required this.itemList,
+    this.isRemoveList = false,
   }) : super(key: key);
 
   final List<Item> itemList;
+  final bool isRemoveList;
 
+  @override
+  State<ItemListView> createState() => _ItemListViewState();
+}
+
+class _ItemListViewState extends State<ItemListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: itemList.length,
+      itemCount: widget.itemList.length,
       itemBuilder: (context, index) {
-        final _item = itemList[index];
+        final _item = widget.itemList[index];
         Uint8List? _itemUnit8ListImage;
-        if (itemList[index].thumbnail != null) {
-          _itemUnit8ListImage = base64Decode(itemList[index].thumbnail!);
+        if (widget.itemList[index].thumbnail != null) {
+          _itemUnit8ListImage = base64Decode(widget.itemList[index].thumbnail!);
         }
-        return Card(
-          color: UColors.backgroundDark,
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(color: UColors.foregroundDark),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          margin: EdgeInsets.zero,
-          child: ListTile(
-            dense: true,
-            visualDensity: const VisualDensity(vertical: -1),
-            leading: _item.type == ItemType.photo
-                ? Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      image: DecorationImage(
-                        image: MemoryImage(_itemUnit8ListImage!),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )
-                // TODO(yijing): add thumbnail for non-photo item
-                : Container(
-                    height: 40,
-                    width: 40,
-                    color: UColors.foregroundDark,
-                  ),
-            title: UText(
-              _item.name,
-              textStyle: UTextStyle.H5_fifthHeader,
-              textColor: UColors.white,
-            ),
-            // TODO(yijing): update size unit
-            subtitle: UText(
-              _item.size.toFileSize(decimals: 1),
-              textStyle: UTextStyle.M1_micro,
-            ),
-            trailing: IconButton(
-              icon: const UIcon(UIcons.hamburger_menu),
-              onPressed: () {
-                showFileOptionsBottomSheet(context, _item);
-              },
-              visualDensity: const VisualDensity(horizontal: -2),
-            ),
-            contentPadding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-          ),
+
+        return ListViewListTile(
+          item: _item,
+          itemUnit8ListImage: _itemUnit8ListImage,
+          isRemoveList: widget.isRemoveList,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(
         height: 24,
+      ),
+    );
+  }
+}
+
+class ListViewListTile extends StatefulWidget {
+  const ListViewListTile({
+    Key? key,
+    required Item item,
+    required Uint8List? itemUnit8ListImage,
+    required bool isRemoveList,
+  })  : _item = item,
+        _itemUnit8ListImage = itemUnit8ListImage,
+        _isRemoveList = isRemoveList,
+        super(key: key);
+
+  final Item _item;
+  final Uint8List? _itemUnit8ListImage;
+  final bool _isRemoveList;
+
+  @override
+  State<ListViewListTile> createState() => _ListViewListTileState();
+}
+
+class _ListViewListTileState extends State<ListViewListTile> {
+  bool _isSelected = false;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: UColors.backgroundDark,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: UColors.foregroundDark),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      margin: EdgeInsets.zero,
+      child: ListTile(
+        dense: true,
+        visualDensity: const VisualDensity(vertical: -1),
+        leading: widget._item.type == ItemType.photo
+            ? Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                  image: DecorationImage(
+                    image: MemoryImage(widget._itemUnit8ListImage!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+            // TODO(yijing): add thumbnail for non-photo item
+            : Container(
+                height: 40,
+                width: 40,
+                color: UColors.foregroundDark,
+              ),
+        title: UText(
+          widget._item.name,
+          textStyle: UTextStyle.H5_fifthHeader,
+          textColor: UColors.white,
+        ),
+        // TODO(yijing): update size unit
+        subtitle: UText(
+          widget._item.size.toFileSize(decimals: 1),
+          textStyle: UTextStyle.M1_micro,
+        ),
+        trailing: widget._isRemoveList
+            ? IconButton(
+                icon: UIcon(
+                  _isSelected == false ? UIcons.select_box : UIcons.checkmark_1,
+                ),
+                onPressed: () {
+                  if (widget._isRemoveList == true) {
+                    if (_isSelected == false) {
+                      setState(() {
+                        _isSelected = true;
+                        // context.read<SelectedItemList>().add(_item);
+                      });
+                    } else {
+                      setState(() {
+                        _isSelected = false;
+                        // context.read<SelectedItemList>().remove(_item);
+                      });
+                    }
+                  } else {
+                    showFileOptionsBottomSheet(context, widget._item);
+                  }
+                },
+                visualDensity: const VisualDensity(horizontal: -2),
+              )
+            : IconButton(
+                icon: UIcon(
+                  UIcons.hamburger_menu,
+                ),
+                onPressed: () {
+                  showFileOptionsBottomSheet(context, widget._item);
+                },
+                visualDensity: const VisualDensity(horizontal: -2),
+              ),
+        contentPadding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
       ),
     );
   }
