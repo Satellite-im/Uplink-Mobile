@@ -144,7 +144,8 @@ class HamburgerMenuButton extends StatelessWidget {
                   imageSource: ImageSource.file,
                 ),
                 onTap: () {
-                  // TODO(yijing): add unblock workflow
+                  GetIt.I.get<FriendBloc>().add(UnblockUserStarted(user));
+                  Navigator.of(context).pop();
                 },
               ),
             );
@@ -164,6 +165,7 @@ class HamburgerMenuButton extends StatelessWidget {
                 ),
                 onTap: () {
                   GetIt.I.get<FriendBloc>().add(BlockUserStarted(user));
+                  Navigator.of(context).pop();
                 },
               ),
             );

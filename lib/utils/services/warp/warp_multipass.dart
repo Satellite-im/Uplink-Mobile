@@ -284,6 +284,32 @@ class WarpMultipass {
     }
   }
 
+  List<Map<String, dynamic>> listBlockedUsers() {
+    try {
+      final _blockedUsersList = <Map<String, dynamic>>[];
+      final _blockedUsersDID = _warpBloc.multipass!.blockList();
+      for (final blockedUser in _blockedUsersDID) {
+        final _userMap = findUserByDid(_transformDIDtoString(blockedUser));
+
+        if (_userMap != null) {
+          _blockedUsersList.add(
+            _userMap,
+          );
+        }
+      }
+      return _blockedUsersList;
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'list_blocked_users',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['list_blocked_users', error]);
+    }
+  }
+
   Map<String, bool> _getUsersRelationship(String _userDID) {
     try {
       final _userRelationship = _warpBloc.multipass!.identityRelationship(

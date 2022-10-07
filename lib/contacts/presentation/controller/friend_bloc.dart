@@ -87,6 +87,17 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       }
     });
 
+    on<ListBlockedUsersStarted>((event, emit) async {
+      try {
+        emit(FriendLoadInProgress());
+        blockedUsersList = await _friendRepository.listBlockedUsers();
+        emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
     on<FriendRequestAcceptanceStarted>((event, emit) {
       try {
         emit(FriendLoadInProgress());
@@ -142,7 +153,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
           add(RemoveFriend(event.user));
         }
         _friendRepository.blockUser(event.user.did!);
-        emit(FriendLoadSuccess(user));
+        add(ListBlockedUsersStarted());
       } catch (error) {
         addError(error);
         emit(FriendLoadFailure());
@@ -153,7 +164,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       try {
         emit(FriendLoadInProgress());
         _friendRepository.unblockUser(event.user.did!);
-        emit(FriendLoadSuccess(user));
+        add(ListBlockedUsersStarted());
       } catch (error) {
         addError(error);
         emit(FriendLoadFailure());
@@ -179,6 +190,8 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   List<FriendRequest> outgoingFriendRequestsList = [];
 
   List<User> friendsList = [];
+
+  List<User> blockedUsersList = [];
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 

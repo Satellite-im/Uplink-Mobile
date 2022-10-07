@@ -42,6 +42,13 @@ class ListOutgoingFriendRequestsStarted extends FriendEvent {
   List<Object> get props => [];
 }
 
+class ListBlockedUsersStarted extends FriendEvent {
+  ListBlockedUsersStarted();
+
+  @override
+  List<Object> get props => [];
+}
+
 class FriendRequestAcceptanceStarted extends FriendEvent {
   FriendRequestAcceptanceStarted(this.user);
 
