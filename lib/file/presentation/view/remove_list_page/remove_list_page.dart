@@ -20,55 +20,56 @@ class _RemoveListPageState extends State<RemoveListPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => SelectedItemList(),
-        builder: (context, child) {
-          var _selectedItemList =
-              context.watch<SelectedItemList>().selectedItemList;
-          final _selectedItemListRead = context.read<SelectedItemList>();
+      create: (context) => SelectedItemList(),
+      builder: (context, child) {
+        var _selectedItemList =
+            context.watch<SelectedItemList>().selectedItemList;
+        final _selectedItemListRead = context.read<SelectedItemList>();
 
-          return Scaffold(
-            appBar: UAppBar.back(title: 'Remove'),
-            body: const FileIndexBody.removeList(),
-            persistentFooterButtons: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    UText(
-                      '${_selectedItemList.length} Selected',
-                      textStyle: UTextStyle.H5_fifthHeader,
+        return Scaffold(
+          appBar: UAppBar.back(title: 'Remove'),
+          body: const FileIndexBody.removeList(),
+          persistentFooterButtons: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  UText(
+                    '${_selectedItemList.length} Selected',
+                    textStyle: UTextStyle.H5_fifthHeader,
+                  ),
+                  IconButton(
+                    onPressed: _selectedItemList.isNotEmpty
+                        ? () {
+                            _itemListController.add(
+                              RemoveItems(
+                                _selectedItemListRead.selectedItemList,
+                              ),
+                            );
+                            // wait until ItemListBloc finish RemoveItems
+                            _itemListController.stream
+                                .firstWhere(
+                                  (element) => element is ItemListLoadSuccess,
+                                )
+                                .whenComplete(
+                                  _selectedItemListRead.clear,
+                                );
+                          }
+                        : null,
+                    icon: UIcon(
+                      UIcons.remove,
+                      color: _selectedItemList.isNotEmpty
+                          ? UColors.termRed
+                          : UColors.textMed,
                     ),
-                    IconButton(
-                      onPressed: _selectedItemList.isNotEmpty
-                          ? () {
-                              _itemListController.add(
-                                RemoveItems(
-                                  _selectedItemListRead.selectedItemList,
-                                ),
-                              );
-                              // wait until ItemListBloc finish RemoveItems
-                              _itemListController.stream
-                                  .firstWhere(
-                                    (element) => element is ItemListLoadSuccess,
-                                  )
-                                  .whenComplete(
-                                    _selectedItemListRead.clear,
-                                  );
-                            }
-                          : null,
-                      icon: UIcon(
-                        UIcons.remove,
-                        color: _selectedItemList.isNotEmpty
-                            ? UColors.termRed
-                            : UColors.textMed,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          );
-        });
+                  ),
+                ],
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }
