@@ -189,6 +189,38 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           Navigator.of(context).pop();
         },
       );
+    } else if (user.relationship == Relationship.block) {
+      var _openedNewDialog = false;
+      _QRCodeScannerFeedbackDialogs.showUserIsBlocked(
+        context,
+        user,
+        onCloseDialog: () {
+          if (!_openedNewDialog) {
+            Timer(_timerDuration, () {
+              _timerFunction.call();
+            });
+          }
+        },
+        onTap: () {
+          _openedNewDialog = true;
+          _friendController
+            ..add(UnblockUserStarted(user))
+            ..add(SendFriendRequestStarted());
+
+          Navigator.of(context).pop();
+          _QRCodeScannerFeedbackDialogs.showFriendRequestSentDialog(
+            context,
+            user,
+            onCloseDialog: () {
+              _friendController.add(ListOutgoingFriendRequestsStarted());
+              Timer(_timerDuration, () {
+                _timerFunction.call();
+              });
+            },
+            onTap: () => Navigator.of(context).pop(),
+          );
+        },
+      );
     } else {
       var _openedNewDialog = false;
       _QRCodeScannerFeedbackDialogs.showSendFriendRequestToOtherUserDialog(

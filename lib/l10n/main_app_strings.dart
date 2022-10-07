@@ -294,6 +294,10 @@ Would you like to give Satellite.im access to your camera roll?''';
   /// QRCodeScannerPage
   static const qrCodeScannerPage_friendsDialodFirst = 'You and ';
   static const qrCodeScannerPage_friendsDialodSecond = ' are already friends!';
+  static const qrCodeScannerPage_userIsBlockedDialogFirst = 'Psst ';
+  static const qrCodeScannerPage_userIsBlockedDialogSecond =
+      ' is currently block. '
+      'Do you want to accept it?';
   static const qrCodeScannerPage_incomingFriendRequestDialog =
       ' has already sent you a friend request. '
       'Do you want to accept it?';
