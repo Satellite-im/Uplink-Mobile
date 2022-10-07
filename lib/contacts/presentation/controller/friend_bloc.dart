@@ -13,12 +13,8 @@ part 'friend_state.dart';
 class FriendBloc extends Bloc<FriendEvent, FriendState> {
   FriendBloc(this._friendRepository) : super(FriendInitial()) {
     on<ResetFriendDataStarted>((event, emit) {
-      if (event.resetFriendsListValue) {
-        friendsList.clear();
-      }
-      if (event.resetUserValue) {
-        user = null;
-      }
+      friendsList.clear();
+      user = null;
       incomingFriendRequestsList.clear();
       outgoingFriendRequestsList.clear();
       emit(FriendInitial());

@@ -26,7 +26,6 @@ class MainBottomNavigationBar extends StatefulWidget {
 
 class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   int _currentIndex = 0;
-  Timer _timerToListFriends = Timer(Duration.zero, () {});
 
   final _screens = const [
     ChatIndexPage(),
@@ -36,21 +35,12 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   ];
 
   void _updateIndex(int value) {
-    final _friendController = GetIt.I.get<FriendBloc>();
     setState(() {
       _currentIndex = value;
       if (_currentIndex == 1) {
-        _timerToListFriends.cancel();
         GetIt.I.get<ItemListBloc>().add(GetItemList());
       } else if (_currentIndex == 2) {
-        _timerToListFriends =
-            Timer.periodic(const Duration(seconds: 1), (timer) {
-          if (_friendController.state is FriendLoadSuccess) {
-            _friendController.add(ListFriendsStarted());
-          }
-        });
-      } else {
-        _timerToListFriends.cancel();
+        GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
       }
     });
   }
