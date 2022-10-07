@@ -68,6 +68,11 @@ class RouteGenerator {
         return MaterialPageRoute<void>(
           builder: (context) => const FavoritesListPage(),
         );
+      case '/RemoveListPage':
+        return MaterialPageRoute<void>(
+          builder: (context) => const RemoveListPage(),
+        );
+
       default:
         // TODO(yijing): improve error page
         return MaterialPageRoute<void>(

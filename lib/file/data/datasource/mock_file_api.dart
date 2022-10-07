@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:uplink/file/data/datasource/file_api.dart';
@@ -15,8 +16,29 @@ class MockFileApi implements IFileApi {
   Future<void> uploadItem(Item item) async {
     await Future.delayed(
       const Duration(milliseconds: 500),
-      () {
-        itemList.add(item);
+      () async {
+        // itemList.add(item);
+
+        final _file = await Base64Convert()
+            .transformBase64ImageIntoFileImage(mockBase64Str, 'mock photo');
+        await Future.delayed(
+          const Duration(milliseconds: 500),
+          () {
+            itemList = List.generate(
+              10,
+              (index) => Item(
+                name: 'Photo Name $index',
+                thumbnail: mockBase64Str,
+                file: _file!,
+                type: ItemType.photo,
+                isFavorited: true,
+                size: 378,
+                creationDateTime: DateTime.now(),
+                modifiedDateTime: DateTime.now(),
+              ),
+            );
+          },
+        );
       },
     );
   }
@@ -27,31 +49,31 @@ class MockFileApi implements IFileApi {
     const _hasItem = true;
 
     if (_hasItem == true) {
+      await Future.delayed(
+        const Duration(milliseconds: 100),
+        () {},
+      );
+      // for test favorite list
+      // final _file = await Base64Convert()
+      //     .transformBase64ImageIntoFileImage(mockBase64Str, 'mock photo');
       // await Future.delayed(
       //   const Duration(milliseconds: 500),
-      //   () {},
+      //   () {
+      //     itemList = List.generate(
+      //       10,
+      //       (index) => Item(
+      //         name: 'Photo Name $index',
+      //         thumbnail: mockBase64Str,
+      //         file: _file!,
+      //         type: ItemType.photo,
+      //         isFavorited: true,
+      //         size: 378,
+      //         creationDateTime: DateTime.now(),
+      //         modifiedDateTime: DateTime.now(),
+      //       ),
+      //     );
+      //   },
       // );
-      // for test favorite list
-      final _file = await Base64Convert()
-          .transformBase64ImageIntoFileImage(mockBase64Str, 'mock photo');
-      await Future.delayed(
-        const Duration(seconds: 1),
-        () {
-          itemList = List.generate(
-            10,
-            (index) => Item(
-              name: 'Photo Name $index',
-              thumbnail: mockBase64Str,
-              file: _file!,
-              type: ItemType.photo,
-              isFavorited: true,
-              size: 378,
-              creationDateTime: DateTime.now(),
-              modifiedDateTime: DateTime.now(),
-            ),
-          );
-        },
-      );
     }
     return itemList;
   }
@@ -72,6 +94,19 @@ class MockFileApi implements IFileApi {
       const Duration(milliseconds: 10),
       () {
         item.name = name;
+      },
+    );
+  }
+
+  @override
+  Future<void> removeItems(List<Item> removeItemsList) async {
+    await Future.delayed(
+      const Duration(milliseconds: 10),
+      () {
+        for (final removeItem in removeItemsList) {
+          //remove where the name is the same
+          itemList.removeWhere((element) => element.name == removeItem.name);
+        }
       },
     );
   }

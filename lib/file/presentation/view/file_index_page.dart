@@ -11,7 +11,7 @@ class FileIndexPage extends StatelessWidget {
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: FileIndexAppbar(),
       ),
-      body: FileIndexBody(),
+      body: FileIndexBody.itemList(),
     );
   }
 }

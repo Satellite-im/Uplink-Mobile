@@ -11,15 +11,25 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/file/presentation/view/helper/show_file_options_bottom_sheet.dart';
+import 'package:uplink/file/presentation/view/remove_list_page/models/selected_item_list.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class FileIndexBody extends StatefulWidget {
-  const FileIndexBody({
+  const FileIndexBody.itemList({
     super.key,
-    this.isFavoritesList = false,
-    this.isReomveList = false,
-  });
+  })  : isFavoritesList = false,
+        isReomveList = false;
+
+  const FileIndexBody.favoritesList({
+    super.key,
+  })  : isFavoritesList = true,
+        isReomveList = false;
+
+  const FileIndexBody.removeList({
+    super.key,
+  })  : isFavoritesList = false,
+        isReomveList = true;
 
   final bool isFavoritesList;
   final bool isReomveList;
@@ -123,9 +133,9 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                         .where((element) => element.isFavorited == true)
                         .toList();
                     if (_favoritesList.isEmpty) {
-                      return Text('no favorite item');
+                      return Text("You don't have any favorited item");
                     }
-                    // item list
+
                     return gridViewIsSelected
                         ? ItemGridView(
                             itemList: _favoritesList,
@@ -133,17 +143,36 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                         : ItemListView(
                             itemList: _favoritesList,
                           );
+                  } else if (widget.isReomveList == true) {
+                    // remove list
+                    final _removeList = state.itemList;
+
+                    if (_removeList.isEmpty) {
+                      return Text("You don't have any item to remove");
+                    }
+
+                    return gridViewIsSelected
+                        ? ItemGridView(
+                            itemList: _removeList,
+                            isRemoveList: true,
+                          )
+                        : ItemListView(
+                            itemList: _removeList,
+                          );
+                  } else {
+                    // item list
+                    if (state.itemList.isEmpty) {
+                      return const NoItemBody();
+                    }
+                    return gridViewIsSelected
+                        ? ItemGridView(
+                            key: itemGridViewState,
+                            itemList: state.itemList,
+                          )
+                        : ItemListView(
+                            itemList: state.itemList,
+                          );
                   }
-                  if (state.itemList.isEmpty) {
-                    return const NoItemBody();
-                  }
-                  return gridViewIsSelected
-                      ? ItemGridView(
-                          itemList: state.itemList,
-                        )
-                      : ItemListView(
-                          itemList: state.itemList,
-                        );
                 } else if (state is ItemListLoadFailure) {
                   return const UText(
                     UAppStrings.file_index_page_load_in_error,
@@ -241,14 +270,23 @@ class ItemListView extends StatelessWidget {
   }
 }
 
-class ItemGridView extends StatelessWidget {
+GlobalKey<ItemGridViewState> itemGridViewState = GlobalKey();
+
+class ItemGridView extends StatefulWidget {
   const ItemGridView({
     Key? key,
     required this.itemList,
+    this.isRemoveList = false,
   }) : super(key: key);
 
   final List<Item> itemList;
+  final bool isRemoveList;
 
+  @override
+  State<ItemGridView> createState() => ItemGridViewState();
+}
+
+class ItemGridViewState extends State<ItemGridView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -258,12 +296,29 @@ class ItemGridView extends StatelessWidget {
         crossAxisSpacing: 8,
         childAspectRatio: 160 / 168,
       ),
-      itemCount: itemList.length,
+      itemCount: widget.itemList.length,
       itemBuilder: (context, index) {
-        final _item = itemList[index];
+        final _item = widget.itemList[index];
         final _imageUint8List = base64.decode(_item.thumbnail!);
-        if (itemList[index].type == ItemType.photo) {
-          final _item = itemList[index];
+        if (widget.itemList[index].type == ItemType.photo) {
+          final _item = widget.itemList[index];
+
+          // Item in the RemoveListPage
+          if (widget.isRemoveList == true) {
+            return UImageButton.unit8ListImage(
+              unit8ListImage: _imageUint8List,
+              isFavored: _item.isFavorited,
+              isDeleting: true,
+              onSelected: () {
+                context.read<SelectedItemList>().add(_item);
+              },
+              unSelected: () {
+                context.read<SelectedItemList>().remove(_item);
+              },
+            );
+          }
+
+          // Item in the FileIndexPage and FavoriteListPage
           return GestureDetector(
             onTap: () {
               Navigator.of(context)

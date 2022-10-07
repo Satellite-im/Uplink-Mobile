@@ -24,3 +24,8 @@ class RenameItem extends ItemListEvent {
   final Item item;
   final String name;
 }
+
+class RemoveItems extends ItemListEvent {
+  const RemoveItems(this.removeItemList);
+  final List<Item> removeItemList;
+}

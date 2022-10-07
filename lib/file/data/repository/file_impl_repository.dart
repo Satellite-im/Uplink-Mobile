@@ -17,4 +17,8 @@ class FileRepositoryImpl implements IFileRepository {
   @override
   Future<void> renameItem({required Item item, required String name}) =>
       _fileApi.renameItem(item: item, name: name);
+
+  @override
+  Future<void> removeItems(List<Item> removedItemList) =>
+      _fileApi.removeItems(removedItemList);
 }
