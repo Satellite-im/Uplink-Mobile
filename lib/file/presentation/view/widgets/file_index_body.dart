@@ -166,7 +166,6 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                     }
                     return gridViewIsSelected
                         ? ItemGridView(
-                            key: itemGridViewState,
                             itemList: state.itemList,
                           )
                         : ItemListView(
@@ -208,59 +207,55 @@ class ItemListView extends StatelessWidget {
         if (itemList[index].thumbnail != null) {
           _itemUnit8ListImage = base64Decode(itemList[index].thumbnail!);
         }
-        return Column(
-          children: [
-            Card(
-              color: UColors.backgroundDark,
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(color: UColors.foregroundDark),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              margin: EdgeInsets.zero,
-              child: ListTile(
-                dense: true,
-                visualDensity: const VisualDensity(vertical: -1),
-                leading: _item.type == ItemType.photo
-                    ? Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(4),
-                          ),
-                          image: DecorationImage(
-                            image: MemoryImage(_itemUnit8ListImage!),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    // TODO(yijing): add thumbnail for non-photo item
-                    : Container(
-                        height: 40,
-                        width: 40,
-                        color: UColors.foregroundDark,
+        return Card(
+          color: UColors.backgroundDark,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(color: UColors.foregroundDark),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          margin: EdgeInsets.zero,
+          child: ListTile(
+            dense: true,
+            visualDensity: const VisualDensity(vertical: -1),
+            leading: _item.type == ItemType.photo
+                ? Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(4),
                       ),
-                title: UText(
-                  _item.name,
-                  textStyle: UTextStyle.H5_fifthHeader,
-                  textColor: UColors.white,
-                ),
-                // TODO(yijing): update size unit
-                subtitle: UText(
-                  _item.size.toFileSize(decimals: 1),
-                  textStyle: UTextStyle.M1_micro,
-                ),
-                trailing: IconButton(
-                  icon: const UIcon(UIcons.hamburger_menu),
-                  onPressed: () {
-                    showFileOptionsBottomSheet(context, _item);
-                  },
-                  visualDensity: const VisualDensity(horizontal: -2),
-                ),
-                contentPadding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-              ),
+                      image: DecorationImage(
+                        image: MemoryImage(_itemUnit8ListImage!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                // TODO(yijing): add thumbnail for non-photo item
+                : Container(
+                    height: 40,
+                    width: 40,
+                    color: UColors.foregroundDark,
+                  ),
+            title: UText(
+              _item.name,
+              textStyle: UTextStyle.H5_fifthHeader,
+              textColor: UColors.white,
             ),
-          ],
+            // TODO(yijing): update size unit
+            subtitle: UText(
+              _item.size.toFileSize(decimals: 1),
+              textStyle: UTextStyle.M1_micro,
+            ),
+            trailing: IconButton(
+              icon: const UIcon(UIcons.hamburger_menu),
+              onPressed: () {
+                showFileOptionsBottomSheet(context, _item);
+              },
+              visualDensity: const VisualDensity(horizontal: -2),
+            ),
+            contentPadding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+          ),
         );
       },
       separatorBuilder: (context, index) => const SizedBox(
@@ -269,8 +264,6 @@ class ItemListView extends StatelessWidget {
     );
   }
 }
-
-GlobalKey<ItemGridViewState> itemGridViewState = GlobalKey();
 
 class ItemGridView extends StatefulWidget {
   const ItemGridView({
