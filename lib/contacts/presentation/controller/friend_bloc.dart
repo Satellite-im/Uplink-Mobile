@@ -48,6 +48,9 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     on<SendFriendRequestStarted>((event, emit) {
       try {
         emit(FriendLoadInProgress());
+        if (user?.relationship == Relationship.block) {
+          add(UnblockUserStarted(user!));
+        }
         _friendRepository.sendFriendRequest(user!.did!);
         emit(FriendLoadSuccess(user));
       } catch (error) {
@@ -135,6 +138,9 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     on<BlockUserStarted>((event, emit) {
       try {
         emit(FriendLoadInProgress());
+        if (event.user.relationship == Relationship.friend) {
+          add(RemoveFriend(event.user));
+        }
         _friendRepository.blockUser(event.user.did!);
         emit(FriendLoadSuccess(user));
       } catch (error) {
