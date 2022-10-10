@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_locals
+// ignore_for_file: prefer_final_locals, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -7,6 +7,7 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/file/presentation/view/remove_list_page/models/selected_item_list.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class RemoveListPage extends StatefulWidget {
   const RemoveListPage({super.key});
@@ -42,19 +43,33 @@ class _RemoveListPageState extends State<RemoveListPage> {
                   IconButton(
                     onPressed: _selectedItemList.isNotEmpty
                         ? () {
-                            _itemListController.add(
-                              RemoveItems(
-                                _selectedItemListRead.selectedItemList,
-                              ),
-                            );
-                            // wait until ItemListBloc finish RemoveItems
-                            _itemListController.stream
-                                .firstWhere(
-                                  (element) => element is ItemListLoadSuccess,
-                                )
-                                .whenComplete(
-                                  _selectedItemListRead.clear,
+                            UBottomSheetTwoButtons(
+                              context,
+                              header:
+                                  'Are you sure you want to remove ${_selectedItemList.length} items?',
+                              firstButtonText: UAppStrings.cancelButton,
+                              firstButtonOnPressed: () =>
+                                  Navigator.of(context).pop(),
+                              secondButtonText: UAppStrings.remove,
+                              secondButtonColor: UColors.termRed,
+                              secondButtonOnPressed: () {
+                                Navigator.of(context).pop();
+                                _itemListController.add(
+                                  RemoveItems(
+                                    _selectedItemListRead.selectedItemList,
+                                  ),
                                 );
+                                // wait until ItemListBloc finish RemoveItems
+                                _itemListController.stream
+                                    .firstWhere(
+                                      (element) =>
+                                          element is ItemListLoadSuccess,
+                                    )
+                                    .whenComplete(
+                                      _selectedItemListRead.clear,
+                                    );
+                              },
+                            ).show();
                           }
                         : null,
                     icon: UIcon(

@@ -70,7 +70,9 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // TODO(yijing): Download item feature
+                  },
                   icon: const UIcon(
                     UIcons.download,
                     color: UColors.textMed,
