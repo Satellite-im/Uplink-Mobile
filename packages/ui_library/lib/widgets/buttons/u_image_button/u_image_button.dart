@@ -19,6 +19,7 @@ class UImageButton extends StatefulWidget {
     this.isDeleting,
     this.onSelected,
     this.unSelected,
+    this.isChecked,
   })  : unit8ListImage = null,
         super(key: key);
 
@@ -38,6 +39,7 @@ class UImageButton extends StatefulWidget {
     this.isDeleting,
     this.onSelected,
     this.unSelected,
+    this.isChecked,
   })  : uImage = null,
         super(key: key);
 
@@ -47,20 +49,13 @@ class UImageButton extends StatefulWidget {
   final bool? isDeleting;
   final VoidCallback? onSelected;
   final VoidCallback? unSelected;
+  final bool? isChecked;
 
   @override
   State<UImageButton> createState() => UImageButtonState();
 }
 
 class UImageButtonState extends State<UImageButton> {
-  late bool isSelected;
-
-  @override
-  void initState() {
-    super.initState();
-    isSelected = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     // local variable for the icons/buttons on the image
@@ -86,10 +81,7 @@ class UImageButtonState extends State<UImageButton> {
                     color: UColors.textMed,
                   ),
                   onPressed: () {
-                    setState(() {
-                      isSelected = true;
-                      widget.onSelected?.call();
-                    });
+                    widget.onSelected?.call();
                   },
                 ),
                 secondChild: IconButton(
@@ -98,13 +90,10 @@ class UImageButtonState extends State<UImageButton> {
                     color: UColors.ctaBlue,
                   ),
                   onPressed: () {
-                    setState(() {
-                      isSelected = false;
-                      widget.unSelected?.call();
-                    });
+                    widget.unSelected?.call();
                   },
                 ),
-                crossFadeState: isSelected
+                crossFadeState: widget.isChecked!
                     ? CrossFadeState.showSecond
                     : CrossFadeState.showFirst,
                 duration: const Duration(milliseconds: 100),
@@ -139,11 +128,13 @@ class UImageButtonState extends State<UImageButton> {
             Radius.circular(4),
           ),
           image: DecorationImage(
-              colorFilter: isSelected
-                  ? ColorFilter.mode(
-                      UColors.white.withOpacity(0.35),
-                      BlendMode.overlay,
-                    )
+              colorFilter: widget.isDeleting == true
+                  ? widget.isChecked!
+                      ? ColorFilter.mode(
+                          UColors.white.withOpacity(0.35),
+                          BlendMode.overlay,
+                        )
+                      : null
                   : null,
               image: MemoryImage(widget.unit8ListImage!),
               fit: BoxFit.cover)),
