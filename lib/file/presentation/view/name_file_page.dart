@@ -33,12 +33,15 @@ class _NameFilePageState extends State<NameFilePage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: UTextInput.singleLineWithTitle(
+          autofocus: true,
           controller: _textEditingController,
           textFieldTitle: 'Name',
           hintText: 'Text Input Field',
           onSubmitted: (fileName) {
             if (fileName.length > 2) {
               if (widget.isRename == true) {
+                // To prevent keyboard poping up after renaming is done
+                FocusManager.instance.primaryFocus?.unfocus();
                 _showConfirmBottomSheet(context, _fileName).show();
               } else {
                 Navigator.of(context).pop(fileName);
@@ -63,6 +66,8 @@ class _NameFilePageState extends State<NameFilePage> {
           onPressed: () {
             if (_isFABLight) {
               if (widget.isRename == true) {
+                // To prevent keyboard poping up after renaming is done
+                FocusManager.instance.primaryFocus?.unfocus();
                 _showConfirmBottomSheet(context, _fileName).show();
               } else {
                 Navigator.of(context).pop(_fileName);
