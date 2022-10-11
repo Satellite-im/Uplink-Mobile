@@ -28,7 +28,7 @@ class _RemoveListPageState extends State<RemoveListPage> {
         final _selectedItemListRead = context.read<SelectedItemList>();
 
         return Scaffold(
-          appBar: UAppBar.back(title: 'Remove'),
+          appBar: UAppBar.back(title: UAppStrings.remove),
           body: const FileIndexBody.removeList(),
           persistentFooterButtons: [
             Padding(
@@ -37,7 +37,8 @@ class _RemoveListPageState extends State<RemoveListPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   UText(
-                    '${_selectedItemList.length} Selected',
+                    _selectedItemList.length.toString() +
+                        UAppStrings.remove_list_page_selected,
                     textStyle: UTextStyle.H5_fifthHeader,
                   ),
                   IconButton(
@@ -45,8 +46,10 @@ class _RemoveListPageState extends State<RemoveListPage> {
                         ? () {
                             UBottomSheetTwoButtons(
                               context,
-                              header:
-                                  'Are you sure you want to remove ${_selectedItemList.length} items?',
+                              header: UAppStrings
+                                      .remove_list_page_confirm_title_1 +
+                                  _selectedItemList.length.toString() +
+                                  UAppStrings.remove_list_page_confirm_title_2,
                               firstButtonText: UAppStrings.cancelButton,
                               firstButtonOnPressed: () =>
                                   Navigator.of(context).pop(),

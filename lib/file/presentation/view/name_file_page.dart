@@ -28,15 +28,17 @@ class _NameFilePageState extends State<NameFilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.back(
-        title: widget.isRename == true ? 'Rename' : 'Upload File',
+        title: widget.isRename == true
+            ? UAppStrings.fileOptions_rename
+            : UAppStrings.name_file_page_upload_file,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: UTextInput.singleLineWithTitle(
           autofocus: true,
           controller: _textEditingController,
-          textFieldTitle: 'Name',
-          hintText: 'Text Input Field',
+          textFieldTitle: UAppStrings.name_file_page_name,
+          hintText: UAppStrings.name_file_page_hint,
           onSubmitted: (fileName) {
             if (fileName.length > 2) {
               if (widget.isRename == true) {
@@ -94,9 +96,9 @@ class _NameFilePageState extends State<NameFilePage> {
           ..pop()
           ..pop(fileName);
       },
-      header: 'Do you want to save your changes?',
+      header: UAppStrings.name_file_page_confirm_title,
       firstButtonText: UAppStrings.cancelButton,
-      secondButtonText: 'Save',
+      secondButtonText: UAppStrings.fileOptions_save,
     );
   }
 }

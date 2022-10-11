@@ -127,7 +127,9 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                         .where((element) => element.isFavorited == true)
                         .toList();
                     if (_favoritesList.isEmpty) {
-                      return const Text("You don't have any favorited item");
+                      return const Text(
+                        UAppStrings.file_index_body_no_favorited_item,
+                      );
                     }
 
                     return isGridView
@@ -139,6 +141,11 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                           );
                   } else if (widget.isReomveList == true) {
                     // For RemoveListPage
+                    if (_itemList.isEmpty) {
+                      return const Text(
+                        UAppStrings.file_index_body_no_item_to_remove,
+                      );
+                    }
                     return isGridView
                         ? FileGridViewBuilder(
                             itemList: _itemList,
