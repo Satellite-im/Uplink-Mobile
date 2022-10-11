@@ -89,9 +89,11 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                 const SizedBox(width: 16),
                 ItemLayoutButton(
                   onPressed: () {
-                    setState(() {
-                      isGridView = true;
-                    });
+                    if (isGridView == false) {
+                      setState(() {
+                        isGridView = true;
+                      });
+                    }
                   },
                   isSelected: isGridView,
                   uIconData: UIcons.grid_view,
@@ -99,9 +101,11 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                 const SizedBox(width: 12),
                 ItemLayoutButton(
                   onPressed: () {
-                    setState(() {
-                      isGridView = false;
-                    });
+                    if (isGridView == true) {
+                      setState(() {
+                        isGridView = false;
+                      });
+                    }
                   },
                   isSelected: !isGridView,
                   uIconData: UIcons.list_view,
