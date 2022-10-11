@@ -110,4 +110,11 @@ class MockFileApi implements IFileApi {
       },
     );
   }
+
+  @override
+  Future<void> removeSingleItem(Item item) async {
+    await Future.delayed(const Duration(milliseconds: 10), () {
+      itemList.removeWhere((element) => element.name == item.name);
+    });
+  }
 }

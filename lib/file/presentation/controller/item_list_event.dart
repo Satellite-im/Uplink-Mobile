@@ -29,3 +29,8 @@ class RemoveItems extends ItemListEvent {
   const RemoveItems(this.removeItemList);
   final List<Item> removeItemList;
 }
+
+class RemoveSingleItem extends ItemListEvent {
+  const RemoveSingleItem(this.removeItem);
+  final Item removeItem;
+}

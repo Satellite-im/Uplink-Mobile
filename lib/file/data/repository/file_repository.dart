@@ -6,4 +6,5 @@ abstract class IFileRepository {
   Future<void> switchFavoriteStatus(Item item);
   Future<void> renameItem({required Item item, required String name});
   Future<void> removeItems(List<Item> itemList);
+  Future<void> removeSingleItem(Item item);
 }
