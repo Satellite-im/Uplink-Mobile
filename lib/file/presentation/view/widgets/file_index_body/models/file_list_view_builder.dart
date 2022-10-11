@@ -74,6 +74,9 @@ class _ListViewListTileState extends State<ListViewListTile> {
       child: ListTile(
         dense: true,
         visualDensity: const VisualDensity(vertical: -1),
+        onTap: () {
+          Navigator.of(context).pushNamed('/PhotoDetailPage', arguments: _item);
+        },
         leading: _item.type == ItemType.photo
             ? Container(
                 height: 40,
