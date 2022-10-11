@@ -32,7 +32,7 @@ class _FavoritesListPageState extends State<FavoritesListPage> {
                 iconList: [UIcons.remove],
                 onTapList: [
                   () {
-                    // TODO(yijing): add workflow later
+                    Navigator.of(context).popAndPushNamed('/RemoveListPage');
                   },
                 ],
               ).show();
