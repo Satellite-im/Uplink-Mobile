@@ -46,7 +46,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const UText(
-                        'File Options',
+                        UAppStrings.fileOptions_title,
                         textStyle: UTextStyle.H3_tertiaryHeader,
                       ),
                       const SizedBox(
@@ -59,7 +59,9 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                           color: item.isFavorited
                               ? UColors.ctaBlue
                               : UColors.white,
-                          title: item.isFavorited ? 'Favorited' : 'Favorite',
+                          title: item.isFavorited
+                              ? UAppStrings.fileOptions_favorited
+                              : UAppStrings.fileOptions_favorite,
                           onTap: () {
                             setState(
                               () {
@@ -73,13 +75,13 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                       OptionListTile(
                         uIconData: UIcons.copy_or_clone_button,
                         color: UColors.white,
-                        title: 'Copy',
+                        title: UAppStrings.fileOptions_copy,
                         onTap: () {},
                       ),
                       OptionListTile(
                         uIconData: UIcons.edit,
                         color: UColors.white,
-                        title: 'Rename',
+                        title: UAppStrings.fileOptions_rename,
                         onTap: () async {
                           final _arg = {
                             'item': item,
@@ -101,13 +103,13 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                       OptionListTile(
                         uIconData: UIcons.download,
                         color: UColors.white,
-                        title: 'Save',
+                        title: UAppStrings.fileOptions_save,
                         onTap: () {},
                       ),
                       OptionListTile(
                         uIconData: UIcons.remove,
                         color: UColors.white,
-                        title: 'Remove',
+                        title: UAppStrings.remove,
                         onTap: () {
                           setState(
                             () {
@@ -117,8 +119,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                           );
                           UBottomSheetTwoButtons(
                             context,
-                            header:
-                                'Are you sure you want to remove this file?',
+                            header: UAppStrings.fileOptions_remove_item_title,
                             firstButtonText: UAppStrings.cancelButton,
                             firstButtonOnPressed: () {
                               Navigator.of(context).pop();

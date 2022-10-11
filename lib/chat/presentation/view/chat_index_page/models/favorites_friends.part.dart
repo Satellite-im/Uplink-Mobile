@@ -46,7 +46,7 @@ class _FavoritesFriends extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 16),
             child: UText(
-              UAppStrings.chatIndexPage_favoritesTitle,
+              UAppStrings.favorites,
               textStyle: UTextStyle.H5_fifthHeader,
               textColor: UColors.textMed,
             ),

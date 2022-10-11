@@ -15,7 +15,7 @@ class _FavoritesListPageState extends State<FavoritesListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.actions(
-        title: 'Favorites',
+        title: UAppStrings.favorites,
         actionList: [
           IconButton(
             icon: const UIcon(
@@ -27,7 +27,7 @@ class _FavoritesListPageState extends State<FavoritesListPage> {
                 context,
                 sheetTitle: UAppStrings.moreOptions,
                 titleList: [
-                  'Remove',
+                  UAppStrings.remove,
                 ],
                 iconList: [UIcons.remove],
                 onTapList: [

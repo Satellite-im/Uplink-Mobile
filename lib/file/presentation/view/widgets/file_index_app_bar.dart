@@ -35,8 +35,8 @@ class FileIndexAppbar extends StatelessWidget {
               context,
               sheetTitle: UAppStrings.moreOptions,
               titleList: [
-                'Favorites',
-                'Remove',
+                UAppStrings.favorites,
+                UAppStrings.remove,
               ],
               iconList: [UIcons.favorite, UIcons.remove],
               onTapList: [

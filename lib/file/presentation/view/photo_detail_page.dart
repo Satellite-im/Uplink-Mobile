@@ -83,7 +83,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                   onPressed: () {
                     UBottomSheetTwoButtons(
                       context,
-                      header: 'Are you sure you want to remove this file?',
+                      header: UAppStrings.fileOptions_remove_item_title,
                       firstButtonText: UAppStrings.cancelButton,
                       firstButtonOnPressed: () {
                         Navigator.of(context).pop();
