@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 
 class PhotoDetailPage extends StatefulWidget {
   const PhotoDetailPage({super.key, required this.item});
@@ -79,7 +80,24 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    UBottomSheetTwoButtons(
+                      context,
+                      header: 'Are you sure you want to remove this file?',
+                      firstButtonText: UAppStrings.cancelButton,
+                      firstButtonOnPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      secondButtonText: UAppStrings.remove,
+                      secondButtonColor: UColors.termRed,
+                      secondButtonOnPressed: () {
+                        _itemListController.add(RemoveSingleItem(widget.item));
+                        Navigator.of(context)
+                          ..pop()
+                          ..pop();
+                      },
+                    ).show();
+                  },
                   icon: const UIcon(
                     UIcons.remove,
                     color: UColors.textMed,
