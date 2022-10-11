@@ -130,6 +130,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                               );
                             },
                             secondButtonText: UAppStrings.remove,
+                            secondButtonColor: UColors.termRed,
                             secondButtonOnPressed: () {
                               _itemListController.add(RemoveSingleItem(item));
                               Navigator.of(context)
