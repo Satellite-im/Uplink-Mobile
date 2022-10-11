@@ -17,28 +17,29 @@ class MockFileApi implements IFileApi {
     await Future.delayed(
       const Duration(milliseconds: 500),
       () async {
-        // itemList.add(item);
+        itemList.add(item);
 
-        final _file = await Base64Convert()
-            .transformBase64ImageIntoFileImage(mockBase64Str, 'mock photo');
-        await Future.delayed(
-          const Duration(milliseconds: 500),
-          () {
-            itemList = List.generate(
-              10,
-              (index) => Item(
-                name: 'Photo Name $index',
-                thumbnail: mockBase64Str,
-                file: _file!,
-                type: ItemType.photo,
-                isFavorited: true,
-                size: 378,
-                creationDateTime: DateTime.now(),
-                modifiedDateTime: DateTime.now(),
-              ),
-            );
-          },
-        );
+        // for test multiple items
+        // final _file = await Base64Convert()
+        //     .transformBase64ImageIntoFileImage(mockBase64Str, 'mock photo');
+        // await Future.delayed(
+        //   const Duration(milliseconds: 500),
+        //   () {
+        //     itemList = List.generate(
+        //       10,
+        //       (index) => Item(
+        //         name: 'Photo Name $index',
+        //         thumbnail: mockBase64Str,
+        //         file: _file!,
+        //         type: ItemType.photo,
+        //         isFavorited: true,
+        //         size: 378,
+        //         creationDateTime: DateTime.now(),
+        //         modifiedDateTime: DateTime.now(),
+        //       ),
+        //     );
+        //   },
+        // );
       },
     );
   }
@@ -53,27 +54,6 @@ class MockFileApi implements IFileApi {
         const Duration(milliseconds: 100),
         () {},
       );
-      // for test favorite list
-      // final _file = await Base64Convert()
-      //     .transformBase64ImageIntoFileImage(mockBase64Str, 'mock photo');
-      // await Future.delayed(
-      //   const Duration(milliseconds: 500),
-      //   () {
-      //     itemList = List.generate(
-      //       10,
-      //       (index) => Item(
-      //         name: 'Photo Name $index',
-      //         thumbnail: mockBase64Str,
-      //         file: _file!,
-      //         type: ItemType.photo,
-      //         isFavorited: true,
-      //         size: 378,
-      //         creationDateTime: DateTime.now(),
-      //         modifiedDateTime: DateTime.now(),
-      //       ),
-      //     );
-      //   },
-      // );
     }
     return itemList;
   }
