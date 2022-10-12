@@ -382,4 +382,5 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const name_file_page_hint = 'Text Input Field';
   static const name_file_page_confirm_title =
       'Do you want to save your changes?';
+  static const name_file_page_name_exist = 'Error: file name already exists';
 }
