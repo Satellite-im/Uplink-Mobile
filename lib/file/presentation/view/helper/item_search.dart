@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/view/widgets/file_index_body/models/file_list_view_builder.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
 
 class ItemSearch extends SearchCustomDelegate<Item?> {
@@ -16,7 +17,7 @@ class ItemSearch extends SearchCustomDelegate<Item?> {
   final Future<List<Item>> loadItemList;
 
   @override
-  String get searchFieldLabel => 'Search Files...';
+  String get searchFieldLabel => UAppStrings.item_search;
 
   @override
   ThemeData appBarTheme(BuildContext context) {
