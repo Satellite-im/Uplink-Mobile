@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:ui_library/widgets/bottom_sheet/bottom_sheet_template.dart';
 import 'package:uplink/contacts/presentation/view/models/contact_list_tile.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
 import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
 
@@ -14,7 +15,7 @@ class ContactSearch extends SearchCustomDelegate<MockContact?> {
   final Future<List<MockContact>> loadContactsList;
 
   @override
-  String get searchFieldLabel => 'Search Contacts...';
+  String get searchFieldLabel => UAppStrings.contact_search;
 
   @override
   ThemeData appBarTheme(BuildContext context) {

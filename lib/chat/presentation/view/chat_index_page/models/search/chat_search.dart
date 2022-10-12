@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/mock/models/mock_contacts_chat.dart';
 import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
 
@@ -12,7 +13,7 @@ class ChatSearch extends SearchCustomDelegate<MockContactsChat?> {
   final Future<List<MockContactsChat>> loadChatsList;
 
   @override
-  String get searchFieldLabel => 'Search Chats...';
+  String get searchFieldLabel => UAppStrings.chat_search;
 
   @override
   ThemeData appBarTheme(BuildContext context) {
