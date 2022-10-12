@@ -76,6 +76,7 @@ class UImageButtonState extends State<UImageButton> {
               alignment: Alignment.bottomRight,
               child: AnimatedCrossFade(
                 firstChild: IconButton(
+                  splashColor: Colors.transparent,
                   icon: const UIcon(
                     UIcons.select_box,
                     color: UColors.textMed,
@@ -85,6 +86,7 @@ class UImageButtonState extends State<UImageButton> {
                   },
                 ),
                 secondChild: IconButton(
+                  splashColor: Colors.transparent,
                   icon: const UIcon(
                     UIcons.checkmark_2,
                     color: UColors.ctaBlue,
