@@ -91,7 +91,7 @@ class _NameFilePageState extends State<NameFilePage> {
                         }
                       }
                       if (_hasSameName == true) {
-                        return 'Error: file name already exists';
+                        return UAppStrings.name_file_page_name_exist;
                       }
                       return null;
                     },
