@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
-import 'package:uplink/contacts/presentation/view/add_friend_page/models/models_export.dart';
 import 'package:uplink/contacts/presentation/view/user_profile_page/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -77,7 +75,7 @@ void buildUserListTileLongPress(BuildContext context, User user) {
                 imagePath: user.profilePicture == null
                     ? ''
                     : user.profilePicture!.path,
-                imageSource: ImageSource.local,
+                imageSource: ImageSource.file,
               ),
               statusMessage: user.statusMessage,
             );

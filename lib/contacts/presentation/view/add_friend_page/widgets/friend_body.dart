@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/add_friend_page/helpers/build_user_list_tile_long_press.dart';
-import 'package:uplink/contacts/presentation/view/add_friend_page/models/models_export.dart';
 import 'package:uplink/contacts/presentation/view/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -60,7 +58,7 @@ class FriendBody extends StatelessWidget {
                       imagePath: user.profilePicture == null
                           ? ''
                           : user.profilePicture!.path,
-                      imageSource: ImageSource.local,
+                      imageSource: ImageSource.file,
                     ),
                     statusMessage: user.statusMessage,
                   );
