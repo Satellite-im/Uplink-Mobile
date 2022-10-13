@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
+import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/file/presentation/view/widgets/file_index_body/models/file_list_view_builder.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/ui_utils/search/show_custom_search.dart';
@@ -15,6 +17,8 @@ class ItemSearch extends SearchCustomDelegate<Item?> {
   );
 
   final Future<List<Item>> loadItemList;
+
+  final _itemListController = GetIt.I.get<ItemListBloc>();
 
   @override
   String get searchFieldLabel => UAppStrings.item_search;
@@ -49,12 +53,26 @@ class ItemSearch extends SearchCustomDelegate<Item?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return _buildSuggestions();
+    // every time when the state of ItemListBLoc changes
+    // the search result(keyboard closed) get rebuild
+    return BlocBuilder<ItemListBloc, ItemListState>(
+      bloc: _itemListController,
+      builder: (context, state) {
+        return _buildSuggestions();
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return _buildSuggestions();
+    // every time when the state of ItemListBLoc changes
+    // the search suggestion(keyboard is on) get rebuild
+    return BlocBuilder<ItemListBloc, ItemListState>(
+      bloc: _itemListController,
+      builder: (context, state) {
+        return _buildSuggestions();
+      },
+    );
   }
 
   FutureBuilder<List<Item>> _buildSuggestions() {
