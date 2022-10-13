@@ -148,7 +148,9 @@ class HamburgerMenuButton extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-            );
+            ).then((value) {
+              GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+            });
             break;
           case 'Block':
             await showDialog<void>(
@@ -168,7 +170,9 @@ class HamburgerMenuButton extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-            );
+            ).then((value) {
+              GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+            });
             break;
           case 'Report':
             // TODO(yijing): add report workflow
