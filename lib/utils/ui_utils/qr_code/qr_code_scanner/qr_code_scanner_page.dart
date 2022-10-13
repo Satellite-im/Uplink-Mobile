@@ -203,7 +203,9 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
         },
         onTap: () {
           _openedNewDialog = true;
-          _friendController.add(SendFriendRequestStarted());
+          _friendController
+            ..add(UnblockUserStarted(user))
+            ..add(SendFriendRequestStarted());
 
           Navigator.of(context).pop();
           _QRCodeScannerFeedbackDialogs.showFriendRequestSentDialog(

@@ -296,8 +296,8 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const qrCodeScannerPage_friendsDialodSecond = ' are already friends!';
   static const qrCodeScannerPage_userIsBlockedDialogFirst = 'Psst ';
   static const qrCodeScannerPage_userIsBlockedDialogSecond =
-      ' is currently block. '
-      'Do you want to accept it?';
+      ' is currently blocked. '
+      'If you send a friend request, it will automatically unblock this user.';
   static const qrCodeScannerPage_incomingFriendRequestDialog =
       ' has already sent you a friend request. '
       'Do you want to accept it?';
