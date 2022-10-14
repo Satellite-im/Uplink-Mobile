@@ -19,7 +19,7 @@ class WarpMultipass {
           _warpBloc.multipass?.createIdentity(username.trim(), passphrase);
       changeMessageStatus(messageStatus);
       changeProfilePicture(base64Image);
-      return _transformDIDtoString(_currentUserDID!);
+      return _removeDIDKEYPart(_currentUserDID!);
     } catch (error) {
       throw Exception(error);
     }
@@ -29,7 +29,7 @@ class WarpMultipass {
     try {
       final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
       final _currentUserMap = {
-        'did': _transformDIDtoString(_currentUserIdentity.did_key),
+        'did': _removeDIDKEYPart(_currentUserIdentity.did_key),
         'username': _currentUserIdentity.username,
         'status_message': _currentUserIdentity.status_message,
         'profile_picture': _currentUserIdentity.graphics.profile_picture,
@@ -45,7 +45,7 @@ class WarpMultipass {
   String getDid() {
     try {
       final _did = _warpBloc.multipass!.getOwnIdentity().did_key;
-      return _transformDIDtoString(_did);
+      return _removeDIDKEYPart(_did);
     } catch (error) {
       throw Exception(error);
     }
@@ -149,12 +149,12 @@ class WarpMultipass {
   Map<String, dynamic>? findUserByDid(String _userDid) {
     try {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
-        _returnCompleteDID(_userDid).toString(),
+        _returnCompleteDIDString(_userDid),
       );
       final _usersRelationship = _getUsersRelationship(_userDid);
 
       final _userMap = {
-        'did': _userIdentity.did_key.toString().replaceAll('did:key:', ''),
+        'did': _userIdentity.did_key.replaceAll('did:key:', ''),
         'username': _userIdentity.username,
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
@@ -181,7 +181,7 @@ class WarpMultipass {
   void sendFriendRequest(String _userDID) {
     try {
       _warpBloc.multipass!.sendFriendRequest(
-        _returnCompleteDID(_userDID),
+        _returnCompleteDIDString(_userDID),
       );
     } on WarpException catch (error) {
       throw Exception([
@@ -201,8 +201,7 @@ class WarpMultipass {
       final _incomingRequests = _warpBloc.multipass!.listIncomingRequest();
 
       for (final friendRequest in _incomingRequests) {
-        final _userMap =
-            findUserByDid(_transformDIDtoString(friendRequest.from));
+        final _userMap = findUserByDid(_removeDIDKEYPart(friendRequest.from));
 
         if (_userMap != null) {
           final _friendRequestMap = {
@@ -233,7 +232,7 @@ class WarpMultipass {
       final _outgoingRequests = _warpBloc.multipass!.listOutgoingRequest();
 
       for (final friendRequest in _outgoingRequests) {
-        final _userMap = findUserByDid(_transformDIDtoString(friendRequest.to));
+        final _userMap = findUserByDid(_removeDIDKEYPart(friendRequest.to));
 
         if (_userMap != null) {
           final _friendRequestMap = {
@@ -263,7 +262,7 @@ class WarpMultipass {
       final _friendsList = <Map<String, dynamic>>[];
       final _friends = _warpBloc.multipass!.listFriends();
       for (final friend in _friends) {
-        final _userMap = findUserByDid(_transformDIDtoString(friend));
+        final _userMap = findUserByDid(_removeDIDKEYPart(friend));
 
         if (_userMap != null) {
           _friendsList.add(
@@ -359,7 +358,8 @@ class WarpMultipass {
 
   void acceptFriendRequest(String userDID) {
     try {
-      _warpBloc.multipass!.acceptFriendRequest(_returnCompleteDID(userDID));
+      _warpBloc.multipass!
+          .acceptFriendRequest(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['accept_friend_request', error]);
     }
@@ -367,7 +367,7 @@ class WarpMultipass {
 
   void denyFriendRequest(String userDID) {
     try {
-      _warpBloc.multipass!.denyFriendRequest(_returnCompleteDID(userDID));
+      _warpBloc.multipass!.denyFriendRequest(_returnCompleteDIDString(userDID));
     } on WarpException catch (error) {
       if (error.error_message == 'Cannot find friend request') {
         return;
@@ -379,14 +379,14 @@ class WarpMultipass {
 
   void cancelFriendRequestSent(String userDID) {
     try {
-      _warpBloc.multipass!.closeFriendRequest(_returnCompleteDID(userDID));
+      _warpBloc.multipass!.closeFriendRequest(userDID);
     } catch (error) {
       throw Exception(['cancel_friend_request_sent', error]);
     }
   }
 }
 
-DID _returnCompleteDID(String _userDID) => DID.fromString('did:key:$_userDID');
+String _returnCompleteDIDString(String _userDID) => 'did:key:$_userDID';
 
-String _transformDIDtoString(DID did) =>
-    did.toString().replaceAll('did:key:', '');
+String _removeDIDKEYPart(String _userDID) =>
+    _userDID.replaceAll('did:key:', '');
