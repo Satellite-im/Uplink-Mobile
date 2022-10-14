@@ -91,7 +91,7 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                     icon: const UIcon(UIcons.video_call),
                   ),
                 ],
-                if (widget.user.relationship == Relationship.none &&
+                if (widget.user.relationship == Relationship.none ||
                     widget.user.relationship == Relationship.sentFriendRequest)
                   const UIcon(
                     UIcons.outgoing_requests,
