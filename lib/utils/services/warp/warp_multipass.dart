@@ -288,7 +288,7 @@ class WarpMultipass {
       final _blockedUsersList = <Map<String, dynamic>>[];
       final _blockedUsersDID = _warpBloc.multipass!.blockList();
       for (final blockedUser in _blockedUsersDID) {
-        final _userMap = findUserByDid(_transformDIDtoString(blockedUser));
+        final _userMap = findUserByDid(_removeDIDKEYPart(blockedUser));
 
         if (_userMap != null) {
           _blockedUsersList.add(
@@ -312,7 +312,7 @@ class WarpMultipass {
   Map<String, bool> _getUsersRelationship(String _userDID) {
     try {
       final _userRelationship = _warpBloc.multipass!.identityRelationship(
-        _returnCompleteDID(_userDID),
+        'did:key:$_userDID',
       );
       return {
         'blocked': _userRelationship.blocked,
@@ -334,7 +334,7 @@ class WarpMultipass {
 
   void blockUser(String userDID) {
     try {
-      _warpBloc.multipass!.block(_returnCompleteDID(userDID));
+      _warpBloc.multipass!.block(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['block_user', error]);
     }
@@ -342,7 +342,7 @@ class WarpMultipass {
 
   void unblockcUser(String userDID) {
     try {
-      _warpBloc.multipass!.unblock(_returnCompleteDID(userDID));
+      _warpBloc.multipass!.unblock(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['unblock_user', error]);
     }
@@ -350,7 +350,7 @@ class WarpMultipass {
 
   void removeFriend(String userDID) {
     try {
-      _warpBloc.multipass!.removeFriend(_returnCompleteDID(userDID));
+      _warpBloc.multipass!.removeFriend(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['remove_friend', error]);
     }
