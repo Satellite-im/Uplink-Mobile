@@ -23,9 +23,7 @@ class UserAbout extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: UText(
-            (user.relationship == Relationship.block) || (user.about == null)
-                ? '-'
-                : user.about!,
+            user.about == null ? '-' : user.about!,
             textStyle: UTextStyle.B1_body,
             textColor: UColors.white,
           ),

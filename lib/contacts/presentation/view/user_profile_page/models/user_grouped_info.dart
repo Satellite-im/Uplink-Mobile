@@ -29,8 +29,7 @@ class UserGroupedInfo extends StatelessWidget {
                 const SizedBox.square(
                   dimension: 8,
                 ),
-                if (user.relationship == Relationship.block ||
-                    user.badgesNum == null)
+                if (user.badgesNum == null)
                   const UText(
                     '-',
                     textStyle: UTextStyle.H5_fifthHeader,
@@ -79,10 +78,7 @@ class UserGroupedInfo extends StatelessWidget {
                   dimension: 8,
                 ),
                 UText(
-                  user.relationship == Relationship.block ||
-                          user.location == null
-                      ? '-'
-                      : user.location!,
+                  user.location == null ? '-' : user.location!,
                   textStyle: UTextStyle.H5_fifthHeader,
                   textColor: UColors.white,
                 ),
@@ -118,8 +114,7 @@ class UserGroupedInfo extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: UText(
-                        user.relationship == Relationship.block ||
-                                user.friendNum == null
+                        user.friendNum == null
                             ? '-'
                             : user.friendNum!.toString(),
                         textStyle: UTextStyle.H5_fifthHeader,
