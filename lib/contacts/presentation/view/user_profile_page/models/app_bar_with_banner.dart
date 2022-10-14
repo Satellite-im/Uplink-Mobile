@@ -76,23 +76,21 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                 const Expanded(
                   child: SizedBox.shrink(),
                 ),
-                if (widget.user.relationship == Relationship.block &&
-                    widget.user.relationship != Relationship.block)
-                  const UIcon(
-                    UIcons.blocked_contacts,
-                    color: UColors.textDark,
-                  ),
-                if (widget.user.relationship == Relationship.friend &&
-                    widget.user.relationship != Relationship.block) ...[
-                  IconButton(
-                    onPressed: () {},
-                    icon: const UIcon(UIcons.voice_call),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const UIcon(UIcons.video_call),
-                  ),
-                ],
+
+                const UIcon(
+                  UIcons.blocked_contacts,
+                  color: UColors.textDark,
+                ),
+
+                IconButton(
+                  onPressed: () {},
+                  icon: const UIcon(UIcons.voice_call),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const UIcon(UIcons.video_call),
+                ),
+
                 if (widget.user.relationship == Relationship.none &&
                     widget.user.relationship == Relationship.sentFriendRequest)
                   const UIcon(
