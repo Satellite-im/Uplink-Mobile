@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/domain/friend_request.dart';
+import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 part 'friend_event.dart';
@@ -12,15 +14,22 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   FriendBloc(this._friendRepository) : super(FriendInitial()) {
     on<ResetFriendDataStarted>((event, emit) {
       friendsList.clear();
+      user = null;
       incomingFriendRequestsList.clear();
       outgoingFriendRequestsList.clear();
-      user = null;
       emit(FriendInitial());
     });
 
     on<SearchUserStarted>((event, emit) async {
       try {
         emit(FriendLoadInProgress());
+        if (event.userDid == _currentUserController.currentUser!.did) {
+          emit(
+            FriendLoadFailure(FriendLoadFailureTypes.yourselfSentFriendRequest),
+          );
+          return;
+        }
+
         user = null;
         user = await _friendRepository.findUserByDid(event.userDid);
         // TODO(Status): Change it when we have status from Warp
@@ -36,9 +45,12 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       }
     });
 
-    on<SendFriendRequestStarted>((event, emit) async {
+    on<SendFriendRequestStarted>((event, emit) {
       try {
         emit(FriendLoadInProgress());
+        if (user?.relationship == Relationship.block) {
+          add(UnblockUserStarted(user!));
+        }
         _friendRepository.sendFriendRequest(user!.did!);
         emit(FriendLoadSuccess(user));
       } catch (error) {
@@ -68,6 +80,17 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadInProgress());
         outgoingFriendRequestsList =
             await _friendRepository.listOutgoingFriendRequests();
+        emit(FriendLoadSuccess());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
+    on<ListBlockedUsersStarted>((event, emit) async {
+      try {
+        emit(FriendLoadInProgress());
+        blockedUsersList = await _friendRepository.listBlockedUsers();
         emit(FriendLoadSuccess());
       } catch (error) {
         addError(error);
@@ -105,7 +128,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadInProgress());
         _friendRepository.cancelFriendRequestSent(event.user.did!);
         add(ListOutgoingFriendRequestsStarted());
-        emit(FriendLoadSuccess());
+        emit(FriendLoadSuccess(user));
       } catch (error) {
         addError(error);
         emit(FriendLoadFailure());
@@ -122,6 +145,42 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendLoadFailure());
       }
     });
+
+    on<BlockUserStarted>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        if (event.user.relationship == Relationship.friend) {
+          add(RemoveFriend(event.user));
+        }
+        _friendRepository.blockUser(event.user.did!);
+        add(ListBlockedUsersStarted());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
+    on<UnblockUserStarted>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.unblockUser(event.user.did!);
+        add(ListBlockedUsersStarted());
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
+
+    on<RemoveFriend>((event, emit) {
+      try {
+        emit(FriendLoadInProgress());
+        _friendRepository.removeFriend(event.user.did!);
+        emit(FriendLoadSuccess(user));
+      } catch (error) {
+        addError(error);
+        emit(FriendLoadFailure());
+      }
+    });
   }
 
   User? user;
@@ -131,6 +190,10 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   List<FriendRequest> outgoingFriendRequestsList = [];
 
   List<User> friendsList = [];
+
+  List<User> blockedUsersList = [];
+
+  final _currentUserController = GetIt.I.get<CurrentUserBloc>();
 
   final IFriendRepository _friendRepository;
 }

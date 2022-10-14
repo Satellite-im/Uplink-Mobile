@@ -59,6 +59,52 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
             label: UAppStrings.addFriend,
             uIconData: UIcons.add_contact,
             onPressed: () async {
+              if (widget.user.relationship ==
+                  Relationship.receivedFriendRequest) {
+                await showDialog<void>(
+                  context: context,
+                  builder: (context) => UDialogUserProfile(
+                    bodyText: '',
+                    uImage: UImage(
+                      imagePath: widget.user.profilePicture?.path,
+                      imageSource: ImageSource.file,
+                    ),
+                    username: widget.user.username,
+                    statusMessage: widget.user.statusMessage,
+                    popButtonText: UAppStrings.goBackButton,
+                    buttonText: UAppStrings.addFriend,
+                    useBodyRichText: true,
+                    onTap: () {
+                      _friendController.add(
+                        FriendRequestAcceptanceStarted(widget.user),
+                      );
+                      Navigator.of(context).pop();
+                    },
+                    bodyRichText: RichText(
+                      text: TextSpan(
+                        style: UTextStyle.B1_body.style.returnTextStyleType(),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: widget.user.username,
+                            style: UTextStyle.H4_fourthHeader.style
+                                .returnTextStyleType(),
+                          ),
+                          const TextSpan(
+                            text: UAppStrings
+                                .withFriendRequestBody_receivedFriendRequest,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ).then((value) {
+                  _friendController.add(
+                    SearchUserStarted(userDid: widget.user.did!),
+                  );
+                });
+                return;
+              }
+
               _friendController.add(SendFriendRequestStarted());
               await showDialog<void>(
                 context: context,
@@ -85,11 +131,16 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
                         buttonText: UAppStrings.okay,
                       );
                     }
-                    Navigator.of(context).pop();
                     return const SizedBox.shrink();
                   },
                 ),
-              );
+              ).then((value) {
+                _friendController.add(
+                  SearchUserStarted(
+                    userDid: widget.user.did!,
+                  ),
+                );
+              });
             },
           ),
         ),

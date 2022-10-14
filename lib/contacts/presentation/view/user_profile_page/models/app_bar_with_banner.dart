@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
@@ -74,14 +76,12 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                 const Expanded(
                   child: SizedBox.shrink(),
                 ),
-                if (widget.user.relationship == Relationship.block &&
-                    widget.user.isBlocked == false)
+                if (widget.user.relationship == Relationship.block)
                   const UIcon(
                     UIcons.blocked_contacts,
                     color: UColors.textDark,
                   ),
-                if (widget.user.relationship == Relationship.friend &&
-                    widget.user.isBlocked == false) ...[
+                if (widget.user.relationship == Relationship.friend) ...[
                   IconButton(
                     onPressed: () {},
                     icon: const UIcon(UIcons.voice_call),
@@ -91,9 +91,8 @@ class _AppBarWithBannerState extends State<AppBarWithBanner> {
                     icon: const UIcon(UIcons.video_call),
                   ),
                 ],
-                if (widget.user.relationship == Relationship.none &&
-                    widget.user.friendRequestSent == true &&
-                    widget.user.isBlocked == false)
+                if (widget.user.relationship == Relationship.none ||
+                    widget.user.relationship == Relationship.sentFriendRequest)
                   const UIcon(
                     UIcons.outgoing_requests,
                     color: UColors.textDark,
@@ -143,10 +142,13 @@ class HamburgerMenuButton extends StatelessWidget {
                   imageSource: ImageSource.file,
                 ),
                 onTap: () {
-                  // TODO(yijing): add unblock workflow
+                  GetIt.I.get<FriendBloc>().add(UnblockUserStarted(user));
+                  Navigator.of(context).pop();
                 },
               ),
-            );
+            ).then((value) {
+              GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+            });
             break;
           case 'Block':
             await showDialog<void>(
@@ -162,10 +164,13 @@ class HamburgerMenuButton extends StatelessWidget {
                   imageSource: ImageSource.file,
                 ),
                 onTap: () {
-                  // TODO(yijing): add block workflow
+                  GetIt.I.get<FriendBloc>().add(BlockUserStarted(user));
+                  Navigator.of(context).pop();
                 },
               ),
-            );
+            ).then((value) {
+              GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+            });
             break;
           case 'Report':
             // TODO(yijing): add report workflow

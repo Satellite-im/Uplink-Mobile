@@ -23,9 +23,7 @@ class UserAbout extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: UText(
-            (user.isBlocked == true) || (user.about == null)
-                ? '-'
-                : user.about!,
+            user.about == null ? '-' : user.about!,
             textStyle: UTextStyle.B1_body,
             textColor: UColors.white,
           ),

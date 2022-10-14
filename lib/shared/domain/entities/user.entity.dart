@@ -8,6 +8,29 @@ enum Relationship {
   none,
   friend,
   block,
+  sentFriendRequest,
+  receivedFriendRequest,
+}
+
+extension _RelationShipX on Relationship {
+  static Relationship fromMap(Map<String, bool> relationshipMap) {
+    final _relationshipKey = relationshipMap.keys.firstWhere(
+      (key) => relationshipMap[key] == true,
+      orElse: () => 'none',
+    );
+    switch (_relationshipKey) {
+      case 'blocked':
+        return Relationship.block;
+      case 'friends':
+        return Relationship.friend;
+      case 'receivedFriendRequest':
+        return Relationship.receivedFriendRequest;
+      case 'sentFriendRequest':
+        return Relationship.sentFriendRequest;
+      default:
+        return Relationship.none;
+    }
+  }
 }
 
 @immutable
@@ -22,8 +45,6 @@ class User {
     this.bannerPicture,
     this.badgesNum,
     this.location,
-    this.friendRequestSent = false,
-    this.isBlocked = false,
     this.friendNum,
     this.about,
   });
@@ -40,6 +61,10 @@ class User {
         _userMap['banner_picture'] as String,
         'banner_picture',
       );
+      final _relationship = _RelationShipX.fromMap(
+        _userMap['relationship'] as Map<String, bool>,
+      );
+
       return User(
         did: _userMap['did'] as String,
         username: _userMap['username'] as String,
@@ -48,7 +73,7 @@ class User {
             : null,
         profilePicture: _profilePictureFile,
         bannerPicture: _bannerPictureFile,
-        relationship: Relationship.none,
+        relationship: _relationship,
       );
     } on Exception catch (error) {
       throw Exception(['User_from_map', error]);
@@ -64,8 +89,6 @@ class User {
   final File? bannerPicture;
   final int? badgesNum;
   final String? location;
-  final bool friendRequestSent;
-  final bool isBlocked;
   final int? friendNum;
   final String? about;
 
@@ -77,12 +100,10 @@ class User {
     Status? status,
     File? profilePicture,
     File? bannerPicture,
-    bool? friendRequestSent,
     int? badgesNum,
     String? location,
     int? friendNum,
     String? about,
-    bool? isBlocked,
   }) =>
       User(
         did: did ?? this.did,
@@ -95,8 +116,6 @@ class User {
         location: location ?? this.location,
         relationship: relationship ?? this.relationship,
         friendNum: friendNum ?? this.friendNum,
-        isBlocked: isBlocked ?? this.isBlocked,
-        friendRequestSent: friendRequestSent ?? this.friendRequestSent,
         about: about ?? this.about,
       );
 

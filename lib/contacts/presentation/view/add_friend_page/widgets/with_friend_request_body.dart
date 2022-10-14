@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/add_friend_page/helpers/build_user_list_tile_long_press.dart';
-import 'package:uplink/contacts/presentation/view/add_friend_page/models/user_notifier.dart';
 import 'package:uplink/contacts/presentation/view/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -14,6 +14,7 @@ class WithFriendRequestBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _isDialogOpened = false;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -43,32 +44,48 @@ class WithFriendRequestBody extends StatelessWidget {
                 context,
                 firstButtonOnPressed: () =>
                     Navigator.of(context, rootNavigator: true).pop(),
-                secondButtonOnPressed: () async {
+                secondButtonOnPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
-                  // TODO(yijing): update undo friend request
-                  context.read<UserNotifier>().undoFriendRequest();
-                  await showDialog<void>(
-                    context: context,
-                    builder: (context) => UDialogSingleButtonCustomBody(
-                      title: UAppStrings.withFriendRequestBody_requestRemoved,
-                      body: RichText(
-                        text: TextSpan(
-                          text: UAppStrings.withFriendRequestBody_yourRequest,
-                          style: UTextStyle.B1_body.style.returnTextStyleType(),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: user.username,
-                              style: UTextStyle.H4_fourthHeader.style
-                                  .returnTextStyleType(),
+                  final _friendController = GetIt.I.get<FriendBloc>()
+                    ..add(CancelFriendRequestSent(user));
+                  _friendController.stream.listen(
+                    (state) async {
+                      if (state is FriendLoadInProgress &&
+                          _isDialogOpened == false) {
+                        _isDialogOpened = true;
+                        await showDialog<void>(
+                          context: context,
+                          builder: (context) => UDialogSingleButtonCustomBody(
+                            title: UAppStrings
+                                .withFriendRequestBody_requestRemoved,
+                            body: RichText(
+                              text: TextSpan(
+                                text: UAppStrings
+                                    .withFriendRequestBody_yourRequest,
+                                style: UTextStyle.B1_body.style
+                                    .returnTextStyleType(),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: user.username,
+                                    style: UTextStyle.H4_fourthHeader.style
+                                        .returnTextStyleType(),
+                                  ),
+                                  const TextSpan(
+                                    text: UAppStrings
+                                        .withFriendRequestBody_removed,
+                                  ),
+                                ],
+                              ),
                             ),
-                            const TextSpan(
-                              text: UAppStrings.withFriendRequestBody_removed,
-                            ),
-                          ],
-                        ),
-                      ),
-                      buttonText: UAppStrings.okay,
-                    ),
+                            buttonText: UAppStrings.okay,
+                          ),
+                        ).then((value) {
+                          _friendController.add(
+                            SearchUserStarted(userDid: user.did!),
+                          );
+                        });
+                      }
+                    },
                   );
                 },
                 header: UAppStrings.withFriendRequestBody_unsend,

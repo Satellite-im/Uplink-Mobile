@@ -162,27 +162,25 @@ class UserProfilePageState extends State<UserProfilePage>
                         // TODO(yijing): add note function
                         child: const UserNote(),
                       ),
-                      if (linkedAccountsList.isNotEmpty &&
-                          user.isBlocked == false)
+                      if (linkedAccountsList.isNotEmpty)
                         const UDivider(height: 1),
                     ],
                   ),
                 ),
               ),
-              if (user.isBlocked == false)
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return UserLinkedAccount(
-                        networkUsername:
-                            linkedAccountsList[index]['username'] as String,
-                        networkProfile: linkedAccountsList[index]['network']
-                            as NetworkProfiles,
-                      );
-                    },
-                    childCount: linkedAccountsList.length,
-                  ),
-                )
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return UserLinkedAccount(
+                      networkUsername:
+                          linkedAccountsList[index]['username'] as String,
+                      networkProfile: linkedAccountsList[index]['network']
+                          as NetworkProfiles,
+                    );
+                  },
+                  childCount: linkedAccountsList.length,
+                ),
+              )
             ],
           ),
         ),

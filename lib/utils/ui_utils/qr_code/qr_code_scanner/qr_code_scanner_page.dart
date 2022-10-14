@@ -149,16 +149,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
   }
 
   void _verifyRelationshipBetweenUsers(User user) {
-    final _areUsersFriends =
-        _friendController.friendsList.any((element) => element.did == user.did);
-    final _isThereIncomingFriendRequest = _friendController
-        .incomingFriendRequestsList
-        .any((element) => element.user.did == user.did);
-    final _isThereOutgoingFriendRequest = _friendController
-        .outgoingFriendRequestsList
-        .any((element) => element.user.did == user.did);
-
-    if (_areUsersFriends) {
+    if (user.relationship == Relationship.friend) {
       _QRCodeScannerFeedbackDialogs.showUsersAreAlreadyFriendsDialog(
         context,
         user,
@@ -171,7 +162,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           Navigator.of(context).pop();
         },
       );
-    } else if (_isThereIncomingFriendRequest) {
+    } else if (user.relationship == Relationship.receivedFriendRequest) {
       _QRCodeScannerFeedbackDialogs.showOtherUserAlreadySentFriendRequestDialog(
         context,
         user,
@@ -185,7 +176,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           Navigator.of(context).pop();
         },
       );
-    } else if (_isThereOutgoingFriendRequest) {
+    } else if (user.relationship == Relationship.sentFriendRequest) {
       _QRCodeScannerFeedbackDialogs.showCurrentUserSentFriendRequestDialog(
         context,
         user,
@@ -196,6 +187,38 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
         },
         onTap: () {
           Navigator.of(context).pop();
+        },
+      );
+    } else if (user.relationship == Relationship.block) {
+      var _openedNewDialog = false;
+      _QRCodeScannerFeedbackDialogs.showUserIsBlocked(
+        context,
+        user,
+        onCloseDialog: () {
+          if (!_openedNewDialog) {
+            Timer(_timerDuration, () {
+              _timerFunction.call();
+            });
+          }
+        },
+        onTap: () {
+          _openedNewDialog = true;
+          _friendController
+            ..add(UnblockUserStarted(user))
+            ..add(SendFriendRequestStarted());
+
+          Navigator.of(context).pop();
+          _QRCodeScannerFeedbackDialogs.showFriendRequestSentDialog(
+            context,
+            user,
+            onCloseDialog: () {
+              _friendController.add(ListOutgoingFriendRequestsStarted());
+              Timer(_timerDuration, () {
+                _timerFunction.call();
+              });
+            },
+            onTap: () => Navigator.of(context).pop(),
+          );
         },
       );
     } else {

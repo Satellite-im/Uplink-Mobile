@@ -22,7 +22,6 @@ class AddFriendPage extends StatefulWidget {
 class _AddFriendPageState extends State<AddFriendPage> {
   late GlobalKey<FormFieldState<String>> _formfieldKey;
   bool _disableSearchButton = false;
-  //In search mode, no user is found
   late TextEditingController _textController;
   String oldIdToSearch = '';
   final _friendController = GetIt.I.get<FriendBloc>();
@@ -43,7 +42,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
           _disableSearchButton = true;
         }
         if (_textController.text != oldIdToSearch) {
-          _friendController.user = null;
+          _friendController.add(ResetFriendDataStarted());
         }
       });
     });
@@ -53,7 +52,12 @@ class _AddFriendPageState extends State<AddFriendPage> {
   void dispose() {
     _textController.dispose();
 
-    _friendController.user = null;
+    _friendController
+      ..add(
+        ResetFriendDataStarted(),
+      )
+      ..add(ListFriendsStarted());
+
     super.dispose();
   }
 
@@ -114,7 +118,6 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                 hintText: UAppStrings.addFriendPage_hint,
                               ),
                               // TODO(Test): Back it to "TextInputType.none"
-
                               keyboardType: TextInputType.name,
                               style:
                                   UTextStyle.M1_micro.style.returnTextStyleType(
@@ -140,6 +143,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                     bloc: _friendController,
                     builder: (context, state) {
                       if (state is FriendLoadFailure &&
+                          state.frienLoadFailureTypes != null &&
                           oldIdToSearch == _textController.text &&
                           _textController.text.length == 48) {
                         return Column(
@@ -175,6 +179,11 @@ class _AddFriendPageState extends State<AddFriendPage> {
                               uIconData: UIcons.search,
                               onPressed: () {
                                 oldIdToSearch = _textController.text;
+                                // TODO(Test): Code for keyboard not bother the tests, remove it on production
+                                final currentFocus = FocusScope.of(context);
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
                                 _friendController.add(
                                   SearchUserStarted(
                                     userDid: _textController.text,

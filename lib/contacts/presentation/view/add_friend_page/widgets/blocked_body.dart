@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/contacts/presentation/view/add_friend_page/models/models_export.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
@@ -54,34 +54,31 @@ class BlockedBody extends StatelessWidget {
             uIconData: UIcons.unblock,
             color: UColors.ctaBlue,
             onPressed: () {
-              final userNotifier = context.read<UserNotifier>();
-              //Dialog widget cut the route of context, we need to
-              //get the existing UserNotifier and expose it to the dialog widget
+              final _friendController = GetIt.I.get<FriendBloc>();
               showDialog<void>(
                 context: context,
                 builder: (context) {
-                  return ChangeNotifierProvider.value(
-                    value: userNotifier,
-                    child: UDialogUserProfile(
-                      bodyText: UAppStrings.unblockDialogQ,
-                      buttonText: UAppStrings.unblock,
-                      popButtonText: UAppStrings.goBackButton,
-                      onTap: () {
-                        userNotifier.unblockFriend();
-                        Navigator.of(context).pop();
-                      },
-                      username: user.username,
-                      uImage: UImage(
-                        imageSource: ImageSource.local,
-                        imagePath: user.profilePicture == null
-                            ? ''
-                            : user.profilePicture!.path,
-                      ),
-                      statusMessage: user.statusMessage,
+                  return UDialogUserProfile(
+                    bodyText: UAppStrings.unblockDialogQ,
+                    buttonText: UAppStrings.unblock,
+                    popButtonText: UAppStrings.goBackButton,
+                    onTap: () {
+                      _friendController.add(UnblockUserStarted(user));
+                      Navigator.of(context).pop();
+                    },
+                    username: user.username,
+                    uImage: UImage(
+                      imageSource: ImageSource.local,
+                      imagePath: user.profilePicture == null
+                          ? ''
+                          : user.profilePicture!.path,
                     ),
+                    statusMessage: user.statusMessage,
                   );
                 },
-              );
+              ).then((value) {
+                _friendController.add(SearchUserStarted(userDid: user.did!));
+              });
             },
           ),
         )

@@ -24,6 +24,7 @@ class MainBottomNavigationBar extends StatefulWidget {
 
 class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   int _currentIndex = 0;
+
   final _screens = const [
     ChatIndexPage(),
     FileIndexPage(),

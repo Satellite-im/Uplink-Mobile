@@ -15,9 +15,7 @@ class CTAButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (user.isBlocked == true) {
-      return _TwoButtonsRow(disabled: true, user: user);
-    } else if (user.relationship == Relationship.friend) {
+    if (user.relationship == Relationship.friend) {
       return UButton.primary(
         label: UAppStrings.message,
         uIconData: UIcons.message,

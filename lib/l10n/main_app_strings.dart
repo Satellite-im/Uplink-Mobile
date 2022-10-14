@@ -206,6 +206,8 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const withFriendRequestBody_removed = ' was removed.';
   static const withFriendRequestBody_unsend =
       'Are you sure you want to unsend this friend request?';
+  static const withFriendRequestBody_receivedFriendRequest =
+      ' has already sent you a friend request. Do you want to accept it?';
 
   ///WithoutFriendRequestBody
   static const withoutFriendRequestBody_sent = 'Friend Request Sent';
@@ -292,6 +294,10 @@ Would you like to give Satellite.im access to your camera roll?''';
   /// QRCodeScannerPage
   static const qrCodeScannerPage_friendsDialodFirst = 'You and ';
   static const qrCodeScannerPage_friendsDialodSecond = ' are already friends!';
+  static const qrCodeScannerPage_userIsBlockedDialogFirst = 'Psst ';
+  static const qrCodeScannerPage_userIsBlockedDialogSecond =
+      ' is currently blocked. '
+      'If you send a friend request, it will automatically unblock this user.';
   static const qrCodeScannerPage_incomingFriendRequestDialog =
       ' has already sent you a friend request. '
       'Do you want to accept it?';

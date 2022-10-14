@@ -12,9 +12,17 @@ abstract class IFriendRepository {
 
   Future<List<User>> listFriends();
 
+  Future<List<User>> listBlockedUsers();
+
   void acceptFriendRequest(String userDID);
 
   void denyFriendRequest(String userDID);
 
   void cancelFriendRequestSent(String userDID);
+
+  void blockUser(String userDID);
+
+  void unblockUser(String userDID);
+
+  void removeFriend(String userDID);
 }

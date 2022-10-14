@@ -151,6 +151,7 @@ class WarpMultipass {
       final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
         _returnCompleteDIDString(_userDid),
       );
+      final _usersRelationship = _getUsersRelationship(_userDid);
 
       final _userMap = {
         'did': _userIdentity.did_key.replaceAll('did:key:', ''),
@@ -158,6 +159,7 @@ class WarpMultipass {
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
         'banner_picture': _userIdentity.graphics.profile_banner,
+        'relationship': _usersRelationship,
       };
       return _userMap;
     } on WarpException catch (error) {
@@ -281,6 +283,79 @@ class WarpMultipass {
     }
   }
 
+  List<Map<String, dynamic>> listBlockedUsers() {
+    try {
+      final _blockedUsersList = <Map<String, dynamic>>[];
+      final _blockedUsersDID = _warpBloc.multipass!.blockList();
+      for (final blockedUser in _blockedUsersDID) {
+        final _userMap = findUserByDid(_removeDIDKEYPart(blockedUser));
+
+        if (_userMap != null) {
+          _blockedUsersList.add(
+            _userMap,
+          );
+        }
+      }
+      return _blockedUsersList;
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'list_blocked_users',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['list_blocked_users', error]);
+    }
+  }
+
+  Map<String, bool> _getUsersRelationship(String _userDID) {
+    try {
+      final _userRelationship = _warpBloc.multipass!.identityRelationship(
+        'did:key:$_userDID',
+      );
+      return {
+        'blocked': _userRelationship.blocked,
+        'friends': _userRelationship.friends,
+        'receivedFriendRequest': _userRelationship.receivedFriendRequest,
+        'sentFriendRequest': _userRelationship.sentFriendRequest,
+      };
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'get_users_relationship',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      throw Exception(['get_users_relationship', error]);
+    }
+  }
+
+  void blockUser(String userDID) {
+    try {
+      _warpBloc.multipass!.block(_returnCompleteDIDString(userDID));
+    } catch (error) {
+      throw Exception(['block_user', error]);
+    }
+  }
+
+  void unblockcUser(String userDID) {
+    try {
+      _warpBloc.multipass!.unblock(_returnCompleteDIDString(userDID));
+    } catch (error) {
+      throw Exception(['unblock_user', error]);
+    }
+  }
+
+  void removeFriend(String userDID) {
+    try {
+      _warpBloc.multipass!.removeFriend(_returnCompleteDIDString(userDID));
+    } catch (error) {
+      throw Exception(['remove_friend', error]);
+    }
+  }
+
   void acceptFriendRequest(String userDID) {
     try {
       _warpBloc.multipass!
@@ -304,7 +379,8 @@ class WarpMultipass {
 
   void cancelFriendRequestSent(String userDID) {
     try {
-      _warpBloc.multipass!.closeFriendRequest(userDID);
+      _warpBloc.multipass!
+          .closeFriendRequest(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['cancel_friend_request_sent', error]);
     }

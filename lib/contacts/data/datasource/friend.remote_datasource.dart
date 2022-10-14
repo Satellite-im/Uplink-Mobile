@@ -80,6 +80,38 @@ class FriendData {
     }
   }
 
+  Future<List<User>> listBlockedUsers() async {
+    try {
+      final _blockedUsersList = <User>[];
+      final _blockedUsersMapList = _warp.listBlockedUsers();
+
+      for (final blockedUserMap in _blockedUsersMapList) {
+        final _blockedUser = await User.fromMap(blockedUserMap);
+        _blockedUsersList.add(
+          _blockedUser.copywith(
+            relationship: Relationship.block,
+          ),
+        );
+      }
+
+      return _blockedUsersList;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  void blockUser(String userDID) {
+    _warp.blockUser(userDID);
+  }
+
+  void unblockUser(String userDID) {
+    _warp.unblockcUser(userDID);
+  }
+
+  void removeFriend(String userDID) {
+    _warp.removeFriend(userDID);
+  }
+
   void acceptFriendRequest(String userDID) {
     _warp.acceptFriendRequest(userDID);
   }
