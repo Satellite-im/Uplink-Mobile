@@ -143,6 +143,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                     bloc: _friendController,
                     builder: (context, state) {
                       if (state is FriendLoadFailure &&
+                          state.frienLoadFailureTypes != null &&
                           oldIdToSearch == _textController.text &&
                           _textController.text.length == 48) {
                         return Column(

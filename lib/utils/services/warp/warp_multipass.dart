@@ -379,7 +379,8 @@ class WarpMultipass {
 
   void cancelFriendRequestSent(String userDID) {
     try {
-      _warpBloc.multipass!.closeFriendRequest(userDID);
+      _warpBloc.multipass!
+          .closeFriendRequest(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['cancel_friend_request_sent', error]);
     }
