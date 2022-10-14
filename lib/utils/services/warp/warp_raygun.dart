@@ -11,8 +11,8 @@ class WarpRaygun {
     try {
       final _currentUserConversations = _warp.raygun!.listConversation();
       for (final conversation in _currentUserConversations) {
-        if (conversation.recipients[0].toString().contains(userDID) ||
-            conversation.recipients[1].toString().contains(userDID)) {
+        if (conversation.recipients[0].contains(userDID) ||
+            conversation.recipients[1].contains(userDID)) {
           return conversation.id;
         }
       }
@@ -37,8 +37,8 @@ class WarpRaygun {
           for (final reaction in message.reactions) {
             final _reactionMap = {
               'emoji': reaction.emoji,
-              'senders_did': reaction.sender
-                  .map((e) => e.toString().replaceAll('did:key:', '')),
+              'senders_did':
+                  reaction.sender.map((e) => e.replaceAll('did:key:', '')),
             };
             _reactions.add(_reactionMap);
           }
@@ -52,7 +52,7 @@ class WarpRaygun {
           'conversation_id': message.conversationId,
           'metadata': message.metadata,
           'replied': message.replied,
-          'sender': message.sender.toString().replaceAll('did:key:', ''),
+          'sender': message.sender.replaceAll('did:key:', ''),
           'value': message.value.first,
         };
 
@@ -88,14 +88,14 @@ class WarpRaygun {
       final _raygunMessages = _warp.raygun!.getMessages(conversationID);
 
       final _lastRaygunMessage = _raygunMessages.last;
-      if (_lastRaygunMessage.sender.toString().contains(userDID)) {
+      if (_lastRaygunMessage.sender.contains(userDID)) {
         final _reactions = <Map<String, dynamic>>[];
         if (_lastRaygunMessage.reactions.isNotEmpty) {
           for (final reaction in _lastRaygunMessage.reactions) {
             final _reactionMap = {
               'emoji': reaction.emoji,
-              'senders_did': reaction.sender
-                  .map((e) => e.toString().replaceAll('did:key:', '')),
+              'senders_did':
+                  reaction.sender.map((e) => e.replaceAll('did:key:', '')),
             };
             _reactions.add(_reactionMap);
           }
@@ -108,8 +108,7 @@ class WarpRaygun {
           'metadata': _lastRaygunMessage.metadata,
           'conversation_id': _lastRaygunMessage.conversationId,
           'replied': _lastRaygunMessage.replied,
-          'sender':
-              _lastRaygunMessage.sender.toString().replaceAll('did:key:', ''),
+          'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
           'value': _lastRaygunMessage.value.first,
         };
         return _message;
