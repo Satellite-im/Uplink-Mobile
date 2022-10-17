@@ -22,10 +22,10 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
       ),
     ),
     builder: (context) {
-      var showFileOptionsBottomSheet = true;
+      var hideFileOptionsBottomSheet = false;
       return StatefulBuilder(
         builder: (context, setState) => Opacity(
-          opacity: showFileOptionsBottomSheet ? 1 : 0,
+          opacity: hideFileOptionsBottomSheet ? 0 : 1,
           child: Wrap(
             children: [
               const UHomeIndicator(),
@@ -114,7 +114,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                         onTap: () {
                           setState(
                             () {
-                              showFileOptionsBottomSheet = false;
+                              hideFileOptionsBottomSheet = true;
                             },
                           );
                           UBottomSheetTwoButtons(
@@ -123,11 +123,6 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                             firstButtonText: UAppStrings.cancelButton,
                             firstButtonOnPressed: () {
                               Navigator.of(context).pop();
-                              setState(
-                                () {
-                                  showFileOptionsBottomSheet = true;
-                                },
-                              );
                             },
                             secondButtonText: UAppStrings.remove,
                             secondButtonColor: UColors.termRed,
@@ -137,7 +132,12 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                                 ..pop()
                                 ..pop();
                             },
-                          ).show();
+                          ).show().whenComplete(
+                                // when confirm remove bottom sheet is closed
+                                () => setState(
+                                  () => hideFileOptionsBottomSheet = false,
+                                ),
+                              );
                         },
                       ),
                     ],
