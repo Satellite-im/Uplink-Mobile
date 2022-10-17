@@ -63,8 +63,10 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                         return UText(
                           state.itemList.isEmpty
                               ? UAppStrings.file_index_page_no_items
-                              : _listLength.toString() +
-                                  UAppStrings.file_index_page_items,
+                              : _listLength == 1
+                                  ? UAppStrings.file_index_page_single_item
+                                  : _listLength.toString() +
+                                      UAppStrings.file_index_page_items,
                           textStyle: UTextStyle.H5_fifthHeader,
                         );
                       } else if (state is ItemListLoadFailure) {
