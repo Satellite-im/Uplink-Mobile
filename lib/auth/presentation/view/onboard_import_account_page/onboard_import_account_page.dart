@@ -7,6 +7,7 @@ import 'package:uplink/utils/utils_export.dart';
 
 class OnboardImportAccountPage extends StatefulWidget {
   const OnboardImportAccountPage({Key? key}) : super(key: key);
+  static const routeName = '/OnboardImportAccountPage';
 
   @override
   State<OnboardImportAccountPage> createState() =>
@@ -99,11 +100,8 @@ class _OnboardImportAccountPageState extends State<OnboardImportAccountPage> {
                               value: true,
                             )
                             .then(
-                              (_) => Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (context) =>
-                                      const MainBottomNavigationBar(),
-                                ),
+                              (_) => Navigator.of(context).pushNamed(
+                                MainBottomNavigationBar.routeName,
                               ),
                             );
                       } else {

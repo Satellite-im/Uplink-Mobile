@@ -11,6 +11,8 @@ part 'models/screenshot_recovery_seed_boxes_part.dart';
 class OnboardRecoverySeedPage extends StatefulWidget {
   const OnboardRecoverySeedPage({Key? key}) : super(key: key);
 
+  static const routeName = '/OnboardRecoverySeedPage';
+
   @override
   State<OnboardRecoverySeedPage> createState() =>
       _OnboardRecoverySeedPageState();
@@ -52,11 +54,8 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                         secondButtonOnPressed: () {
                           Navigator.of(context)
                             ..pop()
-                            ..push(
-                              MaterialPageRoute<void>(
-                                builder: (context) =>
-                                    const OnboardPrivacySettingFirstPage(),
-                              ),
+                            ..pushNamed(
+                              OnboardPrivacySettingFirstPage.routeName,
                             );
                         },
                         header: UAppStrings
@@ -67,7 +66,7 @@ class _OnboardRecoverySeedPageState extends State<OnboardRecoverySeedPage> {
                     } else {
                       Navigator.pushNamed(
                         context,
-                        '/OnboardPrivacySettingFirst',
+                        OnboardPrivacySettingFirstPage.routeName,
                       );
                     }
                   },

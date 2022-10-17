@@ -20,27 +20,27 @@ class RouteGenerator {
             return MainApp(themeData: themeData);
           },
         );
-      case '/OnboardCreateAccount':
+      case '/OnboardCreateAccountPage':
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardCreateAccountPage(),
         );
-      case '/OnboardImportAccount':
+      case '/OnboardImportAccountPage':
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardImportAccountPage(),
         );
-      case '/OnboardRecoverySeed':
+      case '/OnboardRecoverySeedPage':
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardRecoverySeedPage(),
         );
-      case '/OnboardPrivacySettingFirst':
+      case '/OnboardPrivacySettingFirstPage':
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardPrivacySettingFirstPage(),
         );
-      case '/OnboardPrivacySettingSecond':
+      case '/OnboardPrivacySettingSecondPage':
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardPrivacySettingSecondPage(),
         );
-      case '/OnboardCreateProfile':
+      case '/OnboardCreateProfilePage':
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardCreateProfilePage(),
         );
