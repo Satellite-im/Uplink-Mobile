@@ -53,20 +53,21 @@ class RemoveListPage extends StatelessWidget {
                               secondButtonColor: UColors.termRed,
                               secondButtonOnPressed: () {
                                 Navigator.of(context).pop();
-                                _itemListController.add(
-                                  RemoveItems(
-                                    _selectedItemListRead.selectedItemList,
-                                  ),
-                                );
-                                // wait until ItemListBloc finish RemoveItems
-                                _itemListController.stream
-                                    .firstWhere(
-                                      (element) =>
-                                          element is ItemListLoadSuccess,
-                                    )
-                                    .whenComplete(
-                                      _selectedItemListRead.clear,
-                                    );
+                                _itemListController
+                                  ..add(
+                                    RemoveItems(
+                                      _selectedItemListRead.selectedItemList,
+                                    ),
+                                  )
+                                  // wait until ItemListBloc finish RemoveItems
+                                  ..stream
+                                      .firstWhere(
+                                        (element) =>
+                                            element is ItemListLoadSuccess,
+                                      )
+                                      .whenComplete(
+                                        _selectedItemListRead.clear,
+                                      );
                               },
                             ).show();
                           }
