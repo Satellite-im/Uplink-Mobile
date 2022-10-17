@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
+import 'package:uplink/auth/presentation/view/onboard_create_account_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 
@@ -45,7 +46,10 @@ class _OnboardPinPageState extends State<OnboardPinPage> {
                   rightButtonFn: (pin) {
                     _warp.add(WarpStarted(pin));
                     _authController.pinValue = pin;
-                    Navigator.pushNamed(context, '/OnboardCreateAccount');
+                    Navigator.pushNamed(
+                      context,
+                      OnboardCreateAccountPage.routeName,
+                    );
                   },
                 ),
                 Align(
