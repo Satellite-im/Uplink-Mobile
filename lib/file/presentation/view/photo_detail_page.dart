@@ -37,10 +37,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
               children: [
                 IconButton(
                   onPressed: () {
-                    setState(() {
-                      _itemListController
-                          .add(SwitchFavoriteStatus(widget.item));
-                    });
+                    _itemListController.add(SwitchFavoriteStatus(widget.item));
                   },
                   icon: UIcon(
                     UIcons.favorite,
