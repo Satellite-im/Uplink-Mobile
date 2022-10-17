@@ -28,8 +28,11 @@ class WarpMultipass {
   Map<String, dynamic> getCurrentUserInfo() {
     try {
       final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
+      final _userStatus =
+          getUserStatus(_removeDIDKEYPart(_currentUserIdentity.did_key));
       final _currentUserMap = {
         'did': _removeDIDKEYPart(_currentUserIdentity.did_key),
+        'status': _userStatus,
         'username': _currentUserIdentity.username,
         'status_message': _currentUserIdentity.status_message,
         'profile_picture': _currentUserIdentity.graphics.profile_picture,
@@ -152,10 +155,13 @@ class WarpMultipass {
         _returnCompleteDIDString(_userDid),
       );
       final _usersRelationship = _getUsersRelationship(_userDid);
+      final _userStatus =
+          getUserStatus(_userIdentity.did_key.replaceAll('did:key:', ''));
 
       final _userMap = {
         'did': _userIdentity.did_key.replaceAll('did:key:', ''),
         'username': _userIdentity.username,
+        'status': _userStatus,
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
         'banner_picture': _userIdentity.graphics.profile_banner,
@@ -383,6 +389,16 @@ class WarpMultipass {
           .closeFriendRequest(_returnCompleteDIDString(userDID));
     } catch (error) {
       throw Exception(['cancel_friend_request_sent', error]);
+    }
+  }
+
+  String getUserStatus(String userDID) {
+    try {
+      final _identityStatus = _warpBloc.multipass!
+          .identityStatus(_returnCompleteDIDString(userDID));
+      return _identityStatus.name;
+    } catch (error) {
+      throw Exception(['get_user_status', error]);
     }
   }
 }
