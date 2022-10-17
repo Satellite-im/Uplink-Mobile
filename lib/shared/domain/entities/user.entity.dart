@@ -65,12 +65,18 @@ class User {
         _userMap['relationship'] as Map<String, bool>,
       );
 
+      final _status = Status.values.firstWhere(
+        (element) => element.name == _userMap['status'] as String,
+        orElse: () => Status.offline,
+      );
+
       return User(
         did: _userMap['did'] as String,
         username: _userMap['username'] as String,
         statusMessage: _userMap['status_message'] != null
             ? _userMap['status_message'] as String
             : null,
+        status: _status,
         profilePicture: _profilePictureFile,
         bannerPicture: _bannerPictureFile,
         relationship: _relationship,
