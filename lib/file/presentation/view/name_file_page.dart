@@ -11,6 +11,8 @@ import 'package:uplink/l10n/main_app_strings.dart';
 class NameFilePage extends StatefulWidget {
   const NameFilePage({super.key, this.item, this.isRename});
 
+  static const routeName = '/NameFilePage';
+
   final Item? item;
   final bool? isRename;
 

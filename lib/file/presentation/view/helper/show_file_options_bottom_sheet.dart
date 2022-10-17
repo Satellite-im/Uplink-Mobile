@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/file/presentation/view/name_file_page.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
@@ -89,7 +90,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                           };
                           final _fileName =
                               await Navigator.of(context).popAndPushNamed(
-                            '/NameFilePage',
+                            NameFilePage.routeName,
                             arguments: _arg,
                           ) as String?;
 
