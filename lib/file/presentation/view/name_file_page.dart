@@ -1,5 +1,4 @@
 // ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -113,8 +112,9 @@ class _NameFilePageState extends State<NameFilePage> {
                               onChanged: (value) {
                                 state.didChange(value);
                                 // remove the error message when user change the text
+                                // by running the validatation again
                                 if (state.hasError) {
-                                  state.reset();
+                                  _formfieldKey.currentState!.validate();
                                 }
                               },
                               decoration: const InputDecoration(
