@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/presentation/view/helper/upload_photo.dart';
+import 'package:uplink/file/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
@@ -41,10 +42,12 @@ class FileIndexAppbar extends StatelessWidget {
               iconList: [UIcons.favorite, UIcons.remove],
               onTapList: [
                 () {
-                  Navigator.of(context).popAndPushNamed('/FavoritesListPage');
+                  Navigator.of(context)
+                      .popAndPushNamed(FavoritesListPage.routeName);
                 },
                 () {
-                  Navigator.of(context).popAndPushNamed('/RemoveListPage');
+                  Navigator.of(context)
+                      .popAndPushNamed(RemoveListPage.routeName);
                 },
               ],
             ).show();

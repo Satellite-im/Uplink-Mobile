@@ -7,6 +7,7 @@ import 'package:ui_library/ui_library_export.dart';
 
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/view/helper/show_file_options_bottom_sheet.dart';
+import 'package:uplink/file/presentation/view/photo_detail_page.dart';
 import 'package:uplink/file/presentation/view/remove_list_page/models/selected_item_list.dart';
 import 'package:uplink/file/presentation/view/widgets/file_index_body/models/models_export.dart';
 
@@ -75,7 +76,8 @@ class _ListViewListTileState extends State<ListViewListTile> {
         dense: true,
         visualDensity: const VisualDensity(vertical: -1),
         onTap: () {
-          Navigator.of(context).pushNamed('/PhotoDetailPage', arguments: _item);
+          Navigator.of(context)
+              .pushNamed(PhotoDetailPage.routeName, arguments: _item);
         },
         leading: _item.type == ItemType.photo
             ? Container(

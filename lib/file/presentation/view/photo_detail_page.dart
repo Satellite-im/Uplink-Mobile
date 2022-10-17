@@ -4,10 +4,13 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
+import 'package:uplink/file/presentation/view/name_file_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class PhotoDetailPage extends StatefulWidget {
   const PhotoDetailPage({super.key, required this.item});
+
+  static const routeName = '/PhotoDetailPage';
 
   final Item item;
 
@@ -53,7 +56,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                       'isRename': true,
                     };
                     final _fileName = await Navigator.of(context).pushNamed(
-                      '/NameFilePage',
+                      NameFilePage.routeName,
                       arguments: _arg,
                     ) as String?;
 

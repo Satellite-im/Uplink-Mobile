@@ -3,14 +3,10 @@ import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-class FavoritesListPage extends StatefulWidget {
+class FavoritesListPage extends StatelessWidget {
   const FavoritesListPage({super.key});
+  static const routeName = '/FavoritesListPage';
 
-  @override
-  State<FavoritesListPage> createState() => _FavoritesListPageState();
-}
-
-class _FavoritesListPageState extends State<FavoritesListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

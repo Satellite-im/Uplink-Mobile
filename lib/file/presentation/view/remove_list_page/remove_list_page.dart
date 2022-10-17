@@ -9,17 +9,13 @@ import 'package:uplink/file/presentation/view/remove_list_page/models/selected_i
 import 'package:uplink/file/presentation/view/widgets/widgets_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
-class RemoveListPage extends StatefulWidget {
+class RemoveListPage extends StatelessWidget {
   const RemoveListPage({super.key});
+  static const routeName = '/RemoveListPage';
 
-  @override
-  State<RemoveListPage> createState() => _RemoveListPageState();
-}
-
-class _RemoveListPageState extends State<RemoveListPage> {
-  final _itemListController = GetIt.I.get<ItemListBloc>();
   @override
   Widget build(BuildContext context) {
+    final _itemListController = GetIt.I.get<ItemListBloc>();
     return ChangeNotifierProvider(
       create: (context) => SelectedItemList(),
       builder: (context, child) {

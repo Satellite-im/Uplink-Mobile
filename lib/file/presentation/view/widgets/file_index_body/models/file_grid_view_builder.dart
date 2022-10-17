@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ui_library/widgets/buttons/u_image_button/u_image_button.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/file/presentation/view/helper/show_file_options_bottom_sheet.dart';
+import 'package:uplink/file/presentation/view/photo_detail_page.dart';
 import 'package:uplink/file/presentation/view/remove_list_page/models/selected_item_list.dart';
 
 class FileGridViewBuilder extends StatelessWidget {
@@ -67,7 +68,7 @@ class FileGridViewBuilder extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Navigator.of(context)
-                  .pushNamed('/PhotoDetailPage', arguments: _item);
+                  .pushNamed(PhotoDetailPage.routeName, arguments: _item);
             },
             onLongPress: () {
               showFileOptionsBottomSheet(context, _item);
