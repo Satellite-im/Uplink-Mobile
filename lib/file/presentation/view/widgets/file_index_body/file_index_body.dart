@@ -11,20 +11,20 @@ class FileIndexBody extends StatefulWidget {
   const FileIndexBody.itemList({
     super.key,
   })  : isFavoritesList = false,
-        isReomveList = false;
+        isRemoveList = false;
 
   const FileIndexBody.favoritesList({
     super.key,
   })  : isFavoritesList = true,
-        isReomveList = false;
+        isRemoveList = false;
 
   const FileIndexBody.removeList({
     super.key,
   })  : isFavoritesList = false,
-        isReomveList = true;
+        isRemoveList = true;
 
   final bool isFavoritesList;
-  final bool isReomveList;
+  final bool isRemoveList;
 
   @override
   State<FileIndexBody> createState() => _FileIndexBodyState();
@@ -32,12 +32,7 @@ class FileIndexBody extends StatefulWidget {
 
 class _FileIndexBodyState extends State<FileIndexBody> {
   final _itemListController = GetIt.I.get<ItemListBloc>();
-  late bool isGridView;
-  @override
-  void initState() {
-    super.initState();
-    isGridView = true;
-  }
+  bool isGridView = true;
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +138,7 @@ class _FileIndexBodyState extends State<FileIndexBody> {
                         : FileListViewBuilder(
                             itemList: _favoritesList,
                           );
-                  } else if (widget.isReomveList == true) {
+                  } else if (widget.isRemoveList == true) {
                     // For RemoveListPage
                     if (_itemList.isEmpty) {
                       return const Text(

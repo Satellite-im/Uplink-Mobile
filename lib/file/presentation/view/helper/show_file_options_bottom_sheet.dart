@@ -21,10 +21,10 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
       ),
     ),
     builder: (context) {
-      var opacity = 1.0;
+      var showFileOptionsBottomSheet = true;
       return StatefulBuilder(
         builder: (context, setState) => Opacity(
-          opacity: opacity,
+          opacity: showFileOptionsBottomSheet ? 1 : 0,
           child: Wrap(
             children: [
               const UHomeIndicator(),
@@ -113,8 +113,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                         onTap: () {
                           setState(
                             () {
-                              //hide file options bottom sheet
-                              opacity = 0;
+                              showFileOptionsBottomSheet = false;
                             },
                           );
                           UBottomSheetTwoButtons(
@@ -125,8 +124,7 @@ Future<void> showFileOptionsBottomSheet(BuildContext context, Item item) async {
                               Navigator.of(context).pop();
                               setState(
                                 () {
-                                  //show file options bottom sheet
-                                  opacity = 1;
+                                  showFileOptionsBottomSheet = true;
                                 },
                               );
                             },
