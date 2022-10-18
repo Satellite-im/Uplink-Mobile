@@ -20,7 +20,7 @@ class FileIndexAppbar extends StatelessWidget {
           onPressed: () {
             showCustomSearch(
               context: context,
-              delegate: ItemSearch(loadingItems()),
+              delegate: ItemSearch(),
             );
           },
         ),
