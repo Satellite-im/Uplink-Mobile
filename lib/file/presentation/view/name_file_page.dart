@@ -119,6 +119,10 @@ class _NameFilePageState extends State<NameFilePage> {
                               },
                               decoration: const InputDecoration(
                                 hintText: UAppStrings.name_file_page_hint,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 19,
+                                ),
                               ),
                               keyboardType: TextInputType.text,
                               style:
