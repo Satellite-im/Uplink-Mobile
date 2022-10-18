@@ -15,6 +15,7 @@ class UAppStrings {
   static const report = 'Report';
   static const message = 'Message';
   static const addFriend = 'Add Friend';
+  static const favorites = 'Favorites';
 
   static const blockDialogQ = 'Are you sure you want to block this user?';
   static const unblockDialogQ = 'Are you sure you want to unblock this user?';
@@ -231,7 +232,6 @@ Would you like to give Satellite.im access to your camera roll?''';
       'Sed ut perspiciatis unde omnis iste natus error '
       'sit voluptatem accusantium doloremque laudantium.';
   static const chatIndexPage_addFriendButton = 'Add a Friend';
-  static const chatIndexPage_favoritesTitle = 'Favorites';
   static const chatIndexPage_newChat = 'New Chat';
   static const chatIndexPage_loading = 'Loading...';
   static const chatIndexPage_whatToDoWIthChatBottomSheet =
@@ -347,10 +347,50 @@ Would you like to give Satellite.im access to your camera roll?''';
       ' accusantium doloremque laudantium.';
   static const noItemBody_buttonText = 'Add a File';
   static const file_index_page_no_items = 'No items';
+  static const file_index_page_single_item = '1 item';
   static const file_index_page_items = ' items';
   static const file_index_page_items_in_error = '## items';
   static const file_index_page_load_in_error = "Can't not load the files";
   static const upload_photo_title = 'Upload your picture from';
   static const upload_photo_camera = 'Take Photo';
   static const upload_photo_gallary = 'Camera Roll';
+
+  ///showFileOptionsBottomSheet
+  static const fileOptions_title = 'File Options';
+  static const fileOptions_favorited = 'Favorited';
+  static const fileOptions_favorite = 'Favorite';
+  static const fileOptions_copy = 'Copy';
+  static const fileOptions_rename = 'Rename';
+  static const fileOptions_save = 'Save';
+  static const fileOptions_remove_item_title =
+      'Are you sure you want to remove this file?';
+
+  ///RemoveListPage
+  static const remove_list_page_selected = ' Selected';
+  static const remove_list_page_confirm_title_1 =
+      'Are you sure you want to remove ';
+  static const remove_list_page_confirm_title_2 = ' items?';
+
+  ///FileIndexBody
+  static const file_index_body_no_favorited_item =
+      "You don't have any favorited item";
+  static const file_index_body_no_item_to_remove =
+      "You don't have any item to remove";
+
+  ///NameFilePage
+  static const name_file_page_upload_file = 'Upload File';
+  static const name_file_page_name = 'Name';
+  static const name_file_page_hint = 'Text Input Field';
+  static const name_file_page_confirm_title =
+      'Do you want to save your changes?';
+  static const name_file_page_name_exist = 'Error: file name already exists';
+
+  ///ItemSearch
+  static const item_search = 'Search Files...';
+
+  ///ContactSearch
+  static const contact_search = 'Search Contacts...';
+
+  ///ChatSearch
+  static const chat_search = 'Search Chats...';
 }

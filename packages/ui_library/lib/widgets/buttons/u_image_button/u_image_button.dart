@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 
@@ -18,6 +17,9 @@ class UImageButton extends StatefulWidget {
     required this.uImage,
     this.isFavored,
     this.isDeleting,
+    this.onSelected,
+    this.unSelected,
+    this.isChecked,
   })  : unit8ListImage = null,
         super(key: key);
 
@@ -35,6 +37,9 @@ class UImageButton extends StatefulWidget {
     required this.unit8ListImage,
     this.isFavored,
     this.isDeleting,
+    this.onSelected,
+    this.unSelected,
+    this.isChecked,
   })  : uImage = null,
         super(key: key);
 
@@ -42,20 +47,15 @@ class UImageButton extends StatefulWidget {
   final UImage? uImage;
   final bool? isFavored;
   final bool? isDeleting;
+  final VoidCallback? onSelected;
+  final VoidCallback? unSelected;
+  final bool? isChecked;
 
   @override
   State<UImageButton> createState() => UImageButtonState();
 }
 
 class UImageButtonState extends State<UImageButton> {
-  late bool isSelected;
-
-  @override
-  void initState() {
-    super.initState();
-    isSelected = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     // local variable for the icons/buttons on the image
@@ -75,29 +75,27 @@ class UImageButtonState extends State<UImageButton> {
             Align(
               alignment: Alignment.bottomRight,
               child: AnimatedCrossFade(
-                firstChild: GestureDetector(
-                  child: const UIcon(
+                firstChild: IconButton(
+                  splashColor: Colors.transparent,
+                  icon: const UIcon(
                     UIcons.select_box,
                     color: UColors.textMed,
                   ),
-                  onTap: () {
-                    setState(() {
-                      isSelected = true;
-                    });
+                  onPressed: () {
+                    widget.onSelected?.call();
                   },
                 ),
-                secondChild: GestureDetector(
-                  child: const UIcon(
+                secondChild: IconButton(
+                  splashColor: Colors.transparent,
+                  icon: const UIcon(
                     UIcons.checkmark_2,
-                    color: UColors.termRed,
+                    color: UColors.ctaBlue,
                   ),
-                  onTap: () {
-                    setState(() {
-                      isSelected = false;
-                    });
+                  onPressed: () {
+                    widget.unSelected?.call();
                   },
                 ),
-                crossFadeState: isSelected
+                crossFadeState: widget.isChecked!
                     ? CrossFadeState.showSecond
                     : CrossFadeState.showFirst,
                 duration: const Duration(milliseconds: 100),
@@ -132,7 +130,16 @@ class UImageButtonState extends State<UImageButton> {
             Radius.circular(4),
           ),
           image: DecorationImage(
-              image: MemoryImage(widget.unit8ListImage!), fit: BoxFit.cover)),
+              colorFilter: widget.isDeleting == true
+                  ? widget.isChecked!
+                      ? ColorFilter.mode(
+                          UColors.white.withOpacity(0.35),
+                          BlendMode.overlay,
+                        )
+                      : null
+                  : null,
+              image: MemoryImage(widget.unit8ListImage!),
+              fit: BoxFit.cover)),
       child: _iconsLayer,
     );
   }

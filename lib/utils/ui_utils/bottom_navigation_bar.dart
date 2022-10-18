@@ -16,6 +16,7 @@ final bottomBarScaffoldStateKey = GlobalKey<ScaffoldState>();
 
 class MainBottomNavigationBar extends StatefulWidget {
   const MainBottomNavigationBar({Key? key}) : super(key: key);
+  static const routeName = '/MainBottomNavigationBar';
 
   @override
   State<MainBottomNavigationBar> createState() =>

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/file/presentation/view/helper/upload_photo.dart';
+import 'package:uplink/file/presentation/view/helper/helper_export.dart';
+import 'package:uplink/file/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
-import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
+import 'package:uplink/utils/ui_utils/ui_utils_export.dart';
 
 class FileIndexAppbar extends StatelessWidget {
   const FileIndexAppbar({super.key});
@@ -16,7 +17,12 @@ class FileIndexAppbar extends StatelessWidget {
             UIcons.search,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () {
+            showCustomSearch(
+              context: context,
+              delegate: ItemSearch(),
+            );
+          },
         ),
         IconButton(
           icon: const UIcon(
@@ -30,7 +36,27 @@ class FileIndexAppbar extends StatelessWidget {
             UIcons.hamburger_menu,
             color: UColors.textMed,
           ),
-          onPressed: () async {},
+          onPressed: () {
+            UBottomSheetOptions(
+              context,
+              sheetTitle: UAppStrings.moreOptions,
+              titleList: [
+                UAppStrings.favorites,
+                UAppStrings.remove,
+              ],
+              iconList: [UIcons.favorite, UIcons.remove],
+              onTapList: [
+                () {
+                  Navigator.of(context)
+                      .popAndPushNamed(FavoritesListPage.routeName);
+                },
+                () {
+                  Navigator.of(context)
+                      .popAndPushNamed(RemoveListPage.routeName);
+                },
+              ],
+            ).show();
+          },
         ),
       ],
       leading: IconButton(

@@ -4,16 +4,14 @@ import 'package:ui_library/core/core_export.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/app/view/main_app.dart';
 import 'package:uplink/auth/presentation/view/view_export.dart';
-import 'package:uplink/file/presentation/view/name_file_page.dart';
+import 'package:uplink/file/domain/item.dart';
+import 'package:uplink/file/presentation/view/view_export.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(
     RouteSettings settings,
   ) {
-    //Getting arguments passed in while calling Navigator.pushNamed
-    // final args = settings.arguments;
-
     switch (settings.name) {
       case '/':
         return MaterialPageRoute<void>(
@@ -22,39 +20,59 @@ class RouteGenerator {
             return MainApp(themeData: themeData);
           },
         );
-      case '/OnboardCreateAccount':
+      case OnboardCreateAccountPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardCreateAccountPage(),
         );
-      case '/OnboardImportAccount':
+      case OnboardImportAccountPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardImportAccountPage(),
         );
-      case '/OnboardRecoverySeed':
+      case OnboardRecoverySeedPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardRecoverySeedPage(),
         );
-      case '/OnboardPrivacySettingFirst':
+      case OnboardPrivacySettingFirstPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardPrivacySettingFirstPage(),
         );
-      case '/OnboardPrivacySettingSecond':
+      case OnboardPrivacySettingSecondPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardPrivacySettingSecondPage(),
         );
-      case '/OnboardCreateProfile':
+      case OnboardCreateProfilePage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardCreateProfilePage(),
         );
-      case '/MainBottomNavigationBar':
+      case MainBottomNavigationBar.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const MainBottomNavigationBar(),
         );
 // File
-      case '/NameFilePage':
+      case NameFilePage.routeName:
+        final _arg = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute<void>(
-          builder: (context) => const NameFilePage(),
+          builder: (context) => NameFilePage(
+            item: _arg?['item'] as Item?,
+            isRename: _arg?['isRename'] as bool?,
+          ),
         );
+      case PhotoDetailPage.routeName:
+        final _arg = settings.arguments! as Item;
+        return MaterialPageRoute<void>(
+          builder: (context) => PhotoDetailPage(
+            item: _arg,
+          ),
+        );
+      case FavoritesListPage.routeName:
+        return MaterialPageRoute<void>(
+          builder: (context) => const FavoritesListPage(),
+        );
+      case RemoveListPage.routeName:
+        return MaterialPageRoute<void>(
+          builder: (context) => const RemoveListPage(),
+        );
+
       default:
         // TODO(yijing): improve error page
         return MaterialPageRoute<void>(

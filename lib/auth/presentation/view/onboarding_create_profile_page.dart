@@ -11,9 +11,11 @@ import 'package:uplink/auth/presentation/view/linking_satellites_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
+import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class OnboardCreateProfilePage extends StatefulWidget {
   const OnboardCreateProfilePage({Key? key}) : super(key: key);
+  static const routeName = '/OnboardCreateProfilePage';
 
   @override
   State<OnboardCreateProfilePage> createState() =>
@@ -200,7 +202,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         log('signUpAndSetPinData completed');
         Navigator.pushNamedAndRemoveUntil(
           context,
-          '/MainBottomNavigationBar',
+          MainBottomNavigationBar.routeName,
           (route) => false,
         );
       },

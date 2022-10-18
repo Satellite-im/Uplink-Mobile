@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/auth/presentation/controller/auth_bloc.dart';
+import 'package:uplink/auth/presentation/view/view_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 
 class OnboardCreateAccountPage extends StatefulWidget {
   const OnboardCreateAccountPage({Key? key}) : super(key: key);
+
+  static const routeName = '/OnboardCreateAccountPage';
 
   @override
   State<OnboardCreateAccountPage> createState() =>
@@ -46,7 +49,10 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     label: UAppStrings.createAccountPage_appBarTitle,
                     uIconData: UIcons.menu_bar_contacts,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/OnboardRecoverySeed');
+                      Navigator.pushNamed(
+                        context,
+                        OnboardRecoverySeedPage.routeName,
+                      );
                     },
                   ),
                   const SizedBox(height: 8),
@@ -54,7 +60,10 @@ class _OnboardCreateAccountPageState extends State<OnboardCreateAccountPage> {
                     label: UAppStrings.createAccountPage_importAccountButton,
                     uIconData: UIcons.import,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/OnboardImportAccount');
+                      Navigator.pushNamed(
+                        context,
+                        OnboardImportAccountPage.routeName,
+                      );
                     },
                   ),
                 ],
