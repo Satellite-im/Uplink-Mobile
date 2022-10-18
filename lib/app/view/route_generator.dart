@@ -20,36 +20,36 @@ class RouteGenerator {
             return MainApp(themeData: themeData);
           },
         );
-      case '/OnboardCreateAccountPage':
+      case OnboardCreateAccountPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardCreateAccountPage(),
         );
-      case '/OnboardImportAccountPage':
+      case OnboardImportAccountPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardImportAccountPage(),
         );
-      case '/OnboardRecoverySeedPage':
+      case OnboardRecoverySeedPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardRecoverySeedPage(),
         );
-      case '/OnboardPrivacySettingFirstPage':
+      case OnboardPrivacySettingFirstPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardPrivacySettingFirstPage(),
         );
-      case '/OnboardPrivacySettingSecondPage':
+      case OnboardPrivacySettingSecondPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardPrivacySettingSecondPage(),
         );
-      case '/OnboardCreateProfilePage':
+      case OnboardCreateProfilePage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const OnboardCreateProfilePage(),
         );
-      case '/MainBottomNavigationBar':
+      case MainBottomNavigationBar.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const MainBottomNavigationBar(),
         );
 // File
-      case '/NameFilePage':
+      case NameFilePage.routeName:
         final _arg = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute<void>(
           builder: (context) => NameFilePage(
@@ -57,18 +57,18 @@ class RouteGenerator {
             isRename: _arg?['isRename'] as bool?,
           ),
         );
-      case '/PhotoDetailPage':
+      case PhotoDetailPage.routeName:
         final _arg = settings.arguments! as Item;
         return MaterialPageRoute<void>(
           builder: (context) => PhotoDetailPage(
             item: _arg,
           ),
         );
-      case '/FavoritesListPage':
+      case FavoritesListPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const FavoritesListPage(),
         );
-      case '/RemoveListPage':
+      case RemoveListPage.routeName:
         return MaterialPageRoute<void>(
           builder: (context) => const RemoveListPage(),
         );
