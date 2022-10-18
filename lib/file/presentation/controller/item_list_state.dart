@@ -5,7 +5,7 @@ part of 'item_list_bloc.dart';
 abstract class ItemListState extends Equatable {
   late List<Item> itemList;
   @override
-  List<Object> get props => [itemList];
+  List<Object> get props => itemList;
 }
 
 class ItemListInitial extends ItemListState {}

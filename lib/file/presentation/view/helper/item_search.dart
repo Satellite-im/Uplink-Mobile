@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -49,70 +51,63 @@ class ItemSearch extends SearchCustomDelegate<Item?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // every time when the state of ItemListBLoc changes
-    // the search result(keyboard closed) get rebuild
-    return BlocBuilder<ItemListBloc, ItemListState>(
-      bloc: _itemListController,
-      builder: (context, state) {
-        return _buildSuggestions(state);
-      },
-    );
+    return _buildSuggestions();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    return _buildSuggestions();
+  }
+
+  Widget _buildSuggestions() {
     // every time when the state of ItemListBLoc changes
-    // the search suggestion(keyboard is on) get rebuild
+    // the search result(keyboard closed) or suggestion(keyboard is on) gets rebuild
     return BlocBuilder<ItemListBloc, ItemListState>(
       bloc: _itemListController,
       builder: (context, state) {
-        return _buildSuggestions(state);
+        if (state is ItemListLoadSuccess) {
+          final itemList = state.itemList;
+          //show suggestion when user typed the first letter
+          if (itemList.isEmpty || query.isEmpty) {
+            return const SizedBox.shrink();
+          } else {
+            final suggestions = itemList.where(
+              (element) =>
+                  element.name.toLowerCase().startsWith(query.toLowerCase()),
+            );
+            final sortedSuggestions = suggestions.toList()
+              ..sort((a, b) => a.name.compareTo(b.name));
+
+            return Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: ListView.separated(
+                itemCount: sortedSuggestions.length,
+                itemBuilder: (context, index) {
+                  final _item = sortedSuggestions[index];
+                  Uint8List? _itemUnit8ListImage;
+                  if (_item.thumbnail != null) {
+                    _itemUnit8ListImage = base64Decode(_item.thumbnail!);
+                  }
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ListViewListTile(
+                      item: _item,
+                      itemUnit8ListImage: _itemUnit8ListImage,
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 24,
+                ),
+              ),
+            );
+          }
+        }
+
+        // TODO(yijing): update to standard indicator
+        return const Center(child: ULoadingIndicator());
       },
     );
-  }
-
-  Widget _buildSuggestions(ItemListState state) {
-    if (state is ItemListLoadSuccess) {
-      final itemList = state.itemList;
-      //show suggestion when user typed the first letter
-      if (itemList.isEmpty || query.isEmpty) {
-        return const SizedBox.shrink();
-      } else {
-        final suggestions = itemList.where(
-          (element) =>
-              element.name.toLowerCase().startsWith(query.toLowerCase()),
-        );
-        final sortedSuggestions = suggestions.toList()
-          ..sort((a, b) => a.name.compareTo(b.name));
-
-        return Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: ListView.separated(
-            itemCount: sortedSuggestions.length,
-            itemBuilder: (context, index) {
-              final _item = sortedSuggestions[index];
-              Uint8List? _itemUnit8ListImage;
-              if (_item.thumbnail != null) {
-                _itemUnit8ListImage = base64Decode(itemList[index].thumbnail!);
-              }
-
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ListViewListTile(
-                  item: _item,
-                  itemUnit8ListImage: _itemUnit8ListImage,
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 24,
-            ),
-          ),
-        );
-      }
-    }
-
-    // TODO(yijing): update to standard indicator
-    return const Center(child: ULoadingIndicator());
   }
 }
