@@ -100,6 +100,14 @@ class FriendData {
     }
   }
 
+  Stream<String> watchUserStatus(String userDid) {
+    try {
+      return _warp.watchUserStatus(userDid);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   void blockUser(String userDID) {
     _warp.blockUser(userDID);
   }

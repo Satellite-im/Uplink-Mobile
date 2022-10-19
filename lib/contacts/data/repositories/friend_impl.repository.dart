@@ -31,6 +31,10 @@ class FriendRepositoryImpl implements IFriendRepository {
       _remoteDatasource.listBlockedUsers();
 
   @override
+  Stream<String> watchUserStatus(String userDid) =>
+      _remoteDatasource.watchUserStatus(userDid);
+
+  @override
   void acceptFriendRequest(String userDID) {
     _remoteDatasource.acceptFriendRequest(userDID);
   }

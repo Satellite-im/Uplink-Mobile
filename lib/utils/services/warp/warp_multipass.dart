@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:async';
+
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
@@ -28,11 +30,9 @@ class WarpMultipass {
   Map<String, dynamic> getCurrentUserInfo() {
     try {
       final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
-      final _userStatus =
-          getUserStatus(_removeDIDKEYPart(_currentUserIdentity.did_key));
+
       final _currentUserMap = {
         'did': _removeDIDKEYPart(_currentUserIdentity.did_key),
-        'status': _userStatus,
         'username': _currentUserIdentity.username,
         'status_message': _currentUserIdentity.status_message,
         'profile_picture': _currentUserIdentity.graphics.profile_picture,
@@ -155,13 +155,11 @@ class WarpMultipass {
         _returnCompleteDIDString(_userDid),
       );
       final _usersRelationship = _getUsersRelationship(_userDid);
-      final _userStatus =
-          getUserStatus(_userIdentity.did_key.replaceAll('did:key:', ''));
 
       final _userMap = {
         'did': _userIdentity.did_key.replaceAll('did:key:', ''),
         'username': _userIdentity.username,
-        'status': _userStatus,
+        'status': 'offline',
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
         'banner_picture': _userIdentity.graphics.profile_banner,
@@ -392,13 +390,27 @@ class WarpMultipass {
     }
   }
 
-  String getUserStatus(String userDID) {
+  Stream<String> watchUserStatus(String userDID) async* {
     try {
-      final _identityStatus = _warpBloc.multipass!
-          .identityStatus(_returnCompleteDIDString(userDID));
-      return _identityStatus.name;
+      String? userStatusUpdated;
+      String? userStatus;
+      var _whileLoopDuration = const Duration(milliseconds: 150);
+
+      while (true) {
+        await Future.delayed(_whileLoopDuration, () {});
+        userStatusUpdated = _warpBloc.multipass!
+            .identityStatus(_returnCompleteDIDString(userDID))
+            .name;
+        if (userStatus != userStatusUpdated) {
+          yield userStatusUpdated;
+          // _whileLoopDuration = userStatusUpdated == 'offline'
+          //     ? const Duration(seconds: 10)
+          //     : const Duration(seconds: 5);
+        }
+        userStatus = userStatusUpdated;
+      }
     } catch (error) {
-      throw Exception(['get_user_status', error]);
+      throw Exception(['watch_user_status', error]);
     }
   }
 }

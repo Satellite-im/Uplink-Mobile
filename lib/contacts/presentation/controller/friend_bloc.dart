@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
@@ -32,9 +34,23 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
 
         user = null;
         user = await _friendRepository.findUserByDid(event.userDid);
-        // TODO(Status): Change it when we have status from Warp
-        user = user?.copywith(status: Status.online);
-        emit(FriendLoadSuccess(user));
+        await emit.forEach(
+          _friendRepository.watchUserStatus(user!.did!),
+          onData: (newUserStatus) {
+            user = user?.copywith(
+              status:
+                  newUserStatus == 'online' ? Status.online : Status.offline,
+            );
+            return FriendLoadSuccess(user);
+          },
+          onError: (error, stackTrace) {
+            addError(error);
+
+            return FriendLoadFailure(
+              FriendLoadFailureTypesX.fromString(error.toString()),
+            );
+          },
+        );
       } catch (error) {
         emit(
           FriendLoadFailure(
@@ -194,6 +210,8 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   List<User> blockedUsersList = [];
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
+
+  final _streamController = StreamController<String>();
 
   final IFriendRepository _friendRepository;
 }

@@ -14,6 +14,8 @@ abstract class IFriendRepository {
 
   Future<List<User>> listBlockedUsers();
 
+  Stream<String> watchUserStatus(String userDid);
+
   void acceptFriendRequest(String userDID);
 
   void denyFriendRequest(String userDID);

@@ -1,4 +1,3 @@
-import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/shared/domain/entities/current_user.entity.dart';
 import 'package:uplink/utils/helpers/base_64.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
@@ -21,16 +20,10 @@ class UserProfileData {
         'banner_picture',
       );
 
-      final _status = Status.values.firstWhere(
-        (element) => element.name == _currentUserInfoMap['status'] as String,
-        orElse: () => Status.offline,
-      );
-
       final _currentUser = CurrentUser(
         did: _currentUserInfoMap['did'] as String,
         username: _currentUserInfoMap['username'] as String,
         statusMessage: _currentUserInfoMap['status_message'] as String,
-        status: _status,
         profilePicture: _profilePictureFile,
         bannerPicture: _bannerPictureFile,
       );
