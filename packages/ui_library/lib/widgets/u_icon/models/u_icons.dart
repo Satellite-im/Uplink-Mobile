@@ -149,36 +149,38 @@ class UIcons {
       UIconData(0xe942, uFontFamily: _kIconsFontFamily);
   static const UIconData remove_friend =
       UIconData(0xe943, uFontFamily: _kIconsFontFamily);
-  static const UIconData report =
+  static const UIconData reply =
       UIconData(0xe944, uFontFamily: _kIconsFontFamily);
-  static const UIconData reveal =
+  static const UIconData report =
       UIconData(0xe945, uFontFamily: _kIconsFontFamily);
-  static const UIconData right_arrow_inline_row =
+  static const UIconData reveal =
       UIconData(0xe946, uFontFamily: _kIconsFontFamily);
-  static const UIconData search =
+  static const UIconData right_arrow_inline_row =
       UIconData(0xe947, uFontFamily: _kIconsFontFamily);
-  static const UIconData security =
+  static const UIconData search =
       UIconData(0xe948, uFontFamily: _kIconsFontFamily);
-  static const UIconData select_box =
+  static const UIconData security =
       UIconData(0xe949, uFontFamily: _kIconsFontFamily);
-  static const UIconData setting =
+  static const UIconData select_box =
       UIconData(0xe94a, uFontFamily: _kIconsFontFamily);
-  static const UIconData swap_camera =
+  static const UIconData setting =
       UIconData(0xe94b, uFontFamily: _kIconsFontFamily);
-  static const UIconData tablet =
+  static const UIconData swap_camera =
       UIconData(0xe94c, uFontFamily: _kIconsFontFamily);
-  static const UIconData unblock =
+  static const UIconData tablet =
       UIconData(0xe94d, uFontFamily: _kIconsFontFamily);
-  static const UIconData unencrypted =
+  static const UIconData unblock =
       UIconData(0xe94e, uFontFamily: _kIconsFontFamily);
-  static const UIconData unmute =
+  static const UIconData unencrypted =
       UIconData(0xe94f, uFontFamily: _kIconsFontFamily);
-  static const UIconData user_profile =
+  static const UIconData unmute =
       UIconData(0xe950, uFontFamily: _kIconsFontFamily);
-  static const UIconData video_call =
+  static const UIconData user_profile =
       UIconData(0xe951, uFontFamily: _kIconsFontFamily);
-  static const UIconData video_play =
+  static const UIconData video_call =
       UIconData(0xe952, uFontFamily: _kIconsFontFamily);
-  static const UIconData voice_call =
+  static const UIconData video_play =
       UIconData(0xe953, uFontFamily: _kIconsFontFamily);
+  static const UIconData voice_call =
+      UIconData(0xe954, uFontFamily: _kIconsFontFamily);
 }
