@@ -126,6 +126,7 @@ const _allIcons = <Widget>[
   UIconTextWithPadding(UIcons.refresh, 'refresh'),
   UIconTextWithPadding(UIcons.remove, 'remove'),
   UIconTextWithPadding(UIcons.remove_friend, 'remove_friend'),
+  UIconTextWithPadding(UIcons.reply, 'reply'),
   UIconTextWithPadding(UIcons.report, 'report'),
   UIconTextWithPadding(UIcons.reveal, 'reveal'),
   UIconTextWithPadding(UIcons.right_arrow_inline_row, 'right_arrow_inline_row'),
