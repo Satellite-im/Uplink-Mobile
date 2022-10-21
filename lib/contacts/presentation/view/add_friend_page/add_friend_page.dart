@@ -42,7 +42,9 @@ class _AddFriendPageState extends State<AddFriendPage> {
           _disableSearchButton = true;
         }
         if (_textController.text != oldIdToSearch) {
-          _friendController.add(ResetFriendDataStarted());
+          _friendController
+            ..add(ResetFriendDataStarted())
+            ..closeWatchUserStatusStream();
         }
       });
     });
@@ -56,7 +58,8 @@ class _AddFriendPageState extends State<AddFriendPage> {
       ..add(
         ResetFriendDataStarted(),
       )
-      ..add(ListFriendsStarted());
+      ..add(ListFriendsStarted())
+      ..closeWatchUserStatusStream();
 
     super.dispose();
   }

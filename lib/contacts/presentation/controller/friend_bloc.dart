@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/u_status/u_status_export.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/domain/friend_request.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
@@ -39,7 +39,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
           user = null;
           user = await _friendRepository.findUserByDid(event.userDid);
           await emit.forEach(
-            _friendRepository.watchUserStatus(user!.did!),
+            watchUserStatus(event.userDid),
             onData: (newUserStatus) {
               user = user?.copywith(
                 status:
@@ -205,6 +205,12 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     });
   }
 
+  Stream<String> watchUserStatus(String userDID) =>
+      _friendRepository.watchUserStatus(userDID);
+
+  void closeWatchUserStatusStream() =>
+      _friendRepository.closeWatchUserStatusStream();
+
   User? user;
 
   List<FriendRequest> incomingFriendRequestsList = [];
@@ -216,8 +222,6 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   List<User> blockedUsersList = [];
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
-
-  final _streamController = StreamController<String>();
 
   final IFriendRepository _friendRepository;
 }
