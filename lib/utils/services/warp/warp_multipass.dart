@@ -411,7 +411,6 @@ class WarpMultipassEventStream {
       _watchingUserStatus = true;
 
       while (_watchingUserStatus == true) {
-        await Future<void>.delayed(const Duration(milliseconds: 150));
         userStatusUpdated = _warpBloc.multipass!
             .identityStatus(_returnCompleteDIDString(userDID))
             .name;
@@ -419,6 +418,7 @@ class WarpMultipassEventStream {
           yield userStatusUpdated;
         }
         userStatus = userStatusUpdated;
+        await Future<void>.delayed(const Duration(seconds: 1));
       }
     } catch (error) {
       throw Exception(['watch_user_status', error]);
