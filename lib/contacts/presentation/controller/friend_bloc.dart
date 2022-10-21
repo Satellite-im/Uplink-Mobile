@@ -39,7 +39,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
           user = null;
           user = await _friendRepository.findUserByDid(event.userDid);
           await emit.forEach(
-            watchUserStatus(event.userDid),
+            _watchUserStatus(event.userDid),
             onData: (newUserStatus) {
               user = user?.copywith(
                 status:
@@ -205,7 +205,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     });
   }
 
-  Stream<String> watchUserStatus(String userDID) =>
+  Stream<String> _watchUserStatus(String userDID) =>
       _friendRepository.watchUserStatus(userDID);
 
   void closeWatchUserStatusStream() =>
