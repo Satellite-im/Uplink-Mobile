@@ -389,23 +389,34 @@ class WarpMultipass {
       throw Exception(['cancel_friend_request_sent', error]);
     }
   }
+}
+
+String _returnCompleteDIDString(String _userDID) => 'did:key:$_userDID';
+
+String _removeDIDKEYPart(String _userDID) =>
+    _userDID.replaceAll('did:key:', '');
+
+class WarpMultipassEventStream {
+  final _warpBloc = GetIt.I.get<WarpBloc>();
+  var _watchingUserStatus = false;
+
+  void closeWatchUserStatusStream() {
+    _watchingUserStatus = false;
+  }
 
   Stream<String> watchUserStatus(String userDID) async* {
     try {
       String? userStatusUpdated;
       String? userStatus;
-      var _whileLoopDuration = const Duration(milliseconds: 150);
+      _watchingUserStatus = true;
 
-      while (true) {
-        await Future.delayed(_whileLoopDuration, () {});
+      while (_watchingUserStatus == true) {
+        await Future<void>.delayed(const Duration(milliseconds: 150));
         userStatusUpdated = _warpBloc.multipass!
             .identityStatus(_returnCompleteDIDString(userDID))
             .name;
         if (userStatus != userStatusUpdated) {
           yield userStatusUpdated;
-          // _whileLoopDuration = userStatusUpdated == 'offline'
-          //     ? const Duration(seconds: 10)
-          //     : const Duration(seconds: 5);
         }
         userStatus = userStatusUpdated;
       }
@@ -414,8 +425,3 @@ class WarpMultipass {
     }
   }
 }
-
-String _returnCompleteDIDString(String _userDID) => 'did:key:$_userDID';
-
-String _removeDIDKEYPart(String _userDID) =>
-    _userDID.replaceAll('did:key:', '');

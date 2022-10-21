@@ -16,6 +16,8 @@ abstract class IFriendRepository {
 
   Stream<String> watchUserStatus(String userDid);
 
+  void closeWatchUserStatusStream();
+
   void acceptFriendRequest(String userDID);
 
   void denyFriendRequest(String userDID);

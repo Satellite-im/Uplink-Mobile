@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:ui_library/ui_library_export.dart';
@@ -22,44 +23,49 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       emit(FriendInitial());
     });
 
-    on<SearchUserStarted>((event, emit) async {
-      try {
-        emit(FriendLoadInProgress());
-        if (event.userDid == _currentUserController.currentUser!.did) {
-          emit(
-            FriendLoadFailure(FriendLoadFailureTypes.yourselfSentFriendRequest),
+    on<SearchUserStarted>(
+      (event, emit) async {
+        try {
+          emit(FriendLoadInProgress());
+          if (event.userDid == _currentUserController.currentUser!.did) {
+            emit(
+              FriendLoadFailure(
+                FriendLoadFailureTypes.yourselfSentFriendRequest,
+              ),
+            );
+            return;
+          }
+
+          user = null;
+          user = await _friendRepository.findUserByDid(event.userDid);
+          await emit.forEach(
+            _friendRepository.watchUserStatus(user!.did!),
+            onData: (newUserStatus) {
+              user = user?.copywith(
+                status:
+                    newUserStatus == 'online' ? Status.online : Status.offline,
+              );
+              return FriendLoadSuccess(user);
+            },
+            onError: (error, stackTrace) {
+              addError(error);
+
+              return FriendLoadFailure(
+                FriendLoadFailureTypesX.fromString(error.toString()),
+              );
+            },
           );
-          return;
-        }
-
-        user = null;
-        user = await _friendRepository.findUserByDid(event.userDid);
-        await emit.forEach(
-          _friendRepository.watchUserStatus(user!.did!),
-          onData: (newUserStatus) {
-            user = user?.copywith(
-              status:
-                  newUserStatus == 'online' ? Status.online : Status.offline,
-            );
-            return FriendLoadSuccess(user);
-          },
-          onError: (error, stackTrace) {
-            addError(error);
-
-            return FriendLoadFailure(
+        } catch (error) {
+          emit(
+            FriendLoadFailure(
               FriendLoadFailureTypesX.fromString(error.toString()),
-            );
-          },
-        );
-      } catch (error) {
-        emit(
-          FriendLoadFailure(
-            FriendLoadFailureTypesX.fromString(error.toString()),
-          ),
-        );
-        addError(error);
-      }
-    });
+            ),
+          );
+          addError(error);
+        }
+      },
+      transformer: restartable(),
+    );
 
     on<SendFriendRequestStarted>((event, emit) {
       try {
