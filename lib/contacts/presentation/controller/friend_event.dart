@@ -13,12 +13,13 @@ class ResetFriendDataStarted extends FriendEvent {
 }
 
 class SearchUserStarted extends FriendEvent {
-  SearchUserStarted({required this.userDid});
+  SearchUserStarted({required this.userDid, this.closeStream = false});
 
   final String userDid;
+  final bool closeStream;
 
   @override
-  List<Object> get props => [userDid];
+  List<Object> get props => [userDid, closeStream];
 }
 
 class SendFriendRequestStarted extends FriendEvent {

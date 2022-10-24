@@ -2,7 +2,9 @@
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart';
@@ -399,6 +401,11 @@ String _removeDIDKEYPart(String _userDID) =>
 class WarpMultipassEventStream {
   final _warpBloc = GetIt.I.get<WarpBloc>();
   var _watchingUserStatus = false;
+  var _watchingUser = false;
+
+  void closeWatchUserStream() {
+    _watchingUser = false;
+  }
 
   void closeWatchUserStatusStream() {
     _watchingUserStatus = false;
@@ -422,6 +429,54 @@ class WarpMultipassEventStream {
       }
     } catch (error) {
       throw Exception(['watch_user_status', error]);
+    }
+  }
+
+  Stream<Map<String, dynamic>?> watchUser(String _userDid) async* {
+    try {
+      var _oldUserMap = <String, dynamic>{};
+      _watchingUser = true;
+      while (_watchingUser) {
+        final userStatusUpdated = _warpBloc.multipass!
+            .identityStatus(_returnCompleteDIDString(_userDid))
+            .name;
+        final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
+          _returnCompleteDIDString(_userDid),
+        );
+        final _usersRelationship =
+            WarpMultipass()._getUsersRelationship(_userDid);
+        final _userMap = {
+          'did': _userIdentity.did_key.replaceAll('did:key:', ''),
+          'username': _userIdentity.username,
+          'status': userStatusUpdated,
+          'status_message': _userIdentity.status_message,
+          'profile_picture': _userIdentity.graphics.profile_picture,
+          'banner_picture': _userIdentity.graphics.profile_banner,
+          'relationship': _usersRelationship,
+        };
+
+        final _isThereAnUpdate =
+            !mapEquals<String, dynamic>(_oldUserMap, _userMap);
+
+        if (_isThereAnUpdate) {
+          yield _userMap;
+        }
+        _oldUserMap = _userMap;
+        await Future<void>.delayed(const Duration(seconds: 1));
+      }
+    } on WarpException catch (error) {
+      throw Exception([
+        'WARP_EXCEPTION',
+        'watch_user',
+        error.error_type,
+        error.error_message
+      ]);
+    } catch (error) {
+      if (error.toString().contains('Identity not found')) {
+        yield null;
+      }
+
+      throw Exception(['watch_user', error]);
     }
   }
 }

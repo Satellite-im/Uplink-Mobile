@@ -134,13 +134,7 @@ class _WithoutFriendRequestBodyState extends State<WithoutFriendRequestBody> {
                     return const SizedBox.shrink();
                   },
                 ),
-              ).then((value) {
-                _friendController.add(
-                  SearchUserStarted(
-                    userDid: widget.user.did!,
-                  ),
-                );
-              });
+              );
             },
           ),
         ),

@@ -7,6 +7,11 @@ class FriendData {
   final WarpMultipass _warp;
   final WarpMultipassEventStream _warpStream;
 
+  void closeWatchUserStream() => _warpStream.closeWatchUserStream();
+
+  Stream<Map<String, dynamic>?> watchUser(String userDid) =>
+      _warpStream.watchUser(userDid);
+
   Future<User> findUserByDid(String userDid) async {
     try {
       final _userMap = _warp.findUserByDid(userDid);

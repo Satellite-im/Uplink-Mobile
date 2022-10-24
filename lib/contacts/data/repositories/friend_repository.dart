@@ -2,6 +2,12 @@ import 'package:uplink/contacts/domain/friend_request.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 abstract class IFriendRepository {
+  Stream<Map<String, dynamic>?> watchUser(String userDid);
+
+  void closeWatchUserStream();
+
+  Stream<String> watchUserStatus(String userDid);
+
   Future<User> findUserByDid(String userDid);
 
   void sendFriendRequest(String userDid);
@@ -13,8 +19,6 @@ abstract class IFriendRepository {
   Future<List<User>> listFriends();
 
   Future<List<User>> listBlockedUsers();
-
-  Stream<String> watchUserStatus(String userDid);
 
   void closeWatchUserStatusStream();
 
