@@ -48,20 +48,27 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
 
     on<GetNewMessageFromUserStarted>(
-      (event, emit) {
+      (event, emit) async {
         try {
-          final _lastMessageReceived = _repository.getLastMessageReceived(
-            conversationID: _conversationID!,
-            user: _user!,
-          );
+          await emit.onEach(
+            _repository.watchChatMessages(
+              _conversationID!,
+              _user!,
+            ),
+            onData: (newMessageMap) {
+              if (newMessageMap != null) {
+                final _newChatMessage =
+                    ChatMessage.fromMap(newMessageMap, _user!.did!);
+                _prepareLastMessageReceivedToUI(_newChatMessage);
+                emit(ChatLoadSucces(chatMessagesList));
+              }
+            },
+            onError: (error, stackTrace) {
+              addError(error);
 
-          if (_lastMessageReceived != null &&
-              _lastMessageReceivedID != _lastMessageReceived.messageId) {
-            emit(ChatLoadInProgress(chatMessagesList));
-            _lastMessageReceivedID = _lastMessageReceived.messageId!;
-            _prepareLastMessageReceivedToUI(_lastMessageReceived);
-            emit(ChatLoadSucces(chatMessagesList));
-          }
+              emit(ChatLoadError());
+            },
+          );
         } catch (error) {
           addError(error);
           emit(ChatLoadError());
@@ -71,6 +78,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   List<UChatMessage> chatMessagesList = [];
+
+  void closeWatchChatMessagesStream() =>
+      _repository.closeWatchChatMessagesStream();
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
   final IChatRepository _repository;
