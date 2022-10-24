@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/chat/data/repositories/chat.repository.dart';
@@ -74,6 +75,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           emit(ChatLoadError());
         }
       },
+      transformer: restartable(),
     );
   }
 
