@@ -52,7 +52,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     super.initState();
     // TODO(yijing): add loading page for this call
     _currentUserController.add(GetCurrentUserInfo());
-    _warpController.add(RaygunStarted());
+    _warpController
+      ..add(RaygunStarted())
+      ..add(ConstellationStarted());
   }
 
   @override

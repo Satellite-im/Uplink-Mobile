@@ -20,6 +20,13 @@ class RaygunStarted extends WarpEvent {
   List<Object> get props => [];
 }
 
+class ConstellationStarted extends WarpEvent {
+  ConstellationStarted();
+
+  @override
+  List<Object> get props => [];
+}
+
 class WarpLogout extends WarpEvent {
   WarpLogout();
 }
