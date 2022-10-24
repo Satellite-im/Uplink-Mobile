@@ -89,8 +89,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   String? _conversationID;
 
-  String _lastMessageReceivedID = '';
-
   List<UChatMessage> _prepareAllMessagesForUI(
     List<ChatMessage> allMessages,
   ) {
@@ -147,7 +145,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           (element) {
             if (element.chatMessage.chatMessageType ==
                 ChatMessageType.received) {
-              _lastMessageReceivedID = element.chatMessage.messageId!;
               return true;
             }
             return false;
