@@ -15,6 +15,7 @@ import 'package:uplink/contacts/data/repositories/friend_impl.repository.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/file/data/data_export.dart';
+import 'package:uplink/file/data/datasource/constellation_api.dart';
 import 'package:uplink/file/data/repository/file_impl_repository.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/profile/data/datasource/user_profile_data.remote_datasource.dart';
@@ -139,8 +140,7 @@ void _registerDependencieFile(GetIt _getIt) {
         _getIt(),
       ),
     )
-    // TODO(yijing): switch to constellation when it is ready
-    ..registerLazySingleton<IFileApi>(MockFileApi.new)
+    ..registerLazySingleton<IFileApi>(ConstellationApi.new)
     ..registerLazySingleton<ItemListBloc>(
       () => ItemListBloc(
         _getIt(),
