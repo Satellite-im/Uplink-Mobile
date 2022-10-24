@@ -27,7 +27,7 @@ class Item extends Equatable {
     this.thumbnail,
     this.preview,
     required this.type,
-    required this.size,
+    this.size,
     this.file,
     this.isFavorited = false,
     this.creationDateTime,
@@ -37,7 +37,7 @@ class Item extends Equatable {
   final String? thumbnail;
   final Uint8List? preview;
   final ItemType type;
-  final int size;
+  final int? size;
   final File? file;
   bool isFavorited;
 

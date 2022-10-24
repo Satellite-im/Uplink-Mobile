@@ -51,14 +51,14 @@ class ConstellationApi implements IFileApi {
 
   @override
   Future<void> uploadItem(Item item) async {
-    if (item.type == ItemType.photo) {
+    if (item.type == ItemType.photo && item.file != null) {
       final _itemFileExtension = path.extension(item.file!.path);
 // TODO(yijing): add item path when app support directory
       final _remotePath = item.name + _itemFileExtension;
 
       _warpBloc.constellation!.uploadToFilesystem(_remotePath, item.file!.path);
     } else {
-      throw Exception('Unexpected item type to upload');
+      throw Exception("Unexpected item type to upload/File doesn't exist");
     }
   }
 }
@@ -69,8 +69,9 @@ extension on constellation.Item {
   Future<Item> get toItem async {
     final _name = path.withoutExtension(getItemName());
     final _size = getItemSize();
-    final _uint8List =
-        _warpBloc.constellation!.downloadFileFromFilesystemIntoBuffer(_name);
+    final _uint8List = _warpBloc.constellation!
+        .downloadFileFromFilesystemIntoBuffer(getItemName());
+    //file name withExtension
     // TODO(yijing): update thumbnail to the thumbnail from warp
     final _thumbnail = base64Encode(_uint8List);
     final _creationDateTime = covertUTCStringToDateTime(getItemTimestamp());
@@ -78,9 +79,9 @@ extension on constellation.Item {
         covertUTCStringToDateTime(getItemDateModification());
 
     return Item(
-      name: _name,
       // TODO(yijing): change to other type when app has more type of file
       type: ItemType.photo,
+      name: _name,
       size: _size,
       preview: _uint8List,
       thumbnail: _thumbnail,
