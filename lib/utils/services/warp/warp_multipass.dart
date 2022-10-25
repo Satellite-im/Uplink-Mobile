@@ -486,9 +486,9 @@ class WarpMultipassEventStream {
     } catch (error) {
       if (error.toString().contains('Identity not found')) {
         yield null;
+      } else {
+        throw Exception(['watch_user', error]);
       }
-
-      throw Exception(['watch_user', error]);
     }
   }
 }
