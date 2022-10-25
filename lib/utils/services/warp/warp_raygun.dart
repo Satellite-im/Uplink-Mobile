@@ -138,8 +138,9 @@ class WarpRaygunEventStream {
     } on WarpException catch (error) {
       if (error.error_message == 'Message is empty') {
         yield null;
+      } else {
+        throw Exception(['watch_chat_messages', error]);
       }
-      throw Exception(['get_last_message_received', error]);
     } catch (error) {
       throw Exception(['watch_chat_messages', error]);
     }
