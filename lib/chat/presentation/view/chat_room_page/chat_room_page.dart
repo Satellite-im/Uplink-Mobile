@@ -27,7 +27,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   @override
   void initState() {
     _chatController.add(CreateConversationStarted(widget.user));
-    _friendController.add(SearchUserStarted(userDid: widget.user.did!));
+    _friendController.add(WatchUserStarted(userDid: widget.user.did!));
 
     _chatController.add(GetNewMessageFromUserStarted());
 
@@ -46,42 +46,51 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.actions(
-        title: _friendController.user!.username,
-        actionList: [
-          IconButton(
-            icon: const UIcon(
-              UIcons.voice_call,
-              color: UColors.textMed,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const UIcon(
-              UIcons.video_call,
-              color: UColors.textMed,
-            ),
-            onPressed: () {},
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Center(
-              child: BlocBuilder<FriendBloc, FriendState>(
-                bloc: _friendController,
-                builder: (context, state) {
-                  return UUserProfileWithStatus(
-                    userProfileSize: UUserProfileSize.topMenuBar,
-                    uImage: UImage(
-                      imagePath: _friendController.user!.profilePicture?.path,
-                      imageSource: ImageSource.file,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: BlocBuilder<FriendBloc, FriendState>(
+          bloc: _friendController,
+          builder: (context, state) {
+            User user;
+            if (state is FriendLoadSuccess) {
+              user = state.user!;
+            } else {
+              user = _friendController.user!;
+            }
+            return UAppBar.actions(
+              title: user.username,
+              actionList: [
+                IconButton(
+                  icon: const UIcon(
+                    UIcons.voice_call,
+                    color: UColors.textMed,
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const UIcon(
+                    UIcons.video_call,
+                    color: UColors.textMed,
+                  ),
+                  onPressed: () {},
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                    child: UUserProfileWithStatus(
+                      userProfileSize: UUserProfileSize.topMenuBar,
+                      uImage: UImage(
+                        imagePath: user.profilePicture?.path,
+                        imageSource: ImageSource.file,
+                      ),
+                      status: user.status!,
                     ),
-                    status: _friendController.user!.status!,
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
       body: SafeArea(
         child: Center(
