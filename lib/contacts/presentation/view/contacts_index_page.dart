@@ -12,7 +12,6 @@ import 'package:uplink/contacts/presentation/view/models/models_export.dart';
 import 'package:uplink/contacts/presentation/view/user_profile_page/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
-import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
 import 'package:uplink/utils/ui_utils/bottom_navigation_bar.dart';
 
 class ContactsIndexPage extends StatefulWidget {
@@ -191,7 +190,7 @@ class _UAppBar extends StatelessWidget {
           onPressed: () {
             showCustomSearch(
               context: context,
-              delegate: ContactSearch(loadingContacts()),
+              delegate: ContactSearch(),
             );
           },
           icon: const UIcon(
