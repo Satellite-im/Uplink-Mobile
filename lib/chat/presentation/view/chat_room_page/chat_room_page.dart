@@ -33,6 +33,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void initState() {
     _chatController.add(CreateConversationStarted(widget.user));
     _friendController.add(SearchUserStarted(userDid: widget.user.did!));
+    _friendController.user = widget.user;
     _getLastMessageTimer =
         Timer.periodic(const Duration(milliseconds: 300), (timer) {
       _chatController.add(GetNewMessageFromUserStarted());
