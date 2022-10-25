@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
 import 'package:warp_dart/warp.dart';
@@ -435,6 +434,7 @@ class WarpMultipassEventStream {
   Stream<Map<String, dynamic>?> watchUser(String _userDid) async* {
     try {
       var _oldUserMap = <String, dynamic>{};
+      var _oldRelationshipMap = <String, bool>{};
       _watchingUser = true;
       while (_watchingUser) {
         final userStatusUpdated = _warpBloc.multipass!
@@ -445,23 +445,35 @@ class WarpMultipassEventStream {
         );
         final _usersRelationship =
             WarpMultipass()._getUsersRelationship(_userDid);
-        final _userMap = {
+        final _userMap = <String, dynamic>{
           'did': _userIdentity.did_key.replaceAll('did:key:', ''),
           'username': _userIdentity.username,
           'status': userStatusUpdated,
           'status_message': _userIdentity.status_message,
           'profile_picture': _userIdentity.graphics.profile_picture,
           'banner_picture': _userIdentity.graphics.profile_banner,
-          'relationship': _usersRelationship,
         };
-
         final _isThereAnUpdate =
             !mapEquals<String, dynamic>(_oldUserMap, _userMap);
 
-        if (_isThereAnUpdate) {
+        _oldUserMap = Map<String, dynamic>.from(_userMap);
+
+        final _usersRelationshipEntry = <String, Map<String, bool>>{
+          'relationship': _usersRelationship
+        };
+
+        _userMap.addEntries(_usersRelationshipEntry.entries);
+
+        final _relationShipIsDifferent = !mapEquals<String, dynamic>(
+          _oldRelationshipMap,
+          _usersRelationship,
+        );
+
+        _oldRelationshipMap = Map<String, bool>.from(_usersRelationship);
+
+        if (_isThereAnUpdate || _relationShipIsDifferent) {
           yield _userMap;
         }
-        _oldUserMap = _userMap;
         await Future<void>.delayed(const Duration(seconds: 1));
       }
     } on WarpException catch (error) {
