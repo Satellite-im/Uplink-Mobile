@@ -22,6 +22,15 @@ class SearchUserStarted extends FriendEvent {
   List<Object> get props => [userDid, closeStream];
 }
 
+class WatchUserStarted extends FriendEvent {
+  WatchUserStarted({required this.userDid});
+
+  final String userDid;
+
+  @override
+  List<Object> get props => [userDid];
+}
+
 class SendFriendRequestStarted extends FriendEvent {
   SendFriendRequestStarted();
 

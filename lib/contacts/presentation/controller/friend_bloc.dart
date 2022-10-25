@@ -21,6 +21,34 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       emit(FriendInitial());
     });
 
+    on<WatchUserStarted>(
+      (event, emit) async {
+        try {
+          await emit.onEach(
+            _watchUser(event.userDid),
+            onData: (_userMap) async {
+              if (_userMap != null) {
+                final _newUser = await User.fromMap(_userMap);
+                emit(FriendLoadSuccess(_newUser));
+              }
+            },
+            onError: (error, stackTrace) {
+              addError(error);
+
+              emit(
+                FriendLoadFailure(
+                  FriendLoadFailureTypesX.fromString(error.toString()),
+                ),
+              );
+            },
+          );
+        } catch (error) {
+          addError(error);
+          emit(FriendLoadFailure());
+        }
+      },
+    );
+
     on<SearchUserStarted>(
       (event, emit) async {
         try {
@@ -208,6 +236,11 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
 
   void closeWatchUserStatusStream() =>
       _friendRepository.closeWatchUserStatusStream();
+
+  Stream<Map<String, dynamic>?> _watchUser(String userDID) =>
+      _friendRepository.watchUser(userDID);
+
+  void closeWatchUserStream() => _friendRepository.closeWatchUserStream();
 
   User? user;
 
