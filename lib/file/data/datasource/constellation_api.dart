@@ -67,16 +67,14 @@ extension on constellation.Item {
   //transform the Item in constellation to the Item in App
 
   Future<Item> get toItem async {
-    final _name = path.withoutExtension(getItemName());
-    final _size = getItemSize();
-    final _uint8List = _warpBloc.constellation!
-        .downloadFileFromFilesystemIntoBuffer(getItemName());
+    final _name = path.withoutExtension(name());
+    final _size = size();
+    final _uint8List = _warpBloc.constellation!.downloadFileIntoBuffer(name());
     //file name withExtension
     // TODO(yijing): update thumbnail to the thumbnail from warp
     final _thumbnail = base64Encode(_uint8List);
-    final _creationDateTime = covertUTCStringToDateTime(getItemTimestamp());
-    final _modifiedDateTime =
-        covertUTCStringToDateTime(getItemDateModification());
+    final _creationDateTime = covertUTCStringToDateTime(creation());
+    final _modifiedDateTime = covertUTCStringToDateTime(modification());
 
     return Item(
       // TODO(yijing): change to other type when app has more type of file
