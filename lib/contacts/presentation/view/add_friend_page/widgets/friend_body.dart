@@ -65,7 +65,7 @@ class FriendBody extends StatelessWidget {
                 },
               ).then((value) {
                 _friendController.add(
-                  SearchUserStarted(
+                  WatchUserStarted(
                     userDid: user.did!,
                   ),
                 );
