@@ -432,11 +432,14 @@ class WarpMultipassEventStream {
   }
 
   Stream<Map<String, dynamic>?> watchUser(String _userDid) async* {
-    try {
-      var _oldUserMap = <String, dynamic>{};
-      var _oldRelationshipMap = <String, bool>{};
-      _watchingUser = true;
-      while (_watchingUser) {
+    var _oldUserMap = <String, dynamic>{};
+    var _oldRelationshipMap = <String, bool>{};
+    _watchingUser = true;
+    while (true) {
+      if (_watchingUser == false) {
+        return;
+      }
+      try {
         final userStatusUpdated = _warpBloc.multipass!
             .identityStatus(_returnCompleteDIDString(_userDid))
             .name;
@@ -474,21 +477,20 @@ class WarpMultipassEventStream {
         if (_isThereAnUpdate || _relationShipIsDifferent) {
           yield _userMap;
         }
-        await Future<void>.delayed(const Duration(seconds: 1));
-      }
-    } on WarpException catch (error) {
-      throw Exception([
-        'WARP_EXCEPTION',
-        'watch_user',
-        error.error_type,
-        error.error_message
-      ]);
-    } catch (error) {
-      if (error.toString().contains('Identity not found')) {
+      } on WarpException catch (error) {
+        throw Exception([
+          'WARP_EXCEPTION',
+          'watch_user',
+          error.error_type,
+          error.error_message
+        ]);
+      } catch (error) {
+        if (!error.toString().contains('Identity not found')) {
+          throw Exception(['watch_user', error]);
+        }
         yield null;
-      } else {
-        throw Exception(['watch_user', error]);
       }
+      await Future<void>.delayed(const Duration(seconds: 1));
     }
   }
 }
