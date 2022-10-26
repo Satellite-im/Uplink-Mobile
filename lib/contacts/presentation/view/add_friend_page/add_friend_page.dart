@@ -44,7 +44,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
         if (_textController.text != oldIdToSearch) {
           _friendController
             ..add(ResetFriendDataStarted())
-            ..closeWatchUserStatusStream();
+            ..closeWatchUserStream();
         }
       });
     });
@@ -60,7 +60,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
         ResetFriendDataStarted(),
       )
       ..add(ListFriendsStarted())
-      ..closeWatchUserStatusStream();
+      ..closeWatchUserStream();
 
     super.dispose();
   }
