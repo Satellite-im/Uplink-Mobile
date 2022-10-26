@@ -6,8 +6,6 @@ abstract class IFriendRepository {
 
   void closeWatchUserStream();
 
-  Stream<String> watchUserStatus(String userDid);
-
   Future<User> findUserByDid(String userDid);
 
   void sendFriendRequest(String userDid);
@@ -19,8 +17,6 @@ abstract class IFriendRepository {
   Future<List<User>> listFriends();
 
   Future<List<User>> listBlockedUsers();
-
-  void closeWatchUserStatusStream();
 
   void acceptFriendRequest(String userDID);
 

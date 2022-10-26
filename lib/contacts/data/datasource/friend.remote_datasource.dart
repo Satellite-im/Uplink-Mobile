@@ -106,11 +106,6 @@ class FriendData {
     }
   }
 
-  Stream<String> watchUserStatus(String userDid) =>
-      _warpStream.watchUserStatus(userDid);
-
-  void closeWatchUserStatusStream() => _warpStream.closeWatchUserStatusStream();
-
   void blockUser(String userDID) {
     _warp.blockUser(userDID);
   }

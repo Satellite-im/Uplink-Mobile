@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -399,36 +400,10 @@ String _removeDIDKEYPart(String _userDID) =>
 
 class WarpMultipassEventStream {
   final _warpBloc = GetIt.I.get<WarpBloc>();
-  var _watchingUserStatus = false;
   var _watchingUser = false;
 
   void closeWatchUserStream() {
     _watchingUser = false;
-  }
-
-  void closeWatchUserStatusStream() {
-    _watchingUserStatus = false;
-  }
-
-  Stream<String> watchUserStatus(String userDID) async* {
-    try {
-      String? userStatusUpdated;
-      String? userStatus;
-      _watchingUserStatus = true;
-
-      while (_watchingUserStatus == true) {
-        userStatusUpdated = _warpBloc.multipass!
-            .identityStatus(_returnCompleteDIDString(userDID))
-            .name;
-        if (userStatus != userStatusUpdated) {
-          yield userStatusUpdated;
-        }
-        userStatus = userStatusUpdated;
-        await Future<void>.delayed(const Duration(seconds: 1));
-      }
-    } catch (error) {
-      throw Exception(['watch_user_status', error]);
-    }
   }
 
   Stream<Map<String, dynamic>?> watchUser(String _userDid) async* {
