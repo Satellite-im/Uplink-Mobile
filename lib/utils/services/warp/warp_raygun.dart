@@ -93,16 +93,15 @@ class WarpRaygunEventStream {
     String conversationID,
     String userDID,
   ) async* {
-    try {
-      String? _oldLastMessageDID;
-      _watchingChatMessages = true;
+    String? _oldLastMessageDID;
+    _watchingChatMessages = true;
 
-      while (true) {
-        if (_watchingChatMessages == false) {
-          return;
-        }
+    while (true) {
+      if (_watchingChatMessages == false) {
+        return;
+      }
+      try {
         final _raygunMessages = _warpBloc.raygun!.getMessages(conversationID);
-
         final _lastRaygunMessage = _raygunMessages.last;
         if (_lastRaygunMessage.sender.contains(userDID)) {
           final _reactions = <Map<String, dynamic>>[];
@@ -133,16 +132,16 @@ class WarpRaygunEventStream {
           }
           _oldLastMessageDID = _lastRaygunMessage.id;
         }
-        await Future<void>.delayed(const Duration(milliseconds: 100));
-      }
-    } on WarpException catch (error) {
-      if (error.error_message == 'Message is empty') {
+      } on WarpException catch (error) {
+        if (error.error_message != 'Message is empty') {
+          throw Exception(['watch_chat_messages', error]);
+        }
         yield null;
-      } else {
+      } catch (error) {
         throw Exception(['watch_chat_messages', error]);
       }
-    } catch (error) {
-      throw Exception(['watch_chat_messages', error]);
+
+      await Future<void>.delayed(const Duration(milliseconds: 100));
     }
   }
 }
