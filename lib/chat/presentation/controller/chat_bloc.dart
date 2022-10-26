@@ -52,10 +52,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event, emit) async {
         try {
           await emit.onEach(
-            _repository.watchChatMessages(
-              _conversationID!,
-              _user!,
-            ),
+            _watchChatMessages(),
             onData: (newMessageMap) {
               if (newMessageMap != null) {
                 final _newChatMessage =
@@ -80,6 +77,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   List<UChatMessage> chatMessagesList = [];
+
+  Stream<Map<String, dynamic>?> _watchChatMessages() =>
+      _repository.watchChatMessages(
+        _conversationID!,
+        _user!,
+      );
 
   void closeWatchChatMessagesStream() =>
       _repository.closeWatchChatMessagesStream();
