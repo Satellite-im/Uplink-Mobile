@@ -28,8 +28,8 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
             _watchUser(event.userDid),
             onData: (_userMap) async {
               if (_userMap != null) {
-                final _newUser = await User.fromMap(_userMap);
-                emit(FriendLoadSuccess(_newUser));
+                user = await User.fromMap(_userMap);
+                emit(FriendLoadSuccess(user));
               }
             },
             onError: (error, stackTrace) {

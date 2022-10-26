@@ -189,7 +189,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                   currentFocus.unfocus();
                                 }
                                 _friendController.add(
-                                  SearchUserStarted(
+                                  WatchUserStarted(
                                     userDid: _textController.text,
                                   ),
                                 );
