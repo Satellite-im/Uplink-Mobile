@@ -12,16 +12,6 @@ class ResetFriendDataStarted extends FriendEvent {
   List<Object> get props => [];
 }
 
-class SearchUserStarted extends FriendEvent {
-  SearchUserStarted({required this.userDid, this.closeStream = false});
-
-  final String userDid;
-  final bool closeStream;
-
-  @override
-  List<Object> get props => [userDid, closeStream];
-}
-
 class WatchUserStarted extends FriendEvent {
   WatchUserStarted({required this.userDid});
 

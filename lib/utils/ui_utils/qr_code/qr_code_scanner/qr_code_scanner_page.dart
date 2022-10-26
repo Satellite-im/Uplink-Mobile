@@ -46,7 +46,9 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
 
   @override
   void dispose() {
-    _friendController.add(ResetFriendDataStarted());
+    _friendController
+      ..add(ResetFriendDataStarted())
+      ..closeWatchUserStream();
     _cameraController.dispose();
     super.dispose();
   }
@@ -105,7 +107,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
             final code = qrCode.rawValue!;
             if (code.contains(_didKeyCodeBeginning)) {
               _friendController.add(
-                SearchUserStarted(
+                WatchUserStarted(
                   userDid: code.replaceAll(_didKeyCodeBeginning, ''),
                 ),
               );
