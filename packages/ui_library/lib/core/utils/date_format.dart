@@ -73,4 +73,10 @@ class DateFormatUtils {
       return '$_month ${_inputFormat.day}, ${_inputFormat.year}';
     }
   }
+
+  static DateTime? covertUTCStringToDateTime(String stringUTC) {
+    final _editedString = stringUTC.replaceRange(29, null, 'Z');
+    final _dateTime = DateTime.tryParse(_editedString);
+    return _dateTime;
+  }
 }
