@@ -7,6 +7,47 @@ import 'package:warp_dart/warp.dart';
 class WarpRaygun {
   final _warp = GetIt.I.get<WarpBloc>();
 
+  Map<String, dynamic> _getConversationWithLastMessage(String conversationID) {
+    final _lastRaygunMessage = _warp.raygun!.getMessages(conversationID).last;
+
+    final _reactions = <Map<String, dynamic>>[];
+    if (_lastRaygunMessage.reactions.isNotEmpty) {
+      for (final reaction in _lastRaygunMessage.reactions) {
+        final _reactionMap = {
+          'emoji': reaction.emoji,
+          'senders_did':
+              reaction.sender.map((e) => e.replaceAll('did:key:', '')),
+        };
+        _reactions.add(_reactionMap);
+      }
+    }
+
+    final _message = {
+      'message_id': _lastRaygunMessage.id,
+      'date_time': _lastRaygunMessage.date.toLocal(),
+      'pinned': _lastRaygunMessage.pinned,
+      'reactions': _reactions,
+      'metadata': _lastRaygunMessage.metadata,
+      'conversation_id': _lastRaygunMessage.conversationId,
+      'replied': _lastRaygunMessage.replied,
+      'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
+      'value': _lastRaygunMessage.value.first,
+    };
+    return _message;
+  }
+
+  List<Map<String, dynamic>> listAllConversationsWithLastMessage() {
+    final _conversationsWithLastMessage = <Map<String, dynamic>>[];
+    final _currentUserConversations = _warp.raygun!.listConversation();
+    for (final conversation in _currentUserConversations) {
+      final _conversationWithLastMessage =
+          _getConversationWithLastMessage(conversation.id);
+      _conversationsWithLastMessage.add(_conversationWithLastMessage);
+    }
+
+    return _conversationsWithLastMessage;
+  }
+
   String createConversation(String userDID) {
     try {
       final _currentUserConversations = _warp.raygun!.listConversation();
