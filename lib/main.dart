@@ -15,7 +15,7 @@ import 'package:uplink/contacts/data/repositories/friend_impl.repository.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/file/data/data_export.dart';
-import 'package:uplink/file/data/datasource/constellation_api.dart';
+import 'package:uplink/file/data/datasource/file.remote_datasource.dart';
 import 'package:uplink/file/data/repository/file_impl_repository.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/profile/data/datasource/user_profile_data.remote_datasource.dart';
@@ -24,6 +24,7 @@ import 'package:uplink/profile/data/repositories/user_profile_impl.repository.da
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/services/services_export.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
+import 'package:uplink/utils/services/warp/warp_constellation.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
 import 'package:uplink/utils/services/warp/warp_raygun.dart';
 
@@ -140,7 +141,11 @@ void _registerDependencieFile(GetIt _getIt) {
         _getIt(),
       ),
     )
-    ..registerLazySingleton<IFileApi>(ConstellationApi.new)
+    ..registerLazySingleton<IFileApi>(
+      () => FileData(
+        WarpConstellaiton(),
+      ),
+    )
     ..registerLazySingleton<ItemListBloc>(
       () => ItemListBloc(
         _getIt(),
