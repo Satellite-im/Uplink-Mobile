@@ -2,27 +2,27 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart' as path;
 import 'package:ui_library/core/utils/date_format.dart';
 import 'package:uplink/file/data/datasource/file_api.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
+import 'package:uplink/utils/services/warp/warp_constellation.dart';
 import 'package:warp_dart/costellation.dart' as constellation;
 
-final _warpBloc = GetIt.I.get<WarpBloc>();
-
-class ConstellationApi implements IFileApi {
 // turn the data from constellation to the class used in UI
+class FileData implements IFileApi {
+  FileData(this._constellation);
+  final WarpConstellaiton? _constellation;
+
   @override
   Future<List<Item>> getItemList() async {
     var _result = <Item>[];
-    if (_warpBloc.constellation == null) {
+    if (_constellation == null) {
       log("constellation doesn't exist");
     } else {
-      final _rootDirectory = _warpBloc.constellation!.getRootDirectory();
-      final _itemList = _rootDirectory.listItems();
+      final _itemList = _constellation!.listItemsInRoot();
       for (final element in _itemList) {
         _result.add(await element.toItem);
       }
@@ -56,8 +56,7 @@ class ConstellationApi implements IFileApi {
       final _itemFileExtension = path.extension(item.file!.path);
 // TODO(yijing): add item path when app support directory
       final _remotePath = item.name + _itemFileExtension;
-
-      _warpBloc.constellation!.uploadToFilesystem(_remotePath, item.file!.path);
+      _constellation!.uploadToFilesystem(_remotePath, item.file!.path);
     } else {
       throw Exception("Unexpected item type to upload/File doesn't exist");
     }
@@ -68,9 +67,10 @@ extension on constellation.Item {
   //transform the Item in constellation to the Item in App
 
   Future<Item> get toItem async {
+    final _constellation = GetIt.I.get<WarpBloc>().constellation!;
     final _name = path.withoutExtension(name());
     final _size = size();
-    final _uint8List = _warpBloc.constellation!.downloadFileIntoBuffer(name());
+    final _uint8List = _constellation.downloadFileIntoBuffer(name());
     //file name withExtension
     // TODO(yijing): update thumbnail to the thumbnail from warp
     final _thumbnail = base64Encode(_uint8List);
