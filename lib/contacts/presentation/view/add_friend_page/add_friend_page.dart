@@ -28,6 +28,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
 
   @override
   void initState() {
+    super.initState();
     _friendController.add(ResetFriendDataStarted());
     _formfieldKey = GlobalKey<FormFieldState<String>>();
     _textController = TextEditingController();
@@ -48,7 +49,6 @@ class _AddFriendPageState extends State<AddFriendPage> {
         }
       });
     });
-    super.initState();
   }
 
   @override
