@@ -39,6 +39,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       ..add(ListOutgoingFriendRequestsStarted())
       ..add(ListFriendsStarted());
     _timerFunction = () {
+      _friendController.closeWatchUserStream();
       _lastQRCodeScanned = '';
       _isDialogOpened = false;
     };
@@ -219,7 +220,9 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 _timerFunction.call();
               });
             },
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
           );
         },
       );
