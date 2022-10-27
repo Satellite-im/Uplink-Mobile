@@ -5,6 +5,7 @@ import 'dart:developer';
 
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart' as path;
+import 'package:ui_library/core/utils/date_format.dart';
 import 'package:uplink/file/data/datasource/file_api.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
@@ -73,8 +74,10 @@ extension on constellation.Item {
     //file name withExtension
     // TODO(yijing): update thumbnail to the thumbnail from warp
     final _thumbnail = base64Encode(_uint8List);
-    final _creationDateTime = covertUTCStringToDateTime(creation());
-    final _modifiedDateTime = covertUTCStringToDateTime(modification());
+    final _creationDateTime =
+        DateFormatUtils.covertUTCStringToDateTime(creation());
+    final _modifiedDateTime =
+        DateFormatUtils.covertUTCStringToDateTime(modification());
 
     return Item(
       // TODO(yijing): change to other type when app has more type of file
@@ -87,10 +90,4 @@ extension on constellation.Item {
       modifiedDateTime: _modifiedDateTime,
     );
   }
-}
-
-DateTime? covertUTCStringToDateTime(String stringUTC) {
-  final _editedString = stringUTC.replaceRange(29, null, 'Z');
-  final _dateTime = DateTime.tryParse(_editedString);
-  return _dateTime;
 }
