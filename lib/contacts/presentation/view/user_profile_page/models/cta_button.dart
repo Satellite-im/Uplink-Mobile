@@ -20,13 +20,17 @@ class CTAButton extends StatelessWidget {
         label: UAppStrings.message,
         uIconData: UIcons.message,
         onPressed: () {
-          Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute<void>(
-              builder: (context) => ChatRoomPage(
-                user: user,
-              ),
-            ),
-          );
+          Navigator.of(context, rootNavigator: true)
+              .push(
+                MaterialPageRoute<void>(
+                  builder: (context) => ChatRoomPage(
+                    user: user,
+                  ),
+                ),
+              )
+              .then(
+                (value) => GetIt.I.get<FriendBloc>().closeWatchUserStream(),
+              );
         },
       );
     } else if (user.relationship == Relationship.none) {
@@ -58,13 +62,17 @@ class _TwoButtonsRow extends StatelessWidget {
             label: UAppStrings.message,
             uIconData: UIcons.message,
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute<void>(
-                  builder: (context) => ChatRoomPage(
-                    user: user,
-                  ),
-                ),
-              );
+              Navigator.of(context, rootNavigator: true)
+                  .push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => ChatRoomPage(
+                        user: user,
+                      ),
+                    ),
+                  )
+                  .then(
+                    (value) => GetIt.I.get<FriendBloc>().closeWatchUserStream(),
+                  );
             },
             disabled: disabled,
           ),

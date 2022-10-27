@@ -1,5 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
@@ -28,6 +32,7 @@ class WarpMultipass {
   Map<String, dynamic> getCurrentUserInfo() {
     try {
       final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
+
       final _currentUserMap = {
         'did': _removeDIDKEYPart(_currentUserIdentity.did_key),
         'username': _currentUserIdentity.username,
@@ -156,6 +161,7 @@ class WarpMultipass {
       final _userMap = {
         'did': _userIdentity.did_key.replaceAll('did:key:', ''),
         'username': _userIdentity.username,
+        'status': 'offline',
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
         'banner_picture': _userIdentity.graphics.profile_banner,
@@ -391,3 +397,75 @@ String _returnCompleteDIDString(String _userDID) => 'did:key:$_userDID';
 
 String _removeDIDKEYPart(String _userDID) =>
     _userDID.replaceAll('did:key:', '');
+
+class WarpMultipassEventStream {
+  final _warpBloc = GetIt.I.get<WarpBloc>();
+  var _watchingUser = false;
+
+  void closeWatchUserStream() {
+    _watchingUser = false;
+  }
+
+  Stream<Map<String, dynamic>?> watchUser(String _userDid) async* {
+    var _oldUserMap = <String, dynamic>{};
+    var _oldRelationshipMap = <String, bool>{};
+    _watchingUser = true;
+    while (true) {
+      if (_watchingUser == false) {
+        return;
+      }
+      try {
+        final userStatusUpdated = _warpBloc.multipass!
+            .identityStatus(_returnCompleteDIDString(_userDid))
+            .name;
+        final _userIdentity = _warpBloc.multipass!.getIdentityByDID(
+          _returnCompleteDIDString(_userDid),
+        );
+        final _usersRelationship =
+            WarpMultipass()._getUsersRelationship(_userDid);
+        final _userMap = <String, dynamic>{
+          'did': _userIdentity.did_key.replaceAll('did:key:', ''),
+          'username': _userIdentity.username,
+          'status': userStatusUpdated,
+          'status_message': _userIdentity.status_message,
+          'profile_picture': _userIdentity.graphics.profile_picture,
+          'banner_picture': _userIdentity.graphics.profile_banner,
+        };
+        final _isThereAnUpdate =
+            !mapEquals<String, dynamic>(_oldUserMap, _userMap);
+
+        _oldUserMap = Map<String, dynamic>.from(_userMap);
+
+        final _usersRelationshipEntry = <String, Map<String, bool>>{
+          'relationship': _usersRelationship
+        };
+
+        _userMap.addEntries(_usersRelationshipEntry.entries);
+
+        final _relationShipIsDifferent = !mapEquals<String, dynamic>(
+          _oldRelationshipMap,
+          _usersRelationship,
+        );
+
+        _oldRelationshipMap = Map<String, bool>.from(_usersRelationship);
+
+        if (_isThereAnUpdate || _relationShipIsDifferent) {
+          yield _userMap;
+        }
+      } on WarpException catch (error) {
+        throw Exception([
+          'WARP_EXCEPTION',
+          'watch_user',
+          error.error_type,
+          error.error_message
+        ]);
+      } catch (error) {
+        if (!error.toString().contains('Identity not found')) {
+          throw Exception(['watch_user', error]);
+        }
+        yield null;
+      }
+      await Future<void>.delayed(const Duration(seconds: 1));
+    }
+  }
+}

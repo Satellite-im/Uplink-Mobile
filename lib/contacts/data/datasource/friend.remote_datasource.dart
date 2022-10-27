@@ -3,8 +3,14 @@ import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
 
 class FriendData {
-  FriendData(this._warp);
+  FriendData(this._warp, this._warpStream);
   final WarpMultipass _warp;
+  final WarpMultipassEventStream _warpStream;
+
+  void closeWatchUserStream() => _warpStream.closeWatchUserStream();
+
+  Stream<Map<String, dynamic>?> watchUser(String userDid) =>
+      _warpStream.watchUser(userDid);
 
   Future<User> findUserByDid(String userDid) async {
     try {

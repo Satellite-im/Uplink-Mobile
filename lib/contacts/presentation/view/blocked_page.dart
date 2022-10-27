@@ -11,7 +11,6 @@ import 'package:uplink/contacts/presentation/view/user_profile_page/models/user_
 import 'package:uplink/contacts/presentation/view/user_profile_page/user_profile_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
-import 'package:uplink/utils/mock/helpers/loading_contacts.dart';
 import 'package:uplink/utils/mock/models/mock_contact.dart';
 
 class BlockedPage extends StatefulWidget {

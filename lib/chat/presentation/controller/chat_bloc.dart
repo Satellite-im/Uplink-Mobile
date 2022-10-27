@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/chat/data/repositories/chat.repository.dart';
@@ -48,29 +49,43 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
 
     on<GetNewMessageFromUserStarted>(
-      (event, emit) {
+      (event, emit) async {
         try {
-          final _lastMessageReceived = _repository.getLastMessageReceived(
-            conversationID: _conversationID!,
-            user: _user!,
-          );
+          await emit.onEach(
+            _watchChatMessages(),
+            onData: (newMessageMap) {
+              if (newMessageMap != null) {
+                final _newChatMessage =
+                    ChatMessage.fromMap(newMessageMap, _user!.did!);
+                _prepareLastMessageReceivedToUI(_newChatMessage);
+                emit(ChatLoadSucces(chatMessagesList));
+              }
+            },
+            onError: (error, stackTrace) {
+              addError(error);
 
-          if (_lastMessageReceived != null &&
-              _lastMessageReceivedID != _lastMessageReceived.messageId) {
-            emit(ChatLoadInProgress(chatMessagesList));
-            _lastMessageReceivedID = _lastMessageReceived.messageId!;
-            _prepareLastMessageReceivedToUI(_lastMessageReceived);
-            emit(ChatLoadSucces(chatMessagesList));
-          }
+              emit(ChatLoadError());
+            },
+          );
         } catch (error) {
           addError(error);
           emit(ChatLoadError());
         }
       },
+      transformer: restartable(),
     );
   }
 
   List<UChatMessage> chatMessagesList = [];
+
+  Stream<Map<String, dynamic>?> _watchChatMessages() =>
+      _repository.watchChatMessages(
+        _conversationID!,
+        _user!,
+      );
+
+  void closeWatchChatMessagesStream() =>
+      _repository.closeWatchChatMessagesStream();
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
   final IChatRepository _repository;
@@ -78,8 +93,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   User? _user;
 
   String? _conversationID;
-
-  String _lastMessageReceivedID = '';
 
   List<UChatMessage> _prepareAllMessagesForUI(
     List<ChatMessage> allMessages,
@@ -137,7 +150,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           (element) {
             if (element.chatMessage.chatMessageType ==
                 ChatMessageType.received) {
-              _lastMessageReceivedID = element.chatMessage.messageId!;
               return true;
             }
             return false;

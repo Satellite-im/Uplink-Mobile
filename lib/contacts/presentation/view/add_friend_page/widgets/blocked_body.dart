@@ -77,7 +77,7 @@ class BlockedBody extends StatelessWidget {
                   );
                 },
               ).then((value) {
-                _friendController.add(SearchUserStarted(userDid: user.did!));
+                _friendController.add(WatchUserStarted(userDid: user.did!));
               });
             },
           ),

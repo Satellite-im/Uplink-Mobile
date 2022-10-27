@@ -1,12 +1,9 @@
-// ignore_for_file: cascade_invocations
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class ChatRoomPage extends StatefulWidget {
@@ -24,61 +21,75 @@ class ChatRoomPage extends StatefulWidget {
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final _textEditingController = TextEditingController();
   final _chatController = GetIt.I.get<ChatBloc>();
+  final _friendController = GetIt.I.get<FriendBloc>();
   final _scrollController = ScrollController();
-  late Timer _getLastMessageTimer;
 
   @override
   void initState() {
+    _friendController.user = widget.user;
     _chatController.add(CreateConversationStarted(widget.user));
-    _getLastMessageTimer =
-        Timer.periodic(const Duration(milliseconds: 300), (timer) {
-      _chatController.add(GetNewMessageFromUserStarted());
-    });
+    _friendController.add(WatchUserStarted(userDid: widget.user.did!));
+    _chatController.add(GetNewMessageFromUserStarted());
     super.initState();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _chatController.dispose();
-    _getLastMessageTimer.cancel();
+    _chatController
+      ..dispose()
+      ..closeWatchChatMessagesStream();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UAppBar.actions(
-        title: widget.user.username,
-        actionList: [
-          IconButton(
-            icon: const UIcon(
-              UIcons.voice_call,
-              color: UColors.textMed,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const UIcon(
-              UIcons.video_call,
-              color: UColors.textMed,
-            ),
-            onPressed: () {},
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Center(
-              child: UUserProfileWithStatus(
-                userProfileSize: UUserProfileSize.topMenuBar,
-                uImage: UImage(
-                  imagePath: widget.user.profilePicture?.path,
-                  imageSource: ImageSource.file,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: BlocBuilder<FriendBloc, FriendState>(
+          bloc: _friendController,
+          builder: (context, state) {
+            User user;
+            if (state is FriendLoadSuccess) {
+              user = state.user!;
+            } else {
+              user = _friendController.user!;
+            }
+            return UAppBar.actions(
+              title: user.username,
+              actionList: [
+                IconButton(
+                  icon: const UIcon(
+                    UIcons.voice_call,
+                    color: UColors.textMed,
+                  ),
+                  onPressed: () {},
                 ),
-                status: Status.online,
-              ),
-            ),
-          ),
-        ],
+                IconButton(
+                  icon: const UIcon(
+                    UIcons.video_call,
+                    color: UColors.textMed,
+                  ),
+                  onPressed: () {},
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                    child: UUserProfileWithStatus(
+                      userProfileSize: UUserProfileSize.topMenuBar,
+                      uImage: UImage(
+                        imagePath: user.profilePicture?.path,
+                        imageSource: ImageSource.file,
+                      ),
+                      status: user.status!,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
       body: SafeArea(
         child: Center(

@@ -16,17 +16,6 @@ class ChatRepositoryImpl implements IChatRepository {
   }
 
   @override
-  ChatMessage? getLastMessageReceived({
-    required String conversationID,
-    required User user,
-  }) {
-    return _remoteDatasource.getLastMessageReceived(
-      conversationID: conversationID,
-      user: user,
-    );
-  }
-
-  @override
   void sendMessage({required ChatMessage newMessage}) {
     _remoteDatasource.sendMessage(newMessage);
   }
@@ -41,4 +30,18 @@ class ChatRepositoryImpl implements IChatRepository {
       user: user,
     );
   }
+
+  @override
+  Stream<Map<String, dynamic>?> watchChatMessages(
+    String conversationID,
+    User user,
+  ) =>
+      _remoteDatasource.watchChatMessages(
+        conversationID: conversationID,
+        user: user,
+      );
+
+  @override
+  void closeWatchChatMessagesStream() =>
+      _remoteDatasource.closeWatchChatMessagesStream();
 }

@@ -79,49 +79,69 @@ class WarpRaygun {
       throw Exception(['send_message_exception', error]);
     }
   }
+}
 
-  Map<String, dynamic>? getLastMessageReceived({
-    required String conversationID,
-    required String userDID,
-  }) {
-    try {
-      final _raygunMessages = _warp.raygun!.getMessages(conversationID);
+class WarpRaygunEventStream {
+  final _warpBloc = GetIt.I.get<WarpBloc>();
+  var _watchingChatMessages = false;
 
-      final _lastRaygunMessage = _raygunMessages.last;
-      if (_lastRaygunMessage.sender.contains(userDID)) {
-        final _reactions = <Map<String, dynamic>>[];
-        if (_lastRaygunMessage.reactions.isNotEmpty) {
-          for (final reaction in _lastRaygunMessage.reactions) {
-            final _reactionMap = {
-              'emoji': reaction.emoji,
-              'senders_did':
-                  reaction.sender.map((e) => e.replaceAll('did:key:', '')),
-            };
-            _reactions.add(_reactionMap);
+  void closeWatchUserStatusStream() {
+    _watchingChatMessages = false;
+  }
+
+  Stream<Map<String, dynamic>?> watchChatMessages(
+    String conversationID,
+    String userDID,
+  ) async* {
+    String? _oldLastMessageDID;
+    _watchingChatMessages = true;
+
+    while (true) {
+      if (_watchingChatMessages == false) {
+        return;
+      }
+      try {
+        final _raygunMessages = _warpBloc.raygun!.getMessages(conversationID);
+        final _lastRaygunMessage = _raygunMessages.last;
+        if (_lastRaygunMessage.sender.contains(userDID)) {
+          final _reactions = <Map<String, dynamic>>[];
+          if (_lastRaygunMessage.reactions.isNotEmpty) {
+            for (final reaction in _lastRaygunMessage.reactions) {
+              final _reactionMap = {
+                'emoji': reaction.emoji,
+                'senders_did':
+                    reaction.sender.map((e) => e.replaceAll('did:key:', '')),
+              };
+              _reactions.add(_reactionMap);
+            }
           }
+
+          final _message = {
+            'message_id': _lastRaygunMessage.id,
+            'date_time': _lastRaygunMessage.date.toLocal(),
+            'pinned': _lastRaygunMessage.pinned,
+            'reactions': _reactions,
+            'metadata': _lastRaygunMessage.metadata,
+            'conversation_id': _lastRaygunMessage.conversationId,
+            'replied': _lastRaygunMessage.replied,
+            'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
+            'value': _lastRaygunMessage.value.first,
+          };
+          if (_oldLastMessageDID != _lastRaygunMessage.id) {
+            yield _message;
+          }
+          _oldLastMessageDID = _lastRaygunMessage.id;
         }
-        final _message = {
-          'message_id': _lastRaygunMessage.id,
-          'date_time': _lastRaygunMessage.date.toLocal(),
-          'pinned': _lastRaygunMessage.pinned,
-          'reactions': _reactions,
-          'metadata': _lastRaygunMessage.metadata,
-          'conversation_id': _lastRaygunMessage.conversationId,
-          'replied': _lastRaygunMessage.replied,
-          'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
-          'value': _lastRaygunMessage.value.first,
-        };
-        return _message;
+      } on WarpException catch (error) {
+        if (error.error_message != 'Message is empty') {
+          throw Exception(['watch_chat_messages', error]);
+        }
+        yield null;
+      } catch (error) {
+        throw Exception(['watch_chat_messages', error]);
       }
 
-      return null;
-    } on WarpException catch (error) {
-      if (error.error_message == 'Message is empty') {
-        return null;
-      }
-      throw Exception(['get_last_message_received', error]);
-    } catch (error) {
-      throw Exception(['get_last_message_received', error]);
+      await Future<void>.delayed(const Duration(milliseconds: 100));
     }
   }
 }

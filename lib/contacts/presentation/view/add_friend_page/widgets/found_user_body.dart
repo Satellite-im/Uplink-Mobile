@@ -19,7 +19,7 @@ class FoundUserBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final _friendController = GetIt.I.get<FriendBloc>();
     return BlocBuilder<FriendBloc, FriendState>(
-      bloc: GetIt.I.get<FriendBloc>(),
+      bloc: _friendController,
       builder: (context, state) {
         if (state is FriendLoadSuccess && _friendController.user != null) {
           switch (_friendController.user!.relationship) {

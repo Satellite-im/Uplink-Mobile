@@ -9,18 +9,20 @@ class UserProfileData {
   Future<CurrentUser> getCurrentUserInfo() async {
     try {
       final _currentUserInfoMap = _warp.getCurrentUserInfo();
+      final _currentUserDID = _currentUserInfoMap['did'] as String;
       final _profilePictureFile =
           await Base64Convert().transformBase64ImageIntoFileImage(
         _currentUserInfoMap['profile_picture'] as String,
-        'profile_picture',
+        'profile_picture_$_currentUserDID',
       );
       final _bannerPictureFile =
           await Base64Convert().transformBase64ImageIntoFileImage(
         _currentUserInfoMap['banner_picture'] as String,
-        'banner_picture',
+        'banner_picture_$_currentUserDID',
       );
+
       final _currentUser = CurrentUser(
-        did: _currentUserInfoMap['did'] as String,
+        did: _currentUserDID,
         username: _currentUserInfoMap['username'] as String,
         statusMessage: _currentUserInfoMap['status_message'] as String,
         profilePicture: _profilePictureFile,

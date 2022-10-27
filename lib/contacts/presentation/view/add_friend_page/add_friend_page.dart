@@ -28,7 +28,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
 
   @override
   void initState() {
-    super.initState();
+    _friendController.add(ResetFriendDataStarted());
     _formfieldKey = GlobalKey<FormFieldState<String>>();
     _textController = TextEditingController();
     _textController.addListener(() {
@@ -42,10 +42,13 @@ class _AddFriendPageState extends State<AddFriendPage> {
           _disableSearchButton = true;
         }
         if (_textController.text != oldIdToSearch) {
-          _friendController.add(ResetFriendDataStarted());
+          _friendController
+            ..add(ResetFriendDataStarted())
+            ..closeWatchUserStream();
         }
       });
     });
+    super.initState();
   }
 
   @override
@@ -56,7 +59,8 @@ class _AddFriendPageState extends State<AddFriendPage> {
       ..add(
         ResetFriendDataStarted(),
       )
-      ..add(ListFriendsStarted());
+      ..add(ListFriendsStarted())
+      ..closeWatchUserStream();
 
     super.dispose();
   }
@@ -185,7 +189,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                   currentFocus.unfocus();
                                 }
                                 _friendController.add(
-                                  SearchUserStarted(
+                                  WatchUserStarted(
                                     userDid: _textController.text,
                                   ),
                                 );

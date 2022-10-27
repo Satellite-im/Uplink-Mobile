@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/domain/friend_request.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
@@ -20,30 +20,42 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       emit(FriendInitial());
     });
 
-    on<SearchUserStarted>((event, emit) async {
-      try {
-        emit(FriendLoadInProgress());
-        if (event.userDid == _currentUserController.currentUser!.did) {
-          emit(
-            FriendLoadFailure(FriendLoadFailureTypes.yourselfSentFriendRequest),
-          );
-          return;
-        }
+    on<WatchUserStarted>(
+      (event, emit) async {
+        try {
+          if (event.userDid == _currentUserController.currentUser!.did) {
+            emit(
+              FriendLoadFailure(
+                FriendLoadFailureTypes.yourselfSentFriendRequest,
+              ),
+            );
+            return;
+          }
+          await emit.onEach(
+            _watchUser(event.userDid),
+            onData: (_userMap) async {
+              if (_userMap != null) {
+                user = await User.fromMap(_userMap);
+                emit(FriendLoadSuccess(user));
+              }
+            },
+            onError: (error, stackTrace) {
+              addError(error);
 
-        user = null;
-        user = await _friendRepository.findUserByDid(event.userDid);
-        // TODO(Status): Change it when we have status from Warp
-        user = user?.copywith(status: Status.online);
-        emit(FriendLoadSuccess(user));
-      } catch (error) {
-        emit(
-          FriendLoadFailure(
-            FriendLoadFailureTypesX.fromString(error.toString()),
-          ),
-        );
-        addError(error);
-      }
-    });
+              emit(
+                FriendLoadFailure(
+                  FriendLoadFailureTypesX.fromString(error.toString()),
+                ),
+              );
+            },
+          );
+        } catch (error) {
+          addError(error);
+          emit(FriendLoadFailure());
+        }
+      },
+      transformer: restartable(),
+    );
 
     on<SendFriendRequestStarted>((event, emit) {
       try {
@@ -182,6 +194,11 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       }
     });
   }
+
+  Stream<Map<String, dynamic>?> _watchUser(String userDID) =>
+      _friendRepository.watchUser(userDID);
+
+  void closeWatchUserStream() => _friendRepository.closeWatchUserStream();
 
   User? user;
 

@@ -39,6 +39,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       ..add(ListOutgoingFriendRequestsStarted())
       ..add(ListFriendsStarted());
     _timerFunction = () {
+      _friendController.closeWatchUserStream();
       _lastQRCodeScanned = '';
       _isDialogOpened = false;
     };
@@ -46,7 +47,9 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
 
   @override
   void dispose() {
-    _friendController.add(ResetFriendDataStarted());
+    _friendController
+      ..add(ResetFriendDataStarted())
+      ..closeWatchUserStream();
     _cameraController.dispose();
     super.dispose();
   }
@@ -105,7 +108,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
             final code = qrCode.rawValue!;
             if (code.contains(_didKeyCodeBeginning)) {
               _friendController.add(
-                SearchUserStarted(
+                WatchUserStarted(
                   userDid: code.replaceAll(_didKeyCodeBeginning, ''),
                 ),
               );
@@ -217,7 +220,9 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 _timerFunction.call();
               });
             },
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
           );
         },
       );
