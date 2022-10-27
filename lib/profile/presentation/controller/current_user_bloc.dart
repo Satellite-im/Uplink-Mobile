@@ -133,8 +133,9 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
           _currentUserRepository.modifyProfilePicture(_base64Image);
         }
         currentUser = currentUser!.copywith(
-          profilePicture:
-              event.profilePicture.path.isEmpty ? null : event.profilePicture,
+          profilePicture: event.profilePicture.path.isEmpty
+              ? File('')
+              : event.profilePicture,
         );
 
         emit(CurrentUserLoadSuccess(currentUser!));
@@ -158,7 +159,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
 
         currentUser = currentUser!.copywith(
           bannerPicture:
-              event.bannerPicture.path.isEmpty ? null : event.bannerPicture,
+              event.bannerPicture.path.isEmpty ? File('') : event.bannerPicture,
         );
 
         emit(CurrentUserLoadSuccess(currentUser!));

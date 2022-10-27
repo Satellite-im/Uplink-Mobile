@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_library/widgets/u_status/u_status_export.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/domain/friend_request.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
@@ -20,30 +23,49 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       emit(FriendInitial());
     });
 
-    on<SearchUserStarted>((event, emit) async {
-      try {
-        emit(FriendLoadInProgress());
-        if (event.userDid == _currentUserController.currentUser!.did) {
-          emit(
-            FriendLoadFailure(FriendLoadFailureTypes.yourselfSentFriendRequest),
-          );
-          return;
-        }
+    on<SearchUserStarted>(
+      (event, emit) async {
+        try {
+          emit(FriendLoadInProgress());
+          if (event.userDid == _currentUserController.currentUser!.did) {
+            emit(
+              FriendLoadFailure(
+                FriendLoadFailureTypes.yourselfSentFriendRequest,
+              ),
+            );
+            return;
+          }
 
-        user = null;
-        user = await _friendRepository.findUserByDid(event.userDid);
-        // TODO(Status): Change it when we have status from Warp
-        user = user?.copywith(status: Status.online);
-        emit(FriendLoadSuccess(user));
-      } catch (error) {
-        emit(
-          FriendLoadFailure(
-            FriendLoadFailureTypesX.fromString(error.toString()),
-          ),
-        );
-        addError(error);
-      }
-    });
+          user = null;
+          user = await _friendRepository.findUserByDid(event.userDid);
+          await emit.forEach(
+            _watchUserStatus(event.userDid),
+            onData: (newUserStatus) {
+              user = user?.copywith(
+                status:
+                    newUserStatus == 'online' ? Status.online : Status.offline,
+              );
+              return FriendLoadSuccess(user);
+            },
+            onError: (error, stackTrace) {
+              addError(error);
+
+              return FriendLoadFailure(
+                FriendLoadFailureTypesX.fromString(error.toString()),
+              );
+            },
+          );
+        } catch (error) {
+          emit(
+            FriendLoadFailure(
+              FriendLoadFailureTypesX.fromString(error.toString()),
+            ),
+          );
+          addError(error);
+        }
+      },
+      transformer: restartable(),
+    );
 
     on<SendFriendRequestStarted>((event, emit) {
       try {
@@ -182,6 +204,12 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       }
     });
   }
+
+  Stream<String> _watchUserStatus(String userDID) =>
+      _friendRepository.watchUserStatus(userDID);
+
+  void closeWatchUserStatusStream() =>
+      _friendRepository.closeWatchUserStatusStream();
 
   User? user;
 

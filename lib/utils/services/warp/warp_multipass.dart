@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:async';
+
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:warp_dart/multipass.dart' as multipass;
@@ -28,6 +30,7 @@ class WarpMultipass {
   Map<String, dynamic> getCurrentUserInfo() {
     try {
       final _currentUserIdentity = _warpBloc.multipass!.getOwnIdentity();
+
       final _currentUserMap = {
         'did': _removeDIDKEYPart(_currentUserIdentity.did_key),
         'username': _currentUserIdentity.username,
@@ -156,6 +159,7 @@ class WarpMultipass {
       final _userMap = {
         'did': _userIdentity.did_key.replaceAll('did:key:', ''),
         'username': _userIdentity.username,
+        'status': 'offline',
         'status_message': _userIdentity.status_message,
         'profile_picture': _userIdentity.graphics.profile_picture,
         'banner_picture': _userIdentity.graphics.profile_banner,
@@ -391,3 +395,33 @@ String _returnCompleteDIDString(String _userDID) => 'did:key:$_userDID';
 
 String _removeDIDKEYPart(String _userDID) =>
     _userDID.replaceAll('did:key:', '');
+
+class WarpMultipassEventStream {
+  final _warpBloc = GetIt.I.get<WarpBloc>();
+  var _watchingUserStatus = false;
+
+  void closeWatchUserStatusStream() {
+    _watchingUserStatus = false;
+  }
+
+  Stream<String> watchUserStatus(String userDID) async* {
+    try {
+      String? userStatusUpdated;
+      String? userStatus;
+      _watchingUserStatus = true;
+
+      while (_watchingUserStatus == true) {
+        userStatusUpdated = _warpBloc.multipass!
+            .identityStatus(_returnCompleteDIDString(userDID))
+            .name;
+        if (userStatus != userStatusUpdated) {
+          yield userStatusUpdated;
+        }
+        userStatus = userStatusUpdated;
+        await Future<void>.delayed(const Duration(seconds: 1));
+      }
+    } catch (error) {
+      throw Exception(['watch_user_status', error]);
+    }
+  }
+}

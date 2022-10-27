@@ -19,6 +19,7 @@ class UserProfileData {
         _currentUserInfoMap['banner_picture'] as String,
         'banner_picture',
       );
+
       final _currentUser = CurrentUser(
         did: _currentUserInfoMap['did'] as String,
         username: _currentUserInfoMap['username'] as String,

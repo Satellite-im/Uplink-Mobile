@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class ChatRoomPage extends StatefulWidget {
@@ -24,12 +25,15 @@ class ChatRoomPage extends StatefulWidget {
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final _textEditingController = TextEditingController();
   final _chatController = GetIt.I.get<ChatBloc>();
+  final _friendController = GetIt.I.get<FriendBloc>();
   final _scrollController = ScrollController();
   late Timer _getLastMessageTimer;
 
   @override
   void initState() {
     _chatController.add(CreateConversationStarted(widget.user));
+    _friendController.add(SearchUserStarted(userDid: widget.user.did!));
+    _friendController.user = widget.user;
     _getLastMessageTimer =
         Timer.periodic(const Duration(milliseconds: 300), (timer) {
       _chatController.add(GetNewMessageFromUserStarted());
@@ -49,7 +53,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UAppBar.actions(
-        title: widget.user.username,
+        title: _friendController.user!.username,
         actionList: [
           IconButton(
             icon: const UIcon(
@@ -68,13 +72,18 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
-              child: UUserProfileWithStatus(
-                userProfileSize: UUserProfileSize.topMenuBar,
-                uImage: UImage(
-                  imagePath: widget.user.profilePicture?.path,
-                  imageSource: ImageSource.file,
-                ),
-                status: Status.online,
+              child: BlocBuilder<FriendBloc, FriendState>(
+                bloc: _friendController,
+                builder: (context, state) {
+                  return UUserProfileWithStatus(
+                    userProfileSize: UUserProfileSize.topMenuBar,
+                    uImage: UImage(
+                      imagePath: _friendController.user!.profilePicture?.path,
+                      imageSource: ImageSource.file,
+                    ),
+                    status: _friendController.user!.status!,
+                  );
+                },
               ),
             ),
           ),

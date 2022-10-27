@@ -39,9 +39,8 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
 
   final scrollController = ScrollController();
 
-  void _verifyIfHasImage() {
-    if (_currentUserController.currentUser!.bannerPicture != null &&
-        _currentUserController.currentUser!.bannerPicture!.path.isNotEmpty) {
+  void _verifyIfHasImage(File? image) {
+    if (image != null && image.path.isNotEmpty) {
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
@@ -157,7 +156,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   bannerPicture: _bannerImageFile!,
                                 ),
                               );
-                              _verifyIfHasImage();
+                              _verifyIfHasImage(_bannerImageFile);
                             },
                             secondButtonOnPressed: () async {
                               final _bannerImageFile =
@@ -174,7 +173,7 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                                   bannerPicture: _bannerImageFile!,
                                 ),
                               );
-                              _verifyIfHasImage();
+                              _verifyIfHasImage(_bannerImageFile);
                             },
                           ).show();
                         },
@@ -201,14 +200,16 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                     bloc: _currentUserController,
                     builder: (context, state) {
                       if (state is CurrentUserLoadSuccess &&
-                          _currentUserController.currentUser?.bannerPicture !=
-                              null) {
+                          _currentUserController.currentUser!.bannerPicture !=
+                              null &&
+                          _currentUserController
+                              .currentUser!.bannerPicture!.path.isNotEmpty) {
                         return SizedBox(
                           height: 164,
                           width: double.infinity,
                           child: UImage(
                             imagePath: _currentUserController
-                                .currentUser?.bannerPicture?.path,
+                                .currentUser!.bannerPicture?.path,
                             imageSource: ImageSource.file,
                           ),
                         );
@@ -229,64 +230,68 @@ class _ProfileIndexPageState extends State<ProfileIndexPage> {
                       const SizedBox.square(
                         dimension: 114,
                       ),
-                      Container(
-                        decoration:
-                            (_currentUserController
-                                            .currentUser?.bannerPicture ==
-                                        null &&
-                                    _currentUserController
-                                            .currentUser?.profilePicture ==
-                                        null &&
-                                    _currentUserController.currentUser
-                                            ?.profilePicture?.path ==
-                                        null &&
-                                    _currentUserController
-                                            .currentUser?.bannerPicture?.path ==
-                                        null)
-                                ? BoxDecoration(
+                      BlocBuilder<CurrentUserBloc, CurrentUserState>(
+                        bloc: _currentUserController,
+                        builder: (context, state) {
+                          final _bannerPicture =
+                              _currentUserController.currentUser!.bannerPicture;
+                          final _profilePicture = _currentUserController
+                              .currentUser!.profilePicture;
+
+                          return Container(
+                            decoration: (_profilePicture != null &&
+                                        _profilePicture.path.isNotEmpty) ||
+                                    (_bannerPicture != null &&
+                                        _bannerPicture.path.isNotEmpty)
+                                ? null
+                                : BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                       color: UColors.backgroundDark,
                                     ),
-                                  )
-                                : null,
-                        child: BlocBuilder<CurrentUserBloc, CurrentUserState>(
-                          bloc: _currentUserController,
-                          builder: (context, state) {
-                            if (state is CurrentUserLoadSuccess &&
-                                _currentUserController
-                                        .currentUser?.profilePicture !=
-                                    null) {
-                              return UUserPictureChange(
-                                showChangeImageButton: _isEditingProfile,
-                                uImage: UImage(
-                                  imagePath: _currentUserController
-                                      .currentUser?.profilePicture?.path,
-                                  imageSource: ImageSource.file,
-                                ),
-                                onPictureSelected: (value) {
-                                  _currentUserController.add(
-                                    UpdateProfilePicture(
-                                      profilePicture: value!,
+                                  ),
+                            child:
+                                BlocBuilder<CurrentUserBloc, CurrentUserState>(
+                              bloc: _currentUserController,
+                              builder: (context, state) {
+                                if (state is CurrentUserLoadSuccess &&
+                                    _currentUserController
+                                            .currentUser?.profilePicture !=
+                                        null &&
+                                    _currentUserController.currentUser!
+                                        .profilePicture!.path.isNotEmpty) {
+                                  return UUserPictureChange(
+                                    showChangeImageButton: _isEditingProfile,
+                                    uImage: UImage(
+                                      imagePath: _currentUserController
+                                          .currentUser?.profilePicture?.path,
+                                      imageSource: ImageSource.file,
                                     ),
+                                    onPictureSelected: (value) {
+                                      _currentUserController.add(
+                                        UpdateProfilePicture(
+                                          profilePicture: value!,
+                                        ),
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            } else {
-                              return UUserPictureChange(
-                                showChangeImageButton: _isEditingProfile,
-                                uImage: const UImage(),
-                                onPictureSelected: (value) {
-                                  _currentUserController.add(
-                                    UpdateProfilePicture(
-                                      profilePicture: value!,
-                                    ),
+                                } else {
+                                  return UUserPictureChange(
+                                    showChangeImageButton: _isEditingProfile,
+                                    uImage: const UImage(),
+                                    onPictureSelected: (value) {
+                                      _currentUserController.add(
+                                        UpdateProfilePicture(
+                                          profilePicture: value!,
+                                        ),
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            }
-                          },
-                        ),
+                                }
+                              },
+                            ),
+                          );
+                        },
                       ),
                       AnimatedCrossFade(
                         duration: _duration,

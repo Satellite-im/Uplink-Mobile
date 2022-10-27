@@ -10,6 +10,7 @@ environment:
 dependencies:
   azlistview: ^2.0.0
   bloc: ^8.1.0
+  bloc_concurrency: ^0.2.0
   dropdown_button2: ^1.7.2
   flutter:
     sdk: flutter
