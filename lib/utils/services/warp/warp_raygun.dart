@@ -93,7 +93,7 @@ class WarpRaygunEventStream {
     String conversationID,
     String userDID,
   ) async* {
-    String? _oldLastMessageDID;
+    String? _lastMessageID;
     _watchingChatMessages = true;
 
     while (true) {
@@ -102,11 +102,11 @@ class WarpRaygunEventStream {
       }
       try {
         final _raygunMessages = _warpBloc.raygun!.getMessages(conversationID);
-        final _lastRaygunMessage = _raygunMessages.last;
-        if (_lastRaygunMessage.sender.contains(userDID)) {
+        final _lastMessageInRaygun = _raygunMessages.last;
+        if (_lastMessageInRaygun.sender.contains(userDID)) {
           final _reactions = <Map<String, dynamic>>[];
-          if (_lastRaygunMessage.reactions.isNotEmpty) {
-            for (final reaction in _lastRaygunMessage.reactions) {
+          if (_lastMessageInRaygun.reactions.isNotEmpty) {
+            for (final reaction in _lastMessageInRaygun.reactions) {
               final _reactionMap = {
                 'emoji': reaction.emoji,
                 'senders_did':
@@ -117,20 +117,20 @@ class WarpRaygunEventStream {
           }
 
           final _message = {
-            'message_id': _lastRaygunMessage.id,
-            'date_time': _lastRaygunMessage.date.toLocal(),
-            'pinned': _lastRaygunMessage.pinned,
+            'message_id': _lastMessageInRaygun.id,
+            'date_time': _lastMessageInRaygun.date.toLocal(),
+            'pinned': _lastMessageInRaygun.pinned,
             'reactions': _reactions,
-            'metadata': _lastRaygunMessage.metadata,
-            'conversation_id': _lastRaygunMessage.conversationId,
-            'replied': _lastRaygunMessage.replied,
-            'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
-            'value': _lastRaygunMessage.value.first,
+            'metadata': _lastMessageInRaygun.metadata,
+            'conversation_id': _lastMessageInRaygun.conversationId,
+            'replied': _lastMessageInRaygun.replied,
+            'sender': _lastMessageInRaygun.sender.replaceAll('did:key:', ''),
+            'value': _lastMessageInRaygun.value.first,
           };
-          if (_oldLastMessageDID != _lastRaygunMessage.id) {
+          if (_lastMessageID != _lastMessageInRaygun.id) {
             yield _message;
           }
-          _oldLastMessageDID = _lastRaygunMessage.id;
+          _lastMessageID = _lastMessageInRaygun.id;
         }
       } on WarpException catch (error) {
         if (error.error_message != 'Message is empty') {

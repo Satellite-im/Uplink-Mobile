@@ -26,11 +26,11 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   void initState() {
+    super.initState();
     _chatController.add(CreateConversationStarted(widget.user));
     _friendController.add(SearchUserStarted(userDid: widget.user.did!));
     _chatController.add(GetNewMessageFromUserStarted());
     _friendController.user = widget.user;
-    super.initState();
   }
 
   @override
