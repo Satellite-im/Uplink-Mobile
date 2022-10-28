@@ -1,8 +1,6 @@
 import 'package:uplink/file/domain/item.dart';
 
-abstract class IFileApi {
-  // TODO(yijing): create a concrete class to communicate with constellation
-
+abstract class IFileDatasource {
   Future<List<Item>> getItemList();
   Future<void> uploadItem(Item item);
   Future<void> switchFavoriteStatus(Item item);

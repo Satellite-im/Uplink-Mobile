@@ -4,7 +4,7 @@ import 'package:uplink/file/domain/item.dart';
 class FileRepositoryImpl implements IFileRepository {
   FileRepositoryImpl(this._fileApi);
 
-  final IFileApi _fileApi;
+  final IFileDatasource _fileApi;
 
   @override
   Future<List<Item>> getItemList() => _fileApi.getItemList();

@@ -12,9 +12,9 @@ import 'package:uplink/utils/services/warp/warp_constellation.dart';
 import 'package:warp_dart/costellation.dart' as constellation;
 
 // turn the data from constellation to the class used in UI
-class FileData implements IFileApi {
+class FileData implements IFileDatasource {
   FileData(this._constellation);
-  final WarpConstellaiton? _constellation;
+  final WarpConstellation? _constellation;
 
   @override
   Future<List<Item>> getItemList() async {
@@ -22,9 +22,14 @@ class FileData implements IFileApi {
     if (_constellation == null) {
       log("constellation doesn't exist");
     } else {
-      final _itemList = _constellation!.listItemsInRoot();
-      for (final element in _itemList) {
-        _result.add(await element.toItem);
+      try {
+        final _itemList = _constellation!.listItemsInRoot();
+        for (final element in _itemList) {
+          _result.add(await element.toItem);
+        }
+      } catch (e) {
+        log('FileData->getItemList Failed');
+        throw Exception(e);
       }
     }
     return _result;
@@ -53,10 +58,15 @@ class FileData implements IFileApi {
   @override
   Future<void> uploadItem(Item item) async {
     if (item.type == ItemType.photo && item.file != null) {
-      final _itemFileExtension = path.extension(item.file!.path);
+      try {
+        final _itemFileExtension = path.extension(item.file!.path);
 // TODO(yijing): add item path when app support directory
-      final _remotePath = item.name + _itemFileExtension;
-      _constellation!.uploadToFilesystem(_remotePath, item.file!.path);
+        final _remotePath = item.name + _itemFileExtension;
+        _constellation!.uploadToFilesystem(_remotePath, item.file!.path);
+      } catch (e) {
+        log('FileData -> uploadItem Failed');
+        throw Exception(e);
+      }
     } else {
       throw Exception("Unexpected item type to upload/File doesn't exist");
     }
@@ -67,27 +77,32 @@ extension on constellation.Item {
   //transform the Item in constellation to the Item in App
 
   Future<Item> get toItem async {
-    final _constellation = GetIt.I.get<WarpBloc>().constellation!;
-    final _name = path.withoutExtension(name());
-    final _size = size();
-    final _uint8List = _constellation.downloadFileIntoBuffer(name());
-    //file name withExtension
-    // TODO(yijing): update thumbnail to the thumbnail from warp
-    final _thumbnail = base64Encode(_uint8List);
-    final _creationDateTime =
-        DateFormatUtils.covertUTCStringToDateTime(creation());
-    final _modifiedDateTime =
-        DateFormatUtils.covertUTCStringToDateTime(modification());
+    try {
+      final _constellation = GetIt.I.get<WarpBloc>().constellation!;
+      final _name = path.withoutExtension(name());
+      final _size = size();
+      final _uint8List = _constellation.downloadFileIntoBuffer(name());
+      //file name withExtension
+      // TODO(yijing): update thumbnail to the thumbnail from warp
+      final _thumbnail = base64Encode(_uint8List);
+      final _creationDateTime =
+          DateFormatUtils.covertUTCStringToDateTime(creation());
+      final _modifiedDateTime =
+          DateFormatUtils.covertUTCStringToDateTime(modification());
 
-    return Item(
-      // TODO(yijing): change to other type when app has more type of file
-      type: ItemType.photo,
-      name: _name,
-      size: _size,
-      preview: _uint8List,
-      thumbnail: _thumbnail,
-      creationDateTime: _creationDateTime,
-      modifiedDateTime: _modifiedDateTime,
-    );
+      return Item(
+        // TODO(yijing): change to other type when app has more type of file
+        type: ItemType.photo,
+        name: _name,
+        size: _size,
+        preview: _uint8List,
+        thumbnail: _thumbnail,
+        creationDateTime: _creationDateTime,
+        modifiedDateTime: _modifiedDateTime,
+      );
+    } catch (e) {
+      log('extension -> toItem Failed');
+      throw Exception(e);
+    }
   }
 }
