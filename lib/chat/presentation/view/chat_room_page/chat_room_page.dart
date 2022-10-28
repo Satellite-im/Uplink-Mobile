@@ -1,7 +1,3 @@
-// ignore_for_file: cascade_invocations
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -27,25 +23,22 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   final _chatController = GetIt.I.get<ChatBloc>();
   final _friendController = GetIt.I.get<FriendBloc>();
   final _scrollController = ScrollController();
-  late Timer _getLastMessageTimer;
 
   @override
   void initState() {
+    super.initState();
     _chatController.add(CreateConversationStarted(widget.user));
     _friendController.add(SearchUserStarted(userDid: widget.user.did!));
+    _chatController.add(GetNewMessageFromUserStarted());
     _friendController.user = widget.user;
-    _getLastMessageTimer =
-        Timer.periodic(const Duration(milliseconds: 300), (timer) {
-      _chatController.add(GetNewMessageFromUserStarted());
-    });
-    super.initState();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _chatController.dispose();
-    _getLastMessageTimer.cancel();
+    _chatController
+      ..dispose()
+      ..closeWatchChatMessagesStream();
     super.dispose();
   }
 

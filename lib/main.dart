@@ -58,6 +58,7 @@ void _registerDependencieChat(GetIt _getIt) {
     ..registerLazySingleton<ChatData>(
       () => ChatData(
         WarpRaygun(),
+        WarpRaygunEventStream(),
       ),
     )
     ..registerLazySingleton<ChatBloc>(
