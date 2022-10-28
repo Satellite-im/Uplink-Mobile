@@ -141,9 +141,9 @@ void _registerDependencieFile(GetIt _getIt) {
         _getIt(),
       ),
     )
-    ..registerLazySingleton<IFileApi>(
+    ..registerLazySingleton<IFileDatasource>(
       () => FileData(
-        WarpConstellaiton(),
+        WarpConstellation(),
       ),
     )
     ..registerLazySingleton<ItemListBloc>(
