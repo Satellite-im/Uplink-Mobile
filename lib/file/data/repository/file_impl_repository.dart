@@ -2,26 +2,27 @@ import 'package:uplink/file/data/data_export.dart';
 import 'package:uplink/file/domain/item.dart';
 
 class FileRepositoryImpl implements IFileRepository {
-  FileRepositoryImpl(this._fileApi);
+  FileRepositoryImpl(this._fileDatasource);
 
-  final IFileDatasource _fileApi;
-
-  @override
-  Future<List<Item>> getItemList() => _fileApi.getItemList();
+  final IFileDatasource _fileDatasource;
 
   @override
-  Future<void> uploadItem(Item item) => _fileApi.uploadItem(item);
+  Future<List<Item>> getItemList() => _fileDatasource.getItemList();
+
+  @override
+  Future<void> uploadItem(Item item) => _fileDatasource.uploadItem(item);
   @override
   Future<void> switchFavoriteStatus(Item item) =>
-      _fileApi.switchFavoriteStatus(item);
+      _fileDatasource.switchFavoriteStatus(item);
   @override
   Future<void> renameItem({required Item item, required String name}) =>
-      _fileApi.renameItem(item: item, name: name);
+      _fileDatasource.renameItem(item: item, name: name);
 
   @override
   Future<void> removeItems(List<Item> removedItemList) =>
-      _fileApi.removeItems(removedItemList);
+      _fileDatasource.removeItems(removedItemList);
 
   @override
-  Future<void> removeSingleItem(Item item) => _fileApi.removeSingleItem(item);
+  Future<void> removeSingleItem(Item item) =>
+      _fileDatasource.removeSingleItem(item);
 }
