@@ -4,12 +4,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:uplink/file/data/datasource/file_api.dart';
+import 'package:uplink/file/data/datasource/i_file_datasource.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/utils/helpers/base_64.dart';
 import 'package:uplink/utils/mock/data/mock_base64_str.dart';
 
-class MockFileApi implements IFileApi {
+class MockFileApi implements IFileDatasource {
   List<Item> itemList = <Item>[];
 
   @override

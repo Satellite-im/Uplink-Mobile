@@ -92,7 +92,9 @@ Widget _buildEntryPage(
     return BlocBuilder<WarpBloc, WarpState>(
       bloc: _warpController,
       builder: (context, state) {
-        if (state is WarpLoadSuccess || state is RaygunLoadSuccess) {
+        if (state is WarpLoadSuccess ||
+            state is RaygunLoadSuccess ||
+            state is ConstellationLoadSuccess) {
           return const MainBottomNavigationBar();
         }
         return ScaffoldCenterPage(

@@ -350,7 +350,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const file_index_page_single_item = '1 item';
   static const file_index_page_items = ' items';
   static const file_index_page_items_in_error = '## items';
-  static const file_index_page_load_in_error = "Can't not load the files";
+  static const file_index_page_load_in_error = 'Could not load the files';
   static const upload_photo_title = 'Upload your picture from';
   static const upload_photo_camera = 'Take Photo';
   static const upload_photo_gallary = 'Camera Roll';

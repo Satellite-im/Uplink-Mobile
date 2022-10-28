@@ -39,3 +39,18 @@ class RaygunLoadFailure extends WarpState {
   @override
   List<Object?> get props => [];
 }
+
+class ConstellationInProgress extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ConstellationLoadSuccess extends WarpState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ConstellationLoadFailure extends WarpState {
+  @override
+  List<Object?> get props => [];
+}

@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 /// ItemType is for different types of objects are used in File session
 ///
@@ -18,34 +19,39 @@ enum ItemType {
 
 /// Item is the object used in file session
 /// thumbnail is a base64 string
+/// preview(Uint8List) is for PhotoDetailPage to show image
+/// file is the File with the path to upload/download
 class Item extends Equatable {
   Item({
     required this.name,
     this.thumbnail,
+    this.preview,
     required this.type,
-    required this.size,
-    required this.file,
+    this.size,
+    this.file,
     this.isFavorited = false,
-    required this.creationDateTime,
-    required this.modifiedDateTime,
+    this.creationDateTime,
+    this.modifiedDateTime,
   });
   String name;
   final String? thumbnail;
+  final Uint8List? preview;
   final ItemType type;
-  final int size;
-  final File file;
+  final int? size;
+  final File? file;
   bool isFavorited;
 
   /// DateTime when upload the item
-  final DateTime creationDateTime;
+  final DateTime? creationDateTime;
 
   /// DateTime when change the item name
-  DateTime modifiedDateTime;
+  DateTime? modifiedDateTime;
 
   @override
   List<Object?> get props => [
         name,
         thumbnail,
+        preview,
         type,
         size,
         isFavorited,

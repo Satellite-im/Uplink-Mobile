@@ -5,6 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:warp_dart/costellation.dart' as warp_constellation;
+import 'package:warp_dart/fs_memory.dart' as fs_memory;
 import 'package:warp_dart/mp_ipfs.dart' as warp_mp_ipfs;
 import 'package:warp_dart/multipass.dart' as warp_multipass;
 import 'package:warp_dart/raygun.dart' as warp_raygun;
@@ -85,6 +87,17 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
         addError(error);
       }
     });
+
+    on<ConstellationStarted>((event, emit) {
+      try {
+        emit(ConstellationInProgress());
+        constellation = fs_memory.initConstellation();
+        emit(ConstellationLoadSuccess());
+      } catch (error) {
+        emit(ConstellationLoadFailure());
+        addError(error);
+      }
+    });
   }
 
   /// Get the file path to save tesseract and multipass
@@ -137,6 +150,8 @@ class WarpBloc extends Bloc<WarpEvent, WarpState> {
   warp_multipass.MultiPass? multipass;
 
   warp_raygun.Raygun? raygun;
+
+  warp_constellation.Constellation? constellation;
 
   late warp.DID? currentUserDID;
 
