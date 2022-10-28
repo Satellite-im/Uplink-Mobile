@@ -47,7 +47,7 @@ class UAppStrings {
   static const privacySettingFirstPage_firstOptionTitle =
       'Register Username Publicly';
   static const privacySettingFirstPage_firstOptionSubTitle =
-      'Publicly associate your account ID with a human readable username. '
+      'Publicly associate your account ID with a human-readable username. '
       'Anyone can see this association.';
   static const privacySettingFirstPage_secondOptionTitle = 'Store Account Pin';
   static const privacySettingFirstPage_secondOptionSubTitle =
@@ -56,7 +56,7 @@ class UAppStrings {
   static const privacySettingFirstPage_thirdOptionTitle =
       'Enable External Embeds';
   static const privacySettingFirstPage_thirdOptionSubTitle =
-      'Allow Satellite.im to fetch data from external sites in order to expand '
+      'Allow Satellite.im to fetch data from external sites to expand '
       'links like Spotify, Youtube, and more.';
   static const privacySettingFirstPage_fourthOptionTitle =
       'Display Current Activity';
@@ -69,7 +69,7 @@ class UAppStrings {
   static const privacySettingSecondPage_pageDescription = '''
 Choose which signaling server group you want to use.
 
-If you use ‘Satellite.im + Public Signaling Servers’, you are using public servers and Satellite.im hosted servers to connect with your friends. We do not track connections. We only track server utilization (memory and cpu usage) to know if we need to turn on more signaling servers.
+If you use ‘Satellite.im + Public Signaling Servers’, you are using public servers and Satellite.im hosted servers to connect with your friends. We do not track connections. We only track server utilization (memory and CPU usage) to know if we need to turn on more signaling servers.
 
 If you opt to use ‘Only Public Signaling Servers’, those are completely outside of Satellite.im control, so we cannot see any insight into their operation, logging, or data sharing practices. You may experience difficulties connecting with friends if the signaling servers are overloaded.
 ''';
@@ -128,7 +128,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   /// OnboardImportAccountPage
   static const onboardImportAccountPage_title = 'Import Account';
   static const onboardImportAccountPage_body =
-      'Enter your 12 word passphrase in exactly the same order your recovery '
+      'Enter your 12-word passphrase in exactly the same order your recovery '
       'seed was generated.';
   static const onboardImportAccountPage_error = 'error. account not registered';
   static const onboardImportAccountPage_tryAgain = 'Try Again';
@@ -159,7 +159,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   ///FriendRequestPage
   static const friendRequestPage_appBarTitle = 'Friend Requests';
   static const friendRequestPage_emptyBody =
-      'No one is here, you have 0 friend request!';
+      'No one is here, you have 0 friend requests!';
   static const friendRequestPage_received = 'Received - ';
 
   ///FriendRequestListTile
@@ -177,7 +177,7 @@ Would you like to give Satellite.im access to your camera roll?''';
 
   ///OutgoingRequestListTile
   static const outgoingRequestListTile_bottomSheetHeader =
-      'Are you sure you want to unsend this friend request?';
+      'Are you sure you want to cancel this friend request?';
   static const outgoingRequestListTile_dialogTitle = 'Friend Request Removed';
   static const outgoingRequestListTile_text1 = 'Your request to ';
   static const outgoingRequestListTile_text2 = ' was removed.';
@@ -206,7 +206,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   static const withFriendRequestBody_yourRequest = 'Your request to ';
   static const withFriendRequestBody_removed = ' was removed.';
   static const withFriendRequestBody_unsend =
-      'Are you sure you want to unsend this friend request?';
+      'Are you sure you want to cancel this friend request?';
   static const withFriendRequestBody_receivedFriendRequest =
       ' has already sent you a friend request. Do you want to accept it?';
 
@@ -217,7 +217,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   ///FriendBody
   static const friendBody_remove = 'Remove Friend';
   static const friendBody_remove_q =
-      'Are you sure you want to remove this user from your Contact’s list?';
+      'Are you sure you want to remove this user from your Contact list?';
 
   ///buildUserListTileLongPress
   static const buildUserListTileLongPress_profile = 'Profile';

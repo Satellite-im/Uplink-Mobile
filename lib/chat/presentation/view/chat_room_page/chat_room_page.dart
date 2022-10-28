@@ -26,16 +26,17 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   void initState() {
+    super.initState();
     _friendController.user = widget.user;
     _chatController.add(CreateConversationStarted(widget.user));
     _friendController.add(WatchUserStarted(userDid: widget.user.did!));
     _chatController.add(GetNewMessageFromUserStarted());
-    super.initState();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _textEditingController.dispose();
     _chatController
       ..dispose()
       ..closeWatchChatMessagesStream();
@@ -119,7 +120,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 alignment: Alignment.bottomCenter,
                 child: UChatbar(
                   textEditingController: _textEditingController,
-                  onMsg: (value) async {
+                  onMsg: (value) {
                     _chatController.add(SendNewMessageStarted(value));
                   },
                   onImage: () {
