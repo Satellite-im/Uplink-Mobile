@@ -27,7 +27,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
       bloc: _itemListController,
       builder: (context, state) => Scaffold(
         appBar: UAppBar.back(title: widget.item.name),
-        body: Center(child: Image.file(widget.item.file)),
+        body: Center(child: Image.memory(widget.item.preview!)),
         bottomNavigationBar: SizedBox(
           height: 80,
           child: BottomAppBar(

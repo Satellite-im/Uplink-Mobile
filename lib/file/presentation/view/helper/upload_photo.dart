@@ -60,10 +60,7 @@ Future<void> _nameAndUploadItem(BuildContext context, File? imageFile) async {
           name: _fileName,
           thumbnail: _base64String,
           type: ItemType.photo,
-          size: imageFile.lengthSync(),
           file: imageFile,
-          creationDateTime: DateTime.now(),
-          modifiedDateTime: DateTime.now(),
         );
         _itemListController.add(UploadItem(item: _item));
       }

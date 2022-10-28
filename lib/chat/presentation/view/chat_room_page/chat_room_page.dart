@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
@@ -26,11 +27,11 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   void initState() {
+    super.initState();
     _friendController.user = widget.user;
     _chatController.add(CreateConversationStarted(widget.user));
     _friendController.add(WatchUserStarted(userDid: widget.user.did!));
     _chatController.add(GetNewMessageFromUserStarted());
-    super.initState();
   }
 
   @override
@@ -51,7 +52,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           bloc: _friendController,
           builder: (context, state) {
             User user;
-            if (state is FriendLoadSuccess) {
+            if (state is FriendLoadSuccess && state.user != null) {
               user = state.user!;
             } else {
               user = _friendController.user!;
@@ -119,7 +120,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 alignment: Alignment.bottomCenter,
                 child: UChatbar(
                   textEditingController: _textEditingController,
-                  onMsg: (value) async {
+                  onMsg: (value) {
                     _chatController.add(SendNewMessageStarted(value));
                   },
                   onImage: () {

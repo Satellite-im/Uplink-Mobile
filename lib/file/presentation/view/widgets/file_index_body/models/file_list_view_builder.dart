@@ -105,7 +105,7 @@ class _ListViewListTileState extends State<ListViewListTile> {
           textColor: UColors.white,
         ),
         subtitle: UText(
-          widget.item.size.toFileSize(decimals: 1),
+          widget.item.size!.toFileSize(decimals: 1),
           textStyle: UTextStyle.M1_micro,
         ),
         trailing: TrailingWidget(
