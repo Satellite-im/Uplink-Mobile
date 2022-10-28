@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart' as path;
 import 'package:ui_library/core/utils/date_format.dart';
-import 'package:uplink/file/data/datasource/file_api.dart';
+import 'package:uplink/file/data/datasource/i_file_datasource.dart';
 import 'package:uplink/file/domain/item.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/services/warp/warp_constellation.dart';
@@ -14,24 +14,22 @@ import 'package:warp_dart/costellation.dart' as constellation;
 // turn the data from constellation to the class used in UI
 class FileData implements IFileDatasource {
   FileData(this._constellation);
-  final WarpConstellation? _constellation;
+  final WarpConstellation _constellation;
 
   @override
   Future<List<Item>> getItemList() async {
     var _result = <Item>[];
-    if (_constellation == null) {
-      log("constellation doesn't exist");
-    } else {
-      try {
-        final _itemList = _constellation!.listItemsInRoot();
-        for (final element in _itemList) {
-          _result.add(await element.toItem);
-        }
-      } catch (e) {
-        log('FileData->getItemList Failed');
-        throw Exception(e);
+
+    try {
+      final _itemList = _constellation.listItemsInRoot();
+      for (final element in _itemList) {
+        _result.add(await element.toItem);
       }
+    } catch (e) {
+      log('FileData->getItemList Failed');
+      throw Exception(e);
     }
+
     return _result;
   }
 
@@ -62,7 +60,7 @@ class FileData implements IFileDatasource {
         final _itemFileExtension = path.extension(item.file!.path);
 // TODO(yijing): add item path when app support directory
         final _remotePath = item.name + _itemFileExtension;
-        _constellation!.uploadToFilesystem(_remotePath, item.file!.path);
+        _constellation.uploadToFilesystem(_remotePath, item.file!.path);
       } catch (e) {
         log('FileData -> uploadItem Failed');
         throw Exception(e);
