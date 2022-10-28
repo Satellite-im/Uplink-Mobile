@@ -52,7 +52,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           bloc: _friendController,
           builder: (context, state) {
             User user;
-            if (state is FriendLoadSuccess) {
+            if (state is FriendLoadSuccess && state.user != null) {
               user = state.user!;
             } else {
               user = _friendController.user!;
