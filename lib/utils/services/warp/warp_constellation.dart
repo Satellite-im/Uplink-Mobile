@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_locals
+// ignore_for_file: prefer_final_locals, cascade_invocations
 
 import 'dart:developer';
 
@@ -27,6 +27,16 @@ class WarpConstellation {
       _warpBloc.constellation!.uploadToFilesystem(remotePath, localPath);
     } catch (e) {
       log('WarpConstellation->uploadToFilesystem Failed');
+      throw Exception(e);
+    }
+  }
+
+  void removeItem(String name) {
+    try {
+      final _rootDirectory = _warpBloc.constellation!.getRootDirectory();
+      _rootDirectory.removeItem(name);
+    } catch (e) {
+      log('WarpConstellation->removeItem Failed');
       throw Exception(e);
     }
   }
