@@ -24,6 +24,7 @@ enum ItemType {
 class Item extends Equatable {
   Item({
     required this.name,
+    required this.extension,
     this.thumbnail,
     this.preview,
     required this.type,
@@ -34,6 +35,7 @@ class Item extends Equatable {
     this.modifiedDateTime,
   });
   String name;
+  String extension;
   final String? thumbnail;
   final Uint8List? preview;
   final ItemType type;
