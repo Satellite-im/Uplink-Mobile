@@ -30,6 +30,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
   final _didKeyCodeBeginning = 'did:key:';
   final _timerDuration = const Duration(milliseconds: 750);
   late VoidCallback _timerFunction;
+  final _qrCodeScannerPageDialogs = _QRCodeScannerFeedbackDialogs();
 
   @override
   void initState() {
@@ -113,13 +114,17 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
                 ),
               );
               _friendController.stream.listen((state) {
-                if (state is FriendLoadSuccess && _isDialogOpened == false) {
+                if (state is FriendLoadSuccess &&
+                    _isDialogOpened == false &&
+                    _friendController.user != null) {
                   _isDialogOpened = true;
-                  _verifyRelationshipBetweenUsers(_friendController.user!);
+                  _verifyRelationshipBetweenUsers(
+                    _friendController.user!,
+                  );
                 } else if (state is FriendLoadFailure &&
                     _isDialogOpened == false) {
                   _isDialogOpened = true;
-                  _QRCodeScannerFeedbackDialogs.showErrorAccountNotFoundDialog(
+                  _qrCodeScannerPageDialogs.showErrorAccountNotFoundDialog(
                     context,
                     onCloseDialog: () {
                       Timer(_timerDuration, () {
@@ -135,7 +140,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
               _isDialogOpened = true;
               _lastQRCodeScanned = qrCode.rawValue!;
 
-              _QRCodeScannerFeedbackDialogs.showErrorInvalidQRCodeDialog(
+              _qrCodeScannerPageDialogs.showErrorInvalidQRCodeDialog(
                 context,
                 onCloseDialog: () {
                   Timer(_timerDuration, () {
@@ -153,9 +158,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
 
   void _verifyRelationshipBetweenUsers(User user) {
     if (user.relationship == Relationship.friend) {
-      _QRCodeScannerFeedbackDialogs.showUsersAreAlreadyFriendsDialog(
+      _qrCodeScannerPageDialogs.showUsersAreAlreadyFriendsDialog(
         context,
-        user,
         onCloseDialog: () {
           Timer(_timerDuration, () {
             _timerFunction.call();
@@ -166,9 +170,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
         },
       );
     } else if (user.relationship == Relationship.receivedFriendRequest) {
-      _QRCodeScannerFeedbackDialogs.showOtherUserAlreadySentFriendRequestDialog(
+      _qrCodeScannerPageDialogs.showOtherUserAlreadySentFriendRequestDialog(
         context,
-        user,
         onCloseDialog: () {
           Timer(_timerDuration, () {
             _timerFunction.call();
@@ -180,9 +183,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
         },
       );
     } else if (user.relationship == Relationship.sentFriendRequest) {
-      _QRCodeScannerFeedbackDialogs.showCurrentUserSentFriendRequestDialog(
+      _qrCodeScannerPageDialogs.showCurrentUserSentFriendRequestDialog(
         context,
-        user,
         onCloseDialog: () {
           Timer(_timerDuration, () {
             _timerFunction.call();
@@ -194,9 +196,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       );
     } else if (user.relationship == Relationship.block) {
       var _openedNewDialog = false;
-      _QRCodeScannerFeedbackDialogs.showUserIsBlocked(
+      _qrCodeScannerPageDialogs.showUserIsBlocked(
         context,
-        user,
         onCloseDialog: () {
           if (!_openedNewDialog) {
             Timer(_timerDuration, () {
@@ -211,9 +212,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
             ..add(SendFriendRequestStarted());
 
           Navigator.of(context).pop();
-          _QRCodeScannerFeedbackDialogs.showFriendRequestSentDialog(
+          _qrCodeScannerPageDialogs.showFriendRequestSentDialog(
             context,
-            user,
             onCloseDialog: () {
               _friendController.add(ListOutgoingFriendRequestsStarted());
               Timer(_timerDuration, () {
@@ -228,10 +228,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
       );
     } else {
       var _openedNewDialog = false;
-      _QRCodeScannerFeedbackDialogs.showSendFriendRequestToOtherUserDialog(
+      _qrCodeScannerPageDialogs.showSendFriendRequestToOtherUserDialog(
         context,
-        user,
-        _friendController,
         onCloseDialog: () {
           if (!_openedNewDialog) {
             Timer(_timerDuration, () {
@@ -244,9 +242,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage>
           _openedNewDialog = true;
           _friendController.add(SendFriendRequestStarted());
           Navigator.of(context).pop();
-          _QRCodeScannerFeedbackDialogs.showFriendRequestSentDialog(
+          _qrCodeScannerPageDialogs.showFriendRequestSentDialog(
             context,
-            user,
             onCloseDialog: () {
               _friendController.add(ListOutgoingFriendRequestsStarted());
               Timer(_timerDuration, () {

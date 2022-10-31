@@ -430,7 +430,7 @@ class WarpMultipassEventStream {
           'profile_picture': _userIdentity.graphics.profile_picture,
           'banner_picture': _userIdentity.graphics.profile_banner,
         };
-        final _isThereAnUpdate =
+        final _userDataHasChanged =
             !mapEquals<String, dynamic>(_oldUserMap, _userMap);
 
         _oldUserMap = Map<String, dynamic>.from(_userMap);
@@ -441,14 +441,14 @@ class WarpMultipassEventStream {
 
         _userMap.addEntries(_usersRelationshipEntry.entries);
 
-        final _relationShipIsDifferent = !mapEquals<String, dynamic>(
+        final _relationshipHasChanged = !mapEquals<String, dynamic>(
           _oldRelationshipMap,
           _usersRelationship,
         );
 
         _oldRelationshipMap = Map<String, bool>.from(_usersRelationship);
 
-        if (_isThereAnUpdate || _relationShipIsDifferent) {
+        if (_userDataHasChanged || _relationshipHasChanged) {
           yield _userMap;
         }
       } on WarpException catch (error) {
