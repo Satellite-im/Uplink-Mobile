@@ -42,11 +42,9 @@ class _QRCodeBottomSheet extends StatelessWidget {
               title: UAppStrings.qrCodePage_appBarTitle,
               cancelCloseFunctionInBackButton: true,
               onBackPressed: () {
-                if (fullPageLoaded) {
-                  animationController.forward().whenComplete(
-                        () => Navigator.of(context).pop(),
-                      );
-                }
+                animationController.forward().whenComplete(
+                      () => Navigator.of(context).pop(),
+                    );
               },
             ),
           ),
