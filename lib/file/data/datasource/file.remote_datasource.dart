@@ -34,8 +34,16 @@ class FileData implements IFileDatasource {
   }
 
   @override
-  Future<void> removeItems(List<Item> itemList) async {
-    log('removeItems');
+  Future<void> removeItems(List<Item> removeItemsList) async {
+    try {
+      for (final removeItem in removeItemsList) {
+        final _nameInConstellation = removeItem.name + removeItem.extension;
+        _constellation.removeItem(_nameInConstellation);
+      }
+    } catch (e) {
+      log('FileData->removeItems Failed');
+      throw Exception(e);
+    }
   }
 
   @override
