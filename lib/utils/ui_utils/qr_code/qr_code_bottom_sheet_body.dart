@@ -7,7 +7,6 @@ class _QRCodeBottomSheet extends StatelessWidget {
     required this.isPage,
     required this.showAppBar,
     required this.isHalfPage,
-    required this.fullPageLoaded,
     required this.animationController,
   }) : super(key: key);
 
@@ -15,7 +14,6 @@ class _QRCodeBottomSheet extends StatelessWidget {
   final bool isPage;
   final bool showAppBar;
   final bool isHalfPage;
-  final bool fullPageLoaded;
   final AnimationController animationController;
 
   @override
