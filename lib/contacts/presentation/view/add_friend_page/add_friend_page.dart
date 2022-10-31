@@ -45,7 +45,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
         if (_textController.text != oldIdToSearch) {
           _friendController
             ..add(ResetFriendDataStarted())
-            ..closeWatchUserStatusStream();
+            ..closeWatchUserStream();
         }
       });
     });
@@ -54,14 +54,12 @@ class _AddFriendPageState extends State<AddFriendPage> {
   @override
   void dispose() {
     _textController.dispose();
-
     _friendController
       ..add(
         ResetFriendDataStarted(),
       )
       ..add(ListFriendsStarted())
-      ..closeWatchUserStatusStream();
-
+      ..closeWatchUserStream();
     super.dispose();
   }
 
@@ -189,7 +187,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                   currentFocus.unfocus();
                                 }
                                 _friendController.add(
-                                  SearchUserStarted(
+                                  WatchUserStarted(
                                     userDid: _textController.text,
                                   ),
                                 );

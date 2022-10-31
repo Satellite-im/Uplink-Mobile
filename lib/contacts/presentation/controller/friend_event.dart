@@ -12,8 +12,8 @@ class ResetFriendDataStarted extends FriendEvent {
   List<Object> get props => [];
 }
 
-class SearchUserStarted extends FriendEvent {
-  SearchUserStarted({required this.userDid});
+class WatchUserStarted extends FriendEvent {
+  WatchUserStarted({required this.userDid});
 
   final String userDid;
 

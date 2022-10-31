@@ -7,6 +7,14 @@ class FriendRepositoryImpl implements IFriendRepository {
   const FriendRepositoryImpl(this._remoteDatasource);
 
   final FriendData _remoteDatasource;
+
+  @override
+  void closeWatchUserStream() => _remoteDatasource.closeWatchUserStream();
+
+  @override
+  Stream<Map<String, dynamic>?> watchUser(String userDid) =>
+      _remoteDatasource.watchUser(userDid);
+
   @override
   Future<User> findUserByDid(String userDid) async =>
       _remoteDatasource.findUserByDid(userDid);
@@ -29,14 +37,6 @@ class FriendRepositoryImpl implements IFriendRepository {
   @override
   Future<List<User>> listBlockedUsers() async =>
       _remoteDatasource.listBlockedUsers();
-
-  @override
-  Stream<String> watchUserStatus(String userDid) =>
-      _remoteDatasource.watchUserStatus(userDid);
-
-  @override
-  void closeWatchUserStatusStream() =>
-      _remoteDatasource.closeWatchUserStatusStream();
 
   @override
   void acceptFriendRequest(String userDID) {

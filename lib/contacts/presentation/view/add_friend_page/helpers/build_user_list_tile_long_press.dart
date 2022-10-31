@@ -82,7 +82,7 @@ void buildUserListTileLongPress(BuildContext context, User user) {
           },
         ).then((value) {
           _friendController.add(
-            SearchUserStarted(userDid: user.did!),
+            WatchUserStarted(userDid: user.did!),
           );
         });
       },

@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:ui_library/widgets/u_status/u_status_export.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/domain/friend_request.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
@@ -23,10 +22,9 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       emit(FriendInitial());
     });
 
-    on<SearchUserStarted>(
+    on<WatchUserStarted>(
       (event, emit) async {
         try {
-          emit(FriendLoadInProgress());
           if (event.userDid == _currentUserController.currentUser!.did) {
             emit(
               FriendLoadFailure(
@@ -35,33 +33,27 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
             );
             return;
           }
-
-          user = null;
-          user = await _friendRepository.findUserByDid(event.userDid);
-          await emit.forEach(
-            _watchUserStatus(event.userDid),
-            onData: (newUserStatus) {
-              user = user?.copywith(
-                status:
-                    newUserStatus == 'online' ? Status.online : Status.offline,
-              );
-              return FriendLoadSuccess(user);
+          await emit.onEach(
+            _watchUser(event.userDid),
+            onData: (_userMap) async {
+              if (_userMap != null) {
+                user = await User.fromMap(_userMap);
+                emit(FriendLoadSuccess(user));
+              }
             },
             onError: (error, stackTrace) {
               addError(error);
 
-              return FriendLoadFailure(
-                FriendLoadFailureTypesX.fromString(error.toString()),
+              emit(
+                FriendLoadFailure(
+                  FriendLoadFailureTypesX.fromString(error.toString()),
+                ),
               );
             },
           );
         } catch (error) {
-          emit(
-            FriendLoadFailure(
-              FriendLoadFailureTypesX.fromString(error.toString()),
-            ),
-          );
           addError(error);
+          emit(FriendLoadFailure());
         }
       },
       transformer: restartable(),
@@ -205,11 +197,10 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     });
   }
 
-  Stream<String> _watchUserStatus(String userDID) =>
-      _friendRepository.watchUserStatus(userDID);
+  Stream<Map<String, dynamic>?> _watchUser(String userDID) =>
+      _friendRepository.watchUser(userDID);
 
-  void closeWatchUserStatusStream() =>
-      _friendRepository.closeWatchUserStatusStream();
+  void closeWatchUserStream() => _friendRepository.closeWatchUserStream();
 
   User? user;
 

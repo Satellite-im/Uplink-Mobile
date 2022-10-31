@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/utils/helpers/base_64.dart';
@@ -34,7 +35,7 @@ extension _RelationShipX on Relationship {
 }
 
 @immutable
-class User {
+class User extends Equatable {
   const User({
     this.did,
     required this.username,
@@ -51,15 +52,16 @@ class User {
 
   static Future<User> fromMap(Map<String, dynamic> _userMap) async {
     try {
+      final _userDID = _userMap['did'] as String;
       final _profilePictureFile =
           await Base64Convert().transformBase64ImageIntoFileImage(
         _userMap['profile_picture'] as String,
-        'profile_picture',
+        'profile_picture_$_userDID',
       );
       final _bannerPictureFile =
           await Base64Convert().transformBase64ImageIntoFileImage(
         _userMap['banner_picture'] as String,
-        'banner_picture',
+        'banner_picture_$_userDID',
       );
       final _relationship = _RelationShipX.fromMap(
         _userMap['relationship'] as Map<String, bool>,
@@ -71,7 +73,7 @@ class User {
       );
 
       return User(
-        did: _userMap['did'] as String,
+        did: _userDID,
         username: _userMap['username'] as String,
         statusMessage: _userMap['status_message'] != null
             ? _userMap['status_message'] as String
@@ -129,9 +131,31 @@ class User {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is User && other.did == did && other.username == username;
+    return other is User &&
+        other.did == did &&
+        other.username == username &&
+        other.status == status &&
+        other.statusMessage == statusMessage &&
+        other.relationship == relationship &&
+        other.profilePicture == profilePicture &&
+        other.bannerPicture == bannerPicture;
   }
 
   @override
   int get hashCode => did.hashCode ^ username.hashCode;
+
+  @override
+  List<Object?> get props => [
+        did,
+        username,
+        status,
+        statusMessage,
+        relationship,
+        profilePicture,
+        bannerPicture,
+        badgesNum,
+        location,
+        friendNum,
+        about,
+      ];
 }

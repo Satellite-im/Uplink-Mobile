@@ -17,7 +17,7 @@ class Base64Convert {
         final _dir = await path_provider.getTemporaryDirectory();
 
         _fileToSaveImage = File(
-          '${_dir.path}/${_fileName}_${DateTime.now().millisecondsSinceEpoch}.jpg',
+          '${_dir.path}/$_fileName.jpg',
         );
         await _fileToSaveImage.writeAsBytes(_imageBytes);
 

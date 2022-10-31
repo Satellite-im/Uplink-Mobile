@@ -79,11 +79,7 @@ class WithFriendRequestBody extends StatelessWidget {
                             ),
                             buttonText: UAppStrings.okay,
                           ),
-                        ).then((value) {
-                          _friendController.add(
-                            SearchUserStarted(userDid: user.did!),
-                          );
-                        });
+                        );
                       }
                     },
                   );

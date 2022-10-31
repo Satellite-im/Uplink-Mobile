@@ -29,8 +29,7 @@ class CTAButton extends StatelessWidget {
                 ),
               )
               .then(
-                (value) =>
-                    GetIt.I.get<FriendBloc>().closeWatchUserStatusStream(),
+                (value) => GetIt.I.get<FriendBloc>().closeWatchUserStream(),
               );
         },
       );
@@ -72,8 +71,7 @@ class _TwoButtonsRow extends StatelessWidget {
                     ),
                   )
                   .then(
-                    (value) =>
-                        GetIt.I.get<FriendBloc>().closeWatchUserStatusStream(),
+                    (value) => GetIt.I.get<FriendBloc>().closeWatchUserStream(),
                   );
             },
             disabled: disabled,
