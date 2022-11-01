@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/chat/data/repositories/chat.repository.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
+import 'package:uplink/chat/domain/chat_with_user.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/models/u_chat_message.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
@@ -13,6 +15,19 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc(this._repository) : super(ChatInitial()) {
+    on<ListAllConversationsWithLastMessageStarted>((event, emit) async {
+      try {
+        emit(ChatLoadInProgress(const []));
+        final _allLastChatMessages =
+            await _repository.listAllConversationsWithLastMessage();
+
+        emit(AllChatsLoadSuccess(_allLastChatMessages));
+      } catch (error) {
+        addError(error);
+        emit(ChatLoadError());
+      }
+    });
+
     on<SendNewMessageStarted>((event, emit) {
       try {
         emit(ChatLoadInProgress(chatMessagesList));
@@ -76,7 +91,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
   }
 
+  final _friendController = GetIt.I.get<FriendBloc>();
+
   List<UChatMessage> chatMessagesList = [];
+
+  List<UChatMessage> allUChatMessagesList = [];
 
   Stream<Map<String, dynamic>?> _watchChatMessages() =>
       _repository.watchChatMessages(

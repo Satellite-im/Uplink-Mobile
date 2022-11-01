@@ -1,6 +1,7 @@
 import 'package:uplink/chat/data/datasource/chat.remote_datasource.dart';
 import 'package:uplink/chat/data/repositories/chat.repository.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
+import 'package:uplink/chat/domain/chat_with_user.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 class ChatRepositoryImpl implements IChatRepository {
@@ -44,4 +45,8 @@ class ChatRepositoryImpl implements IChatRepository {
   @override
   void closeWatchChatMessagesStream() =>
       _remoteDatasource.closeWatchChatMessagesStream();
+
+  @override
+  Future<List<ChatWithUser>> listAllConversationsWithLastMessage() =>
+      _remoteDatasource.listAllConversationsWithLastMessage();
 }

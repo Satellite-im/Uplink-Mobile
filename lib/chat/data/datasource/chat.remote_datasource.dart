@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:uplink/chat/domain/chat_message.dart';
+import 'package:uplink/chat/domain/chat_with_user.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 import 'package:uplink/utils/services/warp/warp_raygun.dart';
 
@@ -8,6 +9,22 @@ class ChatData {
   ChatData(this._warp, this._warpStream);
   final WarpRaygun _warp;
   final WarpRaygunEventStream _warpStream;
+
+  Future<List<ChatWithUser>> listAllConversationsWithLastMessage() async {
+    try {
+      final _chatWithUserList = <ChatWithUser>[];
+      final _allConversationsMap = _warp.listAllConversationsWithLastMessage();
+      for (final conversationMap in _allConversationsMap) {
+        final _chatMessage = await ChatWithUser.fromMap(
+          conversationMap,
+        );
+        _chatWithUserList.add(_chatMessage);
+      }
+      return _chatWithUserList;
+    } catch (error) {
+      rethrow;
+    }
+  }
 
   String createConversation({
     required User user,

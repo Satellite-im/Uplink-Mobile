@@ -25,6 +25,14 @@ class ChatLoadSucces extends ChatState {
   List<Object> get props => [chatMessages];
 }
 
+class AllChatsLoadSuccess extends ChatState {
+  AllChatsLoadSuccess(this.allChatMessages);
+
+  final List<ChatWithUser> allChatMessages;
+  @override
+  List<Object> get props => [allChatMessages];
+}
+
 class ChatLoadError extends ChatState {
   @override
   List<Object> get props => [];

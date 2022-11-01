@@ -2,12 +2,16 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
+import 'package:uplink/utils/services/warp/warp_multipass.dart';
 import 'package:warp_dart/warp.dart';
 
 class WarpRaygun {
   final _warp = GetIt.I.get<WarpBloc>();
 
-  Map<String, dynamic> _getConversationWithLastMessage(String conversationID) {
+  Map<String, dynamic> _getConversationWithLastMessage(
+    String conversationID,
+    Map<String, dynamic> user,
+  ) {
     final _lastRaygunMessage = _warp.raygun!.getMessages(conversationID).last;
 
     final _reactions = <Map<String, dynamic>>[];
@@ -32,6 +36,7 @@ class WarpRaygun {
       'replied': _lastRaygunMessage.replied,
       'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
       'value': _lastRaygunMessage.value.first,
+      'user': user,
     };
     return _message;
   }
@@ -40,8 +45,11 @@ class WarpRaygun {
     final _conversationsWithLastMessage = <Map<String, dynamic>>[];
     final _currentUserConversations = _warp.raygun!.listConversation();
     for (final conversation in _currentUserConversations) {
+      final _userMap = WarpMultipass()
+          .findUserByDid(conversation.recipients[1].replaceAll('did:key:', ''));
       final _conversationWithLastMessage =
-          _getConversationWithLastMessage(conversation.id);
+          _getConversationWithLastMessage(conversation.id, _userMap!);
+
       _conversationsWithLastMessage.add(_conversationWithLastMessage);
     }
 
