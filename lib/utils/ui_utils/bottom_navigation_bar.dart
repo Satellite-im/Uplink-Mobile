@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
+import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/contacts_index_page.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
@@ -36,6 +37,12 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   void _updateIndex(int value) {
     setState(() {
       _currentIndex = value;
+      if (_currentIndex == 0) {
+        GetIt.I
+            .get<ChatBloc>()
+            .add(ListAllConversationsWithLastMessageStarted());
+      }
+
       if (_currentIndex == 1) {
         GetIt.I.get<ItemListBloc>().add(GetItemList());
       } else if (_currentIndex == 2) {
