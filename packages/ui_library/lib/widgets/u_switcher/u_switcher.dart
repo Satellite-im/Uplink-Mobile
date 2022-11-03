@@ -49,9 +49,9 @@ class _USwitcherState extends State<USwitcher> {
   late bool _disabled;
   @override
   void initState() {
+    super.initState();
     _switchValue = widget.switchValue;
     _disabled = widget.disabled ?? false;
-    super.initState();
   }
 
   void _changeValue() {

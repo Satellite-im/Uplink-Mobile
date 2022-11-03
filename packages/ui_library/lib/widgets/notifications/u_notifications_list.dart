@@ -45,8 +45,8 @@ class _UNotificationsListState extends State<UNotificationsList> {
 
   @override
   void initState() {
-    _prepareNotificationsList();
     super.initState();
+    _prepareNotificationsList();
   }
 
   void _prepareNotificationsList() {

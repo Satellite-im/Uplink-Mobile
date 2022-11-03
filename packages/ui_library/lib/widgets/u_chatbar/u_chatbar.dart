@@ -86,9 +86,9 @@ class _UChatbarState extends State<UChatbar> {
 
   @override
   void dispose() {
-    super.dispose();
     widget.textEditingController.dispose();
     _focusNode.dispose();
+    super.dispose();
   }
 
   void _onTextSubmitted() {

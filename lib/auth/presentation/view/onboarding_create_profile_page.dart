@@ -37,6 +37,7 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
 
   @override
   void initState() {
+    super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels > 40 &&
           _scrollController.position.userScrollDirection ==
@@ -44,7 +45,6 @@ class _OnboardCreateProfilePageState extends State<OnboardCreateProfilePage> {
         _dismissKeyboard();
       }
     });
-    super.initState();
   }
 
   @override

@@ -18,8 +18,8 @@ class _FriendRequestPageState extends State<FriendRequestPage> {
 
   @override
   void initState() {
-    _friendController.add(ListIncomingFriendRequestsStarted());
     super.initState();
+    _friendController.add(ListIncomingFriendRequestsStarted());
   }
 
   @override

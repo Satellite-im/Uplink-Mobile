@@ -25,8 +25,8 @@ class _BlockedPageState extends State<BlockedPage> {
 
   @override
   void initState() {
-    _friendController.add(ListBlockedUsersStarted());
     super.initState();
+    _friendController.add(ListBlockedUsersStarted());
   }
 
   @override

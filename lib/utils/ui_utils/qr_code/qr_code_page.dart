@@ -26,14 +26,13 @@ class QRCodePageState extends State<QRCodePage>
 
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
     currentUser = widget.currentUser;
     controller = widget.controller;
-
-    super.initState();
   }
 
   @override

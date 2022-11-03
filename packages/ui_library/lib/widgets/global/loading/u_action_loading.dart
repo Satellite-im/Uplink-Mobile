@@ -86,10 +86,10 @@ class _ShadedPageWithLoadingDashState
     extends State<_ShadedPageWithLoadingDash> {
   @override
   void initState() {
+    super.initState();
     widget.isLoading.addListener(() {
       setState(() {});
     });
-    super.initState();
   }
 
   @override

@@ -129,8 +129,8 @@ class UTextInputState extends State<UTextInput> {
 
   @override
   void initState() {
-    _textEditingController = widget._controller ?? TextEditingController();
     super.initState();
+    _textEditingController = widget._controller ?? TextEditingController();
   }
 
   void _showCounter(UTextInputRules _uTextInputRules) {

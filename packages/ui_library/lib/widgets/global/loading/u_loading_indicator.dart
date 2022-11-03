@@ -21,6 +21,7 @@ class _ULoadingIndicatorState extends State<ULoadingIndicator>
 
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -44,7 +45,6 @@ class _ULoadingIndicatorState extends State<ULoadingIndicator>
       reverse: true,
       period: _animationController.duration,
     );
-    super.initState();
   }
 
   @override

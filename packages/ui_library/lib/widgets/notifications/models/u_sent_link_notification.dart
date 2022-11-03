@@ -24,11 +24,6 @@ class _USentMessageNotificationState extends State<_USentMessageNotification> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
         future: UFetchLinkData().fetch(widget.uNotification.message),

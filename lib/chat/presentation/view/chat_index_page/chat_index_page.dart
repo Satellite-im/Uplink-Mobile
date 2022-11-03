@@ -4,6 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
 import 'package:uplink/chat/presentation/view/chat_index_page/models/search/chat_search.dart';
+import 'package:uplink/chat/presentation/view/chat_room_page/chat_room_page.dart';
+import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
+import 'package:uplink/contacts/presentation/view/add_friend_page/add_friend_page.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/notifications/notifications_page.dart';
 import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
@@ -172,8 +175,8 @@ class _ChatIndexAppBarState extends State<_ChatIndexAppBar>
 
   @override
   void initState() {
-    _initController();
     super.initState();
+    _initController();
   }
 
   @override

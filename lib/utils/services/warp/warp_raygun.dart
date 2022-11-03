@@ -211,7 +211,6 @@ class WarpRaygunEventStream {
       } catch (error) {
         throw Exception(['watch_chat_messages', error]);
       }
-
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }
   }

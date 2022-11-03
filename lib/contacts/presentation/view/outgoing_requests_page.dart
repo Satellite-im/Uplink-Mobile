@@ -18,8 +18,8 @@ class _OutgoingRequestPageState extends State<OutgoingRequestPage> {
 
   @override
   void initState() {
-    _friendController.add(ListOutgoingFriendRequestsStarted());
     super.initState();
+    _friendController.add(ListOutgoingFriendRequestsStarted());
   }
 
   @override
