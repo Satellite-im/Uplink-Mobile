@@ -1,9 +1,10 @@
 import 'package:uplink/chat/domain/chat_message.dart';
-import 'package:uplink/chat/domain/chat_with_user.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
 abstract class IChatRepository {
-  Future<List<ChatWithUser>> listAllConversationsWithLastMessage();
+  Stream<List<Map<String, dynamic>?>> watchAllConversations();
+
+  void closeWatchAllConversations();
 
   Stream<Map<String, dynamic>?> watchChatMessages(
     String conversationID,

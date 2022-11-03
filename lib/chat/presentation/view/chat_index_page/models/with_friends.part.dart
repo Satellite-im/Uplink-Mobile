@@ -8,7 +8,6 @@ class _WithFriends extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _chatController = GetIt.I.get<ChatBloc>();
-    final _friendController = GetIt.I.get<CurrentUserBloc>();
 
     return BlocBuilder<ChatBloc, ChatState>(
       bloc: _chatController,
@@ -61,7 +60,7 @@ class _WithFriends extends StatelessWidget {
                       message: _chatWithUser.message,
                       arrivalMessageTime: _chatWithUser.messageSentTime,
                     ),
-                    unreadMessages: 1,
+                    unreadMessages: 0,
                     uImage: UImage(
                       imagePath: _user.profilePicture?.path,
                       imageSource: ImageSource.file,

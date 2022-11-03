@@ -38,9 +38,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     setState(() {
       _currentIndex = value;
       if (_currentIndex == 0) {
-        GetIt.I
-            .get<ChatBloc>()
-            .add(ListAllConversationsWithLastMessageStarted());
+        GetIt.I.get<ChatBloc>().add(WatchAllConversations());
+      } else {
+        GetIt.I.get<ChatBloc>().closeWatchAllConversations();
       }
 
       if (_currentIndex == 1) {

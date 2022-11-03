@@ -6,7 +6,6 @@ import 'package:uplink/chat/data/repositories/chat.repository.dart';
 import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/chat/domain/chat_with_user.dart';
 import 'package:uplink/chat/presentation/view/chat_room_page/models/u_chat_message.dart';
-import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
 
@@ -15,18 +14,38 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc(this._repository) : super(ChatInitial()) {
-    on<ListAllConversationsWithLastMessageStarted>((event, emit) async {
-      try {
-        emit(ChatLoadInProgress(const []));
-        final _allLastChatMessages =
-            await _repository.listAllConversationsWithLastMessage();
+    on<WatchAllConversations>(
+      (event, emit) async {
+        try {
+          emit(ChatLoadInProgress(const []));
+          final _allChatsWithUser = <ChatWithUser>[];
 
-        emit(AllChatsLoadSuccess(_allLastChatMessages));
-      } catch (error) {
-        addError(error);
-        emit(ChatLoadError());
-      }
-    });
+          await emit.onEach(
+            _watchAllConversations(),
+            onData: (_allConversationsMap) async {
+              if (_allConversationsMap.isNotEmpty) {
+                _allChatsWithUser.clear();
+                for (final conversationMap in _allConversationsMap) {
+                  final _chatWithUser =
+                      await ChatWithUser.fromMap(conversationMap!);
+                  _allChatsWithUser.add(_chatWithUser);
+                }
+
+                emit(AllChatsLoadSuccess(_allChatsWithUser));
+              }
+            },
+            onError: (error, stackTrace) {
+              addError(error);
+              emit(ChatLoadError());
+            },
+          );
+        } catch (error) {
+          addError(error);
+          emit(ChatLoadError());
+        }
+      },
+      transformer: restartable(),
+    );
 
     on<SendNewMessageStarted>((event, emit) {
       try {
@@ -66,6 +85,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GetNewMessageFromUserStarted>(
       (event, emit) async {
         try {
+          closeWatchAllConversations();
+
           await emit.onEach(
             _watchChatMessages(),
             onData: (newMessageMap) {
@@ -73,6 +94,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 final _newChatMessage =
                     ChatMessage.fromMap(newMessageMap, _user!.did!);
                 _prepareLastMessageReceivedToUI(_newChatMessage);
+
                 emit(ChatLoadSucces(chatMessagesList));
               }
             },
@@ -91,11 +113,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
   }
 
-  final _friendController = GetIt.I.get<FriendBloc>();
-
   List<UChatMessage> chatMessagesList = [];
 
-  List<UChatMessage> allUChatMessagesList = [];
+  Stream<List<Map<String, dynamic>?>> _watchAllConversations() =>
+      _repository.watchAllConversations();
 
   Stream<Map<String, dynamic>?> _watchChatMessages() =>
       _repository.watchChatMessages(
@@ -105,6 +126,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void closeWatchChatMessagesStream() =>
       _repository.closeWatchChatMessagesStream();
+
+  void closeWatchAllConversations() => _repository.closeWatchAllConversations();
 
   final _currentUserController = GetIt.I.get<CurrentUserBloc>();
   final IChatRepository _repository;

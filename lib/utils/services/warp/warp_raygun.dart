@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
@@ -133,9 +134,57 @@ class WarpRaygun {
 class WarpRaygunEventStream {
   final _warpBloc = GetIt.I.get<WarpBloc>();
   var _watchingChatMessages = false;
+  var _watchingAllConversations = false;
 
   void closeWatchUserStatusStream() {
     _watchingChatMessages = false;
+  }
+
+  void closeWatchAllConversations() {
+    _watchingAllConversations = false;
+  }
+
+  Stream<List<Map<String, dynamic>?>> watchAllConversations() async* {
+    _watchingAllConversations = true;
+    final _pastAllConversations = <Map<String, dynamic>>[];
+
+    while (true) {
+      if (_watchingAllConversations == false) {
+        return;
+      }
+      final _allConversations = <Map<String, dynamic>>[];
+
+      final _currentUserConversations = _warpBloc.raygun!.listConversation();
+
+      for (final conversation in _currentUserConversations) {
+        final _lastRaygunMessage =
+            _warpBloc.raygun!.getMessages(conversation.id).last;
+        final _userMap = WarpMultipass().findUserByDid(
+          conversation.recipients[1].replaceAll('did:key:', ''),
+        );
+
+        final _chatWithUser = {
+          'message_id': _lastRaygunMessage.id,
+          'date_time': _lastRaygunMessage.date.toLocal(),
+          'conversation_id': _lastRaygunMessage.conversationId,
+          'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
+          'value': _lastRaygunMessage.value.first,
+          'user': _userMap,
+        };
+
+        _allConversations.add(_chatWithUser);
+      }
+
+      final _isAllConversationsUpdated = !listEquals<Map<String, dynamic>>(
+        _pastAllConversations,
+        _allConversations,
+      );
+
+      if (_isAllConversationsUpdated) {
+        yield _allConversations;
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 250));
+    }
   }
 
   Stream<Map<String, dynamic>?> watchChatMessages(

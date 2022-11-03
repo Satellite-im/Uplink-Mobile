@@ -5,7 +5,7 @@ abstract class ChatEvent {
   List<Object> get props => [];
 }
 
-class ListAllConversationsWithLastMessageStarted extends ChatEvent {
+class WatchAllConversations extends ChatEvent {
   @override
   List<Object> get props => [];
 }

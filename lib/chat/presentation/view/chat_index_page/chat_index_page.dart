@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:uplink/chat/domain/chat_message.dart';
 import 'package:uplink/chat/presentation/controller/chat_bloc.dart';
 import 'package:uplink/chat/presentation/view/chat_index_page/models/search/chat_search.dart';
-import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
 import 'package:uplink/notifications/notifications_page.dart';
-import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
 import 'package:uplink/utils/mock/helpers/loading_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_favorites_chats_list.dart';
 import 'package:uplink/utils/mock/helpers/loading_notifications.dart';
@@ -47,7 +44,7 @@ class _ChatIndexPageState extends State<ChatIndexPage> {
   @override
   void initState() {
     super.initState();
-    _chatController.add(ListAllConversationsWithLastMessageStarted());
+    _chatController.add(WatchAllConversations());
   }
 
   @override
