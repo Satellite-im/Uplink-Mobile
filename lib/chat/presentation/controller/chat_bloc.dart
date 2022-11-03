@@ -18,20 +18,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event, emit) async {
         try {
           emit(ChatLoadInProgress(const []));
-          final _allChatsWithUser = <ChatWithUser>[];
 
           await emit.onEach(
             _watchAllConversations(),
             onData: (_allConversationsMap) async {
               if (_allConversationsMap.isNotEmpty) {
-                _allChatsWithUser.clear();
+                allChatsWithUser.clear();
                 for (final conversationMap in _allConversationsMap) {
                   final _chatWithUser =
                       await ChatWithUser.fromMap(conversationMap!);
-                  _allChatsWithUser.add(_chatWithUser);
+                  allChatsWithUser.add(_chatWithUser);
                 }
 
-                emit(AllChatsLoadSuccess(_allChatsWithUser));
+                emit(AllChatsLoadSuccess(allChatsWithUser));
               }
             },
             onError: (error, stackTrace) {
@@ -95,9 +94,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 final _newChatMessage =
                     ChatMessage.fromMap(newMessageMap, _user!.did!);
                 _prepareLastMessageReceivedToUI(_newChatMessage);
+                chatMessagesList = chatMessagesList.removeMessagesDuplicated();
                 emit(
                   ChatLoadSucces(
-                    chatMessagesList.removeMessagesDuplicated(),
+                    chatMessagesList,
                   ),
                 );
               }
@@ -115,6 +115,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       transformer: restartable(),
     );
   }
+
+  List<ChatWithUser> allChatsWithUser = [];
 
   List<UChatMessage> chatMessagesList = [];
 
@@ -286,8 +288,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 extension RemoveDuplicate on List<UChatMessage> {
   List<UChatMessage> removeMessagesDuplicated() {
     final _messageIDsSet = <String>{};
-    return where(
-      (chatMessage) => _messageIDsSet.add(chatMessage.chatMessage.messageId!),
-    ).toList();
+    return List.from(
+      where(
+        (chatMessage) => _messageIDsSet.add(chatMessage.chatMessage.messageId!),
+      ).toList(),
+    );
   }
 }
