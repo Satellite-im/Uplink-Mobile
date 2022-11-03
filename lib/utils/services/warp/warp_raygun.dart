@@ -1,6 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uplink/utils/services/warp/controller/warp_bloc.dart';
 import 'package:uplink/utils/services/warp/warp_multipass.dart';
@@ -8,54 +5,6 @@ import 'package:warp_dart/warp.dart';
 
 class WarpRaygun {
   final _warp = GetIt.I.get<WarpBloc>();
-
-  Map<String, dynamic> _getConversationWithLastMessage(
-    String conversationID,
-    Map<String, dynamic> user,
-  ) {
-    final _lastRaygunMessage = _warp.raygun!.getMessages(conversationID).last;
-
-    final _reactions = <Map<String, dynamic>>[];
-    if (_lastRaygunMessage.reactions.isNotEmpty) {
-      for (final reaction in _lastRaygunMessage.reactions) {
-        final _reactionMap = {
-          'emoji': reaction.emoji,
-          'senders_did':
-              reaction.sender.map((e) => e.replaceAll('did:key:', '')),
-        };
-        _reactions.add(_reactionMap);
-      }
-    }
-
-    final _message = {
-      'message_id': _lastRaygunMessage.id,
-      'date_time': _lastRaygunMessage.date.toLocal(),
-      'pinned': _lastRaygunMessage.pinned,
-      'reactions': _reactions,
-      'metadata': _lastRaygunMessage.metadata,
-      'conversation_id': _lastRaygunMessage.conversationId,
-      'replied': _lastRaygunMessage.replied,
-      'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
-      'value': _lastRaygunMessage.value.first,
-      'user': user,
-    };
-    return _message;
-  }
-
-  List<Map<String, dynamic>> listAllConversationsWithLastMessage() {
-    final _conversationsWithLastMessage = <Map<String, dynamic>>[];
-    final _currentUserConversations = _warp.raygun!.listConversation();
-    for (final conversation in _currentUserConversations) {
-      final _userMap = WarpMultipass()
-          .findUserByDid(conversation.recipients[1].replaceAll('did:key:', ''));
-      final _conversationWithLastMessage =
-          _getConversationWithLastMessage(conversation.id, _userMap!);
-
-      _conversationsWithLastMessage.add(_conversationWithLastMessage);
-    }
-
-    return _conversationsWithLastMessage;
-  }
 
   String createConversation(String userDID) {
     try {
@@ -146,42 +95,66 @@ class WarpRaygunEventStream {
 
   Stream<List<Map<String, dynamic>?>> watchAllConversations() async* {
     _watchingAllConversations = true;
-    final _pastAllConversations = <Map<String, dynamic>>[];
+    var _pastConversationsIDList = <String>[];
+    var _pastMessageIDList = <String>[];
 
     while (true) {
       if (_watchingAllConversations == false) {
         return;
       }
-      final _allConversations = <Map<String, dynamic>>[];
 
-      final _currentUserConversations = _warpBloc.raygun!.listConversation();
+      try {
+        var _yieldNewData = false;
+        final _allConversations = <Map<String, dynamic>>[];
+        final _conversationsIDList = <String>[];
+        final _messageIDList = <String>[];
 
-      for (final conversation in _currentUserConversations) {
-        final _lastRaygunMessage =
-            _warpBloc.raygun!.getMessages(conversation.id).last;
-        final _userMap = WarpMultipass().findUserByDid(
-          conversation.recipients[1].replaceAll('did:key:', ''),
-        );
+        final _currentUserConversations = _warpBloc.raygun!.listConversation();
 
-        final _chatWithUser = {
-          'message_id': _lastRaygunMessage.id,
-          'date_time': _lastRaygunMessage.date.toLocal(),
-          'conversation_id': _lastRaygunMessage.conversationId,
-          'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
-          'value': _lastRaygunMessage.value.first,
-          'user': _userMap,
-        };
+        for (final conversation in _currentUserConversations) {
+          final _lastRaygunMessage =
+              _warpBloc.raygun!.getMessages(conversation.id).last;
+          final _userMap = WarpMultipass().findUserByDid(
+            conversation.recipients[1].replaceAll('did:key:', ''),
+          );
 
-        _allConversations.add(_chatWithUser);
-      }
+          _conversationsIDList.add(_lastRaygunMessage.conversationId);
+          _messageIDList.add(_lastRaygunMessage.id);
 
-      final _isAllConversationsUpdated = !listEquals<Map<String, dynamic>>(
-        _pastAllConversations,
-        _allConversations,
-      );
+          final _chatWithUser = {
+            'message_id': _lastRaygunMessage.id,
+            'date_time': _lastRaygunMessage.date.toLocal(),
+            'conversation_id': _lastRaygunMessage.conversationId,
+            'sender': _lastRaygunMessage.sender.replaceAll('did:key:', ''),
+            'value': _lastRaygunMessage.value.first,
+            'user': _userMap,
+          };
 
-      if (_isAllConversationsUpdated) {
-        yield _allConversations;
+          _allConversations.add(_chatWithUser);
+        }
+
+        if ((_conversationsIDList.length != _pastConversationsIDList.length) ||
+            (_messageIDList.length != _pastMessageIDList.length)) {
+          _yieldNewData = true;
+        } else {
+          _messageIDList.sort((a, b) => a.compareTo(b));
+          _pastMessageIDList.sort((a, b) => a.compareTo(b));
+
+          for (var i = 0; i < _messageIDList.length; i++) {
+            if (_messageIDList[i] != _pastMessageIDList[i]) {
+              _yieldNewData = true;
+              break;
+            }
+          }
+        }
+        _pastConversationsIDList = List.from(_conversationsIDList);
+        _pastMessageIDList = List.from(_messageIDList);
+
+        if (_yieldNewData) {
+          yield _allConversations;
+        }
+      } catch (error) {
+        throw Exception(['watch_all_conversations', error]);
       }
       await Future<void>.delayed(const Duration(milliseconds: 250));
     }
