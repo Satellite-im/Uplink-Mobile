@@ -12,12 +12,13 @@ class _WithFriends extends StatelessWidget {
     return BlocBuilder<ChatBloc, ChatState>(
       bloc: _chatController,
       builder: (context, state) {
-        if (state is AllChatsLoadSuccess && state.allChatMessages.isNotEmpty) {
+        if ((state is AllChatsLoadSuccess || state is ChatLoadSucces) &&
+            _chatController.allChatsWithUser.isNotEmpty) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              final _chatWithUser = state.allChatMessages[index];
+              final _chatWithUser = _chatController.allChatsWithUser[index];
               final _user = _chatWithUser.userInChat;
 
               return InkWell(
@@ -25,7 +26,18 @@ class _WithFriends extends StatelessWidget {
                   Radius.circular(4),
                 ),
                 onTap: () {
-                  // TODO(Lucas): Add onTap later
+                  Navigator.of(context, rootNavigator: true)
+                      .push(
+                        MaterialPageRoute<void>(
+                          builder: (context) => ChatRoomPage(
+                            user: _user,
+                          ),
+                        ),
+                      )
+                      .then<void>(
+                        (value) =>
+                            GetIt.I.get<FriendBloc>().closeWatchUserStream(),
+                      );
                 },
                 onLongPress: () {
                   UBottomSheetTwoButtons(
@@ -51,8 +63,10 @@ class _WithFriends extends StatelessWidget {
                   ).show();
                 },
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   child: UUnreadMessagesUserProfileCard(
                     status: _user.status ?? Status.offline,
                     username: _user.username,
@@ -69,10 +83,10 @@ class _WithFriends extends StatelessWidget {
                 ),
               );
             },
-            itemCount: state.allChatMessages.length,
+            itemCount: _chatController.allChatsWithUser.length,
           );
         }
-        return const SizedBox.shrink();
+        return const _WithoutFriendsYet();
       },
     );
   }
