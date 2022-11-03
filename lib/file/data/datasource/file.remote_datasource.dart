@@ -34,13 +34,27 @@ class FileData implements IFileDatasource {
   }
 
   @override
-  Future<void> removeItems(List<Item> itemList) async {
-    log('removeItems');
+  Future<void> removeItems(List<Item> removeItemsList) async {
+    try {
+      for (final removeItem in removeItemsList) {
+        final _nameInConstellation = removeItem.name + removeItem.extension;
+        _constellation.removeItem(_nameInConstellation);
+      }
+    } catch (e) {
+      log('FileData->removeItems Failed');
+      throw Exception(e);
+    }
   }
 
   @override
   Future<void> removeSingleItem(Item item) async {
-    log('removeSingleItem');
+    try {
+      final _nameInConstellation = item.name + item.extension;
+      _constellation.removeItem(_nameInConstellation);
+    } catch (e) {
+      log('FileData->removeSingleItem Failed');
+      throw Exception(e);
+    }
   }
 
   @override
@@ -78,9 +92,9 @@ extension on constellation.Item {
     try {
       final _constellation = GetIt.I.get<WarpBloc>().constellation!;
       final _name = path.withoutExtension(name());
+      final _extension = path.extension(name());
       final _size = size();
       final _uint8List = _constellation.downloadFileIntoBuffer(name());
-      //file name withExtension
       // TODO(yijing): update thumbnail to the thumbnail from warp
       final _thumbnail = base64Encode(_uint8List);
       final _creationDateTime =
@@ -91,6 +105,7 @@ extension on constellation.Item {
       return Item(
         // TODO(yijing): change to other type when app has more type of file
         type: ItemType.photo,
+        extension: _extension,
         name: _name,
         size: _size,
         preview: _uint8List,
