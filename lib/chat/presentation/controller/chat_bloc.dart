@@ -29,7 +29,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                       await ChatWithUser.fromMap(conversationMap!);
                   allChatsWithUser.add(_chatWithUser);
                 }
-
+                allChatsWithUser.sort(
+                  (a, b) => b.messageSentTime.compareTo(a.messageSentTime),
+                );
                 emit(AllChatsLoadSuccess(allChatsWithUser));
               }
             },
@@ -43,7 +45,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           emit(ChatLoadError());
         }
       },
-      transformer: restartable(),
+      transformer: concurrent(),
     );
 
     on<SendNewMessageStarted>((event, emit) {
