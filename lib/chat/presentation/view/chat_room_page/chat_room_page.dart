@@ -120,7 +120,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 child: UChatbar(
                   textEditingController: _textEditingController,
                   onMsg: (value) {
-                    _chatController.add(SendNewMessageStarted(value));
+                    _chatController.add(SendNewMessageStarted(value.trim()));
                   },
                   onImage: () {
                     // TODO(Chat): add onImage function
