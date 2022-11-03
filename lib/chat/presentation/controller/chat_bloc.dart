@@ -58,7 +58,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         );
         _repository.sendMessage(newMessage: _chatMessageToSent);
         _prepareNewMessageSentToUI(_chatMessageToSent);
-        emit(ChatLoadSucces(chatMessagesList.toSet().toList()));
+        emit(ChatLoadSucces(chatMessagesList));
       } catch (error) {
         addError(error);
         emit(ChatLoadError());
@@ -67,6 +67,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<CreateConversationStarted>((event, emit) {
       try {
+        chatMessagesList.clear();
+        emit(ChatLoadInProgress(chatMessagesList));
         _user = event.user;
         _conversationID = _repository.createConversation(user: _user!);
         final _allMessagesInConversation =
@@ -86,7 +88,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event, emit) async {
         try {
           closeWatchAllConversations();
-
           await emit.onEach(
             _watchChatMessages(),
             onData: (newMessageMap) {
@@ -94,12 +95,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 final _newChatMessage =
                     ChatMessage.fromMap(newMessageMap, _user!.did!);
                 _prepareLastMessageReceivedToUI(_newChatMessage);
-                emit(ChatLoadSucces(chatMessagesList.toSet().toList()));
+                emit(
+                  ChatLoadSucces(
+                    chatMessagesList.removeMessagesDuplicated(),
+                  ),
+                );
               }
             },
             onError: (error, stackTrace) {
               addError(error);
-
               emit(ChatLoadError());
             },
           );
@@ -276,5 +280,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         user: _user!,
       ),
     );
+  }
+}
+
+extension RemoveDuplicate on List<UChatMessage> {
+  List<UChatMessage> removeMessagesDuplicated() {
+    final _messageIDsSet = <String>{};
+    return where(
+      (chatMessage) => _messageIDsSet.add(chatMessage.chatMessage.messageId!),
+    ).toList();
   }
 }
