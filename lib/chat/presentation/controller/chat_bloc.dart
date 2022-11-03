@@ -58,7 +58,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         );
         _repository.sendMessage(newMessage: _chatMessageToSent);
         _prepareNewMessageSentToUI(_chatMessageToSent);
-        emit(ChatLoadSucces(chatMessagesList));
+        emit(ChatLoadSucces(chatMessagesList.toSet().toList()));
       } catch (error) {
         addError(error);
         emit(ChatLoadError());
@@ -94,8 +94,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 final _newChatMessage =
                     ChatMessage.fromMap(newMessageMap, _user!.did!);
                 _prepareLastMessageReceivedToUI(_newChatMessage);
-
-                emit(ChatLoadSucces(chatMessagesList));
+                emit(ChatLoadSucces(chatMessagesList.toSet().toList()));
               }
             },
             onError: (error, stackTrace) {
