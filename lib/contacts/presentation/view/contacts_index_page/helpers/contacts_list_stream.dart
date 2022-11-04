@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/shared/domain/entities/user.entity.dart';
