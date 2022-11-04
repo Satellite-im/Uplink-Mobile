@@ -35,8 +35,6 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
 
   void _updateIndex(int value) {
     setState(() {
-      final _contactsListStream = GetIt.I.get<ContactsListStream>();
-
       _currentIndex = value;
 
       if (_currentIndex == 1) {
@@ -44,9 +42,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
       }
 
       if (_currentIndex == 2) {
-        _contactsListStream.start();
+        GetIt.I.get<ContactsListStream>().start();
       } else {
-        _contactsListStream.cancel();
+        GetIt.I.get<ContactsListStream>().cancel();
       }
     });
   }
