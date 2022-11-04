@@ -41,8 +41,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
 
       if (_currentIndex == 1) {
         GetIt.I.get<ItemListBloc>().add(GetItemList());
-        _contactsListStream.cancel();
-      } else if (_currentIndex == 2) {
+      }
+
+      if (_currentIndex == 2) {
         _contactsListStream.start();
       } else {
         _contactsListStream.cancel();
