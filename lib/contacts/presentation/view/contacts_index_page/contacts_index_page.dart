@@ -1,15 +1,12 @@
-import 'dart:developer';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
-import 'package:ui_showroom/ui_pages/src/shimmer/loading_pages/loading_pages_export.dart';
+import 'package:ui_showroom/ui_pages/src/shimmer/loading_pages/loading_contacts_index_page.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/add_friend_page/add_friend_page.dart';
 import 'package:uplink/contacts/presentation/view/contacts_export.dart';
-import 'package:uplink/contacts/presentation/view/contacts_index_page/controller/contacts_list_bloc.dart';
+import 'package:uplink/contacts/presentation/view/contacts_index_page/helpers/contacts_list_stream.dart';
 import 'package:uplink/contacts/presentation/view/models/models_export.dart';
 import 'package:uplink/contacts/presentation/view/user_profile_page/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
@@ -24,17 +21,25 @@ class ContactsIndexPage extends StatefulWidget {
 }
 
 class _ContactsIndexPageState extends State<ContactsIndexPage> {
-  final _contactsListController = GetIt.I.get<ContactsListBloc>();
+  final _friendController = GetIt.I.get<FriendBloc>();
+  final _contactsListStream = GetIt.I.get<ContactsListStream>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<ContactsListBloc, ContactsListState>(
-          bloc: _contactsListController,
-          builder: (context, state) {
-            if (state is ContactsListLoadSuccess) {
-              final _contactsList = state.contactsList;
+        child: StreamBuilder(
+          stream: _contactsListStream.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Column(
+                children: const [
+                  _UAppBar(),
+                  Text('Could not load contacts'),
+                ],
+              );
+            } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              final _contactsList = snapshot.data!;
               if (_contactsList.isEmpty) {
                 return Column(
                   children: const [
@@ -42,90 +47,86 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
                     Expanded(child: NoFriendBody()),
                   ],
                 );
-              } else if (_contactsList.isNotEmpty) {
-                //Turn [User] into AZItem(ISuspensionBean)
-                //which will be used in AZListView
-                final contactsAZList = _contactsList
-                    .map(
-                      (item) => _AZItem(
-                        contact: item,
-                        tag: item.username[0].toUpperCase(),
-                      ),
-                    )
-                    .toList()
-                  ..sort(
-                    ((a, b) => a.contact.username.compareTo(
-                          b.contact.username,
-                        )),
-                  );
-
-                //Sort tags include @ and #
-                SuspensionUtil.sortListBySuspensionTag(contactsAZList);
-
-                //Let each item know if it needs to show tag name above them
-                SuspensionUtil.setShowSuspensionStatus(contactsAZList);
-
-                return AzListView(
-                  data: contactsAZList,
-                  itemCount: contactsAZList.length,
-                  itemBuilder: (context, index) {
-                    final item = contactsAZList[index];
-                    if (index == 0) {
-                      return Column(
-                        children: [
-                          const _UAppBar(),
-                          _buildContactsList(item),
-                        ],
-                      );
-                    }
-                    return _buildContactsList(item);
-                  },
-                  //indexBar is the initial letter on the right
-                  indexBarMargin: const EdgeInsets.only(right: 8),
-                  indexBarWidth: 18,
-                  indexBarItemHeight: 18,
-                  indexBarOptions: IndexBarOptions(
-                    needRebuild: true,
-                    textStyle: UTextStyle.B1_body.style
-                        .returnTextStyleType(color: UColors.textDark),
-                    selectTextStyle:
-                        UTextStyle.B3_bold.style.returnTextStyleType(
-                      color: Colors.white,
-                    ),
-                    selectItemDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: UColors.ctaBlue,
-                    ),
-                    indexHintAlignment: Alignment.centerRight,
-                    indexHintOffset: const Offset(20, 16),
-                  ),
-                  //indexHint is the widget shows when user hold on the indexBar
-                  indexHintBuilder: (context, hint) => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: UColors.ctaBlue,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: UText(
-                          hint,
-                          textStyle: UTextStyle.H2_secondaryHeader,
-                          textColor: UColors.white,
-                        ),
-                      ),
-                      CustomPaint(painter: Triangle()),
-                    ],
-                  ),
-                );
               }
-            }
 
-            if (state is FriendLoadFailure) {
-              log('Not loaded contacts list');
+              //Turn [User] into AZItem(ISuspensionBean)
+              //which will be used in AZListView
+              final contactsAZList = _contactsList
+                  .map(
+                    (item) => _AZItem(
+                      contact: item,
+                      tag: item.username[0].toUpperCase(),
+                    ),
+                  )
+                  .toList()
+                ..sort(
+                  ((a, b) => a.contact.username.compareTo(
+                        b.contact.username,
+                      )),
+                );
+
+              //Sort tags include @ and #
+              SuspensionUtil.sortListBySuspensionTag(contactsAZList);
+
+              //Let each item know if it needs to show tag name above them
+              SuspensionUtil.setShowSuspensionStatus(contactsAZList);
+
+              return AzListView(
+                data: contactsAZList,
+                itemCount: contactsAZList.length,
+                itemBuilder: (context, index) {
+                  final item = contactsAZList[index];
+                  if (index == 0) {
+                    return Column(
+                      children: [
+                        const _UAppBar(),
+                        _buildContactsList(item),
+                      ],
+                    );
+                  }
+                  return _buildContactsList(item);
+                },
+                //indexBar is the initial letter on the right
+                indexBarMargin: const EdgeInsets.only(right: 8),
+                indexBarWidth: 18,
+                indexBarItemHeight: 18,
+                indexBarOptions: IndexBarOptions(
+                  needRebuild: true,
+                  textStyle: UTextStyle.B1_body.style
+                      .returnTextStyleType(color: UColors.textDark),
+                  selectTextStyle: UTextStyle.B3_bold.style.returnTextStyleType(
+                    color: Colors.white,
+                  ),
+                  selectItemDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: UColors.ctaBlue,
+                  ),
+                  indexHintAlignment: Alignment.centerRight,
+                  indexHintOffset: const Offset(20, 16),
+                ),
+                //indexHint is the widget shows when user hold on the indexBar
+                indexHintBuilder: (context, hint) => Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: UColors.ctaBlue,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: UText(
+                        hint,
+                        textStyle: UTextStyle.H2_secondaryHeader,
+                        textColor: UColors.white,
+                      ),
+                    ),
+                    CustomPaint(painter: Triangle()),
+                  ],
+                ),
+              );
+            } else if (snapshot.hasData && snapshot.data!.isEmpty) {
               return Column(
                 children: const [
                   _UAppBar(),
@@ -157,7 +158,7 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
             ),
           ),
           onDismissed: (direction) =>
-              _contactsListController.add(RemoveContact(item.contact)),
+              _friendController.add(RemoveFriend(item.contact)),
           confirmDismiss: (direction) {
             return showDialog<bool>(
               context: context,
