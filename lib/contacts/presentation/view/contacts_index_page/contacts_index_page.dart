@@ -126,7 +126,7 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
                   ],
                 ),
               );
-            } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+            } else if (snapshot.data!.isEmpty) {
               return Column(
                 children: const [
                   _UAppBar(),
