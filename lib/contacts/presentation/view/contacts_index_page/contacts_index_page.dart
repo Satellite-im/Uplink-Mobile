@@ -149,6 +149,7 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
         Offstage(offstage: offstage, child: ContactsHeader(tag: tag)),
         Dismissible(
           key: UniqueKey(),
+          direction: DismissDirection.endToStart,
           background: Container(
             color: UColors.termRed,
             padding: const EdgeInsets.only(right: 40),
