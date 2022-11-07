@@ -38,7 +38,7 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
                   Text('Could not load contacts'),
                 ],
               );
-            } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            } else if (snapshot.hasData) {
               final _contactsList = snapshot.data!;
               if (_contactsList.isEmpty) {
                 return Column(
@@ -125,13 +125,6 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
                     CustomPaint(painter: Triangle()),
                   ],
                 ),
-              );
-            } else if (snapshot.data!.isEmpty) {
-              return Column(
-                children: const [
-                  _UAppBar(),
-                  Expanded(child: NoFriendBody()),
-                ],
               );
             }
             return const LoadingContactsIndexPage();
