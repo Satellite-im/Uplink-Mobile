@@ -44,20 +44,20 @@ jobs:
         api-level: ${{ matrix.api-level }}
         avd-name: android-appium
         arch: x86_64
-        disk-size: 4G
+        disk-size: 8G
         working-directory: appium-tests 
         script: |
           npm run android.ci
     
     - name: Upload Screenshots if tests failed 📷
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: appium-screenshots
         path: appium-tests/test-results/android
 
     - name: Upload Appium Log if tests failed 📷
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: appium-log
