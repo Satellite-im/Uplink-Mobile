@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
 import 'package:uplink/chat/chat_export.dart';
-import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
-import 'package:uplink/contacts/presentation/view/contacts_index_page.dart';
+import 'package:uplink/contacts/presentation/view/contacts_index_page/contacts_index_page.dart';
+import 'package:uplink/contacts/presentation/view/contacts_index_page/helpers/contacts_list_stream.dart';
 import 'package:uplink/file/presentation/controller/item_list_bloc.dart';
 import 'package:uplink/file/presentation/view/file_index_page.dart';
 import 'package:uplink/profile/presentation/controller/current_user_bloc.dart';
@@ -36,10 +36,15 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   void _updateIndex(int value) {
     setState(() {
       _currentIndex = value;
+
       if (_currentIndex == 1) {
         GetIt.I.get<ItemListBloc>().add(GetItemList());
-      } else if (_currentIndex == 2) {
-        GetIt.I.get<FriendBloc>().add(ListFriendsStarted());
+      }
+
+      if (_currentIndex == 2) {
+        GetIt.I.get<ContactsListStream>().start();
+      } else {
+        GetIt.I.get<ContactsListStream>().cancel();
       }
     });
   }

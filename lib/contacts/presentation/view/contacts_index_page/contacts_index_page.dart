@@ -1,13 +1,12 @@
-import 'dart:developer';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ui_library/ui_library_export.dart';
+import 'package:ui_showroom/ui_pages/src/shimmer/loading_pages/loading_contacts_index_page.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
 import 'package:uplink/contacts/presentation/view/add_friend_page/add_friend_page.dart';
 import 'package:uplink/contacts/presentation/view/contacts_export.dart';
+import 'package:uplink/contacts/presentation/view/contacts_index_page/helpers/contacts_list_stream.dart';
 import 'package:uplink/contacts/presentation/view/models/models_export.dart';
 import 'package:uplink/contacts/presentation/view/user_profile_page/models/models_export.dart';
 import 'package:uplink/l10n/main_app_strings.dart';
@@ -23,25 +22,36 @@ class ContactsIndexPage extends StatefulWidget {
 
 class _ContactsIndexPageState extends State<ContactsIndexPage> {
   final _friendController = GetIt.I.get<FriendBloc>();
+  final _contactsListStream = GetIt.I.get<ContactsListStream>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<FriendBloc, FriendState>(
-          bloc: _friendController,
-          builder: (context, state) {
-            if (_friendController.friendsList.isEmpty) {
+        child: StreamBuilder(
+          stream: _contactsListStream.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
               return Column(
                 children: const [
                   _UAppBar(),
-                  Expanded(child: NoFriendBody()),
+                  Text('Could not load contacts'),
                 ],
               );
-            } else if (_friendController.friendsList.isNotEmpty) {
+            } else if (snapshot.hasData) {
+              final _contactsList = snapshot.data!;
+              if (_contactsList.isEmpty) {
+                return Column(
+                  children: const [
+                    _UAppBar(),
+                    Expanded(child: NoFriendBody()),
+                  ],
+                );
+              }
+
               //Turn [User] into AZItem(ISuspensionBean)
               //which will be used in AZListView
-              final contactsAZList = _friendController.friendsList
+              final contactsAZList = _contactsList
                   .map(
                     (item) => _AZItem(
                       contact: item,
@@ -117,17 +127,7 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
                 ),
               );
             }
-            if (state is FriendLoadFailure) {
-              log('Not loaded contacts list');
-              return Column(
-                children: const [
-                  _UAppBar(),
-                  Expanded(child: NoFriendBody()),
-                ],
-              );
-            }
-            // TODO(yijing): update to standard indicator
-            return const Center(child: ULoadingIndicator());
+            return const LoadingContactsIndexPage();
           },
         ),
       ),
@@ -140,27 +140,65 @@ class _ContactsIndexPageState extends State<ContactsIndexPage> {
     return Column(
       children: [
         Offstage(offstage: offstage, child: ContactsHeader(tag: tag)),
-        ContactListTile(
-          name: item.contact.username,
-          status: item.contact.status ?? Status.offline,
-          statusMessage: item.contact.statusMessage,
-          imageAddress: item.contact.profilePicture?.path ?? '',
-          onTap: () {
-            showModalBottomSheet<void>(
+        Dismissible(
+          key: UniqueKey(),
+          direction: DismissDirection.endToStart,
+          background: Container(
+            color: UColors.termRed,
+            padding: const EdgeInsets.only(right: 40),
+            alignment: Alignment.centerRight,
+            child: const UIcon(
+              UIcons.remove,
+            ),
+          ),
+          onDismissed: (direction) =>
+              _friendController.add(RemoveFriend(item.contact)),
+          confirmDismiss: (direction) {
+            return showDialog<bool>(
               context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              useRootNavigator: true,
-              builder: (context) => GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () => Navigator.of(context).pop(),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: UserProfileBottomSheet(user: item.contact),
-                ),
-              ),
+              builder: (context) {
+                return UDialogUserProfile(
+                  bodyText: UAppStrings.friendBody_remove_q,
+                  buttonText: UAppStrings.remove,
+                  buttonColor: UColors.termRed,
+                  popButtonText: UAppStrings.goBackButton,
+                  onTap: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  username: item.contact.username,
+                  uImage: UImage(
+                    imagePath: item.contact.profilePicture == null
+                        ? ''
+                        : item.contact.profilePicture!.path,
+                    imageSource: ImageSource.file,
+                  ),
+                  statusMessage: item.contact.statusMessage,
+                );
+              },
             );
           },
+          child: ContactListTile(
+            name: item.contact.username,
+            status: item.contact.status ?? Status.offline,
+            statusMessage: item.contact.statusMessage,
+            imageAddress: item.contact.profilePicture?.path ?? '',
+            onTap: () {
+              showModalBottomSheet<void>(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                useRootNavigator: true,
+                builder: (context) => GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => Navigator.of(context).pop(),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: UserProfileBottomSheet(user: item.contact),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ],
     );

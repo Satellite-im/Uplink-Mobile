@@ -14,6 +14,7 @@ import 'package:uplink/contacts/data/datasource/friend.remote_datasource.dart';
 import 'package:uplink/contacts/data/repositories/friend_impl.repository.dart';
 import 'package:uplink/contacts/data/repositories/friend_repository.dart';
 import 'package:uplink/contacts/presentation/controller/friend_bloc.dart';
+import 'package:uplink/contacts/presentation/view/contacts_index_page/helpers/contacts_list_stream.dart';
 import 'package:uplink/file/data/data_export.dart';
 import 'package:uplink/file/data/datasource/file.remote_datasource.dart';
 import 'package:uplink/file/data/repository/file_impl_repository.dart';
@@ -85,6 +86,11 @@ void _registerDependencieFriend(GetIt _getIt) {
     )
     ..registerLazySingleton<FriendBloc>(
       () => FriendBloc(
+        _getIt(),
+      ),
+    )
+    ..registerLazySingleton<ContactsListStream>(
+      () => ContactsListStream(
         _getIt(),
       ),
     );

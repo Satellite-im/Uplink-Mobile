@@ -217,7 +217,7 @@ Would you like to give Satellite.im access to your camera roll?''';
   ///FriendBody
   static const friendBody_remove = 'Remove Friend';
   static const friendBody_remove_q =
-      'Are you sure you want to remove this user from your Contact list?';
+      "Are you sure you want to remove this user from your Contact's list?";
 
   ///buildUserListTileLongPress
   static const buildUserListTileLongPress_profile = 'Profile';
