@@ -22,15 +22,16 @@ dependencies:
   path_provider: ^2.0.11
   provider: ^6.0.3
   shared_preferences: ^2.0.15
+  equatable: ^2.0.5
   warp_dart:
     git:
-      url: 'https://github.com/Satellite-im/warp-dart.git'
-      ref: 'main'
+      url: "https://github.com/Satellite-im/warp-dart.git"
+      ref: "main"
   ui_library:
-    path: 'packages/ui_library'
+    path: "packages/ui_library"
   # delete showroom when exporting production app
   ui_showroom:
-    path: 'packages/ui_showroom'
+    path: "packages/ui_showroom"
   flutter_image_compress: ^1.1.3
 
 dev_dependencies:
@@ -45,20 +46,20 @@ flutter:
   uses-material-design: true
   generate: true
 
-# delete mock data and user image when exporting production app
+  # delete mock data and user image when exporting production app
   assets:
-    - 'lib/utils/mock/data/json/mock_contact_list.json'
-    - 'lib/utils/mock/data/json/mock_friend_requests.json'
-    - 'lib/utils/mock/data/json/mock_outgoing_requests.json'
-    - 'lib/utils/mock/data/json/mock_chats_list.json'
-    - 'lib/utils/mock/data/json/mock_favorites_chats_list.json'
-    - 'lib/utils/mock/data/json/mock_notifications_list.json'
-    - 'lib/utils/mock/data/json/mock_online_friends_list.json'
-    - 'lib/utils/mock/data/json/mock_offline_friends_list.json'
-    - 'lib/utils/mock/data/json/mock_current_user.json'
-    - 'lib/utils/mock/data/json/mock_photos_list.json'
-    - 'lib/utils/mock/images/'
-    - 'packages/ui_library/images/placeholders/'
+    - "lib/utils/mock/data/json/mock_contact_list.json"
+    - "lib/utils/mock/data/json/mock_friend_requests.json"
+    - "lib/utils/mock/data/json/mock_outgoing_requests.json"
+    - "lib/utils/mock/data/json/mock_chats_list.json"
+    - "lib/utils/mock/data/json/mock_favorites_chats_list.json"
+    - "lib/utils/mock/data/json/mock_notifications_list.json"
+    - "lib/utils/mock/data/json/mock_online_friends_list.json"
+    - "lib/utils/mock/data/json/mock_offline_friends_list.json"
+    - "lib/utils/mock/data/json/mock_current_user.json"
+    - "lib/utils/mock/data/json/mock_photos_list.json"
+    - "lib/utils/mock/images/"
+    - "packages/ui_library/images/placeholders/"
 
   fonts:
     - family: Poppins

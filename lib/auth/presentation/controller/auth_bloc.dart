@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_bool_literals_in_conditional_expressions
-
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:uplink/auth/data/repositories/authentication.repository.dart';
@@ -58,12 +57,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final _pinValuesMap = await _repository.getPinValue();
         final _isUserLoggedValue = await _repository.getUserIsLoggedValue();
 
-        final _pinValue = _pinValuesMap[ULocalKey.pinValue] == null
-            ? null
-            : _pinValuesMap[ULocalKey.pinValue] as String;
-        final _isPinStored = _pinValuesMap[ULocalKey.isPinStored] == null
-            ? false
-            : _pinValuesMap[ULocalKey.isPinStored] as bool;
+        final _pinValue = _pinValuesMap[ULocalKey.pinValue] as String?;
+        final _isPinStored =
+            _pinValuesMap[ULocalKey.isPinStored] as bool? ?? false;
 
         final _authKeysMap = {
           ULocalKey.pinValue: _pinValue,
